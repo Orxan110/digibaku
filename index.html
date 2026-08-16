@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="az">
 <head>
@@ -28,6 +29,10 @@ body{
   line-height:1.6;
 }
 
+body.modal-open{
+  overflow:hidden;
+}
+
 a{
   color:inherit;
   text-decoration:none;
@@ -35,6 +40,7 @@ a{
 
 button{
   cursor:pointer;
+  font-family:inherit;
 }
 
 button:disabled{
@@ -48,7 +54,9 @@ button:disabled{
   margin:auto;
 }
 
-/* HEADER */
+/* =========================
+   HEADER
+========================= */
 
 header{
   position:sticky;
@@ -125,7 +133,9 @@ header{
   border-color:#2563eb;
 }
 
-/* HERO */
+/* =========================
+   HERO
+========================= */
 
 .hero{
   padding:100px 0 80px;
@@ -170,7 +180,9 @@ header{
   gap:12px;
 }
 
-/* SECTION */
+/* =========================
+   SECTIONS
+========================= */
 
 section{
   padding:75px 0;
@@ -190,7 +202,9 @@ section{
   color:#999;
 }
 
-/* PRODUCTS */
+/* =========================
+   PRODUCTS
+========================= */
 
 .products{
   display:grid;
@@ -257,9 +271,16 @@ section{
   background:#2563eb;
   color:#fff;
   font-weight:bold;
+  transition:.2s;
 }
 
-/* WHY */
+.product-btn:hover{
+  background:#1d4ed8;
+}
+
+/* =========================
+   FEATURES
+========================= */
 
 .features{
   display:grid;
@@ -287,7 +308,9 @@ section{
   color:#999;
 }
 
-/* ABOUT */
+/* =========================
+   ABOUT
+========================= */
 
 .about{
   background:#090909;
@@ -309,7 +332,9 @@ section{
   margin-bottom:15px;
 }
 
-/* COMPARISON */
+/* =========================
+   COMPARISON
+========================= */
 
 .compare-grid{
   display:grid;
@@ -338,7 +363,9 @@ section{
   font-weight:bold;
 }
 
-/* BLOG */
+/* =========================
+   BLOG
+========================= */
 
 .blog-grid{
   display:grid;
@@ -368,7 +395,9 @@ section{
   font-size:14px;
 }
 
-/* FAQ */
+/* =========================
+   FAQ
+========================= */
 
 .faq{
   max-width:850px;
@@ -389,6 +418,17 @@ section{
   cursor:pointer;
   display:flex;
   justify-content:space-between;
+  align-items:center;
+}
+
+.faq-question span{
+  color:#60a5fa;
+  font-size:22px;
+  transition:.2s;
+}
+
+.faq-item.open .faq-question span{
+  transform:rotate(45deg);
 }
 
 .faq-answer{
@@ -401,7 +441,9 @@ section{
   display:block;
 }
 
-/* CONTACT */
+/* =========================
+   CONTACT
+========================= */
 
 .contact{
   background:#090909;
@@ -437,7 +479,9 @@ section{
   color:#999;
 }
 
-/* FOOTER */
+/* =========================
+   FOOTER
+========================= */
 
 footer{
   border-top:1px solid #222;
@@ -476,13 +520,15 @@ footer{
   font-size:13px;
 }
 
-/* MODAL */
+/* =========================
+   MODAL
+========================= */
 
 .modal{
   display:none;
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,.8);
+  background:rgba(0,0,0,.82);
   z-index:2000;
   align-items:center;
   justify-content:center;
@@ -496,11 +542,14 @@ footer{
 .modal-box{
   width:100%;
   max-width:450px;
+  max-height:90vh;
+  overflow-y:auto;
   background:#101010;
   border:1px solid #333;
   border-radius:18px;
   padding:30px;
   position:relative;
+  box-shadow:0 25px 80px rgba(0,0,0,.5);
 }
 
 .close{
@@ -511,6 +560,11 @@ footer{
   border:0;
   color:#aaa;
   font-size:25px;
+  line-height:1;
+}
+
+.close:hover{
+  color:#fff;
 }
 
 .modal-box h2{
@@ -570,7 +624,15 @@ footer{
   border:1px solid #065f46;
 }
 
-/* USER AREA */
+.message.info{
+  background:#0b1220;
+  color:#60a5fa;
+  border:1px solid #263b67;
+}
+
+/* =========================
+   USER AREA
+========================= */
 
 .user-area{
   display:none;
@@ -601,7 +663,9 @@ footer{
   color:#f87171;
 }
 
-/* RESPONSIVE */
+/* =========================
+   RESPONSIVE
+========================= */
 
 @media(max-width:950px){
 
@@ -674,13 +738,24 @@ footer{
     display:none;
   }
 
+  .logo{
+    font-size:22px;
+  }
+
+}
+
+/* =========================
+   LOADING
+========================= */
+
+.loading{
+  pointer-events:none;
 }
 
 </style>
 </head>
 
 <body>
-
 
 <header>
 
@@ -689,7 +764,6 @@ footer{
     <a href="#home" class="logo">
       Hesablar<span>.az</span>
     </a>
-
 
     <nav class="menu">
 
@@ -702,14 +776,10 @@ footer{
 
     </nav>
 
-
-    <!-- LOGIN / REGISTER -->
-
-    <div
-      class="auth-buttons"
-      id="authButtons">
+    <div class="auth-buttons" id="authButtons">
 
       <button
+        type="button"
         class="btn btn-dark"
         onclick="openLogin()">
 
@@ -717,8 +787,8 @@ footer{
 
       </button>
 
-
       <button
+        type="button"
         class="btn btn-primary"
         onclick="openRegister()">
 
@@ -728,12 +798,7 @@ footer{
 
     </div>
 
-
-    <!-- LOGGED USER -->
-
-    <div
-      class="user-area"
-      id="userArea">
+    <div class="user-area" id="userArea">
 
       <span
         class="user-email"
@@ -741,6 +806,7 @@ footer{
       </span>
 
       <button
+        type="button"
         class="logout-btn"
         onclick="logout()">
 
@@ -754,15 +820,11 @@ footer{
 
 </header>
 
-
 <main>
-
 
 <!-- HERO -->
 
-<section
-  class="hero"
-  id="home">
+<section class="hero" id="home">
 
   <div class="container">
 
@@ -770,23 +832,16 @@ footer{
       Premium rəqəmsal xidmətlər
     </div>
 
-
     <h1>
-
       Premium xidmətlər
       <span>bir platformada</span>
-
     </h1>
 
-
     <p>
-
       Netflix, YouTube Premium, ChatGPT Plus və Spotify Premium
       paketlərini seçin, müddəti müəyyən edin və sifarişinizi
       rahatlıqla verin.
-
     </p>
-
 
     <div class="hero-buttons">
 
@@ -797,7 +852,6 @@ footer{
         Məhsullara bax
 
       </a>
-
 
       <a
         href="#about"
@@ -812,7 +866,6 @@ footer{
   </div>
 
 </section>
-
 
 <!-- PRODUCTS -->
 
@@ -830,9 +883,7 @@ footer{
 
     </div>
 
-
     <div class="products">
-
 
       <div class="product">
 
@@ -854,6 +905,7 @@ footer{
         </div>
 
         <button
+          type="button"
           class="product-btn"
           onclick="openOrder('Netflix Premium')">
 
@@ -862,7 +914,6 @@ footer{
         </button>
 
       </div>
-
 
       <div class="product">
 
@@ -884,6 +935,7 @@ footer{
         </div>
 
         <button
+          type="button"
           class="product-btn"
           onclick="openOrder('YouTube Premium')">
 
@@ -892,7 +944,6 @@ footer{
         </button>
 
       </div>
-
 
       <div class="product">
 
@@ -914,6 +965,7 @@ footer{
         </div>
 
         <button
+          type="button"
           class="product-btn"
           onclick="openOrder('ChatGPT Plus')">
 
@@ -922,7 +974,6 @@ footer{
         </button>
 
       </div>
-
 
       <div class="product">
 
@@ -944,6 +995,7 @@ footer{
         </div>
 
         <button
+          type="button"
           class="product-btn"
           onclick="openOrder('Spotify Premium')">
 
@@ -959,7 +1011,6 @@ footer{
 
 </section>
 
-
 <!-- WHY -->
 
 <section>
@@ -968,9 +1019,7 @@ footer{
 
     <div class="section-title">
 
-      <h2>
-        Niyə Hesablar.az?
-      </h2>
+      <h2>Niyə Hesablar.az?</h2>
 
       <p>
         Sadə, sürətli və rahat sifariş prosesi
@@ -978,9 +1027,7 @@ footer{
 
     </div>
 
-
     <div class="features">
-
 
       <div class="feature">
 
@@ -998,7 +1045,6 @@ footer{
 
       </div>
 
-
       <div class="feature">
 
         <div class="feature-icon">
@@ -1014,7 +1060,6 @@ footer{
         </p>
 
       </div>
-
 
       <div class="feature">
 
@@ -1038,12 +1083,9 @@ footer{
 
 </section>
 
-
 <!-- ABOUT -->
 
-<section
-  class="about"
-  id="about">
+<section class="about" id="about">
 
   <div class="container about-content">
 
@@ -1071,7 +1113,6 @@ footer{
 
 </section>
 
-
 <!-- COMPARISON -->
 
 <section id="compare">
@@ -1090,9 +1131,7 @@ footer{
 
     </div>
 
-
     <div class="compare-grid">
-
 
       <div class="compare-card">
 
@@ -1110,7 +1149,6 @@ footer{
 
       </div>
 
-
       <div class="compare-card">
 
         <h3>
@@ -1127,7 +1165,6 @@ footer{
 
       </div>
 
-
       <div class="compare-card">
 
         <h3>
@@ -1143,7 +1180,6 @@ footer{
         </a>
 
       </div>
-
 
       <div class="compare-card">
 
@@ -1167,7 +1203,6 @@ footer{
 
 </section>
 
-
 <!-- BLOG -->
 
 <section id="blog">
@@ -1186,9 +1221,7 @@ footer{
 
     </div>
 
-
     <div class="blog-grid">
-
 
       <article class="blog-card">
 
@@ -1206,7 +1239,6 @@ footer{
 
       </article>
 
-
       <article class="blog-card">
 
         <div class="blog-date">
@@ -1222,7 +1254,6 @@ footer{
         </p>
 
       </article>
-
 
       <article class="blog-card">
 
@@ -1240,7 +1271,6 @@ footer{
 
       </article>
 
-
       <article class="blog-card">
 
         <div class="blog-date">
@@ -1257,7 +1287,6 @@ footer{
 
       </article>
 
-
       <article class="blog-card">
 
         <div class="blog-date">
@@ -1273,7 +1302,6 @@ footer{
         </p>
 
       </article>
-
 
       <article class="blog-card">
 
@@ -1297,7 +1325,6 @@ footer{
 
 </section>
 
-
 <!-- FAQ -->
 
 <section>
@@ -1316,9 +1343,7 @@ footer{
 
     </div>
 
-
     <div class="faq">
-
 
       <div class="faq-item">
 
@@ -1334,13 +1359,12 @@ footer{
 
         <div class="faq-answer">
 
-          Məhsulu seçin, müddəti müəyyən edin və sifariş düyməsinə basın.
-          Daha sonra sifariş WhatsApp üzərindən göndərilir.
+          Hesabınıza daxil olun, məhsulu seçin, müddəti müəyyən edin
+          və WhatsApp ilə sifariş göndərin.
 
         </div>
 
       </div>
-
 
       <div class="faq-item">
 
@@ -1356,13 +1380,12 @@ footer{
 
         <div class="faq-answer">
 
-          Bəli. Sifariş imkanlarından istifadə etmək üçün hesab yaratmaq
-          və hesabınıza daxil olmaq nəzərdə tutulub.
+          Bəli. Sifariş verməzdən əvvəl hesab yaratmaq və hesabınıza
+          daxil olmaq lazımdır.
 
         </div>
 
       </div>
-
 
       <div class="faq-item">
 
@@ -1378,13 +1401,12 @@ footer{
 
         <div class="faq-answer">
 
-          Hazırda Netflix, YouTube Premium, ChatGPT Plus və Spotify Premium
-          təqdim olunur.
+          Hazırda Netflix, YouTube Premium, ChatGPT Plus və
+          Spotify Premium təqdim olunur.
 
         </div>
 
       </div>
-
 
       <div class="faq-item">
 
@@ -1412,12 +1434,9 @@ footer{
 
 </section>
 
-
 <!-- CONTACT -->
 
-<section
-  class="contact"
-  id="contact">
+<section class="contact" id="contact">
 
   <div class="container">
 
@@ -1433,16 +1452,13 @@ footer{
 
     </div>
 
-
     <div class="contact-grid">
-
 
       <div class="contact-box">
 
         <h3>
           Hesablar.az dəstək
         </h3>
-
 
         <div class="contact-item">
 
@@ -1456,7 +1472,6 @@ footer{
 
         </div>
 
-
         <div class="contact-item">
 
           <strong>
@@ -1468,7 +1483,6 @@ footer{
           </span>
 
         </div>
-
 
         <div class="contact-item">
 
@@ -1484,7 +1498,6 @@ footer{
 
       </div>
 
-
       <div class="contact-box">
 
         <h3>
@@ -1493,8 +1506,8 @@ footer{
 
         <p style="color:#999;margin-bottom:20px;">
 
-          Məhsul sifarişi üçün məhsulu seçib sifariş formasından
-          istifadə edə bilərsiniz.
+          Məhsul sifarişi üçün əvvəlcə hesabınıza daxil olun,
+          daha sonra məhsulu seçib sifariş formasından istifadə edin.
 
         </p>
 
@@ -1516,7 +1529,6 @@ footer{
 
 </main>
 
-
 <!-- FOOTER -->
 
 <footer>
@@ -1524,7 +1536,6 @@ footer{
   <div class="container">
 
     <div class="footer-grid">
-
 
       <div class="footer-col">
 
@@ -1537,7 +1548,6 @@ footer{
         </p>
 
       </div>
-
 
       <div class="footer-col">
 
@@ -1553,7 +1563,6 @@ footer{
         <a href="#contact">Əlaqə</a>
 
       </div>
-
 
       <div class="footer-col">
 
@@ -1578,7 +1587,6 @@ footer{
         </a>
 
       </div>
-
 
       <div class="footer-col">
 
@@ -1606,7 +1614,6 @@ footer{
 
     </div>
 
-
     <div class="copyright">
 
       © 2026 Hesablar.az. Bütün hüquqlar qorunur.
@@ -1617,7 +1624,6 @@ footer{
 
 </footer>
 
-
 <!-- LOGIN MODAL -->
 
 <div
@@ -1627,6 +1633,7 @@ footer{
   <div class="modal-box">
 
     <button
+      type="button"
       class="close"
       onclick="closeModal('loginModal')">
 
@@ -1634,14 +1641,11 @@ footer{
 
     </button>
 
-
     <h2>
       Daxil ol
     </h2>
 
-
-    <form
-      onsubmit="login(event)">
+    <form onsubmit="login(event)">
 
       <label>
         Email
@@ -1654,7 +1658,6 @@ footer{
         required
         placeholder="email@example.com">
 
-
       <label>
         Şifrə
       </label>
@@ -1666,7 +1669,6 @@ footer{
         required
         placeholder="Şifrəniz">
 
-
       <button
         id="loginButton"
         type="submit"
@@ -1676,14 +1678,12 @@ footer{
 
       </button>
 
-
       <div
         id="loginMessage"
         class="message">
       </div>
 
     </form>
-
 
     <p
       style="
@@ -1713,7 +1713,6 @@ footer{
 
 </div>
 
-
 <!-- REGISTER MODAL -->
 
 <div
@@ -1723,6 +1722,7 @@ footer{
   <div class="modal-box">
 
     <button
+      type="button"
       class="close"
       onclick="closeModal('registerModal')">
 
@@ -1730,14 +1730,11 @@ footer{
 
     </button>
 
-
     <h2>
       Qeydiyyat
     </h2>
 
-
-    <form
-      onsubmit="register(event)">
+    <form onsubmit="register(event)">
 
       <label>
         Email
@@ -1749,7 +1746,6 @@ footer{
         autocomplete="email"
         required
         placeholder="email@example.com">
-
 
       <label>
         Şifrə
@@ -1763,7 +1759,6 @@ footer{
         required
         placeholder="Minimum 6 simvol">
 
-
       <button
         id="registerButton"
         type="submit"
@@ -1773,14 +1768,12 @@ footer{
 
       </button>
 
-
       <div
         id="registerMessage"
         class="message">
       </div>
 
     </form>
-
 
     <p
       style="
@@ -1810,7 +1803,6 @@ footer{
 
 </div>
 
-
 <!-- ORDER MODAL -->
 
 <div
@@ -1820,6 +1812,7 @@ footer{
   <div class="modal-box">
 
     <button
+      type="button"
       class="close"
       onclick="closeModal('orderModal')">
 
@@ -1827,11 +1820,9 @@ footer{
 
     </button>
 
-
     <h2>
       Sifariş
     </h2>
-
 
     <label>
       Məhsul
@@ -1840,7 +1831,6 @@ footer{
     <input
       id="orderProduct"
       readonly>
-
 
     <label>
       Müddət
@@ -1851,7 +1841,6 @@ footer{
       onchange="updateOrderPrice()">
     </select>
 
-
     <label>
       Qiymət
     </label>
@@ -1860,15 +1849,14 @@ footer{
       id="orderPrice"
       readonly>
 
-
     <button
+      type="button"
       class="btn btn-primary full-btn"
       onclick="sendWhatsAppOrder()">
 
       WhatsApp ilə sifariş et
 
     </button>
-
 
     <div
       id="orderMessage"
@@ -1878,7 +1866,6 @@ footer{
   </div>
 
 </div>
-
 
 <script>
 
@@ -1950,32 +1937,63 @@ const products = {
 
 
 /* ==================================================
-   MODALS
+   MODAL HELPERS
 ================================================== */
 
-function openLogin(){
+function openModal(id){
 
-  document
-    .getElementById("loginModal")
-    .classList.add("active");
+  const modal =
+    document.getElementById(id);
 
-}
+  if(!modal){
+    return;
+  }
 
+  modal.classList.add("active");
 
-function openRegister(){
-
-  document
-    .getElementById("registerModal")
-    .classList.add("active");
+  document.body.classList.add("modal-open");
 
 }
 
 
 function closeModal(id){
 
-  document
-    .getElementById(id)
-    .classList.remove("active");
+  const modal =
+    document.getElementById(id);
+
+  if(!modal){
+    return;
+  }
+
+  modal.classList.remove("active");
+
+  if(
+    !document.querySelector(".modal.active")
+  ){
+
+    document.body.classList.remove(
+      "modal-open"
+    );
+
+  }
+
+}
+
+
+function openLogin(){
+
+  clearMessage("loginMessage");
+
+  openModal("loginModal");
+
+}
+
+
+function openRegister(){
+
+  clearMessage("registerMessage");
+
+  openModal("registerModal");
 
 }
 
@@ -2004,10 +2022,32 @@ function switchToLogin(){
 
 function showMessage(element,text,type){
 
-  element.textContent = text;
+  if(!element){
+    return;
+  }
+
+  element.textContent =
+    text;
 
   element.className =
     "message show " + type;
+
+}
+
+
+function clearMessage(id){
+
+  const element =
+    document.getElementById(id);
+
+  if(!element){
+    return;
+  }
+
+  element.textContent = "";
+
+  element.className =
+    "message";
 
 }
 
@@ -2020,46 +2060,48 @@ async function register(event){
 
   event.preventDefault();
 
-
   const email =
     document
       .getElementById("registerEmail")
       .value
-      .trim();
-
+      .trim()
+      .toLowerCase();
 
   const password =
     document
       .getElementById("registerPassword")
       .value;
 
-
   const message =
     document
       .getElementById("registerMessage");
-
 
   const button =
     document
       .getElementById("registerButton");
 
+  clearMessage("registerMessage");
 
-  message.className = "message";
-  message.textContent = "";
+  if(password.length < 6){
 
+    showMessage(
+      message,
+      "Şifrə minimum 6 simvol olmalıdır.",
+      "error"
+    );
+
+    return;
+
+  }
 
   button.disabled = true;
 
   button.textContent =
     "Hesab yaradılır...";
 
-
   try{
 
-    const {
-      data,
-      error
-    } =
+    const result =
       await supabaseClient.auth.signUp({
 
         email:email,
@@ -2068,24 +2110,23 @@ async function register(event){
 
       });
 
+    const data =
+      result.data;
+
+    const error =
+      result.error;
 
     console.log(
-      "REGISTER DATA:",
-      data
-    );
-
-
-    console.log(
-      "REGISTER ERROR:",
+      "REGISTER:",
+      data,
       error
     );
-
 
     if(error){
 
       showMessage(
         message,
-        error.message,
+        getFriendlyAuthError(error),
         "error"
       );
 
@@ -2093,44 +2134,35 @@ async function register(event){
 
     }
 
-
-    /*
-      CONFIRM EMAIL OFF olduqda
-      normal halda session yaranmalıdır.
-    */
-
     if(
       data &&
-      data.session
+      data.session &&
+      data.user
     ){
 
       showMessage(
         message,
-        "Hesab uğurla yaradıldı! Artıq daxil olmusunuz.",
+        "Hesab uğurla yaradıldı. Siz artıq daxil olmusunuz.",
         "success"
       );
 
+      updateAuthUI(
+        data.user
+      );
 
       event.target.reset();
 
-
       setTimeout(function(){
 
-        closeModal("registerModal");
+        closeModal(
+          "registerModal"
+        );
 
       },800);
-
 
       return;
 
     }
-
-
-    /*
-      User var, amma session yoxdur.
-      Bu adətən email confirmation
-      hələ aktiv olduqda baş verir.
-    */
 
     if(
       data &&
@@ -2140,29 +2172,28 @@ async function register(event){
 
       showMessage(
         message,
-        "Hesab yaradıldı, amma avtomatik giriş olmadı. Supabase-də Confirm email ayarının OFF olduğuna əmin olun.",
-        "error"
+        "Hesab yaradıldı. Email ünvanınıza təsdiq linki göndərilib. Emaili təsdiqlədikdən sonra daxil ola bilərsiniz.",
+        "info"
       );
+
+      event.target.reset();
 
       return;
 
     }
 
-
     showMessage(
       message,
-      "Qeydiyyat tamamlanmadı.",
+      "Qeydiyyat tamamlanmadı. Yenidən cəhd edin.",
       "error"
     );
-
 
   }catch(error){
 
     console.error(
-      "REGISTER EXCEPTION:",
+      "REGISTER ERROR:",
       error
     );
-
 
     showMessage(
       message,
@@ -2170,7 +2201,6 @@ async function register(event){
       "Qeydiyyat zamanı xəta baş verdi.",
       "error"
     );
-
 
   }finally{
 
@@ -2192,48 +2222,36 @@ async function login(event){
 
   event.preventDefault();
 
-
   const email =
     document
       .getElementById("loginEmail")
       .value
-      .trim();
-
+      .trim()
+      .toLowerCase();
 
   const password =
     document
       .getElementById("loginPassword")
       .value;
 
-
   const message =
     document
       .getElementById("loginMessage");
-
 
   const button =
     document
       .getElementById("loginButton");
 
-
-  message.className =
-    "message";
-
-  message.textContent = "";
-
+  clearMessage("loginMessage");
 
   button.disabled = true;
 
   button.textContent =
     "Giriş edilir...";
 
-
   try{
 
-    const {
-      data,
-      error
-    } =
+    const result =
       await supabaseClient.auth
         .signInWithPassword({
 
@@ -2243,24 +2261,23 @@ async function login(event){
 
         });
 
+    const data =
+      result.data;
+
+    const error =
+      result.error;
 
     console.log(
-      "LOGIN DATA:",
-      data
-    );
-
-
-    console.log(
-      "LOGIN ERROR:",
+      "LOGIN:",
+      data,
       error
     );
-
 
     if(error){
 
       showMessage(
         message,
-        error.message,
+        getFriendlyAuthError(error),
         "error"
       );
 
@@ -2268,10 +2285,10 @@ async function login(event){
 
     }
 
-
     if(
       data &&
-      data.session
+      data.session &&
+      data.user
     ){
 
       showMessage(
@@ -2280,37 +2297,34 @@ async function login(event){
         "success"
       );
 
+      updateAuthUI(
+        data.user
+      );
 
       setTimeout(function(){
 
-        closeModal("loginModal");
-
-        updateAuthUI(
-          data.session.user
+        closeModal(
+          "loginModal"
         );
 
-      },700);
-
+      },500);
 
       return;
 
     }
 
-
     showMessage(
       message,
-      "Giriş mümkün olmadı.",
+      "Giriş mümkün olmadı. Yenidən cəhd edin.",
       "error"
     );
-
 
   }catch(error){
 
     console.error(
-      "LOGIN EXCEPTION:",
+      "LOGIN ERROR:",
       error
     );
-
 
     showMessage(
       message,
@@ -2318,7 +2332,6 @@ async function login(event){
       "Giriş zamanı xəta baş verdi.",
       "error"
     );
-
 
   }finally{
 
@@ -2333,30 +2346,101 @@ async function login(event){
 
 
 /* ==================================================
+   AUTH ERROR
+================================================== */
+
+function getFriendlyAuthError(error){
+
+  if(!error){
+    return "Naməlum xəta baş verdi.";
+  }
+
+  const text =
+    String(
+      error.message || ""
+    ).toLowerCase();
+
+  if(
+    text.includes(
+      "invalid login credentials"
+    )
+  ){
+
+    return "Email və ya şifrə yanlışdır.";
+
+  }
+
+  if(
+    text.includes(
+      "email not confirmed"
+    )
+  ){
+
+    return "Email ünvanınız hələ təsdiqlənməyib. Emailinizə göndərilən təsdiq linkinə daxil olun.";
+
+  }
+
+  if(
+    text.includes(
+      "user already registered"
+    )
+  ){
+
+    return "Bu email ilə artıq hesab mövcuddur. Daxil olmağa çalışın.";
+
+  }
+
+  if(
+    text.includes(
+      "password should be at least"
+    )
+  ){
+
+    return "Şifrə minimum 6 simvol olmalıdır.";
+
+  }
+
+  return error.message ||
+    "Əməliyyat zamanı xəta baş verdi.";
+
+}
+
+
+/* ==================================================
    LOGOUT
 ================================================== */
 
 async function logout(){
 
-  const {
-    error
-  } =
-    await supabaseClient.auth.signOut();
+  try{
 
+    const {
+      error
+    } =
+      await supabaseClient.auth
+        .signOut();
 
-  if(error){
+    if(error){
+
+      console.error(
+        "LOGOUT ERROR:",
+        error
+      );
+
+      return;
+
+    }
+
+    updateAuthUI(null);
+
+  }catch(error){
 
     console.error(
-      "LOGOUT ERROR:",
+      "LOGOUT EXCEPTION:",
       error
     );
 
-    return;
-
   }
-
-
-  updateAuthUI(null);
 
 }
 
@@ -2381,7 +2465,6 @@ function updateAuthUI(user){
     document.getElementById(
       "userEmail"
     );
-
 
   if(user){
 
@@ -2416,46 +2499,59 @@ function updateAuthUI(user){
 
 async function checkAuth(){
 
-  const {
-    data,
-    error
-  } =
-    await supabaseClient.auth
-      .getSession();
+  try{
 
+    const result =
+      await supabaseClient.auth
+        .getSession();
 
-  if(error){
+    const data =
+      result.data;
+
+    const error =
+      result.error;
+
+    if(error){
+
+      console.error(
+        "SESSION ERROR:",
+        error
+      );
+
+      updateAuthUI(null);
+
+      return;
+
+    }
+
+    if(
+      data &&
+      data.session &&
+      data.session.user
+    ){
+
+      updateAuthUI(
+        data.session.user
+      );
+
+    }else{
+
+      updateAuthUI(null);
+
+    }
+
+  }catch(error){
 
     console.error(
-      "SESSION ERROR:",
+      "SESSION EXCEPTION:",
       error
     );
-
-    updateAuthUI(null);
-
-    return;
-
-  }
-
-
-  if(
-    data &&
-    data.session &&
-    data.session.user
-  ){
-
-    updateAuthUI(
-      data.session.user
-    );
-
-  }else{
 
     updateAuthUI(null);
 
   }
 
 }
-
 
 checkAuth();
 
@@ -2472,7 +2568,6 @@ supabaseClient.auth
         "AUTH EVENT:",
         event
       );
-
 
       if(
         session &&
@@ -2494,47 +2589,107 @@ supabaseClient.auth
 
 
 /* ==================================================
-   ORDER
+   CURRENT USER
 ================================================== */
 
-function openOrder(productName){
+async function getCurrentUser(){
 
-  /*
-    İstəsən sifarişdən əvvəl
-    login məcburi etmək üçün bunu aktiv edə bilərsən.
-  */
+  try{
 
-  /*
-  supabaseClient.auth.getSession()
-  .then(({data}) => {
+    const result =
+      await supabaseClient.auth
+        .getUser();
 
-    if(!data.session){
+    if(
+      result.error
+    ){
 
-      openLogin();
-
-      return;
+      return null;
 
     }
 
-  });
+    return result.data.user || null;
+
+  }catch(error){
+
+    console.error(
+      "GET USER ERROR:",
+      error
+    );
+
+    return null;
+
+  }
+
+}
+
+
+/* ==================================================
+   ORDER
+================================================== */
+
+async function openOrder(productName){
+
+  if(
+    !products[productName]
+  ){
+
+    console.error(
+      "Product not found:",
+      productName
+    );
+
+    return;
+
+  }
+
+  const user =
+    await getCurrentUser();
+
+  /*
+    Sifariş yalnız login olmuş
+    istifadəçiyə açılır.
   */
 
+  if(!user){
 
-  document
-    .getElementById("orderProduct")
-    .value =
-      productName;
+    openLogin();
 
-
-  const duration =
-    document
-      .getElementById(
-        "orderDuration"
+    const message =
+      document.getElementById(
+        "loginMessage"
       );
 
+    showMessage(
+      message,
+      "Sifariş vermək üçün əvvəlcə hesabınıza daxil olun.",
+      "info"
+    );
 
-  duration.innerHTML = "";
+    return;
 
+  }
+
+  const orderProduct =
+    document.getElementById(
+      "orderProduct"
+    );
+
+  const duration =
+    document.getElementById(
+      "orderDuration"
+    );
+
+  const orderMessage =
+    document.getElementById(
+      "orderMessage"
+    );
+
+  orderProduct.value =
+    productName;
+
+  duration.innerHTML =
+    "";
 
   products[productName]
     .forEach(function(item){
@@ -2544,16 +2699,13 @@ function openOrder(productName){
           "option"
         );
 
-
       option.value =
         item.duration;
-
 
       option.textContent =
         item.duration +
         " — " +
         item.price;
-
 
       duration.appendChild(
         option
@@ -2561,16 +2713,22 @@ function openOrder(productName){
 
     });
 
+  clearMessage(
+    "orderMessage"
+  );
 
   updateOrderPrice();
 
-
-  document
-    .getElementById("orderModal")
-    .classList.add("active");
+  openModal(
+    "orderModal"
+  );
 
 }
 
+
+/* ==================================================
+   ORDER PRICE
+================================================== */
 
 function updateOrderPrice(){
 
@@ -2581,7 +2739,6 @@ function updateOrderPrice(){
       )
       .value;
 
-
   const duration =
     document
       .getElementById(
@@ -2589,6 +2746,21 @@ function updateOrderPrice(){
       )
       .value;
 
+  const priceInput =
+    document.getElementById(
+      "orderPrice"
+    );
+
+  if(
+    !products[product]
+  ){
+
+    priceInput.value =
+      "";
+
+    return;
+
+  }
 
   const item =
     products[product].find(
@@ -2599,15 +2771,15 @@ function updateOrderPrice(){
       }
     );
 
-
   if(item){
 
-    document
-      .getElementById(
-        "orderPrice"
-      )
-      .value =
-        item.price;
+    priceInput.value =
+      item.price;
+
+  }else{
+
+    priceInput.value =
+      "";
 
   }
 
@@ -2618,7 +2790,33 @@ function updateOrderPrice(){
    WHATSAPP
 ================================================== */
 
-function sendWhatsAppOrder(){
+async function sendWhatsAppOrder(){
+
+  const user =
+    await getCurrentUser();
+
+  if(!user){
+
+    closeModal(
+      "orderModal"
+    );
+
+    openLogin();
+
+    const message =
+      document.getElementById(
+        "loginMessage"
+      );
+
+    showMessage(
+      message,
+      "Sifariş vermək üçün əvvəlcə hesabınıza daxil olun.",
+      "info"
+    );
+
+    return;
+
+  }
 
   const product =
     document
@@ -2627,14 +2825,12 @@ function sendWhatsAppOrder(){
       )
       .value;
 
-
   const duration =
     document
       .getElementById(
         "orderDuration"
       )
       .value;
-
 
   const price =
     document
@@ -2643,44 +2839,48 @@ function sendWhatsAppOrder(){
       )
       .value;
 
+  if(
+    !product ||
+    !duration ||
+    !price
+  ){
 
-  const message =
-    "Salam Hesablar.az,%0A%0A" +
+    showMessage(
+      document.getElementById(
+        "orderMessage"
+      ),
+      "Sifariş məlumatları tam deyil.",
+      "error"
+    );
 
-    "Məhsul: " +
-    encodeURIComponent(
-      product
-    ) +
+    return;
 
-    "%0A" +
+  }
 
-    "Müddət: " +
-    encodeURIComponent(
-      duration
-    ) +
+  const text =
+`Salam Hesablar.az,
 
-    "%0A" +
+Məhsul: ${product}
+Müddət: ${duration}
+Qiymət: ${price}
 
-    "Qiymət: " +
-    encodeURIComponent(
-      price
-    ) +
+Müştəri emaili: ${user.email || "göstərilməyib"}
 
-    "%0A%0A" +
-
-    "Bu məhsulu sifariş etmək istəyirəm.";
-
+Bu məhsulu sifariş etmək istəyirəm.`;
 
   const whatsappNumber =
     "994702883484";
 
-
-  window.open(
+  const whatsappUrl =
     "https://wa.me/" +
     whatsappNumber +
     "?text=" +
-    message,
-    "_blank"
+    encodeURIComponent(text);
+
+  window.open(
+    whatsappUrl,
+    "_blank",
+    "noopener,noreferrer"
   );
 
 }
@@ -2692,9 +2892,16 @@ function sendWhatsAppOrder(){
 
 function toggleFaq(element){
 
+  if(!element){
+    return;
+  }
+
   const item =
     element.parentElement;
 
+  if(!item){
+    return;
+  }
 
   item.classList.toggle(
     "open"
@@ -2704,7 +2911,7 @@ function toggleFaq(element){
 
 
 /* ==================================================
-   CLOSE MODALS
+   CLOSE MODAL BY BACKDROP
 ================================================== */
 
 document.addEventListener(
@@ -2712,13 +2919,13 @@ document.addEventListener(
   function(event){
 
     if(
-      event.target.classList
-        .contains("modal")
+      event.target.classList &&
+      event.target.classList.contains("modal")
     ){
 
-      event.target
-        .classList
-        .remove("active");
+      closeModal(
+        event.target.id
+      );
 
     }
 
@@ -2734,17 +2941,23 @@ document.addEventListener(
   "keydown",
   function(event){
 
-    if(event.key === "Escape"){
+    if(
+      event.key === "Escape"
+    ){
 
       document
-        .querySelectorAll(".modal.active")
-        .forEach(function(modal){
+        .querySelectorAll(
+          ".modal.active"
+        )
+        .forEach(
+          function(modal){
 
-          modal.classList.remove(
-            "active"
-          );
+            closeModal(
+              modal.id
+            );
 
-        });
+          }
+        );
 
     }
 
@@ -2755,3 +2968,4 @@ document.addEventListener(
 
 </body>
 </html>
+```
