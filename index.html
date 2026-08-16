@@ -1,952 +1,1993 @@
 <!DOCTYPE html>
 <html lang="az">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>DigiBaku — Digital Marketplace</title>
-
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: Arial, Helvetica, sans-serif;
-    }
-
-    body {
-      background: #f6f8fc;
-      color: #111827;
-    }
-
-    header {
-      background: #fff;
-      border-bottom: 1px solid #e5e7eb;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-
-    .header {
-      max-width: 1250px;
-      margin: auto;
-      min-height: 72px;
-      display: flex;
-      align-items: center;
-      gap: 30px;
-      padding: 12px 20px;
-    }
-
-    .logo {
-      color: #2563eb;
-      font-size: 26px;
-      font-weight: 900;
-      text-decoration: none;
-      white-space: nowrap;
-    }
-
-    .search {
-      flex: 1;
-      max-width: 600px;
-      display: flex;
-      gap: 8px;
-    }
-
-    .search input {
-      flex: 1;
-      height: 44px;
-      border: 1px solid #dbe0e8;
-      border-radius: 9px;
-      padding: 0 15px;
-      outline: none;
-      font-size: 14px;
-      background: #f9fafb;
-    }
-
-    .search button {
-      width: 45px;
-      border: 0;
-      border-radius: 9px;
-      background: #2563eb;
-      color: white;
-      cursor: pointer;
-      font-size: 18px;
-    }
-
-    nav {
-      display: flex;
-      align-items: center;
-      gap: 18px;
-    }
-
-    nav a {
-      color: #374151;
-      text-decoration: none;
-      font-size: 14px;
-      font-weight: 600;
-    }
-
-    .login {
-      background: #2563eb;
-      color: white !important;
-      padding: 11px 18px;
-      border-radius: 9px;
-    }
-
-    .hero {
-      background:
-        radial-gradient(circle at top right, #dbeafe, transparent 35%),
-        linear-gradient(135deg, #eff6ff, #fff);
-      padding: 75px 20px;
-    }
-
-    .hero-content {
-      max-width: 1100px;
-      margin: auto;
-    }
-
-    .badge {
-      display: inline-block;
-      background: #dbeafe;
-      color: #1d4ed8;
-      padding: 8px 13px;
-      border-radius: 30px;
-      font-size: 13px;
-      font-weight: bold;
-      margin-bottom: 20px;
-    }
-
-    .hero h1 {
-      max-width: 750px;
-      font-size: 52px;
-      line-height: 1.1;
-      margin-bottom: 18px;
-    }
-
-    .hero h1 span {
-      color: #2563eb;
-    }
-
-    .hero p {
-      max-width: 650px;
-      color: #667085;
-      font-size: 18px;
-      line-height: 1.6;
-      margin-bottom: 30px;
-    }
-
-    .hero-buttons {
-      display: flex;
-      gap: 12px;
-    }
-
-    .primary,
-    .secondary {
-      text-decoration: none;
-      display: inline-block;
-      padding: 14px 22px;
-      border-radius: 9px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    .primary {
-      background: #2563eb;
-      color: white;
-    }
-
-    .secondary {
-      background: white;
-      color: #2563eb;
-      border: 1px solid #dbe0e8;
-    }
-
-    .container {
-      max-width: 1250px;
-      margin: auto;
-      padding: 55px 20px;
-    }
-
-    .section-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 25px;
-    }
-
-    .section-head h2 {
-      font-size: 26px;
-    }
-
-    .section-head a {
-      color: #2563eb;
-      text-decoration: none;
-      font-size: 14px;
-      font-weight: bold;
-    }
-
-    .categories {
-      display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      gap: 15px;
-      margin-bottom: 60px;
-    }
-
-    .category {
-      background: white;
-      border: 1px solid #e5e7eb;
-      border-radius: 12px;
-      padding: 25px 10px;
-      text-align: center;
-      cursor: pointer;
-      transition: .2s;
-    }
-
-    .category:hover {
-      transform: translateY(-4px);
-      border-color: #2563eb;
-      box-shadow: 0 8px 20px rgba(37, 99, 235, .08);
-    }
-
-    .category-icon {
-      width: 50px;
-      height: 50px;
-      margin: auto auto 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #eff6ff;
-      border-radius: 12px;
-      font-size: 24px;
-    }
-
-    .category span {
-      font-size: 14px;
-      font-weight: bold;
-    }
-
-    .products {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 20px;
-    }
-
-    .product {
-      background: white;
-      border: 1px solid #e5e7eb;
-      border-radius: 14px;
-      overflow: hidden;
-      transition: .2s;
-    }
-
-    .product:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 30px rgba(0,0,0,.08);
-    }
-
-    .product-image {
-      height: 170px;
-      background: linear-gradient(135deg, #1d4ed8, #7c3aed);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 55px;
-    }
-
-    .product-body {
-      padding: 18px;
-    }
-
-    .product-body h3 {
-      font-size: 16px;
-      margin-bottom: 8px;
-    }
-
-    .seller {
-      color: #9ca3af;
-      font-size: 12px;
-      margin-bottom: 15px;
-    }
-
-    .rating {
-      color: #f59e0b;
-      font-size: 13px;
-      margin-bottom: 15px;
-    }
-
-    .product-bottom {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .price {
-      font-size: 19px;
-      font-weight: 900;
-    }
-
-    .buy {
-      background: #2563eb;
-      color: white;
-      padding: 10px 13px;
-      border-radius: 8px;
-      text-decoration: none;
-      font-size: 13px;
-      font-weight: bold;
-      display: inline-block;
-      white-space: nowrap;
-    }
-
-    .buy:hover {
-      background: #1d4ed8;
-    }
-
-    .features {
-      background: #111827;
-      color: white;
-    }
-
-    .features-grid {
-      max-width: 1250px;
-      margin: auto;
-      padding: 45px 20px;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 30px;
-    }
-
-    .feature-icon {
-      font-size: 28px;
-    }
-
-    .feature h3 {
-      margin: 12px 0 8px;
-    }
-
-    .feature p {
-      color: #9ca3af;
-      font-size: 14px;
-      line-height: 1.5;
-    }
-
-    footer {
-      background: #0b1120;
-      color: #9ca3af;
-      padding: 35px 20px;
-      text-align: center;
-      font-size: 13px;
-    }
-
-    .no-results {
-      display: none;
-      background: white;
-      border: 1px solid #e5e7eb;
-      border-radius: 12px;
-      padding: 30px;
-      text-align: center;
-      color: #6b7280;
-      margin-top: 20px;
-    }
-
-    @media(max-width: 900px) {
-
-      nav {
-        display: none;
-      }
-
-      .categories {
-        grid-template-columns: repeat(3, 1fr);
-      }
-
-      .products {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .hero h1 {
-        font-size: 40px;
-      }
-    }
-
-    @media(max-width: 550px) {
-
-      .header {
-        flex-wrap: wrap;
-      }
-
-      .logo {
-        width: 100%;
-      }
-
-      .search {
-        width: 100%;
-      }
-
-      .hero {
-        padding: 55px 20px;
-      }
-
-      .hero h1 {
-        font-size: 34px;
-      }
-
-      .hero-buttons {
-        flex-direction: column;
-      }
-
-      .categories {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .products {
-        grid-template-columns: 1fr;
-      }
-
-      .features-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>DigiBaku — Digital Marketplace</title>
+
+<style>
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family:Arial,sans-serif;
+}
+
+body{
+  background:#f5f7fb;
+  color:#111827;
+}
+
+button,
+input,
+textarea,
+select{
+  font-family:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+header{
+  background:#fff;
+  border-bottom:1px solid #e5e7eb;
+  position:sticky;
+  top:0;
+  z-index:1000;
+}
+
+.header{
+  max-width:1250px;
+  min-height:70px;
+  margin:auto;
+  padding:10px 20px;
+  display:flex;
+  align-items:center;
+  gap:20px;
+}
+
+.logo{
+  color:#2563eb;
+  font-size:25px;
+  font-weight:900;
+  text-decoration:none;
+}
+
+.search{
+  flex:1;
+  position:relative;
+}
+
+.search input{
+  width:100%;
+  height:44px;
+  border:1px solid #d1d5db;
+  border-radius:9px;
+  padding:0 48px 0 15px;
+  outline:none;
+}
+
+.search input:focus{
+  border-color:#2563eb;
+}
+
+.search button{
+  position:absolute;
+  right:5px;
+  top:5px;
+  width:34px;
+  height:34px;
+  border:0;
+  border-radius:7px;
+  background:#2563eb;
+  color:#fff;
+}
+
+.nav{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.nav button,
+.nav a{
+  border:0;
+  background:none;
+  color:#374151;
+  text-decoration:none;
+  font-size:13px;
+  font-weight:bold;
+  padding:9px;
+}
+
+.nav .blue{
+  background:#2563eb;
+  color:#fff;
+  border-radius:8px;
+}
+
+.cart-btn{
+  background:#eff6ff !important;
+  color:#2563eb !important;
+  border-radius:8px;
+}
+
+.hero{
+  max-width:1250px;
+  margin:25px auto;
+  padding:65px 40px;
+  border-radius:22px;
+  color:white;
+  background:
+    radial-gradient(circle at 90% 10%,rgba(255,255,255,.25),transparent 30%),
+    linear-gradient(135deg,#2563eb,#4f46e5);
+}
+
+.hero h1{
+  max-width:700px;
+  font-size:45px;
+  line-height:1.1;
+  margin-bottom:18px;
+}
+
+.hero p{
+  max-width:650px;
+  color:#dbeafe;
+  line-height:1.7;
+  margin-bottom:25px;
+}
+
+.hero-btn{
+  display:inline-block;
+  padding:13px 20px;
+  border-radius:9px;
+  background:white;
+  color:#2563eb;
+  text-decoration:none;
+  font-weight:bold;
+}
+
+.container{
+  max-width:1250px;
+  margin:40px auto;
+  padding:0 20px;
+}
+
+.section{
+  display:none;
+}
+
+.section.active{
+  display:block;
+}
+
+.title{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:20px;
+}
+
+.title h2{
+  font-size:25px;
+}
+
+.categories{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:12px;
+  margin-bottom:45px;
+}
+
+.category{
+  background:#fff;
+  border:1px solid #e5e7eb;
+  border-radius:13px;
+  padding:20px 10px;
+  text-align:center;
+  transition:.2s;
+}
+
+.category:hover{
+  transform:translateY(-3px);
+  border-color:#2563eb;
+}
+
+.category-icon{
+  font-size:30px;
+  margin-bottom:8px;
+}
+
+.category-name{
+  font-size:13px;
+  font-weight:bold;
+}
+
+.products{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:18px;
+}
+
+.product{
+  background:#fff;
+  border:1px solid #e5e7eb;
+  border-radius:15px;
+  overflow:hidden;
+  transition:.2s;
+}
+
+.product:hover{
+  transform:translateY(-4px);
+  box-shadow:0 15px 35px rgba(0,0,0,.08);
+}
+
+.product-img{
+  height:180px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:70px;
+  background:linear-gradient(135deg,#1d4ed8,#7c3aed);
+}
+
+.product-body{
+  padding:16px;
+}
+
+.category-label{
+  color:#2563eb;
+  font-size:11px;
+  font-weight:bold;
+  margin-bottom:8px;
+}
+
+.product h3{
+  font-size:16px;
+  margin-bottom:8px;
+}
+
+.product p{
+  color:#6b7280;
+  font-size:12px;
+  line-height:1.5;
+  min-height:38px;
+}
+
+.product-bottom{
+  margin-top:15px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.price{
+  font-size:18px;
+  font-weight:900;
+}
+
+.btn{
+  border:0;
+  border-radius:8px;
+  padding:10px 13px;
+  font-size:12px;
+  font-weight:bold;
+}
+
+.primary{
+  background:#2563eb;
+  color:#fff;
+}
+
+.secondary{
+  background:#eff6ff;
+  color:#2563eb;
+}
+
+.danger{
+  background:#fef2f2;
+  color:#dc2626;
+}
+
+.white-box{
+  background:#fff;
+  border:1px solid #e5e7eb;
+  border-radius:15px;
+  padding:25px;
+}
+
+.cart-layout{
+  display:grid;
+  grid-template-columns:1fr 330px;
+  gap:20px;
+}
+
+.cart-item{
+  display:flex;
+  align-items:center;
+  gap:15px;
+  padding:16px 0;
+  border-bottom:1px solid #eee;
+}
+
+.cart-item:last-child{
+  border-bottom:0;
+}
+
+.cart-icon{
+  width:65px;
+  height:65px;
+  border-radius:10px;
+  background:linear-gradient(135deg,#2563eb,#7c3aed);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:28px;
+}
+
+.cart-info{
+  flex:1;
+}
+
+.cart-info h3{
+  font-size:15px;
+  margin-bottom:5px;
+}
+
+.cart-info p{
+  color:#6b7280;
+  font-size:12px;
+}
+
+.summary-row{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:15px;
+  color:#64748b;
+}
+
+.total{
+  border-top:1px solid #e5e7eb;
+  padding-top:18px;
+  display:flex;
+  justify-content:space-between;
+  font-size:21px;
+  font-weight:900;
+}
+
+.full-btn{
+  width:100%;
+  height:47px;
+  margin-top:15px;
+  border:0;
+  border-radius:9px;
+  font-weight:bold;
+}
+
+.empty{
+  text-align:center;
+  padding:60px 20px;
+  color:#64748b;
+}
+
+.empty-icon{
+  font-size:55px;
+  margin-bottom:15px;
+}
+
+.profile-grid{
+  display:grid;
+  grid-template-columns:250px 1fr;
+  gap:20px;
+}
+
+.side-menu button{
+  width:100%;
+  border:0;
+  background:#fff;
+  text-align:left;
+  padding:13px;
+  border-bottom:1px solid #eee;
+  color:#374151;
+  font-weight:bold;
+}
+
+.side-menu button:hover{
+  color:#2563eb;
+}
+
+.avatar{
+  width:80px;
+  height:80px;
+  border-radius:50%;
+  background:#2563eb;
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:32px;
+  margin-bottom:15px;
+}
+
+.form{
+  max-width:650px;
+}
+
+.form-group{
+  margin-bottom:16px;
+}
+
+.form-group label{
+  display:block;
+  font-size:13px;
+  font-weight:bold;
+  margin-bottom:7px;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select{
+  width:100%;
+  border:1px solid #d1d5db;
+  border-radius:8px;
+  padding:12px;
+  outline:none;
+}
+
+.form-group textarea{
+  min-height:130px;
+  resize:vertical;
+}
+
+.info-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:15px;
+}
+
+.info-card{
+  background:#fff;
+  border:1px solid #e5e7eb;
+  border-radius:13px;
+  padding:25px;
+}
+
+.info-card .icon{
+  font-size:30px;
+  margin-bottom:10px;
+}
+
+.info-card h3{
+  margin-bottom:8px;
+}
+
+.info-card p{
+  color:#6b7280;
+  font-size:13px;
+  line-height:1.6;
+}
+
+.notice{
+  padding:14px;
+  border-radius:9px;
+  margin-bottom:20px;
+  background:#eff6ff;
+  color:#1d4ed8;
+  font-size:13px;
+}
+
+footer{
+  margin-top:70px;
+  background:#0b1120;
+  color:#9ca3af;
+  padding:40px 20px;
+}
+
+.footer-inner{
+  max-width:1250px;
+  margin:auto;
+  display:flex;
+  justify-content:space-between;
+  gap:30px;
+}
+
+.footer-logo{
+  color:white;
+  font-size:21px;
+  font-weight:900;
+  margin-bottom:8px;
+}
+
+.footer-links{
+  display:flex;
+  gap:20px;
+  flex-wrap:wrap;
+}
+
+.footer-links button{
+  background:none;
+  border:0;
+  color:#d1d5db;
+}
+
+.hidden{
+  display:none !important;
+}
+
+@media(max-width:950px){
+
+  .products{
+    grid-template-columns:repeat(3,1fr);
+  }
+
+  .categories{
+    grid-template-columns:repeat(3,1fr);
+  }
+
+  .cart-layout{
+    grid-template-columns:1fr;
+  }
+
+  .profile-grid{
+    grid-template-columns:1fr;
+  }
+
+}
+
+@media(max-width:700px){
+
+  .header{
+    flex-wrap:wrap;
+  }
+
+  .search{
+    order:3;
+    flex-basis:100%;
+  }
+
+  .nav button,
+  .nav a{
+    font-size:11px;
+    padding:7px;
+  }
+
+  .hero{
+    margin:15px;
+    padding:40px 25px;
+  }
+
+  .hero h1{
+    font-size:31px;
+  }
+
+  .products{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .categories{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .info-grid{
+    grid-template-columns:1fr;
+  }
+
+  .footer-inner{
+    flex-direction:column;
+  }
+
+}
+
+@media(max-width:450px){
+
+  .products{
+    grid-template-columns:1fr;
+  }
+
+}
+
+</style>
 </head>
 
 <body>
 
+
 <header>
 
-  <div class="header">
+<div class="header">
 
-    <a href="index.html" class="logo">
-      DigiBaku
-    </a>
+<a href="#" class="logo" onclick="showSection('home')">
+DigiBaku
+</a>
 
-    <div class="search">
 
-      <input
-        id="searchInput"
-        type="text"
-        placeholder="Məhsul, hesab və ya xidmət axtar..."
-      >
+<div class="search">
 
-      <button
-        type="button"
-        onclick="searchProducts()">
-        🔍
-      </button>
+<input
+id="searchInput"
+type="text"
+placeholder="Məhsul axtar..."
+oninput="searchProducts()"
+>
 
-    </div>
+<button onclick="searchProducts()">🔎</button>
 
-    <nav>
+</div>
 
-      <a href="index.html">
-        Ana səhifə
-      </a>
 
-      <a href="login.html">
-        Satıcı ol
-      </a>
+<nav class="nav">
 
-      <a href="login.html" class="login">
-        Giriş
-      </a>
+<button onclick="showSection('home')">
+Ana səhifə
+</button>
 
-    </nav>
+<button onclick="showSection('favorites')">
+❤️
+</button>
 
-  </div>
+<button
+class="cart-btn"
+onclick="showSection('cart')">
+
+🛒 <span id="cartCount">0</span>
+
+</button>
+
+<a href="login.html" class="blue">
+Giriş
+</a>
+
+</nav>
+
+</div>
 
 </header>
 
 
-<section class="hero">
+<!-- HOME -->
 
-  <div class="hero-content">
+<section id="home" class="section active">
 
-    <div class="badge">
-      ⚡ Azərbaycanın Digital Marketplace-i
-    </div>
+<div class="hero">
 
-    <h1>
-      Digital məhsulların
-      <span>yeni ünvanı.</span>
-    </h1>
+<h1>
+Rəqəmsal məhsulların
+ünvanı — DigiBaku
+</h1>
 
-    <p>
-      Hesablar, oyun məhsulları, proqramlar, gift card və
-      müxtəlif digital xidmətləri DigiBaku-da kəşf et.
-    </p>
+<p>
+Hesablar, oyun məhsulları, proqramlar
+və digər rəqəmsal məhsulları rahat
+və təhlükəsiz şəkildə kəşf et.
+</p>
 
-    <div class="hero-buttons">
+<a href="#products"
+class="hero-btn"
+onclick="scrollProducts()">
+Məhsullara bax
+</a>
 
-      <a href="#products" class="primary">
-        Məhsullara bax
-      </a>
+</div>
 
-      <a href="login.html" class="secondary">
-        Satıcı ol
-      </a>
 
-    </div>
+<div class="container">
 
-  </div>
+<div class="title">
+<h2>Kateqoriyalar</h2>
+</div>
+
+
+<div class="categories">
+
+<div class="category"
+onclick="filterCategory('all')">
+
+<div class="category-icon">🔥</div>
+
+<div class="category-name">
+Hamısı
+</div>
+
+</div>
+
+
+<div class="category"
+onclick="filterCategory('Oyun')">
+
+<div class="category-icon">🎮</div>
+
+<div class="category-name">
+Oyun
+</div>
+
+</div>
+
+
+<div class="category"
+onclick="filterCategory('Hesab')">
+
+<div class="category-icon">👤</div>
+
+<div class="category-name">
+Hesablar
+</div>
+
+</div>
+
+
+<div class="category"
+onclick="filterCategory('Proqram')">
+
+<div class="category-icon">💻</div>
+
+<div class="category-name">
+Proqram
+</div>
+
+</div>
+
+
+<div class="category"
+onclick="filterCategory('Digər')">
+
+<div class="category-icon">📦</div>
+
+<div class="category-name">
+Digər
+</div>
+
+</div>
+
+</div>
+
+
+<div class="title" id="products">
+
+<h2>
+Məhsullar
+</h2>
+
+</div>
+
+
+<div id="productGrid" class="products">
+
+
+<div class="product"
+data-category="Oyun"
+data-name="Gaming Account">
+
+<div class="product-img">
+🎮
+</div>
+
+<div class="product-body">
+
+<div class="category-label">
+OYUN
+</div>
+
+<h3>
+Gaming Account
+</h3>
+
+<p>
+Premium gaming account.
+</p>
+
+<div class="product-bottom">
+
+<div class="price">
+5.99 AZN
+</div>
+
+<button
+class="btn primary"
+onclick="addProduct(1,'Gaming Account',5.99,'Oyun')">
+
+Səbətə əlavə et
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="product"
+data-category="Hesab"
+data-name="Premium Account">
+
+<div class="product-img">
+👤
+</div>
+
+<div class="product-body">
+
+<div class="category-label">
+HESAB
+</div>
+
+<h3>
+Premium Account
+</h3>
+
+<p>
+Premium rəqəmsal hesab.
+</p>
+
+<div class="product-bottom">
+
+<div class="price">
+9.99 AZN
+</div>
+
+<button
+class="btn primary"
+onclick="addProduct(2,'Premium Account',9.99,'Hesab')">
+
+Səbətə əlavə et
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="product"
+data-category="Proqram"
+data-name="Software License">
+
+<div class="product-img">
+💻
+</div>
+
+<div class="product-body">
+
+<div class="category-label">
+PROQRAM
+</div>
+
+<h3>
+Software License
+</h3>
+
+<p>
+Rəqəmsal proqram lisenziyası.
+</p>
+
+<div class="product-bottom">
+
+<div class="price">
+14.99 AZN
+</div>
+
+<button
+class="btn primary"
+onclick="addProduct(3,'Software License',14.99,'Proqram')">
+
+Səbətə əlavə et
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="product"
+data-category="Digər"
+data-name="Digital Product">
+
+<div class="product-img">
+📦
+</div>
+
+<div class="product-body">
+
+<div class="category-label">
+DİGƏR
+</div>
+
+<h3>
+Digital Product
+</h3>
+
+<p>
+Faydalı rəqəmsal məhsul.
+</p>
+
+<div class="product-bottom">
+
+<div class="price">
+3.99 AZN
+</div>
+
+<button
+class="btn primary"
+onclick="addProduct(4,'Digital Product',3.99,'Digər')">
+
+Səbətə əlavə et
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+</div>
+
+</div>
 
 </section>
 
 
-<main class="container">
-
-  <div class="section-head">
+<!-- CART -->
 
-    <h2>
-      Kateqoriyalar
-    </h2>
+<section id="cart" class="section">
 
-    <a href="#products">
-      Hamısına bax →
-    </a>
+<div class="container">
 
-  </div>
-
-
-  <div class="categories">
+<div class="title">
 
-    <div class="category" onclick="filterCategory('Oyun')">
-      <div class="category-icon">
-        🎮
-      </div>
-      <span>
-        Oyun
-      </span>
-    </div>
+<h2>🛒 Səbət</h2>
 
-    <div class="category" onclick="filterCategory('Streaming')">
-      <div class="category-icon">
-        📺
-      </div>
-      <span>
-        Streaming
-      </span>
-    </div>
+<button
+class="btn danger"
+onclick="clearCart()">
 
-    <div class="category" onclick="filterCategory('Proqramlar')">
-      <div class="category-icon">
-        💻
-      </div>
-      <span>
-        Proqramlar
-      </span>
-    </div>
+Səbəti təmizlə
 
-    <div class="category" onclick="filterCategory('Hesablar')">
-      <div class="category-icon">
-        🔑
-      </div>
-      <span>
-        Hesablar
-      </span>
-    </div>
+</button>
 
-    <div class="category" onclick="filterCategory('Gift Card')">
-      <div class="category-icon">
-        🎁
-      </div>
-      <span>
-        Gift Card
-      </span>
-    </div>
+</div>
 
-    <div class="category" onclick="filterCategory('Digər')">
-      <div class="category-icon">
-        ⚡
-      </div>
-      <span>
-        Digər
-      </span>
-    </div>
 
-  </div>
+<div class="cart-layout">
 
+<div class="white-box">
 
-  <div class="section-head" id="products">
+<div id="cartItems"></div>
 
-    <h2>
-      Populyar məhsullar
-    </h2>
+</div>
 
-    <a href="#products" onclick="showAllProducts()">
-      Hamısına bax →
-    </a>
 
-  </div>
+<div class="white-box">
 
+<h3 style="margin-bottom:20px">
+Sifariş xülasəsi
+</h3>
 
-  <div class="products" id="productList">
+<div class="summary-row">
 
+<span>Məhsul sayı</span>
 
-    <!-- MƏHSUL 1 -->
+<strong id="cartTotalCount">
+0
+</strong>
 
-    <div
-      class="product"
-      data-name="Gaming Account"
-      data-category="Oyun">
+</div>
 
-      <div class="product-image">
-        🎮
-      </div>
+<div class="summary-row">
 
-      <div class="product-body">
+<span>Çatdırılma</span>
 
-        <h3>
-          Gaming Account
-        </h3>
+<strong>Pulsuz</strong>
 
-        <div class="seller">
-          Satıcı: DigiStore
-        </div>
+</div>
 
-        <div class="rating">
-          ★★★★★ 5.0
-        </div>
+<div class="total">
 
-        <div class="product-bottom">
+<span>Cəmi</span>
 
-          <div class="price">
-            5.99 AZN
-          </div>
+<span id="cartTotal">
+0.00 AZN
+</span>
 
-          <a href="product.html" class="buy">
-            Məhsula bax
-          </a>
+</div>
 
-        </div>
+<button
+class="full-btn primary"
+onclick="checkout()">
 
-      </div>
+Sifarişi tamamla
 
-    </div>
+</button>
 
+</div>
 
-    <!-- MƏHSUL 2 -->
+</div>
 
-    <div
-      class="product"
-      data-name="Premium Account"
-      data-category="Streaming">
+</div>
 
-      <div class="product-image">
-        🎬
-      </div>
+</section>
 
-      <div class="product-body">
 
-        <h3>
-          Premium Account
-        </h3>
+<!-- FAVORITES -->
 
-        <div class="seller">
-          Satıcı: PremiumShop
-        </div>
+<section id="favorites" class="section">
 
-        <div class="rating">
-          ★★★★★ 4.9
-        </div>
+<div class="container">
 
-        <div class="product-bottom">
+<div class="title">
+<h2>❤️ Seçilmişlər</h2>
+</div>
 
-          <div class="price">
-            7.99 AZN
-          </div>
+<div class="white-box">
 
-          <a href="product.html" class="buy">
-            Məhsula bax
-          </a>
+<div class="empty">
 
-        </div>
+<div class="empty-icon">
+❤️
+</div>
 
-      </div>
+<h3>
+Seçilmiş məhsullar
+</h3>
 
-    </div>
+<p>
+Bəyəndiyin məhsulları burada
+saxlaya bilərsən.
+</p>
 
+</div>
 
-    <!-- MƏHSUL 3 -->
+</div>
 
-    <div
-      class="product"
-      data-name="Digital License"
-      data-category="Proqramlar">
+</div>
 
-      <div class="product-image">
-        💻
-      </div>
+</section>
 
-      <div class="product-body">
 
-        <h3>
-          Digital License
-        </h3>
+<!-- PROFILE -->
 
-        <div class="seller">
-          Satıcı: DigitalPro
-        </div>
+<section id="profile" class="section">
 
-        <div class="rating">
-          ★★★★★ 4.8
-        </div>
+<div class="container">
 
-        <div class="product-bottom">
+<div class="title">
+<h2>👤 Mənim hesabım</h2>
+</div>
 
-          <div class="price">
-            12.99 AZN
-          </div>
+<div class="profile-grid">
 
-          <a href="product.html" class="buy">
-            Məhsula bax
-          </a>
+<div class="white-box side-menu">
 
-        </div>
+<button onclick="showSection('profile')">
+👤 Profil
+</button>
 
-      </div>
+<button onclick="showSection('orders')">
+📦 Sifarişlər
+</button>
 
-    </div>
+<button onclick="showSection('seller')">
+🏪 Satıcı ol
+</button>
 
+<button onclick="showSection('favorites')">
+❤️ Seçilmişlər
+</button>
 
-    <!-- MƏHSUL 4 -->
+<button onclick="showSection('support')">
+💬 Dəstək
+</button>
 
-    <div
-      class="product"
-      data-name="Gift Card"
-      data-category="Gift Card">
+</div>
 
-      <div class="product-image">
-        🎁
-      </div>
 
-      <div class="product-body">
+<div class="white-box">
 
-        <h3>
-          Gift Card
-        </h3>
+<div class="avatar">
+👤
+</div>
 
-        <div class="seller">
-          Satıcı: GiftStore
-        </div>
+<h2>
+DigiBaku istifadəçisi
+</h2>
 
-        <div class="rating">
-          ★★★★★ 4.9
-        </div>
+<p style="color:#6b7280;margin-top:8px">
+Hesab məlumatlarını idarə et.
+</p>
 
-        <div class="product-bottom">
+<br>
 
-          <div class="price">
-            10.00 AZN
-          </div>
+<a
+href="login.html"
+class="btn primary"
+style="display:inline-block;text-decoration:none">
 
-          <a href="product.html" class="buy">
-            Məhsula bax
-          </a>
+Giriş / Qeydiyyat
 
-        </div>
+</a>
 
-      </div>
+</div>
 
-    </div>
+</div>
 
+</div>
 
-  </div>
+</section>
 
 
-  <div id="noResults" class="no-results">
-    Heç bir məhsul tapılmadı.
-  </div>
+<!-- ORDERS -->
 
-</main>
+<section id="orders" class="section">
 
+<div class="container">
 
-<section class="features">
+<div class="title">
+<h2>📦 Sifarişlərim</h2>
+</div>
 
-  <div class="features-grid">
+<div class="white-box">
 
-    <div class="feature">
+<div class="empty">
 
-      <div class="feature-icon">
-        🔒
-      </div>
+<div class="empty-icon">
+📦
+</div>
 
-      <h3>
-        Təhlükəsiz alış
-      </h3>
+<h3>
+Hələ sifariş yoxdur
+</h3>
 
-      <p>
-        Rahat və təhlükəsiz alış-veriş sistemi.
-      </p>
+<p>
+Sifariş verdikdə burada görünəcək.
+</p>
 
-    </div>
+</div>
 
+</div>
 
-    <div class="feature">
+</div>
 
-      <div class="feature-icon">
-        ⚡
-      </div>
+</section>
 
-      <h3>
-        Sürətli çatdırılma
-      </h3>
 
-      <p>
-        Digital məhsulların sürətli təqdim edilməsi.
-      </p>
+<!-- SELLER -->
 
-    </div>
+<section id="seller" class="section">
 
+<div class="container">
 
-    <div class="feature">
+<div class="title">
+<h2>🏪 Satıcı paneli</h2>
+</div>
 
-      <div class="feature-icon">
-        🛡️
-      </div>
 
-      <h3>
-        Dəstək
-      </h3>
+<div class="notice">
+Məhsullarını DigiBaku-da satmaq üçün
+məhsul əlavə edə bilərsən.
+</div>
 
-      <p>
-        İstifadəçilər üçün dəstək sistemi.
-      </p>
 
-    </div>
+<div class="info-grid">
 
-  </div>
+<div class="info-card">
+
+<div class="icon">
+📦
+</div>
+
+<h3>
+Məhsullar
+</h3>
+
+<p>
+Satışa çıxardığın məhsulları idarə et.
+</p>
+
+</div>
+
+
+<div class="info-card">
+
+<div class="icon">
+💰
+</div>
+
+<h3>
+Satışlar
+</h3>
+
+<p>
+Satış və gəlirlərini izləyə bilərsən.
+</p>
+
+</div>
+
+
+<div class="info-card">
+
+<div class="icon">
+📊
+</div>
+
+<h3>
+Statistika
+</h3>
+
+<p>
+Məhsullarının göstəricilərinə bax.
+</p>
+
+</div>
+
+</div>
+
+
+<br>
+
+<button
+class="btn primary"
+onclick="showSection('add-product')">
+
++ Məhsul əlavə et
+
+</button>
+
+</div>
+
+</section>
+
+
+<!-- ADD PRODUCT -->
+
+<section id="add-product" class="section">
+
+<div class="container">
+
+<div class="title">
+<h2>➕ Məhsul əlavə et</h2>
+</div>
+
+
+<div class="white-box">
+
+<form
+class="form"
+onsubmit="addSellerProduct(event)">
+
+<div class="form-group">
+
+<label>
+Məhsul adı
+</label>
+
+<input
+id="sellerProductName"
+required
+placeholder="Məsələn: Netflix Account">
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Kateqoriya
+</label>
+
+<select id="sellerCategory">
+
+<option>Oyun</option>
+<option>Hesab</option>
+<option>Proqram</option>
+<option>Digər</option>
+
+</select>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Qiymət (AZN)
+</label>
+
+<input
+id="sellerPrice"
+type="number"
+step="0.01"
+min="0"
+required
+placeholder="5.99">
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Məhsul təsviri
+</label>
+
+<textarea
+id="sellerDescription"
+placeholder="Məhsul haqqında məlumat...">
+</textarea>
+
+</div>
+
+
+<button
+class="btn primary"
+type="submit">
+
+Məhsulu əlavə et
+
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- SUPPORT -->
+
+<section id="support" class="section">
+
+<div class="container">
+
+<div class="title">
+<h2>💬 Dəstək</h2>
+</div>
+
+
+<div class="white-box">
+
+<form
+class="form"
+onsubmit="sendSupport(event)">
+
+<div class="form-group">
+
+<label>
+Ad
+</label>
+
+<input
+required
+placeholder="Adınız">
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Email
+</label>
+
+<input
+type="email"
+required
+placeholder="email@example.com">
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Mesaj
+</label>
+
+<textarea
+required
+placeholder="Probleminizi yazın...">
+</textarea>
+
+</div>
+
+
+<button
+class="btn primary"
+type="submit">
+
+Mesaj göndər
+
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ABOUT -->
+
+<section id="about" class="section">
+
+<div class="container">
+
+<div class="title">
+<h2>ℹ️ DigiBaku haqqında</h2>
+</div>
+
+<div class="white-box">
+
+<h2 style="margin-bottom:15px">
+DigiBaku
+</h2>
+
+<p style="color:#64748b;line-height:1.8">
+DigiBaku rəqəmsal məhsullar üçün
+yaradılmış marketplace platformasıdır.
+Burada istifadəçilər rəqəmsal məhsulları
+kəşf edə və satıcılar məhsullarını
+satışa çıxara bilərlər.
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- TERMS -->
+
+<section id="terms" class="section">
+
+<div class="container">
+
+<div class="title">
+<h2>📜 Qaydalar</h2>
+</div>
+
+<div class="white-box">
+
+<h3 style="margin-bottom:12px">
+DigiBaku istifadə qaydaları
+</h3>
+
+<p style="color:#64748b;line-height:1.8">
+
+DigiBaku platformasından istifadə edərkən
+qanuni və icazəli məhsullardan istifadə
+etmək tələb olunur. İstifadəçilər öz
+hesablarının təhlükəsizliyinə cavabdehdir.
+
+</p>
+
+</div>
+
+</div>
 
 </section>
 
 
 <footer>
 
-  © 2026 DigiBaku — Digital Marketplace
+<div class="footer-inner">
+
+<div>
+
+<div class="footer-logo">
+DigiBaku
+</div>
+
+<p>
+Digital Marketplace
+</p>
+
+</div>
+
+
+<div class="footer-links">
+
+<button onclick="showSection('home')">
+Ana səhifə
+</button>
+
+<button onclick="showSection('profile')">
+Hesab
+</button>
+
+<button onclick="showSection('orders')">
+Sifarişlər
+</button>
+
+<button onclick="showSection('seller')">
+Satıcı
+</button>
+
+<button onclick="showSection('support')">
+Dəstək
+</button>
+
+<button onclick="showSection('about')">
+Haqqımızda
+</button>
+
+<button onclick="showSection('terms')">
+Qaydalar
+</button>
+
+</div>
+
+</div>
 
 </footer>
 
 
 <script>
 
-  function searchProducts() {
-
-    const input =
-      document.getElementById("searchInput");
-
-    const query =
-      input.value.trim().toLowerCase();
-
-    const products =
-      document.querySelectorAll(".product");
-
-    let found = 0;
-
-    products.forEach(function(product) {
-
-      const name =
-        product.dataset.name.toLowerCase();
-
-      const category =
-        product.dataset.category.toLowerCase();
-
-      if (
-        query === "" ||
-        name.includes(query) ||
-        category.includes(query)
-      ) {
-
-        product.style.display = "";
-
-        found++;
-
-      } else {
-
-        product.style.display = "none";
-
-      }
-
-    });
-
-    document.getElementById("noResults").style.display =
-      found === 0 ? "block" : "none";
-
-    document.getElementById("products")
-      .scrollIntoView({
-        behavior: "smooth"
-      });
-
-  }
+let cart =
+JSON.parse(
+localStorage.getItem("digibaku_cart") || "[]"
+);
 
 
-  document
-    .getElementById("searchInput")
-    .addEventListener(
-      "keydown",
-      function(event) {
+function saveCart(){
 
-        if (event.key === "Enter") {
+localStorage.setItem(
+"digibaku_cart",
+JSON.stringify(cart)
+);
 
-          searchProducts();
-
-        }
-
-      }
-    );
+}
 
 
-  function filterCategory(category) {
+function updateCart(){
 
-    const products =
-      document.querySelectorAll(".product");
+document.getElementById("cartCount")
+.textContent = cart.length;
 
-    let found = 0;
+renderCart();
 
-    products.forEach(function(product) {
-
-      if (
-        product.dataset.category === category
-      ) {
-
-        product.style.display = "";
-
-        found++;
-
-      } else {
-
-        product.style.display = "none";
-
-      }
-
-    });
-
-    document.getElementById("noResults").style.display =
-      found === 0 ? "block" : "none";
-
-    document.getElementById("products")
-      .scrollIntoView({
-        behavior: "smooth"
-      });
-
-  }
+}
 
 
-  function showAllProducts() {
+function addProduct(
+id,
+name,
+price,
+category
+){
 
-    const products =
-      document.querySelectorAll(".product");
+const exists =
+cart.some(
+item => item.id === id
+);
 
-    products.forEach(function(product) {
+if(exists){
 
-      product.style.display = "";
+alert(
+"Bu məhsul artıq səbətdədir."
+);
 
-    });
+return;
 
-    document.getElementById("noResults").style.display =
-      "none";
+}
 
-  }
+
+cart.push({
+
+id:id,
+name:name,
+price:price,
+category:category,
+seller:"DigiBaku"
+
+});
+
+
+saveCart();
+
+updateCart();
+
+alert(
+"Məhsul səbətə əlavə edildi."
+);
+
+}
+
+
+function removeProduct(index){
+
+cart.splice(index,1);
+
+saveCart();
+
+updateCart();
+
+}
+
+
+function clearCart(){
+
+if(cart.length === 0){
+
+return;
+
+}
+
+
+if(
+confirm(
+"Səbəti təmizləmək istəyirsən?"
+)
+){
+
+cart=[];
+
+saveCart();
+
+updateCart();
+
+}
+
+}
+
+
+function renderCart(){
+
+const box =
+document.getElementById(
+"cartItems"
+);
+
+if(!box){
+
+return;
+
+}
+
+
+if(cart.length===0){
+
+box.innerHTML=`
+
+<div class="empty">
+
+<div class="empty-icon">
+🛒
+</div>
+
+<h3>
+Səbətin boşdur
+</h3>
+
+<p>
+Məhsul əlavə etdikdə burada görünəcək.
+</p>
+
+<br>
+
+<button
+class="btn primary"
+onclick="showSection('home')">
+
+Məhsullara bax
+
+</button>
+
+</div>
+
+`;
+
+document.getElementById(
+"cartTotal"
+).textContent="0.00 AZN";
+
+document.getElementById(
+"cartTotalCount"
+).textContent="0";
+
+return;
+
+}
+
+
+let total=0;
+
+
+box.innerHTML =
+cart.map(
+(item,index)=>{
+
+total +=
+Number(item.price);
+
+return `
+
+<div class="cart-item">
+
+<div class="cart-icon">
+🎮
+</div>
+
+<div class="cart-info">
+
+<h3>
+${item.name}
+</h3>
+
+<p>
+${item.category}
+· ${Number(item.price).toFixed(2)} AZN
+</p>
+
+</div>
+
+<button
+class="btn danger"
+onclick="removeProduct(${index})">
+
+Sil
+
+</button>
+
+</div>
+
+`;
+
+}).join("");
+
+
+document.getElementById(
+"cartTotal"
+).textContent =
+total.toFixed(2)+" AZN";
+
+
+document.getElementById(
+"cartTotalCount"
+).textContent =
+cart.length;
+
+}
+
+
+function checkout(){
+
+if(cart.length===0){
+
+alert(
+"Səbətin boşdur."
+);
+
+return;
+
+}
+
+
+window.location.href =
+"login.html";
+
+}
+
+
+function showSection(id){
+
+document
+.querySelectorAll(".section")
+.forEach(
+section =>
+section.classList.remove("active")
+);
+
+
+const target =
+document.getElementById(id);
+
+
+if(target){
+
+target.classList.add("active");
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+
+}
+
+}
+
+
+function filterCategory(category){
+
+showSection("home");
+
+
+const products =
+document.querySelectorAll(
+".product"
+);
+
+
+products.forEach(
+product=>{
+
+if(
+category==="all" ||
+product.dataset.category===category
+){
+
+product.style.display="block";
+
+}else{
+
+product.style.display="none";
+
+}
+
+});
+
+
+setTimeout(
+()=>{
+
+document
+.getElementById("products")
+.scrollIntoView({
+behavior:"smooth"
+});
+
+},
+100
+);
+
+}
+
+
+function searchProducts(){
+
+const search =
+document
+.getElementById("searchInput")
+.value
+.toLowerCase()
+.trim();
+
+
+const products =
+document.querySelectorAll(
+".product"
+);
+
+
+products.forEach(
+product=>{
+
+const name =
+product.dataset.name
+.toLowerCase();
+
+
+const category =
+product.dataset.category
+.toLowerCase();
+
+
+if(
+name.includes(search) ||
+category.includes(search)
+){
+
+product.style.display="block";
+
+}else{
+
+product.style.display="none";
+
+}
+
+});
+
+}
+
+
+function scrollProducts(){
+
+setTimeout(
+()=>{
+
+document
+.getElementById("products")
+.scrollIntoView({
+behavior:"smooth"
+});
+
+},
+100
+);
+
+}
+
+
+function addSellerProduct(event){
+
+event.preventDefault();
+
+
+const name =
+document
+.getElementById(
+"sellerProductName"
+)
+.value;
+
+
+const category =
+document
+.getElementById(
+"sellerCategory"
+)
+.value;
+
+
+const price =
+document
+.getElementById(
+"sellerPrice"
+)
+.value;
+
+
+const description =
+document
+.getElementById(
+"sellerDescription"
+)
+.value;
+
+
+alert(
+`"${name}" məhsulu əlavə edildi.\n\nQiymət: ${price} AZN\nKateqoriya: ${category}`
+);
+
+
+event.target.reset();
+
+showSection("seller");
+
+}
+
+
+function sendSupport(event){
+
+event.preventDefault();
+
+
+alert(
+"Mesajınız qəbul edildi. Dəstək komandası sizinlə əlaqə saxlayacaq."
+);
+
+
+event.target.reset();
+
+}
+
+
+updateCart();
 
 </script>
-
 
 </body>
 </html>
