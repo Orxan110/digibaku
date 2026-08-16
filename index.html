@@ -2,876 +2,375 @@
 <html lang="az">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>DigiBaku — Digital Marketplace</title>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 <style>
+
 *{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-  font-family:Arial,sans-serif;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
 }
 
 body{
-  background:#f5f7fb;
-  color:#111827;
+    background:#f5f7fb;
+    color:#111827;
 }
 
-button,input,textarea,select{
-  font:inherit;
-}
-
-button{
-  cursor:pointer;
-}
+/* HEADER */
 
 header{
-  background:white;
-  border-bottom:1px solid #e5e7eb;
-  position:sticky;
-  top:0;
-  z-index:1000;
-}
-
-.header{
-  max-width:1250px;
-  min-height:70px;
-  margin:auto;
-  padding:10px 20px;
-  display:flex;
-  align-items:center;
-  gap:18px;
-}
-
-.logo{
-  color:#2563eb;
-  font-size:25px;
-  font-weight:900;
-  text-decoration:none;
-}
-
-.search{
-  flex:1;
-  position:relative;
-}
-
-.search input{
-  width:100%;
-  height:44px;
-  border:1px solid #d1d5db;
-  border-radius:9px;
-  padding:0 48px 0 15px;
-  outline:none;
-}
-
-.search input:focus{
-  border-color:#2563eb;
-}
-
-.search button{
-  position:absolute;
-  right:5px;
-  top:5px;
-  width:34px;
-  height:34px;
-  border:0;
-  border-radius:7px;
-  background:#2563eb;
-  color:white;
+    background:#fff;
+    border-bottom:1px solid #e5e7eb;
+    position:sticky;
+    top:0;
+    z-index:100;
 }
 
 .nav{
-  display:flex;
-  align-items:center;
-  gap:5px;
+    max-width:1200px;
+    margin:auto;
+    padding:18px 20px;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
 }
 
-.nav button,
-.nav a{
-  border:0;
-  background:none;
-  color:#374151;
-  text-decoration:none;
-  font-size:13px;
-  font-weight:bold;
-  padding:9px;
+.logo{
+    font-size:28px;
+    font-weight:900;
+    color:#2563eb;
 }
 
-.blue{
-  background:#2563eb!important;
-  color:white!important;
-  border-radius:8px;
+.logo span{
+    color:#111827;
 }
 
-.cart-btn{
-  background:#eff6ff!important;
-  color:#2563eb!important;
-  border-radius:8px;
+.nav-right{
+    display:flex;
+    gap:10px;
 }
+
+.nav-btn{
+    border:0;
+    background:#eff6ff;
+    color:#2563eb;
+    padding:10px 16px;
+    border-radius:9px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+/* HERO */
 
 .hero{
-  max-width:1250px;
-  margin:25px auto;
-  padding:65px 40px;
-  border-radius:22px;
-  color:white;
-  background:
-    radial-gradient(circle at 90% 10%,rgba(255,255,255,.25),transparent 30%),
-    linear-gradient(135deg,#2563eb,#4f46e5);
+    max-width:1200px;
+    margin:35px auto 20px;
+    padding:0 20px;
+}
+
+.hero-box{
+    background:linear-gradient(
+        135deg,
+        #2563eb,
+        #4f46e5
+    );
+
+    border-radius:22px;
+    padding:45px 30px;
+    color:white;
 }
 
 .hero h1{
-  max-width:700px;
-  font-size:45px;
-  line-height:1.1;
-  margin-bottom:18px;
+    font-size:38px;
+    margin-bottom:12px;
 }
 
 .hero p{
-  max-width:650px;
-  color:#dbeafe;
-  line-height:1.7;
-  margin-bottom:25px;
+    font-size:17px;
+    opacity:.9;
 }
 
-.hero-btn{
-  display:inline-block;
-  padding:13px 20px;
-  border-radius:9px;
-  background:white;
-  color:#2563eb;
-  text-decoration:none;
-  font-weight:bold;
-}
+/* PRODUCTS */
 
 .container{
-  max-width:1250px;
-  margin:40px auto;
-  padding:0 20px;
+    max-width:1200px;
+    margin:30px auto;
+    padding:0 20px;
 }
 
-.section{
-  display:none;
-}
-
-.section.active{
-  display:block;
-}
-
-.title{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:20px;
-}
-
-.title h2{
-  font-size:25px;
-}
-
-.categories{
-  display:grid;
-  grid-template-columns:repeat(5,1fr);
-  gap:12px;
-  margin-bottom:45px;
-}
-
-.category{
-  background:white;
-  border:1px solid #e5e7eb;
-  border-radius:13px;
-  padding:20px 10px;
-  text-align:center;
-  transition:.2s;
-}
-
-.category:hover{
-  transform:translateY(-3px);
-  border-color:#2563eb;
-}
-
-.category-icon{
-  font-size:30px;
-  margin-bottom:8px;
-}
-
-.category-name{
-  font-size:13px;
-  font-weight:bold;
+.section-title{
+    font-size:25px;
+    margin-bottom:20px;
 }
 
 .products{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:18px;
+    display:grid;
+    grid-template-columns:
+        repeat(auto-fill,minmax(250px,1fr));
+
+    gap:20px;
 }
 
 .product{
-  background:white;
-  border:1px solid #e5e7eb;
-  border-radius:15px;
-  overflow:hidden;
-  transition:.2s;
+    background:white;
+    border-radius:16px;
+    overflow:hidden;
+
+    border:1px solid #e5e7eb;
+
+    box-shadow:
+        0 8px 25px rgba(0,0,0,.06);
 }
 
-.product:hover{
-  transform:translateY(-4px);
-  box-shadow:0 15px 35px rgba(0,0,0,.08);
-}
+.product-image{
+    height:170px;
 
-.product-img{
-  height:180px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:70px;
-  background:linear-gradient(135deg,#1d4ed8,#7c3aed);
-  overflow:hidden;
-}
+    display:flex;
+    align-items:center;
+    justify-content:center;
 
-.product-img img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
+    background:
+        linear-gradient(
+            135deg,
+            #dbeafe,
+            #e0e7ff
+        );
+
+    font-size:65px;
 }
 
 .product-body{
-  padding:16px;
-}
-
-.category-label{
-  color:#2563eb;
-  font-size:11px;
-  font-weight:bold;
-  margin-bottom:8px;
+    padding:20px;
 }
 
 .product h3{
-  font-size:16px;
-  margin-bottom:8px;
+    font-size:20px;
+    margin-bottom:8px;
 }
 
-.product p{
-  color:#6b7280;
-  font-size:12px;
-  line-height:1.5;
-  min-height:38px;
+.product-description{
+    color:#64748b;
+    font-size:14px;
+    min-height:40px;
+    margin-bottom:15px;
 }
 
-.product-bottom{
-  margin-top:15px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:8px;
+.duration-select{
+    width:100%;
+    padding:12px;
+
+    border:1px solid #d1d5db;
+    border-radius:9px;
+
+    margin-bottom:12px;
+
+    background:white;
 }
 
 .price{
-  font-size:18px;
-  font-weight:900;
+    font-size:24px;
+    font-weight:900;
+    color:#2563eb;
+
+    margin-bottom:12px;
 }
 
-.btn{
-  border:0;
-  border-radius:8px;
-  padding:10px 13px;
-  font-size:12px;
-  font-weight:bold;
+.order-btn{
+    width:100%;
+    border:0;
+
+    padding:13px;
+
+    background:#16a34a;
+    color:white;
+
+    border-radius:9px;
+
+    font-weight:bold;
+    font-size:15px;
+
+    cursor:pointer;
 }
 
-.primary{
-  background:#2563eb;
-  color:white;
+.order-btn:hover{
+    background:#15803d;
 }
 
-.secondary{
-  background:#eff6ff;
-  color:#2563eb;
+/* HOW */
+
+.info{
+    margin-top:45px;
+
+    display:grid;
+    grid-template-columns:
+        repeat(auto-fit,minmax(220px,1fr));
+
+    gap:15px;
 }
 
-.danger{
-  background:#fef2f2;
-  color:#dc2626;
+.info-box{
+    background:white;
+    padding:22px;
+    border-radius:14px;
+
+    border:1px solid #e5e7eb;
 }
 
-.white-box{
-  background:white;
-  border:1px solid #e5e7eb;
-  border-radius:15px;
-  padding:25px;
+.info-box strong{
+    display:block;
+    margin-bottom:7px;
 }
 
-.cart-layout{
-  display:grid;
-  grid-template-columns:1fr 330px;
-  gap:20px;
-}
-
-.cart-item{
-  display:flex;
-  align-items:center;
-  gap:15px;
-  padding:16px 0;
-  border-bottom:1px solid #eee;
-}
-
-.cart-icon{
-  width:65px;
-  height:65px;
-  border-radius:10px;
-  background:linear-gradient(135deg,#2563eb,#7c3aed);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:28px;
-}
-
-.cart-info{
-  flex:1;
-}
-
-.cart-info h3{
-  font-size:15px;
-  margin-bottom:5px;
-}
-
-.cart-info p{
-  color:#6b7280;
-  font-size:12px;
-}
-
-.summary-row{
-  display:flex;
-  justify-content:space-between;
-  margin-bottom:15px;
-  color:#64748b;
-}
-
-.total{
-  border-top:1px solid #e5e7eb;
-  padding-top:18px;
-  display:flex;
-  justify-content:space-between;
-  font-size:21px;
-  font-weight:900;
-}
-
-.full-btn{
-  width:100%;
-  height:47px;
-  margin-top:15px;
-  border:0;
-  border-radius:9px;
-  font-weight:bold;
-}
-
-.empty{
-  text-align:center;
-  padding:50px 20px;
-  color:#64748b;
-}
-
-.empty-icon{
-  font-size:50px;
-  margin-bottom:15px;
-}
-
-.form{
-  max-width:650px;
-}
-
-.form-group{
-  margin-bottom:16px;
-}
-
-.form-group label{
-  display:block;
-  font-size:13px;
-  font-weight:bold;
-  margin-bottom:7px;
-}
-
-.form-group input,
-.form-group textarea,
-.form-group select{
-  width:100%;
-  border:1px solid #d1d5db;
-  border-radius:8px;
-  padding:12px;
-  outline:none;
-}
-
-.form-group textarea{
-  min-height:130px;
-  resize:vertical;
-}
-
-.profile-grid{
-  display:grid;
-  grid-template-columns:250px 1fr;
-  gap:20px;
-}
-
-.side-menu button{
-  width:100%;
-  border:0;
-  background:white;
-  text-align:left;
-  padding:13px;
-  border-bottom:1px solid #eee;
-  color:#374151;
-  font-weight:bold;
-}
-
-.side-menu button:hover{
-  color:#2563eb;
-}
-
-.avatar{
-  width:80px;
-  height:80px;
-  border-radius:50%;
-  background:#2563eb;
-  color:white;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:32px;
-  margin-bottom:15px;
-}
-
-.info-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:15px;
-}
-
-.info-card{
-  background:white;
-  border:1px solid #e5e7eb;
-  border-radius:13px;
-  padding:25px;
-}
-
-.info-card .icon{
-  font-size:30px;
-  margin-bottom:10px;
-}
-
-.info-card h3{
-  margin-bottom:8px;
-}
-
-.info-card p{
-  color:#6b7280;
-  font-size:13px;
-  line-height:1.6;
-}
-
-.notice{
-  padding:14px;
-  border-radius:9px;
-  margin-bottom:20px;
-  background:#eff6ff;
-  color:#1d4ed8;
-  font-size:13px;
-}
-
-.order-card{
-  border:1px solid #e5e7eb;
-  border-radius:12px;
-  padding:18px;
-  margin-bottom:15px;
-}
-
-.order-head{
-  display:flex;
-  justify-content:space-between;
-  gap:15px;
-  margin-bottom:12px;
-}
-
-.status{
-  background:#eff6ff;
-  color:#2563eb;
-  padding:5px 9px;
-  border-radius:6px;
-  font-size:11px;
-  font-weight:bold;
-}
-
-.favorite-btn{
-  border:0;
-  background:#fff;
-  font-size:22px;
-  cursor:pointer;
-}
+/* FOOTER */
 
 footer{
-  margin-top:70px;
-  background:#0b1120;
-  color:#9ca3af;
-  padding:40px 20px;
+    margin-top:60px;
+
+    background:#111827;
+    color:white;
+
+    padding:30px 20px;
+    text-align:center;
 }
 
-.footer-inner{
-  max-width:1250px;
-  margin:auto;
-  display:flex;
-  justify-content:space-between;
-  gap:30px;
+footer p{
+    color:#9ca3af;
+    margin-top:7px;
 }
 
-.footer-logo{
-  color:white;
-  font-size:21px;
-  font-weight:900;
-  margin-bottom:8px;
+/* MOBILE */
+
+@media(max-width:600px){
+
+    .hero h1{
+        font-size:28px;
+    }
+
+    .hero-box{
+        padding:35px 22px;
+    }
+
+    .logo{
+        font-size:23px;
+    }
+
 }
 
-.footer-links{
-  display:flex;
-  gap:20px;
-  flex-wrap:wrap;
-}
-
-.footer-links button{
-  background:none;
-  border:0;
-  color:#d1d5db;
-}
-
-@media(max-width:950px){
-
-  .products{
-    grid-template-columns:repeat(3,1fr);
-  }
-
-  .categories{
-    grid-template-columns:repeat(3,1fr);
-  }
-
-  .cart-layout,
-  .profile-grid{
-    grid-template-columns:1fr;
-  }
-}
-
-@media(max-width:700px){
-
-  .header{
-    flex-wrap:wrap;
-  }
-
-  .search{
-    order:3;
-    flex-basis:100%;
-  }
-
-  .products{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .categories{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .info-grid{
-    grid-template-columns:1fr;
-  }
-
-  .footer-inner{
-    flex-direction:column;
-  }
-
-  .hero{
-    margin:15px;
-    padding:40px 25px;
-  }
-
-  .hero h1{
-    font-size:31px;
-  }
-}
-
-@media(max-width:450px){
-
-  .products{
-    grid-template-columns:1fr;
-  }
-}
 </style>
 </head>
 
 <body>
 
+
+<!-- HEADER -->
+
 <header>
 
-<div class="header">
+<div class="nav">
 
-<a href="#" class="logo" onclick="showSection('home');return false;">
-DigiBaku
-</a>
-
-<div class="search">
-
-<input
-id="searchInput"
-placeholder="Məhsul axtar..."
-oninput="searchProducts()">
-
-<button onclick="searchProducts()">🔎</button>
-
+<div class="logo">
+Digi<span>Baku</span>
 </div>
 
-<nav class="nav">
+<div class="nav-right">
 
-<button onclick="showSection('home')">
-Ana səhifə
+<button
+class="nav-btn"
+onclick="scrollToProducts()">
+
+Məhsullar
+
 </button>
 
-<button onclick="showSection('favorites');loadFavorites()">
-❤️
+<button
+class="nav-btn"
+onclick="openWhatsApp()">
+
+WhatsApp
+
 </button>
 
-<button class="cart-btn" onclick="showSection('cart')">
-🛒 <span id="cartCount">0</span>
-</button>
-
-<button class="blue" id="loginButton" onclick="openAccount()">
-Giriş
-</button>
-
-</nav>
+</div>
 
 </div>
 
 </header>
 
 
-<!-- HOME -->
+<!-- HERO -->
 
-<section id="home" class="section active">
+<section class="hero">
 
-<div class="hero">
+<div class="hero-box">
 
 <h1>
-Rəqəmsal məhsulların ünvanı — DigiBaku
+Rəqəmsal məhsullarını seç
 </h1>
 
 <p>
-Hesablar, oyun məhsulları, proqramlar
-və digər rəqəmsal məhsulları rahat
-və təhlükəsiz şəkildə kəşf et.
+Müddəti seç, sifariş et və WhatsApp vasitəsilə əlaqə saxla.
 </p>
 
-<a href="#products" class="hero-btn"
-onclick="scrollProducts();return false;">
-Məhsullara bax
-</a>
-
-</div>
-
-<div class="container">
-
-<div class="title">
-<h2>Kateqoriyalar</h2>
-</div>
-
-<div class="categories">
-
-<div class="category" onclick="filterCategory('all')">
-<div class="category-icon">🔥</div>
-<div class="category-name">Hamısı</div>
-</div>
-
-<div class="category" onclick="filterCategory('Oyun')">
-<div class="category-icon">🎮</div>
-<div class="category-name">Oyun</div>
-</div>
-
-<div class="category" onclick="filterCategory('Hesab')">
-<div class="category-icon">👤</div>
-<div class="category-name">Hesablar</div>
-</div>
-
-<div class="category" onclick="filterCategory('Proqram')">
-<div class="category-icon">💻</div>
-<div class="category-name">Proqram</div>
-</div>
-
-<div class="category" onclick="filterCategory('Digər')">
-<div class="category-icon">📦</div>
-<div class="category-name">Digər</div>
-</div>
-
-</div>
-
-<div class="title" id="products">
-<h2>Məhsullar</h2>
-</div>
-
-<div id="productGrid" class="products">
-
-<div class="empty" style="grid-column:1/-1">
-<div class="empty-icon">⏳</div>
-<h3>Məhsullar yüklənir...</h3>
-</div>
-
-</div>
-
 </div>
 
 </section>
 
 
-<!-- CART -->
+<!-- PRODUCTS -->
 
-<section id="cart" class="section">
+<div
+class="container"
+id="productsSection">
 
-<div class="container">
-
-<div class="title">
-
-<h2>🛒 Səbət</h2>
-
-<button class="btn danger" onclick="clearCart()">
-Səbəti təmizlə
-</button>
-
-</div>
-
-<div class="cart-layout">
-
-<div class="white-box">
-
-<div id="cartItems"></div>
-
-</div>
-
-<div class="white-box">
-
-<h3 style="margin-bottom:20px">
-Sifariş xülasəsi
-</h3>
-
-<div class="summary-row">
-<span>Məhsul sayı</span>
-<strong id="cartTotalCount">0</strong>
-</div>
-
-<div class="summary-row">
-<span>Çatdırılma</span>
-<strong>Pulsuz</strong>
-</div>
-
-<div class="total">
-<span>Cəmi</span>
-<span id="cartTotal">0.00 AZN</span>
-</div>
-
-<button class="full-btn primary" onclick="checkout()">
-Sifarişi tamamla
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- FAVORITES -->
-
-<section id="favorites" class="section">
-
-<div class="container">
-
-<div class="title">
-<h2>❤️ Seçilmişlər</h2>
-</div>
-
-<div id="favoritesList" class="products">
-
-<div class="empty" style="grid-column:1/-1">
-<div class="empty-icon">❤️</div>
-<h3>Yüklənir...</h3>
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- PROFILE -->
-
-<section id="profile" class="section">
-
-<div class="container">
-
-<div class="title">
-<h2>👤 Mənim hesabım</h2>
-</div>
-
-<div class="profile-grid">
-
-<div class="white-box side-menu">
-
-<button onclick="showSection('profile')">
-👤 Profil
-</button>
-
-<button onclick="showSection('orders');loadOrders()">
-📦 Sifarişlər
-</button>
-
-<button id="adminMenuButton" style="display:none" onclick="showSection('admin');loadAdminProducts()">
-👑 Admin paneli
-</button>
-
-<button onclick="showSection('favorites');loadFavorites()">
-❤️ Seçilmişlər
-</button>
-
-<button onclick="showSection('support')">
-💬 Dəstək
-</button>
-
-<button onclick="logout()">
-🚪 Çıxış
-</button>
-
-</div>
-
-<div class="white-box">
-
-<div class="avatar">👤</div>
-
-<h2 id="profileTitle">
-DigiBaku istifadəçisi
+<h2 class="section-title">
+Məhsullar
 </h2>
 
-<p id="profileEmail"
-style="color:#6b7280;margin-top:8px">
-Hesab məlumatları
-</p>
+<div
+class="products"
+id="products">
 
-<br>
+</div>
 
-<a href="login.html"
-class="btn primary"
-id="profileLogin"
-style="display:inline-block;text-decoration:none">
-Giriş / Qeydiyyat
-</a>
+
+<!-- INFO -->
+
+<div class="info">
+
+<div class="info-box">
+
+<strong>
+📅 Müddəti sən seç
+</strong>
+
+Məhsulun istədiyin müddətini seç və qiyməti dərhal gör.
+
+</div>
+
+
+<div class="info-box">
+
+<strong>
+📲 WhatsApp ilə sifariş
+</strong>
+
+Sifariş düyməsinə basdıqda birbaşa WhatsApp-a yönləndirilirsən.
+
+</div>
+
+
+<div class="info-box">
+
+<strong>
+⚡ Sürətli xidmət
+</strong>
+
+Sifariş məlumatların avtomatik olaraq bizə göndərilir.
 
 </div>
 
@@ -879,1572 +378,370 @@ Giriş / Qeydiyyat
 
 </div>
 
-</section>
 
-
-<!-- ORDERS -->
-
-<section id="orders" class="section">
-
-<div class="container">
-
-<div class="title">
-<h2>📦 Sifarişlərim</h2>
-</div>
-
-<div id="ordersList" class="white-box">
-
-<div class="empty">
-<div class="empty-icon">📦</div>
-<h3>Yüklənir...</h3>
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- ADMIN -->
-<section id="admin" class="section">
-
-<div class="container">
-
-<div class="title">
-<h2>👑 Admin paneli</h2>
-</div>
-
-<div class="notice">
-Bu bölmədə yalnız DigiBaku sayt sahibi məhsulları idarə edə bilər.
-</div>
-
-<div class="info-grid">
-<div class="info-card">
-<div class="icon">📦</div>
-<h3>Məhsullar</h3>
-<p>Saytda satılan rəqəmsal məhsulları əlavə et və sil.</p>
-</div>
-<div class="info-card">
-<div class="icon">🛒</div>
-<h3>Sifarişlər</h3>
-<p>Müştərilərin verdiyi sifarişləri izləyəcəksən.</p>
-</div>
-<div class="info-card">
-<div class="icon">👥</div>
-<h3>Müştərilər</h3>
-<p>Müştərilər məhsullara baxıb sifariş verə bilərlər.</p>
-</div>
-</div>
-
-<br>
-<div id="adminProducts"></div>
-<br>
-<button class="btn primary" onclick="showSection('add-product')">
-+ Məhsul əlavə et
-</button>
-
-</div>
-</section>
-
-
-<!-- ADD PRODUCT -->
-
-<section id="add-product" class="section">
-
-<div class="container">
-
-<div class="title">
-<h2>➕ Məhsul əlavə et</h2>
-</div>
-
-<div class="white-box">
-
-<form class="form" onsubmit="addSellerProduct(event)">
-
-<div class="form-group">
-
-<label>Məhsul adı</label>
-
-<input
-id="sellerProductName"
-required
-placeholder="Məsələn: Netflix Account">
-
-</div>
-
-<div class="form-group">
-
-<label>Kateqoriya</label>
-
-<select id="sellerCategory">
-
-<option>Oyun</option>
-<option>Hesab</option>
-<option>Proqram</option>
-<option>Digər</option>
-
-</select>
-
-</div>
-
-<div class="form-group">
-
-<label>Qiymət (AZN)</label>
-
-<input
-id="sellerPrice"
-type="number"
-step="0.01"
-min="0.01"
-required
-placeholder="5.99">
-
-</div>
-
-<div class="form-group">
-
-<label>Məhsul təsviri</label>
-
-<textarea
-id="sellerDescription"
-placeholder="Məhsul haqqında məlumat..."></textarea>
-
-</div>
-
-<button class="btn primary" type="submit">
-Məhsulu əlavə et
-</button>
-
-</form>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- SUPPORT -->
-
-<section id="support" class="section">
-
-<div class="container">
-
-<div class="title">
-<h2>💬 Dəstək</h2>
-</div>
-
-<div class="white-box">
-
-<form class="form" onsubmit="sendSupport(event)">
-
-<div class="form-group">
-
-<label>Ad</label>
-
-<input id="supportName"
-required
-placeholder="Adınız">
-
-</div>
-
-<div class="form-group">
-
-<label>Email</label>
-
-<input id="supportEmail"
-type="email"
-required
-placeholder="email@example.com">
-
-</div>
-
-<div class="form-group">
-
-<label>Mesaj</label>
-
-<textarea id="supportMessage"
-required
-placeholder="Probleminizi yazın..."></textarea>
-
-</div>
-
-<button class="btn primary" type="submit">
-Mesaj göndər
-</button>
-
-</form>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- ABOUT -->
-
-<section id="about" class="section">
-
-<div class="container">
-
-<div class="title">
-<h2>ℹ️ DigiBaku haqqında</h2>
-</div>
-
-<div class="white-box">
-
-<h2 style="margin-bottom:15px">
-DigiBaku
-</h2>
-
-<p style="color:#64748b;line-height:1.8">
-DigiBaku rəqəmsal məhsullar üçün yaradılmış marketplace platformasıdır.
-Burada istifadəçilər rəqəmsal məhsulları kəşf edə,
-səbətə əlavə edə və sifariş verə bilərlər.
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- TERMS -->
-
-<section id="terms" class="section">
-
-<div class="container">
-
-<div class="title">
-<h2>📜 Qaydalar</h2>
-</div>
-
-<div class="white-box">
-
-<h3 style="margin-bottom:12px">
-DigiBaku istifadə qaydaları
-</h3>
-
-<p style="color:#64748b;line-height:1.8">
-DigiBaku platformasından istifadə edərkən qanuni
-və icazəli məhsullardan istifadə etmək tələb olunur.
-İstifadəçilər öz hesablarının təhlükəsizliyinə cavabdehdir.
-</p>
-
-</div>
-
-</div>
-
-</section>
-
+<!-- FOOTER -->
 
 <footer>
 
-<div class="footer-inner">
-
-<div>
-
-<div class="footer-logo">
+<strong>
 DigiBaku
-</div>
+</strong>
 
-<p>Digital Marketplace</p>
+<p>
+Digital Marketplace
+</p>
 
-</div>
-
-<div class="footer-links">
-
-<button onclick="showSection('home')">Ana səhifə</button>
-<button onclick="showSection('profile')">Hesab</button>
-<button onclick="showSection('orders');loadOrders()">Sifarişlər</button>
-<button id="adminFooterButton" style="display:none" onclick="showSection('admin');loadAdminProducts()">Admin</button>
-<button onclick="showSection('support')">Dəstək</button>
-<button onclick="showSection('about')">Haqqımızda</button>
-<button onclick="showSection('terms')">Qaydalar</button>
-
-</div>
-
-</div>
+<p>
+WhatsApp: 070 288 34 84
+</p>
 
 </footer>
 
 
 <script>
 
-/* =====================================================
-   SUPABASE
-===================================================== */
+/*
+==================================================
+MƏHSULLAR
+==================================================
 
-const SUPABASE_URL =
-"https://zeknhnkaicqkfzgnvycq.supabase.co";
+BURADAN MƏHSULLARI DƏYİŞƏ BİLƏRSƏN.
 
-const SUPABASE_KEY =
-"sb_publishable_jHvCp9fXBA_BwFqrXYpwlw_VC6C1OQk";
+Məsələn:
 
-const supabaseClient =
-window.supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_KEY
-);
+Netflix
+30 gün = 6.99
+60 gün = 12.99
+
+Yeni məhsul əlavə etmək üçün aşağıdakı
+formatda yeni obyekt əlavə et.
+==================================================
+*/
 
 
-/* =====================================================
-   CART
-===================================================== */
+const products = [
 
-let cart=[];
+{
+    name:"Netflix",
+    icon:"🎬",
 
-try{
+    description:
+    "Netflix Premium rəqəmsal xidmət.",
 
-  cart=JSON.parse(
-    localStorage.getItem("digibaku_cart") || "[]"
-  );
+    durations:[
 
-  if(!Array.isArray(cart)){
-    cart=[];
-  }
+        {
+            name:"30 gün",
+            price:6.99
+        },
 
-}catch(e){
+        {
+            name:"60 gün",
+            price:12.99
+        }
 
-  cart=[];
+    ]
+},
 
+
+{
+    name:"YouTube Premium",
+    icon:"▶️",
+
+    description:
+    "YouTube Premium rəqəmsal xidmət.",
+
+    durations:[
+
+        {
+            name:"30 gün",
+            price:7.99
+        }
+
+    ]
+},
+
+
+{
+    name:"ChatGPT",
+    icon:"🤖",
+
+    description:
+    "ChatGPT rəqəmsal xidmət.",
+
+    durations:[
+
+        {
+            name:"30 gün",
+            price:11.99
+        }
+
+    ]
 }
 
-
-function saveCart(){
-
-  localStorage.setItem(
-    "digibaku_cart",
-    JSON.stringify(cart)
-  );
-
-}
+];
 
 
-function updateCart(){
+/*
+==================================================
+WHATSAPP
+==================================================
+*/
 
-  document.getElementById("cartCount").textContent =
-    cart.length;
-
-  renderCart();
-
-}
-
-
-function addProduct(id,name,price,category,seller_id){
-
-  const exists=cart.some(
-    x=>String(x.id)===String(id)
-  );
-
-  if(exists){
-
-    alert("Bu məhsul artıq səbətdədir.");
-
-    return;
-  }
-
-  cart.push({
-
-    id:id,
-    name:String(name),
-    price:Number(price),
-    category:String(category),
-    seller_id:seller_id || null
-
-  });
-
-  saveCart();
-  updateCart();
-
-  alert("Məhsul səbətə əlavə edildi.");
-
-}
+const whatsappNumber =
+"994702883484";
 
 
-function removeProduct(index){
+/*
+==================================================
+MƏHSULLARI GÖSTƏR
+==================================================
+*/
 
-  cart.splice(index,1);
+function loadProducts(){
 
-  saveCart();
-  updateCart();
+    const box =
+    document.getElementById("products");
 
-}
-
-
-function clearCart(){
-
-  if(!cart.length){
-    return;
-  }
-
-  if(confirm("Səbəti təmizləmək istəyirsən?")){
-
-    cart=[];
-    saveCart();
-    updateCart();
-
-  }
-
-}
+    box.innerHTML="";
 
 
-function renderCart(){
+    products.forEach(
+        (product,index)=>{
 
-  const box=document.getElementById("cartItems");
+        const card =
+        document.createElement("div");
 
-  if(!box){
-    return;
-  }
+        card.className="product";
 
-  if(!cart.length){
 
-    box.innerHTML=`
+        let options="";
 
-      <div class="empty">
 
-        <div class="empty-icon">🛒</div>
+        product.durations.forEach(
+            (duration,durationIndex)=>{
 
-        <h3>Səbətin boşdur</h3>
+            options += `
 
-        <p>Məhsul əlavə etdikdə burada görünəcək.</p>
+            <option
+                value="${durationIndex}">
 
-        <br>
+                ${duration.name}
+                —
+                ${duration.price.toFixed(2)} AZN
 
-        <button class="btn primary"
-        onclick="showSection('home')">
-        Məhsullara bax
-        </button>
+            </option>
 
-      </div>
+            `;
 
-    `;
+        });
 
-    document.getElementById("cartTotal").textContent="0.00 AZN";
-    document.getElementById("cartTotalCount").textContent="0";
 
-    return;
-  }
+        const firstPrice =
+        product.durations[0].price;
 
-  let total=0;
 
-  box.innerHTML=cart.map((item,index)=>{
+        card.innerHTML = `
 
-    const price=Number(item.price)||0;
+        <div class="product-image">
 
-    total+=price;
-
-    return `
-
-      <div class="cart-item">
-
-        <div class="cart-icon">📦</div>
-
-        <div class="cart-info">
-
-          <h3>${escapeHTML(item.name)}</h3>
-
-          <p>
-            ${escapeHTML(item.category)}
-            ·
-            ${price.toFixed(2)} AZN
-          </p>
+            ${product.icon}
 
         </div>
 
-        <button class="btn danger"
-        onclick="removeProduct(${index})">
-        Sil
-        </button>
-
-      </div>
-
-    `;
-
-  }).join("");
-
-  document.getElementById("cartTotal").textContent =
-    total.toFixed(2)+" AZN";
-
-  document.getElementById("cartTotalCount").textContent =
-    cart.length;
-
-}
-
-
-/* =====================================================
-   ESCAPE
-===================================================== */
-
-function escapeHTML(value){
-
-  return String(value ?? "")
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
-
-}
-
-
-/* =====================================================
-   PRODUCTS
-===================================================== */
-
-async function loadProducts(){
-
-  const grid=document.getElementById("productGrid");
-
-  grid.innerHTML=`
-
-    <div class="empty" style="grid-column:1/-1">
-
-      <div class="empty-icon">⏳</div>
-
-      <h3>Məhsullar yüklənir...</h3>
-
-    </div>
-
-  `;
-
-  const {data,error}=await supabaseClient
-    .from("products")
-    .select("*")
-    .order("id",{ascending:false});
-
-  if(error){
-
-    console.error(error);
-
-    grid.innerHTML=`
-
-      <div class="empty" style="grid-column:1/-1">
-
-        <div class="empty-icon">⚠️</div>
-
-        <h3>Məhsullar yüklənmədi</h3>
-
-        <p>${escapeHTML(error.message)}</p>
-
-      </div>
-
-    `;
-
-    return;
-  }
-
-  if(!data || !data.length){
-
-    grid.innerHTML=`
-
-      <div class="empty" style="grid-column:1/-1">
-
-        <div class="empty-icon">📦</div>
-
-        <h3>Hələ məhsul yoxdur</h3>
-
-        <p>İlk məhsulu əlavə et.</p>
-
-      </div>
-
-    `;
-
-    return;
-  }
-
-  grid.innerHTML=data.map(product=>{
-
-    const category=product.category || "Digər";
-
-    let icon="📦";
-
-    if(category==="Oyun") icon="🎮";
-    if(category==="Hesab") icon="👤";
-    if(category==="Proqram") icon="💻";
-
-    const image=product.image || "";
-
-    const imageHTML=image
-      ? `<img src="${escapeHTML(image)}"
-          alt="${escapeHTML(product.name)}">`
-      : icon;
-
-    return `
-
-      <div class="product"
-      data-category="${escapeHTML(category)}"
-      data-name="${escapeHTML(product.name)}">
-
-        <div class="product-img">
-          ${imageHTML}
-        </div>
 
         <div class="product-body">
 
-          <div class="category-label">
-            ${escapeHTML(category.toUpperCase())}
-          </div>
+            <h3>
+                ${product.name}
+            </h3>
 
-          <h3>
-            ${escapeHTML(product.name)}
-          </h3>
 
-          <p>
-            ${escapeHTML(product.description || "Rəqəmsal məhsul")}
-          </p>
+            <div class="product-description">
 
-          <div class="product-bottom">
+                ${product.description}
 
-            <div class="price">
-              ${Number(product.price).toFixed(2)} AZN
             </div>
 
-            <button class="btn primary"
-            onclick='addProduct(
-              ${JSON.stringify(product.id)},
-              ${JSON.stringify(product.name)},
-              ${Number(product.price)},
-              ${JSON.stringify(category)},
-              ${JSON.stringify(product.seller_id)}
-            )'>
-              Səbətə əlavə et
-            </button>
 
-          </div>
+            <select
+                class="duration-select"
+                id="duration-${index}"
+                onchange="changePrice(${index})">
 
-          <div style="margin-top:10px">
+                ${options}
 
-            <button class="btn secondary"
-            onclick="toggleFavorite(${product.id})">
-              ❤️ Favorit
-            </button>
+            </select>
 
-          </div>
 
-        </div>
+            <div
+                class="price"
+                id="price-${index}">
 
-      </div>
+                ${firstPrice.toFixed(2)}
+                AZN
 
-    `;
-
-  }).join("");
-
-}
-
-
-/* =====================================================
-   FAVORITES
-===================================================== */
-
-async function toggleFavorite(productId){
-
-  const {data}=await supabaseClient.auth.getUser();
-
-  const user=data?.user;
-
-  if(!user){
-
-    alert("Favoritə əlavə etmək üçün giriş et.");
-
-    window.location.href="login.html";
-
-    return;
-  }
-
-  const {data:existing,error:findError}=await supabaseClient
-    .from("favorites")
-    .select("id")
-    .eq("user_id",user.id)
-    .eq("product_id",productId)
-    .maybeSingle();
-
-  if(findError){
-
-    alert(findError.message);
-
-    return;
-  }
-
-  if(existing){
-
-    const {error}=await supabaseClient
-      .from("favorites")
-      .delete()
-      .eq("id",existing.id);
-
-    if(error){
-
-      alert(error.message);
-
-      return;
-    }
-
-    alert("Favoritdən silindi.");
-
-  }else{
-
-    const {error}=await supabaseClient
-      .from("favorites")
-      .insert({
-
-        user_id:user.id,
-        product_id:productId
-
-      });
-
-    if(error){
-
-      alert(error.message);
-
-      return;
-    }
-
-    alert("Favoritlərə əlavə edildi.");
-
-  }
-
-}
-
-
-async function loadFavorites(){
-
-  const box=document.getElementById("favoritesList");
-
-  const {data,error:userError}=await supabaseClient.auth.getUser();
-
-  const user=data?.user;
-
-  if(userError || !user){
-
-    box.innerHTML=`
-
-      <div class="empty" style="grid-column:1/-1">
-
-        <div class="empty-icon">🔐</div>
-
-        <h3>Giriş etməlisən</h3>
-
-        <p>Favoritlərə baxmaq üçün hesabına daxil ol.</p>
-
-        <br>
-
-        <a class="btn primary"
-        href="login.html"
-        style="text-decoration:none">
-        Giriş
-        </a>
-
-      </div>
-
-    `;
-
-    return;
-  }
-
-  const {data:favorites,error}=await supabaseClient
-    .from("favorites")
-    .select(`
-      id,
-      product_id,
-      products (
-        id,
-        name,
-        description,
-        price,
-        category,
-        image,
-        seller_id
-      )
-    `)
-    .eq("user_id",user.id)
-    .order("id",{ascending:false});
-
-  if(error){
-
-    box.innerHTML=`
-
-      <div class="empty" style="grid-column:1/-1">
-        <h3>Xəta baş verdi</h3>
-        <p>${escapeHTML(error.message)}</p>
-      </div>
-
-    `;
-
-    return;
-  }
-
-  if(!favorites || !favorites.length){
-
-    box.innerHTML=`
-
-      <div class="empty" style="grid-column:1/-1">
-
-        <div class="empty-icon">❤️</div>
-
-        <h3>Favorit yoxdur</h3>
-
-        <p>Bəyəndiyin məhsulları favoritlərə əlavə et.</p>
-
-      </div>
-
-    `;
-
-    return;
-  }
-
-  box.innerHTML=favorites.map(row=>{
-
-    const p=row.products;
-
-    if(!p){
-      return "";
-    }
-
-    return `
-
-      <div class="product">
-
-        <div class="product-img">
-          ${p.image
-            ? `<img src="${escapeHTML(p.image)}">`
-            : "📦"}
-        </div>
-
-        <div class="product-body">
-
-          <div class="category-label">
-            ${escapeHTML(p.category)}
-          </div>
-
-          <h3>${escapeHTML(p.name)}</h3>
-
-          <p>${escapeHTML(p.description || "")}</p>
-
-          <div class="product-bottom">
-
-            <div class="price">
-              ${Number(p.price).toFixed(2)} AZN
             </div>
 
-            <button class="btn primary"
-            onclick='addProduct(
-              ${JSON.stringify(p.id)},
-              ${JSON.stringify(p.name)},
-              ${Number(p.price)},
-              ${JSON.stringify(p.category)},
-              ${JSON.stringify(p.seller_id)}
-            )'>
-            Səbətə
+
+            <button
+                class="order-btn"
+                onclick="orderProduct(${index})">
+
+                📲 Sifariş et
+
             </button>
 
-          </div>
-
-          <br>
-
-          <button class="btn danger"
-          onclick="toggleFavorite(${p.id});loadFavorites()">
-          ❤️ Favoritdən sil
-          </button>
-
         </div>
 
-      </div>
+        `;
 
-    `;
 
-  }).join("");
-
-}
-
-
-/* =====================================================
-   CHECKOUT
-===================================================== */
-
-async function checkout(){
-
-  if(!cart.length){
-
-    alert("Səbətin boşdur.");
-
-    return;
-  }
-
-  const {data,error:userError}=await supabaseClient.auth.getUser();
-
-  const user=data?.user;
-
-  if(userError || !user){
-
-    alert("Sifariş vermək üçün əvvəlcə giriş etməlisən.");
-
-    window.location.href="login.html";
-
-    return;
-  }
-
-  const total=cart.reduce(
-    (sum,item)=>sum+(Number(item.price)||0),
-    0
-  );
-
-  const {data:order,error:orderError}=await supabaseClient
-    .from("orders")
-    .insert({
-
-      user_id:user.id,
-      total:total,
-      status:"pending"
-
-    })
-    .select()
-    .single();
-
-  if(orderError){
-
-    alert(
-      "Sifariş yaradıla bilmədi:\n"+
-      orderError.message
-    );
-
-    return;
-  }
-
-  const items=cart.map(item=>({
-
-    order_id:order.id,
-
-    product_id:item.id,
-
-    seller_id:item.seller_id || null,
-
-    product_name:item.name,
-
-    price:Number(item.price),
-
-    quantity:1
-
-  }));
-
-  const {error:itemError}=await supabaseClient
-    .from("order_items")
-    .insert(items);
-
-  if(itemError){
-
-    await supabaseClient
-      .from("orders")
-      .delete()
-      .eq("id",order.id);
-
-    alert(
-      "Sifariş məhsulları əlavə olunmadı:\n"+
-      itemError.message
-    );
-
-    return;
-  }
-
-  cart=[];
-
-  saveCart();
-  updateCart();
-
-  alert(
-    "Sifariş uğurla yaradıldı!\n"+
-    "Sifariş № "+order.id
-  );
-
-  showSection("orders");
-
-  loadOrders();
-
-}
-
-
-/* =====================================================
-   ORDERS
-===================================================== */
-
-async function loadOrders(){
-
-  const box=document.getElementById("ordersList");
-
-  const {data,error:userError}=await supabaseClient.auth.getUser();
-
-  const user=data?.user;
-
-  if(userError || !user){
-
-    box.innerHTML=`
-
-      <div class="empty">
-
-        <div class="empty-icon">🔐</div>
-
-        <h3>Giriş etməlisən</h3>
-
-        <p>Sifarişlərini görmək üçün giriş et.</p>
-
-        <br>
-
-        <a href="login.html"
-        class="btn primary"
-        style="text-decoration:none">
-        Giriş
-        </a>
-
-      </div>
-
-    `;
-
-    return;
-  }
-
-  const {data:orders,error}=await supabaseClient
-    .from("orders")
-    .select(`
-      id,
-      total,
-      status,
-      created_at,
-      order_items (
-        product_name,
-        price,
-        quantity
-      )
-    `)
-    .eq("user_id",user.id)
-    .order("id",{ascending:false});
-
-  if(error){
-
-    box.innerHTML=`
-
-      <div class="empty">
-        <h3>Xəta</h3>
-        <p>${escapeHTML(error.message)}</p>
-      </div>
-
-    `;
-
-    return;
-  }
-
-  if(!orders || !orders.length){
-
-    box.innerHTML=`
-
-      <div class="empty">
-
-        <div class="empty-icon">📦</div>
-
-        <h3>Hələ sifariş yoxdur</h3>
-
-        <p>Sifariş verdikdə burada görünəcək.</p>
-
-      </div>
-
-    `;
-
-    return;
-  }
-
-  box.innerHTML=orders.map(order=>{
-
-    const items=order.order_items || [];
-
-    return `
-
-      <div class="order-card">
-
-        <div class="order-head">
-
-          <div>
-
-            <strong>
-              Sifariş #${order.id}
-            </strong>
-
-            <p style="color:#64748b;font-size:12px;margin-top:5px">
-              ${new Date(order.created_at).toLocaleString("az-AZ")}
-            </p>
-
-          </div>
-
-          <span class="status">
-            ${escapeHTML(order.status)}
-          </span>
-
-        </div>
-
-        ${items.map(item=>`
-
-          <div style="
-            display:flex;
-            justify-content:space-between;
-            padding:8px 0;
-            border-top:1px solid #eee;
-            font-size:13px">
-
-            <span>
-              ${escapeHTML(item.product_name)}
-              × ${item.quantity}
-            </span>
-
-            <strong>
-              ${Number(item.price).toFixed(2)} AZN
-            </strong>
-
-          </div>
-
-        `).join("")}
-
-        <div style="
-          margin-top:12px;
-          padding-top:12px;
-          border-top:1px solid #e5e7eb;
-          display:flex;
-          justify-content:space-between">
-
-          <strong>Cəmi</strong>
-
-          <strong>
-            ${Number(order.total).toFixed(2)} AZN
-          </strong>
-
-        </div>
-
-      </div>
-
-    `;
-
-  }).join("");
-
-}
-
-
-/* =====================================================
-   SELLER
-===================================================== */
-
-async function addSellerProduct(event){
-
-  event.preventDefault();
-
-  const {data:authData}=await supabaseClient.auth.getUser();
-  const user=authData?.user;
-
-  if(!isAdmin(user)){
-    alert("Bu əməliyyat yalnız DigiBaku admini üçündür.");
-    showSection("home");
-    return;
-  }
-
-  const name=document
-    .getElementById("sellerProductName")
-    .value.trim();
-
-  const category=document
-    .getElementById("sellerCategory")
-    .value;
-
-  const price=Number(
-    document.getElementById("sellerPrice").value
-  );
-
-  const description=document
-    .getElementById("sellerDescription")
-    .value.trim();
-
-  if(!name){
-
-    alert("Məhsul adını yaz.");
-
-    return;
-  }
-
-  if(!price || price<=0){
-
-    alert("Düzgün qiymət yaz.");
-
-    return;
-  }
-
-  const {data,error:userError}=await supabaseClient.auth.getUser();
-
-  const user=data?.user;
-
-  if(userError || !user){
-
-    alert("Məhsul əlavə etmək üçün giriş etməlisən.");
-
-    window.location.href="login.html";
-
-    return;
-  }
-
-  const {error}=await supabaseClient
-    .from("products")
-    .insert({
-
-      name:name,
-      description:description,
-      price:price,
-      category:category,
-      image:null,
-      seller_id:null
-
-    });
-
-  if(error){
-
-    alert(
-      "Məhsul əlavə olunmadı:\n"+
-      error.message
-    );
-
-    return;
-  }
-
-  alert("Məhsul uğurla əlavə edildi!");
-
-  event.target.reset();
-
-  await loadProducts();
-
-  showSection("admin");
-
-  loadAdminProducts();
-
-}
-
-
-async function loadAdminProducts(){
-
-  const box=document.getElementById("adminProducts");
-  if(!box){
-    return;
-  }
-
-  const {data,error:userError}=await supabaseClient.auth.getUser();
-  const user=data?.user;
-
-  if(userError || !isAdmin(user)){
-    box.innerHTML=`<div class="notice">Admin icazəsi yoxdur.</div>`;
-    return;
-  }
-
-  const {data:products,error}=await supabaseClient
-    .from("products")
-    .select("*")
-    .order("id",{ascending:false});
-
-  if(error){
-    box.innerHTML=`<div class="notice">${escapeHTML(error.message)}</div>`;
-    return;
-  }
-
-  if(!products.length){
-    box.innerHTML=`<div class="empty"><div class="empty-icon">📦</div><h3>Hələ məhsul yoxdur</h3></div>`;
-    return;
-  }
-
-  box.innerHTML=`<h3 style="margin-bottom:15px">Məhsullar</h3>` + products.map(product=>`
-    <div class="order-card">
-      <div class="order-head">
-        <div>
-          <strong>${escapeHTML(product.name)}</strong>
-          <p style="color:#64748b;margin-top:5px">${escapeHTML(product.category || "Digər")} · ${Number(product.price).toFixed(2)} AZN</p>
-        </div>
-        <button class="btn danger" onclick="deleteAdminProduct(${product.id})">Sil</button>
-      </div>
-    </div>
-  `).join("");
-}
-
-
-async function deleteAdminProduct(id){
-
-  const {data}=await supabaseClient.auth.getUser();
-  if(!isAdmin(data?.user)){
-    alert("Bu əməliyyat yalnız admin üçündür.");
-    return;
-  }
-
-  if(!confirm("Bu məhsulu silmək istəyirsən?")){
-    return;
-  }
-
-  const {error}=await supabaseClient
-    .from("products")
-    .delete()
-    .eq("id",id);
-
-  if(error){
-
-    alert(error.message);
-
-    return;
-  }
-
-  alert("Məhsul silindi.");
-
-  loadProducts();
-  loadAdminProducts();
-
-}
-
-
-/* =====================================================
-   SUPPORT
-===================================================== */
-
-async function sendSupport(event){
-
-  event.preventDefault();
-
-  const name=document
-    .getElementById("supportName")
-    .value.trim();
-
-  const email=document
-    .getElementById("supportEmail")
-    .value.trim();
-
-  const message=document
-    .getElementById("supportMessage")
-    .value.trim();
-
-  const {data}=await supabaseClient.auth.getUser();
-
-  const user=data?.user || null;
-
-  const {error}=await supabaseClient
-    .from("support_messages")
-    .insert({
-
-      user_id:user ? user.id : null,
-
-      name:name,
-
-      email:email,
-
-      message:message
-
-    });
-
-  if(error){
-
-    alert(
-      "Mesaj göndərilmədi:\n"+
-      error.message
-    );
-
-    return;
-  }
-
-  alert(
-    "Mesajınız uğurla göndərildi."
-  );
-
-  event.target.reset();
-
-}
-
-
-/* =====================================================
-   SEARCH
-===================================================== */
-
-function searchProducts(){
-
-  const search=document
-    .getElementById("searchInput")
-    .value
-    .toLowerCase()
-    .trim();
-
-  document
-    .querySelectorAll(".product")
-    .forEach(product=>{
-
-      const name=
-        (product.dataset.name || "")
-        .toLowerCase();
-
-      const category=
-        (product.dataset.category || "")
-        .toLowerCase();
-
-      product.style.display=
-        name.includes(search) ||
-        category.includes(search)
-        ? "block"
-        : "none";
+        box.appendChild(card);
 
     });
 
 }
 
 
-function filterCategory(category){
+/*
+==================================================
+QİYMƏTİ DƏYİŞ
+==================================================
+*/
 
-  showSection("home");
+function changePrice(productIndex){
 
-  document
-    .querySelectorAll("#productGrid .product")
-    .forEach(product=>{
+    const select =
+    document.getElementById(
+        "duration-"+productIndex
+    );
 
-      product.style.display=
-        category==="all" ||
-        product.dataset.category===category
-        ? "block"
-        : "none";
 
-    });
+    const selected =
+    Number(select.value);
 
-  setTimeout(()=>{
+
+    const product =
+    products[productIndex];
+
+
+    const duration =
+    product.durations[selected];
+
+
+    document.getElementById(
+        "price-"+productIndex
+    ).textContent =
+    duration.price.toFixed(2)+" AZN";
+
+}
+
+
+/*
+==================================================
+WHATSAPP SİFARİŞİ
+==================================================
+*/
+
+function orderProduct(productIndex){
+
+    const product =
+    products[productIndex];
+
+
+    const select =
+    document.getElementById(
+        "duration-"+productIndex
+    );
+
+
+    const selected =
+    Number(select.value);
+
+
+    const duration =
+    product.durations[selected];
+
+
+    const message =
+
+`Salam, DigiBaku-dan sifariş vermək istəyirəm.
+
+Məhsul: ${product.name}
+
+Müddət: ${duration.name}
+
+Qiymət: ${duration.price.toFixed(2)} AZN`;
+
+
+    const whatsappURL =
+
+    "https://wa.me/" +
+    whatsappNumber +
+    "?text=" +
+    encodeURIComponent(message);
+
+
+    window.open(
+        whatsappURL,
+        "_blank"
+    );
+
+}
+
+
+/*
+==================================================
+WHATSAPP DÜYMƏSİ
+==================================================
+*/
+
+function openWhatsApp(){
+
+    const message =
+    "Salam, DigiBaku haqqında məlumat almaq istəyirəm.";
+
+
+    const url =
+    "https://wa.me/" +
+    whatsappNumber +
+    "?text=" +
+    encodeURIComponent(message);
+
+
+    window.open(
+        url,
+        "_blank"
+    );
+
+}
+
+
+/*
+==================================================
+MƏHSULLARA GET
+==================================================
+*/
+
+function scrollToProducts(){
 
     document
-      .getElementById("products")
-      .scrollIntoView({
+    .getElementById("productsSection")
+    .scrollIntoView({
         behavior:"smooth"
-      });
-
-  },100);
-
-}
-
-
-function scrollProducts(){
-
-  setTimeout(()=>{
-
-    document
-      .getElementById("products")
-      .scrollIntoView({
-        behavior:"smooth"
-      });
-
-  },100);
-
-}
-
-
-/* =====================================================
-   NAVIGATION
-===================================================== */
-
-function isAdmin(user){
-  return !!user && String(user.email || "").toLowerCase() === "premium989e@gmail.com";
-}
-
-async function openAccount(){
-  const {data}=await supabaseClient.auth.getUser();
-  if(data?.user){
-    showSection("profile");
-  }else{
-    window.location.href="login.html";
-  }
-}
-
-async function showSection(id){
-
-  if(id === "admin" || id === "add-product"){
-    const {data}=await supabaseClient.auth.getUser();
-    if(!isAdmin(data?.user)){
-      alert("Bu bölmə yalnız DigiBaku admini üçündür.");
-      if(id === "admin" || id === "add-product") id="home";
-    }
-  }
-
-  document
-    .querySelectorAll(".section")
-    .forEach(section=>{
-      section.classList.remove("active");
     });
 
-  const target=document.getElementById(id);
-
-  if(target){
-
-    target.classList.add("active");
-
-    window.scrollTo({
-      top:0,
-      behavior:"smooth"
-    });
-
-  }
-
 }
 
 
-/* =====================================================
-   PROFILE
-===================================================== */
-
-async function loadProfile(){
-
-  const {data}=await supabaseClient.auth.getUser();
-  const user=data?.user;
-
-  const loginButton=document.getElementById("loginButton");
-  const adminMenuButton=document.getElementById("adminMenuButton");
-  const adminFooterButton=document.getElementById("adminFooterButton");
-
-  if(!user){
-    if(loginButton){
-      loginButton.textContent="Giriş";
-    }
-    if(adminMenuButton) adminMenuButton.style.display="none";
-    if(adminFooterButton) adminFooterButton.style.display="none";
-    return;
-  }
-
-  document.getElementById("profileEmail").textContent=user.email || "";
-  document.getElementById("profileLogin").textContent="Hesab aktivdir";
-  document.getElementById("profileLogin").href="#";
-  loginButton.textContent="Hesabım";
-
-  const admin=isAdmin(user);
-  if(adminMenuButton) adminMenuButton.style.display=admin ? "block" : "none";
-  if(adminFooterButton) adminFooterButton.style.display=admin ? "block" : "none";
-}
-
-
-async function logout(){
-
-  const {error}=await supabaseClient.auth.signOut();
-
-  if(error){
-
-    alert(error.message);
-
-    return;
-  }
-
-  alert("Hesabdan çıxıldı.");
-
-  location.reload();
-
-}
-
-
-/* =====================================================
-   START
-===================================================== */
-
-updateCart();
+/*
+==================================================
+SAYT AÇILANDA MƏHSULLARI YÜKLƏ
+==================================================
+*/
 
 loadProducts();
-
-loadProfile();
 
 </script>
 
