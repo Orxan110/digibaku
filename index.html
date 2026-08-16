@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>DigiBaku — Digital Marketplace</title>
 
   <style>
@@ -96,7 +97,6 @@
       background:
         radial-gradient(circle at top right, #dbeafe, transparent 35%),
         linear-gradient(135deg, #eff6ff, #fff);
-
       padding: 75px 20px;
     }
 
@@ -338,7 +338,19 @@
       font-size: 13px;
     }
 
+    .no-results {
+      display: none;
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 30px;
+      text-align: center;
+      color: #6b7280;
+      margin-top: 20px;
+    }
+
     @media(max-width: 900px) {
+
       nav {
         display: none;
       }
@@ -357,6 +369,7 @@
     }
 
     @media(max-width: 550px) {
+
       .header {
         flex-wrap: wrap;
       }
@@ -399,22 +412,47 @@
 <body>
 
 <header>
+
   <div class="header">
 
-    <a href="index.html" class="logo">DigiBaku</a>
+    <a href="index.html" class="logo">
+      DigiBaku
+    </a>
 
     <div class="search">
-      <input type="text" placeholder="Məhsul, hesab və ya xidmət axtar...">
-      <button>⌕</button>
+
+      <input
+        id="searchInput"
+        type="text"
+        placeholder="Məhsul, hesab və ya xidmət axtar..."
+      >
+
+      <button
+        type="button"
+        onclick="searchProducts()">
+        🔍
+      </button>
+
     </div>
 
     <nav>
-      <a href="index.html">Ana səhifə</a>
-      <a href="#">Satıcı ol</a>
-      <a href="#" class="login">Giriş</a>
+
+      <a href="index.html">
+        Ana səhifə
+      </a>
+
+      <a href="login.html">
+        Satıcı ol
+      </a>
+
+      <a href="login.html" class="login">
+        Giriş
+      </a>
+
     </nav>
 
   </div>
+
 </header>
 
 
@@ -437,8 +475,15 @@
     </p>
 
     <div class="hero-buttons">
-      <a href="#products" class="primary">Məhsullara bax</a>
-      <a href="#" class="secondary">Satıcı ol</a>
+
+      <a href="#products" class="primary">
+        Məhsullara bax
+      </a>
+
+      <a href="login.html" class="secondary">
+        Satıcı ol
+      </a>
+
     </div>
 
   </div>
@@ -449,61 +494,109 @@
 <main class="container">
 
   <div class="section-head">
-    <h2>Kateqoriyalar</h2>
-    <a href="#">Hamısına bax →</a>
+
+    <h2>
+      Kateqoriyalar
+    </h2>
+
+    <a href="#products">
+      Hamısına bax →
+    </a>
+
   </div>
+
 
   <div class="categories">
 
-    <div class="category">
-      <div class="category-icon">🎮</div>
-      <span>Oyun</span>
+    <div class="category" onclick="filterCategory('Oyun')">
+      <div class="category-icon">
+        🎮
+      </div>
+      <span>
+        Oyun
+      </span>
     </div>
 
-    <div class="category">
-      <div class="category-icon">📺</div>
-      <span>Streaming</span>
+    <div class="category" onclick="filterCategory('Streaming')">
+      <div class="category-icon">
+        📺
+      </div>
+      <span>
+        Streaming
+      </span>
     </div>
 
-    <div class="category">
-      <div class="category-icon">💻</div>
-      <span>Proqramlar</span>
+    <div class="category" onclick="filterCategory('Proqramlar')">
+      <div class="category-icon">
+        💻
+      </div>
+      <span>
+        Proqramlar
+      </span>
     </div>
 
-    <div class="category">
-      <div class="category-icon">🔑</div>
-      <span>Hesablar</span>
+    <div class="category" onclick="filterCategory('Hesablar')">
+      <div class="category-icon">
+        🔑
+      </div>
+      <span>
+        Hesablar
+      </span>
     </div>
 
-    <div class="category">
-      <div class="category-icon">🎁</div>
-      <span>Gift Card</span>
+    <div class="category" onclick="filterCategory('Gift Card')">
+      <div class="category-icon">
+        🎁
+      </div>
+      <span>
+        Gift Card
+      </span>
     </div>
 
-    <div class="category">
-      <div class="category-icon">⚡</div>
-      <span>Digər</span>
+    <div class="category" onclick="filterCategory('Digər')">
+      <div class="category-icon">
+        ⚡
+      </div>
+      <span>
+        Digər
+      </span>
     </div>
 
   </div>
 
 
   <div class="section-head" id="products">
-    <h2>Populyar məhsullar</h2>
-    <a href="#">Hamısına bax →</a>
+
+    <h2>
+      Populyar məhsullar
+    </h2>
+
+    <a href="#products" onclick="showAllProducts()">
+      Hamısına bax →
+    </a>
+
   </div>
 
 
-  <div class="products">
+  <div class="products" id="productList">
 
-    <!-- 1-ci məhsul -->
-    <div class="product">
 
-      <div class="product-image">🎮</div>
+    <!-- MƏHSUL 1 -->
+
+    <div
+      class="product"
+      data-name="Gaming Account"
+      data-category="Oyun">
+
+      <div class="product-image">
+        🎮
+      </div>
 
       <div class="product-body">
 
-        <h3>Gaming Account</h3>
+        <h3>
+          Gaming Account
+        </h3>
 
         <div class="seller">
           Satıcı: DigiStore
@@ -526,17 +619,26 @@
         </div>
 
       </div>
+
     </div>
 
 
-    <!-- 2-ci məhsul -->
-    <div class="product">
+    <!-- MƏHSUL 2 -->
 
-      <div class="product-image">🎬</div>
+    <div
+      class="product"
+      data-name="Premium Account"
+      data-category="Streaming">
+
+      <div class="product-image">
+        🎬
+      </div>
 
       <div class="product-body">
 
-        <h3>Premium Account</h3>
+        <h3>
+          Premium Account
+        </h3>
 
         <div class="seller">
           Satıcı: PremiumShop
@@ -559,17 +661,26 @@
         </div>
 
       </div>
+
     </div>
 
 
-    <!-- 3-cü məhsul -->
-    <div class="product">
+    <!-- MƏHSUL 3 -->
 
-      <div class="product-image">💻</div>
+    <div
+      class="product"
+      data-name="Digital License"
+      data-category="Proqramlar">
+
+      <div class="product-image">
+        💻
+      </div>
 
       <div class="product-body">
 
-        <h3>Digital License</h3>
+        <h3>
+          Digital License
+        </h3>
 
         <div class="seller">
           Satıcı: DigitalPro
@@ -592,17 +703,26 @@
         </div>
 
       </div>
+
     </div>
 
 
-    <!-- 4-cü məhsul -->
-    <div class="product">
+    <!-- MƏHSUL 4 -->
 
-      <div class="product-image">🎁</div>
+    <div
+      class="product"
+      data-name="Gift Card"
+      data-category="Gift Card">
+
+      <div class="product-image">
+        🎁
+      </div>
 
       <div class="product-body">
 
-        <h3>Gift Card</h3>
+        <h3>
+          Gift Card
+        </h3>
 
         <div class="seller">
           Satıcı: GiftStore
@@ -625,8 +745,15 @@
         </div>
 
       </div>
+
     </div>
 
+
+  </div>
+
+
+  <div id="noResults" class="no-results">
+    Heç bir məhsul tapılmadı.
   </div>
 
 </main>
@@ -637,21 +764,53 @@
   <div class="features-grid">
 
     <div class="feature">
-      <div class="feature-icon">🔒</div>
-      <h3>Təhlükəsiz alış</h3>
-      <p>Rahat və təhlükəsiz alış-veriş sistemi.</p>
+
+      <div class="feature-icon">
+        🔒
+      </div>
+
+      <h3>
+        Təhlükəsiz alış
+      </h3>
+
+      <p>
+        Rahat və təhlükəsiz alış-veriş sistemi.
+      </p>
+
     </div>
 
-    <div class="feature">
-      <div class="feature-icon">⚡</div>
-      <h3>Sürətli çatdırılma</h3>
-      <p>Digital məhsulların sürətli təqdim edilməsi.</p>
-    </div>
 
     <div class="feature">
-      <div class="feature-icon">🛡️</div>
-      <h3>Dəstək</h3>
-      <p>İstifadəçilər üçün dəstək sistemi.</p>
+
+      <div class="feature-icon">
+        ⚡
+      </div>
+
+      <h3>
+        Sürətli çatdırılma
+      </h3>
+
+      <p>
+        Digital məhsulların sürətli təqdim edilməsi.
+      </p>
+
+    </div>
+
+
+    <div class="feature">
+
+      <div class="feature-icon">
+        🛡️
+      </div>
+
+      <h3>
+        Dəstək
+      </h3>
+
+      <p>
+        İstifadəçilər üçün dəstək sistemi.
+      </p>
+
     </div>
 
   </div>
@@ -660,8 +819,134 @@
 
 
 <footer>
+
   © 2026 DigiBaku — Digital Marketplace
+
 </footer>
+
+
+<script>
+
+  function searchProducts() {
+
+    const input =
+      document.getElementById("searchInput");
+
+    const query =
+      input.value.trim().toLowerCase();
+
+    const products =
+      document.querySelectorAll(".product");
+
+    let found = 0;
+
+    products.forEach(function(product) {
+
+      const name =
+        product.dataset.name.toLowerCase();
+
+      const category =
+        product.dataset.category.toLowerCase();
+
+      if (
+        query === "" ||
+        name.includes(query) ||
+        category.includes(query)
+      ) {
+
+        product.style.display = "";
+
+        found++;
+
+      } else {
+
+        product.style.display = "none";
+
+      }
+
+    });
+
+    document.getElementById("noResults").style.display =
+      found === 0 ? "block" : "none";
+
+    document.getElementById("products")
+      .scrollIntoView({
+        behavior: "smooth"
+      });
+
+  }
+
+
+  document
+    .getElementById("searchInput")
+    .addEventListener(
+      "keydown",
+      function(event) {
+
+        if (event.key === "Enter") {
+
+          searchProducts();
+
+        }
+
+      }
+    );
+
+
+  function filterCategory(category) {
+
+    const products =
+      document.querySelectorAll(".product");
+
+    let found = 0;
+
+    products.forEach(function(product) {
+
+      if (
+        product.dataset.category === category
+      ) {
+
+        product.style.display = "";
+
+        found++;
+
+      } else {
+
+        product.style.display = "none";
+
+      }
+
+    });
+
+    document.getElementById("noResults").style.display =
+      found === 0 ? "block" : "none";
+
+    document.getElementById("products")
+      .scrollIntoView({
+        behavior: "smooth"
+      });
+
+  }
+
+
+  function showAllProducts() {
+
+    const products =
+      document.querySelectorAll(".product");
+
+    products.forEach(function(product) {
+
+      product.style.display = "";
+
+    });
+
+    document.getElementById("noResults").style.display =
+      "none";
+
+  }
+
+</script>
+
 
 </body>
 </html>
