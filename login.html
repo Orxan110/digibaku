@@ -1,52 +1,820 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>DigiBaku — Giriş və Qeydiyyat</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    min-height:100vh;
+    background:
+        radial-gradient(circle at top left,#1e3a8a 0%,transparent 35%),
+        radial-gradient(circle at bottom right,#312e81 0%,transparent 35%),
+        #050505;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    color:#111827;
+}
+
+.box{
+    width:100%;
+    max-width:430px;
+    background:#ffffff;
+    border-radius:20px;
+    padding:35px;
+    box-shadow:
+        0 25px 80px rgba(0,0,0,.45);
+}
+
+.logo{
+    text-align:center;
+    color:#2563eb;
+    font-size:30px;
+    font-weight:900;
+    margin-bottom:8px;
+}
+
+.subtitle{
+    text-align:center;
+    color:#64748b;
+    margin-bottom:28px;
+    font-size:14px;
+}
+
+.tabs{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:5px;
+    background:#f1f5f9;
+    padding:5px;
+    border-radius:10px;
+    margin-bottom:25px;
+}
+
+.tabs button{
+    border:0;
+    padding:12px;
+    border-radius:8px;
+    background:transparent;
+    font-weight:bold;
+    cursor:pointer;
+    font-size:14px;
+}
+
+.tabs button.active{
+    background:white;
+    color:#2563eb;
+    box-shadow:0 2px 8px rgba(0,0,0,.08);
+}
+
+.group{
+    margin-bottom:17px;
+}
+
+.group label{
+    display:block;
+    font-size:13px;
+    font-weight:bold;
+    margin-bottom:7px;
+    color:#374151;
+}
+
+.group input{
+    width:100%;
+    padding:14px;
+    border:1px solid #d1d5db;
+    border-radius:9px;
+    outline:none;
+    font-size:14px;
+    transition:.2s;
+}
+
+.group input:focus{
+    border-color:#2563eb;
+    box-shadow:0 0 0 3px rgba(37,99,235,.10);
+}
+
+.submit{
+    width:100%;
+    height:48px;
+    border:0;
+    border-radius:9px;
+    background:#2563eb;
+    color:white;
+    font-weight:bold;
+    font-size:15px;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.submit:hover{
+    background:#1d4ed8;
+}
+
+.submit:disabled{
+    opacity:.65;
+    cursor:not-allowed;
+}
+
+.message{
+    margin-top:16px;
+    padding:13px;
+    border-radius:9px;
+    font-size:13px;
+    line-height:1.5;
+    display:none;
+}
+
+.success{
+    display:block;
+    background:#ecfdf5;
+    color:#047857;
+    border:1px solid #a7f3d0;
+}
+
+.error{
+    display:block;
+    background:#fef2f2;
+    color:#dc2626;
+    border:1px solid #fecaca;
+}
+
+.back{
+    display:block;
+    text-align:center;
+    margin-top:20px;
+    color:#2563eb;
+    text-decoration:none;
+    font-size:13px;
+    font-weight:bold;
+}
+
+.back:hover{
+    text-decoration:underline;
+}
+
+.small{
+    margin-top:10px;
+    text-align:center;
+    color:#64748b;
+    font-size:12px;
+    line-height:1.5;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="box">
+
+    <div class="logo">
+        DigiBaku
+    </div>
+
+    <div class="subtitle">
+        Digital Marketplace
+    </div>
+
+
+    <!-- TABS -->
+
+    <div class="tabs">
+
+        <button
+            id="loginTab"
+            class="active"
+            type="button"
+            onclick="showLogin()">
+
+            Giriş
+
+        </button>
+
+        <button
+            id="registerTab"
+            type="button"
+            onclick="showRegister()">
+
+            Qeydiyyat
+
+        </button>
+
+    </div>
+
+
+    <!-- LOGIN -->
+
+    <form
+        id="loginForm"
+        onsubmit="login(event)">
+
+        <div class="group">
+
+            <label for="loginEmail">
+                Email
+            </label>
+
+            <input
+                id="loginEmail"
+                type="email"
+                required
+                autocomplete="email"
+                placeholder="email@example.com">
+
+        </div>
+
+
+        <div class="group">
+
+            <label for="loginPassword">
+                Şifrə
+            </label>
+
+            <input
+                id="loginPassword"
+                type="password"
+                required
+                autocomplete="current-password"
+                placeholder="••••••••">
+
+        </div>
+
+
+        <button
+            id="loginButton"
+            class="submit"
+            type="submit">
+
+            Giriş et
+
+        </button>
+
+    </form>
+
+
+    <!-- REGISTER -->
+
+    <form
+        id="registerForm"
+        onsubmit="register(event)"
+        style="display:none">
+
+        <div class="group">
+
+            <label for="registerEmail">
+                Email
+            </label>
+
+            <input
+                id="registerEmail"
+                type="email"
+                required
+                autocomplete="email"
+                placeholder="email@example.com">
+
+        </div>
+
+
+        <div class="group">
+
+            <label for="registerPassword">
+                Şifrə
+            </label>
+
+            <input
+                id="registerPassword"
+                type="password"
+                required
+                minlength="6"
+                autocomplete="new-password"
+                placeholder="Minimum 6 simvol">
+
+        </div>
+
+
+        <button
+            id="registerButton"
+            class="submit"
+            type="submit">
+
+            Hesab yarat
+
+        </button>
+
+        <div class="small">
+            Qeydiyyatdan sonra email ünvanınıza təsdiq linki göndəriləcək.
+        </div>
+
+    </form>
+
+
+    <!-- MESSAGE -->
+
+    <div
+        id="message"
+        class="message">
+    </div>
+
+
+    <!-- BACK -->
+
+    <a
+        href="index.html"
+        class="back">
+
+        ← DigiBaku-ya qayıt
+
+    </a>
+
+</div>
+
+
 <script>
+
+/* =========================================
+   SUPABASE
+========================================= */
+
+const SUPABASE_URL =
+"https://zeknhnkaicqkfzgnvycq.supabase.co";
+
+const SUPABASE_KEY =
+"sb_publishable_jHvCp9fXBA_BwFqrXYpwlw_VC6C1OQk";
+
+const supabaseClient =
+window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+);
+
+
+/* =========================================
+   LOGIN / REGISTER TABS
+========================================= */
+
+function showLogin(){
+
+    document.getElementById("loginForm").style.display =
+        "block";
+
+    document.getElementById("registerForm").style.display =
+        "none";
+
+    document.getElementById("loginTab").classList.add("active");
+
+    document.getElementById("registerTab").classList.remove("active");
+
+    clearMessage();
+
+}
+
+
+function showRegister(){
+
+    document.getElementById("loginForm").style.display =
+        "none";
+
+    document.getElementById("registerForm").style.display =
+        "block";
+
+    document.getElementById("loginTab").classList.remove("active");
+
+    document.getElementById("registerTab").classList.add("active");
+
+    clearMessage();
+
+}
+
+
+/* =========================================
+   MESSAGES
+========================================= */
+
+function showMessage(text,type){
+
+    const box =
+        document.getElementById("message");
+
+    box.textContent = text;
+
+    box.className =
+        "message " + type;
+
+}
+
+
+function clearMessage(){
+
+    const box =
+        document.getElementById("message");
+
+    box.textContent = "";
+
+    box.className = "message";
+
+}
+
+
+/* =========================================
+   REGISTER
+========================================= */
+
 async function register(event){
 
-  event.preventDefault();
-  clearMessage();
+    event.preventDefault();
 
-  const email = document
-    .getElementById("registerEmail")
-    .value
-    .trim();
+    clearMessage();
 
-  const password = document
-    .getElementById("registerPassword")
-    .value;
+    const email =
+        document
+        .getElementById("registerEmail")
+        .value
+        .trim();
 
-  if(password.length < 6){
-    showMessage(
-      "Şifrə ən azı 6 simvol olmalıdır.",
-      "error"
-    );
-    return;
-  }
+    const password =
+        document
+        .getElementById("registerPassword")
+        .value;
 
-  const { data, error } = await supabaseClient.auth.signUp({
-    email: email,
-    password: password,
-    options: {
-      emailRedirectTo: window.location.origin + "/index.html"
+
+    if(!email){
+
+        showMessage(
+            "Email daxil edin.",
+            "error"
+        );
+
+        return;
+
     }
-  });
 
-  if(error){
 
-    showMessage(
-      error.message,
-      "error"
-    );
+    if(password.length < 6){
 
-    return;
-  }
+        showMessage(
+            "Şifrə ən azı 6 simvol olmalıdır.",
+            "error"
+        );
 
-  if(data.user){
+        return;
 
-    showMessage(
-      "Qeydiyyat tamamlandı! Email ünvanına təsdiq linki göndərildi. Emailini və Spam qovluğunu yoxla.",
-      "success"
-    );
+    }
 
-    document.getElementById("registerForm").reset();
-  }
+
+    const button =
+        document.getElementById("registerButton");
+
+    button.disabled = true;
+
+    button.textContent =
+        "Hesab yaradılır...";
+
+
+    try{
+
+        const redirectUrl =
+            window.location.origin + "/index.html";
+
+
+        const { data, error } =
+            await supabaseClient.auth.signUp({
+
+                email: email,
+
+                password: password,
+
+                options: {
+
+                    emailRedirectTo: redirectUrl
+
+                }
+
+            });
+
+
+        if(error){
+
+            showMessage(
+                getFriendlyError(error.message),
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        /*
+          Supabase email confirmation aktivdirsə
+          data.session null ola bilər.
+        */
+
+        if(data && data.user){
+
+            if(data.session){
+
+                showMessage(
+                    "Qeydiyyat uğurludur! Hesabınıza daxil oldunuz.",
+                    "success"
+                );
+
+                setTimeout(function(){
+
+                    window.location.href =
+                        "index.html";
+
+                },1200);
+
+            }else{
+
+                showMessage(
+                    "Qeydiyyat uğurludur! Email ünvanınıza təsdiq linki göndərildi. Emailinizi və Spam qovluğunu yoxlayın.",
+                    "success"
+                );
+
+                document
+                    .getElementById("registerForm")
+                    .reset();
+
+            }
+
+        }
+
+    }catch(error){
+
+        showMessage(
+            "Qeydiyyat zamanı xəta baş verdi: " +
+            error.message,
+            "error"
+        );
+
+    }finally{
+
+        button.disabled = false;
+
+        button.textContent =
+            "Hesab yarat";
+
+    }
+
 }
+
+
+/* =========================================
+   LOGIN
+========================================= */
+
+async function login(event){
+
+    event.preventDefault();
+
+    clearMessage();
+
+    const email =
+        document
+        .getElementById("loginEmail")
+        .value
+        .trim();
+
+    const password =
+        document
+        .getElementById("loginPassword")
+        .value;
+
+
+    if(!email || !password){
+
+        showMessage(
+            "Email və şifrəni daxil edin.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    const button =
+        document.getElementById("loginButton");
+
+    button.disabled = true;
+
+    button.textContent =
+        "Daxil olunur...";
+
+
+    try{
+
+        const { data, error } =
+            await supabaseClient.auth.signInWithPassword({
+
+                email: email,
+
+                password: password
+
+            });
+
+
+        if(error){
+
+            showMessage(
+                getFriendlyError(error.message),
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        if(data && data.user){
+
+            showMessage(
+                "Giriş uğurludur. Ana səhifəyə yönləndirilirsiniz...",
+                "success"
+            );
+
+
+            setTimeout(function(){
+
+                window.location.href =
+                    "index.html";
+
+            },800);
+
+        }
+
+    }catch(error){
+
+        showMessage(
+            "Giriş zamanı xəta baş verdi: " +
+            error.message,
+            "error"
+        );
+
+    }finally{
+
+        button.disabled = false;
+
+        button.textContent =
+            "Giriş et";
+
+    }
+
+}
+
+
+/* =========================================
+   SUPABASE ERROR MESSAGES
+========================================= */
+
+function getFriendlyError(message){
+
+    if(!message){
+        return "Naməlum xəta baş verdi.";
+    }
+
+
+    const lower =
+        message.toLowerCase();
+
+
+    if(
+        lower.includes("user already registered") ||
+        lower.includes("already registered")
+    ){
+
+        return "Bu email ilə artıq hesab mövcuddur. Giriş bölməsindən daxil olun.";
+
+    }
+
+
+    if(
+        lower.includes("invalid login credentials")
+    ){
+
+        return "Email və ya şifrə yanlışdır.";
+
+    }
+
+
+    if(
+        lower.includes("email not confirmed")
+    ){
+
+        return "Email ünvanınız hələ təsdiqlənməyib. Email qutunuzu yoxlayın.";
+
+    }
+
+
+    if(
+        lower.includes("password should be at least")
+    ){
+
+        return "Şifrə ən azı 6 simvol olmalıdır.";
+
+    }
+
+
+    if(
+        lower.includes("rate limit")
+    ){
+
+        return "Çox sayda cəhd edildi. Bir neçə dəqiqə sonra yenidən yoxlayın.";
+
+    }
+
+
+    if(
+        lower.includes("email") &&
+        lower.includes("smtp")
+    ){
+
+        return "Email göndərilməsində problem var. SMTP ayarlarını yoxlamaq lazımdır.";
+
+    }
+
+
+    return message;
+
+}
+
+
+/* =========================================
+   SESSION CHECK
+========================================= */
+
+async function checkSession(){
+
+    const {
+        data
+    } =
+        await supabaseClient.auth.getSession();
+
+
+    /*
+      Əgər istifadəçi artıq daxil olubsa,
+      login səhifəsində qalmasın.
+    */
+
+    if(
+        data &&
+        data.session
+    ){
+
+        /*
+          İstəsən bu hissəni saxlaya bilərsən.
+        */
+
+    }
+
+}
+
+
+/* =========================================
+   EMAIL CONFIRMATION REDIRECT
+========================================= */
+
+supabaseClient.auth.onAuthStateChange(
+    function(event, session){
+
+        if(
+            event === "SIGNED_IN" &&
+            session
+        ){
+
+            /*
+              Email təsdiqindən sonra Supabase
+              index.html-ə qaytarır.
+            */
+
+        }
+
+    }
+);
+
+
+checkSession();
+
 </script>
+
+</body>
+</html>
