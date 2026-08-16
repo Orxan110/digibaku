@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DigiBaku — Giriş və Qeydiyyat</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at top right, #dbeafe, transparent 35%),
+        linear-gradient(135deg, #eff6ff, #ffffff);
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background: white;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .header {
+      max-width: 1200px;
+      margin: auto;
+      height: 70px;
+      padding: 0 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      color: #2563eb;
+      font-size: 25px;
+      font-weight: 900;
+      text-decoration: none;
+    }
+
+    .home {
+      color: #374151;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .box {
+      width: 100%;
+      max-width: 440px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    .card {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 18px;
+      padding: 35px;
+      box-shadow: 0 15px 40px rgba(0,0,0,.08);
+    }
+
+    .logo-small {
+      text-align: center;
+      color: #2563eb;
+      font-size: 30px;
+      font-weight: 900;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #6b7280;
+      margin-bottom: 30px;
+      font-size: 14px;
+    }
+
+    .tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      background: #f3f4f6;
+      padding: 4px;
+      border-radius: 9px;
+      margin-bottom: 25px;
+    }
+
+    .tab {
+      border: none;
+      background: transparent;
+      padding: 11px;
+      border-radius: 7px;
+      cursor: pointer;
+      font-weight: bold;
+      color: #6b7280;
+    }
+
+    .tab.active {
+      background: white;
+      color: #2563eb;
+      box-shadow: 0 2px 5px rgba(0,0,0,.05);
+    }
+
+    label {
+      display: block;
+      margin-bottom: 7px;
+      font-size: 13px;
+      font-weight: bold;
+      color: #374151;
+    }
+
+    input {
+      width: 100%;
+      height: 46px;
+      border: 1px solid #d1d5db;
+      border-radius: 9px;
+      padding: 0 13px;
+      outline: none;
+      margin-bottom: 17px;
+      font-size: 14px;
+    }
+
+    input:focus {
+      border-color: #2563eb;
+    }
+
+    .submit {
+      width: 100%;
+      height: 47px;
+      border: none;
+      border-radius: 9px;
+      background: #2563eb;
+      color: white;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .submit:hover {
+      background: #1d4ed8;
+    }
+
+    .message {
+      display: none;
+      margin-top: 15px;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .success {
+      display: block;
+      background: #ecfdf5;
+      color: #047857;
+    }
+
+    .error {
+      display: block;
+      background: #fef2f2;
+      color: #b91c1c;
+    }
+
+    .switch {
+      text-align: center;
+      margin-top: 20px;
+      color: #6b7280;
+      font-size: 13px;
+    }
+
+    .switch a {
+      color: #2563eb;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    footer {
+      text-align: center;
+      color: #9ca3af;
+      padding: 25px;
+      font-size: 12px;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="header">
+
+    <a href="index.html" class="logo">
+      DigiBaku
+    </a>
+
+    <a href="index.html" class="home">
+      ← Ana səhifə
+    </a>
+
+  </div>
+</header>
+
+<div class="box">
+
+  <div class="card">
+
+    <div class="logo-small">
+      DigiBaku
+    </div>
+
+    <div class="subtitle">
+      Hesabına daxil ol və ya yeni hesab yarat
+    </div>
+
+    <div class="tabs">
+
+      <button
+        id="loginTab"
+        class="tab active"
+        type="button"
+        onclick="showLogin()">
+        Giriş
+      </button>
+
+      <button
+        id="registerTab"
+        class="tab"
+        type="button"
+        onclick="showRegister()">
+        Qeydiyyat
+      </button>
+
+    </div>
+
+    <!-- GİRİŞ -->
+
+    <form id="loginForm">
+
+      <label>Email</label>
+
+      <input
+        id="loginEmail"
+        type="email"
+        placeholder="email@example.com"
+        required
+      >
+
+      <label>Şifrə</label>
+
+      <input
+        id="loginPassword"
+        type="password"
+        placeholder="Şifrən"
+        required
+      >
+
+      <button class="submit" type="submit">
+        Daxil ol
+      </button>
+
+    </form>
+
+    <!-- QEYDİYYAT -->
+
+    <form id="registerForm" class="hidden">
+
+      <label>Email</label>
+
+      <input
+        id="registerEmail"
+        type="email"
+        placeholder="email@example.com"
+        required
+      >
+
+      <label>Şifrə</label>
+
+      <input
+        id="registerPassword"
+        type="password"
+        placeholder="Minimum 6 simvol"
+        minlength="6"
+        required
+      >
+
+      <label>Şifrəni təkrar yaz</label>
+
+      <input
+        id="registerPassword2"
+        type="password"
+        placeholder="Şifrəni təkrar yaz"
+        minlength="6"
+        required
+      >
+
+      <button class="submit" type="submit">
+        Hesab yarat
+      </button>
+
+    </form>
+
+    <div id="message" class="message"></div>
+
+    <div class="switch">
+
+      <span id="switchText">
+        Hesabın yoxdur?
+      </span>
+
+      <a
+        id="switchLink"
+        onclick="showRegister()">
+        Qeydiyyatdan keç
+      </a>
+
+    </div>
+
+  </div>
+
+</div>
+
+<footer>
+  © 2026 DigiBaku — Digital Marketplace
+</footer>
+
+<script>
+
+  const SUPABASE_URL =
+    "https://zeknhnkaicqkfzgnvycq.supabase.co";
+
+  const SUPABASE_KEY =
+    "sb_publishable_jHvCp9fXBA_BwFqrXYpwlw_VC6C1OQk";
+
+
+  const supabaseClient =
+    window.supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_KEY
+    );
+
+
+  const loginForm =
+    document.getElementById("loginForm");
+
+  const registerForm =
+    document.getElementById("registerForm");
+
+  const message =
+    document.getElementById("message");
+
+  const loginTab =
+    document.getElementById("loginTab");
+
+  const registerTab =
+    document.getElementById("registerTab");
+
+  const switchText =
+    document.getElementById("switchText");
+
+  const switchLink =
+    document.getElementById("switchLink");
+
+
+  function showMessage(text, type) {
+
+    message.textContent = text;
+
+    message.className =
+      "message " + type;
+
+  }
+
+
+  function showLogin() {
+
+    loginForm.classList.remove("hidden");
+
+    registerForm.classList.add("hidden");
+
+    loginTab.classList.add("active");
+
+    registerTab.classList.remove("active");
+
+    switchText.textContent =
+      "Hesabın yoxdur?";
+
+    switchLink.textContent =
+      "Qeydiyyatdan keç";
+
+    switchLink.onclick =
+      showRegister;
+
+    message.className =
+      "message";
+
+  }
+
+
+  function showRegister() {
+
+    loginForm.classList.add("hidden");
+
+    registerForm.classList.remove("hidden");
+
+    loginTab.classList.remove("active");
+
+    registerTab.classList.add("active");
+
+    switchText.textContent =
+      "Artıq hesabın var?";
+
+    switchLink.textContent =
+      "Giriş et";
+
+    switchLink.onclick =
+      showLogin;
+
+    message.className =
+      "message";
+
+  }
+
+
+  registerForm.addEventListener(
+    "submit",
+    async function(event) {
+
+      event.preventDefault();
+
+      const email =
+        document.getElementById(
+          "registerEmail"
+        ).value.trim();
+
+      const password =
+        document.getElementById(
+          "registerPassword"
+        ).value;
+
+      const password2 =
+        document.getElementById(
+          "registerPassword2"
+        ).value;
+
+
+      if (password !== password2) {
+
+        showMessage(
+          "Şifrələr eyni deyil.",
+          "error"
+        );
+
+        return;
+
+      }
+
+
+      const result =
+        await supabaseClient.auth.signUp({
+          email: email,
+          password: password
+        });
+
+
+      if (result.error) {
+
+        showMessage(
+          result.error.message,
+          "error"
+        );
+
+        return;
+
+      }
+
+
+      showMessage(
+        "Hesab yaradıldı! Emailini yoxla və təsdiqləmə linkinə kliklə.",
+        "success"
+      );
+
+
+      registerForm.reset();
+
+    }
+  );
+
+
+  loginForm.addEventListener(
+    "submit",
+    async function(event) {
+
+      event.preventDefault();
+
+      const email =
+        document.getElementById(
+          "loginEmail"
+        ).value.trim();
+
+      const password =
+        document.getElementById(
+          "loginPassword"
+        ).value;
+
+
+      const result =
+        await supabaseClient.auth.signInWithPassword({
+          email: email,
+          password: password
+        });
+
+
+      if (result.error) {
+
+        showMessage(
+          result.error.message,
+          "error"
+        );
+
+        return;
+
+      }
+
+
+      showMessage(
+        "Uğurla daxil oldun! Ana səhifəyə yönləndirilirsən...",
+        "success"
+      );
+
+
+      setTimeout(function() {
+
+        window.location.href =
+          "index.html";
+
+      }, 1200);
+
+    }
+  );
+
+</script>
+
+</body>
+</html>
