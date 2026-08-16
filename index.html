@@ -1,1178 +1,2387 @@
+```html
 <!DOCTYPE html>
 <html lang="az">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>DigiBaku — Premium Rəqəmsal Xidmətlər</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
-html{scroll-behavior:smooth}
-body{background:#050505;color:#fff;line-height:1.6}
-a{color:inherit;text-decoration:none}
-button{cursor:pointer}
-button:disabled{opacity:.6;cursor:not-allowed}
-.container{width:92%;max-width:1200px;margin:auto}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial,Helvetica,sans-serif;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  background:#050505;
+  color:#fff;
+  line-height:1.6;
+}
+
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
+button{
+  cursor:pointer;
+}
+
+button:disabled{
+  opacity:.6;
+  cursor:not-allowed;
+}
+
+.container{
+  width:92%;
+  max-width:1200px;
+  margin:auto;
+}
+
+/* HEADER */
 
 header{
- position:sticky;top:0;z-index:1000;
- background:rgba(5,5,5,.94);
- backdrop-filter:blur(15px);
- border-bottom:1px solid #222
+  position:sticky;
+  top:0;
+  z-index:1000;
+  background:rgba(5,5,5,.94);
+  backdrop-filter:blur(15px);
+  border-bottom:1px solid #222;
 }
+
 .nav{
- min-height:75px;display:flex;align-items:center;
- justify-content:space-between;gap:20px
+  min-height:75px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
 }
-.logo{font-size:27px;font-weight:900;color:#3b82f6}
-.logo span{color:#fff}
-.menu{display:flex;align-items:center;gap:25px;font-size:14px}
-.menu a{color:#bbb;transition:.2s}
-.menu a:hover{color:#3b82f6}
-.auth-buttons,.user-area{display:flex;gap:10px;align-items:center}
+
+.logo{
+  font-size:27px;
+  font-weight:900;
+  color:#3b82f6;
+}
+
+.logo span{
+  color:#fff;
+}
+
+.menu{
+  display:flex;
+  align-items:center;
+  gap:25px;
+  font-size:14px;
+}
+
+.menu a{
+  color:#bbb;
+  transition:.2s;
+}
+
+.menu a:hover{
+  color:#3b82f6;
+}
+
+.auth-buttons{
+  display:flex;
+  gap:10px;
+}
+
 .btn{
- border:0;border-radius:9px;padding:11px 17px;
- font-weight:700;transition:.2s
+  border:0;
+  border-radius:9px;
+  padding:11px 17px;
+  font-weight:700;
+  transition:.2s;
 }
-.btn-primary{background:#2563eb;color:#fff}
-.btn-primary:hover{background:#1d4ed8}
-.btn-dark{background:#151515;color:#fff;border:1px solid #333}
-.btn-dark:hover{border-color:#2563eb}
+
+.btn-primary{
+  background:#2563eb;
+  color:#fff;
+}
+
+.btn-primary:hover{
+  background:#1d4ed8;
+}
+
+.btn-dark{
+  background:#151515;
+  color:#fff;
+  border:1px solid #333;
+}
+
+.btn-dark:hover{
+  border-color:#2563eb;
+}
+
+/* HERO */
 
 .hero{
- padding:100px 0 80px;text-align:center;
- background:radial-gradient(circle at top,#172554 0,#080808 45%,#050505 100%)
+  padding:100px 0 80px;
+  text-align:center;
+  background:
+    radial-gradient(circle at top,#172554 0,#080808 45%,#050505 100%);
 }
-.badge{
- display:inline-block;padding:7px 14px;border:1px solid #263b67;
- border-radius:30px;color:#60a5fa;background:#0b1220;
- font-size:13px;margin-bottom:20px
-}
-.hero h1{max-width:850px;margin:auto;font-size:58px;line-height:1.08;margin-bottom:22px}
-.hero h1 span{color:#3b82f6}
-.hero p{max-width:700px;margin:0 auto 30px;color:#aaa;font-size:18px}
-.hero-buttons{display:flex;justify-content:center;gap:12px}
 
-section{padding:75px 0}
-.section-title{text-align:center;margin-bottom:40px}
-.section-title h2{font-size:36px;margin-bottom:10px}
-.section-title p{color:#999}
+.badge{
+  display:inline-block;
+  padding:7px 14px;
+  border:1px solid #263b67;
+  border-radius:30px;
+  color:#60a5fa;
+  background:#0b1220;
+  font-size:13px;
+  margin-bottom:20px;
+}
+
+.hero h1{
+  max-width:850px;
+  margin:auto;
+  font-size:58px;
+  line-height:1.08;
+  margin-bottom:22px;
+}
+
+.hero h1 span{
+  color:#3b82f6;
+}
+
+.hero p{
+  max-width:700px;
+  margin:0 auto 30px;
+  color:#aaa;
+  font-size:18px;
+}
+
+.hero-buttons{
+  display:flex;
+  justify-content:center;
+  gap:12px;
+}
+
+/* SECTION */
+
+section{
+  padding:75px 0;
+}
+
+.section-title{
+  text-align:center;
+  margin-bottom:40px;
+}
+
+.section-title h2{
+  font-size:36px;
+  margin-bottom:10px;
+}
+
+.section-title p{
+  color:#999;
+}
+
+/* PRODUCTS */
 
 .products{
- display:grid;grid-template-columns:repeat(4,1fr);gap:20px
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:20px;
 }
+
 .product{
- background:#101010;border:1px solid #242424;border-radius:16px;
- padding:24px;transition:.25s
+  background:#101010;
+  border:1px solid #242424;
+  border-radius:16px;
+  padding:24px;
+  transition:.25s;
 }
+
 .product:hover{
- transform:translateY(-5px);border-color:#2563eb;
- box-shadow:0 15px 40px rgba(0,0,0,.35)
+  transform:translateY(-5px);
+  border-color:#2563eb;
+  box-shadow:0 15px 40px rgba(0,0,0,.35);
 }
+
+/* MƏHSUL ŞƏKLİ */
+
 .product-icon{
- width:55px;height:55px;display:flex;align-items:center;
- justify-content:center;border-radius:13px;background:#172554;
- color:#60a5fa;font-size:24px;margin-bottom:18px
+  width:80px;
+  height:80px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:15px;
+  background:#080808;
+  overflow:hidden;
+  margin-bottom:18px;
 }
-.product h3{font-size:20px;margin-bottom:10px}
-.product p{color:#888;font-size:14px;min-height:48px}
-.price{font-size:25px;font-weight:900;margin:18px 0;color:#fff}
-.price small{color:#888;font-size:13px;font-weight:400}
+
+.product-icon img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+  border-radius:15px;
+  transition:.25s;
+}
+
+.product:hover .product-icon img{
+  transform:scale(1.05);
+}
+
+.product h3{
+  font-size:20px;
+  margin-bottom:10px;
+}
+
+.product p{
+  color:#888;
+  font-size:14px;
+  min-height:48px;
+}
+
+.price{
+  font-size:25px;
+  font-weight:900;
+  margin:18px 0;
+  color:#fff;
+}
+
+.price small{
+  color:#888;
+  font-size:13px;
+  font-weight:400;
+}
+
 .product-btn{
- width:100%;padding:12px;border:0;border-radius:9px;
- background:#2563eb;color:#fff;font-weight:bold
+  width:100%;
+  padding:12px;
+  border:0;
+  border-radius:9px;
+  background:#2563eb;
+  color:#fff;
+  font-weight:bold;
 }
 
-.features{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.product-btn:hover{
+  background:#1d4ed8;
+}
+
+/* WHY */
+
+.features{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+}
+
 .feature{
- background:#101010;border:1px solid #222;border-radius:15px;padding:28px
+  background:#101010;
+  border:1px solid #222;
+  border-radius:15px;
+  padding:28px;
 }
-.feature-icon{font-size:30px;margin-bottom:15px}
-.feature h3{margin-bottom:8px}
-.feature p{color:#999}
 
-.about{background:#090909}
-.about-content{max-width:850px;margin:auto;text-align:center}
-.about-content h2{font-size:38px;margin-bottom:20px}
-.about-content p{color:#aaa;margin-bottom:15px}
+.feature-icon{
+  font-size:30px;
+  margin-bottom:15px;
+}
 
-.compare-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.feature h3{
+  margin-bottom:8px;
+}
+
+.feature p{
+  color:#999;
+}
+
+/* ABOUT */
+
+.about{
+  background:#090909;
+}
+
+.about-content{
+  max-width:850px;
+  margin:auto;
+  text-align:center;
+}
+
+.about-content h2{
+  font-size:38px;
+  margin-bottom:20px;
+}
+
+.about-content p{
+  color:#aaa;
+  margin-bottom:15px;
+}
+
+/* COMPARISON */
+
+.compare-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:18px;
+}
+
 .compare-card{
- background:#101010;border:1px solid #242424;padding:24px;border-radius:15px
+  background:#101010;
+  border:1px solid #242424;
+  padding:24px;
+  border-radius:15px;
 }
-.compare-card h3{margin-bottom:10px}
-.compare-card p{color:#999;margin-bottom:18px}
-.compare-card a{color:#60a5fa;font-weight:bold}
 
-.blog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.compare-card h3{
+  margin-bottom:10px;
+}
+
+.compare-card p{
+  color:#999;
+  margin-bottom:18px;
+}
+
+.compare-card a{
+  color:#60a5fa;
+  font-weight:bold;
+}
+
+/* BLOG */
+
+.blog-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+}
+
 .blog-card{
- background:#101010;border:1px solid #222;border-radius:15px;padding:24px
+  background:#101010;
+  border:1px solid #222;
+  border-radius:15px;
+  padding:24px;
 }
-.blog-date{color:#60a5fa;font-size:13px;margin-bottom:10px}
-.blog-card h3{margin-bottom:10px}
-.blog-card p{color:#999;font-size:14px}
 
-.faq{max-width:850px;margin:auto}
+.blog-date{
+  color:#60a5fa;
+  font-size:13px;
+  margin-bottom:10px;
+}
+
+.blog-card h3{
+  margin-bottom:10px;
+}
+
+.blog-card p{
+  color:#999;
+  font-size:14px;
+}
+
+/* FAQ */
+
+.faq{
+  max-width:850px;
+  margin:auto;
+}
+
 .faq-item{
- border:1px solid #252525;background:#101010;
- border-radius:10px;margin-bottom:10px;overflow:hidden
+  border:1px solid #252525;
+  background:#101010;
+  border-radius:10px;
+  margin-bottom:10px;
+  overflow:hidden;
 }
+
 .faq-question{
- padding:18px;font-weight:bold;cursor:pointer;
- display:flex;justify-content:space-between
+  padding:18px;
+  font-weight:bold;
+  cursor:pointer;
+  display:flex;
+  justify-content:space-between;
 }
-.faq-answer{display:none;padding:0 18px 18px;color:#999}
-.faq-item.open .faq-answer{display:block}
 
-.contact{background:#090909}
-.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:30px}
+.faq-answer{
+  display:none;
+  padding:0 18px 18px;
+  color:#999;
+}
+
+.faq-item.open .faq-answer{
+  display:block;
+}
+
+/* CONTACT */
+
+.contact{
+  background:#090909;
+}
+
+.contact-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:30px;
+}
+
 .contact-box{
- background:#101010;border:1px solid #222;border-radius:15px;padding:30px
+  background:#101010;
+  border:1px solid #222;
+  border-radius:15px;
+  padding:30px;
 }
-.contact-box h3{margin-bottom:20px}
-.contact-item{margin-bottom:18px}
-.contact-item strong{display:block;color:#fff}
-.contact-item span{color:#999}
 
-footer{border-top:1px solid #222;padding:50px 0 25px;background:#030303}
-.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:30px}
-.footer-col h3{margin-bottom:15px}
-.footer-col p,.footer-col a{
- color:#888;font-size:14px;display:block;margin-bottom:8px
+.contact-box h3{
+  margin-bottom:20px;
 }
-.footer-col a:hover{color:#3b82f6}
+
+.contact-item{
+  margin-bottom:18px;
+}
+
+.contact-item strong{
+  display:block;
+  color:#fff;
+}
+
+.contact-item span{
+  color:#999;
+}
+
+/* FOOTER */
+
+footer{
+  border-top:1px solid #222;
+  padding:50px 0 25px;
+  background:#030303;
+}
+
+.footer-grid{
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr 1fr;
+  gap:30px;
+}
+
+.footer-col h3{
+  margin-bottom:15px;
+}
+
+.footer-col p,
+.footer-col a{
+  color:#888;
+  font-size:14px;
+  display:block;
+  margin-bottom:8px;
+}
+
+.footer-col a:hover{
+  color:#3b82f6;
+}
+
 .copyright{
- border-top:1px solid #222;margin-top:35px;padding-top:20px;
- text-align:center;color:#666;font-size:13px
+  border-top:1px solid #222;
+  margin-top:35px;
+  padding-top:20px;
+  text-align:center;
+  color:#666;
+  font-size:13px;
 }
+
+/* MODAL */
 
 .modal{
- display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);
- z-index:2000;align-items:center;justify-content:center;padding:20px
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.8);
+  z-index:2000;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
 }
-.modal.active{display:flex}
-.modal-box{
- width:100%;max-width:450px;background:#101010;
- border:1px solid #333;border-radius:18px;padding:30px;position:relative
-}
-.close{
- position:absolute;right:18px;top:15px;background:none;
- border:0;color:#aaa;font-size:25px
-}
-.modal-box h2{margin-bottom:20px}
-.modal-box label{display:block;font-size:13px;font-weight:bold;margin-bottom:7px}
-.modal-box input,.modal-box select{
- width:100%;padding:13px;margin-bottom:15px;border-radius:8px;
- border:1px solid #333;background:#080808;color:#fff;outline:none
-}
-.modal-box input:focus,.modal-box select:focus{border-color:#2563eb}
-.full-btn{width:100%}
-.message{
- display:none;margin-top:15px;padding:11px;border-radius:8px;
- font-size:13px;line-height:1.5
-}
-.message.show{display:block}
-.message.error{background:#3b1010;color:#f87171;border:1px solid #7f1d1d}
-.message.success{background:#082c1c;color:#34d399;border:1px solid #065f46}
 
-.user-area{display:none}
+.modal.active{
+  display:flex;
+}
+
+.modal-box{
+  width:100%;
+  max-width:450px;
+  background:#101010;
+  border:1px solid #333;
+  border-radius:18px;
+  padding:30px;
+  position:relative;
+}
+
+.close{
+  position:absolute;
+  right:18px;
+  top:15px;
+  background:none;
+  border:0;
+  color:#aaa;
+  font-size:25px;
+}
+
+.modal-box h2{
+  margin-bottom:20px;
+}
+
+.modal-box label{
+  display:block;
+  font-size:13px;
+  font-weight:bold;
+  margin-bottom:7px;
+}
+
+.modal-box input,
+.modal-box select{
+  width:100%;
+  padding:13px;
+  margin-bottom:15px;
+  border-radius:8px;
+  border:1px solid #333;
+  background:#080808;
+  color:#fff;
+  outline:none;
+}
+
+.modal-box input:focus,
+.modal-box select:focus{
+  border-color:#2563eb;
+}
+
+.full-btn{
+  width:100%;
+}
+
+.message{
+  display:none;
+  margin-top:15px;
+  padding:11px;
+  border-radius:8px;
+  font-size:13px;
+  line-height:1.5;
+}
+
+.message.show{
+  display:block;
+}
+
+.message.error{
+  background:#3b1010;
+  color:#f87171;
+  border:1px solid #7f1d1d;
+}
+
+.message.success{
+  background:#082c1c;
+  color:#34d399;
+  border:1px solid #065f46;
+}
+
+/* USER AREA */
+
+.user-area{
+  display:none;
+  align-items:center;
+  gap:10px;
+}
+
 .user-email{
- color:#aaa;font-size:13px;max-width:170px;overflow:hidden;
- text-overflow:ellipsis;white-space:nowrap
+  color:#aaa;
+  font-size:13px;
+  max-width:170px;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
 }
+
 .logout-btn{
- background:#151515;border:1px solid #333;color:#fff;
- padding:9px 12px;border-radius:8px;font-weight:bold
+  background:#151515;
+  border:1px solid #333;
+  color:#fff;
+  padding:9px 12px;
+  border-radius:8px;
+  font-weight:bold;
 }
-.logout-btn:hover{border-color:#ef4444;color:#f87171}
+
+.logout-btn:hover{
+  border-color:#ef4444;
+  color:#f87171;
+}
+
+/* RESPONSIVE */
 
 @media(max-width:950px){
- .products{grid-template-columns:repeat(2,1fr)}
- .features{grid-template-columns:1fr}
- .blog-grid{grid-template-columns:1fr}
- .footer-grid{grid-template-columns:1fr 1fr}
- .menu{display:none}
+
+  .products{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .features{
+    grid-template-columns:1fr;
+  }
+
+  .blog-grid{
+    grid-template-columns:1fr;
+  }
+
+  .footer-grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .menu{
+    display:none;
+  }
+
 }
+
 @media(max-width:600px){
- .hero{padding:70px 0}
- .hero h1{font-size:39px}
- .hero p{font-size:16px}
- .hero-buttons{flex-direction:column}
- .products{grid-template-columns:1fr}
- .compare-grid{grid-template-columns:1fr}
- .contact-grid{grid-template-columns:1fr}
- .footer-grid{grid-template-columns:1fr}
- .auth-buttons .btn{padding:9px 11px;font-size:12px}
- .user-area{max-width:180px}
- .user-email{display:none}
+
+  .hero{
+    padding:70px 0;
+  }
+
+  .hero h1{
+    font-size:39px;
+  }
+
+  .hero p{
+    font-size:16px;
+  }
+
+  .hero-buttons{
+    flex-direction:column;
+  }
+
+  .products{
+    grid-template-columns:1fr;
+  }
+
+  .compare-grid{
+    grid-template-columns:1fr;
+  }
+
+  .contact-grid{
+    grid-template-columns:1fr;
+  }
+
+  .footer-grid{
+    grid-template-columns:1fr;
+  }
+
+  .auth-buttons .btn{
+    padding:9px 11px;
+    font-size:12px;
+  }
+
+  .user-area{
+    max-width:180px;
+  }
+
+  .user-email{
+    display:none;
+  }
+
 }
+
 </style>
 </head>
 
 <body>
 
 <header>
-<div class="container nav">
 
-<a href="#home" class="logo">Digi<span>Baku</span></a>
+  <div class="container nav">
 
-<nav class="menu">
-<a href="#home">Ana səhifə</a>
-<a href="#products">Məhsullar</a>
-<a href="#compare">Müqayisə</a>
-<a href="#about">Haqqımızda</a>
-<a href="#blog">Bloq</a>
-<a href="#contact">Əlaqə</a>
-</nav>
+    <a href="#home" class="logo">
+      DigiBaku<span>.az</span>
+    </a>
 
-<div class="auth-buttons" id="authButtons">
-<button class="btn btn-dark" onclick="openLogin()">Daxil ol</button>
-<button class="btn btn-primary" onclick="openRegister()">Qeydiyyat</button>
-</div>
+    <nav class="menu">
+      <a href="#home">Ana səhifə</a>
+      <a href="#products">Məhsullar</a>
+      <a href="#compare">Müqayisə</a>
+      <a href="#about">Haqqımızda</a>
+      <a href="#blog">Bloq</a>
+      <a href="#contact">Əlaqə</a>
+    </nav>
 
-<div class="user-area" id="userArea">
-<span class="user-email" id="userEmail"></span>
-<button class="logout-btn" onclick="logout()">Çıxış</button>
-</div>
+    <div class="auth-buttons" id="authButtons">
 
-</div>
+      <button
+        class="btn btn-dark"
+        onclick="openLogin()">
+        Daxil ol
+      </button>
+
+      <button
+        class="btn btn-primary"
+        onclick="openRegister()">
+        Qeydiyyat
+      </button>
+
+    </div>
+
+    <div class="user-area" id="userArea">
+
+      <span class="user-email" id="userEmail"></span>
+
+      <button
+        class="logout-btn"
+        onclick="logout()">
+        Çıxış
+      </button>
+
+    </div>
+
+  </div>
+
 </header>
 
 <main>
 
+<!-- HERO -->
+
 <section class="hero" id="home">
-<div class="container">
 
-<div class="badge">Premium rəqəmsal xidmətlər</div>
+  <div class="container">
 
-<h1>
-Premium xidmətlər
-<span>bir platformada</span>
-</h1>
+    <div class="badge">
+      Premium rəqəmsal xidmətlər
+    </div>
 
-<p>
-Netflix, YouTube Premium, ChatGPT Plus və Spotify Premium
-paketlərini seçin, müddəti müəyyən edin və sifarişinizi
-rahatlıqla verin.
-</p>
+    <h1>
+      Premium xidmətlər
+      <span>bir platformada</span>
+    </h1>
 
-<div class="hero-buttons">
-<a href="#products" class="btn btn-primary">Məhsullara bax</a>
-<a href="#about" class="btn btn-dark">Haqqımızda</a>
-</div>
+    <p>
+      Netflix, YouTube Premium, ChatGPT Plus və Spotify Premium
+      paketlərini seçin, müddəti müəyyən edin və sifarişinizi
+      rahatlıqla verin.
+    </p>
 
-</div>
+    <div class="hero-buttons">
+
+      <a href="#products" class="btn btn-primary">
+        Məhsullara bax
+      </a>
+
+      <a href="#about" class="btn btn-dark">
+        Haqqımızda
+      </a>
+
+    </div>
+
+  </div>
+
 </section>
+
+<!-- PRODUCTS -->
 
 <section id="products">
-<div class="container">
 
-<div class="section-title">
-<h2>Məhsullar</h2>
-<p>Ən çox seçilən premium rəqəmsal xidmətlər</p>
-</div>
+  <div class="container">
 
-<div class="products">
+    <div class="section-title">
 
-<div class="product">
-<div class="product-icon">N</div>
-<h3>Netflix Premium</h3>
-<p>Premium film və serial platforması.</p>
-<div class="price">6.99 AZN <small>/ 1 ay</small></div>
-<button class="product-btn" onclick="openOrder('Netflix Premium')">Sifariş et</button>
-</div>
+      <h2>Məhsullar</h2>
 
-<div class="product">
-<div class="product-icon">▶</div>
-<h3>YouTube Premium</h3>
-<p>Reklamsız video və musiqi istifadəsi.</p>
-<div class="price">7.99 AZN <small>/ 1 ay</small></div>
-<button class="product-btn" onclick="openOrder('YouTube Premium')">Sifariş et</button>
-</div>
+      <p>
+        Ən çox seçilən premium rəqəmsal xidmətlər
+      </p>
 
-<div class="product">
-<div class="product-icon">AI</div>
-<h3>ChatGPT Plus</h3>
-<p>AI alətləri, yazı, kod və gündəlik işlər üçün.</p>
-<div class="price">11.99 AZN <small>/ 1 ay</small></div>
-<button class="product-btn" onclick="openOrder('ChatGPT Plus')">Sifariş et</button>
-</div>
+    </div>
 
-<div class="product">
-<div class="product-icon">♫</div>
-<h3>Spotify Premium</h3>
-<p>Reklamsız musiqi və offline dinləmə.</p>
-<div class="price">7.99 AZN <small>/ 1 ay</small></div>
-<button class="product-btn" onclick="openOrder('Spotify Premium')">Sifariş et</button>
-</div>
+    <div class="products">
 
-</div>
-</div>
+      <!-- NETFLIX -->
+
+      <div class="product">
+
+        <div class="product-icon">
+          <img
+            src="netflix.webp"
+            alt="Netflix Premium">
+        </div>
+
+        <h3>
+          Netflix Premium
+        </h3>
+
+        <p>
+          Premium film və serial platforması.
+        </p>
+
+        <div class="price">
+          6.99 AZN
+          <small>/ 1 ay</small>
+        </div>
+
+        <button
+          class="product-btn"
+          onclick="openOrder('Netflix Premium')">
+
+          Sifariş et
+
+        </button>
+
+      </div>
+
+      <!-- YOUTUBE -->
+
+      <div class="product">
+
+        <div class="product-icon">
+          <img
+            src="youtube.webp"
+            alt="YouTube Premium">
+        </div>
+
+        <h3>
+          YouTube Premium
+        </h3>
+
+        <p>
+          Reklamsız video və musiqi istifadəsi.
+        </p>
+
+        <div class="price">
+          7.99 AZN
+          <small>/ 1 ay</small>
+        </div>
+
+        <button
+          class="product-btn"
+          onclick="openOrder('YouTube Premium')">
+
+          Sifariş et
+
+        </button>
+
+      </div>
+
+      <!-- CHATGPT -->
+
+      <div class="product">
+
+        <div class="product-icon">
+          <img
+            src="chatgpt.webp"
+            alt="ChatGPT Plus">
+        </div>
+
+        <h3>
+          ChatGPT Plus
+        </h3>
+
+        <p>
+          AI alətləri, yazı, kod və gündəlik işlər üçün.
+        </p>
+
+        <div class="price">
+          11.99 AZN
+          <small>/ 1 ay</small>
+        </div>
+
+        <button
+          class="product-btn"
+          onclick="openOrder('ChatGPT Plus')">
+
+          Sifariş et
+
+        </button>
+
+      </div>
+
+      <!-- SPOTIFY -->
+
+      <div class="product">
+
+        <div class="product-icon">
+          <img
+            src="spotfiy.webp"
+            alt="Spotify Premium">
+        </div>
+
+        <h3>
+          Spotify Premium
+        </h3>
+
+        <p>
+          Reklamsız musiqi və offline dinləmə.
+        </p>
+
+        <div class="price">
+          7.99 AZN
+          <small>/ 1 ay</small>
+        </div>
+
+        <button
+          class="product-btn"
+          onclick="openOrder('Spotify Premium')">
+
+          Sifariş et
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
 </section>
+
+<!-- WHY -->
 
 <section>
-<div class="container">
 
-<div class="section-title">
-<h2>Niyə DigiBaku?</h2>
-<p>Sadə, sürətli və rahat sifariş prosesi</p>
-</div>
+  <div class="container">
 
-<div class="features">
+    <div class="section-title">
 
-<div class="feature">
-<div class="feature-icon">⚡</div>
-<h3>Sürətli aktivləşdirmə</h3>
-<p>Sifarişinizi göndərin və aktivləşdirmə üçün dəstək alın.</p>
-</div>
+      <h2>Niyə DigiBaku?</h2>
 
-<div class="feature">
-<div class="feature-icon">🔒</div>
-<h3>Təhlükəsiz proses</h3>
-<p>Sifariş məlumatlarınız rahat və təhlükəsiz şəkildə qəbul edilir.</p>
-</div>
+      <p>
+        Sadə, sürətli və rahat sifariş prosesi
+      </p>
 
-<div class="feature">
-<div class="feature-icon">💬</div>
-<h3>Dəstək</h3>
-<p>Sifarişlə bağlı suallarınız olduqda dəstək komandamızla əlaqə saxlayın.</p>
-</div>
+    </div>
 
-</div>
-</div>
+    <div class="features">
+
+      <div class="feature">
+
+        <div class="feature-icon">
+          ⚡
+        </div>
+
+        <h3>
+          Sürətli aktivləşdirmə
+        </h3>
+
+        <p>
+          Sifarişinizi göndərin və aktivləşdirmə üçün dəstək alın.
+        </p>
+
+      </div>
+
+      <div class="feature">
+
+        <div class="feature-icon">
+          🔒
+        </div>
+
+        <h3>
+          Təhlükəsiz proses
+        </h3>
+
+        <p>
+          Sifariş məlumatlarınız rahat və təhlükəsiz şəkildə qəbul edilir.
+        </p>
+
+      </div>
+
+      <div class="feature">
+
+        <div class="feature-icon">
+          💬
+        </div>
+
+        <h3>
+          Dəstək
+        </h3>
+
+        <p>
+          Sifarişlə bağlı suallarınız olduqda dəstək komandamızla əlaqə saxlayın.
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
 </section>
+
+<!-- ABOUT -->
 
 <section class="about" id="about">
-<div class="container about-content">
 
-<h2>DigiBaku haqqında</h2>
+  <div class="container about-content">
 
-<p>
-DigiBaku premium rəqəmsal xidmətləri daha rahat əldə etmək
-istəyən istifadəçilər üçün yaradılmış platformadır.
-</p>
+    <h2>
+      DigiBaku haqqında
+    </h2>
 
-<p>
-Məqsədimiz istifadəçinin uyğun xidməti tez tapması,
-qiymət və müddəti aydın görməsi və sifariş prosesini
-mümkün qədər sadə şəkildə tamamlamasıdır.
-</p>
+    <p>
+      DigiBaku premium rəqəmsal xidmətləri daha rahat əldə etmək
+      istəyən istifadəçilər üçün yaradılmış platformadır.
+    </p>
 
-<p>
-Platformada Netflix, YouTube Premium, ChatGPT Plus və
-Spotify Premium kimi rəqəmsal xidmətlər təqdim olunur.
-</p>
+    <p>
+      Məqsədimiz istifadəçinin uyğun xidməti tez tapması,
+      qiymət və müddəti aydın görməsi və sifariş prosesini
+      mümkün qədər sadə şəkildə tamamlamasıdır.
+    </p>
 
-</div>
+    <p>
+      Platformada Netflix, YouTube Premium, ChatGPT Plus və
+      Spotify Premium kimi rəqəmsal xidmətlər təqdim olunur.
+    </p>
+
+  </div>
+
 </section>
+
+<!-- COMPARISON -->
 
 <section id="compare">
-<div class="container">
 
-<div class="section-title">
-<h2>Müqayisə</h2>
-<p>Uyğun xidməti seçmək üçün müqayisə edin</p>
-</div>
+  <div class="container">
 
-<div class="compare-grid">
+    <div class="section-title">
 
-<div class="compare-card">
-<h3>Netflix vs YouTube Premium</h3>
-<p>Film, serial, video və reklamsız istifadə imkanlarını müqayisə edin.</p>
-<a href="#products">Məhsullara bax →</a>
-</div>
+      <h2>Müqayisə</h2>
 
-<div class="compare-card">
-<h3>Spotify vs YouTube Premium</h3>
-<p>Musiqi dinləmə və video istifadə ehtiyacınıza uyğun xidməti seçin.</p>
-<a href="#products">Məhsullara bax →</a>
-</div>
+      <p>
+        Uyğun xidməti seçmək üçün müqayisə edin
+      </p>
 
-<div class="compare-card">
-<h3>ChatGPT Plus vs digər AI</h3>
-<p>Yazı, kod və süni intellekt işləri üçün uyğun seçimi müəyyən edin.</p>
-<a href="#products">Məhsullara bax →</a>
-</div>
+    </div>
 
-<div class="compare-card">
-<h3>Premium paket seçimi</h3>
-<p>Qiymət, müddət və istifadə məqsədinə görə paketləri müqayisə edin.</p>
-<a href="#products">Məhsullara bax →</a>
-</div>
+    <div class="compare-grid">
 
-</div>
-</div>
+      <div class="compare-card">
+
+        <h3>
+          Netflix vs YouTube Premium
+        </h3>
+
+        <p>
+          Film, serial, video və reklamsız istifadə imkanlarını müqayisə edin.
+        </p>
+
+        <a href="#products">
+          Məhsullara bax →
+        </a>
+
+      </div>
+
+      <div class="compare-card">
+
+        <h3>
+          Spotify vs YouTube Premium
+        </h3>
+
+        <p>
+          Musiqi dinləmə və video istifadə ehtiyacınıza uyğun xidməti seçin.
+        </p>
+
+        <a href="#products">
+          Məhsullara bax →
+        </a>
+
+      </div>
+
+      <div class="compare-card">
+
+        <h3>
+          ChatGPT Plus vs digər AI
+        </h3>
+
+        <p>
+          Yazı, kod və süni intellekt işləri üçün uyğun seçimi müəyyən edin.
+        </p>
+
+        <a href="#products">
+          Məhsullara bax →
+        </a>
+
+      </div>
+
+      <div class="compare-card">
+
+        <h3>
+          Premium paket seçimi
+        </h3>
+
+        <p>
+          Qiymət, müddət və istifadə məqsədinə görə paketləri müqayisə edin.
+        </p>
+
+        <a href="#products">
+          Məhsullara bax →
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
+
 </section>
+
+<!-- BLOG -->
 
 <section id="blog">
-<div class="container">
 
-<div class="section-title">
-<h2>Bloq</h2>
-<p>Premium xidmətlər haqqında faydalı məlumatlar</p>
-</div>
+  <div class="container">
 
-<div class="blog-grid">
+    <div class="section-title">
 
-<article class="blog-card">
-<div class="blog-date">16.08.2026</div>
-<h3>Netflix Premium nədir?</h3>
-<p>Netflix paketləri və istifadə imkanları haqqında məlumat.</p>
-</article>
+      <h2>Bloq</h2>
 
-<article class="blog-card">
-<div class="blog-date">16.08.2026</div>
-<h3>YouTube Premium nə verir?</h3>
-<p>Reklamsız video və digər premium imkanlar haqqında.</p>
-</article>
+      <p>
+        Premium xidmətlər haqqında faydalı məlumatlar
+      </p>
 
-<article class="blog-card">
-<div class="blog-date">16.08.2026</div>
-<h3>ChatGPT Plus kimlər üçündür?</h3>
-<p>AI alətlərindən istifadə edənlər üçün premium imkanlar.</p>
-</article>
+    </div>
 
-<article class="blog-card">
-<div class="blog-date">16.08.2026</div>
-<h3>Spotify Premium üstünlükləri</h3>
-<p>Reklamsız musiqi və offline dinləmə imkanları.</p>
-</article>
+    <div class="blog-grid">
 
-<article class="blog-card">
-<div class="blog-date">16.08.2026</div>
-<h3>Premium xidmət seçərkən nə etməli?</h3>
-<p>Müddət, qiymət və istifadə məqsədinə diqqət edin.</p>
-</article>
+      <article class="blog-card">
 
-<article class="blog-card">
-<div class="blog-date">16.08.2026</div>
-<h3>DigiBaku sifarişi necə işləyir?</h3>
-<p>Məhsul seçimi və sifariş prosesinin mərhələləri.</p>
-</article>
+        <div class="blog-date">
+          16.08.2026
+        </div>
 
-</div>
-</div>
+        <h3>
+          Netflix Premium nədir?
+        </h3>
+
+        <p>
+          Netflix paketləri və istifadə imkanları haqqında məlumat.
+        </p>
+
+      </article>
+
+      <article class="blog-card">
+
+        <div class="blog-date">
+          16.08.2026
+        </div>
+
+        <h3>
+          YouTube Premium nə verir?
+        </h3>
+
+        <p>
+          Reklamsız video və digər premium imkanlar haqqında.
+        </p>
+
+      </article>
+
+      <article class="blog-card">
+
+        <div class="blog-date">
+          16.08.2026
+        </div>
+
+        <h3>
+          ChatGPT Plus kimlər üçündür?
+        </h3>
+
+        <p>
+          AI alətlərindən istifadə edənlər üçün premium imkanlar.
+        </p>
+
+      </article>
+
+      <article class="blog-card">
+
+        <div class="blog-date">
+          16.08.2026
+        </div>
+
+        <h3>
+          Spotify Premium üstünlükləri
+        </h3>
+
+        <p>
+          Reklamsız musiqi və offline dinləmə imkanları.
+        </p>
+
+      </article>
+
+      <article class="blog-card">
+
+        <div class="blog-date">
+          16.08.2026
+        </div>
+
+        <h3>
+          Premium xidmət seçərkən nə etməli?
+        </h3>
+
+        <p>
+          Müddət, qiymət və istifadə məqsədinə diqqət edin.
+        </p>
+
+      </article>
+
+      <article class="blog-card">
+
+        <div class="blog-date">
+          16.08.2026
+        </div>
+
+        <h3>
+          DigiBaku sifarişi necə işləyir?
+        </h3>
+
+        <p>
+          Məhsul seçimi və sifariş prosesinin mərhələləri.
+        </p>
+
+      </article>
+
+    </div>
+
+  </div>
+
 </section>
+
+<!-- FAQ -->
 
 <section>
-<div class="container">
 
-<div class="section-title">
-<h2>FAQ</h2>
-<p>Tez-tez verilən suallar</p>
-</div>
+  <div class="container">
 
-<div class="faq">
+    <div class="section-title">
 
-<div class="faq-item">
-<div class="faq-question" onclick="toggleFaq(this)">
-Sifariş necə verilir?
-<span>+</span>
-</div>
-<div class="faq-answer">
-Məhsulu seçin, müddəti müəyyən edin və sifariş düyməsinə basın.
-Daha sonra sifariş WhatsApp üzərindən göndərilir.
-</div>
-</div>
+      <h2>FAQ</h2>
 
-<div class="faq-item">
-<div class="faq-question" onclick="toggleFaq(this)">
-Qeydiyyat lazımdır?
-<span>+</span>
-</div>
-<div class="faq-answer">
-Bəli. Sifariş imkanlarından istifadə etmək üçün hesab yaratmaq
-və hesabınıza daxil olmaq nəzərdə tutulub.
-</div>
-</div>
+      <p>
+        Tez-tez verilən suallar
+      </p>
 
-<div class="faq-item">
-<div class="faq-question" onclick="toggleFaq(this)">
-Hansı məhsullar var?
-<span>+</span>
-</div>
-<div class="faq-answer">
-Hazırda Netflix, YouTube Premium, ChatGPT Plus və Spotify Premium təqdim olunur.
-</div>
-</div>
+    </div>
 
-<div class="faq-item">
-<div class="faq-question" onclick="toggleFaq(this)">
-Sifariş hara göndərilir?
-<span>+</span>
-</div>
-<div class="faq-answer">
-Sifariş məlumatları WhatsApp üzərindən dəstəyə göndərilir.
-</div>
-</div>
+    <div class="faq">
 
-</div>
-</div>
+      <div class="faq-item">
+
+        <div
+          class="faq-question"
+          onclick="toggleFaq(this)">
+
+          Sifariş necə verilir?
+
+          <span>+</span>
+
+        </div>
+
+        <div class="faq-answer">
+
+          Məhsulu seçin, müddəti müəyyən edin və sifariş düyməsinə basın.
+          Daha sonra sifariş WhatsApp üzərindən göndərilir.
+
+        </div>
+
+      </div>
+
+      <div class="faq-item">
+
+        <div
+          class="faq-question"
+          onclick="toggleFaq(this)">
+
+          Qeydiyyat lazımdır?
+
+          <span>+</span>
+
+        </div>
+
+        <div class="faq-answer">
+
+          Bəli. Sifariş imkanlarından istifadə etmək üçün hesab yaratmaq
+          və hesabınıza daxil olmaq nəzərdə tutulub.
+
+        </div>
+
+      </div>
+
+      <div class="faq-item">
+
+        <div
+          class="faq-question"
+          onclick="toggleFaq(this)">
+
+          Hansı məhsullar var?
+
+          <span>+</span>
+
+        </div>
+
+        <div class="faq-answer">
+
+          Hazırda Netflix, YouTube Premium, ChatGPT Plus və Spotify Premium
+          təqdim olunur.
+
+        </div>
+
+      </div>
+
+      <div class="faq-item">
+
+        <div
+          class="faq-question"
+          onclick="toggleFaq(this)">
+
+          Sifariş hara göndərilir?
+
+          <span>+</span>
+
+        </div>
+
+        <div class="faq-answer">
+
+          Sifariş məlumatları WhatsApp üzərindən dəstəyə göndərilir.
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
 </section>
 
+<!-- CONTACT -->
+
 <section class="contact" id="contact">
-<div class="container">
 
-<div class="section-title">
-<h2>Əlaqə</h2>
-<p>Bizimlə əlaqə saxlayın</p>
-</div>
+  <div class="container">
 
-<div class="contact-grid">
+    <div class="section-title">
 
-<div class="contact-box">
-<h3>DigiBaku dəstək</h3>
+      <h2>Əlaqə</h2>
 
-<div class="contact-item">
-<strong>Şəhər</strong>
-<span>Bakı, Azərbaycan</span>
-</div>
+      <p>
+        Bizimlə əlaqə saxlayın
+      </p>
 
-<div class="contact-item">
-<strong>E-poçt</strong>
-<span>netp2673@gmail.com</span>
-</div>
+    </div>
 
-<div class="contact-item">
-<strong>İş saatları</strong>
-<span>Hər gün 10:00 — 22:00</span>
-</div>
-</div>
+    <div class="contact-grid">
 
-<div class="contact-box">
-<h3>Sifariş və dəstək</h3>
+      <div class="contact-box">
 
-<p style="color:#999;margin-bottom:20px;">
-Məhsul sifarişi üçün məhsulu seçib sifariş formasından istifadə edə bilərsiniz.
-</p>
+        <h3>
+          DigiBaku dəstək
+        </h3>
 
-<a href="#products" class="btn btn-primary">Məhsullara bax</a>
-</div>
+        <div class="contact-item">
 
-</div>
-</div>
+          <strong>
+            Şəhər
+          </strong>
+
+          <span>
+            Bakı, Azərbaycan
+          </span>
+
+        </div>
+
+        <div class="contact-item">
+
+          <strong>
+            E-poçt
+          </strong>
+
+          <span>
+            netp2673@gmail.com
+          </span>
+
+        </div>
+
+        <div class="contact-item">
+
+          <strong>
+            İş saatları
+          </strong>
+
+          <span>
+            Hər gün 10:00 — 22:00
+          </span>
+
+        </div>
+
+      </div>
+
+      <div class="contact-box">
+
+        <h3>
+          Sifariş və dəstək
+        </h3>
+
+        <p style="color:#999;margin-bottom:20px;">
+
+          Məhsul sifarişi üçün məhsulu seçib sifariş formasından
+          istifadə edə bilərsiniz.
+
+        </p>
+
+        <a
+          href="#products"
+          class="btn btn-primary">
+
+          Məhsullara bax
+
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
+
 </section>
 
 </main>
 
+<!-- FOOTER -->
+
 <footer>
-<div class="container">
 
-<div class="footer-grid">
+  <div class="container">
 
-<div class="footer-col">
-<h3 class="logo">Digi<span>Baku</span></h3>
-<p>Premium rəqəmsal xidmətlər bir platformada.</p>
-</div>
+    <div class="footer-grid">
 
-<div class="footer-col">
-<h3>Faydalı linklər</h3>
-<a href="#home">Ana səhifə</a>
-<a href="#products">Məhsullar</a>
-<a href="#compare">Müqayisə</a>
-<a href="#about">Haqqımızda</a>
-<a href="#blog">Bloq</a>
-<a href="#contact">Əlaqə</a>
-</div>
+      <div class="footer-col">
 
-<div class="footer-col">
-<h3>Məhsullar</h3>
-<a href="#products">Netflix Premium</a>
-<a href="#products">YouTube Premium</a>
-<a href="#products">ChatGPT Plus</a>
-<a href="#products">Spotify Premium</a>
-</div>
+        <h3 class="logo">
+          DigiBaku<span>.az</span>
+        </h3>
 
-<div class="footer-col">
-<h3>Dəstək</h3>
-<a href="#contact">Əlaqə</a>
-<a href="#blog">Bloq</a>
-<a href="#about">Haqqımızda</a>
-<a href="#products">Sifariş</a>
-</div>
+        <p>
+          Premium rəqəmsal xidmətlər bir platformada.
+        </p>
 
-</div>
+      </div>
 
-<div class="copyright">
-© 2026 DigiBaku. Bütün hüquqlar qorunur.
-</div>
+      <div class="footer-col">
 
-</div>
+        <h3>
+          Faydalı linklər
+        </h3>
+
+        <a href="#home">Ana səhifə</a>
+        <a href="#products">Məhsullar</a>
+        <a href="#compare">Müqayisə</a>
+        <a href="#about">Haqqımızda</a>
+        <a href="#blog">Bloq</a>
+        <a href="#contact">Əlaqə</a>
+
+      </div>
+
+      <div class="footer-col">
+
+        <h3>
+          Məhsullar
+        </h3>
+
+        <a href="#products">
+          Netflix Premium
+        </a>
+
+        <a href="#products">
+          YouTube Premium
+        </a>
+
+        <a href="#products">
+          ChatGPT Plus
+        </a>
+
+        <a href="#products">
+          Spotify Premium
+        </a>
+
+      </div>
+
+      <div class="footer-col">
+
+        <h3>
+          Dəstək
+        </h3>
+
+        <a href="#contact">
+          Əlaqə
+        </a>
+
+        <a href="#blog">
+          Bloq
+        </a>
+
+        <a href="#about">
+          Haqqımızda
+        </a>
+
+        <a href="#products">
+          Sifariş
+        </a>
+
+      </div>
+
+    </div>
+
+    <div class="copyright">
+
+      © 2026 DigiBaku.az. Bütün hüquqlar qorunur.
+
+    </div>
+
+  </div>
+
 </footer>
 
+<!-- LOGIN MODAL -->
 
-<!-- LOGIN -->
+<div
+  class="modal"
+  id="loginModal">
 
-<div class="modal" id="loginModal">
-<div class="modal-box">
+  <div class="modal-box">
 
-<button class="close" onclick="closeModal('loginModal')">×</button>
+    <button
+      class="close"
+      onclick="closeModal('loginModal')">
 
-<h2>Daxil ol</h2>
+      ×
 
-<form onsubmit="login(event)">
+    </button>
 
-<label>Email</label>
-<input id="loginEmail" type="email" autocomplete="email"
-required placeholder="email@example.com">
+    <h2>
+      Daxil ol
+    </h2>
 
-<label>Şifrə</label>
-<input id="loginPassword" type="password"
-autocomplete="current-password" required placeholder="Şifrəniz">
+    <form onsubmit="login(event)">
 
-<button id="loginButton" type="submit" class="btn btn-primary full-btn">
-Daxil ol
-</button>
+      <label>
+        Email
+      </label>
 
-<div id="loginMessage" class="message"></div>
+      <input
+        id="loginEmail"
+        type="email"
+        autocomplete="email"
+        required
+        placeholder="email@example.com">
 
-</form>
+      <label>
+        Şifrə
+      </label>
 
-<p style="text-align:center;color:#888;margin-top:18px;font-size:13px;">
-Hesabınız yoxdur?
-<button type="button" onclick="switchToRegister()"
-style="border:0;background:none;color:#60a5fa;font-weight:bold;">
-Qeydiyyatdan keç
-</button>
-</p>
+      <input
+        id="loginPassword"
+        type="password"
+        autocomplete="current-password"
+        required
+        placeholder="Şifrəniz">
 
-</div>
-</div>
+      <button
+        id="loginButton"
+        type="submit"
+        class="btn btn-primary full-btn">
 
+        Daxil ol
 
-<!-- REGISTER -->
+      </button>
 
-<div class="modal" id="registerModal">
-<div class="modal-box">
+      <div
+        id="loginMessage"
+        class="message">
+      </div>
 
-<button class="close" onclick="closeModal('registerModal')">×</button>
+    </form>
 
-<h2>Qeydiyyat</h2>
+    <p
+      style="
+      text-align:center;
+      color:#888;
+      margin-top:18px;
+      font-size:13px;">
 
-<form onsubmit="register(event)">
+      Hesabınız yoxdur?
 
-<label>Email</label>
-<input id="registerEmail" type="email" autocomplete="email"
-required placeholder="email@example.com">
+      <button
+        type="button"
+        onclick="switchToRegister()"
+        style="
+        border:0;
+        background:none;
+        color:#60a5fa;
+        font-weight:bold;">
 
-<label>Şifrə</label>
-<input id="registerPassword" type="password"
-autocomplete="new-password" minlength="6"
-required placeholder="Minimum 6 simvol">
+        Qeydiyyatdan keç
 
-<button id="registerButton" type="submit" class="btn btn-primary full-btn">
-Hesab yarat
-</button>
+      </button>
 
-<div id="registerMessage" class="message"></div>
+    </p>
 
-</form>
-
-<p style="text-align:center;color:#888;margin-top:18px;font-size:13px;">
-Artıq hesabınız var?
-<button type="button" onclick="switchToLogin()"
-style="border:0;background:none;color:#60a5fa;font-weight:bold;">
-Daxil ol
-</button>
-</p>
-
-</div>
-</div>
-
-
-<!-- ORDER -->
-
-<div class="modal" id="orderModal">
-<div class="modal-box">
-
-<button class="close" onclick="closeModal('orderModal')">×</button>
-
-<h2>Sifariş</h2>
-
-<label>Məhsul</label>
-<input id="orderProduct" readonly>
-
-<label>Müddət</label>
-<select id="orderDuration" onchange="updateOrderPrice()"></select>
-
-<label>Qiymət</label>
-<input id="orderPrice" readonly>
-
-<button class="btn btn-primary full-btn" onclick="sendWhatsAppOrder()">
-WhatsApp ilə sifariş et
-</button>
-
-<div id="orderMessage" class="message"></div>
+  </div>
 
 </div>
+
+<!-- REGISTER MODAL -->
+
+<div
+  class="modal"
+  id="registerModal">
+
+  <div class="modal-box">
+
+    <button
+      class="close"
+      onclick="closeModal('registerModal')">
+
+      ×
+
+    </button>
+
+    <h2>
+      Qeydiyyat
+    </h2>
+
+    <form onsubmit="register(event)">
+
+      <label>
+        Email
+      </label>
+
+      <input
+        id="registerEmail"
+        type="email"
+        autocomplete="email"
+        required
+        placeholder="email@example.com">
+
+      <label>
+        Şifrə
+      </label>
+
+      <input
+        id="registerPassword"
+        type="password"
+        autocomplete="new-password"
+        minlength="6"
+        required
+        placeholder="Minimum 6 simvol">
+
+      <button
+        id="registerButton"
+        type="submit"
+        class="btn btn-primary full-btn">
+
+        Hesab yarat
+
+      </button>
+
+      <div
+        id="registerMessage"
+        class="message">
+      </div>
+
+    </form>
+
+    <p
+      style="
+      text-align:center;
+      color:#888;
+      margin-top:18px;
+      font-size:13px;">
+
+      Artıq hesabınız var?
+
+      <button
+        type="button"
+        onclick="switchToLogin()"
+        style="
+        border:0;
+        background:none;
+        color:#60a5fa;
+        font-weight:bold;">
+
+        Daxil ol
+
+      </button>
+
+    </p>
+
+  </div>
+
 </div>
 
+<!-- ORDER MODAL -->
+
+<div
+  class="modal"
+  id="orderModal">
+
+  <div class="modal-box">
+
+    <button
+      class="close"
+      onclick="closeModal('orderModal')">
+
+      ×
+
+    </button>
+
+    <h2>
+      Sifariş
+    </h2>
+
+    <label>
+      Məhsul
+    </label>
+
+    <input
+      id="orderProduct"
+      readonly>
+
+    <label>
+      Müddət
+    </label>
+
+    <select
+      id="orderDuration"
+      onchange="updateOrderPrice()">
+    </select>
+
+    <label>
+      Qiymət
+    </label>
+
+    <input
+      id="orderPrice"
+      readonly>
+
+    <button
+      class="btn btn-primary full-btn"
+      onclick="sendWhatsAppOrder()">
+
+      WhatsApp ilə sifariş et
+
+    </button>
+
+    <div
+      id="orderMessage"
+      class="message">
+    </div>
+
+  </div>
+
+</div>
 
 <script>
 
-/* =========================
-   SUPABASE
-========================= */
+/* SUPABASE */
 
 const SUPABASE_URL =
-"https://zeknhnkaicqkfzgnvycq.supabase.co";
+  "https://zeknhnkaicqkfzgnvycq.supabase.co";
 
 const SUPABASE_KEY =
-"sb_publishable_jHvCp9fXBA_BwFqrXYpwlw_VC6C1OQk";
+  "sb_publishable_jHvCp9fXBA_BwFqrXYpwlw_VC6C1OQk";
 
 const supabaseClient =
-window.supabase.createClient(
-SUPABASE_URL,
-SUPABASE_KEY
-);
+  window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
 
-
-/* =========================
-   PRODUCTS
-========================= */
+/* PRODUCTS */
 
 const products = {
 
-"Netflix Premium":[
-{duration:"1 ay",price:"6.99 AZN"},
-{duration:"2 ay",price:"12.99 AZN"}
-],
+  "Netflix Premium":[
+    {
+      duration:"1 ay",
+      price:"6.99 AZN"
+    },
+    {
+      duration:"2 ay",
+      price:"12.99 AZN"
+    }
+  ],
 
-"YouTube Premium":[
-{duration:"1 ay",price:"7.99 AZN"}
-],
+  "YouTube Premium":[
+    {
+      duration:"1 ay",
+      price:"7.99 AZN"
+    }
+  ],
 
-"ChatGPT Plus":[
-{duration:"1 ay",price:"11.99 AZN"}
-],
+  "ChatGPT Plus":[
+    {
+      duration:"1 ay",
+      price:"11.99 AZN"
+    }
+  ],
 
-"Spotify Premium":[
-{duration:"1 ay",price:"7.99 AZN"}
-]
+  "Spotify Premium":[
+    {
+      duration:"1 ay",
+      price:"7.99 AZN"
+    }
+  ]
 
 };
 
-
-/* =========================
-   MODALS
-========================= */
+/* MODALS */
 
 function openLogin(){
-document.getElementById("loginModal").classList.add("active");
+  document
+    .getElementById("loginModal")
+    .classList.add("active");
 }
 
 function openRegister(){
-document.getElementById("registerModal").classList.add("active");
+  document
+    .getElementById("registerModal")
+    .classList.add("active");
 }
 
 function closeModal(id){
-document.getElementById(id).classList.remove("active");
+  document
+    .getElementById(id)
+    .classList.remove("active");
 }
 
 function switchToRegister(){
-closeModal("loginModal");
-openRegister();
+  closeModal("loginModal");
+  openRegister();
 }
 
 function switchToLogin(){
-closeModal("registerModal");
-openLogin();
+  closeModal("registerModal");
+  openLogin();
 }
 
-
-/* =========================
-   MESSAGE
-========================= */
+/* MESSAGE */
 
 function showMessage(element,text,type){
-element.textContent=text;
-element.className="message show "+type;
+
+  element.textContent = text;
+
+  element.className =
+    "message show " + type;
+
 }
 
-
-/* =========================
-   REGISTER
-========================= */
+/* REGISTER */
 
 async function register(event){
 
-event.preventDefault();
+  event.preventDefault();
 
-const email=document.getElementById("registerEmail").value.trim();
-const password=document.getElementById("registerPassword").value;
-const message=document.getElementById("registerMessage");
-const button=document.getElementById("registerButton");
+  const email =
+    document
+      .getElementById("registerEmail")
+      .value
+      .trim();
 
-message.className="message";
-message.textContent="";
+  const password =
+    document
+      .getElementById("registerPassword")
+      .value;
 
-button.disabled=true;
-button.textContent="Hesab yaradılır...";
+  const message =
+    document
+      .getElementById("registerMessage");
 
-try{
+  const button =
+    document
+      .getElementById("registerButton");
 
-const {data,error}=await supabaseClient.auth.signUp({
-email:email,
-password:password
-});
+  message.className = "message";
+  message.textContent = "";
 
-if(error){
+  button.disabled = true;
+  button.textContent = "Hesab yaradılır...";
 
-showMessage(message,error.message,"error");
-return;
+  try{
+
+    const {data,error} =
+      await supabaseClient.auth.signUp({
+        email:email,
+        password:password
+      });
+
+    if(error){
+
+      showMessage(
+        message,
+        error.message,
+        "error"
+      );
+
+      return;
+    }
+
+    if(data && data.session){
+
+      showMessage(
+        message,
+        "Hesab uğurla yaradıldı! Artıq daxil olmusunuz.",
+        "success"
+      );
+
+      event.target.reset();
+
+      setTimeout(function(){
+        closeModal("registerModal");
+      },800);
+
+      return;
+    }
+
+    if(data && data.user && !data.session){
+
+      showMessage(
+        message,
+        "Hesab yaradıldı, amma avtomatik giriş olmadı. Supabase-də Confirm email ayarının OFF olduğuna əmin olun.",
+        "error"
+      );
+
+      return;
+    }
+
+    showMessage(
+      message,
+      "Qeydiyyat tamamlanmadı.",
+      "error"
+    );
+
+  }catch(error){
+
+    console.error(
+      "REGISTER EXCEPTION:",
+      error
+    );
+
+    showMessage(
+      message,
+      error.message ||
+      "Qeydiyyat zamanı xəta baş verdi.",
+      "error"
+    );
+
+  }finally{
+
+    button.disabled = false;
+    button.textContent = "Hesab yarat";
+
+  }
 
 }
 
-if(data && data.session){
-
-showMessage(
-message,
-"Hesab uğurla yaradıldı! Artıq daxil olmusunuz.",
-"success"
-);
-
-event.target.reset();
-
-setTimeout(function(){
-closeModal("registerModal");
-updateAuthUI(data.session.user);
-},800);
-
-return;
-}
-
-if(data && data.user && !data.session){
-
-showMessage(
-message,
-"Hesab yaradıldı. Email təsdiqi aktivdirsə, emailinizi təsdiqləyin.",
-"success"
-);
-
-return;
-}
-
-showMessage(
-message,
-"Qeydiyyat tamamlanmadı.",
-"error"
-);
-
-}catch(error){
-
-showMessage(
-message,
-error.message || "Qeydiyyat zamanı xəta baş verdi.",
-"error"
-);
-
-}finally{
-
-button.disabled=false;
-button.textContent="Hesab yarat";
-
-}
-
-}
-
-
-/* =========================
-   LOGIN
-========================= */
+/* LOGIN */
 
 async function login(event){
 
-event.preventDefault();
+  event.preventDefault();
 
-const email=document.getElementById("loginEmail").value.trim();
-const password=document.getElementById("loginPassword").value;
-const message=document.getElementById("loginMessage");
-const button=document.getElementById("loginButton");
+  const email =
+    document
+      .getElementById("loginEmail")
+      .value
+      .trim();
 
-message.className="message";
-message.textContent="";
+  const password =
+    document
+      .getElementById("loginPassword")
+      .value;
 
-button.disabled=true;
-button.textContent="Giriş edilir...";
+  const message =
+    document
+      .getElementById("loginMessage");
 
-try{
+  const button =
+    document
+      .getElementById("loginButton");
 
-const {data,error}=await supabaseClient.auth.signInWithPassword({
-email:email,
-password:password
-});
+  message.className = "message";
+  message.textContent = "";
 
-if(error){
+  button.disabled = true;
+  button.textContent = "Giriş edilir...";
 
-showMessage(message,error.message,"error");
-return;
+  try{
+
+    const {data,error} =
+      await supabaseClient.auth
+        .signInWithPassword({
+          email:email,
+          password:password
+        });
+
+    if(error){
+
+      showMessage(
+        message,
+        error.message,
+        "error"
+      );
+
+      return;
+    }
+
+    if(data && data.session){
+
+      showMessage(
+        message,
+        "Giriş uğurludur.",
+        "success"
+      );
+
+      setTimeout(function(){
+
+        closeModal("loginModal");
+
+        updateAuthUI(
+          data.session.user
+        );
+
+      },700);
+
+      return;
+    }
+
+    showMessage(
+      message,
+      "Giriş mümkün olmadı.",
+      "error"
+    );
+
+  }catch(error){
+
+    console.error(
+      "LOGIN EXCEPTION:",
+      error
+    );
+
+    showMessage(
+      message,
+      error.message ||
+      "Giriş zamanı xəta baş verdi.",
+      "error"
+    );
+
+  }finally{
+
+    button.disabled = false;
+    button.textContent = "Daxil ol";
+
+  }
 
 }
 
-if(data && data.session){
-
-showMessage(message,"Giriş uğurludur.","success");
-
-setTimeout(function(){
-
-closeModal("loginModal");
-updateAuthUI(data.session.user);
-
-},700);
-
-return;
-
-}
-
-showMessage(
-message,
-"Giriş mümkün olmadı.",
-"error"
-);
-
-}catch(error){
-
-showMessage(
-message,
-error.message || "Giriş zamanı xəta baş verdi.",
-"error"
-);
-
-}finally{
-
-button.disabled=false;
-button.textContent="Daxil ol";
-
-}
-
-}
-
-
-/* =========================
-   LOGOUT
-========================= */
+/* LOGOUT */
 
 async function logout(){
 
-const {error}=await supabaseClient.auth.signOut();
+  const {error} =
+    await supabaseClient.auth.signOut();
 
-if(error){
+  if(error){
 
-console.error("LOGOUT ERROR:",error);
-return;
+    console.error(
+      "LOGOUT ERROR:",
+      error
+    );
+
+    return;
+  }
+
+  updateAuthUI(null);
 
 }
 
-updateAuthUI(null);
-
-}
-
-
-/* =========================
-   AUTH UI
-========================= */
+/* AUTH UI */
 
 function updateAuthUI(user){
 
-const authButtons=document.getElementById("authButtons");
-const userArea=document.getElementById("userArea");
-const userEmail=document.getElementById("userEmail");
+  const authButtons =
+    document.getElementById("authButtons");
 
-if(user){
+  const userArea =
+    document.getElementById("userArea");
 
-authButtons.style.display="none";
-userArea.style.display="flex";
-userEmail.textContent=user.email || "";
+  const userEmail =
+    document.getElementById("userEmail");
 
-}else{
+  if(user){
 
-authButtons.style.display="flex";
-userArea.style.display="none";
-userEmail.textContent="";
+    authButtons.style.display = "none";
+    userArea.style.display = "flex";
+
+    userEmail.textContent =
+      user.email || "";
+
+  }else{
+
+    authButtons.style.display = "flex";
+    userArea.style.display = "none";
+
+    userEmail.textContent = "";
+
+  }
 
 }
 
-}
-
-
-/* =========================
-   SESSION
-========================= */
+/* SESSION */
 
 async function checkAuth(){
 
-const {data,error}=await supabaseClient.auth.getSession();
+  const {data,error} =
+    await supabaseClient.auth
+      .getSession();
 
-if(error){
+  if(error){
 
-console.error("SESSION ERROR:",error);
-updateAuthUI(null);
-return;
+    console.error(
+      "SESSION ERROR:",
+      error
+    );
 
-}
+    updateAuthUI(null);
+    return;
+  }
 
-if(data && data.session && data.session.user){
+  if(
+    data &&
+    data.session &&
+    data.session.user
+  ){
 
-updateAuthUI(data.session.user);
+    updateAuthUI(
+      data.session.user
+    );
 
-}else{
+  }else{
 
-updateAuthUI(null);
+    updateAuthUI(null);
 
-}
+  }
 
 }
 
 checkAuth();
 
+/* AUTH STATE */
 
-/* =========================
-   AUTH STATE
-========================= */
+supabaseClient.auth
+  .onAuthStateChange(
+    function(event,session){
 
-supabaseClient.auth.onAuthStateChange(function(event,session){
+      if(
+        session &&
+        session.user
+      ){
 
-if(session && session.user){
+        updateAuthUI(
+          session.user
+        );
 
-updateAuthUI(session.user);
+      }else{
 
-}else{
+        updateAuthUI(null);
 
-updateAuthUI(null);
+      }
 
-}
+    }
+  );
 
-});
-
-
-/* =========================
-   ORDER
-========================= */
+/* ORDER */
 
 function openOrder(productName){
 
-document.getElementById("orderProduct").value=productName;
+  document
+    .getElementById("orderProduct")
+    .value = productName;
 
-const duration=document.getElementById("orderDuration");
+  const duration =
+    document.getElementById(
+      "orderDuration"
+    );
 
-duration.innerHTML="";
+  duration.innerHTML = "";
 
-products[productName].forEach(function(item){
+  products[productName]
+    .forEach(function(item){
 
-const option=document.createElement("option");
+      const option =
+        document.createElement("option");
 
-option.value=item.duration;
-option.textContent=item.duration+" — "+item.price;
+      option.value =
+        item.duration;
 
-duration.appendChild(option);
+      option.textContent =
+        item.duration +
+        " — " +
+        item.price;
 
-});
+      duration.appendChild(option);
 
-updateOrderPrice();
+    });
 
-document.getElementById("orderModal").classList.add("active");
+  updateOrderPrice();
+
+  document
+    .getElementById("orderModal")
+    .classList.add("active");
 
 }
-
 
 function updateOrderPrice(){
 
-const product=document.getElementById("orderProduct").value;
-const duration=document.getElementById("orderDuration").value;
+  const product =
+    document
+      .getElementById("orderProduct")
+      .value;
 
-if(!products[product]) return;
+  const duration =
+    document
+      .getElementById("orderDuration")
+      .value;
 
-const item=products[product].find(function(x){
-return x.duration===duration;
-});
+  const item =
+    products[product].find(
+      function(x){
+        return x.duration === duration;
+      }
+    );
 
-if(item){
+  if(item){
 
-document.getElementById("orderPrice").value=item.price;
+    document
+      .getElementById("orderPrice")
+      .value = item.price;
+
+  }
 
 }
 
-}
-
-
-/* =========================
-   WHATSAPP
-========================= */
+/* WHATSAPP */
 
 function sendWhatsAppOrder(){
 
-const product=document.getElementById("orderProduct").value;
-const duration=document.getElementById("orderDuration").value;
-const price=document.getElementById("orderPrice").value;
+  const product =
+    document
+      .getElementById("orderProduct")
+      .value;
 
-const text=
-"Salam DigiBaku,%0A%0A"+
-"Məhsul: "+encodeURIComponent(product)+
-"%0A"+
-"Müddət: "+encodeURIComponent(duration)+
-"%0A"+
-"Qiymət: "+encodeURIComponent(price)+
-"%0A%0A"+
-"Bu məhsulu sifariş etmək istəyirəm.";
+  const duration =
+    document
+      .getElementById("orderDuration")
+      .value;
 
-const whatsappNumber="994702883484";
+  const price =
+    document
+      .getElementById("orderPrice")
+      .value;
 
-window.open(
-"https://wa.me/"+whatsappNumber+"?text="+text,
-"_blank"
-);
+  const message =
+    "Salam DigiBaku,%0A%0A" +
+
+    "Məhsul: " +
+    encodeURIComponent(product) +
+
+    "%0A" +
+
+    "Müddət: " +
+    encodeURIComponent(duration) +
+
+    "%0A" +
+
+    "Qiymət: " +
+    encodeURIComponent(price) +
+
+    "%0A%0A" +
+
+    "Bu məhsulu sifariş etmək istəyirəm.";
+
+  const whatsappNumber =
+    "994702883484";
+
+  window.open(
+    "https://wa.me/" +
+    whatsappNumber +
+    "?text=" +
+    message,
+    "_blank"
+  );
 
 }
 
-
-/* =========================
-   FAQ
-========================= */
+/* FAQ */
 
 function toggleFaq(element){
 
-const item=element.parentElement;
-item.classList.toggle("open");
+  const item =
+    element.parentElement;
+
+  item.classList.toggle("open");
 
 }
 
+/* MODAL CLOSE */
 
-/* =========================
-   CLOSE MODALS
-========================= */
+document.addEventListener(
+  "click",
+  function(event){
 
-document.addEventListener("click",function(event){
+    if(
+      event.target.classList
+        .contains("modal")
+    ){
 
-if(event.target.classList.contains("modal")){
+      event.target
+        .classList
+        .remove("active");
 
-event.target.classList.remove("active");
+    }
 
-}
+  }
+);
 
-});
+/* ESC */
 
+document.addEventListener(
+  "keydown",
+  function(event){
 
-/* =========================
-   ESC
-========================= */
+    if(event.key === "Escape"){
 
-document.addEventListener("keydown",function(event){
+      document
+        .querySelectorAll(".modal.active")
+        .forEach(function(modal){
 
-if(event.key==="Escape"){
+          modal.classList.remove("active");
 
-document.querySelectorAll(".modal.active").forEach(function(modal){
+        });
 
-modal.classList.remove("active");
+    }
 
-});
-
-}
-
-});
+  }
+);
 
 </script>
 
 </body>
 </html>
+```
