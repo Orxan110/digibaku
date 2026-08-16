@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>DigiBaku — Səbət</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #f6f8fc;
+      color: #111827;
+      min-height: 100vh;
+    }
+
+    header {
+      background: white;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .header {
+      max-width: 1200px;
+      margin: auto;
+      min-height: 70px;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      color: #2563eb;
+      font-size: 25px;
+      font-weight: 900;
+      text-decoration: none;
+    }
+
+    .home {
+      color: #374151;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .container {
+      max-width: 1050px;
+      margin: 50px auto;
+      padding: 0 20px;
+    }
+
+    h1 {
+      font-size: 30px;
+      margin-bottom: 25px;
+    }
+
+    .cart-layout {
+      display: grid;
+      grid-template-columns: 1fr 330px;
+      gap: 25px;
+    }
+
+    .items,
+    .summary {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 15px;
+      padding: 20px;
+    }
+
+    .item {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 15px 0;
+      border-bottom: 1px solid #eef0f4;
+    }
+
+    .item:last-child {
+      border-bottom: 0;
+    }
+
+    .item-icon {
+      width: 75px;
+      height: 75px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #1d4ed8, #7c3aed);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+      flex-shrink: 0;
+    }
+
+    .item-info {
+      flex: 1;
+    }
+
+    .item-info h3 {
+      font-size: 16px;
+      margin-bottom: 5px;
+    }
+
+    .seller {
+      color: #9ca3af;
+      font-size: 12px;
+      margin-bottom: 8px;
+    }
+
+    .price {
+      font-weight: 900;
+      color: #111827;
+    }
+
+    .remove {
+      border: 0;
+      background: #fef2f2;
+      color: #dc2626;
+      padding: 8px 10px;
+      border-radius: 7px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .summary h2 {
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+
+    .row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 15px;
+      color: #64748b;
+      font-size: 14px;
+    }
+
+    .total {
+      display: flex;
+      justify-content: space-between;
+      border-top: 1px solid #e5e7eb;
+      padding-top: 18px;
+      margin-top: 10px;
+      font-size: 20px;
+      font-weight: 900;
+    }
+
+    .checkout {
+      width: 100%;
+      height: 48px;
+      margin-top: 20px;
+      border: 0;
+      border-radius: 9px;
+      background: #2563eb;
+      color: white;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .checkout:hover {
+      background: #1d4ed8;
+    }
+
+    .clear {
+      width: 100%;
+      height: 42px;
+      margin-top: 10px;
+      border: 1px solid #e5e7eb;
+      border-radius: 9px;
+      background: white;
+      color: #dc2626;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .empty {
+      text-align: center;
+      padding: 60px 20px;
+      color: #64748b;
+    }
+
+    .empty-icon {
+      font-size: 55px;
+      margin-bottom: 15px;
+    }
+
+    .empty h2 {
+      color: #111827;
+      margin-bottom: 8px;
+    }
+
+    .shop {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 12px 18px;
+      background: #2563eb;
+      color: white;
+      text-decoration: none;
+      border-radius: 9px;
+      font-weight: bold;
+    }
+
+    footer {
+      margin-top: 80px;
+      background: #0b1120;
+      color: #9ca3af;
+      text-align: center;
+      padding: 35px;
+      font-size: 13px;
+    }
+
+    @media(max-width: 750px) {
+
+      .cart-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .item {
+        flex-wrap: wrap;
+      }
+
+      .item-info {
+        min-width: 150px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+
+  <div class="header">
+
+    <a href="index.html" class="logo">
+      DigiBaku
+    </a>
+
+    <a href="index.html" class="home">
+      ← Ana səhifə
+    </a>
+
+  </div>
+
+</header>
+
+
+<main class="container">
+
+  <h1>
+    🛒 Səbət
+  </h1>
+
+
+  <div id="cartContent"></div>
+
+</main>
+
+
+<footer>
+  © 2026 DigiBaku — Digital Marketplace
+</footer>
+
+
+<script>
+
+  function getCart() {
+
+    return JSON.parse(
+      localStorage.getItem("digibaku_cart") || "[]"
+    );
+
+  }
+
+
+  function saveCart(cart) {
+
+    localStorage.setItem(
+      "digibaku_cart",
+      JSON.stringify(cart)
+    );
+
+  }
+
+
+  function renderCart() {
+
+    const cart =
+      getCart();
+
+    const container =
+      document.getElementById("cartContent");
+
+
+    if (cart.length === 0) {
+
+      container.innerHTML = `
+
+        <div class="items empty">
+
+          <div class="empty-icon">
+            🛒
+          </div>
+
+          <h2>
+            Səbətin boşdur
+          </h2>
+
+          <p>
+            Hələ heç bir məhsul əlavə etməmisən.
+          </p>
+
+          <a
+            href="index.html"
+            class="shop">
+            Məhsullara bax
+          </a>
+
+        </div>
+
+      `;
+
+      return;
+
+    }
+
+
+    let total = 0;
+
+
+    let itemsHTML = "";
+
+
+    cart.forEach(function(item, index) {
+
+      total += Number(item.price);
+
+
+      itemsHTML += `
+
+        <div class="item">
+
+          <div class="item-icon">
+            🎮
+          </div>
+
+          <div class="item-info">
+
+            <h3>
+              ${item.name}
+            </h3>
+
+            <div class="seller">
+              Satıcı: ${item.seller}
+            </div>
+
+            <div class="price">
+              ${Number(item.price).toFixed(2)} AZN
+            </div>
+
+          </div>
+
+          <button
+            class="remove"
+            onclick="removeItem(${index})">
+            Sil
+          </button>
+
+        </div>
+
+      `;
+
+    });
+
+
+    container.innerHTML = `
+
+      <div class="cart-layout">
+
+        <div class="items">
+
+          ${itemsHTML}
+
+        </div>
+
+
+        <div class="summary">
+
+          <h2>
+            Sifariş xülasəsi
+          </h2>
+
+          <div class="row">
+
+            <span>
+              Məhsul sayı
+            </span>
+
+            <strong>
+              ${cart.length}
+            </strong>
+
+          </div>
+
+
+          <div class="row">
+
+            <span>
+              Çatdırılma
+            </span>
+
+            <strong>
+              Pulsuz
+            </strong>
+
+          </div>
+
+
+          <div class="total">
+
+            <span>
+              Cəmi
+            </span>
+
+            <span>
+              ${total.toFixed(2)} AZN
+            </span>
+
+          </div>
+
+
+          <button
+            class="checkout"
+            onclick="checkout()">
+            Sifarişi tamamla
+          </button>
+
+
+          <button
+            class="clear"
+            onclick="clearCart()">
+            Səbəti təmizlə
+          </button>
+
+        </div>
+
+      </div>
+
+    `;
+
+  }
+
+
+  function removeItem(index) {
+
+    const cart =
+      getCart();
+
+    cart.splice(index, 1);
+
+    saveCart(cart);
+
+    renderCart();
+
+  }
+
+
+  function clearCart() {
+
+    if (
+      !confirm(
+        "Səbəti tamamilə təmizləmək istəyirsən?"
+      )
+    ) {
+
+      return;
+
+    }
+
+
+    localStorage.removeItem(
+      "digibaku_cart"
+    );
+
+    renderCart();
+
+  }
+
+
+  function checkout() {
+
+    const cart =
+      getCart();
+
+
+    if (cart.length === 0) {
+
+      alert(
+        "Səbətin boşdur."
+      );
+
+      return;
+
+    }
+
+
+    window.location.href =
+      "login.html";
+
+  }
+
+
+  renderCart();
+
+</script>
+
+</body>
+</html>
