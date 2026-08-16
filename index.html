@@ -642,9 +642,9 @@ Ana səhifə
 🛒 <span id="cartCount">0</span>
 </button>
 
-<a href="login.html" class="blue" id="loginButton">
+<button class="blue" id="loginButton" onclick="openAccount()">
 Giriş
-</a>
+</button>
 
 </nav>
 
@@ -833,8 +833,8 @@ Sifarişi tamamla
 📦 Sifarişlər
 </button>
 
-<button onclick="showSection('seller')">
-🏪 Satıcı ol
+<button id="adminMenuButton" style="display:none" onclick="showSection('admin');loadAdminProducts()">
+👑 Admin paneli
 </button>
 
 <button onclick="showSection('favorites');loadFavorites()">
@@ -906,55 +906,45 @@ Giriş / Qeydiyyat
 </section>
 
 
-<!-- SELLER -->
-
-<section id="seller" class="section">
+<!-- ADMIN -->
+<section id="admin" class="section">
 
 <div class="container">
 
 <div class="title">
-<h2>🏪 Satıcı paneli</h2>
+<h2>👑 Admin paneli</h2>
 </div>
 
 <div class="notice">
-Məhsullarını DigiBaku-da satmaq üçün məhsul əlavə edə bilərsən.
+Bu bölmədə yalnız DigiBaku sayt sahibi məhsulları idarə edə bilər.
 </div>
 
 <div class="info-grid">
-
 <div class="info-card">
 <div class="icon">📦</div>
 <h3>Məhsullar</h3>
-<p>Satışa çıxardığın məhsulları idarə et.</p>
+<p>Saytda satılan rəqəmsal məhsulları əlavə et və sil.</p>
 </div>
-
 <div class="info-card">
-<div class="icon">💰</div>
-<h3>Satışlar</h3>
-<p>Satış və gəlirlərini izləyə bilərsən.</p>
+<div class="icon">🛒</div>
+<h3>Sifarişlər</h3>
+<p>Müştərilərin verdiyi sifarişləri izləyəcəksən.</p>
 </div>
-
 <div class="info-card">
-<div class="icon">📊</div>
-<h3>Statistika</h3>
-<p>Məhsullarının göstəricilərinə baxa bilərsən.</p>
+<div class="icon">👥</div>
+<h3>Müştərilər</h3>
+<p>Müştərilər məhsullara baxıb sifariş verə bilərlər.</p>
 </div>
-
 </div>
 
 <br>
-
-<div id="sellerProducts"></div>
-
+<div id="adminProducts"></div>
 <br>
-
-<button class="btn primary"
-onclick="showSection('add-product')">
+<button class="btn primary" onclick="showSection('add-product')">
 + Məhsul əlavə et
 </button>
 
 </div>
-
 </section>
 
 
@@ -1170,7 +1160,7 @@ DigiBaku
 <button onclick="showSection('home')">Ana səhifə</button>
 <button onclick="showSection('profile')">Hesab</button>
 <button onclick="showSection('orders');loadOrders()">Sifarişlər</button>
-<button onclick="showSection('seller');loadSellerProducts()">Satıcı</button>
+<button id="adminFooterButton" style="display:none" onclick="showSection('admin');loadAdminProducts()">Admin</button>
 <button onclick="showSection('support')">Dəstək</button>
 <button onclick="showSection('about')">Haqqımızda</button>
 <button onclick="showSection('terms')">Qaydalar</button>
@@ -2046,6 +2036,15 @@ async function addSellerProduct(event){
 
   event.preventDefault();
 
+  const {data:authData}=await supabaseClient.auth.getUser();
+  const user=authData?.user;
+
+  if(!isAdmin(user)){
+    alert("Bu əməliyyat yalnız DigiBaku admini üçündür.");
+    showSection("home");
+    return;
+  }
+
   const name=document
     .getElementById("sellerProductName")
     .value.trim();
@@ -2098,7 +2097,7 @@ async function addSellerProduct(event){
       price:price,
       category:category,
       image:null,
-      seller_id:user.id
+      seller_id:null
 
     });
 
@@ -2118,110 +2117,64 @@ async function addSellerProduct(event){
 
   await loadProducts();
 
-  showSection("seller");
+  showSection("admin");
 
-  loadSellerProducts();
+  loadAdminProducts();
 
 }
 
 
-async function loadSellerProducts(){
+async function loadAdminProducts(){
 
-  const box=document.getElementById("sellerProducts");
-
+  const box=document.getElementById("adminProducts");
   if(!box){
     return;
   }
 
   const {data,error:userError}=await supabaseClient.auth.getUser();
-
   const user=data?.user;
 
-  if(userError || !user){
-
-    box.innerHTML=`
-      <div class="notice">
-      Öz məhsullarını görmək üçün giriş et.
-      </div>
-    `;
-
+  if(userError || !isAdmin(user)){
+    box.innerHTML=`<div class="notice">Admin icazəsi yoxdur.</div>`;
     return;
   }
 
   const {data:products,error}=await supabaseClient
     .from("products")
     .select("*")
-    .eq("seller_id",user.id)
     .order("id",{ascending:false});
 
   if(error){
-
-    box.innerHTML=
-      `<div class="notice">${escapeHTML(error.message)}</div>`;
-
+    box.innerHTML=`<div class="notice">${escapeHTML(error.message)}</div>`;
     return;
   }
 
   if(!products.length){
-
-    box.innerHTML=`
-
-      <div class="empty">
-
-        <div class="empty-icon">📦</div>
-
-        <h3>Hələ məhsul əlavə etməmisən</h3>
-
-      </div>
-
-    `;
-
+    box.innerHTML=`<div class="empty"><div class="empty-icon">📦</div><h3>Hələ məhsul yoxdur</h3></div>`;
     return;
   }
 
-  box.innerHTML=`
-
-    <h3 style="margin-bottom:15px">
-      Mənim məhsullarım
-    </h3>
-
-    ${products.map(product=>`
-
-      <div class="order-card">
-
-        <div class="order-head">
-
-          <div>
-
-            <strong>
-              ${escapeHTML(product.name)}
-            </strong>
-
-            <p style="color:#64748b;margin-top:5px">
-              ${escapeHTML(product.category)}
-              ·
-              ${Number(product.price).toFixed(2)} AZN
-            </p>
-
-          </div>
-
-          <button class="btn danger"
-          onclick="deleteSellerProduct(${product.id})">
-          Sil
-          </button>
-
+  box.innerHTML=`<h3 style="margin-bottom:15px">Məhsullar</h3>` + products.map(product=>`
+    <div class="order-card">
+      <div class="order-head">
+        <div>
+          <strong>${escapeHTML(product.name)}</strong>
+          <p style="color:#64748b;margin-top:5px">${escapeHTML(product.category || "Digər")} · ${Number(product.price).toFixed(2)} AZN</p>
         </div>
-
+        <button class="btn danger" onclick="deleteAdminProduct(${product.id})">Sil</button>
       </div>
-
-    `).join("")}
-
-  `;
-
+    </div>
+  `).join("");
 }
 
 
-async function deleteSellerProduct(id){
+async function deleteAdminProduct(id){
+
+  const {data}=await supabaseClient.auth.getUser();
+  if(!isAdmin(data?.user)){
+    alert("Bu əməliyyat yalnız admin üçündür.");
+    return;
+  }
 
   if(!confirm("Bu məhsulu silmək istəyirsən?")){
     return;
@@ -2242,7 +2195,7 @@ async function deleteSellerProduct(id){
   alert("Məhsul silindi.");
 
   loadProducts();
-  loadSellerProducts();
+  loadAdminProducts();
 
 }
 
@@ -2387,7 +2340,28 @@ function scrollProducts(){
    NAVIGATION
 ===================================================== */
 
-function showSection(id){
+function isAdmin(user){
+  return !!user && String(user.email || "").toLowerCase() === "premium989e@gmail.com";
+}
+
+async function openAccount(){
+  const {data}=await supabaseClient.auth.getUser();
+  if(data?.user){
+    showSection("profile");
+  }else{
+    window.location.href="login.html";
+  }
+}
+
+async function showSection(id){
+
+  if(id === "admin" || id === "add-product"){
+    const {data}=await supabaseClient.auth.getUser();
+    if(!isAdmin(data?.user)){
+      alert("Bu bölmə yalnız DigiBaku admini üçündür.");
+      if(id === "admin" || id === "add-product") id="home";
+    }
+  }
 
   document
     .querySelectorAll(".section")
@@ -2418,28 +2392,29 @@ function showSection(id){
 async function loadProfile(){
 
   const {data}=await supabaseClient.auth.getUser();
-
   const user=data?.user;
 
+  const loginButton=document.getElementById("loginButton");
+  const adminMenuButton=document.getElementById("adminMenuButton");
+  const adminFooterButton=document.getElementById("adminFooterButton");
+
   if(!user){
+    if(loginButton){
+      loginButton.textContent="Giriş";
+    }
+    if(adminMenuButton) adminMenuButton.style.display="none";
+    if(adminFooterButton) adminFooterButton.style.display="none";
     return;
   }
 
-  document.getElementById("profileEmail").textContent =
-    user.email || "";
+  document.getElementById("profileEmail").textContent=user.email || "";
+  document.getElementById("profileLogin").textContent="Hesab aktivdir";
+  document.getElementById("profileLogin").href="#";
+  loginButton.textContent="Hesabım";
 
-  document.getElementById("profileLogin").textContent =
-    "Hesab aktivdir";
-
-  document.getElementById("profileLogin").href =
-    "#";
-
-  document.getElementById("loginButton").textContent =
-    "Hesabım";
-
-  document.getElementById("loginButton").href =
-    "#";
-
+  const admin=isAdmin(user);
+  if(adminMenuButton) adminMenuButton.style.display=admin ? "block" : "none";
+  if(adminFooterButton) adminFooterButton.style.display=admin ? "block" : "none";
 }
 
 
