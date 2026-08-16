@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="az">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>DigiBaku — Premium Rəqəmsal Xidmətlər</title>
+<title>Hesablar.az — Premium Rəqəmsal Xidmətlər</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
+
 *{
   margin:0;
   padding:0;
@@ -33,6 +35,11 @@ a{
 
 button{
   cursor:pointer;
+}
+
+button:disabled{
+  opacity:.6;
+  cursor:not-allowed;
 }
 
 .container{
@@ -544,6 +551,7 @@ footer{
   padding:11px;
   border-radius:8px;
   font-size:13px;
+  line-height:1.5;
 }
 
 .message.show{
@@ -553,16 +561,50 @@ footer{
 .message.error{
   background:#3b1010;
   color:#f87171;
+  border:1px solid #7f1d1d;
 }
 
 .message.success{
   background:#082c1c;
   color:#34d399;
+  border:1px solid #065f46;
+}
+
+/* USER AREA */
+
+.user-area{
+  display:none;
+  align-items:center;
+  gap:10px;
+}
+
+.user-email{
+  color:#aaa;
+  font-size:13px;
+  max-width:170px;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+.logout-btn{
+  background:#151515;
+  border:1px solid #333;
+  color:#fff;
+  padding:9px 12px;
+  border-radius:8px;
+  font-weight:bold;
+}
+
+.logout-btn:hover{
+  border-color:#ef4444;
+  color:#f87171;
 }
 
 /* RESPONSIVE */
 
 @media(max-width:950px){
+
   .products{
     grid-template-columns:repeat(2,1fr);
   }
@@ -582,9 +624,11 @@ footer{
   .menu{
     display:none;
   }
+
 }
 
 @media(max-width:600px){
+
   .hero{
     padding:70px 0;
   }
@@ -621,47 +665,104 @@ footer{
     padding:9px 11px;
     font-size:12px;
   }
+
+  .user-area{
+    max-width:180px;
+  }
+
+  .user-email{
+    display:none;
+  }
+
 }
+
 </style>
 </head>
 
 <body>
 
+
 <header>
+
   <div class="container nav">
 
     <a href="#home" class="logo">
-      Digi<span>Baku</span>
+      Hesablar<span>.az</span>
     </a>
 
+
     <nav class="menu">
+
       <a href="#home">Ana səhifə</a>
       <a href="#products">Məhsullar</a>
       <a href="#compare">Müqayisə</a>
       <a href="#about">Haqqımızda</a>
       <a href="#blog">Bloq</a>
       <a href="#contact">Əlaqə</a>
+
     </nav>
 
-    <div class="auth-buttons">
-      <button class="btn btn-dark" onclick="openLogin()">
+
+    <!-- LOGIN / REGISTER -->
+
+    <div
+      class="auth-buttons"
+      id="authButtons">
+
+      <button
+        class="btn btn-dark"
+        onclick="openLogin()">
+
         Daxil ol
+
       </button>
 
-      <button class="btn btn-primary" onclick="openRegister()">
+
+      <button
+        class="btn btn-primary"
+        onclick="openRegister()">
+
         Qeydiyyat
+
       </button>
+
+    </div>
+
+
+    <!-- LOGGED USER -->
+
+    <div
+      class="user-area"
+      id="userArea">
+
+      <span
+        class="user-email"
+        id="userEmail">
+      </span>
+
+      <button
+        class="logout-btn"
+        onclick="logout()">
+
+        Çıxış
+
+      </button>
+
     </div>
 
   </div>
+
 </header>
 
 
 <main>
 
+
 <!-- HERO -->
 
-<section class="hero" id="home">
+<section
+  class="hero"
+  id="home">
 
   <div class="container">
 
@@ -669,24 +770,43 @@ footer{
       Premium rəqəmsal xidmətlər
     </div>
 
+
     <h1>
+
       Premium xidmətlər
       <span>bir platformada</span>
+
     </h1>
 
+
     <p>
+
       Netflix, YouTube Premium, ChatGPT Plus və Spotify Premium
-      paketlərini seçin, müddəti müəyyən edin və sifarişinizi rahatlıqla verin.
+      paketlərini seçin, müddəti müəyyən edin və sifarişinizi
+      rahatlıqla verin.
+
     </p>
 
+
     <div class="hero-buttons">
-      <a href="#products" class="btn btn-primary">
+
+      <a
+        href="#products"
+        class="btn btn-primary">
+
         Məhsullara bax
+
       </a>
 
-      <a href="#about" class="btn btn-dark">
+
+      <a
+        href="#about"
+        class="btn btn-dark">
+
         Haqqımızda
+
       </a>
+
     </div>
 
   </div>
@@ -701,19 +821,28 @@ footer{
   <div class="container">
 
     <div class="section-title">
+
       <h2>Məhsullar</h2>
-      <p>Ən çox seçilən premium rəqəmsal xidmətlər</p>
+
+      <p>
+        Ən çox seçilən premium rəqəmsal xidmətlər
+      </p>
+
     </div>
+
 
     <div class="products">
 
-      <!-- NETFLIX -->
 
       <div class="product">
 
-        <div class="product-icon">N</div>
+        <div class="product-icon">
+          N
+        </div>
 
-        <h3>Netflix Premium</h3>
+        <h3>
+          Netflix Premium
+        </h3>
 
         <p>
           Premium film və serial platforması.
@@ -727,19 +856,23 @@ footer{
         <button
           class="product-btn"
           onclick="openOrder('Netflix Premium')">
+
           Sifariş et
+
         </button>
 
       </div>
 
 
-      <!-- YOUTUBE -->
-
       <div class="product">
 
-        <div class="product-icon">▶</div>
+        <div class="product-icon">
+          ▶
+        </div>
 
-        <h3>YouTube Premium</h3>
+        <h3>
+          YouTube Premium
+        </h3>
 
         <p>
           Reklamsız video və musiqi istifadəsi.
@@ -753,19 +886,23 @@ footer{
         <button
           class="product-btn"
           onclick="openOrder('YouTube Premium')">
+
           Sifariş et
+
         </button>
 
       </div>
 
 
-      <!-- CHATGPT -->
-
       <div class="product">
 
-        <div class="product-icon">AI</div>
+        <div class="product-icon">
+          AI
+        </div>
 
-        <h3>ChatGPT Plus</h3>
+        <h3>
+          ChatGPT Plus
+        </h3>
 
         <p>
           AI alətləri, yazı, kod və gündəlik işlər üçün.
@@ -779,19 +916,23 @@ footer{
         <button
           class="product-btn"
           onclick="openOrder('ChatGPT Plus')">
+
           Sifariş et
+
         </button>
 
       </div>
 
 
-      <!-- SPOTIFY -->
-
       <div class="product">
 
-        <div class="product-icon">♫</div>
+        <div class="product-icon">
+          ♫
+        </div>
 
-        <h3>Spotify Premium</h3>
+        <h3>
+          Spotify Premium
+        </h3>
 
         <p>
           Reklamsız musiqi və offline dinləmə.
@@ -805,7 +946,9 @@ footer{
         <button
           class="product-btn"
           onclick="openOrder('Spotify Premium')">
+
           Sifariş et
+
         </button>
 
       </div>
@@ -824,34 +967,69 @@ footer{
   <div class="container">
 
     <div class="section-title">
-      <h2>Niyə DigiBaku?</h2>
-      <p>Sadə, sürətli və rahat sifariş prosesi</p>
+
+      <h2>
+        Niyə Hesablar.az?
+      </h2>
+
+      <p>
+        Sadə, sürətli və rahat sifariş prosesi
+      </p>
+
     </div>
+
 
     <div class="features">
 
+
       <div class="feature">
-        <div class="feature-icon">⚡</div>
-        <h3>Sürətli aktivləşdirmə</h3>
+
+        <div class="feature-icon">
+          ⚡
+        </div>
+
+        <h3>
+          Sürətli aktivləşdirmə
+        </h3>
+
         <p>
           Sifarişinizi göndərin və aktivləşdirmə üçün dəstək alın.
         </p>
+
       </div>
 
+
       <div class="feature">
-        <div class="feature-icon">🔒</div>
-        <h3>Təhlükəsiz proses</h3>
+
+        <div class="feature-icon">
+          🔒
+        </div>
+
+        <h3>
+          Təhlükəsiz proses
+        </h3>
+
         <p>
           Sifariş məlumatlarınız rahat və təhlükəsiz şəkildə qəbul edilir.
         </p>
+
       </div>
 
+
       <div class="feature">
-        <div class="feature-icon">💬</div>
-        <h3>Dəstək</h3>
+
+        <div class="feature-icon">
+          💬
+        </div>
+
+        <h3>
+          Dəstək
+        </h3>
+
         <p>
           Sifarişlə bağlı suallarınız olduqda dəstək komandamızla əlaqə saxlayın.
         </p>
+
       </div>
 
     </div>
@@ -863,14 +1041,18 @@ footer{
 
 <!-- ABOUT -->
 
-<section class="about" id="about">
+<section
+  class="about"
+  id="about">
 
   <div class="container about-content">
 
-    <h2>DigiBaku haqqında</h2>
+    <h2>
+      Hesablar.az haqqında
+    </h2>
 
     <p>
-      DigiBaku premium rəqəmsal xidmətləri daha rahat əldə etmək
+      Hesablar.az premium rəqəmsal xidmətləri daha rahat əldə etmək
       istəyən istifadəçilər üçün yaradılmış platformadır.
     </p>
 
@@ -897,42 +1079,86 @@ footer{
   <div class="container">
 
     <div class="section-title">
-      <h2>Müqayisə</h2>
-      <p>Uyğun xidməti seçmək üçün müqayisə edin</p>
+
+      <h2>
+        Müqayisə
+      </h2>
+
+      <p>
+        Uyğun xidməti seçmək üçün müqayisə edin
+      </p>
+
     </div>
+
 
     <div class="compare-grid">
 
+
       <div class="compare-card">
-        <h3>Netflix vs YouTube Premium</h3>
+
+        <h3>
+          Netflix vs YouTube Premium
+        </h3>
+
         <p>
           Film, serial, video və reklamsız istifadə imkanlarını müqayisə edin.
         </p>
-        <a href="#products">Məhsullara bax →</a>
+
+        <a href="#products">
+          Məhsullara bax →
+        </a>
+
       </div>
 
+
       <div class="compare-card">
-        <h3>Spotify vs YouTube Premium</h3>
+
+        <h3>
+          Spotify vs YouTube Premium
+        </h3>
+
         <p>
           Musiqi dinləmə və video istifadə ehtiyacınıza uyğun xidməti seçin.
         </p>
-        <a href="#products">Məhsullara bax →</a>
+
+        <a href="#products">
+          Məhsullara bax →
+        </a>
+
       </div>
 
+
       <div class="compare-card">
-        <h3>ChatGPT Plus vs digər AI</h3>
+
+        <h3>
+          ChatGPT Plus vs digər AI
+        </h3>
+
         <p>
           Yazı, kod və süni intellekt işləri üçün uyğun seçimi müəyyən edin.
         </p>
-        <a href="#products">Məhsullara bax →</a>
+
+        <a href="#products">
+          Məhsullara bax →
+        </a>
+
       </div>
 
+
       <div class="compare-card">
-        <h3>Premium paket seçimi</h3>
+
+        <h3>
+          Premium paket seçimi
+        </h3>
+
         <p>
           Qiymət, müddət və istifadə məqsədinə görə paketləri müqayisə edin.
         </p>
-        <a href="#products">Məhsullara bax →</a>
+
+        <a href="#products">
+          Məhsullara bax →
+        </a>
+
       </div>
 
     </div>
@@ -949,58 +1175,120 @@ footer{
   <div class="container">
 
     <div class="section-title">
-      <h2>Bloq</h2>
-      <p>Premium xidmətlər haqqında faydalı məlumatlar</p>
+
+      <h2>
+        Bloq
+      </h2>
+
+      <p>
+        Premium xidmətlər haqqında faydalı məlumatlar
+      </p>
+
     </div>
+
 
     <div class="blog-grid">
 
+
       <article class="blog-card">
-        <div class="blog-date">16.08.2026</div>
-        <h3>Netflix Premium nədir?</h3>
+
+        <div class="blog-date">
+          16.08.2026
+        </div>
+
+        <h3>
+          Netflix Premium nədir?
+        </h3>
+
         <p>
           Netflix paketləri və istifadə imkanları haqqında məlumat.
         </p>
+
       </article>
 
+
       <article class="blog-card">
-        <div class="blog-date">16.08.2026</div>
-        <h3>YouTube Premium nə verir?</h3>
+
+        <div class="blog-date">
+          16.08.2026
+        </div>
+
+        <h3>
+          YouTube Premium nə verir?
+        </h3>
+
         <p>
           Reklamsız video və digər premium imkanlar haqqında.
         </p>
+
       </article>
 
+
       <article class="blog-card">
-        <div class="blog-date">16.08.2026</div>
-        <h3>ChatGPT Plus kimlər üçündür?</h3>
+
+        <div class="blog-date">
+          16.08.2026
+        </div>
+
+        <h3>
+          ChatGPT Plus kimlər üçündür?
+        </h3>
+
         <p>
           AI alətlərindən istifadə edənlər üçün premium imkanlar.
         </p>
+
       </article>
 
+
       <article class="blog-card">
-        <div class="blog-date">16.08.2026</div>
-        <h3>Spotify Premium üstünlükləri</h3>
+
+        <div class="blog-date">
+          16.08.2026
+        </div>
+
+        <h3>
+          Spotify Premium üstünlükləri
+        </h3>
+
         <p>
           Reklamsız musiqi və offline dinləmə imkanları.
         </p>
+
       </article>
 
+
       <article class="blog-card">
-        <div class="blog-date">16.08.2026</div>
-        <h3>Premium xidmət seçərkən nə etməli?</h3>
+
+        <div class="blog-date">
+          16.08.2026
+        </div>
+
+        <h3>
+          Premium xidmət seçərkən nə etməli?
+        </h3>
+
         <p>
           Müddət, qiymət və istifadə məqsədinə diqqət edin.
         </p>
+
       </article>
 
+
       <article class="blog-card">
-        <div class="blog-date">16.08.2026</div>
-        <h3>DigiBaku sifarişi necə işləyir?</h3>
+
+        <div class="blog-date">
+          16.08.2026
+        </div>
+
+        <h3>
+          Hesablar.az sifarişi necə işləyir?
+        </h3>
+
         <p>
           Məhsul seçimi və sifariş prosesinin mərhələləri.
         </p>
+
       </article>
 
     </div>
@@ -1017,22 +1305,38 @@ footer{
   <div class="container">
 
     <div class="section-title">
-      <h2>FAQ</h2>
-      <p>Tez-tez verilən suallar</p>
+
+      <h2>
+        FAQ
+      </h2>
+
+      <p>
+        Tez-tez verilən suallar
+      </p>
+
     </div>
+
 
     <div class="faq">
 
+
       <div class="faq-item">
 
-        <div class="faq-question" onclick="toggleFaq(this)">
+        <div
+          class="faq-question"
+          onclick="toggleFaq(this)">
+
           Sifariş necə verilir?
+
           <span>+</span>
+
         </div>
 
         <div class="faq-answer">
+
           Məhsulu seçin, müddəti müəyyən edin və sifariş düyməsinə basın.
           Daha sonra sifariş WhatsApp üzərindən göndərilir.
+
         </div>
 
       </div>
@@ -1040,14 +1344,21 @@ footer{
 
       <div class="faq-item">
 
-        <div class="faq-question" onclick="toggleFaq(this)">
+        <div
+          class="faq-question"
+          onclick="toggleFaq(this)">
+
           Qeydiyyat lazımdır?
+
           <span>+</span>
+
         </div>
 
         <div class="faq-answer">
+
           Bəli. Sifariş imkanlarından istifadə etmək üçün hesab yaratmaq
           və hesabınıza daxil olmaq nəzərdə tutulub.
+
         </div>
 
       </div>
@@ -1055,14 +1366,21 @@ footer{
 
       <div class="faq-item">
 
-        <div class="faq-question" onclick="toggleFaq(this)">
+        <div
+          class="faq-question"
+          onclick="toggleFaq(this)">
+
           Hansı məhsullar var?
+
           <span>+</span>
+
         </div>
 
         <div class="faq-answer">
+
           Hazırda Netflix, YouTube Premium, ChatGPT Plus və Spotify Premium
           təqdim olunur.
+
         </div>
 
       </div>
@@ -1070,13 +1388,20 @@ footer{
 
       <div class="faq-item">
 
-        <div class="faq-question" onclick="toggleFaq(this)">
+        <div
+          class="faq-question"
+          onclick="toggleFaq(this)">
+
           Sifariş hara göndərilir?
+
           <span>+</span>
+
         </div>
 
         <div class="faq-answer">
+
           Sifariş məlumatları WhatsApp üzərindən dəstəyə göndərilir.
+
         </div>
 
       </div>
@@ -1090,34 +1415,71 @@ footer{
 
 <!-- CONTACT -->
 
-<section class="contact" id="contact">
+<section
+  class="contact"
+  id="contact">
 
   <div class="container">
 
     <div class="section-title">
-      <h2>Əlaqə</h2>
-      <p>Bizimlə əlaqə saxlayın</p>
+
+      <h2>
+        Əlaqə
+      </h2>
+
+      <p>
+        Bizimlə əlaqə saxlayın
+      </p>
+
     </div>
+
 
     <div class="contact-grid">
 
+
       <div class="contact-box">
 
-        <h3>DigiBaku dəstək</h3>
+        <h3>
+          Hesablar.az dəstək
+        </h3>
+
 
         <div class="contact-item">
-          <strong>Şəhər</strong>
-          <span>Bakı, Azərbaycan</span>
+
+          <strong>
+            Şəhər
+          </strong>
+
+          <span>
+            Bakı, Azərbaycan
+          </span>
+
         </div>
 
-        <div class="contact-item">
-          <strong>E-poçt</strong>
-          <span>netp2673@gmail.com</span>
-        </div>
 
         <div class="contact-item">
-          <strong>İş saatları</strong>
-          <span>Hər gün 10:00 — 22:00</span>
+
+          <strong>
+            E-poçt
+          </strong>
+
+          <span>
+            netp2673@gmail.com
+          </span>
+
+        </div>
+
+
+        <div class="contact-item">
+
+          <strong>
+            İş saatları
+          </strong>
+
+          <span>
+            Hər gün 10:00 — 22:00
+          </span>
+
         </div>
 
       </div>
@@ -1125,17 +1487,23 @@ footer{
 
       <div class="contact-box">
 
-        <h3>Sifariş və dəstək</h3>
+        <h3>
+          Sifariş və dəstək
+        </h3>
 
         <p style="color:#999;margin-bottom:20px;">
+
           Məhsul sifarişi üçün məhsulu seçib sifariş formasından
           istifadə edə bilərsiniz.
+
         </p>
 
         <a
           href="#products"
           class="btn btn-primary">
+
           Məhsullara bax
+
         </a>
 
       </div>
@@ -1157,10 +1525,11 @@ footer{
 
     <div class="footer-grid">
 
+
       <div class="footer-col">
 
         <h3 class="logo">
-          Digi<span>Baku</span>
+          Hesablar<span>.az</span>
         </h3>
 
         <p>
@@ -1172,7 +1541,9 @@ footer{
 
       <div class="footer-col">
 
-        <h3>Faydalı linklər</h3>
+        <h3>
+          Faydalı linklər
+        </h3>
 
         <a href="#home">Ana səhifə</a>
         <a href="#products">Məhsullar</a>
@@ -1186,31 +1557,60 @@ footer{
 
       <div class="footer-col">
 
-        <h3>Məhsullar</h3>
+        <h3>
+          Məhsullar
+        </h3>
 
-        <a href="#products">Netflix Premium</a>
-        <a href="#products">YouTube Premium</a>
-        <a href="#products">ChatGPT Plus</a>
-        <a href="#products">Spotify Premium</a>
+        <a href="#products">
+          Netflix Premium
+        </a>
+
+        <a href="#products">
+          YouTube Premium
+        </a>
+
+        <a href="#products">
+          ChatGPT Plus
+        </a>
+
+        <a href="#products">
+          Spotify Premium
+        </a>
 
       </div>
 
 
       <div class="footer-col">
 
-        <h3>Dəstək</h3>
+        <h3>
+          Dəstək
+        </h3>
 
-        <a href="#contact">Əlaqə</a>
-        <a href="#blog">Bloq</a>
-        <a href="#about">Haqqımızda</a>
-        <a href="#products">Sifariş</a>
+        <a href="#contact">
+          Əlaqə
+        </a>
+
+        <a href="#blog">
+          Bloq
+        </a>
+
+        <a href="#about">
+          Haqqımızda
+        </a>
+
+        <a href="#products">
+          Sifariş
+        </a>
 
       </div>
 
     </div>
 
+
     <div class="copyright">
-      © 2026 DigiBaku. Bütün hüquqlar qorunur.
+
+      © 2026 Hesablar.az. Bütün hüquqlar qorunur.
+
     </div>
 
   </div>
@@ -1220,49 +1620,93 @@ footer{
 
 <!-- LOGIN MODAL -->
 
-<div class="modal" id="loginModal">
+<div
+  class="modal"
+  id="loginModal">
 
   <div class="modal-box">
 
-    <button class="close" onclick="closeModal('loginModal')">
+    <button
+      class="close"
+      onclick="closeModal('loginModal')">
+
       ×
+
     </button>
 
-    <h2>Daxil ol</h2>
 
-    <form onsubmit="login(event)">
+    <h2>
+      Daxil ol
+    </h2>
 
-      <label>Email</label>
+
+    <form
+      onsubmit="login(event)">
+
+      <label>
+        Email
+      </label>
 
       <input
         id="loginEmail"
         type="email"
+        autocomplete="email"
         required
         placeholder="email@example.com">
 
-      <label>Şifrə</label>
+
+      <label>
+        Şifrə
+      </label>
 
       <input
         id="loginPassword"
         type="password"
+        autocomplete="current-password"
         required
         placeholder="Şifrəniz">
 
-      <button class="btn btn-primary full-btn">
+
+      <button
+        id="loginButton"
+        type="submit"
+        class="btn btn-primary full-btn">
+
         Daxil ol
+
       </button>
 
-      <div id="loginMessage" class="message"></div>
+
+      <div
+        id="loginMessage"
+        class="message">
+      </div>
 
     </form>
 
-    <p style="text-align:center;color:#888;margin-top:18px;font-size:13px;">
+
+    <p
+      style="
+      text-align:center;
+      color:#888;
+      margin-top:18px;
+      font-size:13px;">
+
       Hesabınız yoxdur?
+
       <button
+        type="button"
         onclick="switchToRegister()"
-        style="border:0;background:none;color:#60a5fa;font-weight:bold;">
+        style="
+        border:0;
+        background:none;
+        color:#60a5fa;
+        font-weight:bold;">
+
         Qeydiyyatdan keç
+
       </button>
+
     </p>
 
   </div>
@@ -1272,50 +1716,94 @@ footer{
 
 <!-- REGISTER MODAL -->
 
-<div class="modal" id="registerModal">
+<div
+  class="modal"
+  id="registerModal">
 
   <div class="modal-box">
 
-    <button class="close" onclick="closeModal('registerModal')">
+    <button
+      class="close"
+      onclick="closeModal('registerModal')">
+
       ×
+
     </button>
 
-    <h2>Qeydiyyat</h2>
 
-    <form onsubmit="register(event)">
+    <h2>
+      Qeydiyyat
+    </h2>
 
-      <label>Email</label>
+
+    <form
+      onsubmit="register(event)">
+
+      <label>
+        Email
+      </label>
 
       <input
         id="registerEmail"
         type="email"
+        autocomplete="email"
         required
         placeholder="email@example.com">
 
-      <label>Şifrə</label>
+
+      <label>
+        Şifrə
+      </label>
 
       <input
         id="registerPassword"
         type="password"
+        autocomplete="new-password"
         minlength="6"
         required
         placeholder="Minimum 6 simvol">
 
-      <button class="btn btn-primary full-btn">
+
+      <button
+        id="registerButton"
+        type="submit"
+        class="btn btn-primary full-btn">
+
         Hesab yarat
+
       </button>
 
-      <div id="registerMessage" class="message"></div>
+
+      <div
+        id="registerMessage"
+        class="message">
+      </div>
 
     </form>
 
-    <p style="text-align:center;color:#888;margin-top:18px;font-size:13px;">
+
+    <p
+      style="
+      text-align:center;
+      color:#888;
+      margin-top:18px;
+      font-size:13px;">
+
       Artıq hesabınız var?
+
       <button
+        type="button"
         onclick="switchToLogin()"
-        style="border:0;background:none;color:#60a5fa;font-weight:bold;">
+        style="
+        border:0;
+        background:none;
+        color:#60a5fa;
+        font-weight:bold;">
+
         Daxil ol
+
       </button>
+
     </p>
 
   </div>
@@ -1325,36 +1813,67 @@ footer{
 
 <!-- ORDER MODAL -->
 
-<div class="modal" id="orderModal">
+<div
+  class="modal"
+  id="orderModal">
 
   <div class="modal-box">
 
-    <button class="close" onclick="closeModal('orderModal')">
+    <button
+      class="close"
+      onclick="closeModal('orderModal')">
+
       ×
+
     </button>
 
-    <h2>Sifariş</h2>
 
-    <label>Məhsul</label>
+    <h2>
+      Sifariş
+    </h2>
 
-    <input id="orderProduct" readonly>
 
-    <label>Müddət</label>
+    <label>
+      Məhsul
+    </label>
 
-    <select id="orderDuration" onchange="updateOrderPrice()">
+    <input
+      id="orderProduct"
+      readonly>
+
+
+    <label>
+      Müddət
+    </label>
+
+    <select
+      id="orderDuration"
+      onchange="updateOrderPrice()">
     </select>
 
-    <label>Qiymət</label>
 
-    <input id="orderPrice" readonly>
+    <label>
+      Qiymət
+    </label>
+
+    <input
+      id="orderPrice"
+      readonly>
+
 
     <button
       class="btn btn-primary full-btn"
       onclick="sendWhatsAppOrder()">
+
       WhatsApp ilə sifariş et
+
     </button>
 
-    <div id="orderMessage" class="message"></div>
+
+    <div
+      id="orderMessage"
+      class="message">
+    </div>
 
   </div>
 
@@ -1363,307 +1882,843 @@ footer{
 
 <script>
 
-/* =========================
+/* ==================================================
    SUPABASE
-========================= */
+================================================== */
 
 const SUPABASE_URL =
-"https://zeknhnkaicqkfzgnvycq.supabase.co";
+  "https://zeknhnkaicqkfzgnvycq.supabase.co";
 
 const SUPABASE_KEY =
-"sb_publishable_jHvCp9fXBA_BwFqrXYpwlw_VC6C1OQk";
+  "sb_publishable_jHvCp9fXBA_BwFqrXYpwlw_VC6C1OQk";
 
 const supabaseClient =
-window.supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_KEY
-);
+  window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
 
 
-/* =========================
+/* ==================================================
    PRODUCTS
-========================= */
+================================================== */
 
 const products = {
 
   "Netflix Premium":[
+
     {
       duration:"1 ay",
       price:"6.99 AZN"
     },
+
     {
       duration:"2 ay",
       price:"12.99 AZN"
     }
+
   ],
 
   "YouTube Premium":[
+
     {
       duration:"1 ay",
       price:"7.99 AZN"
     }
+
   ],
 
   "ChatGPT Plus":[
+
     {
       duration:"1 ay",
       price:"11.99 AZN"
     }
+
   ],
 
   "Spotify Premium":[
+
     {
       duration:"1 ay",
       price:"7.99 AZN"
     }
+
   ]
 
 };
 
 
-/* =========================
+/* ==================================================
    MODALS
-========================= */
+================================================== */
 
 function openLogin(){
+
   document
     .getElementById("loginModal")
     .classList.add("active");
+
 }
 
+
 function openRegister(){
+
   document
     .getElementById("registerModal")
     .classList.add("active");
+
 }
 
+
 function closeModal(id){
+
   document
     .getElementById(id)
     .classList.remove("active");
+
 }
+
 
 function switchToRegister(){
+
   closeModal("loginModal");
+
   openRegister();
+
 }
+
 
 function switchToLogin(){
+
   closeModal("registerModal");
+
   openLogin();
+
 }
 
 
-/* =========================
+/* ==================================================
+   MESSAGE
+================================================== */
+
+function showMessage(element,text,type){
+
+  element.textContent = text;
+
+  element.className =
+    "message show " + type;
+
+}
+
+
+/* ==================================================
    REGISTER
-========================= */
+================================================== */
 
 async function register(event){
 
   event.preventDefault();
 
+
   const email =
-    document.getElementById("registerEmail").value.trim();
+    document
+      .getElementById("registerEmail")
+      .value
+      .trim();
+
 
   const password =
-    document.getElementById("registerPassword").value;
+    document
+      .getElementById("registerPassword")
+      .value;
+
 
   const message =
-    document.getElementById("registerMessage");
+    document
+      .getElementById("registerMessage");
 
-  message.className="message";
-  message.textContent="";
 
-  const {data,error} =
-    await supabaseClient.auth.signUp({
-      email:email,
-      password:password
-    });
+  const button =
+    document
+      .getElementById("registerButton");
 
-  if(error){
 
-    message.textContent=error.message;
-    message.className="message show error";
+  message.className = "message";
+  message.textContent = "";
 
-    return;
+
+  button.disabled = true;
+
+  button.textContent =
+    "Hesab yaradılır...";
+
+
+  try{
+
+    const {
+      data,
+      error
+    } =
+      await supabaseClient.auth.signUp({
+
+        email:email,
+
+        password:password
+
+      });
+
+
+    console.log(
+      "REGISTER DATA:",
+      data
+    );
+
+
+    console.log(
+      "REGISTER ERROR:",
+      error
+    );
+
+
+    if(error){
+
+      showMessage(
+        message,
+        error.message,
+        "error"
+      );
+
+      return;
+
+    }
+
+
+    /*
+      CONFIRM EMAIL OFF olduqda
+      normal halda session yaranmalıdır.
+    */
+
+    if(
+      data &&
+      data.session
+    ){
+
+      showMessage(
+        message,
+        "Hesab uğurla yaradıldı! Artıq daxil olmusunuz.",
+        "success"
+      );
+
+
+      event.target.reset();
+
+
+      setTimeout(function(){
+
+        closeModal("registerModal");
+
+      },800);
+
+
+      return;
+
+    }
+
+
+    /*
+      User var, amma session yoxdur.
+      Bu adətən email confirmation
+      hələ aktiv olduqda baş verir.
+    */
+
+    if(
+      data &&
+      data.user &&
+      !data.session
+    ){
+
+      showMessage(
+        message,
+        "Hesab yaradıldı, amma avtomatik giriş olmadı. Supabase-də Confirm email ayarının OFF olduğuna əmin olun.",
+        "error"
+      );
+
+      return;
+
+    }
+
+
+    showMessage(
+      message,
+      "Qeydiyyat tamamlanmadı.",
+      "error"
+    );
+
+
+  }catch(error){
+
+    console.error(
+      "REGISTER EXCEPTION:",
+      error
+    );
+
+
+    showMessage(
+      message,
+      error.message ||
+      "Qeydiyyat zamanı xəta baş verdi.",
+      "error"
+    );
+
+
+  }finally{
+
+    button.disabled = false;
+
+    button.textContent =
+      "Hesab yarat";
+
   }
 
-  message.textContent =
-    "Qeydiyyat uğurludur. Email təsdiqi aktivdirsə, emailinizi yoxlayın.";
-
-  message.className="message show success";
-
-  event.target.reset();
 }
 
 
-/* =========================
+/* ==================================================
    LOGIN
-========================= */
+================================================== */
 
 async function login(event){
 
   event.preventDefault();
 
+
   const email =
-    document.getElementById("loginEmail").value.trim();
+    document
+      .getElementById("loginEmail")
+      .value
+      .trim();
+
 
   const password =
-    document.getElementById("loginPassword").value;
+    document
+      .getElementById("loginPassword")
+      .value;
+
 
   const message =
-    document.getElementById("loginMessage");
+    document
+      .getElementById("loginMessage");
 
-  message.className="message";
-  message.textContent="";
 
-  const {data,error} =
-    await supabaseClient.auth.signInWithPassword({
-      email:email,
-      password:password
-    });
+  const button =
+    document
+      .getElementById("loginButton");
 
-  if(error){
 
-    message.textContent=error.message;
-    message.className="message show error";
+  message.className =
+    "message";
 
-    return;
+  message.textContent = "";
+
+
+  button.disabled = true;
+
+  button.textContent =
+    "Giriş edilir...";
+
+
+  try{
+
+    const {
+      data,
+      error
+    } =
+      await supabaseClient.auth
+        .signInWithPassword({
+
+          email:email,
+
+          password:password
+
+        });
+
+
+    console.log(
+      "LOGIN DATA:",
+      data
+    );
+
+
+    console.log(
+      "LOGIN ERROR:",
+      error
+    );
+
+
+    if(error){
+
+      showMessage(
+        message,
+        error.message,
+        "error"
+      );
+
+      return;
+
+    }
+
+
+    if(
+      data &&
+      data.session
+    ){
+
+      showMessage(
+        message,
+        "Giriş uğurludur.",
+        "success"
+      );
+
+
+      setTimeout(function(){
+
+        closeModal("loginModal");
+
+        updateAuthUI(
+          data.session.user
+        );
+
+      },700);
+
+
+      return;
+
+    }
+
+
+    showMessage(
+      message,
+      "Giriş mümkün olmadı.",
+      "error"
+    );
+
+
+  }catch(error){
+
+    console.error(
+      "LOGIN EXCEPTION:",
+      error
+    );
+
+
+    showMessage(
+      message,
+      error.message ||
+      "Giriş zamanı xəta baş verdi.",
+      "error"
+    );
+
+
+  }finally{
+
+    button.disabled = false;
+
+    button.textContent =
+      "Daxil ol";
+
   }
 
-  message.textContent =
-    "Giriş uğurludur.";
-
-  message.className="message show success";
-
-  setTimeout(()=>{
-    closeModal("loginModal");
-  },700);
 }
 
 
-/* =========================
+/* ==================================================
+   LOGOUT
+================================================== */
+
+async function logout(){
+
+  const {
+    error
+  } =
+    await supabaseClient.auth.signOut();
+
+
+  if(error){
+
+    console.error(
+      "LOGOUT ERROR:",
+      error
+    );
+
+    return;
+
+  }
+
+
+  updateAuthUI(null);
+
+}
+
+
+/* ==================================================
+   AUTH UI
+================================================== */
+
+function updateAuthUI(user){
+
+  const authButtons =
+    document.getElementById(
+      "authButtons"
+    );
+
+  const userArea =
+    document.getElementById(
+      "userArea"
+    );
+
+  const userEmail =
+    document.getElementById(
+      "userEmail"
+    );
+
+
+  if(user){
+
+    authButtons.style.display =
+      "none";
+
+    userArea.style.display =
+      "flex";
+
+    userEmail.textContent =
+      user.email || "";
+
+  }else{
+
+    authButtons.style.display =
+      "flex";
+
+    userArea.style.display =
+      "none";
+
+    userEmail.textContent =
+      "";
+
+  }
+
+}
+
+
+/* ==================================================
+   SESSION CHECK
+================================================== */
+
+async function checkAuth(){
+
+  const {
+    data,
+    error
+  } =
+    await supabaseClient.auth
+      .getSession();
+
+
+  if(error){
+
+    console.error(
+      "SESSION ERROR:",
+      error
+    );
+
+    updateAuthUI(null);
+
+    return;
+
+  }
+
+
+  if(
+    data &&
+    data.session &&
+    data.session.user
+  ){
+
+    updateAuthUI(
+      data.session.user
+    );
+
+  }else{
+
+    updateAuthUI(null);
+
+  }
+
+}
+
+
+checkAuth();
+
+
+/* ==================================================
+   AUTH STATE LISTENER
+================================================== */
+
+supabaseClient.auth
+  .onAuthStateChange(
+    function(event,session){
+
+      console.log(
+        "AUTH EVENT:",
+        event
+      );
+
+
+      if(
+        session &&
+        session.user
+      ){
+
+        updateAuthUI(
+          session.user
+        );
+
+      }else{
+
+        updateAuthUI(null);
+
+      }
+
+    }
+  );
+
+
+/* ==================================================
    ORDER
-========================= */
+================================================== */
 
 function openOrder(productName){
 
-  document.getElementById("orderProduct").value =
-    productName;
+  /*
+    İstəsən sifarişdən əvvəl
+    login məcburi etmək üçün bunu aktiv edə bilərsən.
+  */
 
-  const duration =
-    document.getElementById("orderDuration");
+  /*
+  supabaseClient.auth.getSession()
+  .then(({data}) => {
 
-  duration.innerHTML="";
+    if(!data.session){
 
-  products[productName].forEach(item=>{
+      openLogin();
 
-    const option =
-      document.createElement("option");
+      return;
 
-    option.value=item.duration;
-    option.textContent=
-      item.duration+" — "+item.price;
-
-    duration.appendChild(option);
+    }
 
   });
+  */
+
+
+  document
+    .getElementById("orderProduct")
+    .value =
+      productName;
+
+
+  const duration =
+    document
+      .getElementById(
+        "orderDuration"
+      );
+
+
+  duration.innerHTML = "";
+
+
+  products[productName]
+    .forEach(function(item){
+
+      const option =
+        document.createElement(
+          "option"
+        );
+
+
+      option.value =
+        item.duration;
+
+
+      option.textContent =
+        item.duration +
+        " — " +
+        item.price;
+
+
+      duration.appendChild(
+        option
+      );
+
+    });
+
 
   updateOrderPrice();
+
 
   document
     .getElementById("orderModal")
     .classList.add("active");
+
 }
 
 
 function updateOrderPrice(){
 
   const product =
-    document.getElementById("orderProduct").value;
+    document
+      .getElementById(
+        "orderProduct"
+      )
+      .value;
+
 
   const duration =
-    document.getElementById("orderDuration").value;
+    document
+      .getElementById(
+        "orderDuration"
+      )
+      .value;
+
 
   const item =
     products[product].find(
-      x=>x.duration===duration
+      function(x){
+
+        return x.duration === duration;
+
+      }
     );
+
 
   if(item){
 
-    document.getElementById("orderPrice").value =
-      item.price;
+    document
+      .getElementById(
+        "orderPrice"
+      )
+      .value =
+        item.price;
 
   }
+
 }
 
 
-/* =========================
-   WHATSAPP ORDER
-========================= */
+/* ==================================================
+   WHATSAPP
+================================================== */
 
 function sendWhatsAppOrder(){
 
   const product =
-    document.getElementById("orderProduct").value;
+    document
+      .getElementById(
+        "orderProduct"
+      )
+      .value;
+
 
   const duration =
-    document.getElementById("orderDuration").value;
+    document
+      .getElementById(
+        "orderDuration"
+      )
+      .value;
+
 
   const price =
-    document.getElementById("orderPrice").value;
+    document
+      .getElementById(
+        "orderPrice"
+      )
+      .value;
 
 
   const message =
-    "Salam DigiBaku,%0A%0A"+
-    "Məhsul: "+encodeURIComponent(product)+"%0A"+
-    "Müddət: "+encodeURIComponent(duration)+"%0A"+
-    "Qiymət: "+encodeURIComponent(price)+"%0A%0A"+
+    "Salam Hesablar.az,%0A%0A" +
+
+    "Məhsul: " +
+    encodeURIComponent(
+      product
+    ) +
+
+    "%0A" +
+
+    "Müddət: " +
+    encodeURIComponent(
+      duration
+    ) +
+
+    "%0A" +
+
+    "Qiymət: " +
+    encodeURIComponent(
+      price
+    ) +
+
+    "%0A%0A" +
+
     "Bu məhsulu sifariş etmək istəyirəm.";
 
-
-  /*
-    WhatsApp nömrəsi burada kodun içindədir.
-    Saytda açıq şəkildə göstərilmir.
-  */
 
   const whatsappNumber =
     "994702883484";
 
 
   window.open(
-    "https://wa.me/"+whatsappNumber+"?text="+message,
+    "https://wa.me/" +
+    whatsappNumber +
+    "?text=" +
+    message,
     "_blank"
   );
+
 }
 
 
-/* =========================
+/* ==================================================
    FAQ
-========================= */
+================================================== */
 
 function toggleFaq(element){
 
   const item =
     element.parentElement;
 
-  item.classList.toggle("open");
+
+  item.classList.toggle(
+    "open"
+  );
 
 }
 
 
-/* =========================
-   CLOSE MODAL
-========================= */
+/* ==================================================
+   CLOSE MODALS
+================================================== */
 
 document.addEventListener(
   "click",
   function(event){
 
-    if(event.target.classList.contains("modal")){
+    if(
+      event.target.classList
+        .contains("modal")
+    ){
 
-      event.target.classList.remove("active");
+      event.target
+        .classList
+        .remove("active");
 
     }
 
@@ -1671,23 +2726,30 @@ document.addEventListener(
 );
 
 
-/* =========================
-   AUTH CHECK
-========================= */
+/* ==================================================
+   ESC KEY
+================================================== */
 
-supabaseClient.auth.getSession()
-.then(({data})=>{
+document.addEventListener(
+  "keydown",
+  function(event){
 
-  if(data.session){
+    if(event.key === "Escape"){
 
-    console.log(
-      "İstifadəçi daxil olub:",
-      data.session.user.email
-    );
+      document
+        .querySelectorAll(".modal.active")
+        .forEach(function(modal){
+
+          modal.classList.remove(
+            "active"
+          );
+
+        });
+
+    }
 
   }
-
-});
+);
 
 </script>
 
