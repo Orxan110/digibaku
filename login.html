@@ -1,820 +1,787 @@
 <!DOCTYPE html>
 <html lang="az">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta charset="UTF-8">
+  <title>Hesablar.az — Giriş və Qeydiyyat</title>
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-<title>DigiBaku — Giriş və Qeydiyyat</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<style>
-
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-    font-family:Arial,sans-serif;
-}
-
-body{
-    min-height:100vh;
-    background:
-        radial-gradient(circle at top left,#1e3a8a 0%,transparent 35%),
-        radial-gradient(circle at bottom right,#312e81 0%,transparent 35%),
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at top left, #172554 0%, transparent 35%),
+        radial-gradient(circle at bottom right, #312e81 0%, transparent 35%),
         #050505;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding:20px;
-    color:#111827;
-}
+      color: #fff;
 
-.box{
-    width:100%;
-    max-width:430px;
-    background:#ffffff;
-    border-radius:20px;
-    padding:35px;
-    box-shadow:
-        0 25px 80px rgba(0,0,0,.45);
-}
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
-.logo{
-    text-align:center;
-    color:#2563eb;
-    font-size:30px;
-    font-weight:900;
-    margin-bottom:8px;
-}
+      padding: 20px;
+    }
 
-.subtitle{
-    text-align:center;
-    color:#64748b;
-    margin-bottom:28px;
-    font-size:14px;
-}
+    .box {
+      width: 100%;
+      max-width: 430px;
 
-.tabs{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:5px;
-    background:#f1f5f9;
-    padding:5px;
-    border-radius:10px;
-    margin-bottom:25px;
-}
+      background: #111111;
 
-.tabs button{
-    border:0;
-    padding:12px;
-    border-radius:8px;
-    background:transparent;
-    font-weight:bold;
-    cursor:pointer;
-    font-size:14px;
-}
+      border: 1px solid #262626;
+      border-radius: 20px;
 
-.tabs button.active{
-    background:white;
-    color:#2563eb;
-    box-shadow:0 2px 8px rgba(0,0,0,.08);
-}
+      padding: 35px;
 
-.group{
-    margin-bottom:17px;
-}
+      box-shadow:
+        0 25px 80px rgba(0, 0, 0, 0.55);
+    }
 
-.group label{
-    display:block;
-    font-size:13px;
-    font-weight:bold;
-    margin-bottom:7px;
-    color:#374151;
-}
+    .logo {
+      text-align: center;
 
-.group input{
-    width:100%;
-    padding:14px;
-    border:1px solid #d1d5db;
-    border-radius:9px;
-    outline:none;
-    font-size:14px;
-    transition:.2s;
-}
+      font-size: 30px;
+      font-weight: 900;
 
-.group input:focus{
-    border-color:#2563eb;
-    box-shadow:0 0 0 3px rgba(37,99,235,.10);
-}
+      color: #ffffff;
 
-.submit{
-    width:100%;
-    height:48px;
-    border:0;
-    border-radius:9px;
-    background:#2563eb;
-    color:white;
-    font-weight:bold;
-    font-size:15px;
-    cursor:pointer;
-    transition:.2s;
-}
+      margin-bottom: 8px;
+    }
 
-.submit:hover{
-    background:#1d4ed8;
-}
+    .logo span {
+      color: #3b82f6;
+    }
 
-.submit:disabled{
-    opacity:.65;
-    cursor:not-allowed;
-}
+    .subtitle {
+      text-align: center;
 
-.message{
-    margin-top:16px;
-    padding:13px;
-    border-radius:9px;
-    font-size:13px;
-    line-height:1.5;
-    display:none;
-}
+      color: #8b8b8b;
 
-.success{
-    display:block;
-    background:#ecfdf5;
-    color:#047857;
-    border:1px solid #a7f3d0;
-}
+      font-size: 14px;
 
-.error{
-    display:block;
-    background:#fef2f2;
-    color:#dc2626;
-    border:1px solid #fecaca;
-}
+      margin-bottom: 28px;
+    }
 
-.back{
-    display:block;
-    text-align:center;
-    margin-top:20px;
-    color:#2563eb;
-    text-decoration:none;
-    font-size:13px;
-    font-weight:bold;
-}
+    .tabs {
+      display: grid;
 
-.back:hover{
-    text-decoration:underline;
-}
+      grid-template-columns: 1fr 1fr;
 
-.small{
-    margin-top:10px;
-    text-align:center;
-    color:#64748b;
-    font-size:12px;
-    line-height:1.5;
-}
+      gap: 5px;
 
-</style>
+      background: #1a1a1a;
 
+      padding: 5px;
+
+      border-radius: 10px;
+
+      margin-bottom: 25px;
+    }
+
+    .tabs button {
+      border: 0;
+
+      padding: 12px;
+
+      border-radius: 8px;
+
+      background: transparent;
+
+      color: #888;
+
+      font-weight: bold;
+
+      cursor: pointer;
+
+      transition: 0.2s;
+    }
+
+    .tabs button:hover {
+      color: white;
+    }
+
+    .tabs button.active {
+      background: #2563eb;
+
+      color: white;
+    }
+
+    .group {
+      margin-bottom: 17px;
+    }
+
+    .group label {
+      display: block;
+
+      font-size: 13px;
+
+      font-weight: bold;
+
+      color: #ddd;
+
+      margin-bottom: 8px;
+    }
+
+    .group input {
+      width: 100%;
+
+      padding: 14px;
+
+      background: #181818;
+
+      color: white;
+
+      border: 1px solid #333;
+
+      border-radius: 9px;
+
+      outline: none;
+
+      font-size: 14px;
+
+      transition: 0.2s;
+    }
+
+    .group input::placeholder {
+      color: #666;
+    }
+
+    .group input:focus {
+      border-color: #2563eb;
+
+      box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.12);
+    }
+
+    .submit {
+      width: 100%;
+
+      height: 48px;
+
+      border: 0;
+
+      border-radius: 9px;
+
+      background: #2563eb;
+
+      color: white;
+
+      font-weight: bold;
+
+      font-size: 15px;
+
+      cursor: pointer;
+
+      transition: 0.2s;
+    }
+
+    .submit:hover {
+      background: #1d4ed8;
+    }
+
+    .submit:disabled {
+      opacity: 0.6;
+
+      cursor: not-allowed;
+    }
+
+    .message {
+      margin-top: 15px;
+
+      padding: 13px;
+
+      border-radius: 9px;
+
+      font-size: 13px;
+
+      line-height: 1.5;
+
+      display: none;
+    }
+
+    .success {
+      display: block;
+
+      background: #052e1b;
+
+      border: 1px solid #065f46;
+
+      color: #6ee7b7;
+    }
+
+    .error {
+      display: block;
+
+      background: #3b0a0a;
+
+      border: 1px solid #7f1d1d;
+
+      color: #fca5a5;
+    }
+
+    .back {
+      display: block;
+
+      text-align: center;
+
+      margin-top: 22px;
+
+      color: #60a5fa;
+
+      text-decoration: none;
+
+      font-size: 13px;
+
+      font-weight: bold;
+    }
+
+    .back:hover {
+      color: #93c5fd;
+    }
+
+    .hint {
+      text-align: center;
+
+      color: #666;
+
+      font-size: 12px;
+
+      margin-top: 18px;
+
+      line-height: 1.5;
+    }
+
+    @media (max-width: 480px) {
+      .box {
+        padding: 25px 20px;
+      }
+
+      .logo {
+        font-size: 27px;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-<div class="box">
+  <div class="box">
 
     <div class="logo">
-        DigiBaku
+      Hesablar<span>.az</span>
     </div>
 
     <div class="subtitle">
-        Digital Marketplace
+      Premium rəqəmsal xidmətlər platforması
     </div>
-
-
-    <!-- TABS -->
 
     <div class="tabs">
 
-        <button
-            id="loginTab"
-            class="active"
-            type="button"
-            onclick="showLogin()">
+      <button
+        id="loginTab"
+        class="active"
+        type="button"
+        onclick="showLogin()">
+        Giriş
+      </button>
 
-            Giriş
-
-        </button>
-
-        <button
-            id="registerTab"
-            type="button"
-            onclick="showRegister()">
-
-            Qeydiyyat
-
-        </button>
+      <button
+        id="registerTab"
+        type="button"
+        onclick="showRegister()">
+        Qeydiyyat
+      </button>
 
     </div>
 
 
-    <!-- LOGIN -->
+    <!-- GİRİŞ -->
 
     <form
-        id="loginForm"
-        onsubmit="login(event)">
+      id="loginForm"
+      onsubmit="login(event)">
 
-        <div class="group">
+      <div class="group">
 
-            <label for="loginEmail">
-                Email
-            </label>
+        <label for="loginEmail">
+          Email
+        </label>
 
-            <input
-                id="loginEmail"
-                type="email"
-                required
-                autocomplete="email"
-                placeholder="email@example.com">
+        <input
+          id="loginEmail"
+          type="email"
+          autocomplete="email"
+          required
+          placeholder="email@example.com">
 
-        </div>
-
-
-        <div class="group">
-
-            <label for="loginPassword">
-                Şifrə
-            </label>
-
-            <input
-                id="loginPassword"
-                type="password"
-                required
-                autocomplete="current-password"
-                placeholder="••••••••">
-
-        </div>
+      </div>
 
 
-        <button
-            id="loginButton"
-            class="submit"
-            type="submit">
+      <div class="group">
 
-            Giriş et
+        <label for="loginPassword">
+          Şifrə
+        </label>
 
-        </button>
+        <input
+          id="loginPassword"
+          type="password"
+          autocomplete="current-password"
+          required
+          placeholder="••••••••">
+
+      </div>
+
+
+      <button
+        id="loginButton"
+        class="submit"
+        type="submit">
+
+        Giriş et
+
+      </button>
 
     </form>
 
 
-    <!-- REGISTER -->
+    <!-- QEYDİYYAT -->
 
     <form
-        id="registerForm"
-        onsubmit="register(event)"
-        style="display:none">
+      id="registerForm"
+      onsubmit="register(event)"
+      style="display:none">
 
-        <div class="group">
+      <div class="group">
 
-            <label for="registerEmail">
-                Email
-            </label>
+        <label for="registerEmail">
+          Email
+        </label>
 
-            <input
-                id="registerEmail"
-                type="email"
-                required
-                autocomplete="email"
-                placeholder="email@example.com">
+        <input
+          id="registerEmail"
+          type="email"
+          autocomplete="email"
+          required
+          placeholder="email@example.com">
 
-        </div>
-
-
-        <div class="group">
-
-            <label for="registerPassword">
-                Şifrə
-            </label>
-
-            <input
-                id="registerPassword"
-                type="password"
-                required
-                minlength="6"
-                autocomplete="new-password"
-                placeholder="Minimum 6 simvol">
-
-        </div>
+      </div>
 
 
-        <button
-            id="registerButton"
-            class="submit"
-            type="submit">
+      <div class="group">
 
-            Hesab yarat
+        <label for="registerPassword">
+          Şifrə
+        </label>
 
-        </button>
+        <input
+          id="registerPassword"
+          type="password"
+          autocomplete="new-password"
+          minlength="6"
+          required
+          placeholder="Minimum 6 simvol">
 
-        <div class="small">
-            Qeydiyyatdan sonra email ünvanınıza təsdiq linki göndəriləcək.
-        </div>
+      </div>
+
+
+      <button
+        id="registerButton"
+        class="submit"
+        type="submit">
+
+        Hesab yarat
+
+      </button>
 
     </form>
 
-
-    <!-- MESSAGE -->
 
     <div
-        id="message"
-        class="message">
+      id="message"
+      class="message">
     </div>
 
 
-    <!-- BACK -->
+    <div class="hint">
+      Hesab yaratmaq pulsuzdur. Email təsdiqi tələb olunmur.
+    </div>
+
 
     <a
-        href="index.html"
-        class="back">
+      href="index.html"
+      class="back">
 
-        ← DigiBaku-ya qayıt
+      ← Hesablar.az-a qayıt
 
     </a>
 
-</div>
+  </div>
 
 
-<script>
+  <script>
 
-/* =========================================
-   SUPABASE
-========================================= */
+    /* ==========================================
+       SUPABASE
+       ========================================== */
 
-const SUPABASE_URL =
-"https://zeknhnkaicqkfzgnvycq.supabase.co";
+    const SUPABASE_URL =
+      "https://zeknhnkaicqkfzgnvycq.supabase.co";
 
-const SUPABASE_KEY =
-"sb_publishable_jHvCp9fXBA_BwFqrXYpwlw_VC6C1OQk";
-
-const supabaseClient =
-window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
-);
+    const SUPABASE_KEY =
+      "sb_publishable_jHvCp9fXBA_BwFqrXYpwlw_VC6C1OQk";
 
 
-/* =========================================
-   LOGIN / REGISTER TABS
-========================================= */
+    const supabaseClient =
+      window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+      );
 
-function showLogin(){
 
-    document.getElementById("loginForm").style.display =
+    /* ==========================================
+       LOGIN / REGISTER TAB
+       ========================================== */
+
+    function showLogin() {
+
+      document.getElementById("loginForm").style.display =
         "block";
 
-    document.getElementById("registerForm").style.display =
+      document.getElementById("registerForm").style.display =
         "none";
 
-    document.getElementById("loginTab").classList.add("active");
+      document.getElementById("loginTab")
+        .classList.add("active");
 
-    document.getElementById("registerTab").classList.remove("active");
+      document.getElementById("registerTab")
+        .classList.remove("active");
 
-    clearMessage();
+      clearMessage();
 
-}
+    }
 
 
-function showRegister(){
+    function showRegister() {
 
-    document.getElementById("loginForm").style.display =
+      document.getElementById("loginForm").style.display =
         "none";
 
-    document.getElementById("registerForm").style.display =
+      document.getElementById("registerForm").style.display =
         "block";
 
-    document.getElementById("loginTab").classList.remove("active");
+      document.getElementById("loginTab")
+        .classList.remove("active");
 
-    document.getElementById("registerTab").classList.add("active");
+      document.getElementById("registerTab")
+        .classList.add("active");
 
-    clearMessage();
+      clearMessage();
 
-}
+    }
 
 
-/* =========================================
-   MESSAGES
-========================================= */
+    /* ==========================================
+       MESSAGE
+       ========================================== */
 
-function showMessage(text,type){
+    function showMessage(text, type) {
 
-    const box =
+      const box =
         document.getElementById("message");
 
-    box.textContent = text;
+      box.textContent = text;
 
-    box.className =
+      box.className =
         "message " + type;
 
-}
+    }
 
 
-function clearMessage(){
+    function clearMessage() {
 
-    const box =
+      const box =
         document.getElementById("message");
 
-    box.textContent = "";
+      box.textContent = "";
 
-    box.className = "message";
-
-}
-
-
-/* =========================================
-   REGISTER
-========================================= */
-
-async function register(event){
-
-    event.preventDefault();
-
-    clearMessage();
-
-    const email =
-        document
-        .getElementById("registerEmail")
-        .value
-        .trim();
-
-    const password =
-        document
-        .getElementById("registerPassword")
-        .value;
-
-
-    if(!email){
-
-        showMessage(
-            "Email daxil edin.",
-            "error"
-        );
-
-        return;
+      box.className = "message";
 
     }
 
 
-    if(password.length < 6){
+    /* ==========================================
+       QEYDIYYAT
+       ========================================== */
 
-        showMessage(
-            "Şifrə ən azı 6 simvol olmalıdır.",
-            "error"
-        );
+    async function register(event) {
 
-        return;
+      event.preventDefault();
 
-    }
+      clearMessage();
 
 
-    const button =
+      const email =
+        document
+          .getElementById("registerEmail")
+          .value
+          .trim();
+
+
+      const password =
+        document
+          .getElementById("registerPassword")
+          .value;
+
+
+      const button =
         document.getElementById("registerButton");
 
-    button.disabled = true;
 
-    button.textContent =
-        "Hesab yaradılır...";
+      button.disabled = true;
+
+      button.textContent = "Hesab yaradılır...";
 
 
-    try{
-
-        const redirectUrl =
-            window.location.origin + "/index.html";
-
+      try {
 
         const { data, error } =
-            await supabaseClient.auth.signUp({
+          await supabaseClient.auth.signUp({
 
-                email: email,
+            email: email,
 
-                password: password,
+            password: password,
 
-                options: {
+            options: {
+              emailRedirectTo:
+                window.location.origin + "/index.html"
+            }
 
-                    emailRedirectTo: redirectUrl
-
-                }
-
-            });
+          });
 
 
-        if(error){
+        if (error) {
 
-            showMessage(
-                getFriendlyError(error.message),
-                "error"
-            );
+          showMessage(
+            error.message,
+            "error"
+          );
 
-            return;
+          return;
 
         }
 
 
         /*
-          Supabase email confirmation aktivdirsə
-          data.session null ola bilər.
+          CONFIRM EMAIL OFF olduqda
+          Supabase session yaratmalıdır.
         */
 
-        if(data && data.user){
+        if (data.session) {
 
-            if(data.session){
+          showMessage(
+            "Qeydiyyat uğurludur! Hesabınıza daxil oldunuz.",
+            "success"
+          );
 
-                showMessage(
-                    "Qeydiyyat uğurludur! Hesabınıza daxil oldunuz.",
-                    "success"
-                );
 
-                setTimeout(function(){
+          document
+            .getElementById("registerForm")
+            .reset();
 
-                    window.location.href =
-                        "index.html";
 
-                },1200);
+          setTimeout(function() {
 
-            }else{
+            window.location.href =
+              "index.html";
 
-                showMessage(
-                    "Qeydiyyat uğurludur! Email ünvanınıza təsdiq linki göndərildi. Emailinizi və Spam qovluğunu yoxlayın.",
-                    "success"
-                );
+          }, 700);
 
-                document
-                    .getElementById("registerForm")
-                    .reset();
 
-            }
+          return;
 
         }
 
-    }catch(error){
+
+        /*
+          Əgər session yoxdursa,
+          email təsdiqi hələ aktiv ola bilər.
+        */
+
+        if (data.user && !data.session) {
+
+          showMessage(
+            "Hesab yaradıldı, amma avtomatik giriş mümkün olmadı. Supabase-də Confirm email ayarını yoxlayın.",
+            "error"
+          );
+
+          return;
+
+        }
+
 
         showMessage(
-            "Qeydiyyat zamanı xəta baş verdi: " +
-            error.message,
-            "error"
+          "Qeydiyyat tamamlanmadı.",
+          "error"
         );
 
-    }finally{
+
+      } catch (err) {
+
+        showMessage(
+          err.message || "Naməlum xəta baş verdi.",
+          "error"
+        );
+
+      } finally {
 
         button.disabled = false;
 
-        button.textContent =
-            "Hesab yarat";
+        button.textContent = "Hesab yarat";
 
-    }
-
-}
-
-
-/* =========================================
-   LOGIN
-========================================= */
-
-async function login(event){
-
-    event.preventDefault();
-
-    clearMessage();
-
-    const email =
-        document
-        .getElementById("loginEmail")
-        .value
-        .trim();
-
-    const password =
-        document
-        .getElementById("loginPassword")
-        .value;
-
-
-    if(!email || !password){
-
-        showMessage(
-            "Email və şifrəni daxil edin.",
-            "error"
-        );
-
-        return;
+      }
 
     }
 
 
-    const button =
+    /* ==========================================
+       LOGIN
+       ========================================== */
+
+    async function login(event) {
+
+      event.preventDefault();
+
+      clearMessage();
+
+
+      const email =
+        document
+          .getElementById("loginEmail")
+          .value
+          .trim();
+
+
+      const password =
+        document
+          .getElementById("loginPassword")
+          .value;
+
+
+      const button =
         document.getElementById("loginButton");
 
-    button.disabled = true;
 
-    button.textContent =
-        "Daxil olunur...";
+      button.disabled = true;
+
+      button.textContent = "Giriş edilir...";
 
 
-    try{
+      try {
 
         const { data, error } =
-            await supabaseClient.auth.signInWithPassword({
+          await supabaseClient.auth
+            .signInWithPassword({
 
-                email: email,
+              email: email,
 
-                password: password
+              password: password
 
             });
 
 
-        if(error){
+        if (error) {
 
-            showMessage(
-                getFriendlyError(error.message),
-                "error"
-            );
-
-            return;
-
-        }
-
-
-        if(data && data.user){
-
-            showMessage(
-                "Giriş uğurludur. Ana səhifəyə yönləndirilirsiniz...",
-                "success"
-            );
-
-
-            setTimeout(function(){
-
-                window.location.href =
-                    "index.html";
-
-            },800);
-
-        }
-
-    }catch(error){
-
-        showMessage(
-            "Giriş zamanı xəta baş verdi: " +
+          showMessage(
             error.message,
             "error"
+          );
+
+          return;
+
+        }
+
+
+        if (data.session) {
+
+          showMessage(
+            "Giriş uğurludur! Ana səhifəyə yönləndirilirsiniz...",
+            "success"
+          );
+
+
+          setTimeout(function() {
+
+            window.location.href =
+              "index.html";
+
+          }, 700);
+
+          return;
+
+        }
+
+
+        showMessage(
+          "Giriş mümkün olmadı.",
+          "error"
         );
 
-    }finally{
+
+      } catch (err) {
+
+        showMessage(
+          err.message || "Naməlum xəta baş verdi.",
+          "error"
+        );
+
+      } finally {
 
         button.disabled = false;
 
-        button.textContent =
-            "Giriş et";
+        button.textContent = "Giriş et";
 
-    }
-
-}
-
-
-/* =========================================
-   SUPABASE ERROR MESSAGES
-========================================= */
-
-function getFriendlyError(message){
-
-    if(!message){
-        return "Naməlum xəta baş verdi.";
-    }
-
-
-    const lower =
-        message.toLowerCase();
-
-
-    if(
-        lower.includes("user already registered") ||
-        lower.includes("already registered")
-    ){
-
-        return "Bu email ilə artıq hesab mövcuddur. Giriş bölməsindən daxil olun.";
+      }
 
     }
 
 
-    if(
-        lower.includes("invalid login credentials")
-    ){
+    /* ==========================================
+       SESSION YOXLAMASI
+       ========================================== */
 
-        return "Email və ya şifrə yanlışdır.";
+    async function checkSession() {
 
-    }
-
-
-    if(
-        lower.includes("email not confirmed")
-    ){
-
-        return "Email ünvanınız hələ təsdiqlənməyib. Email qutunuzu yoxlayın.";
-
-    }
-
-
-    if(
-        lower.includes("password should be at least")
-    ){
-
-        return "Şifrə ən azı 6 simvol olmalıdır.";
-
-    }
-
-
-    if(
-        lower.includes("rate limit")
-    ){
-
-        return "Çox sayda cəhd edildi. Bir neçə dəqiqə sonra yenidən yoxlayın.";
-
-    }
-
-
-    if(
-        lower.includes("email") &&
-        lower.includes("smtp")
-    ){
-
-        return "Email göndərilməsində problem var. SMTP ayarlarını yoxlamaq lazımdır.";
-
-    }
-
-
-    return message;
-
-}
-
-
-/* =========================================
-   SESSION CHECK
-========================================= */
-
-async function checkSession(){
-
-    const {
-        data
-    } =
+      const { data } =
         await supabaseClient.auth.getSession();
 
 
-    /*
-      Əgər istifadəçi artıq daxil olubsa,
-      login səhifəsində qalmasın.
-    */
-
-    if(
-        data &&
-        data.session
-    ){
+      if (data.session) {
 
         /*
-          İstəsən bu hissəni saxlaya bilərsən.
+          İstəsən artıq giriş etmiş istifadəçini
+          birbaşa ana səhifəyə göndəririk.
         */
 
-    }
+        // window.location.href = "index.html";
 
-}
-
-
-/* =========================================
-   EMAIL CONFIRMATION REDIRECT
-========================================= */
-
-supabaseClient.auth.onAuthStateChange(
-    function(event, session){
-
-        if(
-            event === "SIGNED_IN" &&
-            session
-        ){
-
-            /*
-              Email təsdiqindən sonra Supabase
-              index.html-ə qaytarır.
-            */
-
-        }
+      }
 
     }
-);
 
 
-checkSession();
+    checkSession();
 
-</script>
+  </script>
 
 </body>
 </html>
