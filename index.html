@@ -6,14 +6,14 @@
 
 <title>DigiBaku — Premium Rəqəmsal Xidmətlər</title>
 
-<meta name="description"
-content="DigiBaku — Netflix, YouTube Premium, ChatGPT Plus və Spotify Premium rəqəmsal xidmətləri.">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 *{
-  box-sizing:border-box;
   margin:0;
   padding:0;
+  box-sizing:border-box;
+  font-family:Arial,Helvetica,sans-serif;
 }
 
 html{
@@ -21,7 +21,6 @@ html{
 }
 
 body{
-  font-family:Arial,Helvetica,sans-serif;
   background:#050505;
   color:#fff;
   line-height:1.6;
@@ -32,8 +31,13 @@ a{
   text-decoration:none;
 }
 
+button{
+  cursor:pointer;
+}
+
 .container{
-  width:min(1180px,92%);
+  width:92%;
+  max-width:1200px;
   margin:auto;
 }
 
@@ -45,7 +49,7 @@ header{
   z-index:1000;
   background:rgba(5,5,5,.94);
   backdrop-filter:blur(15px);
-  border-bottom:1px solid #1d1d1d;
+  border-bottom:1px solid #222;
 }
 
 .nav{
@@ -53,72 +57,93 @@ header{
   display:flex;
   align-items:center;
   justify-content:space-between;
-  gap:25px;
+  gap:20px;
 }
 
 .logo{
   font-size:27px;
   font-weight:900;
-  color:#fff;
-}
-
-.logo span{
   color:#3b82f6;
 }
 
-nav{
-  display:flex;
-  gap:25px;
-  align-items:center;
-}
-
-nav a{
-  color:#aaa;
-  font-size:14px;
-  transition:.2s;
-}
-
-nav a:hover{
+.logo span{
   color:#fff;
 }
 
-.login{
-  padding:10px 18px;
-  border:1px solid #333;
-  border-radius:9px;
+.menu{
+  display:flex;
+  align-items:center;
+  gap:25px;
+  font-size:14px;
 }
 
-.menu{
-  display:none;
-  font-size:25px;
-  cursor:pointer;
+.menu a{
+  color:#bbb;
+  transition:.2s;
+}
+
+.menu a:hover{
+  color:#3b82f6;
+}
+
+.auth-buttons{
+  display:flex;
+  gap:10px;
+}
+
+.btn{
+  border:0;
+  border-radius:9px;
+  padding:11px 17px;
+  font-weight:700;
+  transition:.2s;
+}
+
+.btn-primary{
+  background:#2563eb;
+  color:#fff;
+}
+
+.btn-primary:hover{
+  background:#1d4ed8;
+}
+
+.btn-dark{
+  background:#151515;
+  color:#fff;
+  border:1px solid #333;
+}
+
+.btn-dark:hover{
+  border-color:#2563eb;
 }
 
 /* HERO */
 
 .hero{
-  padding:105px 0 90px;
+  padding:100px 0 80px;
   text-align:center;
   background:
-    radial-gradient(circle at 50% 0%,rgba(37,99,235,.25),transparent 45%);
+    radial-gradient(circle at top,#172554 0,#080808 45%,#050505 100%);
 }
 
 .badge{
   display:inline-block;
-  padding:7px 13px;
-  border:1px solid #263b63;
-  background:#0b1428;
-  color:#60a5fa;
+  padding:7px 14px;
+  border:1px solid #263b67;
   border-radius:30px;
+  color:#60a5fa;
+  background:#0b1220;
   font-size:13px;
   margin-bottom:20px;
 }
 
 .hero h1{
-  font-size:clamp(40px,7vw,72px);
-  line-height:1.05;
   max-width:850px;
   margin:auto;
+  font-size:58px;
+  line-height:1.08;
+  margin-bottom:22px;
 }
 
 .hero h1 span{
@@ -126,47 +151,36 @@ nav a:hover{
 }
 
 .hero p{
-  max-width:680px;
-  margin:25px auto 30px;
+  max-width:700px;
+  margin:0 auto 30px;
   color:#aaa;
-  font-size:17px;
+  font-size:18px;
 }
 
-.btn{
-  display:inline-block;
-  padding:14px 25px;
-  border-radius:10px;
-  background:#2563eb;
-  color:#fff;
-  font-weight:bold;
-  border:0;
-  cursor:pointer;
-  transition:.2s;
+.hero-buttons{
+  display:flex;
+  justify-content:center;
+  gap:12px;
 }
 
-.btn:hover{
-  background:#1d4ed8;
-  transform:translateY(-2px);
-}
-
-/* SECTIONS */
+/* SECTION */
 
 section{
-  padding:80px 0;
+  padding:75px 0;
 }
 
 .section-title{
   text-align:center;
-  margin-bottom:45px;
+  margin-bottom:40px;
 }
 
 .section-title h2{
-  font-size:35px;
+  font-size:36px;
   margin-bottom:10px;
 }
 
 .section-title p{
-  color:#888;
+  color:#999;
 }
 
 /* PRODUCTS */
@@ -177,59 +191,65 @@ section{
   gap:20px;
 }
 
-.card{
-  background:#0d0d0d;
-  border:1px solid #202020;
+.product{
+  background:#101010;
+  border:1px solid #242424;
   border-radius:16px;
   padding:24px;
   transition:.25s;
 }
 
-.card:hover{
+.product:hover{
   transform:translateY(-5px);
   border-color:#2563eb;
+  box-shadow:0 15px 40px rgba(0,0,0,.35);
 }
 
-.icon{
+.product-icon{
   width:55px;
   height:55px;
   display:flex;
   align-items:center;
   justify-content:center;
   border-radius:13px;
-  background:#161616;
-  font-size:25px;
-  margin-bottom:20px;
+  background:#172554;
+  color:#60a5fa;
+  font-size:24px;
+  margin-bottom:18px;
 }
 
-.card h3{
-  font-size:19px;
-  margin-bottom:8px;
+.product h3{
+  font-size:20px;
+  margin-bottom:10px;
 }
 
-.card p{
+.product p{
   color:#888;
   font-size:14px;
-  margin-bottom:15px;
+  min-height:48px;
 }
 
 .price{
-  font-size:24px;
+  font-size:25px;
   font-weight:900;
-  color:#60a5fa;
-  margin-bottom:15px;
+  margin:18px 0;
+  color:#fff;
 }
 
 .price small{
+  color:#888;
   font-size:13px;
-  color:#777;
-  font-weight:normal;
+  font-weight:400;
 }
 
-.duration{
-  color:#aaa;
-  font-size:13px;
-  margin-bottom:18px;
+.product-btn{
+  width:100%;
+  padding:12px;
+  border:0;
+  border-radius:9px;
+  background:#2563eb;
+  color:#fff;
+  font-weight:bold;
 }
 
 /* WHY */
@@ -241,37 +261,45 @@ section{
 }
 
 .feature{
-  padding:30px;
-  border:1px solid #202020;
-  background:#0b0b0b;
+  background:#101010;
+  border:1px solid #222;
   border-radius:15px;
+  padding:28px;
 }
 
 .feature-icon{
-  font-size:28px;
+  font-size:30px;
   margin-bottom:15px;
 }
 
 .feature h3{
-  margin-bottom:10px;
+  margin-bottom:8px;
 }
 
 .feature p{
-  color:#888;
-  font-size:14px;
+  color:#999;
 }
 
 /* ABOUT */
 
 .about{
+  background:#090909;
+}
+
+.about-content{
   max-width:850px;
   margin:auto;
   text-align:center;
 }
 
-.about p{
-  color:#999;
-  margin-bottom:18px;
+.about-content h2{
+  font-size:38px;
+  margin-bottom:20px;
+}
+
+.about-content p{
+  color:#aaa;
+  margin-bottom:15px;
 }
 
 /* COMPARISON */
@@ -283,9 +311,9 @@ section{
 }
 
 .compare-card{
-  background:#0c0c0c;
-  border:1px solid #222;
-  padding:25px;
+  background:#101010;
+  border:1px solid #242424;
+  padding:24px;
   border-radius:15px;
 }
 
@@ -294,9 +322,13 @@ section{
 }
 
 .compare-card p{
-  color:#888;
-  font-size:14px;
-  margin-bottom:15px;
+  color:#999;
+  margin-bottom:18px;
+}
+
+.compare-card a{
+  color:#60a5fa;
+  font-weight:bold;
 }
 
 /* BLOG */
@@ -307,53 +339,101 @@ section{
   gap:20px;
 }
 
-.blog{
-  background:#0d0d0d;
-  border:1px solid #202020;
+.blog-card{
+  background:#101010;
+  border:1px solid #222;
   border-radius:15px;
-  padding:25px;
+  padding:24px;
 }
 
 .blog-date{
-  color:#3b82f6;
-  font-size:12px;
-  margin-bottom:12px;
-}
-
-.blog h3{
-  font-size:18px;
+  color:#60a5fa;
+  font-size:13px;
   margin-bottom:10px;
 }
 
-.blog p{
-  color:#888;
+.blog-card h3{
+  margin-bottom:10px;
+}
+
+.blog-card p{
+  color:#999;
   font-size:14px;
+}
+
+/* FAQ */
+
+.faq{
+  max-width:850px;
+  margin:auto;
+}
+
+.faq-item{
+  border:1px solid #252525;
+  background:#101010;
+  border-radius:10px;
+  margin-bottom:10px;
+  overflow:hidden;
+}
+
+.faq-question{
+  padding:18px;
+  font-weight:bold;
+  cursor:pointer;
+  display:flex;
+  justify-content:space-between;
+}
+
+.faq-answer{
+  display:none;
+  padding:0 18px 18px;
+  color:#999;
+}
+
+.faq-item.open .faq-answer{
+  display:block;
 }
 
 /* CONTACT */
 
 .contact{
+  background:#090909;
+}
+
+.contact-grid{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:25px;
+  gap:30px;
 }
 
 .contact-box{
-  background:#0d0d0d;
+  background:#101010;
   border:1px solid #222;
-  padding:30px;
   border-radius:15px;
+  padding:30px;
 }
 
-.contact-box p{
+.contact-box h3{
+  margin-bottom:20px;
+}
+
+.contact-item{
+  margin-bottom:18px;
+}
+
+.contact-item strong{
+  display:block;
+  color:#fff;
+}
+
+.contact-item span{
   color:#999;
-  margin:10px 0;
 }
 
 /* FOOTER */
 
 footer{
-  border-top:1px solid #202020;
+  border-top:1px solid #222;
   padding:50px 0 25px;
   background:#030303;
 }
@@ -370,23 +450,23 @@ footer{
 
 .footer-col p,
 .footer-col a{
-  display:block;
-  color:#777;
+  color:#888;
   font-size:14px;
-  margin:8px 0;
+  display:block;
+  margin-bottom:8px;
 }
 
 .footer-col a:hover{
-  color:#fff;
+  color:#3b82f6;
 }
 
 .copyright{
-  border-top:1px solid #181818;
+  border-top:1px solid #222;
   margin-top:35px;
   padding-top:20px;
+  text-align:center;
   color:#666;
   font-size:13px;
-  text-align:center;
 }
 
 /* MODAL */
@@ -395,8 +475,8 @@ footer{
   display:none;
   position:fixed;
   inset:0;
-  z-index:2000;
   background:rgba(0,0,0,.8);
+  z-index:2000;
   align-items:center;
   justify-content:center;
   padding:20px;
@@ -408,9 +488,9 @@ footer{
 
 .modal-box{
   width:100%;
-  max-width:430px;
-  background:#111;
-  border:1px solid #292929;
+  max-width:450px;
+  background:#101010;
+  border:1px solid #333;
   border-radius:18px;
   padding:30px;
   position:relative;
@@ -419,61 +499,70 @@ footer{
 .close{
   position:absolute;
   right:18px;
-  top:14px;
+  top:15px;
+  background:none;
+  border:0;
+  color:#aaa;
   font-size:25px;
-  color:#777;
-  cursor:pointer;
 }
 
 .modal-box h2{
-  margin-bottom:8px;
-}
-
-.modal-box .selected{
-  color:#60a5fa;
   margin-bottom:20px;
 }
 
-label{
+.modal-box label{
   display:block;
-  color:#aaa;
   font-size:13px;
+  font-weight:bold;
   margin-bottom:7px;
 }
 
-select,
-input{
+.modal-box input,
+.modal-box select{
   width:100%;
   padding:13px;
+  margin-bottom:15px;
+  border-radius:8px;
   border:1px solid #333;
-  border-radius:9px;
-  background:#090909;
+  background:#080808;
   color:#fff;
   outline:none;
-  margin-bottom:18px;
 }
 
-select:focus,
-input:focus{
+.modal-box input:focus,
+.modal-box select:focus{
   border-color:#2563eb;
 }
 
-.total{
-  display:flex;
-  justify-content:space-between;
-  padding:15px 0;
-  border-top:1px solid #222;
-  margin-bottom:18px;
+.full-btn{
+  width:100%;
 }
 
-.total strong{
-  color:#60a5fa;
+.message{
+  display:none;
+  margin-top:15px;
+  padding:11px;
+  border-radius:8px;
+  font-size:13px;
+}
+
+.message.show{
+  display:block;
+}
+
+.message.error{
+  background:#3b1010;
+  color:#f87171;
+}
+
+.message.success{
+  background:#082c1c;
+  color:#34d399;
 }
 
 /* RESPONSIVE */
 
-@media(max-width:900px){
-
+@media(max-width:950px){
   .products{
     grid-template-columns:repeat(2,1fr);
   }
@@ -482,45 +571,45 @@ input:focus{
     grid-template-columns:1fr;
   }
 
+  .blog-grid{
+    grid-template-columns:1fr;
+  }
+
   .footer-grid{
     grid-template-columns:1fr 1fr;
   }
 
+  .menu{
+    display:none;
+  }
 }
 
-@media(max-width:700px){
-
-  nav{
-    display:none;
-    position:absolute;
-    top:75px;
-    left:0;
-    right:0;
-    background:#080808;
-    flex-direction:column;
-    padding:20px;
-    border-bottom:1px solid #222;
-  }
-
-  nav.show{
-    display:flex;
-  }
-
-  .menu{
-    display:block;
-  }
-
+@media(max-width:600px){
   .hero{
-    padding:75px 0;
+    padding:70px 0;
+  }
+
+  .hero h1{
+    font-size:39px;
+  }
+
+  .hero p{
+    font-size:16px;
+  }
+
+  .hero-buttons{
+    flex-direction:column;
   }
 
   .products{
     grid-template-columns:1fr;
   }
 
-  .compare-grid,
-  .blog-grid,
-  .contact{
+  .compare-grid{
+    grid-template-columns:1fr;
+  }
+
+  .contact-grid{
     grid-template-columns:1fr;
   }
 
@@ -528,6 +617,10 @@ input:focus{
     grid-template-columns:1fr;
   }
 
+  .auth-buttons .btn{
+    padding:9px 11px;
+    font-size:12px;
+  }
 }
 </style>
 </head>
@@ -541,22 +634,30 @@ input:focus{
       Digi<span>Baku</span>
     </a>
 
-    <nav id="nav">
+    <nav class="menu">
       <a href="#home">Ana səhifə</a>
       <a href="#products">Məhsullar</a>
       <a href="#compare">Müqayisə</a>
-      <a href="#prices">Qiymətlər</a>
       <a href="#about">Haqqımızda</a>
       <a href="#blog">Bloq</a>
       <a href="#contact">Əlaqə</a>
-      <a href="login.html" class="login">Daxil ol</a>
     </nav>
 
-    <div class="menu" onclick="toggleMenu()">☰</div>
+    <div class="auth-buttons">
+      <button class="btn btn-dark" onclick="openLogin()">
+        Daxil ol
+      </button>
+
+      <button class="btn btn-primary" onclick="openRegister()">
+        Qeydiyyat
+      </button>
+    </div>
 
   </div>
 </header>
 
+
+<main>
 
 <!-- HERO -->
 
@@ -575,13 +676,18 @@ input:focus{
 
     <p>
       Netflix, YouTube Premium, ChatGPT Plus və Spotify Premium
-      xidmətlərini rahat şəkildə seçin və sifarişinizi WhatsApp
-      üzərindən tamamlayın.
+      paketlərini seçin, müddəti müəyyən edin və sifarişinizi rahatlıqla verin.
     </p>
 
-    <a href="#products" class="btn">
-      Məhsullara bax
-    </a>
+    <div class="hero-buttons">
+      <a href="#products" class="btn btn-primary">
+        Məhsullara bax
+      </a>
+
+      <a href="#about" class="btn btn-dark">
+        Haqqımızda
+      </a>
+    </div>
 
   </div>
 
@@ -595,19 +701,17 @@ input:focus{
   <div class="container">
 
     <div class="section-title">
-      <h2>Populyar məhsullar</h2>
-      <p>İstədiyiniz xidməti seçin və müddəti müəyyən edin.</p>
+      <h2>Məhsullar</h2>
+      <p>Ən çox seçilən premium rəqəmsal xidmətlər</p>
     </div>
-
 
     <div class="products">
 
-
       <!-- NETFLIX -->
 
-      <div class="card">
+      <div class="product">
 
-        <div class="icon">N</div>
+        <div class="product-icon">N</div>
 
         <h3>Netflix Premium</h3>
 
@@ -615,17 +719,13 @@ input:focus{
           Premium film və serial platforması.
         </p>
 
-        <div class="duration">
-          1 ay / 2 ay
-        </div>
-
         <div class="price">
           6.99 AZN
-          <small> / 1 ay</small>
+          <small>/ 1 ay</small>
         </div>
 
         <button
-          class="btn"
+          class="product-btn"
           onclick="openOrder('Netflix Premium')">
           Sifariş et
         </button>
@@ -635,27 +735,23 @@ input:focus{
 
       <!-- YOUTUBE -->
 
-      <div class="card">
+      <div class="product">
 
-        <div class="icon">▶</div>
+        <div class="product-icon">▶</div>
 
         <h3>YouTube Premium</h3>
 
         <p>
-          Reklamsız YouTube və Premium imkanları.
+          Reklamsız video və musiqi istifadəsi.
         </p>
-
-        <div class="duration">
-          1 ay
-        </div>
 
         <div class="price">
           7.99 AZN
-          <small> / 1 ay</small>
+          <small>/ 1 ay</small>
         </div>
 
         <button
-          class="btn"
+          class="product-btn"
           onclick="openOrder('YouTube Premium')">
           Sifariş et
         </button>
@@ -665,27 +761,23 @@ input:focus{
 
       <!-- CHATGPT -->
 
-      <div class="card">
+      <div class="product">
 
-        <div class="icon">AI</div>
+        <div class="product-icon">AI</div>
 
         <h3>ChatGPT Plus</h3>
 
         <p>
-          Süni intellekt və məhsuldarlıq üçün premium xidmət.
+          AI alətləri, yazı, kod və gündəlik işlər üçün.
         </p>
-
-        <div class="duration">
-          1 ay
-        </div>
 
         <div class="price">
           11.99 AZN
-          <small> / 1 ay</small>
+          <small>/ 1 ay</small>
         </div>
 
         <button
-          class="btn"
+          class="product-btn"
           onclick="openOrder('ChatGPT Plus')">
           Sifariş et
         </button>
@@ -695,27 +787,23 @@ input:focus{
 
       <!-- SPOTIFY -->
 
-      <div class="card">
+      <div class="product">
 
-        <div class="icon">♫</div>
+        <div class="product-icon">♫</div>
 
         <h3>Spotify Premium</h3>
 
         <p>
-          Reklamsız musiqi və rahat dinləmə.
+          Reklamsız musiqi və offline dinləmə.
         </p>
-
-        <div class="duration">
-          1 ay
-        </div>
 
         <div class="price">
           7.99 AZN
-          <small> / 1 ay</small>
+          <small>/ 1 ay</small>
         </div>
 
         <button
-          class="btn"
+          class="product-btn"
           onclick="openOrder('Spotify Premium')">
           Sifariş et
         </button>
@@ -731,56 +819,39 @@ input:focus{
 
 <!-- WHY -->
 
-<section id="prices">
+<section>
 
   <div class="container">
 
     <div class="section-title">
       <h2>Niyə DigiBaku?</h2>
-      <p>Sadə, rahat və sürətli sifariş prosesi.</p>
+      <p>Sadə, sürətli və rahat sifariş prosesi</p>
     </div>
 
     <div class="features">
 
       <div class="feature">
-
         <div class="feature-icon">⚡</div>
-
         <h3>Sürətli aktivləşdirmə</h3>
-
         <p>
-          Sifarişinizi göndərin. Aktivləşdirmə prosesi
-          mümkün qədər qısa müddətdə həyata keçirilir.
+          Sifarişinizi göndərin və aktivləşdirmə üçün dəstək alın.
         </p>
-
       </div>
 
-
       <div class="feature">
-
         <div class="feature-icon">🔒</div>
-
-        <h3>Təhlükəsiz sifariş</h3>
-
+        <h3>Təhlükəsiz proses</h3>
         <p>
-          Sifariş zamanı sizdən yalnız lazımi məlumatlar
-          alınır və proses WhatsApp üzərindən davam edir.
+          Sifariş məlumatlarınız rahat və təhlükəsiz şəkildə qəbul edilir.
         </p>
-
       </div>
 
-
       <div class="feature">
-
         <div class="feature-icon">💬</div>
-
-        <h3>Operativ dəstək</h3>
-
+        <h3>Dəstək</h3>
         <p>
-          Sifariş və istifadə ilə bağlı suallarınız olduqda
-          dəstək komandası ilə əlaqə saxlaya bilərsiniz.
+          Sifarişlə bağlı suallarınız olduqda dəstək komandamızla əlaqə saxlayın.
         </p>
-
       </div>
 
     </div>
@@ -792,125 +863,77 @@ input:focus{
 
 <!-- ABOUT -->
 
-<section id="about">
+<section class="about" id="about">
 
-  <div class="container">
+  <div class="container about-content">
 
-    <div class="section-title">
-      <h2>DigiBaku haqqında</h2>
-    </div>
+    <h2>DigiBaku haqqında</h2>
 
-    <div class="about">
+    <p>
+      DigiBaku premium rəqəmsal xidmətləri daha rahat əldə etmək
+      istəyən istifadəçilər üçün yaradılmış platformadır.
+    </p>
 
-      <p>
-        DigiBaku premium rəqəmsal xidmətləri daha rahat
-        əldə etmək istəyən istifadəçilər üçün yaradılmış
-        yerli platformadır.
-      </p>
+    <p>
+      Məqsədimiz istifadəçinin uyğun xidməti tez tapması,
+      qiymət və müddəti aydın görməsi və sifariş prosesini
+      mümkün qədər sadə şəkildə tamamlamasıdır.
+    </p>
 
-      <p>
-        Netflix, Spotify Premium, ChatGPT Plus və
-        YouTube Premium kimi rəqəmsal xidmətləri bir
-        platformada təqdim edirik.
-      </p>
-
-      <p>
-        Məqsədimiz istifadəçinin uyğun xidməti tez tapması,
-        müddəti və qiyməti əvvəlcədən görməsi və sifarişi
-        rahat şəkildə tamamlamasıdır.
-      </p>
-
-    </div>
+    <p>
+      Platformada Netflix, YouTube Premium, ChatGPT Plus və
+      Spotify Premium kimi rəqəmsal xidmətlər təqdim olunur.
+    </p>
 
   </div>
 
 </section>
 
 
-<!-- COMPARE -->
+<!-- COMPARISON -->
 
 <section id="compare">
 
   <div class="container">
 
     <div class="section-title">
-
-      <h2>Müqayisə bələdçiləri</h2>
-
-      <p>
-        Uyğun xidməti daha rahat seçmək üçün
-        müqayisələrə baxın.
-      </p>
-
+      <h2>Müqayisə</h2>
+      <p>Uyğun xidməti seçmək üçün müqayisə edin</p>
     </div>
-
 
     <div class="compare-grid">
 
-
       <div class="compare-card">
-
-        <h3>Netflix və digər film platformaları</h3>
-
+        <h3>Netflix vs YouTube Premium</h3>
         <p>
-          Film və serial izləmək üçün uyğun platformaları
-          qiymət və istifadə məqsədinə görə müqayisə edin.
+          Film, serial, video və reklamsız istifadə imkanlarını müqayisə edin.
         </p>
-
-        <a href="#products" class="btn">
-          Bələdçiyə bax
-        </a>
-
+        <a href="#products">Məhsullara bax →</a>
       </div>
 
-
       <div class="compare-card">
-
-        <h3>Spotify və digər musiqi platformaları</h3>
-
+        <h3>Spotify vs YouTube Premium</h3>
         <p>
-          Musiqi dinləmə üçün premium paketləri
-          müqayisə edin.
+          Musiqi dinləmə və video istifadə ehtiyacınıza uyğun xidməti seçin.
         </p>
-
-        <a href="#products" class="btn">
-          Bələdçiyə bax
-        </a>
-
+        <a href="#products">Məhsullara bax →</a>
       </div>
 
-
       <div class="compare-card">
-
-        <h3>ChatGPT Plus və AI xidmətləri</h3>
-
+        <h3>ChatGPT Plus vs digər AI</h3>
         <p>
-          Süni intellekt xidmətlərini istifadə məqsədinə
-          görə müqayisə edin.
+          Yazı, kod və süni intellekt işləri üçün uyğun seçimi müəyyən edin.
         </p>
-
-        <a href="#products" class="btn">
-          Bələdçiyə bax
-        </a>
-
+        <a href="#products">Məhsullara bax →</a>
       </div>
 
-
       <div class="compare-card">
-
-        <h3>YouTube Premium və Spotify</h3>
-
+        <h3>Premium paket seçimi</h3>
         <p>
-          Video və musiqi istifadəsi üçün uyğun
-          seçimləri müqayisə edin.
+          Qiymət, müddət və istifadə məqsədinə görə paketləri müqayisə edin.
         </p>
-
-        <a href="#products" class="btn">
-          Bələdçiyə bax
-        </a>
-
+        <a href="#products">Məhsullara bax →</a>
       </div>
-
 
     </div>
 
@@ -926,126 +949,137 @@ input:focus{
   <div class="container">
 
     <div class="section-title">
-
       <h2>Bloq</h2>
-
-      <p>
-        Premium rəqəmsal xidmətlər haqqında faydalı məlumatlar.
-      </p>
-
+      <p>Premium xidmətlər haqqında faydalı məlumatlar</p>
     </div>
-
 
     <div class="blog-grid">
 
+      <article class="blog-card">
+        <div class="blog-date">16.08.2026</div>
+        <h3>Netflix Premium nədir?</h3>
+        <p>
+          Netflix paketləri və istifadə imkanları haqqında məlumat.
+        </p>
+      </article>
 
-      <div class="blog">
+      <article class="blog-card">
+        <div class="blog-date">16.08.2026</div>
+        <h3>YouTube Premium nə verir?</h3>
+        <p>
+          Reklamsız video və digər premium imkanlar haqqında.
+        </p>
+      </article>
 
-        <div class="blog-date">
-          04.08.2026
+      <article class="blog-card">
+        <div class="blog-date">16.08.2026</div>
+        <h3>ChatGPT Plus kimlər üçündür?</h3>
+        <p>
+          AI alətlərindən istifadə edənlər üçün premium imkanlar.
+        </p>
+      </article>
+
+      <article class="blog-card">
+        <div class="blog-date">16.08.2026</div>
+        <h3>Spotify Premium üstünlükləri</h3>
+        <p>
+          Reklamsız musiqi və offline dinləmə imkanları.
+        </p>
+      </article>
+
+      <article class="blog-card">
+        <div class="blog-date">16.08.2026</div>
+        <h3>Premium xidmət seçərkən nə etməli?</h3>
+        <p>
+          Müddət, qiymət və istifadə məqsədinə diqqət edin.
+        </p>
+      </article>
+
+      <article class="blog-card">
+        <div class="blog-date">16.08.2026</div>
+        <h3>DigiBaku sifarişi necə işləyir?</h3>
+        <p>
+          Məhsul seçimi və sifariş prosesinin mərhələləri.
+        </p>
+      </article>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- FAQ -->
+
+<section>
+
+  <div class="container">
+
+    <div class="section-title">
+      <h2>FAQ</h2>
+      <p>Tez-tez verilən suallar</p>
+    </div>
+
+    <div class="faq">
+
+      <div class="faq-item">
+
+        <div class="faq-question" onclick="toggleFaq(this)">
+          Sifariş necə verilir?
+          <span>+</span>
         </div>
 
-        <h3>
-          Netflix Premium nədir?
-        </h3>
-
-        <p>
-          Netflix paketləri və premium istifadə imkanları
-          haqqında əsas məlumatlar.
-        </p>
+        <div class="faq-answer">
+          Məhsulu seçin, müddəti müəyyən edin və sifariş düyməsinə basın.
+          Daha sonra sifariş WhatsApp üzərindən göndərilir.
+        </div>
 
       </div>
 
 
-      <div class="blog">
+      <div class="faq-item">
 
-        <div class="blog-date">
-          04.08.2026
+        <div class="faq-question" onclick="toggleFaq(this)">
+          Qeydiyyat lazımdır?
+          <span>+</span>
         </div>
 
-        <h3>
-          YouTube Premium nə verir?
-        </h3>
-
-        <p>
-          Reklamsız video izləmə və Premium imkanları
-          haqqında məlumat.
-        </p>
+        <div class="faq-answer">
+          Bəli. Sifariş imkanlarından istifadə etmək üçün hesab yaratmaq
+          və hesabınıza daxil olmaq nəzərdə tutulub.
+        </div>
 
       </div>
 
 
-      <div class="blog">
+      <div class="faq-item">
 
-        <div class="blog-date">
-          04.08.2026
+        <div class="faq-question" onclick="toggleFaq(this)">
+          Hansı məhsullar var?
+          <span>+</span>
         </div>
 
-        <h3>
-          ChatGPT Plus kimlər üçün uyğundur?
-        </h3>
-
-        <p>
-          AI alətlərindən istifadə edənlər üçün
-          ChatGPT Plus haqqında qısa bələdçi.
-        </p>
+        <div class="faq-answer">
+          Hazırda Netflix, YouTube Premium, ChatGPT Plus və Spotify Premium
+          təqdim olunur.
+        </div>
 
       </div>
 
 
-      <div class="blog">
+      <div class="faq-item">
 
-        <div class="blog-date">
-          04.08.2026
+        <div class="faq-question" onclick="toggleFaq(this)">
+          Sifariş hara göndərilir?
+          <span>+</span>
         </div>
 
-        <h3>
-          Spotify Premium üstünlükləri
-        </h3>
-
-        <p>
-          Premium musiqi istifadəçiləri üçün əsas
-          imkanlar və üstünlüklər.
-        </p>
-
-      </div>
-
-
-      <div class="blog">
-
-        <div class="blog-date">
-          04.08.2026
+        <div class="faq-answer">
+          Sifariş məlumatları WhatsApp üzərindən dəstəyə göndərilir.
         </div>
 
-        <h3>
-          Premium hesab seçərkən nələrə diqqət etməli?
-        </h3>
-
-        <p>
-          Müddət, qiymət və istifadə qaydalarını
-          müqayisə etmək üçün faydalı məsləhətlər.
-        </p>
-
       </div>
-
-
-      <div class="blog">
-
-        <div class="blog-date">
-          04.08.2026
-        </div>
-
-        <h3>
-          Rəqəmsal xidmətləri necə seçmək olar?
-        </h3>
-
-        <p>
-          İstifadə məqsədinizə uyğun premium xidməti
-          seçmək üçün sadə bələdçi.
-        </p>
-
-      </div>
-
 
     </div>
 
@@ -1056,56 +1090,53 @@ input:focus{
 
 <!-- CONTACT -->
 
-<section id="contact">
+<section class="contact" id="contact">
 
   <div class="container">
 
     <div class="section-title">
-
-      <h2>Bizimlə əlaqə</h2>
-
-      <p>
-        Sualınız və ya sifarişiniz varsa, bizimlə əlaqə saxlayın.
-      </p>
-
+      <h2>Əlaqə</h2>
+      <p>Bizimlə əlaqə saxlayın</p>
     </div>
 
-
-    <div class="contact">
+    <div class="contact-grid">
 
       <div class="contact-box">
 
-        <h3>Canlı dəstək</h3>
+        <h3>DigiBaku dəstək</h3>
 
-        <p>
-          Sifariş və məhsullar haqqında suallarınıza
-          operativ cavab veririk.
-        </p>
+        <div class="contact-item">
+          <strong>Şəhər</strong>
+          <span>Bakı, Azərbaycan</span>
+        </div>
 
-        <p>
-          🕐 Hər gün 10:00 – 22:00
-        </p>
+        <div class="contact-item">
+          <strong>E-poçt</strong>
+          <span>netp2673@gmail.com</span>
+        </div>
 
-        <button
-          class="btn"
-          onclick="openWhatsApp('Salam, DigiBaku haqqında məlumat almaq istəyirəm.')">
-          WhatsApp ilə yaz
-        </button>
+        <div class="contact-item">
+          <strong>İş saatları</strong>
+          <span>Hər gün 10:00 — 22:00</span>
+        </div>
 
       </div>
 
 
       <div class="contact-box">
 
-        <h3>Elektron poçt</h3>
+        <h3>Sifariş və dəstək</h3>
 
-        <p>
-          premium989e@gmail.com
+        <p style="color:#999;margin-bottom:20px;">
+          Məhsul sifarişi üçün məhsulu seçib sifariş formasından
+          istifadə edə bilərsiniz.
         </p>
 
-        <p>
-          Sifariş və əməkdaşlıq üçün bizimlə əlaqə saxlaya bilərsiniz.
-        </p>
+        <a
+          href="#products"
+          class="btn btn-primary">
+          Məhsullara bax
+        </a>
 
       </div>
 
@@ -1114,6 +1145,8 @@ input:focus{
   </div>
 
 </section>
+
+</main>
 
 
 <!-- FOOTER -->
@@ -1124,20 +1157,14 @@ input:focus{
 
     <div class="footer-grid">
 
-
       <div class="footer-col">
 
-        <div class="logo">
+        <h3 class="logo">
           Digi<span>Baku</span>
-        </div>
+        </h3>
 
         <p>
           Premium rəqəmsal xidmətlər bir platformada.
-        </p>
-
-        <p>
-          Netflix, YouTube Premium, ChatGPT Plus
-          və Spotify Premium.
         </p>
 
       </div>
@@ -1174,18 +1201,13 @@ input:focus{
         <h3>Dəstək</h3>
 
         <a href="#contact">Əlaqə</a>
+        <a href="#blog">Bloq</a>
         <a href="#about">Haqqımızda</a>
-        <a href="#compare">Müqayisə</a>
-
-        <p>
-          WhatsApp dəstəyi
-        </p>
+        <a href="#products">Sifariş</a>
 
       </div>
 
-
     </div>
-
 
     <div class="copyright">
       © 2026 DigiBaku. Bütün hüquqlar qorunur.
@@ -1196,66 +1218,143 @@ input:focus{
 </footer>
 
 
+<!-- LOGIN MODAL -->
+
+<div class="modal" id="loginModal">
+
+  <div class="modal-box">
+
+    <button class="close" onclick="closeModal('loginModal')">
+      ×
+    </button>
+
+    <h2>Daxil ol</h2>
+
+    <form onsubmit="login(event)">
+
+      <label>Email</label>
+
+      <input
+        id="loginEmail"
+        type="email"
+        required
+        placeholder="email@example.com">
+
+      <label>Şifrə</label>
+
+      <input
+        id="loginPassword"
+        type="password"
+        required
+        placeholder="Şifrəniz">
+
+      <button class="btn btn-primary full-btn">
+        Daxil ol
+      </button>
+
+      <div id="loginMessage" class="message"></div>
+
+    </form>
+
+    <p style="text-align:center;color:#888;margin-top:18px;font-size:13px;">
+      Hesabınız yoxdur?
+      <button
+        onclick="switchToRegister()"
+        style="border:0;background:none;color:#60a5fa;font-weight:bold;">
+        Qeydiyyatdan keç
+      </button>
+    </p>
+
+  </div>
+
+</div>
+
+
+<!-- REGISTER MODAL -->
+
+<div class="modal" id="registerModal">
+
+  <div class="modal-box">
+
+    <button class="close" onclick="closeModal('registerModal')">
+      ×
+    </button>
+
+    <h2>Qeydiyyat</h2>
+
+    <form onsubmit="register(event)">
+
+      <label>Email</label>
+
+      <input
+        id="registerEmail"
+        type="email"
+        required
+        placeholder="email@example.com">
+
+      <label>Şifrə</label>
+
+      <input
+        id="registerPassword"
+        type="password"
+        minlength="6"
+        required
+        placeholder="Minimum 6 simvol">
+
+      <button class="btn btn-primary full-btn">
+        Hesab yarat
+      </button>
+
+      <div id="registerMessage" class="message"></div>
+
+    </form>
+
+    <p style="text-align:center;color:#888;margin-top:18px;font-size:13px;">
+      Artıq hesabınız var?
+      <button
+        onclick="switchToLogin()"
+        style="border:0;background:none;color:#60a5fa;font-weight:bold;">
+        Daxil ol
+      </button>
+    </p>
+
+  </div>
+
+</div>
+
+
 <!-- ORDER MODAL -->
 
 <div class="modal" id="orderModal">
 
   <div class="modal-box">
 
-    <div
-      class="close"
-      onclick="closeOrder()">
+    <button class="close" onclick="closeModal('orderModal')">
       ×
-    </div>
+    </button>
 
     <h2>Sifariş</h2>
 
-    <div
-      class="selected"
-      id="selectedProduct">
-      Məhsul
-    </div>
+    <label>Məhsul</label>
 
+    <input id="orderProduct" readonly>
 
-    <label>
-      Müddət
-    </label>
+    <label>Müddət</label>
 
-    <select id="duration" onchange="updatePrice()">
+    <select id="orderDuration" onchange="updateOrderPrice()">
     </select>
 
+    <label>Qiymət</label>
 
-    <label>
-      Adınız
-    </label>
-
-    <input
-      type="text"
-      id="customerName"
-      placeholder="Adınızı yazın">
-
-
-    <div class="total">
-
-      <span>
-        Ümumi qiymət
-      </span>
-
-      <strong id="totalPrice">
-        0 AZN
-      </strong>
-
-    </div>
-
+    <input id="orderPrice" readonly>
 
     <button
-      class="btn"
-      style="width:100%"
-      onclick="sendOrder()">
-
+      class="btn btn-primary full-btn"
+      onclick="sendWhatsAppOrder()">
       WhatsApp ilə sifariş et
-
     </button>
+
+    <div id="orderMessage" class="message"></div>
 
   </div>
 
@@ -1264,244 +1363,331 @@ input:focus{
 
 <script>
 
-/*
-  WHATSAPP NÖMRƏSİ BURADA SAXLANILIR.
-  SAYTDA NÖMRƏ MƏTN KİMİ GÖSTƏRİLMİR.
+/* =========================
+   SUPABASE
+========================= */
 
-  Azərbaycan beynəlxalq formatı:
-  994 + nömrə
-*/
+const SUPABASE_URL =
+"https://zeknhnkaicqkfzgnvycq.supabase.co";
 
-const whatsappNumber = "994702883484";
+const SUPABASE_KEY =
+"sb_publishable_jHvCp9fXBA_BwFqrXYpwlw_VC6C1OQk";
 
+const supabaseClient =
+window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
+
+
+/* =========================
+   PRODUCTS
+========================= */
 
 const products = {
 
-  "Netflix Premium": {
+  "Netflix Premium":[
+    {
+      duration:"1 ay",
+      price:"6.99 AZN"
+    },
+    {
+      duration:"2 ay",
+      price:"12.99 AZN"
+    }
+  ],
 
-    options: [
+  "YouTube Premium":[
+    {
+      duration:"1 ay",
+      price:"7.99 AZN"
+    }
+  ],
 
-      {
-        name:"1 ay",
-        price:6.99
-      },
+  "ChatGPT Plus":[
+    {
+      duration:"1 ay",
+      price:"11.99 AZN"
+    }
+  ],
 
-      {
-        name:"2 ay",
-        price:12.99
-      }
-
-    ]
-
-  },
-
-  "YouTube Premium": {
-
-    options: [
-
-      {
-        name:"1 ay",
-        price:7.99
-      }
-
-    ]
-
-  },
-
-  "ChatGPT Plus": {
-
-    options: [
-
-      {
-        name:"1 ay",
-        price:11.99
-      }
-
-    ]
-
-  },
-
-  "Spotify Premium": {
-
-    options: [
-
-      {
-        name:"1 ay",
-        price:7.99
-      }
-
-    ]
-
-  }
+  "Spotify Premium":[
+    {
+      duration:"1 ay",
+      price:"7.99 AZN"
+    }
+  ]
 
 };
 
 
-let currentProduct = "";
+/* =========================
+   MODALS
+========================= */
 
-
-function toggleMenu(){
-
+function openLogin(){
   document
-    .getElementById("nav")
-    .classList
-    .toggle("show");
+    .getElementById("loginModal")
+    .classList.add("active");
+}
 
+function openRegister(){
+  document
+    .getElementById("registerModal")
+    .classList.add("active");
+}
+
+function closeModal(id){
+  document
+    .getElementById(id)
+    .classList.remove("active");
+}
+
+function switchToRegister(){
+  closeModal("loginModal");
+  openRegister();
+}
+
+function switchToLogin(){
+  closeModal("registerModal");
+  openLogin();
 }
 
 
-function openOrder(product){
+/* =========================
+   REGISTER
+========================= */
 
-  currentProduct = product;
+async function register(event){
 
-  document
-    .getElementById("selectedProduct")
-    .textContent = product;
+  event.preventDefault();
 
+  const email =
+    document.getElementById("registerEmail").value.trim();
 
-  const duration =
-    document.getElementById("duration");
+  const password =
+    document.getElementById("registerPassword").value;
 
-  duration.innerHTML = "";
+  const message =
+    document.getElementById("registerMessage");
 
+  message.className="message";
+  message.textContent="";
 
-  products[product].options.forEach(
-    (option,index)=>{
+  const {data,error} =
+    await supabaseClient.auth.signUp({
+      email:email,
+      password:password
+    });
 
-      const item =
-        document.createElement("option");
+  if(error){
 
-      item.value = index;
-
-      item.textContent =
-        option.name +
-        " — " +
-        option.price.toFixed(2) +
-        " AZN";
-
-      duration.appendChild(item);
-
-    }
-  );
-
-
-  updatePrice();
-
-
-  document
-    .getElementById("orderModal")
-    .classList
-    .add("active");
-
-}
-
-
-function closeOrder(){
-
-  document
-    .getElementById("orderModal")
-    .classList
-    .remove("active");
-
-}
-
-
-function updatePrice(){
-
-  const index =
-    document.getElementById("duration").value;
-
-  const option =
-    products[currentProduct].options[index];
-
-
-  document
-    .getElementById("totalPrice")
-    .textContent =
-      option.price.toFixed(2) +
-      " AZN";
-
-}
-
-
-function sendOrder(){
-
-  const name =
-    document
-      .getElementById("customerName")
-      .value
-      .trim();
-
-
-  const index =
-    document
-      .getElementById("duration")
-      .value;
-
-
-  const option =
-    products[currentProduct].options[index];
-
-
-  if(!name){
-
-    alert("Zəhmət olmasa adınızı yazın.");
+    message.textContent=error.message;
+    message.className="message show error";
 
     return;
+  }
+
+  message.textContent =
+    "Qeydiyyat uğurludur. Email təsdiqi aktivdirsə, emailinizi yoxlayın.";
+
+  message.className="message show success";
+
+  event.target.reset();
+}
+
+
+/* =========================
+   LOGIN
+========================= */
+
+async function login(event){
+
+  event.preventDefault();
+
+  const email =
+    document.getElementById("loginEmail").value.trim();
+
+  const password =
+    document.getElementById("loginPassword").value;
+
+  const message =
+    document.getElementById("loginMessage");
+
+  message.className="message";
+  message.textContent="";
+
+  const {data,error} =
+    await supabaseClient.auth.signInWithPassword({
+      email:email,
+      password:password
+    });
+
+  if(error){
+
+    message.textContent=error.message;
+    message.className="message show error";
+
+    return;
+  }
+
+  message.textContent =
+    "Giriş uğurludur.";
+
+  message.className="message show success";
+
+  setTimeout(()=>{
+    closeModal("loginModal");
+  },700);
+}
+
+
+/* =========================
+   ORDER
+========================= */
+
+function openOrder(productName){
+
+  document.getElementById("orderProduct").value =
+    productName;
+
+  const duration =
+    document.getElementById("orderDuration");
+
+  duration.innerHTML="";
+
+  products[productName].forEach(item=>{
+
+    const option =
+      document.createElement("option");
+
+    option.value=item.duration;
+    option.textContent=
+      item.duration+" — "+item.price;
+
+    duration.appendChild(option);
+
+  });
+
+  updateOrderPrice();
+
+  document
+    .getElementById("orderModal")
+    .classList.add("active");
+}
+
+
+function updateOrderPrice(){
+
+  const product =
+    document.getElementById("orderProduct").value;
+
+  const duration =
+    document.getElementById("orderDuration").value;
+
+  const item =
+    products[product].find(
+      x=>x.duration===duration
+    );
+
+  if(item){
+
+    document.getElementById("orderPrice").value =
+      item.price;
 
   }
+}
+
+
+/* =========================
+   WHATSAPP ORDER
+========================= */
+
+function sendWhatsAppOrder(){
+
+  const product =
+    document.getElementById("orderProduct").value;
+
+  const duration =
+    document.getElementById("orderDuration").value;
+
+  const price =
+    document.getElementById("orderPrice").value;
 
 
   const message =
-`Salam, DigiBaku.
-
-Sifariş vermək istəyirəm.
-
-Məhsul: ${currentProduct}
-Müddət: ${option.name}
-Qiymət: ${option.price.toFixed(2)} AZN
-Ad: ${name}
-
-Zəhmət olmasa sifarişimi təsdiqləyin.`;
+    "Salam DigiBaku,%0A%0A"+
+    "Məhsul: "+encodeURIComponent(product)+"%0A"+
+    "Müddət: "+encodeURIComponent(duration)+"%0A"+
+    "Qiymət: "+encodeURIComponent(price)+"%0A%0A"+
+    "Bu məhsulu sifariş etmək istəyirəm.";
 
 
-  openWhatsApp(message);
+  /*
+    WhatsApp nömrəsi burada kodun içindədir.
+    Saytda açıq şəkildə göstərilmir.
+  */
 
-}
-
-
-function openWhatsApp(message){
-
-  const url =
-    "https://wa.me/" +
-    whatsappNumber +
-    "?text=" +
-    encodeURIComponent(message);
+  const whatsappNumber =
+    "994702883484";
 
 
   window.open(
-    url,
+    "https://wa.me/"+whatsappNumber+"?text="+message,
     "_blank"
   );
+}
+
+
+/* =========================
+   FAQ
+========================= */
+
+function toggleFaq(element){
+
+  const item =
+    element.parentElement;
+
+  item.classList.toggle("open");
 
 }
 
 
-document
-  .getElementById("orderModal")
-  .addEventListener(
-    "click",
-    function(e){
+/* =========================
+   CLOSE MODAL
+========================= */
 
-      if(e.target === this){
+document.addEventListener(
+  "click",
+  function(event){
 
-        closeOrder();
+    if(event.target.classList.contains("modal")){
 
-      }
+      event.target.classList.remove("active");
 
     }
-  );
 
+  }
+);
+
+
+/* =========================
+   AUTH CHECK
+========================= */
+
+supabaseClient.auth.getSession()
+.then(({data})=>{
+
+  if(data.session){
+
+    console.log(
+      "İstifadəçi daxil olub:",
+      data.session.user.email
+    );
+
+  }
+
+});
 
 </script>
 
