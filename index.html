@@ -4,196 +4,367 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>DigiBaku — Digital Marketplace</title>
+<title>DigiBaku — Premium Rəqəmsal Xidmətlər</title>
 
 <style>
-
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family:Arial,sans-serif;
+}
+
+html{
+    scroll-behavior:smooth;
 }
 
 body{
-    background:#f5f7fb;
-    color:#111827;
+    font-family:Arial,Helvetica,sans-serif;
+    background:#000;
+    color:#fff;
+    line-height:1.6;
+}
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+button,
+select{
+    font-family:inherit;
+}
+
+.container{
+    width:min(1180px,calc(100% - 32px));
+    margin:auto;
 }
 
 /* HEADER */
 
 header{
-    background:#fff;
-    border-bottom:1px solid #e5e7eb;
     position:sticky;
     top:0;
-    z-index:100;
+    z-index:1000;
+    background:rgba(0,0,0,.94);
+    backdrop-filter:blur(15px);
+    border-bottom:1px solid #222;
 }
 
-.nav{
-    max-width:1200px;
-    margin:auto;
-    padding:18px 20px;
-
+.navbar{
+    height:72px;
     display:flex;
     align-items:center;
     justify-content:space-between;
 }
 
 .logo{
-    font-size:28px;
+    font-size:27px;
     font-weight:900;
-    color:#2563eb;
 }
 
 .logo span{
-    color:#111827;
+    color:#2563eb;
 }
 
-.nav-right{
+.nav-links{
     display:flex;
+    gap:27px;
+}
+
+.nav-links a{
+    color:#aaa;
+    font-size:14px;
+    font-weight:600;
+    transition:.2s;
+}
+
+.nav-links a:hover{
+    color:#fff;
+}
+
+.nav-actions{
+    display:flex;
+    align-items:center;
     gap:10px;
 }
 
-.nav-btn{
-    border:0;
-    background:#eff6ff;
-    color:#2563eb;
-    padding:10px 16px;
-    border-radius:9px;
+.lang{
+    color:#aaa;
+    font-size:13px;
+}
+
+.support-btn{
+    background:#151515;
+    color:#fff;
+    border:1px solid #333;
+    padding:9px 15px;
+    border-radius:8px;
     font-weight:bold;
+    cursor:pointer;
+}
+
+.menu-btn{
+    display:none;
+    background:#151515;
+    color:#fff;
+    border:1px solid #333;
+    padding:9px 11px;
+    border-radius:8px;
     cursor:pointer;
 }
 
 /* HERO */
 
 .hero{
-    max-width:1200px;
-    margin:35px auto 20px;
-    padding:0 20px;
+    padding:100px 0 85px;
+    background:
+        radial-gradient(
+            circle at 20% 20%,
+            rgba(37,99,235,.20),
+            transparent 32%
+        ),
+        radial-gradient(
+            circle at 80% 30%,
+            rgba(37,99,235,.10),
+            transparent 30%
+        ),
+        #000;
 }
 
-.hero-box{
-    background:linear-gradient(
-        135deg,
-        #2563eb,
-        #4f46e5
-    );
+.hero-content{
+    max-width:780px;
+}
 
-    border-radius:22px;
-    padding:45px 30px;
-    color:white;
+.badge{
+    display:inline-block;
+    padding:7px 13px;
+    border:1px solid #263858;
+    border-radius:30px;
+    color:#70a5ff;
+    background:#080d17;
+    font-size:13px;
+    font-weight:bold;
+    margin-bottom:22px;
 }
 
 .hero h1{
-    font-size:38px;
-    margin-bottom:12px;
+    font-size:clamp(42px,6vw,72px);
+    line-height:1.03;
+    letter-spacing:-3px;
+    margin-bottom:22px;
+}
+
+.hero h1 span{
+    color:#2563eb;
 }
 
 .hero p{
-    font-size:17px;
-    opacity:.9;
+    color:#999;
+    max-width:680px;
+    font-size:18px;
+    margin-bottom:30px;
+}
+
+.hero-buttons{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+}
+
+.primary-btn{
+    display:inline-block;
+    border:0;
+    background:#2563eb;
+    color:#fff;
+    padding:14px 23px;
+    border-radius:9px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.primary-btn:hover{
+    background:#1d4ed8;
+}
+
+.secondary-btn{
+    border:1px solid #333;
+    background:#111;
+    color:#fff;
+    padding:14px 23px;
+    border-radius:9px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+/* SECTIONS */
+
+section{
+    padding:75px 0;
+}
+
+.section-head{
+    margin-bottom:28px;
+}
+
+.section-head h2{
+    font-size:32px;
+    margin-bottom:7px;
+}
+
+.section-head p{
+    color:#888;
+}
+
+/* CATEGORIES */
+
+.categories{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+}
+
+.category{
+    background:#0b0b0b;
+    border:1px solid #222;
+    border-radius:14px;
+    padding:23px;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.category:hover{
+    border-color:#2563eb;
+    transform:translateY(-3px);
+}
+
+.category-icon{
+    font-size:28px;
+    margin-bottom:12px;
+}
+
+.category strong{
+    display:block;
+    margin-bottom:4px;
+}
+
+.category span{
+    color:#777;
+    font-size:13px;
 }
 
 /* PRODUCTS */
 
-.container{
-    max-width:1200px;
-    margin:30px auto;
-    padding:0 20px;
+.filters{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    margin-bottom:25px;
 }
 
-.section-title{
-    font-size:25px;
-    margin-bottom:20px;
+.filter{
+    border:1px solid #292929;
+    background:#0c0c0c;
+    color:#999;
+    padding:9px 15px;
+    border-radius:30px;
+    cursor:pointer;
+}
+
+.filter.active,
+.filter:hover{
+    background:#2563eb;
+    border-color:#2563eb;
+    color:#fff;
 }
 
 .products{
     display:grid;
-    grid-template-columns:
-        repeat(auto-fill,minmax(250px,1fr));
-
-    gap:20px;
+    grid-template-columns:repeat(4,1fr);
+    gap:17px;
 }
 
 .product{
-    background:white;
-    border-radius:16px;
+    background:#0b0b0b;
+    border:1px solid #222;
+    border-radius:15px;
     overflow:hidden;
-
-    border:1px solid #e5e7eb;
-
-    box-shadow:
-        0 8px 25px rgba(0,0,0,.06);
+    transition:.25s;
 }
 
-.product-image{
-    height:170px;
+.product:hover{
+    transform:translateY(-4px);
+    border-color:#383838;
+    box-shadow:0 20px 50px rgba(0,0,0,.6);
+}
 
+.product-top{
+    height:170px;
     display:flex;
     align-items:center;
     justify-content:center;
-
-    background:
-        linear-gradient(
-            135deg,
-            #dbeafe,
-            #e0e7ff
-        );
-
-    font-size:65px;
+    font-size:60px;
+    background:#101010;
+    border-bottom:1px solid #202020;
 }
 
 .product-body{
-    padding:20px;
+    padding:19px;
+}
+
+.product-category{
+    color:#63718a;
+    font-size:11px;
+    font-weight:bold;
+    text-transform:uppercase;
+    margin-bottom:5px;
 }
 
 .product h3{
-    font-size:20px;
-    margin-bottom:8px;
+    font-size:18px;
+    margin-bottom:7px;
 }
 
 .product-description{
-    color:#64748b;
-    font-size:14px;
-    min-height:40px;
+    color:#777;
+    font-size:13px;
+    min-height:42px;
     margin-bottom:15px;
 }
 
-.duration-select{
+.duration{
     width:100%;
-    padding:12px;
-
-    border:1px solid #d1d5db;
-    border-radius:9px;
-
-    margin-bottom:12px;
-
-    background:white;
+    background:#050505;
+    color:#fff;
+    border:1px solid #333;
+    padding:11px;
+    border-radius:8px;
+    margin-bottom:13px;
+    outline:none;
 }
 
 .price{
-    font-size:24px;
-    font-weight:900;
-    color:#2563eb;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:13px;
+}
 
-    margin-bottom:12px;
+.price small{
+    color:#666;
+}
+
+.price strong{
+    font-size:21px;
 }
 
 .order-btn{
     width:100%;
     border:0;
-
-    padding:13px;
-
     background:#16a34a;
-    color:white;
-
-    border-radius:9px;
-
+    color:#fff;
+    padding:12px;
+    border-radius:8px;
     font-weight:bold;
-    font-size:15px;
-
     cursor:pointer;
 }
 
@@ -201,547 +372,1513 @@ header{
     background:#15803d;
 }
 
-/* HOW */
+/* WHY */
 
-.info{
-    margin-top:45px;
-
+.why-grid{
     display:grid;
-    grid-template-columns:
-        repeat(auto-fit,minmax(220px,1fr));
+    grid-template-columns:repeat(3,1fr);
+    gap:17px;
+}
 
+.why-card{
+    background:#0b0b0b;
+    border:1px solid #222;
+    border-radius:15px;
+    padding:28px;
+}
+
+.why-icon{
+    font-size:30px;
+    margin-bottom:13px;
+}
+
+.why-card h3{
+    margin-bottom:7px;
+}
+
+.why-card p{
+    color:#777;
+    font-size:14px;
+}
+
+/* REVIEWS */
+
+.reviews{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
     gap:15px;
 }
 
-.info-box{
-    background:white;
-    padding:22px;
-    border-radius:14px;
-
-    border:1px solid #e5e7eb;
+.review{
+    background:#0b0b0b;
+    border:1px solid #222;
+    border-radius:15px;
+    padding:21px;
 }
 
-.info-box strong{
+.stars{
+    color:#fbbf24;
+    margin-bottom:14px;
+}
+
+.review p{
+    color:#999;
+    font-size:14px;
+    min-height:72px;
+    margin-bottom:18px;
+}
+
+.reviewer{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.avatar{
+    width:38px;
+    height:38px;
+    border-radius:50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:#2563eb;
+    font-weight:bold;
+}
+
+.reviewer strong{
     display:block;
-    margin-bottom:7px;
+    font-size:13px;
+}
+
+.reviewer span{
+    color:#666;
+    font-size:11px;
+}
+
+/* FAQ */
+
+.faq{
+    max-width:850px;
+}
+
+.faq-item{
+    border-bottom:1px solid #222;
+}
+
+.faq-question{
+    width:100%;
+    display:flex;
+    justify-content:space-between;
+    background:none;
+    color:#fff;
+    border:0;
+    padding:20px 0;
+    font-size:16px;
+    font-weight:bold;
+    text-align:left;
+    cursor:pointer;
+}
+
+.faq-answer{
+    display:none;
+    color:#777;
+    padding:0 0 20px;
+    font-size:14px;
+}
+
+.faq-item.open .faq-answer{
+    display:block;
+}
+
+/* CTA */
+
+.cta{
+    background:
+        linear-gradient(135deg,#080b12,#050505);
+    border:1px solid #252525;
+    border-radius:20px;
+    padding:55px 30px;
+    text-align:center;
+}
+
+.cta h2{
+    font-size:35px;
+    margin-bottom:10px;
+}
+
+.cta p{
+    color:#777;
+    max-width:650px;
+    margin:0 auto 24px;
 }
 
 /* FOOTER */
 
 footer{
-    margin-top:60px;
-
-    background:#111827;
-    color:white;
-
-    padding:30px 20px;
-    text-align:center;
+    background:#030303;
+    border-top:1px solid #222;
+    padding:55px 0 25px;
 }
 
-footer p{
-    color:#9ca3af;
-    margin-top:7px;
+.footer-grid{
+    display:grid;
+    grid-template-columns:1.5fr 1fr 1fr 1fr;
+    gap:35px;
+}
+
+.footer-logo{
+    font-size:25px;
+    font-weight:900;
+    margin-bottom:10px;
+}
+
+.footer-logo span{
+    color:#2563eb;
+}
+
+.footer-about{
+    color:#666;
+    font-size:13px;
+    max-width:320px;
+}
+
+.footer-col h4{
+    margin-bottom:14px;
+}
+
+.footer-col a{
+    display:block;
+    color:#666;
+    font-size:13px;
+    margin-bottom:8px;
+}
+
+.footer-col a:hover{
+    color:#fff;
+}
+
+.copyright{
+    border-top:1px solid #1b1b1b;
+    margin-top:40px;
+    padding-top:20px;
+    text-align:center;
+    color:#555;
+    font-size:12px;
+}
+
+/* MODAL */
+
+.modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    z-index:5000;
+    background:rgba(0,0,0,.85);
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+}
+
+.modal.show{
+    display:flex;
+}
+
+.modal-box{
+    width:min(430px,100%);
+    background:#0c0c0c;
+    border:1px solid #333;
+    border-radius:17px;
+    padding:27px;
+    position:relative;
+    box-shadow:0 30px 90px rgba(0,0,0,.8);
+}
+
+.close{
+    position:absolute;
+    right:14px;
+    top:8px;
+    background:none;
+    border:0;
+    color:#888;
+    font-size:28px;
+    cursor:pointer;
+}
+
+.modal h3{
+    font-size:22px;
+    margin-bottom:7px;
+}
+
+.modal > .modal-box > p{
+    color:#777;
+    font-size:14px;
+    margin-bottom:20px;
+}
+
+.modal-summary{
+    background:#050505;
+    border:1px solid #252525;
+    border-radius:10px;
+    padding:15px;
+    margin-bottom:18px;
+}
+
+.summary-row{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:8px;
+    font-size:14px;
+}
+
+.summary-row:last-child{
+    margin-bottom:0;
+}
+
+.summary-row span{
+    color:#666;
+}
+
+.whatsapp-btn{
+    width:100%;
+    border:0;
+    background:#16a34a;
+    color:#fff;
+    padding:14px;
+    border-radius:9px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.whatsapp-btn:hover{
+    background:#15803d;
 }
 
 /* MOBILE */
 
+.mobile-menu{
+    display:none;
+    position:fixed;
+    top:72px;
+    left:0;
+    right:0;
+    z-index:999;
+    background:#050505;
+    border-bottom:1px solid #222;
+    padding:18px;
+}
+
+.mobile-menu a{
+    display:block;
+    padding:11px 0;
+    color:#ccc;
+}
+
+@media(max-width:950px){
+
+    .nav-links{
+        display:none;
+    }
+
+    .menu-btn{
+        display:block;
+    }
+
+    .categories,
+    .products,
+    .reviews{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .why-grid{
+        grid-template-columns:1fr;
+    }
+
+    .footer-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+}
+
 @media(max-width:600px){
 
+    .container{
+        width:calc(100% - 26px);
+    }
+
+    .hero{
+        padding:65px 0;
+    }
+
     .hero h1{
+        font-size:41px;
+        letter-spacing:-2px;
+    }
+
+    .hero p{
+        font-size:16px;
+    }
+
+    section{
+        padding:55px 0;
+    }
+
+    .categories,
+    .products,
+    .reviews,
+    .footer-grid{
+        grid-template-columns:1fr;
+    }
+
+    .section-head h2{
         font-size:28px;
     }
 
-    .hero-box{
-        padding:35px 22px;
+    .cta{
+        padding:40px 20px;
     }
 
-    .logo{
-        font-size:23px;
+    .cta h2{
+        font-size:28px;
     }
-
 }
-
 </style>
 </head>
 
 <body>
 
-
-<!-- HEADER -->
-
 <header>
 
-<div class="nav">
+<div class="container navbar">
 
-<div class="logo">
+<a href="#home" class="logo">
 Digi<span>Baku</span>
-</div>
+</a>
 
-<div class="nav-right">
+<nav class="nav-links">
+<a href="#home">Ana səhifə</a>
+<a href="#products">Məhsullar</a>
+<a href="#categories">Kateqoriyalar</a>
+<a href="#why">Haqqımızda</a>
+<a href="#faq">FAQ</a>
+<a href="#contact">Əlaqə</a>
+</nav>
+
+<div class="nav-actions">
+
+<span class="lang">AZ</span>
 
 <button
-class="nav-btn"
-onclick="scrollToProducts()">
-
-Məhsullar
-
-</button>
-
-<button
-class="nav-btn"
+class="support-btn"
 onclick="openWhatsApp()">
+Dəstək
+</button>
 
-WhatsApp
-
+<button
+class="menu-btn"
+onclick="toggleMenu()">
+☰
 </button>
 
 </div>
 
 </div>
-
 </header>
+
+
+<div id="mobileMenu" class="mobile-menu">
+
+<a href="#home" onclick="closeMenu()">Ana səhifə</a>
+<a href="#products" onclick="closeMenu()">Məhsullar</a>
+<a href="#categories" onclick="closeMenu()">Kateqoriyalar</a>
+<a href="#why" onclick="closeMenu()">Haqqımızda</a>
+<a href="#faq" onclick="closeMenu()">FAQ</a>
+<a href="#contact" onclick="closeMenu()">Əlaqə</a>
+
+</div>
 
 
 <!-- HERO -->
 
-<section class="hero">
+<section class="hero" id="home">
 
-<div class="hero-box">
+<div class="container">
+
+<div class="hero-content">
+
+<div class="badge">
+✦ Premium rəqəmsal xidmətlər
+</div>
 
 <h1>
-Rəqəmsal məhsullarını seç
+Premium xidmətlər
+<br>
+<span>bir platformada.</span>
 </h1>
 
 <p>
-Müddəti seç, sifariş et və WhatsApp vasitəsilə əlaqə saxla.
+Dünyanın məşhur rəqəmsal platformalarını
+bir yerdə kəşf edin. Xidməti seçin,
+müddəti müəyyən edin və sifarişinizi
+asanlıqla göndərin.
+</p>
+
+<div class="hero-buttons">
+
+<a
+href="#products"
+class="primary-btn">
+Məhsullara bax →
+</a>
+
+<button
+class="secondary-btn"
+onclick="openWhatsApp()">
+WhatsApp ilə əlaqə
+</button>
+
+</div>
+
+</div>
+</div>
+</section>
+
+
+<!-- CATEGORIES -->
+
+<section id="categories">
+
+<div class="container">
+
+<div class="section-head">
+
+<h2>Kateqoriyalar</h2>
+
+<p>
+İstədiyiniz xidməti kateqoriyaya görə seçin.
 </p>
 
 </div>
 
+<div class="categories">
+
+<div class="category"
+onclick="filterProducts('Film və Serial')">
+
+<div class="category-icon">🎬</div>
+
+<strong>Film və Serial</strong>
+
+<span>
+Netflix, Prime Video və digər xidmətlər
+</span>
+
+</div>
+
+
+<div class="category"
+onclick="filterProducts('Musiqi')">
+
+<div class="category-icon">🎵</div>
+
+<strong>Musiqi</strong>
+
+<span>
+Spotify, YouTube Premium və s.
+</span>
+
+</div>
+
+
+<div class="category"
+onclick="filterProducts('AI')">
+
+<div class="category-icon">🤖</div>
+
+<strong>Süni İntellekt</strong>
+
+<span>
+ChatGPT və digər AI xidmətləri
+</span>
+
+</div>
+
+
+<div class="category"
+onclick="filterProducts('Dizayn')">
+
+<div class="category-icon">🎨</div>
+
+<strong>Dizayn</strong>
+
+<span>
+CapCut, Canva və kreativ alətlər
+</span>
+
+</div>
+
+</div>
+</div>
 </section>
 
 
 <!-- PRODUCTS -->
 
-<div
-class="container"
-id="productsSection">
+<section id="products">
 
-<h2 class="section-title">
-Məhsullar
-</h2>
+<div class="container">
+
+<div class="section-head">
+
+<h2>Ən populyar məhsullar</h2>
+
+<p>
+Məhsulu seçin, müddəti müəyyən edin və sifariş verin.
+</p>
+
+</div>
+
+
+<div class="filters">
+
+<button
+class="filter active"
+onclick="filterProducts('Hamısı',this)">
+Hamısı
+</button>
+
+<button
+class="filter"
+onclick="filterProducts('Film və Serial',this)">
+Film və Serial
+</button>
+
+<button
+class="filter"
+onclick="filterProducts('Musiqi',this)">
+Musiqi
+</button>
+
+<button
+class="filter"
+onclick="filterProducts('AI',this)">
+AI
+</button>
+
+<button
+class="filter"
+onclick="filterProducts('Dizayn',this)">
+Dizayn
+</button>
+
+</div>
+
 
 <div
 class="products"
-id="products">
+id="productGrid">
+</div>
+
+</div>
+</section>
+
+
+<!-- WHY -->
+
+<section id="why">
+
+<div class="container">
+
+<div class="section-head">
+
+<h2>Niyə DigiBaku?</h2>
+
+<p>
+Premium rəqəmsal xidmətlərə çıxışı daha sadə edirik.
+</p>
 
 </div>
 
 
-<!-- INFO -->
+<div class="why-grid">
 
-<div class="info">
+<div class="why-card">
 
-<div class="info-box">
+<div class="why-icon">⚡</div>
 
-<strong>
-📅 Müddəti sən seç
-</strong>
+<h3>Sürətli xidmət</h3>
 
-Məhsulun istədiyin müddətini seç və qiyməti dərhal gör.
-
-</div>
-
-
-<div class="info-box">
-
-<strong>
-📲 WhatsApp ilə sifariş
-</strong>
-
-Sifariş düyməsinə basdıqda birbaşa WhatsApp-a yönləndirilirsən.
+<p>
+Sifarişinizi göndərin və WhatsApp üzərindən
+dəstək alın.
+</p>
 
 </div>
 
 
-<div class="info-box">
+<div class="why-card">
 
-<strong>
-⚡ Sürətli xidmət
-</strong>
+<div class="why-icon">🔒</div>
 
-Sifariş məlumatların avtomatik olaraq bizə göndərilir.
+<h3>Sadə sifariş</h3>
+
+<p>
+Uzun qeydiyyat və mürəkkəb proses yoxdur.
+Məhsulu seçib birbaşa sifariş edə bilərsiniz.
+</p>
+
+</div>
+
+
+<div class="why-card">
+
+<div class="why-icon">💬</div>
+
+<h3>Birbaşa dəstək</h3>
+
+<p>
+Sifarişinizlə bağlı sualınız olduqda
+birbaşa WhatsApp vasitəsilə əlaqə saxlayın.
+</p>
 
 </div>
 
 </div>
+</div>
+</section>
+
+
+<!-- REVIEWS -->
+
+<section>
+
+<div class="container">
+
+<div class="section-head">
+
+<h2>Müştəri rəyləri</h2>
+
+<p>
+DigiBaku haqqında müştərilərimizin fikirləri.
+</p>
 
 </div>
+
+
+<div class="reviews">
+
+<div class="review">
+
+<div class="stars">★★★★★</div>
+
+<p>
+Sifariş prosesi çox rahat idi. Məhsulu seçdim
+və WhatsApp vasitəsilə tez əlaqə saxladım.
+</p>
+
+<div class="reviewer">
+
+<div class="avatar">A</div>
+
+<div>
+<strong>Aydın</strong>
+<span>DigiBaku müştərisi</span>
+</div>
+
+</div>
+</div>
+
+
+<div class="review">
+
+<div class="stars">★★★★★</div>
+
+<p>
+Qiymətlər münasibdir və saytın istifadəsi
+çox sadədir.
+</p>
+
+<div class="reviewer">
+
+<div class="avatar">N</div>
+
+<div>
+<strong>Nərmin</strong>
+<span>DigiBaku müştərisi</span>
+</div>
+
+</div>
+</div>
+
+
+<div class="review">
+
+<div class="stars">★★★★★</div>
+
+<p>
+İstədiyim məhsulu tez tapdım və sifariş
+vermək çox rahat oldu.
+</p>
+
+<div class="reviewer">
+
+<div class="avatar">E</div>
+
+<div>
+<strong>Elvin</strong>
+<span>DigiBaku müştərisi</span>
+</div>
+
+</div>
+</div>
+
+
+<div class="review">
+
+<div class="stars">★★★★★</div>
+
+<p>
+Dəstək komandası suallarıma tez cavab verdi.
+</p>
+
+<div class="reviewer">
+
+<div class="avatar">S</div>
+
+<div>
+<strong>Səbinə</strong>
+<span>DigiBaku müştərisi</span>
+</div>
+
+</div>
+</div>
+
+</div>
+</div>
+</section>
+
+
+<!-- FAQ -->
+
+<section id="faq">
+
+<div class="container">
+
+<div class="section-head">
+
+<h2>Tez-tez verilən suallar</h2>
+
+<p>
+Ən çox verilən sualların cavabları.
+</p>
+
+</div>
+
+
+<div class="faq">
+
+<div class="faq-item">
+
+<button
+class="faq-question"
+onclick="toggleFaq(this)">
+
+Sifariş necə verilir?
+
+<span>+</span>
+
+</button>
+
+<div class="faq-answer">
+
+Məhsulu seçin, müddəti müəyyən edin və
+"Sifariş et" düyməsinə basın. Sifariş
+məlumatları WhatsApp-da hazırlanacaq.
+
+</div>
+</div>
+
+
+<div class="faq-item">
+
+<button
+class="faq-question"
+onclick="toggleFaq(this)">
+
+Ödəniş necə edilir?
+
+<span>+</span>
+
+</button>
+
+<div class="faq-answer">
+
+Ödəniş və sifariş detalları üçün WhatsApp
+üzərindən dəstək komandası ilə əlaqə saxlaya
+bilərsiniz.
+
+</div>
+</div>
+
+
+<div class="faq-item">
+
+<button
+class="faq-question"
+onclick="toggleFaq(this)">
+
+Sifariş nə vaxt hazır olur?
+
+<span>+</span>
+
+</button>
+
+<div class="faq-answer">
+
+Aktivləşdirmə müddəti məhsuldan asılıdır.
+Ətraflı məlumat sifariş zamanı təqdim olunur.
+
+</div>
+</div>
+
+
+<div class="faq-item">
+
+<button
+class="faq-question"
+onclick="toggleFaq(this)">
+
+Məhsul haqqında məlumatı necə alım?
+
+<span>+</span>
+
+</button>
+
+<div class="faq-answer">
+
+Məhsul kartındakı məlumatlara baxa və əlavə
+sualınız olduqda WhatsApp vasitəsilə əlaqə
+saxlaya bilərsiniz.
+
+</div>
+</div>
+
+</div>
+</div>
+</section>
+
+
+<!-- CTA -->
+
+<section>
+
+<div class="container">
+
+<div class="cta">
+
+<h2>Sifariş verməyə hazırsınız?</h2>
+
+<p>
+İstədiyiniz xidməti seçin, müddəti müəyyən edin
+və sifarişinizi göndərin.
+</p>
+
+<a
+href="#products"
+class="primary-btn">
+Məhsullara bax
+</a>
+
+</div>
+
+</div>
+</section>
 
 
 <!-- FOOTER -->
 
-<footer>
+<footer id="contact">
 
-<strong>
-DigiBaku
-</strong>
+<div class="container">
 
-<p>
-Digital Marketplace
+<div class="footer-grid">
+
+<div>
+
+<div class="footer-logo">
+Digi<span>Baku</span>
+</div>
+
+<p class="footer-about">
+Premium rəqəmsal xidmətləri bir platformada
+birləşdirən DigiBaku.
 </p>
 
-<p>
-WhatsApp: 070 288 34 84
-</p>
+</div>
 
+
+<div class="footer-col">
+
+<h4>Keçidlər</h4>
+
+<a href="#home">Ana səhifə</a>
+<a href="#products">Məhsullar</a>
+<a href="#categories">Kateqoriyalar</a>
+<a href="#why">Haqqımızda</a>
+
+</div>
+
+
+<div class="footer-col">
+
+<h4>Məhsullar</h4>
+
+<a href="#products">Netflix</a>
+<a href="#products">YouTube Premium</a>
+<a href="#products">ChatGPT</a>
+<a href="#products">Spotify</a>
+
+</div>
+
+
+<div class="footer-col">
+
+<h4>Dəstək</h4>
+
+<a href="#faq">FAQ</a>
+
+<a
+href="javascript:void(0)"
+onclick="openWhatsApp()">
+WhatsApp dəstək
+</a>
+
+</div>
+
+</div>
+
+
+<div class="copyright">
+© 2026 DigiBaku. Bütün hüquqlar qorunur.
+</div>
+
+</div>
 </footer>
+
+
+<!-- ORDER MODAL -->
+
+<div
+class="modal"
+id="orderModal">
+
+<div class="modal-box">
+
+<button
+class="close"
+onclick="closeModal()">
+×
+</button>
+
+<h3>Sifariş məlumatları</h3>
+
+<p>
+Sifarişi WhatsApp vasitəsilə göndərmək
+üçün məlumatları yoxlayın.
+</p>
+
+
+<div class="modal-summary">
+
+<div class="summary-row">
+<span>Məhsul</span>
+<strong id="modalProduct">-</strong>
+</div>
+
+<div class="summary-row">
+<span>Müddət</span>
+<strong id="modalDuration">-</strong>
+</div>
+
+<div class="summary-row">
+<span>Qiymət</span>
+<strong id="modalPrice">-</strong>
+</div>
+
+</div>
+
+
+<button
+class="whatsapp-btn"
+onclick="sendWhatsApp()">
+
+📲 WhatsApp-la sifariş et
+
+</button>
+
+</div>
+</div>
 
 
 <script>
 
 /*
-==================================================
+=========================================
 MƏHSULLAR
-==================================================
-
-BURADAN MƏHSULLARI DƏYİŞƏ BİLƏRSƏN.
-
-Məsələn:
-
-Netflix
-30 gün = 6.99
-60 gün = 12.99
-
-Yeni məhsul əlavə etmək üçün aşağıdakı
-formatda yeni obyekt əlavə et.
-==================================================
+=========================================
 */
-
 
 const products = [
 
 {
-    name:"Netflix",
-    icon:"🎬",
-
-    description:
-    "Netflix Premium rəqəmsal xidmət.",
-
-    durations:[
-
-        {
-            name:"30 gün",
-            price:6.99
-        },
-
-        {
-            name:"60 gün",
-            price:12.99
-        }
-
-    ]
+name:"Netflix Premium",
+category:"Film və Serial",
+icon:"🎬",
+description:"Premium film və serial platforması.",
+durations:[
+{name:"30 gün",price:6.99},
+{name:"60 gün",price:12.99}
+]
 },
 
-
 {
-    name:"YouTube Premium",
-    icon:"▶️",
-
-    description:
-    "YouTube Premium rəqəmsal xidmət.",
-
-    durations:[
-
-        {
-            name:"30 gün",
-            price:7.99
-        }
-
-    ]
+name:"YouTube Premium",
+category:"Musiqi",
+icon:"▶️",
+description:"Reklamsız YouTube və Premium funksiyalar.",
+durations:[
+{name:"30 gün",price:7.99}
+]
 },
 
+{
+name:"ChatGPT Plus",
+category:"AI",
+icon:"🤖",
+description:"AI və məhsuldarlıq üçün premium xidmət.",
+durations:[
+{name:"30 gün",price:11.99}
+]
+},
 
 {
-    name:"ChatGPT",
-    icon:"🤖",
+name:"Spotify Premium",
+category:"Musiqi",
+icon:"🎵",
+description:"Premium musiqi və reklamsız dinləmə.",
+durations:[
+{name:"30 gün",price:5.99}
+]
+},
 
-    description:
-    "ChatGPT rəqəmsal xidmət.",
+{
+name:"CapCut Pro",
+category:"Dizayn",
+icon:"✂️",
+description:"Video montaj və kreativ alətlər.",
+durations:[
+{name:"30 gün",price:3.99}
+]
+},
 
-    durations:[
+{
+name:"Prime Video",
+category:"Film və Serial",
+icon:"📺",
+description:"Film və serial platforması.",
+durations:[
+{name:"30 gün",price:2.99}
+]
+},
 
-        {
-            name:"30 gün",
-            price:11.99
-        }
+{
+name:"Canva Pro",
+category:"Dizayn",
+icon:"🎨",
+description:"Premium dizayn və kreativ alətlər.",
+durations:[
+{name:"30 gün",price:4.99}
+]
+},
 
-    ]
+{
+name:"Google Gemini",
+category:"AI",
+icon:"✨",
+description:"Google AI premium xidmətləri.",
+durations:[
+{name:"30 gün",price:9.99}
+]
 }
 
 ];
 
 
 /*
-==================================================
+=========================================
 WHATSAPP
-==================================================
+=========================================
+
+Nömrə saytda görünmür.
+Yalnız düymənin işləməsi üçün istifadə olunur.
 */
 
-const whatsappNumber =
-"994702883484";
+const WHATSAPP_NUMBER="994702883484";
+
+
+let currentFilter="Hamısı";
+let selectedProduct=null;
+let selectedDuration=null;
 
 
 /*
-==================================================
+=========================================
 MƏHSULLARI GÖSTƏR
-==================================================
+=========================================
 */
 
-function loadProducts(){
+function renderProducts(){
 
-    const box =
-    document.getElementById("products");
+const grid=document.getElementById("productGrid");
 
-    box.innerHTML="";
+grid.innerHTML="";
 
+const filtered=
+currentFilter==="Hamısı"
+?products
+:products.filter(
+p=>p.category===currentFilter
+);
 
-    products.forEach(
-        (product,index)=>{
+filtered.forEach(product=>{
 
-        const card =
-        document.createElement("div");
+const index=products.indexOf(product);
 
-        card.className="product";
+let options="";
 
+product.durations.forEach(
+(duration,i)=>{
 
-        let options="";
+options+=`
+<option value="${i}">
+${duration.name} — ${duration.price.toFixed(2)} AZN
+</option>
+`;
 
-
-        product.durations.forEach(
-            (duration,durationIndex)=>{
-
-            options += `
-
-            <option
-                value="${durationIndex}">
-
-                ${duration.name}
-                —
-                ${duration.price.toFixed(2)} AZN
-
-            </option>
-
-            `;
-
-        });
+});
 
 
-        const firstPrice =
-        product.durations[0].price;
+const card=document.createElement("article");
 
+card.className="product";
 
-        card.innerHTML = `
+card.innerHTML=`
 
-        <div class="product-image">
+<div class="product-top">
+${product.icon}
+</div>
 
-            ${product.icon}
+<div class="product-body">
 
-        </div>
+<div class="product-category">
+${product.category}
+</div>
 
+<h3>
+${product.name}
+</h3>
 
-        <div class="product-body">
+<div class="product-description">
+${product.description}
+</div>
 
-            <h3>
-                ${product.name}
-            </h3>
+<select
+class="duration"
+id="duration-${index}"
+onchange="updateProductPrice(${index})">
 
+${options}
 
-            <div class="product-description">
+</select>
 
-                ${product.description}
+<div class="price">
 
-            </div>
+<small>
+Başlayır
+</small>
 
+<strong id="price-${index}">
+${product.durations[0].price.toFixed(2)} AZN
+</strong>
 
-            <select
-                class="duration-select"
-                id="duration-${index}"
-                onchange="changePrice(${index})">
+</div>
 
-                ${options}
+<button
+class="order-btn"
+onclick="openOrder(${index})">
 
-            </select>
+Sifariş et
 
+</button>
 
-            <div
-                class="price"
-                id="price-${index}">
+</div>
+`;
 
-                ${firstPrice.toFixed(2)}
-                AZN
+grid.appendChild(card);
 
-            </div>
-
-
-            <button
-                class="order-btn"
-                onclick="orderProduct(${index})">
-
-                📲 Sifariş et
-
-            </button>
-
-        </div>
-
-        `;
-
-
-        box.appendChild(card);
-
-    });
+});
 
 }
 
 
 /*
-==================================================
-QİYMƏTİ DƏYİŞ
-==================================================
+=========================================
+QİYMƏT DƏYİŞ
+=========================================
 */
 
-function changePrice(productIndex){
+function updateProductPrice(index){
 
-    const select =
-    document.getElementById(
-        "duration-"+productIndex
-    );
+const select=
+document.getElementById(
+"duration-"+index
+);
 
+const duration=
+products[index].durations[
+Number(select.value)
+];
 
-    const selected =
-    Number(select.value);
-
-
-    const product =
-    products[productIndex];
-
-
-    const duration =
-    product.durations[selected];
-
-
-    document.getElementById(
-        "price-"+productIndex
-    ).textContent =
-    duration.price.toFixed(2)+" AZN";
+document.getElementById(
+"price-"+index
+).textContent=
+duration.price.toFixed(2)+" AZN";
 
 }
 
 
 /*
-==================================================
-WHATSAPP SİFARİŞİ
-==================================================
+=========================================
+FİLTR
+=========================================
 */
 
-function orderProduct(productIndex){
+function filterProducts(category,button=null){
 
-    const product =
-    products[productIndex];
+currentFilter=category;
+
+document
+.querySelectorAll(".filter")
+.forEach(
+b=>b.classList.remove("active")
+);
+
+if(button){
+
+button.classList.add("active");
+
+}else{
+
+document
+.querySelectorAll(".filter")
+.forEach(b=>{
+
+if(b.textContent.trim()===category){
+
+b.classList.add("active");
+
+}
+
+});
+
+}
+
+renderProducts();
+
+document
+.getElementById("products")
+.scrollIntoView({
+behavior:"smooth"
+});
+
+}
 
 
-    const select =
-    document.getElementById(
-        "duration-"+productIndex
-    );
+/*
+=========================================
+SİFARİŞ PƏNCƏRƏSİ
+=========================================
+*/
+
+function openOrder(index){
+
+selectedProduct=products[index];
+
+const select=
+document.getElementById(
+"duration-"+index
+);
+
+selectedDuration=
+selectedProduct.durations[
+Number(select.value)
+];
+
+document.getElementById(
+"modalProduct"
+).textContent=
+selectedProduct.name;
+
+document.getElementById(
+"modalDuration"
+).textContent=
+selectedDuration.name;
+
+document.getElementById(
+"modalPrice"
+).textContent=
+selectedDuration.price.toFixed(2)+" AZN";
+
+document
+.getElementById("orderModal")
+.classList.add("show");
+
+}
 
 
-    const selected =
-    Number(select.value);
+/*
+=========================================
+MODAL BAĞLA
+=========================================
+*/
+
+function closeModal(){
+
+document
+.getElementById("orderModal")
+.classList.remove("show");
+
+}
 
 
-    const duration =
-    product.durations[selected];
+/*
+=========================================
+WHATSAPP SİFARİŞ
+=========================================
+*/
 
+function sendWhatsApp(){
 
-    const message =
+if(!selectedProduct || !selectedDuration){
+return;
+}
 
+const message=
 `Salam, DigiBaku-dan sifariş vermək istəyirəm.
 
-Məhsul: ${product.name}
+Məhsul: ${selectedProduct.name}
+Müddət: ${selectedDuration.name}
+Qiymət: ${selectedDuration.price.toFixed(2)} AZN`;
 
-Müddət: ${duration.name}
+const url=
+"https://wa.me/"
++WHATSAPP_NUMBER
++"?text="
++encodeURIComponent(message);
 
-Qiymət: ${duration.price.toFixed(2)} AZN`;
+window.open(url,"_blank");
 
-
-    const whatsappURL =
-
-    "https://wa.me/" +
-    whatsappNumber +
-    "?text=" +
-    encodeURIComponent(message);
-
-
-    window.open(
-        whatsappURL,
-        "_blank"
-    );
+closeModal();
 
 }
 
 
 /*
-==================================================
-WHATSAPP DÜYMƏSİ
-==================================================
+=========================================
+ÜMUMİ WHATSAPP
+=========================================
 */
 
 function openWhatsApp(){
 
-    const message =
-    "Salam, DigiBaku haqqında məlumat almaq istəyirəm.";
+const message=
+"Salam, DigiBaku haqqında məlumat almaq istəyirəm.";
 
+const url=
+"https://wa.me/"
++WHATSAPP_NUMBER
++"?text="
++encodeURIComponent(message);
 
-    const url =
-    "https://wa.me/" +
-    whatsappNumber +
-    "?text=" +
-    encodeURIComponent(message);
-
-
-    window.open(
-        url,
-        "_blank"
-    );
+window.open(url,"_blank");
 
 }
 
 
 /*
-==================================================
-MƏHSULLARA GET
-==================================================
+=========================================
+FAQ
+=========================================
 */
 
-function scrollToProducts(){
+function toggleFaq(button){
 
-    document
-    .getElementById("productsSection")
-    .scrollIntoView({
-        behavior:"smooth"
-    });
+button.parentElement.classList.toggle("open");
 
 }
 
 
 /*
-==================================================
-SAYT AÇILANDA MƏHSULLARI YÜKLƏ
-==================================================
+=========================================
+MOBİL MENYU
+=========================================
 */
 
-loadProducts();
+function toggleMenu(){
+
+const menu=
+document.getElementById("mobileMenu");
+
+menu.style.display=
+menu.style.display==="block"
+?"none"
+:"block";
+
+}
+
+function closeMenu(){
+
+document.getElementById(
+"mobileMenu"
+).style.display="none";
+
+}
+
+
+/*
+=========================================
+MODAL KƏNARINA BASANDA BAĞLA
+=========================================
+*/
+
+document
+.getElementById("orderModal")
+.addEventListener(
+"click",
+function(e){
+
+if(e.target===this){
+closeModal();
+}
+
+});
+
+
+/*
+=========================================
+BAŞLAT
+=========================================
+*/
+
+renderProducts();
 
 </script>
 
