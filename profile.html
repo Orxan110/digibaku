@@ -38,6 +38,8 @@ a{
     margin:auto;
 }
 
+/* HEADER */
+
 header{
     border-bottom:1px solid #222;
     background:rgba(5,5,5,.94);
@@ -66,12 +68,10 @@ header{
     font-size:14px;
 }
 
-.back:hover{
-    color:#60a5fa;
-}
+/* PROFILE */
 
 .profile-section{
-    padding:55px 0;
+    padding:50px 0;
 }
 
 .profile-title{
@@ -87,6 +87,8 @@ header{
 .profile-title p{
     color:#888;
 }
+
+/* CARD */
 
 .user-card,
 .orders{
@@ -153,18 +155,10 @@ header{
 }
 
 .status{
-    display:inline-flex !important;
-    align-items:center;
-    gap:7px;
     color:#6ee7b7 !important;
 }
 
-.status-dot{
-    width:8px;
-    height:8px;
-    border-radius:50%;
-    background:#22c55e;
-}
+/* PRODUCTS */
 
 .orders h2{
     margin-bottom:8px;
@@ -176,79 +170,37 @@ header{
     margin-bottom:20px;
 }
 
-.product-card{
+.product{
     background:#080808;
-    border:1px solid #292929;
+    border:1px solid #252525;
     border-radius:14px;
     padding:20px;
-    margin-bottom:14px;
-}
-
-.product-header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:10px;
-    margin-bottom:15px;
+    margin-bottom:12px;
 }
 
 .product-name{
-    font-size:18px;
+    font-size:19px;
     font-weight:bold;
+    color:#60a5fa;
+    margin-bottom:12px;
 }
 
-.active-badge{
-    background:#052e1b;
-    border:1px solid #065f46;
-    color:#6ee7b7;
-    padding:5px 9px;
-    border-radius:20px;
-    font-size:11px;
-    font-weight:bold;
+.product-date{
+    color:#777;
+    font-size:12px;
+    margin-bottom:14px;
 }
 
 .account-box{
     background:#111;
-    border:1px solid #222;
+    border:1px solid #333;
     border-radius:10px;
     padding:15px;
-    margin-top:12px;
-}
-
-.account-hidden{
-    color:#777;
-    font-size:13px;
-    margin-bottom:10px;
-}
-
-.account-info{
-    display:none;
     white-space:pre-wrap;
     word-break:break-word;
     color:#ddd;
     font-size:14px;
     line-height:1.6;
-}
-
-.show-btn{
-    border:1px solid #333;
-    background:#151515;
-    color:#fff;
-    border-radius:8px;
-    padding:9px 13px;
-    cursor:pointer;
-    font-size:13px;
-    font-weight:bold;
-}
-
-.show-btn:hover{
-    border-color:#2563eb;
-}
-
-.product-date{
-    color:#666;
-    font-size:12px;
-    margin-top:13px;
 }
 
 .empty{
@@ -329,10 +281,6 @@ header{
         width:100%;
     }
 
-    .product-header{
-        align-items:flex-start;
-    }
-
 }
 
 </style>
@@ -358,18 +306,17 @@ DigiBaku<span>.com</span>
 </header>
 
 
-<main>
-
 <div id="loading">
 Profil yüklənir...
 </div>
 
 
-<div id="profileContent">
+<main id="profileContent">
 
 <section class="profile-section">
 
 <div class="container">
+
 
 <div class="profile-title">
 
@@ -423,11 +370,7 @@ Yüklənir...
 <span>Hesab statusu</span>
 
 <strong class="status">
-
-<span class="status-dot"></span>
-
-Aktiv
-
+● Aktiv
 </strong>
 
 </div>
@@ -465,11 +408,14 @@ style="font-size:11px;word-break:break-all;">
 
 <div class="orders">
 
-<h2>Məhsullarım</h2>
+<h2>
+Məhsullarım
+</h2>
 
 <p class="orders-subtitle">
-Aldığınız premium xidmətlər burada görünəcək.
+Satın aldığınız premium xidmətlər burada görünür.
 </p>
+
 
 <div id="productsList">
 
@@ -498,6 +444,7 @@ Ana səhifə
 
 </a>
 
+
 <button
 onclick="logout()"
 class="btn btn-dark">
@@ -510,18 +457,19 @@ class="btn btn-dark">
 
 </div>
 
+
 </div>
 
 </section>
-
-</div>
 
 </main>
 
 
 <script>
 
-/* SUPABASE */
+/* =========================
+   SUPABASE
+========================= */
 
 const SUPABASE_URL =
 "https://zeknhnkaicqkfzgnvycq.supabase.co";
@@ -536,12 +484,14 @@ window.supabase.createClient(
 );
 
 
-/* PROFİLİ YÜKLƏ */
+/* =========================
+   PROFİL
+========================= */
 
 async function loadProfile(){
 
     const {
-        data:{session},
+        data,
         error
     } =
     await supabaseClient.auth.getSession();
@@ -556,6 +506,10 @@ async function loadProfile(){
 
         return;
     }
+
+
+    const session =
+        data.session;
 
 
     if(!session){
@@ -607,12 +561,15 @@ async function loadProfile(){
         user.id;
 
 
-    /* QEYDİYYAT TARİXİ */
+    /* TARİX */
 
     if(user.created_at){
 
         const date =
-            new Date(user.created_at);
+            new Date(
+                user.created_at
+            );
+
 
         document.getElementById(
             "createdDate"
@@ -631,7 +588,7 @@ async function loadProfile(){
 
     /* MƏHSULLARI YÜKLƏ */
 
-    await loadProducts(user.id);
+    await loadMyProducts(user.id);
 
 
     /* GÖSTƏR */
@@ -650,9 +607,11 @@ async function loadProfile(){
 }
 
 
-/* MƏHSULLARI YÜKLƏ */
+/* =========================
+   MƏHSULLARIM
+========================= */
 
-async function loadProducts(userId){
+async function loadMyProducts(userId){
 
     const list =
         document.getElementById(
@@ -675,7 +634,9 @@ async function loadProducts(userId){
         )
         .order(
             "created_at",
-            {ascending:false}
+            {
+                ascending:false
+            }
         );
 
 
@@ -684,9 +645,13 @@ async function loadProducts(userId){
         console.error(error);
 
         list.innerHTML = `
-            <div class="empty">
-                Məhsullar yüklənmədi.
-            </div>
+
+        <div class="empty">
+
+            Məhsullar yüklənmədi.
+
+        </div>
+
         `;
 
         return;
@@ -696,23 +661,25 @@ async function loadProducts(userId){
     if(!data || data.length === 0){
 
         list.innerHTML = `
-            <div class="empty">
 
-                <p>
-                    Hazırda hesabınıza məhsul əlavə edilməyib.
-                </p>
+        <div class="empty">
 
-                <br>
+            <p>
+            Hazırda sifarişiniz yoxdur.
+            </p>
 
-                <a
-                    href="index.html#products"
-                    class="btn btn-primary">
+            <br>
 
-                    Məhsullara bax
+            <a
+            href="index.html#products"
+            class="btn btn-primary">
 
-                </a>
+            Məhsullara bax
 
-            </div>
+            </a>
+
+        </div>
+
         `;
 
         return;
@@ -724,114 +691,66 @@ async function loadProducts(userId){
 
     data.forEach(item => {
 
-        const card =
+        const product =
             document.createElement("div");
 
-        card.className =
-            "product-card";
+
+        product.className =
+            "product";
 
 
         const date =
             item.created_at
-            ? new Date(
+            ?
+            new Date(
                 item.created_at
-              ).toLocaleString(
+            ).toLocaleString(
                 "az-AZ"
-              )
-            : "-";
+            )
+            :
+            "-";
 
 
-        const status =
-            item.status || "active";
+        product.innerHTML = `
+
+        <div class="product-name">
+
+            ${escapeHtml(
+                item.product_name
+            )}
+
+        </div>
 
 
-        card.innerHTML = `
+        <div class="product-date">
 
-            <div class="product-header">
+            Əlavə olunub:
+            ${escapeHtml(date)}
 
-                <div class="product-name">
-                    ${escapeHtml(item.product_name)}
-                </div>
-
-                <div class="active-badge">
-                    ${escapeHtml(status.toUpperCase())}
-                </div>
-
-            </div>
+        </div>
 
 
-            <div class="account-box">
+        <div class="account-box">
 
-                <div class="account-hidden">
-                    🔒 Hesab məlumatları gizlidir
-                </div>
+            ${escapeHtml(
+                item.account_info
+            )}
 
-                <div
-                    id="account-${item.id}"
-                    class="account-info">
-
-                    ${escapeHtml(item.account_info || "Məlumat yoxdur.")}
-
-                </div>
-
-
-                <button
-                    class="show-btn"
-                    onclick="toggleAccount('${item.id}', this)">
-
-                    Hesab məlumatını göstər
-
-                </button>
-
-            </div>
-
-
-            <div class="product-date">
-                Əlavə olunub: ${escapeHtml(date)}
-            </div>
+        </div>
 
         `;
 
 
-        list.appendChild(card);
+        list.appendChild(product);
 
     });
 
 }
 
 
-/* HESAB MƏLUMATINI GÖSTƏR / GİZLƏ */
-
-function toggleAccount(id, button){
-
-    const box =
-        document.getElementById(
-            "account-" + id
-        );
-
-
-    if(box.style.display === "block"){
-
-        box.style.display =
-            "none";
-
-        button.textContent =
-            "Hesab məlumatını göstər";
-
-    }else{
-
-        box.style.display =
-            "block";
-
-        button.textContent =
-            "Hesab məlumatını gizlət";
-
-    }
-
-}
-
-
-/* HTML TƏHLÜKƏSİZLİYİ */
+/* =========================
+   HTML TƏHLÜKƏSİZLİYİ
+========================= */
 
 function escapeHtml(text){
 
@@ -845,19 +764,23 @@ function escapeHtml(text){
 }
 
 
-/* ÇIXIŞ */
+/* =========================
+   ÇIXIŞ
+========================= */
 
 async function logout(){
 
     await supabaseClient.auth.signOut();
 
     window.location.href =
-        "index.html";
+        "login.html";
 
 }
 
 
-/* BAŞLAT */
+/* =========================
+   BAŞLAT
+========================= */
 
 loadProfile();
 
