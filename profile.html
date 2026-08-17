@@ -523,7 +523,22 @@ async function loadProfile(){
 
     const user =
         session.user;
+    
+const user =
+    session.user;
 
+const ADMIN_EMAIL =
+    "zahidovorxan989@gmail.com";
+
+if (
+    (user.email || "").toLowerCase().trim()
+    === ADMIN_EMAIL.toLowerCase()
+) {
+    window.location.href =
+        "gizli_panel.html";
+
+    return;
+}
 
     /* EMAIL */
 
