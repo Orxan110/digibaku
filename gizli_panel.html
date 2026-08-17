@@ -1,7 +1,8 @@
+Admin 
+
 <!DOCTYPE html>
 <html lang="az">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -10,7 +11,6 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-
 *{
     box-sizing:border-box;
     margin:0;
@@ -73,10 +73,6 @@ h1{
     margin-bottom:8px;
 }
 
-h2{
-    margin-bottom:15px;
-}
-
 .subtitle{
     color:#888;
     margin-bottom:25px;
@@ -86,13 +82,11 @@ label{
     display:block;
     color:#aaa;
     font-size:14px;
-    font-weight:bold;
     margin-bottom:7px;
 }
 
 input,
-select,
-textarea{
+select{
     width:100%;
     padding:14px;
     border-radius:10px;
@@ -101,17 +95,10 @@ textarea{
     color:#fff;
     margin-bottom:18px;
     outline:none;
-    font-size:14px;
-}
-
-textarea{
-    min-height:130px;
-    resize:vertical;
 }
 
 input:focus,
-select:focus,
-textarea:focus{
+select:focus{
     border-color:#2563eb;
 }
 
@@ -131,10 +118,6 @@ button:hover{
     background:#1d4ed8;
 }
 
-button:disabled{
-    opacity:.6;
-}
-
 .message{
     display:none;
     margin-top:15px;
@@ -143,7 +126,6 @@ button:disabled{
     background:#0b2b1d;
     border:1px solid #166534;
     color:#86efac;
-    line-height:1.5;
 }
 
 .error{
@@ -161,46 +143,12 @@ button:disabled{
     padding:60px 20px;
     color:#888;
 }
-
-.product-list{
-    margin-top:20px;
-}
-
-.product-item{
-    background:#080808;
-    border:1px solid #252525;
-    border-radius:12px;
-    padding:16px;
-    margin-bottom:10px;
-}
-
-.product-item strong{
-    color:#60a5fa;
-    display:block;
-    margin-bottom:7px;
-}
-
-.product-item small{
-    color:#888;
-}
-
-.delete-btn{
-    margin-top:12px;
-    background:#991b1b;
-}
-
-.delete-btn:hover{
-    background:#7f1d1d;
-}
-
 </style>
-
 </head>
 
 <body>
 
 <header>
-
 <div class="container nav">
 
 <div class="logo">
@@ -212,22 +160,17 @@ DigiBaku<span>.com</span>
 </a>
 
 </div>
-
 </header>
-
 
 <main>
 
 <div class="container">
 
-
 <div id="loading" class="loading">
 Admin yoxlanılır...
 </div>
 
-
 <div id="adminPanel">
-
 
 <div class="card">
 
@@ -237,112 +180,47 @@ Admin yoxlanılır...
 Müştərinin hesabına məhsul əlavə et
 </p>
 
-
-<label>
-Müştərinin emaili
-</label>
+<label>Müştərinin emaili</label>
 
 <input
 type="email"
 id="customerEmail"
 placeholder="musteri@gmail.com"
-autocomplete="off"
 >
 
-
-<label>
-Məhsul
-</label>
+<label>Məhsul</label>
 
 <select id="product">
-
-<option value="">
-Məhsul seçin
-</option>
-
-<option value="Netflix Premium">
-Netflix Premium — 6.99 AZN
-</option>
-
-<option value="YouTube Premium">
-YouTube Premium — 7.99 AZN
-</option>
-
-<option value="ChatGPT Plus">
-ChatGPT Plus — 11.99 AZN
-</option>
-
-<option value="Spotify Premium">
-Spotify Premium — 7.99 AZN
-</option>
-
+<option value="netflix">Netflix Premium — 6.99 AZN</option>
+<option value="youtube">YouTube Premium — 7.99 AZN</option>
+<option value="chatgpt">ChatGPT Plus — 11.99 AZN</option>
+<option value="spotify">Spotify Premium — 7.99 AZN</option>
 </select>
 
-
-<label>
-Hesab məlumatı
-</label>
-
-<textarea
-id="accountInfo"
-placeholder="Məsələn:
-
-Email: example@gmail.com
-Şifrə: ********
-
-və ya müştəriyə veriləcək digər məlumatlar..."
-></textarea>
-
-
-<button
-id="addButton"
-onclick="addProduct()">
-
+<button onclick="addProduct()">
 Məhsulu müştəriyə əlavə et
-
 </button>
-
 
 <div id="message" class="message"></div>
 
 </div>
 
-
-<div class="card">
-
-<h2>Əlavə edilmiş məhsullar</h2>
-
-<div id="productsList">
-Yüklənir...
-</div>
-
-</div>
-
-
 <div class="card">
 
 <h2>Necə işləyir?</h2>
 
-<p style="color:#999;line-height:1.8">
+<br>
 
-1. Müştəri məhsulu seçir.<br>
-
-2. Müştəri sənə WhatsApp-dan yazır.<br>
-
-3. Sən kart məlumatını göndərirsən.<br>
-
-4. Ödənişi yoxlayırsan.<br>
-
-5. Hesabı müştəriyə verirsən.<br>
-
-6. Burada müştərinin emailini, məhsulu və hesab məlumatını yazırsan.<br>
-
-7. Məhsul avtomatik olaraq həmin müştərinin profilində görünür.
-
+<p style="color:#999;line-height:1.7">
+1. Müştəri məhsulu sifariş edir.<br>
+2. Sən WhatsApp-la kart məlumatını göndərirsən.<br>
+3. Ödənişi bank tətbiqindən yoxlayırsan.<br>
+4. Hesab məlumatlarını müştəriyə göndərirsən.<br>
+5. Burada müştərinin emailini və məhsulu seçib əlavə edirsən.<br>
+6. Məhsul müştərinin profilində görünür.
 </p>
 
 </div>
-
 
 </div>
 
@@ -350,12 +228,7 @@ Yüklənir...
 
 </main>
 
-
 <script>
-
-/* =========================
-   SUPABASE
-========================= */
 
 const SUPABASE_URL =
 "https://zeknhnkaicqkfzgnvycq.supabase.co";
@@ -369,119 +242,60 @@ window.supabase.createClient(
     SUPABASE_KEY
 );
 
-
-/* =========================
-   ADMIN
-========================= */
-
 const ADMIN_EMAIL =
 "zahidovorxan989@gmail.com";
 
 
-/* =========================
-   ADMIN YOXLAMA
-========================= */
-
 async function checkAdmin(){
 
     const {
-        data,
+        data:{session},
         error
-    } =
-    await supabaseClient.auth.getSession();
+    } = await supabaseClient.auth.getSession();
 
-
-    if(error){
-
-        console.error(error);
+    if(error || !session){
 
         window.location.href =
             "login.html";
 
         return;
     }
-
-
-    const session =
-        data.session;
-
-
-    if(!session){
-
-        window.location.href =
-            "login.html";
-
-        return;
-    }
-
 
     const email =
-        (session.user.email || "")
-        .toLowerCase()
-        .trim();
+        (session.user.email || "").toLowerCase();
 
+    if(email !== ADMIN_EMAIL){
 
-    if(email !== ADMIN_EMAIL.toLowerCase()){
-
-        document.getElementById(
-            "loading"
-        ).textContent =
-        "Bu səhifəyə yalnız admin daxil ola bilər.";
+        document.getElementById("loading").innerHTML =
+            "Bu səhifəyə giriş icazəniz yoxdur.";
 
         return;
     }
 
-
-    document.getElementById(
-        "loading"
-    ).style.display =
+    document.getElementById("loading").style.display =
         "none";
 
-
-    document.getElementById(
-        "adminPanel"
-    ).style.display =
+    document.getElementById("adminPanel").style.display =
         "block";
-
-
-    await loadProducts();
-
 }
 
 
-/* =========================
-   MƏHSUL ƏLAVƏ ET
-========================= */
-
 async function addProduct(){
 
-    const button =
-        document.getElementById(
-            "addButton"
-        );
-
-
     const customerEmail =
-        document.getElementById(
-            "customerEmail"
-        )
+        document.getElementById("customerEmail")
         .value
         .trim()
         .toLowerCase();
 
-
     const product =
-        document.getElementById(
-            "product"
-        ).value;
+        document.getElementById("product").value;
 
+    const message =
+        document.getElementById("message");
 
-    const accountInfo =
-        document.getElementById(
-            "accountInfo"
-        ).value
-        .trim();
-
+    message.style.display = "none";
+    message.classList.remove("error");
 
     if(!customerEmail){
 
@@ -493,11 +307,39 @@ async function addProduct(){
         return;
     }
 
+    /* MÜŞTƏRİNİN USER ID-SİNİ TAPMAQ
+       bunu browser tərəfdən etmək olmaz.
+       Ona görə aşağıdakı üsulla profil ID-si
+       profiles cədvəlindən axtarılır.
+    */
 
-    if(!product){
+    const {
+        data:profile,
+        error:profileError
+    } =
+    await supabaseClient
+        .from("profiles")
+        .select("id")
+        .eq("email",customerEmail)
+        .maybeSingle();
+
+
+    if(profileError){
 
         showMessage(
-            "Məhsul seç.",
+            "Profil axtarılarkən xəta baş verdi.",
+            true
+        );
+
+        console.error(profileError);
+
+        return;
+    }
+
+    if(!profile){
+
+        showMessage(
+            "Bu email ilə profil tapılmadı.",
             true
         );
 
@@ -505,407 +347,83 @@ async function addProduct(){
     }
 
 
-    if(!accountInfo){
+    let productName;
+    let price;
 
-        showMessage(
-            "Hesab məlumatını yaz.",
-            true
-        );
+    if(product === "netflix"){
+        productName = "Netflix Premium";
+        price = 6.99;
+    }
 
-        return;
+    if(product === "youtube"){
+        productName = "YouTube Premium";
+        price = 7.99;
+    }
+
+    if(product === "chatgpt"){
+        productName = "ChatGPT Plus";
+        price = 11.99;
+    }
+
+    if(product === "spotify"){
+        productName = "Spotify Premium";
+        price = 7.99;
     }
 
 
-    button.disabled = true;
-
-    button.textContent =
-        "Əlavə edilir...";
-
-
-    try{
-
-
-        /* =========================
-           PROFILES-DAN MÜŞTƏRİ TAP
-        ========================= */
-
-        const {
-            data:profile,
-            error:profileError
-        } =
-        await supabaseClient
-            .from("profiles")
-            .select("id,email")
-            .eq(
-                "email",
-                customerEmail
-            )
-            .maybeSingle();
+    const {
+        error
+    } =
+    await supabaseClient
+        .from("purchases")
+        .insert({
+            user_id:profile.id,
+            product_name:productName,
+            product_type:product,
+            price:price,
+            status:"active"
+        });
 
 
-        if(profileError){
-
-            console.error(profileError);
-
-            showMessage(
-                "Müştəri axtarılarkən xəta: " +
-                profileError.message,
-                true
-            );
-
-            return;
-        }
-
-
-        if(!profile){
-
-            showMessage(
-                "Bu email ilə müştəri tapılmadı. Müştəri əvvəlcə DigiBaku-da qeydiyyatdan keçməlidir.",
-                true
-            );
-
-            return;
-        }
-
-
-        /* =========================
-           CUSTOMER PRODUCTS
-        ========================= */
-
-        const {
-            error:insertError
-        } =
-        await supabaseClient
-            .from("customer_products")
-            .insert({
-
-                user_id:
-                    profile.id,
-
-                product_name:
-                    product,
-
-                account_info:
-                    accountInfo,
-
-                status:
-                    "active"
-
-            });
-
-
-        if(insertError){
-
-            console.error(insertError);
-
-            showMessage(
-                "Məhsul əlavə olunmadı: " +
-                insertError.message,
-                true
-            );
-
-            return;
-        }
-
+    if(error){
 
         showMessage(
-            "✅ " +
-            product +
-            " müştərinin profilinə əlavə edildi.",
-            false
-        );
-
-
-        document.getElementById(
-            "customerEmail"
-        ).value = "";
-
-
-        document.getElementById(
-            "product"
-        ).value = "";
-
-
-        document.getElementById(
-            "accountInfo"
-        ).value = "";
-
-
-        await loadProducts();
-
-
-    }catch(error){
-
-        console.error(error);
-
-        showMessage(
-            "Xəta baş verdi: " +
+            "Məhsul əlavə olunmadı: " +
             error.message,
             true
         );
 
-
-    }finally{
-
-        button.disabled = false;
-
-        button.textContent =
-            "Məhsulu müştəriyə əlavə et";
-
-    }
-
-}
-
-
-/* =========================
-   MƏHSULLARI GÖSTƏR
-========================= */
-
-async function loadProducts(){
-
-    const list =
-        document.getElementById(
-            "productsList"
-        );
-
-
-    const {
-        data,
-        error
-    } =
-    await supabaseClient
-        .from("customer_products")
-        .select(
-            "id,user_id,product_name,account_info,status,created_at"
-        )
-        .order(
-            "created_at",
-            {
-                ascending:false
-            }
-        );
-
-
-    if(error){
-
-        list.innerHTML =
-        `<div class="product-item">
-            Məhsullar yüklənmədi:
-            ${escapeHtml(error.message)}
-        </div>`;
-
         console.error(error);
 
         return;
     }
 
 
-    if(!data || data.length === 0){
+    showMessage(
+        productName +
+        " uğurla müştərinin hesabına əlavə edildi. ✅"
+    );
 
-        list.innerHTML =
-        `<div class="product-item">
-            Hələ məhsul əlavə edilməyib.
-        </div>`;
-
-        return;
-    }
-
-
-    list.innerHTML = "";
-
-
-    data.forEach(item => {
-
-        const div =
-            document.createElement(
-                "div"
-            );
-
-
-        div.className =
-            "product-item";
-
-
-        const date =
-            item.created_at
-            ?
-            new Date(
-                item.created_at
-            ).toLocaleString(
-                "az-AZ"
-            )
-            :
-            "-";
-
-
-        div.innerHTML = `
-
-            <strong>
-                ${escapeHtml(
-                    item.product_name
-                )}
-            </strong>
-
-            <small>
-                Müştəri ID:
-                ${escapeHtml(
-                    item.user_id
-                )}
-            </small>
-
-            <br><br>
-
-            <small>
-                Tarix:
-                ${escapeHtml(date)}
-            </small>
-
-            <br>
-
-            <button
-                class="delete-btn"
-                onclick="deleteProduct('${item.id}')">
-
-                Məhsulu sil
-
-            </button>
-
-        `;
-
-
-        list.appendChild(div);
-
-    });
-
+    document.getElementById("customerEmail").value = "";
 }
 
 
-/* =========================
-   MƏHSUL SİL
-========================= */
-
-async function deleteProduct(id){
-
-    const ok =
-        confirm(
-            "Bu məhsulu müştərinin profilindən silmək istəyirsən?"
-        );
-
-
-    if(!ok){
-        return;
-    }
-
-
-    const {
-        error
-    } =
-    await supabaseClient
-        .from("customer_products")
-        .delete()
-        .eq(
-            "id",
-            id
-        );
-
-
-    if(error){
-
-        alert(
-            "Silinmədi: " +
-            error.message
-        );
-
-        console.error(error);
-
-        return;
-    }
-
-
-    await loadProducts();
-
-}
-
-
-/* =========================
-   MESAJ
-========================= */
-
-function showMessage(
-    text,
-    isError=false
-){
+function showMessage(text,isError=false){
 
     const message =
-        document.getElementById(
-            "message"
-        );
+        document.getElementById("message");
 
+    message.textContent = text;
 
-    message.textContent =
-        text;
-
-
-    message.style.display =
-        "block";
-
+    message.style.display = "block";
 
     if(isError){
-
-        message.classList.add(
-            "error"
-        );
-
+        message.classList.add("error");
     }else{
-
-        message.classList.remove(
-            "error"
-        );
-
+        message.classList.remove("error");
     }
-
 }
 
-
-/* =========================
-   HTML TƏHLÜKƏSİZLİYİ
-========================= */
-
-function escapeHtml(text){
-
-    return String(text)
-
-        .replace(
-            /&/g,
-            "&amp;"
-        )
-
-        .replace(
-            /</g,
-            "&lt;"
-        )
-
-        .replace(
-            />/g,
-            "&gt;"
-        )
-
-        .replace(
-            /"/g,
-            "&quot;"
-        )
-
-        .replace(
-            /'/g,
-            "&#039;"
-        );
-
-}
-
-
-/* =========================
-   BAŞLAT
-========================= */
 
 checkAdmin();
 
