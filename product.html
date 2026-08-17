@@ -311,6 +311,181 @@ h1 {
     margin-bottom: 5px;
 }
 
+/* FAQ */
+
+.faq-section {
+    margin-top: 65px;
+    padding-top: 45px;
+    border-top: 1px solid #222;
+}
+
+.section-heading {
+    margin-bottom: 28px;
+}
+
+.section-heading h2 {
+    font-size: 29px;
+    margin-bottom: 8px;
+}
+
+.section-heading p {
+    color: #888;
+}
+
+.faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.faq-item {
+    background: #101010;
+    border: 1px solid #252525;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.faq-question {
+    width: 100%;
+    border: none;
+    background: transparent;
+    color: white;
+    padding: 18px 20px;
+    text-align: left;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.faq-question:hover {
+    background: #151515;
+}
+
+.faq-answer {
+    display: none;
+    padding: 0 20px 18px;
+    color: #999;
+    font-size: 14px;
+}
+
+.faq-item.open .faq-answer {
+    display: block;
+}
+
+.faq-plus {
+    color: #60a5fa;
+    font-size: 22px;
+}
+
+/* REVIEWS */
+
+.reviews-section {
+    margin-top: 65px;
+    padding-top: 45px;
+    border-top: 1px solid #222;
+}
+
+.reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+
+.review-card {
+    background: #101010;
+    border: 1px solid #252525;
+    border-radius: 14px;
+    padding: 22px;
+}
+
+.review-stars {
+    color: #facc15;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+}
+
+.review-text {
+    color: #bbb;
+    font-size: 14px;
+    margin-bottom: 18px;
+}
+
+.review-name {
+    font-weight: bold;
+}
+
+.review-role {
+    color: #666;
+    font-size: 12px;
+    margin-top: 3px;
+}
+
+/* ARTICLES */
+
+.articles-section {
+    margin-top: 65px;
+    padding-top: 45px;
+    border-top: 1px solid #222;
+}
+
+.articles-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+
+.article-card {
+    background: #101010;
+    border: 1px solid #252525;
+    border-radius: 14px;
+    padding: 20px;
+}
+
+.article-card h3 {
+    font-size: 16px;
+    margin-bottom: 9px;
+}
+
+.article-card p {
+    color: #888;
+    font-size: 13px;
+    margin-bottom: 12px;
+}
+
+.article-date {
+    color: #666;
+    font-size: 12px;
+}
+
+/* GUIDES */
+
+.guides-section {
+    margin-top: 35px;
+}
+
+.guides-title {
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+.guides-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.guide-card {
+    background: #101010;
+    border: 1px solid #252525;
+    border-radius: 11px;
+    padding: 15px;
+    color: #aaa;
+    font-size: 14px;
+}
+
 /* TRUST */
 
 .trust {
@@ -466,7 +641,9 @@ footer {
         grid-template-columns: repeat(2, 1fr);
     }
 
-    .trust-grid {
+    .trust-grid,
+    .reviews-grid,
+    .articles-grid {
         grid-template-columns: 1fr;
     }
 
@@ -491,6 +668,10 @@ footer {
     }
 
     .other-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .guides-list {
         grid-template-columns: 1fr;
     }
 
@@ -541,7 +722,6 @@ Məhsullar
 
 
 <div class="product">
-
 
 <div class="image-box">
 
@@ -615,6 +795,72 @@ Səbətə at
 <div id="content"></div>
 
 
+<!-- FAQ -->
+
+<div class="faq-section">
+
+<div class="section-heading">
+
+<h2>FAQ</h2>
+
+<p id="faqSubtitle">
+Məhsul, qiymət, aktivləşdirmə və istifadə ilə bağlı ən çox verilən suallara burada cavab tapın.
+</p>
+
+</div>
+
+<div class="faq-list" id="faqList"></div>
+
+</div>
+
+
+<!-- REVIEWS -->
+
+<div class="reviews-section">
+
+<div class="section-heading">
+
+<h2>Məhsul haqqında rəylər</h2>
+
+<p>Müştərilərimizin DigiBaku.com xidmətləri haqqında fikirləri.</p>
+
+</div>
+
+<div class="reviews-grid" id="reviewsGrid"></div>
+
+</div>
+
+
+<!-- ARTICLES -->
+
+<div class="articles-section">
+
+<div class="section-heading">
+
+<h2>Faydalı oxu</h2>
+
+<p>Premium xidmət seçərkən sizə kömək edəcək məlumatlar.</p>
+
+</div>
+
+<div class="articles-grid" id="articlesGrid"></div>
+
+
+<div class="guides-section">
+
+<h3 class="guides-title">
+Praktik bələdçilər
+</h3>
+
+<div class="guides-list" id="guidesList"></div>
+
+</div>
+
+</div>
+
+
+<!-- TRUST -->
+
 <div class="trust">
 
 <div class="trust-title">
@@ -675,6 +921,8 @@ WhatsApp üzərindən bizimlə əlaqə saxlaya bilərsiniz.
 
 </div>
 
+
+<!-- OTHER PRODUCTS -->
 
 <div class="other">
 
@@ -785,321 +1033,510 @@ Məhsul səbətə əlavə edildi.
 
 const products = {
 
-    netflix: {
+netflix: {
 
-        name: "Netflix 4K Premium Abunəliyi",
+name: "Netflix 4K Premium Abunəliyi",
 
-        image: "netflix.webp",
+image: "netflix.webp",
 
-        rating: "4.0 (1 rəy)",
+rating: "4.0 (1 rəy)",
 
-        short:
-        "Netflix Premium abunəliyi ilə film və serialları Ultra HD keyfiyyətdə izləyin. Premium məzmunlara rahat şəkildə çıxış əldə edin.",
-
-        packages: [
-            {
-                name: "1 ay",
-                price: 6.99
-            },
-            {
-                name: "2 ay",
-                price: 12.99
-            },
-            {
-                name: "3 ay",
-                price: 20.99
-            }
-        ],
+short:
+"Netflix Premium abunəliyi ilə film və serialları Ultra HD keyfiyyətdə izləyin. Premium məzmunlara rahat şəkildə çıxış əldə edin.",
 
-        content: `
+packages: [
+{ name: "1 ay", price: 6.99 },
+{ name: "2 ay", price: 12.99 },
+{ name: "3 ay", price: 20.99 }
+],
 
-        <h2>Netflix Premium abunəliyi haqqında</h2>
-
-        <p>
-        <strong>Netflix Premium abunəliyinin qiyməti 1 ay üçün 6.99 AZN-dən başlayır.</strong>
-        2 aylıq paket 12.99 AZN, 3 aylıq paket isə 20.99 AZN-dir.
-        Netflix film, serial və müxtəlif video məzmunları izləmək üçün
-        istifadə olunan premium platformadır.
-        </p>
+content: `
 
-        <h2>Netflix Premium qiyməti və paket müddətləri</h2>
-
-        <ul>
-            <li><strong>1 aylıq:</strong> 6.99 AZN</li>
-            <li><strong>2 aylıq:</strong> 12.99 AZN</li>
-            <li><strong>3 aylıq:</strong> 20.99 AZN</li>
-        </ul>
+<h2>Netflix Premium abunəliyi haqqında</h2>
 
-        <h2>Netflix Premium nə verir?</h2>
-
-        <ul>
-            <li>Film və seriallara giriş</li>
-            <li>Uyğun cihazlarda yüksək görüntü keyfiyyəti</li>
-            <li>Telefon, planşet, kompüter və Smart TV-də istifadə</li>
-            <li>Uyğun məzmunları offline izləmək üçün yükləmə</li>
-            <li>Fərdi tövsiyələr</li>
-            <li>İzləmə siyahısı</li>
-        </ul>
+<p>
+<strong>Netflix Premium abunəliyinin qiyməti 1 ay üçün 6.99 AZN-dən başlayır.</strong>
+2 aylıq paket 12.99 AZN, 3 aylıq paket isə 20.99 AZN-dir.
+Netflix film, serial və müxtəlif video məzmunları izləmək üçün
+istifadə olunan premium platformadır.
+</p>
 
-        <h2>Netflix kimlər üçün uyğundur?</h2>
+<h2>Netflix Premium qiyməti və paket müddətləri</h2>
 
-        <p>
-        Film və serial izləməyi sevən, evdə və ya mobil cihazlarında
-        daha rahat premium video təcrübəsi istəyən istifadəçilər üçün uyğundur.
-        </p>
+<ul>
+<li><strong>1 aylıq:</strong> 6.99 AZN</li>
+<li><strong>2 aylıq:</strong> 12.99 AZN</li>
+<li><strong>3 aylıq:</strong> 20.99 AZN</li>
+</ul>
 
-        <div class="info">
-        <strong>4K görüntü haqqında</strong>
+<h2>Netflix Premium nə verir?</h2>
 
-        <p>
-        4K görüntüdən istifadə etmək üçün uyğun 4K ekran,
-        dəstəklənən cihaz və stabil internet bağlantısı tələb olunur.
-        </p>
-        </div>
+<ul>
+<li>Film və seriallara giriş</li>
+<li>Uyğun cihazlarda yüksək görüntü keyfiyyəti</li>
+<li>Telefon, planşet, kompüter və Smart TV-də istifadə</li>
+<li>Uyğun məzmunları offline izləmək üçün yükləmə</li>
+<li>Fərdi tövsiyələr</li>
+<li>İzləmə siyahısı</li>
+</ul>
 
-        <h2>Sifariş necə edilir?</h2>
+<h2>Netflix kimlər üçün uyğundur?</h2>
 
-        <p>
-        Yuxarıdan istifadə etmək istədiyiniz müddəti seçin.
-        Daha sonra <strong>İndi al</strong> düyməsinə basaraq
-        birbaşa WhatsApp üzərindən sifarişinizi göndərə bilərsiniz.
-        </p>
+<p>
+Film və serial izləməyi sevən, evdə və ya mobil cihazlarında
+daha rahat premium video təcrübəsi istəyən istifadəçilər üçün uyğundur.
+</p>
 
-        `
+<div class="info">
 
-    },
+<strong>4K görüntü haqqında</strong>
 
+<p>
+4K görüntüdən istifadə etmək üçün uyğun 4K ekran,
+dəstəklənən cihaz və stabil internet bağlantısı tələb olunur.
+</p>
 
-    youtube: {
+</div>
 
-        name: "YouTube Premium",
+<h2>Sifariş necə edilir?</h2>
 
-        image: "youtube.webp",
+<p>
+Yuxarıdan istifadə etmək istədiyiniz müddəti seçin.
+Daha sonra <strong>İndi al</strong> düyməsinə basaraq
+birbaşa WhatsApp üzərindən sifarişinizi göndərə bilərsiniz.
+</p>
 
-        rating: "5.0 (1 rəy)",
+`,
 
-        short:
-        "YouTube Premium ilə videolara reklamsız baxın, musiqidən rahat istifadə edin və premium funksiyalardan yararlanın.",
+faq: [
 
-        packages: [
-            {
-                name: "1 ay",
-                price: 7.99
-            },
-            {
-                name: "2 ay",
-                price: 14.99
-            },
-            {
-                name: "3 ay",
-                price: 21.99
-            }
-        ],
-
-        content: `
-
-        <h2>YouTube Premium haqqında</h2>
-
-        <p>
-        <strong>YouTube Premium 1 ay üçün 7.99 AZN-dən başlayır.</strong>
-        YouTube Premium videolara daha rahat baxmaq, reklamlardan
-        uzaq istifadə etmək və əlavə premium funksiyalardan yararlanmaq
-        istəyən istifadəçilər üçün nəzərdə tutulub.
-        </p>
-
-        <h2>YouTube Premium qiyməti və paket müddətləri</h2>
+["Netflix Premium abunəliyi neçəyədir?",
+"Netflix Premium paketləri DigiBaku.com-da 1 ay üçün 6.99 AZN, 2 ay üçün 12.99 AZN və 3 ay üçün 20.99 AZN-dir."],
 
-        <ul>
-            <li><strong>1 aylıq:</strong> 7.99 AZN</li>
-            <li><strong>2 aylıq:</strong> 14.99 AZN</li>
-            <li><strong>3 aylıq:</strong> 21.99 AZN</li>
-        </ul>
-
-        <h2>YouTube Premium nə verir?</h2>
+["Sifariş verdikdən sonra hesab nə vaxt aktivləşir?",
+"Sifariş təsdiqləndikdən sonra aktivləşdirmə prosesi başladılır. Aktivləşdirmə ilə bağlı məlumat WhatsApp vasitəsilə sizə bildirilir."],
 
-        <ul>
-            <li>Videolara reklamsız baxış</li>
-            <li>YouTube Music imkanlarından istifadə</li>
-            <li>Uyğun videoları offline izləmək üçün yükləmə</li>
-            <li>Videoları arxa planda oynatma</li>
-            <li>Daha rahat video izləmə təcrübəsi</li>
-        </ul>
+["Netflix Premium hansı cihazlarda işləyir?",
+"Uyğun telefon, planşet, kompüter, Smart TV və digər dəstəklənən cihazlarda istifadə etmək mümkündür."],
 
-        <h2>Kimlər üçün uyğundur?</h2>
+["Şifrəni və ya e-poçt ünvanını dəyişə bilərəmmi?",
+"Hesabın təqdim olunan istifadə qaydalarına uyğun istifadə edilməsi tövsiyə olunur. Hesab məlumatlarında dəyişiklik etməzdən əvvəl dəstək komandası ilə əlaqə saxlayın."],
 
-        <p>
-        YouTube-dan tez-tez istifadə edən, musiqi dinləyən və
-        reklamsız video izləmək istəyən istifadəçilər üçün əlverişli seçimdir.
-        </p>
+["Abunə müddəti bitdikdən sonra nə olur?",
+"Müddət bitdikdə istifadə dayanır. İstifadəni davam etdirmək üçün yeni paket sifariş edə bilərsiniz."],
 
-        <h2>Sifariş necə edilir?</h2>
+["Problem yaranarsa nə etməliyəm?",
+"Problem yaranarsa DigiBaku.com WhatsApp satış və dəstək xətti ilə əlaqə saxlayın: 070 288 34 84."]
+],
 
-        <p>
-        Paket müddətini seçin və <strong>İndi al</strong> düyməsinə basın.
-        Sizi birbaşa DigiBaku.com WhatsApp satış xəttinə yönləndirəcəyik.
-        </p>
+reviews: [
 
-        `
+["Tesekkurler","Orxan","Netflix 4K Premium Abunəliyi"],
 
-    },
+["Əla, uyğun qiymətədir və sürətli bir şəkildə əldə etdim. Təşəkkür edirəm.",
+"Shabnam Valizada",
+"Netflix Premium"],
 
+["Etibarlı və sürətli xidmətdir. Dostlarıma da tövsiyə edirəm.",
+"Rəşad Məmmədli",
+"Netflix Premium"]
 
-    chatgpt: {
+],
 
-        name: "ChatGPT Plus",
+articles: [
 
-        image: "chatgpt.webp",
+["Netflix Premium nədir? Üstünlükləri və necə istifadə olunur?","18.05.2026"],
 
-        rating: "5.0 (1 rəy)",
+["Netflix Premium paketini seçərkən nələrə diqqət etməli?","23.07.2026"],
 
-        short:
-        "ChatGPT Plus yazı, kod, araşdırma və gündəlik işlərdə süni intellekt imkanlarından istifadə etmək üçün premium xidmətdir.",
+["Rəqəmsal abunəlikləri bir platformadan almağın üstünlükləri","27.07.2026"]
 
-        packages: [
-            {
-                name: "1 ay",
-                price: 11.99
-            },
-            {
-                name: "2 ay",
-                price: 22.99
-            },
-            {
-                name: "3 ay",
-                price: 33.99
-            }
-        ],
+],
 
-        content: `
+guides: [
 
-        <h2>ChatGPT Plus haqqında</h2>
+"Netflix 4K üçün internet sürəti və görüntü keyfiyyəti",
 
-        <p>
-        <strong>ChatGPT Plus 1 ay üçün 11.99 AZN-dən başlayır.</strong>
-        ChatGPT yazı, kod, ideya yaratmaq, araşdırma və gündəlik
-        işlərdə süni intellektdən istifadə etmək üçün geniş imkanlar təqdim edir.
-        </p>
+"Netflix qiyməti və premium paket seçimi",
 
-        <h2>ChatGPT Plus qiyməti və paket müddətləri</h2>
+"Netflix hesabından təhlükəsiz istifadə bələdçisi",
 
-        <ul>
-            <li><strong>1 aylıq:</strong> 11.99 AZN</li>
-            <li><strong>2 aylıq:</strong> 22.99 AZN</li>
-            <li><strong>3 aylıq:</strong> 33.99 AZN</li>
-        </ul>
+"Film və serial platforması seçərkən nələrə diqqət etməli?"
 
-        <h2>ChatGPT Plus nə üçün istifadə olunur?</h2>
+]
 
-        <ul>
-            <li>Mətn və məqalə hazırlamaq</li>
-            <li>Kod yazmaq və proqramlaşdırma</li>
-            <li>İdeyalar yaratmaq</li>
-            <li>Məlumatları analiz etmək</li>
-            <li>Təhsil və araşdırma</li>
-            <li>Gündəlik tapşırıqlarda kömək almaq</li>
-        </ul>
+},
 
-        <h2>Kimlər üçün uyğundur?</h2>
 
-        <p>
-        Tələbələr, proqramçılar, sahibkarlar, kontent hazırlayanlar,
-        dizaynerlər və süni intellektdən gündəlik istifadə edənlər üçün uyğundur.
-        </p>
+youtube: {
 
-        <div class="info">
+name: "YouTube Premium",
 
-        <strong>Yazı və kod işləri</strong>
+image: "youtube.webp",
 
-        <p>
-        ChatGPT-dən mətn hazırlamaq, proqramlaşdırma tapşırıqlarında
-        kömək almaq və müxtəlif ideyaları inkişaf etdirmək üçün istifadə edə bilərsiniz.
-        </p>
+rating: "5.0 (1 rəy)",
 
-        </div>
+short:
+"YouTube Premium ilə videolara reklamsız baxın, musiqidən rahat istifadə edin və premium funksiyalardan yararlanın.",
 
-        <h2>Sifariş necə edilir?</h2>
+packages: [
+{ name: "1 ay", price: 7.99 },
+{ name: "2 ay", price: 14.99 },
+{ name: "3 ay", price: 21.99 }
+],
 
-        <p>
-        Müddəti seçin və <strong>İndi al</strong> düyməsinə basın.
-        Sifarişiniz WhatsApp vasitəsilə DigiBaku.com satış xəttinə göndəriləcək.
-        </p>
+content: `
 
-        `
+<h2>YouTube Premium haqqında</h2>
 
-    },
+<p>
+<strong>YouTube Premium 1 ay üçün 7.99 AZN-dən başlayır.</strong>
+YouTube Premium videolara daha rahat baxmaq, reklamlardan
+uzaq istifadə etmək və əlavə premium funksiyalardan yararlanmaq
+istəyən istifadəçilər üçün nəzərdə tutulub.
+</p>
 
+<h2>YouTube Premium qiyməti və paket müddətləri</h2>
 
-    spotify: {
+<ul>
+<li><strong>1 aylıq:</strong> 7.99 AZN</li>
+<li><strong>2 aylıq:</strong> 14.99 AZN</li>
+<li><strong>3 aylıq:</strong> 21.99 AZN</li>
+</ul>
 
-        name: "Spotify Premium",
+<h2>YouTube Premium nə verir?</h2>
 
-        image: "spotfiy.webp",
+<ul>
+<li>Videolara reklamsız baxış</li>
+<li>YouTube Music imkanlarından istifadə</li>
+<li>Uyğun videoları offline izləmək üçün yükləmə</li>
+<li>Videoları arxa planda oynatma</li>
+<li>Daha rahat video izləmə təcrübəsi</li>
+</ul>
 
-        rating: "5.0 (1 rəy)",
+<h2>Kimlər üçün uyğundur?</h2>
 
-        short:
-        "Spotify Premium ilə musiqiləri reklamsız dinləyin, mahnıları offline saxlayın və daha rahat musiqi təcrübəsindən istifadə edin.",
+<p>
+YouTube-dan tez-tez istifadə edən, musiqi dinləyən və
+reklamsız video izləmək istəyən istifadəçilər üçün əlverişli seçimdir.
+</p>
 
-        packages: [
-            {
-                name: "1 ay",
-                price: 7.99
-            },
-            {
-                name: "2 ay",
-                price: 14.99
-            },
-            {
-                name: "3 ay",
-                price: 21.99
-            }
-        ],
+<h2>Sifariş necə edilir?</h2>
 
-        content: `
+<p>
+Paket müddətini seçin və <strong>İndi al</strong> düyməsinə basın.
+Sizi birbaşa DigiBaku.com WhatsApp satış xəttinə yönləndirəcəyik.
+</p>
 
-        <h2>Spotify Premium haqqında</h2>
+`,
 
-        <p>
-        <strong>Spotify Premium 1 ay üçün 7.99 AZN-dən başlayır.</strong>
-        Spotify musiqi dinləmək üçün istifadə olunan məşhur platformadır.
-        Premium paket daha rahat musiqi təcrübəsi üçün əlavə imkanlar təqdim edir.
-        </p>
+faq: [
 
-        <h2>Spotify Premium qiyməti və paket müddətləri</h2>
+["YouTube Premium neçəyədir?",
+"YouTube Premium 1 ay üçün 7.99 AZN, 2 ay üçün 14.99 AZN və 3 ay üçün 21.99 AZN-dir."],
 
-        <ul>
-            <li><strong>1 aylıq:</strong> 7.99 AZN</li>
-            <li><strong>2 aylıq:</strong> 14.99 AZN</li>
-            <li><strong>3 aylıq:</strong> 21.99 AZN</li>
-        </ul>
+["YouTube Premium reklamsız işləyir?",
+"Premium xidmət videolara daha rahat və reklamsız baxış imkanları təqdim edir."],
 
-        <h2>Spotify Premium nə verir?</h2>
+["YouTube Premium hansı cihazlarda işləyir?",
+"Telefon, planşet, kompüter, Smart TV və dəstəklənən digər cihazlarda istifadə edilə bilər."],
 
-        <ul>
-            <li>Reklamsız musiqi dinləmə</li>
-            <li>Mahnıları offline dinləmək üçün yükləmə</li>
-            <li>Mahnıları istədiyiniz ardıcıllıqla dinləmə</li>
-            <li>Playlist və albomlardan rahat istifadə</li>
-            <li>Daha rahat musiqi idarəetməsi</li>
-        </ul>
+["YouTube Music istifadə etmək mümkündür?",
+"YouTube Premium paketinin imkanlarından biri də YouTube Music xidmətindən istifadə etməkdir."],
 
-        <h2>Kimlər üçün uyğundur?</h2>
+["Videoları offline izləmək olar?",
+"Dəstəklənən məzmunları uyğun cihazlarda offline izləmək üçün yükləmək mümkündür."],
 
-        <p>
-        Gün ərzində tez-tez musiqi dinləyən, reklamlardan narahat olan
-        və sevdiyi mahnıları daha rahat dinləmək istəyən istifadəçilər üçün uyğundur.
-        </p>
+["Problem yaranarsa nə etməliyəm?",
+"WhatsApp vasitəsilə DigiBaku.com dəstək xətti ilə əlaqə saxlayın: 070 288 34 84."]
+],
 
-        <h2>Sifariş necə edilir?</h2>
+reviews: [
 
-        <p>
-        Uyğun paketi seçin və <strong>İndi al</strong> düyməsinə basın.
-        Sifariş məlumatları avtomatik olaraq WhatsApp mesajına əlavə ediləcək.
-        </p>
+["Əla xidmətdir, tez aktivləşdi.",
+"Orxan",
+"YouTube Premium"],
 
-        `
+["Qiyməti münasibdir və sifariş prosesi rahatdır.",
+"Aysel Məmmədova",
+"YouTube Premium"],
 
-    }
+["Sürətli və rahat xidmət. Təşəkkürlər.",
+"Tural İsmayılov",
+"YouTube Premium"]
+
+],
+
+articles: [
+
+["YouTube Premium nədir və hansı üstünlükləri var?","18.05.2026"],
+
+["YouTube Premium qiyməti və paket seçimi","23.07.2026"],
+
+["Reklamsız video izləməyin üstünlükləri","27.07.2026"]
+
+],
+
+guides: [
+
+"YouTube Premium istifadə qaydaları",
+
+"YouTube Premium qiymət və müddət bələdçisi",
+
+"YouTube Music haqqında",
+
+"Premium video xidmətini seçərkən nələrə diqqət etməli?"
+
+]
+
+},
+
+
+chatgpt: {
+
+name: "ChatGPT Plus",
+
+image: "chatgpt.webp",
+
+rating: "5.0 (1 rəy)",
+
+short:
+"ChatGPT Plus yazı, kod, araşdırma və gündəlik işlərdə süni intellekt imkanlarından istifadə etmək üçün premium xidmətdir.",
+
+packages: [
+{ name: "1 ay", price: 11.99 },
+{ name: "2 ay", price: 22.99 },
+{ name: "3 ay", price: 33.99 }
+],
+
+content: `
+
+<h2>ChatGPT Plus haqqında</h2>
+
+<p>
+<strong>ChatGPT Plus 1 ay üçün 11.99 AZN-dən başlayır.</strong>
+ChatGPT yazı, kod, ideya yaratmaq, araşdırma və gündəlik
+işlərdə süni intellektdən istifadə etmək üçün geniş imkanlar təqdim edir.
+</p>
+
+<h2>ChatGPT Plus qiyməti və paket müddətləri</h2>
+
+<ul>
+<li><strong>1 aylıq:</strong> 11.99 AZN</li>
+<li><strong>2 aylıq:</strong> 22.99 AZN</li>
+<li><strong>3 aylıq:</strong> 33.99 AZN</li>
+</ul>
+
+<h2>ChatGPT Plus nə üçün istifadə olunur?</h2>
+
+<ul>
+<li>Mətn və məqalə hazırlamaq</li>
+<li>Kod yazmaq və proqramlaşdırma</li>
+<li>İdeyalar yaratmaq</li>
+<li>Məlumatları analiz etmək</li>
+<li>Təhsil və araşdırma</li>
+<li>Gündəlik tapşırıqlarda kömək almaq</li>
+</ul>
+
+<h2>Kimlər üçün uyğundur?</h2>
+
+<p>
+Tələbələr, proqramçılar, sahibkarlar, kontent hazırlayanlar,
+dizaynerlər və süni intellektdən gündəlik istifadə edənlər üçün uyğundur.
+</p>
+
+<h2>Sifariş necə edilir?</h2>
+
+<p>
+Müddəti seçin və <strong>İndi al</strong> düyməsinə basın.
+Sifarişiniz WhatsApp vasitəsilə DigiBaku.com satış xəttinə göndəriləcək.
+</p>
+
+`,
+
+faq: [
+
+["ChatGPT Plus neçəyədir?",
+"ChatGPT Plus DigiBaku.com-da 1 ay üçün 11.99 AZN, 2 ay üçün 22.99 AZN və 3 ay üçün 33.99 AZN-dir."],
+
+["ChatGPT Plus nə üçün istifadə olunur?",
+"Yazı, kodlaşdırma, ideya yaratmaq, məlumatların analizi, təhsil və gündəlik işlərdə süni intellekt köməkçisi kimi istifadə edilə bilər."],
+
+["ChatGPT Plus kimlər üçün uyğundur?",
+"Tələbələr, proqramçılar, sahibkarlar, müəllimlər, kontent yaradıcıları və AI-dan istifadə edən digər şəxslər üçün uyğundur."],
+
+["Telefon və kompüterdə istifadə edə bilərəm?",
+"Dəstəklənən tətbiq və veb xidmət vasitəsilə uyğun cihazlarda istifadə etmək mümkündür."],
+
+["Sifarişdən sonra nə baş verir?",
+"Sifariş məlumatlarınız WhatsApp vasitəsilə satış komandamıza göndərilir və aktivləşdirmə prosesi başladılır."],
+
+["Problem yaranarsa hara müraciət edim?",
+"DigiBaku.com WhatsApp dəstək xətti: 070 288 34 84."]
+],
+
+reviews: [
+
+["İşlərimdə çox kömək edir. Sifariş də rahat oldu.",
+"Orxan",
+"ChatGPT Plus"],
+
+["Kod yazmaq və gündəlik işlər üçün çox faydalıdır.",
+"Elvin Cəfərov",
+"ChatGPT Plus"],
+
+["Sürətli xidmət və münasib qiymət.",
+"Ləman Hüseynova",
+"ChatGPT Plus"]
+
+],
+
+articles: [
+
+["ChatGPT Plus nədir və kimlər üçün uyğundur?","18.05.2026"],
+
+["ChatGPT-dən gündəlik işlərdə necə istifadə etmək olar?","23.07.2026"],
+
+["AI abunəliyi seçərkən nələrə diqqət etməli?","27.07.2026"]
+
+],
+
+guides: [
+
+"ChatGPT Plus istifadə bələdçisi",
+
+"AI xidmətlərinin qiymət müqayisəsi",
+
+"ChatGPT-dən təhsil üçün istifadə",
+
+"ChatGPT ilə kodlaşdırmaya başlamaq"
+
+]
+
+},
+
+
+spotify: {
+
+name: "Spotify Premium",
+
+image: "spotfiy.webp",
+
+rating: "5.0 (1 rəy)",
+
+short:
+"Spotify Premium ilə musiqiləri reklamsız dinləyin, mahnıları offline saxlayın və daha rahat musiqi təcrübəsindən istifadə edin.",
+
+packages: [
+{ name: "1 ay", price: 7.99 },
+{ name: "2 ay", price: 14.99 },
+{ name: "3 ay", price: 21.99 }
+],
+
+content: `
+
+<h2>Spotify Premium haqqında</h2>
+
+<p>
+<strong>Spotify Premium 1 ay üçün 7.99 AZN-dən başlayır.</strong>
+Spotify musiqi dinləmək üçün istifadə olunan məşhur platformadır.
+Premium paket daha rahat musiqi təcrübəsi üçün əlavə imkanlar təqdim edir.
+</p>
+
+<h2>Spotify Premium qiyməti və paket müddətləri</h2>
+
+<ul>
+<li><strong>1 aylıq:</strong> 7.99 AZN</li>
+<li><strong>2 aylıq:</strong> 14.99 AZN</li>
+<li><strong>3 aylıq:</strong> 21.99 AZN</li>
+</ul>
+
+<h2>Spotify Premium nə verir?</h2>
+
+<ul>
+<li>Reklamsız musiqi dinləmə</li>
+<li>Mahnıları offline dinləmək üçün yükləmə</li>
+<li>Mahnıları istədiyiniz ardıcıllıqla dinləmə</li>
+<li>Playlist və albomlardan rahat istifadə</li>
+<li>Daha rahat musiqi idarəetməsi</li>
+</ul>
+
+<h2>Kimlər üçün uyğundur?</h2>
+
+<p>
+Gün ərzində tez-tez musiqi dinləyən, reklamlardan narahat olan
+və sevdiyi mahnıları daha rahat dinləmək istəyən istifadəçilər üçün uyğundur.
+</p>
+
+<h2>Sifariş necə edilir?</h2>
+
+<p>
+Uyğun paketi seçin və <strong>İndi al</strong> düyməsinə basın.
+Sifariş məlumatları avtomatik olaraq WhatsApp mesajına əlavə ediləcək.
+</p>
+
+`,
+
+faq: [
+
+["Spotify Premium neçəyədir?",
+"Spotify Premium 1 ay üçün 7.99 AZN, 2 ay üçün 14.99 AZN və 3 ay üçün 21.99 AZN-dir."],
+
+["Spotify Premium reklamsızdır?",
+"Premium xidmət daha rahat və reklamsız musiqi dinləmə təcrübəsi təqdim edir."],
+
+["Mahnıları offline dinləyə bilərəm?",
+"Dəstəklənən məzmunları cihazınıza yükləyərək internet bağlantısı olmadan dinləmək mümkündür."],
+
+["Spotify Premium hansı cihazlarda işləyir?",
+"Telefon, planşet, kompüter və dəstəklənən digər cihazlarda istifadə etmək mümkündür."],
+
+["Playlistlərdən istifadə etmək olur?",
+"Bəli, playlist və albomlardan rahat şəkildə istifadə edə bilərsiniz."],
+
+["Problem yaranarsa nə etməliyəm?",
+"WhatsApp vasitəsilə DigiBaku.com dəstək xətti ilə əlaqə saxlayın: 070 288 34 84."]
+],
+
+reviews: [
+
+["Musiqi üçün çox rahat xidmətdir.",
+"Orxan",
+"Spotify Premium"],
+
+["Qiymət münasibdir, sifariş də tez tamamlandı.",
+"Səbinə Əliyeva",
+"Spotify Premium"],
+
+["Reklamsız musiqi dinləmək çox rahatdır.",
+"Vahid Kərimov",
+"Spotify Premium"]
+
+],
+
+articles: [
+
+["Spotify Premium nədir? Üstünlükləri","18.05.2026"],
+
+["Spotify Premium qiyməti və paket seçimi","23.07.2026"],
+
+["Musiqi abunəliyi seçərkən nələrə diqqət etməli?","27.07.2026"]
+
+],
+
+guides: [
+
+"Spotify Premium istifadə bələdçisi",
+
+"Spotify Premium qiymət və müddət bələdçisi",
+
+"Offline musiqi dinləmək haqqında",
+
+"Premium musiqi xidmətini seçmək"
+
+]
+
+}
 
 };
 
@@ -1148,6 +1585,153 @@ product.short;
 
 document.getElementById("content").innerHTML =
 product.content;
+
+
+/* =====================================================
+   FAQ GÖSTƏR
+===================================================== */
+
+const faqList =
+document.getElementById("faqList");
+
+product.faq.forEach(function(item) {
+
+    const faqItem =
+    document.createElement("div");
+
+    faqItem.className = "faq-item";
+
+    faqItem.innerHTML = `
+
+        <button class="faq-question">
+
+            <span>${item[0]}</span>
+
+            <span class="faq-plus">+</span>
+
+        </button>
+
+        <div class="faq-answer">
+            ${item[1]}
+        </div>
+
+    `;
+
+    const button =
+    faqItem.querySelector(".faq-question");
+
+    button.onclick = function() {
+
+        faqItem.classList.toggle("open");
+
+        const plus =
+        faqItem.querySelector(".faq-plus");
+
+        plus.textContent =
+        faqItem.classList.contains("open") ? "−" : "+";
+
+    };
+
+    faqList.appendChild(faqItem);
+
+});
+
+
+/* =====================================================
+   RƏYLƏR
+===================================================== */
+
+const reviewsGrid =
+document.getElementById("reviewsGrid");
+
+product.reviews.forEach(function(review) {
+
+    const card =
+    document.createElement("div");
+
+    card.className = "review-card";
+
+    card.innerHTML = `
+
+        <div class="review-stars">
+            ★★★★★
+        </div>
+
+        <div class="review-text">
+            ${review[0]}
+        </div>
+
+        <div class="review-name">
+            ${review[1]}
+        </div>
+
+        <div class="review-role">
+            ${review[2]}
+        </div>
+
+    `;
+
+    reviewsGrid.appendChild(card);
+
+});
+
+
+/* =====================================================
+   MƏQALƏLƏR
+===================================================== */
+
+const articlesGrid =
+document.getElementById("articlesGrid");
+
+product.articles.forEach(function(article) {
+
+    const card =
+    document.createElement("div");
+
+    card.className = "article-card";
+
+    card.innerHTML = `
+
+        <h3>
+            ${article[0]}
+        </h3>
+
+        <p>
+            Premium xidmətlər haqqında faydalı məlumatlar,
+            seçim və istifadə məsləhətləri.
+        </p>
+
+        <div class="article-date">
+            ${article[1]}
+        </div>
+
+    `;
+
+    articlesGrid.appendChild(card);
+
+});
+
+
+/* =====================================================
+   BƏLƏDÇİLƏR
+===================================================== */
+
+const guidesList =
+document.getElementById("guidesList");
+
+product.guides.forEach(function(guide) {
+
+    const guideCard =
+    document.createElement("div");
+
+    guideCard.className = "guide-card";
+
+    guideCard.textContent =
+    guide;
+
+    guidesList.appendChild(guideCard);
+
+});
 
 
 /* =====================================================
@@ -1216,7 +1800,6 @@ function updateSelected() {
 
 }
 
-
 showPackages();
 
 updateSelected();
@@ -1235,23 +1818,22 @@ function buyNow() {
     "994702883484";
 
     const message =
-    "Salam DigiBaku.com! Sifariş vermək istəyirəm.%0A%0A" +
-    "Məhsul: " +
-    encodeURIComponent(product.name) +
-    "%0A" +
-    "Müddət: " +
-    encodeURIComponent(item.name) +
-    "%0A" +
-    "Qiymət: " +
-    encodeURIComponent(item.price.toFixed(2) + " AZN");
+    `Salam DigiBaku.com!
+
+Sifariş vermək istəyirəm.
+
+Məhsul: ${product.name}
+Müddət: ${item.name}
+Qiymət: ${item.price.toFixed(2)} AZN`;
 
     const whatsapp =
     "https://wa.me/" +
     phone +
     "?text=" +
-    message;
+    encodeURIComponent(message);
 
-    window.location.href = whatsapp;
+    window.location.href =
+    whatsapp;
 
 }
 
