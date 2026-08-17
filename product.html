@@ -1,955 +1,39 @@
-```html
-<!DOCTYPE html>
-<html lang="az">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>DigiBaku.com — Premium məhsul</title>
-
-<style>
-
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-}
-
-html{
-    scroll-behavior:smooth;
-}
-
-body{
-    font-family:Arial,Helvetica,sans-serif;
-    background:#050505;
-    color:#fff;
-    line-height:1.6;
-}
-
-a{
-    color:inherit;
-    text-decoration:none;
-}
-
-.container{
-    width:92%;
-    max-width:1150px;
-    margin:auto;
-}
-
-
-/* HEADER */
-
-header{
-    position:sticky;
-    top:0;
-    z-index:1000;
-    background:rgba(5,5,5,.95);
-    border-bottom:1px solid #222;
-    backdrop-filter:blur(12px);
-}
-
-.nav{
-    min-height:72px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:20px;
-}
-
-.logo{
-    font-size:25px;
-    font-weight:900;
-    color:#3b82f6;
-}
-
-.logo span{
-    color:#fff;
-}
-
-.nav-links{
-    display:flex;
-    gap:22px;
-}
-
-.nav-links a{
-    color:#aaa;
-    font-size:14px;
-}
-
-.nav-links a:hover{
-    color:#3b82f6;
-}
-
-.nav-button{
-    background:#2563eb;
-    padding:10px 17px;
-    border-radius:9px;
-    font-weight:bold;
-}
-
-
-/* MAIN */
-
-.product-page{
-    padding:55px 0 90px;
-}
-
-
-/* BREADCRUMB */
-
-.breadcrumb{
-    color:#777;
-    font-size:13px;
-    margin-bottom:25px;
-}
-
-.breadcrumb a{
-    color:#60a5fa;
-}
-
-
-/* PRODUCT TOP */
-
-.product-top{
-    display:grid;
-    grid-template-columns:1fr 1.15fr;
-    gap:35px;
-    align-items:start;
-}
-
-
-/* PRODUCT IMAGE */
-
-.product-visual{
-    background:#101010;
-    border:1px solid #252525;
-    border-radius:20px;
-    min-height:480px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding:45px;
-}
-
-.product-visual img{
-    width:100%;
-    max-width:380px;
-    max-height:380px;
-    object-fit:contain;
-}
-
-
-/* PRODUCT INFO */
-
-.product-info{
-    padding:5px 0;
-}
-
-.product-label{
-    display:inline-block;
-    background:#0b1428;
-    border:1px solid #1d4ed8;
-    color:#60a5fa;
-    padding:6px 12px;
-    border-radius:30px;
-    font-size:12px;
-    font-weight:bold;
-    margin-bottom:15px;
-}
-
-.product-info h1{
-    font-size:38px;
-    line-height:1.15;
-    margin-bottom:12px;
-}
-
-.rating{
-    color:#facc15;
-    margin-bottom:15px;
-}
-
-.rating span{
-    color:#777;
-    margin-left:5px;
-}
-
-.description{
-    color:#999;
-    font-size:15px;
-    margin-bottom:25px;
-}
-
-
-/* PACKAGES */
-
-.package-title{
-    font-size:16px;
-    margin-bottom:12px;
-}
-
-.packages{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:10px;
-    margin-bottom:20px;
-}
-
-.package{
-    position:relative;
-    border:1px solid #333;
-    background:#101010;
-    border-radius:12px;
-    padding:17px;
-    cursor:pointer;
-    transition:.2s;
-}
-
-.package:hover{
-    border-color:#3b82f6;
-}
-
-.package.selected{
-    border-color:#2563eb;
-    background:#0b1428;
-    box-shadow:0 0 0 1px #2563eb;
-}
-
-.package strong{
-    display:block;
-    font-size:15px;
-}
-
-.package-price{
-    display:block;
-    font-size:20px;
-    font-weight:900;
-    margin-top:5px;
-}
-
-.package small{
-    color:#777;
-}
-
-.discount{
-    position:absolute;
-    top:-9px;
-    right:8px;
-    background:#16a34a;
-    color:#fff;
-    font-size:10px;
-    padding:3px 7px;
-    border-radius:10px;
-}
-
-
-/* SELECTED PRICE */
-
-.selected-box{
-    background:#101010;
-    border:1px solid #252525;
-    border-radius:14px;
-    padding:20px;
-    margin-bottom:15px;
-}
-
-.selected-price{
-    font-size:31px;
-    font-weight:900;
-}
-
-.selected-period{
-    color:#777;
-    margin-left:5px;
-}
-
-
-/* BUTTONS */
-
-.buttons{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:10px;
-}
-
-.buy-button,
-.cart-button{
-    border:0;
-    border-radius:10px;
-    padding:14px;
-    font-size:15px;
-    font-weight:bold;
-    cursor:pointer;
-}
-
-.buy-button{
-    background:#2563eb;
-    color:#fff;
-}
-
-.buy-button:hover{
-    background:#1d4ed8;
-}
-
-.cart-button{
-    background:#151515;
-    border:1px solid #333;
-    color:#fff;
-}
-
-.cart-button:hover{
-    border-color:#2563eb;
-}
-
-
-/* SAFETY */
-
-.safety{
-    margin-top:15px;
-    padding:14px;
-    border-radius:10px;
-    background:#0a140d;
-    border:1px solid #19351f;
-    color:#8bb995;
-    font-size:13px;
-}
-
-
-/* CONTENT */
-
-.content{
-    margin-top:60px;
-    max-width:850px;
-}
-
-.content h2{
-    font-size:28px;
-    margin:38px 0 12px;
-}
-
-.content h2:first-child{
-    margin-top:0;
-}
-
-.content p{
-    color:#aaa;
-    margin-bottom:15px;
-}
-
-.content ul{
-    padding-left:22px;
-    color:#aaa;
-}
-
-.content li{
-    margin-bottom:9px;
-}
-
-
-/* INFO BOX */
-
-.info-box{
-    background:#101010;
-    border:1px solid #252525;
-    border-radius:14px;
-    padding:22px;
-    margin:20px 0;
-}
-
-.info-box strong{
-    color:#fff;
-}
-
-.info-box p{
-    margin:7px 0 0;
-}
-
-
-/* TRUST */
-
-.trust-section{
-    margin-top:55px;
-    padding-top:45px;
-    border-top:1px solid #222;
-}
-
-.trust-title{
-    text-align:center;
-    margin-bottom:30px;
-}
-
-.trust-title h2{
-    font-size:30px;
-    margin-bottom:7px;
-}
-
-.trust-title p{
-    color:#888;
-}
-
-.trust-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:16px;
-}
-
-.trust-card{
-    background:#101010;
-    border:1px solid #242424;
-    border-radius:15px;
-    padding:24px;
-}
-
-.trust-icon{
-    font-size:25px;
-    margin-bottom:12px;
-}
-
-.trust-card h3{
-    margin-bottom:7px;
-}
-
-.trust-card p{
-    color:#888;
-    font-size:14px;
-}
-
-
-/* OTHER PRODUCTS */
-
-.other-products{
-    margin-top:60px;
-}
-
-.other-title{
-    text-align:center;
-    margin-bottom:25px;
-}
-
-.other-title h2{
-    font-size:30px;
-}
-
-.other-title p{
-    color:#888;
-}
-
-.other-grid{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:15px;
-}
-
-.other-card{
-    background:#101010;
-    border:1px solid #252525;
-    border-radius:14px;
-    padding:18px;
-    text-align:center;
-}
-
-.other-card img{
-    width:100%;
-    height:110px;
-    object-fit:contain;
-    margin-bottom:10px;
-}
-
-.other-card h3{
-    font-size:15px;
-    margin-bottom:8px;
-}
-
-.other-card a{
-    display:block;
-    background:#151515;
-    border:1px solid #333;
-    padding:9px;
-    border-radius:8px;
-    color:#60a5fa;
-    font-size:13px;
-}
-
-.other-card a:hover{
-    border-color:#2563eb;
-}
-
-
-/* FOOTER */
-
-footer{
-    border-top:1px solid #222;
-    padding:35px 0;
-    background:#030303;
-    margin-top:30px;
-}
-
-.footer{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:20px;
-}
-
-.footer p{
-    color:#666;
-    font-size:13px;
-}
-
-.footer-links{
-    display:flex;
-    gap:18px;
-}
-
-.footer-links a{
-    color:#777;
-    font-size:13px;
-}
-
-.footer-links a:hover{
-    color:#3b82f6;
-}
-
-
-/* RESPONSIVE */
-
-@media(max-width:900px){
-
-    .product-top{
-        grid-template-columns:1fr;
-    }
-
-    .product-visual{
-        min-height:350px;
-    }
-
-    .other-grid{
-        grid-template-columns:repeat(2,1fr);
-    }
-
-}
-
-@media(max-width:650px){
-
-    .nav-links{
-        display:none;
-    }
-
-    .product-info h1{
-        font-size:30px;
-    }
-
-    .packages{
-        grid-template-columns:1fr;
-    }
-
-    .buttons{
-        grid-template-columns:1fr;
-    }
-
-    .trust-grid{
-        grid-template-columns:1fr;
-    }
-
-    .other-grid{
-        grid-template-columns:1fr;
-    }
-
-    .footer{
-        flex-direction:column;
-        text-align:center;
-    }
-
-}
-
-
-/* TOAST */
-
-.toast{
-    position:fixed;
-    bottom:25px;
-    right:25px;
-    background:#161616;
-    border:1px solid #333;
-    padding:15px 20px;
-    border-radius:10px;
-    display:none;
-    z-index:9999;
-    box-shadow:0 10px 30px rgba(0,0,0,.4);
-}
-
-.toast.show{
-    display:block;
-}
-
-</style>
-
-</head>
-
-
-<body>
-
-
-<header>
-
-<div class="container nav">
-
-<a href="index.html" class="logo">
-DigiBaku<span>.com</span>
-</a>
-
-<nav class="nav-links">
-<a href="index.html">Ana səhifə</a>
-<a href="index.html#products">Məhsullar</a>
-<a href="index.html#about">Haqqımızda</a>
-<a href="index.html#reviews">Rəylər</a>
-<a href="index.html#contact">Əlaqə</a>
-</nav>
-
-<a href="index.html#products" class="nav-button">
-Məhsullar
-</a>
-
-</div>
-
-</header>
-
-
-<main class="product-page">
-
-<div class="container">
-
-
-<div class="breadcrumb">
-
-<a href="index.html">Ana səhifə</a>
-&nbsp; / &nbsp;
-<span id="breadcrumbName">Məhsul</span>
-
-</div>
-
-
-<div class="product-top">
-
-
-<!-- ŞƏKİL -->
-
-<div class="product-visual">
-
-<img id="productImage" src="netflix.webp" alt="Premium məhsul">
-
-</div>
-
-
-<!-- MƏHSUL MƏLUMATLARI -->
-
-<div class="product-info">
-
-<div class="product-label">
-Premium rəqəmsal xidmət
-</div>
-
-<h1 id="productName">
-Netflix 4K Premium Abunəliyi
-</h1>
-
-<div class="rating">
-★★★★★
-<span>4.0 (1 rəy)</span>
-</div>
-
-<p class="description" id="shortDescription">
-Netflix Premium abunəliyi ilə film və serialları yüksək
-keyfiyyətdə izləyin və premium imkanlardan istifadə edin.
-</p>
-
-
-<div class="package-title">
-Müddət seçin
-</div>
-
-<div class="packages" id="packages">
-</div>
-
-
-<div class="selected-box">
-
-<span class="selected-price" id="selectedPrice">
-5.99 AZN
-</span>
-
-<span class="selected-period" id="selectedPeriod">
-1 ay
-</span>
-
-</div>
-
-
-<div class="buttons">
-
-<button class="buy-button" onclick="buyNow()">
-İndi al
-</button>
-
-<button class="cart-button" onclick="addToCart()">
-Səbətə at
-</button>
-
-</div>
-
-
-<div class="safety">
-🔒 Məlumatlarınız təhlükəsiz saxlanılır.
-</div>
-
-
-</div>
-
-</div>
-
-
-<!-- ƏTRAFLI MƏLUMAT -->
-
-<div class="content" id="content">
-
-<h2 id="aboutTitle">
-Netflix Premium haqqında
-</h2>
-
-<div id="productContent">
-</div>
-
-
-<!-- ETİBAR -->
-
-<div class="trust-section">
-
-<div class="trust-title">
-
-<h2>Etibar və sifariş</h2>
-
-<p>
-DigiBaku.com-da sifariş prosesi sadə və rahat şəkildə hazırlanıb.
-</p>
-
-</div>
-
-
-<div class="trust-grid">
-
-
-<div class="trust-card">
-
-<div class="trust-icon">⚡</div>
-
-<h3>Sürətli aktivləşdirmə</h3>
-
-<p>
-Sifarişiniz təsdiqləndikdən sonra seçdiyiniz xidmətin
-aktivləşdirilməsi üçün proses başladılır.
-</p>
-
-</div>
-
-
-<div class="trust-card">
-
-<div class="trust-icon">🔒</div>
-
-<h3>Təhlükəsiz sifariş</h3>
-
-<p>
-Sifariş zamanı təqdim etdiyiniz məlumatların
-qorunmasına diqqət yetiririk.
-</p>
-
-</div>
-
-
-<div class="trust-card">
-
-<div class="trust-icon">💬</div>
-
-<h3>Operativ dəstək</h3>
-
-<p>
-Sifariş və istifadə ilə bağlı suallarınız yarandıqda
-dəstək komandamızla əlaqə saxlaya bilərsiniz.
-</p>
-
-</div>
-
-
-</div>
-
-</div>
-
-
-</div>
-
-
-<!-- DİGƏR MƏHSULLAR -->
-
-<div class="other-products">
-
-<div class="other-title">
-
-<h2>Digər premium xidmətlər</h2>
-
-<p>
-DigiBaku.com-da digər premium xidmətləri də kəşf edin.
-</p>
-
-</div>
-
-
-<div class="other-grid">
-
-
-<div class="other-card">
-
-<img src="netflix.webp" alt="Netflix">
-
-<h3>Netflix Premium</h3>
-
-<a href="product.html?product=netflix">
-Ətraflı bax
-</a>
-
-</div>
-
-
-<div class="other-card">
-
-<img src="youtube.webp" alt="YouTube Premium">
-
-<h3>YouTube Premium</h3>
-
-<a href="product.html?product=youtube">
-Ətraflı bax
-</a>
-
-</div>
-
-
-<div class="other-card">
-
-<img src="chatgpt.webp" alt="ChatGPT Plus">
-
-<h3>ChatGPT Plus</h3>
-
-<a href="product.html?product=chatgpt">
-Ətraflı bax
-</a>
-
-</div>
-
-
-<div class="other-card">
-
-<img src="spotfiy.webp" alt="Spotify Premium">
-
-<h3>Spotify Premium</h3>
-
-<a href="product.html?product=spotify">
-Ətraflı bax
-</a>
-
-</div>
-
-
-</div>
-
-</div>
-
-
-</div>
-
-</main>
-
-
-<footer>
-
-<div class="container footer">
-
-<div>
-<strong class="logo">
-DigiBaku<span>.com</span>
-</strong>
-
-<p>
-© 2026 DigiBaku.com. Bütün hüquqlar qorunur.
-</p>
-</div>
-
-<div class="footer-links">
-
-<a href="index.html">Ana səhifə</a>
-<a href="index.html#products">Məhsullar</a>
-<a href="index.html#contact">Əlaqə</a>
-
-</div>
-
-</div>
-
-</footer>
-
-
-<div class="toast" id="toast">
-Sifarişiniz səbətə əlavə edildi.
-</div>
-
-
 <script>
-
-
-/*
-========================================================
-DİGİBAKU MƏHSULLARI
-========================================================
-*/
-
 
 const products = {
 
 netflix:{
 
 name:"Netflix 4K Premium Abunəliyi",
-
 image:"netflix.webp",
-
 rating:"4.0 (1 rəy)",
 
 short:
 "Netflix Premium abunəliyi ilə film və serialları Ultra HD keyfiyyətdə izləyin. Premium məzmunlara rahat şəkildə çıxış əldə edin.",
 
 packages:[
-
 {
 name:"1 ay",
-price:5.99,
-discount:"-38%"
+price:6.99,
+discount:""
 },
-
 {
 name:"2 ay",
-price:9.99,
-discount:"-17%"
+price:12.99,
+discount:""
 },
-
 {
 name:"3 ay",
-price:13.99,
-discount:"-13%"
+price:17.99,
+discount:""
 }
-
 ],
 
 content:`
 
 <p>
-<strong>Netflix Premium abunəliyinin qiyməti 1 ay üçün 5.99 AZN-dən başlayır.</strong>
-2 aylıq paket 9.99 AZN, 3 aylıq paket isə 13.99 AZN-dir.
+<strong>Netflix Premium abunəliyinin qiyməti 1 ay üçün 6.99 AZN-dən başlayır.</strong>
+2 aylıq paket 12.99 AZN, 3 aylıq paket isə 17.99 AZN-dir.
 Netflix film və serial izləmək üçün dünyanın ən məşhur premium
 platformalarından biridir.
 </p>
@@ -957,16 +41,10 @@ platformalarından biridir.
 <h2>Netflix Premium qiyməti və paket müddətləri</h2>
 
 <ul>
-<li><strong>1 aylıq:</strong> 5.99 AZN</li>
-<li><strong>2 aylıq:</strong> 9.99 AZN</li>
-<li><strong>3 aylıq:</strong> 13.99 AZN</li>
+<li><strong>1 aylıq:</strong> 6.99 AZN</li>
+<li><strong>2 aylıq:</strong> 12.99 AZN</li>
+<li><strong>3 aylıq:</strong> 17.99 AZN</li>
 </ul>
-
-<p>
-İlk dəfə istifadə edirsinizsə 1 aylıq paketlə başlamaq rahatdır.
-Daha uzun müddət istifadə etmək istəyirsinizsə 2 və 3 aylıq
-paketləri seçə bilərsiniz.
-</p>
 
 <h2>Netflix 4K Premium nə verir?</h2>
 
@@ -984,66 +62,45 @@ paketləri seçə bilərsiniz.
 <p>
 4K görüntüdən istifadə etmək üçün 4K dəstəkləyən ekran,
 uyğun Netflix tətbiqi və stabil internet bağlantısı lazımdır.
-Cihaz və ya internet bağlantısı uyğun olmadıqda görüntü keyfiyyəti
-avtomatik olaraq daha aşağı səviyyəyə düşə bilər.
 </p>
-
-<div class="info-box">
-
-<strong>Netflix kimlər üçün uyğundur?</strong>
-
-<p>
-Film, serial və sənədli filmlərə baxmağı sevən,
-Smart TV və digər cihazlarda yüksək keyfiyyətli məzmun
-izləmək istəyən istifadəçilər üçün uyğundur.
-</p>
-
-</div>
 
 <h2>Sifariş və istifadə</h2>
 
 <p>
-Sizə uyğun müddəti seçin və sifariş prosesini tamamlayın.
-Sifariş təsdiqləndikdən sonra aktivləşdirmə prosesi həyata keçirilir.
-İstifadə zamanı təqdim olunan hesab qaydalarına əməl etmək tövsiyə olunur.
+Uyğun müddəti seçin və sifarişinizi tamamlayın.
+Aktivləşdirmə məlumatları təqdim edildikdən sonra
+xidmətdən istifadə etməyə başlaya bilərsiniz.
 </p>
 
 `
 
 },
 
-
 youtube:{
 
 name:"YouTube Premium",
-
 image:"youtube.webp",
-
 rating:"5.0 (1 rəy)",
 
 short:
 "YouTube Premium ilə videolara reklamsız baxın, musiqidən rahat istifadə edin və premium funksiyalardan yararlanın.",
 
 packages:[
-
 {
 name:"1 ay",
 price:7.99,
 discount:""
 },
-
 {
 name:"2 ay",
 price:14.99,
 discount:""
 },
-
 {
 name:"3 ay",
 price:21.99,
 discount:""
 }
-
 ],
 
 content:`
@@ -1068,73 +125,39 @@ istəyən istifadəçilər üçün premium seçimdir.
 <ul>
 <li>Videolarda reklamsız izləmə</li>
 <li>YouTube Music-dən istifadə</li>
-<li>Uyğun cihazlarda videoları offline izləmək üçün yükləmə</li>
+<li>Videoları offline izləmək üçün yükləmə</li>
 <li>Videonu arxa planda oynatma</li>
-<li>Daha rahat video izləmə təcrübəsi</li>
 </ul>
-
-<h2>YouTube Premium kimlər üçün uyğundur?</h2>
-
-<p>
-YouTube-da çox vaxt keçirən, reklamların videoya müdaxilə etməsini
-istəməyən və musiqi dinləmək üçün də YouTube-dan istifadə edənlər
-üçün əlverişli seçimdir.
-</p>
-
-<div class="info-box">
-
-<strong>Mobil və kompüterdə istifadə</strong>
-
-<p>
-YouTube Premium uyğun mobil cihazlarda, kompüterlərdə və
-Smart TV-lərdə istifadə edilə bilər.
-</p>
-
-</div>
-
-<h2>Sifariş və istifadə</h2>
-
-<p>
-Uyğun paketi seçin, sifarişinizi tamamlayın və aktivləşdirmə
-məlumatlarını əldə etdikdən sonra xidmətdən istifadə etməyə başlayın.
-</p>
 
 `
 
 },
 
-
 chatgpt:{
 
 name:"ChatGPT Plus",
-
 image:"chatgpt.webp",
-
 rating:"5.0 (1 rəy)",
 
 short:
 "ChatGPT Plus yazı, kod, araşdırma və gündəlik işlərdə süni intellekt imkanlarından daha rahat istifadə etmək üçün premium xidmətdir.",
 
 packages:[
-
 {
 name:"1 ay",
 price:11.99,
 discount:""
 },
-
 {
 name:"2 ay",
 price:22.99,
 discount:""
 },
-
 {
 name:"3 ay",
 price:33.99,
 discount:""
 }
-
 ],
 
 content:`
@@ -1142,8 +165,8 @@ content:`
 <p>
 <strong>ChatGPT Plus 1 ay üçün 11.99 AZN-dən başlayır.</strong>
 Süni intellektdən gündəlik istifadə edən, yazı yazan,
-kod hazırlayan, ideyalar yaradan və müxtəlif mövzularda
-kömək alan istifadəçilər üçün nəzərdə tutulmuş premium xidmətdir.
+kod hazırlayan və müxtəlif mövzularda kömək alan istifadəçilər
+üçün nəzərdə tutulmuş premium xidmətdir.
 </p>
 
 <h2>ChatGPT Plus qiyməti və paket müddətləri</h2>
@@ -1157,77 +180,42 @@ kömək alan istifadəçilər üçün nəzərdə tutulmuş premium xidmətdir.
 <h2>ChatGPT Plus nə üçün istifadə olunur?</h2>
 
 <ul>
-<li>Mətn və məqalə hazırlamaq</li>
-<li>Kod yazmaq və proqramlaşdırma işlərində kömək almaq</li>
+<li>Mətn hazırlamaq</li>
+<li>Kod yazmaq</li>
 <li>İdeyalar yaratmaq</li>
 <li>Məlumatları analiz etmək</li>
 <li>Təhsil və araşdırma işlərində istifadə</li>
-<li>Gündəlik tapşırıqları daha rahat həll etmək</li>
 </ul>
-
-<h2>Kimlər üçün uyğundur?</h2>
-
-<p>
-Tələbələr, proqramçılar, dizaynerlər, sahibkarlar,
-kontent hazırlayanlar və süni intellektdən daha çox istifadə
-edən şəxslər üçün faydalı seçimdir.
-</p>
-
-<div class="info-box">
-
-<strong>Yazı və kod işləri</strong>
-
-<p>
-ChatGPT-dən mətn hazırlamaq, fikirləri formalaşdırmaq,
-kod nümunələri yaratmaq və müxtəlif işlərdə kömək almaq üçün istifadə edə bilərsiniz.
-</p>
-
-</div>
-
-<h2>Sifariş və istifadə</h2>
-
-<p>
-Müddəti seçin və sifarişinizi tamamlayın.
-Aktivləşdirmə məlumatları təqdim edildikdən sonra
-xidmətdən istifadə etməyə başlaya bilərsiniz.
-</p>
 
 `
 
 },
 
-
 spotify:{
 
 name:"Spotify Premium",
-
 image:"spotfiy.webp",
-
 rating:"5.0 (1 rəy)",
 
 short:
 "Spotify Premium ilə musiqiləri reklamsız dinləyin, sevdiyiniz mahnıları offline saxlayın və daha rahat musiqi təcrübəsindən istifadə edin.",
 
 packages:[
-
 {
 name:"1 ay",
 price:7.99,
 discount:""
 },
-
 {
 name:"2 ay",
 price:14.99,
 discount:""
 },
-
 {
 name:"3 ay",
 price:21.99,
 discount:""
 }
-
 ],
 
 content:`
@@ -1253,34 +241,7 @@ təcrübəsi istəyən istifadəçilər üçün premium xidmətdir.
 <li>Mahnıları offline dinləmək üçün yükləmə</li>
 <li>Mahnıları istədiyiniz ardıcıllıqla dinləmək</li>
 <li>Daha rahat musiqi idarəetməsi</li>
-<li>Sevdiyiniz albom və playlistlərə giriş</li>
 </ul>
-
-<h2>Spotify Premium kimlər üçün uyğundur?</h2>
-
-<p>
-Gün ərzində tez-tez musiqi dinləyən,
-reklam fasilələrindən narahat olan və
-internet olmadan musiqilərinə qulaq asmaq istəyən istifadəçilər üçün uyğundur.
-</p>
-
-<div class="info-box">
-
-<strong>Telefon və digər cihazlarda istifadə</strong>
-
-<p>
-Spotify Premium uyğun telefon, planşet, kompüter və digər
-dəstəklənən cihazlarda istifadə edilə bilər.
-</p>
-
-</div>
-
-<h2>Sifariş və istifadə</h2>
-
-<p>
-Uyğun müddəti seçin, sifarişinizi tamamlayın və
-aktivləşdirmədən sonra Spotify Premium imkanlarından istifadə edin.
-</p>
 
 `
 
@@ -1289,11 +250,7 @@ aktivləşdirmədən sonra Spotify Premium imkanlarından istifadə edin.
 };
 
 
-/*
-========================================================
-MƏHSULU URL-DƏN GÖTÜR
-========================================================
-*/
+/* SEÇİLƏN MƏHSUL */
 
 const params = new URLSearchParams(window.location.search);
 
@@ -1308,14 +265,9 @@ const product = products[productKey];
 let selectedPackage = 0;
 
 
-/*
-========================================================
-SƏHİFƏ MƏLUMATLARINI YERLƏŞDİR
-========================================================
-*/
+/* MƏLUMATLAR */
 
-document.title =
-"DigiBaku.com — " + product.name;
+document.title = "DigiBaku.com — " + product.name;
 
 document.getElementById("productName").textContent =
 product.name;
@@ -1339,11 +291,7 @@ document.getElementById("productContent").innerHTML =
 product.content;
 
 
-/*
-========================================================
-PAKETLƏR
-========================================================
-*/
+/* PAKETLƏR */
 
 const packagesContainer =
 document.getElementById("packages");
@@ -1385,9 +333,7 @@ function renderPackages(){
                 ${pkg.price.toFixed(2)} AZN
             </span>
 
-            <small>
-                Premium paket
-            </small>
+            <small>Premium paket</small>
 
         `;
 
@@ -1417,31 +363,30 @@ renderPackages();
 updatePrice();
 
 
-/*
-========================================================
-SİFARİŞ
-========================================================
-*/
+/* WHATSAPP */
 
 function buyNow(){
 
     const pkg =
     product.packages[selectedPackage];
 
-    /*
-    Əgər səndə cart.html varsa ora keçir.
-    */
+    const phone = "994702883484";
+
+    const message =
+    "Salam DigiBaku.com, mən sifariş vermək istəyirəm.%0A%0A" +
+    "Məhsul: " + product.name +
+    "%0A" +
+    "Müddət: " + pkg.name +
+    "%0A" +
+    "Qiymət: " + pkg.price.toFixed(2) + " AZN";
 
     window.location.href =
-    "cart.html?product=" +
-    encodeURIComponent(productKey) +
-    "&period=" +
-    encodeURIComponent(pkg.name) +
-    "&price=" +
-    encodeURIComponent(pkg.price);
+    "https://wa.me/" + phone + "?text=" + message;
 
 }
 
+
+/* SƏBƏT */
 
 function addToCart(){
 
@@ -1486,8 +431,3 @@ function showToast(){
 }
 
 </script>
-
-
-</body>
-</html>
-```
