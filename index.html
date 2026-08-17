@@ -1,24 +1,44 @@
-```html
 <!DOCTYPE html>
 <html lang="az">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>DigiBaku.com — Premium rəqəmsal xidmətlər</title>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
 body{
     font-family:Arial,Helvetica,sans-serif;
     background:#050505;
     color:#fff;
     line-height:1.6;
 }
-a{text-decoration:none;color:inherit}
-.container{width:92%;max-width:1200px;margin:auto}
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+.container{
+    width:92%;
+    max-width:1200px;
+    margin:auto;
+}
 
 /* HEADER */
+
 header{
     position:sticky;
     top:0;
@@ -27,6 +47,7 @@ header{
     border-bottom:1px solid #222;
     backdrop-filter:blur(12px);
 }
+
 .nav{
     min-height:72px;
     display:flex;
@@ -34,27 +55,37 @@ header{
     justify-content:space-between;
     gap:20px;
 }
+
 .logo{
     font-size:26px;
     font-weight:900;
     color:#3b82f6;
 }
-.logo span{color:#fff}
+
+.logo span{
+    color:#fff;
+}
 
 .menu{
     display:flex;
     gap:22px;
 }
+
 .menu a{
     color:#aaa;
     font-size:14px;
 }
-.menu a:hover{color:#3b82f6}
+
+.menu a:hover{
+    color:#3b82f6;
+}
 
 .auth{
     display:flex;
     gap:8px;
+    align-items:center;
 }
+
 .btn{
     display:inline-block;
     border:0;
@@ -63,18 +94,40 @@ header{
     font-weight:700;
     cursor:pointer;
 }
+
 .btn-primary{
     background:#2563eb;
     color:#fff;
 }
-.btn-primary:hover{background:#1d4ed8}
+
+.btn-primary:hover{
+    background:#1d4ed8;
+}
+
 .btn-dark{
     background:#151515;
     color:#fff;
     border:1px solid #333;
 }
 
+.user-email{
+    display:flex;
+    align-items:center;
+    max-width:180px;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    background:#151515;
+    border:1px solid #333;
+    border-radius:9px;
+    padding:10px 13px;
+    color:#60a5fa;
+    font-size:13px;
+    font-weight:bold;
+}
+
 /* HERO */
+
 .hero{
     padding:90px 0;
     background:
@@ -82,16 +135,19 @@ header{
     radial-gradient(circle at 90% 20%,#111827 0,transparent 35%),
     #050505;
 }
+
 .hero-inner{
     display:flex;
     align-items:center;
     justify-content:space-between;
     gap:55px;
 }
+
 .hero-content{
     flex:1;
     max-width:620px;
 }
+
 .badge{
     display:inline-block;
     padding:7px 14px;
@@ -102,26 +158,34 @@ header{
     font-size:13px;
     margin-bottom:20px;
 }
+
 .hero h1{
     font-size:55px;
     line-height:1.08;
     margin-bottom:20px;
 }
-.hero h1 span{color:#3b82f6}
+
+.hero h1 span{
+    color:#3b82f6;
+}
+
 .hero p{
     color:#aaa;
     font-size:17px;
     margin-bottom:28px;
 }
+
 .hero-buttons{
     display:flex;
     gap:10px;
 }
+
 .hero-image{
     flex:1;
     display:flex;
     justify-content:center;
 }
+
 .hero-image img{
     width:100%;
     max-width:550px;
@@ -131,23 +195,33 @@ header{
 }
 
 /* SECTIONS */
-section{padding:75px 0}
+
+section{
+    padding:75px 0;
+}
+
 .section-title{
     text-align:center;
     margin-bottom:40px;
 }
+
 .section-title h2{
     font-size:36px;
     margin-bottom:8px;
 }
-.section-title p{color:#999}
+
+.section-title p{
+    color:#999;
+}
 
 /* PRODUCTS */
+
 .products{
     display:grid;
     grid-template-columns:repeat(4,1fr);
     gap:20px;
 }
+
 .product{
     background:#101010;
     border:1px solid #242424;
@@ -155,10 +229,12 @@ section{padding:75px 0}
     padding:20px;
     transition:.25s;
 }
+
 .product:hover{
     transform:translateY(-5px);
     border-color:#2563eb;
 }
+
 .product-image{
     width:100%;
     height:145px;
@@ -168,54 +244,70 @@ section{padding:75px 0}
     border-radius:12px;
     margin-bottom:15px;
 }
+
 .product h3{
     font-size:20px;
     margin-bottom:8px;
 }
+
 .product p{
     color:#888;
     font-size:14px;
     min-height:48px;
 }
+
 .price{
     font-size:23px;
     font-weight:900;
     margin:15px 0;
 }
+
 .price small{
     color:#777;
     font-size:13px;
     font-weight:400;
 }
+
 .product-actions{
     display:flex;
     gap:8px;
     flex-direction:column;
 }
+
 .product-actions a{
     text-align:center;
 }
 
 /* FEATURES */
+
 .features{
     display:grid;
     grid-template-columns:repeat(3,1fr);
     gap:20px;
 }
+
 .feature{
     background:#101010;
     border:1px solid #222;
     border-radius:15px;
     padding:28px;
 }
+
 .feature img{
     width:60px;
     height:60px;
     object-fit:contain;
     margin-bottom:12px;
 }
-.feature h3{margin-bottom:8px}
-.feature p{color:#999}
+
+.feature h3{
+    margin-bottom:8px;
+}
+
+.feature p{
+    color:#999;
+}
+
 .feature strong{
     display:block;
     margin-top:14px;
@@ -223,72 +315,97 @@ section{padding:75px 0}
 }
 
 /* ABOUT */
-.about{background:#090909}
+
+.about{
+    background:#090909;
+}
+
 .about-content{
     max-width:850px;
     margin:auto;
     text-align:center;
 }
+
 .about-content h2{
     font-size:38px;
     margin-bottom:18px;
 }
+
 .about-content p{
     color:#aaa;
     margin-bottom:14px;
 }
 
 /* COMPARE */
+
 .compare-grid{
     display:grid;
     grid-template-columns:repeat(2,1fr);
     gap:18px;
 }
+
 .compare-card{
     background:#101010;
     border:1px solid #242424;
     padding:24px;
     border-radius:15px;
 }
-.compare-card:hover{border-color:#2563eb}
-.compare-card h3{margin-bottom:10px}
+
+.compare-card:hover{
+    border-color:#2563eb;
+}
+
+.compare-card h3{
+    margin-bottom:10px;
+}
+
 .compare-card p{
     color:#999;
     margin-bottom:15px;
 }
+
 .compare-card a{
     color:#60a5fa;
     font-weight:bold;
 }
 
 /* REVIEWS */
-.reviews{background:#090909}
+
+.reviews{
+    background:#090909;
+}
+
 .review-grid{
     display:grid;
     grid-template-columns:repeat(4,1fr);
     gap:18px;
 }
+
 .review{
     background:#101010;
     border:1px solid #242424;
     border-radius:15px;
     padding:23px;
 }
+
 .stars{
     color:#facc15;
     font-size:18px;
     margin-bottom:12px;
 }
+
 .review-text{
     color:#ddd;
     min-height:75px;
     margin-bottom:18px;
 }
+
 .reviewer{
     display:flex;
     align-items:center;
     gap:10px;
 }
+
 .avatar{
     width:42px;
     height:42px;
@@ -299,35 +416,47 @@ section{padding:75px 0}
     justify-content:center;
     font-weight:bold;
 }
-.reviewer strong{display:block}
+
+.reviewer strong{
+    display:block;
+}
+
 .reviewer span{
     color:#777;
     font-size:12px;
 }
 
 /* BLOG */
+
 .blog-grid{
     display:grid;
     grid-template-columns:repeat(3,1fr);
     gap:20px;
 }
+
 .blog-card{
     background:#101010;
     border:1px solid #222;
     border-radius:15px;
     padding:24px;
 }
-.blog-card h3{margin-bottom:9px}
+
+.blog-card h3{
+    margin-bottom:9px;
+}
+
 .blog-card p{
     color:#999;
     font-size:14px;
 }
 
 /* FAQ */
+
 .faq{
     max-width:850px;
     margin:auto;
 }
+
 .faq-item{
     background:#101010;
     border:1px solid #252525;
@@ -335,6 +464,7 @@ section{padding:75px 0}
     margin-bottom:10px;
     overflow:hidden;
 }
+
 .faq-question{
     padding:17px;
     font-weight:bold;
@@ -342,47 +472,67 @@ section{padding:75px 0}
     justify-content:space-between;
     cursor:pointer;
 }
+
 .faq-answer{
     display:none;
     padding:0 17px 17px;
     color:#999;
 }
-.faq-item.open .faq-answer{display:block}
+
+.faq-item.open .faq-answer{
+    display:block;
+}
 
 /* CONTACT */
-.contact{background:#090909}
+
+.contact{
+    background:#090909;
+}
+
 .contact-grid{
     display:grid;
     grid-template-columns:1fr 1fr;
     gap:25px;
 }
+
 .contact-box{
     background:#101010;
     border:1px solid #222;
     border-radius:15px;
     padding:28px;
 }
-.contact-box p{color:#999}
+
+.contact-box p{
+    color:#999;
+}
+
 .contact-item{
     margin-top:15px;
 }
+
 .contact-item span{
     display:block;
     color:#999;
 }
 
 /* FOOTER */
+
 footer{
     background:#030303;
     border-top:1px solid #222;
     padding:45px 0 20px;
 }
+
 .footer-grid{
     display:grid;
     grid-template-columns:2fr 1fr 1fr 1fr;
     gap:30px;
 }
-.footer-col h3{margin-bottom:13px}
+
+.footer-col h3{
+    margin-bottom:13px;
+}
+
 .footer-col p,
 .footer-col a{
     display:block;
@@ -390,7 +540,11 @@ footer{
     font-size:14px;
     margin-bottom:7px;
 }
-.footer-col a:hover{color:#3b82f6}
+
+.footer-col a:hover{
+    color:#3b82f6;
+}
+
 .copyright{
     border-top:1px solid #222;
     margin-top:30px;
@@ -401,23 +555,69 @@ footer{
 }
 
 /* RESPONSIVE */
+
 @media(max-width:1000px){
-    .products{grid-template-columns:repeat(2,1fr)}
-    .review-grid{grid-template-columns:repeat(2,1fr)}
-    .features{grid-template-columns:1fr}
-    .footer-grid{grid-template-columns:1fr 1fr}
-    .menu{display:none}
+
+    .products{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .review-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .features{
+        grid-template-columns:1fr;
+    }
+
+    .footer-grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .menu{
+        display:none;
+    }
 }
+
 @media(max-width:700px){
+
+    .nav{
+        min-height:65px;
+    }
+
+    .logo{
+        font-size:22px;
+    }
+
+    .auth{
+        gap:5px;
+    }
+
+    .auth .btn{
+        padding:9px 10px;
+        font-size:12px;
+    }
+
+    .user-email{
+        max-width:120px;
+        font-size:11px;
+        padding:9px 8px;
+    }
+
     .hero-inner{
         flex-direction:column;
         text-align:center;
     }
-    .hero h1{font-size:39px}
+
+    .hero h1{
+        font-size:39px;
+    }
+
     .hero-buttons{
         justify-content:center;
         flex-direction:column;
     }
+
     .products,
     .compare-grid,
     .review-grid,
@@ -425,7 +625,10 @@ footer{
     .contact-grid{
         grid-template-columns:1fr;
     }
-    .footer-grid{grid-template-columns:1fr}
+
+    .footer-grid{
+        grid-template-columns:1fr;
+    }
 }
 </style>
 </head>
@@ -433,6 +636,7 @@ footer{
 <body>
 
 <header>
+
 <div class="container nav">
 
 <a href="#home" class="logo">
@@ -440,6 +644,7 @@ DigiBaku<span>.com</span>
 </a>
 
 <nav class="menu">
+
 <a href="#home">Ana səhifə</a>
 <a href="#products">Məhsullar</a>
 <a href="#compare">Müqayisə</a>
@@ -447,21 +652,32 @@ DigiBaku<span>.com</span>
 <a href="#reviews">Rəylər</a>
 <a href="#blog">Bloq</a>
 <a href="#contact">Əlaqə</a>
+
 </nav>
 
-<div class="auth">
-<a href="login.html" class="btn btn-dark">Daxil ol</a>
-<a href="login.html" class="btn btn-primary">Qeydiyyat</a>
+<div class="auth" id="authArea">
+
+<a href="login.html" class="btn btn-dark">
+Daxil ol
+</a>
+
+<a href="login.html" class="btn btn-primary">
+Qeydiyyat
+</a>
+
 </div>
 
 </div>
+
 </header>
 
 
 <main>
 
 <!-- HERO -->
+
 <section class="hero" id="home">
+
 <div class="container hero-inner">
 
 <div class="hero-content">
@@ -483,6 +699,7 @@ bir araya gətirərək rəqəmsal xidmətlərə çıxışı daha rahat edirik.
 </p>
 
 <div class="hero-buttons">
+
 <a href="#products" class="btn btn-primary">
 Məhsullara bax
 </a>
@@ -490,34 +707,43 @@ Məhsullara bax
 <a href="#about" class="btn btn-dark">
 Haqqımızda
 </a>
+
 </div>
 
 </div>
 
 <div class="hero-image">
+
 <img
 src="homeheroimage-1784180505-800w.avif"
 alt="DigiBaku.com premium rəqəmsal xidmətlər">
+
 </div>
 
 </div>
+
 </section>
 
 
 <!-- PRODUCTS -->
+
 <section id="products">
 
 <div class="container">
 
 <div class="section-title">
+
 <h2>Məhsullar</h2>
-<p>Premium rəqəmsal xidmətlərimizi kəşf edin.</p>
+
+<p>
+Premium rəqəmsal xidmətlərimizi kəşf edin.
+</p>
+
 </div>
 
 <div class="products">
 
 
-<!-- NETFLIX -->
 <div class="product">
 
 <img
@@ -555,7 +781,6 @@ Sifariş et
 </div>
 
 
-<!-- YOUTUBE -->
 <div class="product">
 
 <img
@@ -593,7 +818,6 @@ Sifariş et
 </div>
 
 
-<!-- CHATGPT -->
 <div class="product">
 
 <img
@@ -631,7 +855,6 @@ Sifariş et
 </div>
 
 
-<!-- SPOTIFY -->
 <div class="product">
 
 <img
@@ -669,21 +892,26 @@ Sifariş et
 </div>
 
 </div>
+
 </div>
+
 </section>
 
 
 <!-- FEATURES -->
+
 <section>
 
 <div class="container">
 
 <div class="section-title">
+
 <h2>Niyə məhz biz?</h2>
 
 <p>
 Premium xidmətlərə çıxışı daha sürətli, rahat və təhlükəsiz etmək üçün prosesi sadələşdirdik.
 </p>
+
 </div>
 
 <div class="features">
@@ -743,11 +971,14 @@ Operativ müştəri dəstəyi
 </div>
 
 </div>
+
 </div>
+
 </section>
 
 
 <!-- ABOUT -->
+
 <section class="about" id="about">
 
 <div class="container about-content">
@@ -771,10 +1002,12 @@ ChatGPT Plus və Spotify Premium xidmətləri təqdim olunur.
 </p>
 
 </div>
+
 </section>
 
 
 <!-- COMPARE -->
+
 <section id="compare">
 
 <div class="container">
@@ -856,11 +1089,14 @@ Bütün məhsullara bax →
 </div>
 
 </div>
+
 </div>
+
 </section>
 
 
 <!-- REVIEWS -->
+
 <section class="reviews" id="reviews">
 
 <div class="container">
@@ -879,130 +1115,213 @@ Müştərilərimizin təcrübəsi bizim üçün ən böyük motivasiyadır.
 
 
 <div class="review">
+
 <div class="stars">★★★★★</div>
+
 <div class="review-text">
 “Çox sağ olun. Sifariş sürətli və problemsiz oldu.”
 </div>
+
 <div class="reviewer">
+
 <div class="avatar">O</div>
+
 <div>
+
 <strong>Orxan Hacıyev</strong>
+
 <span>Netflix Premium</span>
+
 </div>
+
 </div>
+
 </div>
 
 
 <div class="review">
+
 <div class="stars">★★★★★</div>
+
 <div class="review-text">
 “Əla, uyğun qiymətədir və sürətli bir şəkildə əldə etdim. Təşəkkür edirəm.”
 </div>
+
 <div class="reviewer">
+
 <div class="avatar">S</div>
+
 <div>
+
 <strong>Shabnam Valizada</strong>
+
 <span>YouTube Premium</span>
+
 </div>
+
 </div>
+
 </div>
 
 
 <div class="review">
+
 <div class="stars">★★★★★</div>
+
 <div class="review-text">
 “Sərfəli qiymətdir və sifariş prosesi çox rahatdır.”
 </div>
+
 <div class="reviewer">
+
 <div class="avatar">D</div>
+
 <div>
+
 <strong>Dergah Abdullayev</strong>
+
 <span>ChatGPT Plus</span>
+
 </div>
+
 </div>
+
 </div>
 
 
 <div class="review">
+
 <div class="stars">★★★★★</div>
+
 <div class="review-text">
 “Etibarlı və sürətli xidmətdir. Dostlarıma da tövsiyə edirəm.”
 </div>
+
 <div class="reviewer">
+
 <div class="avatar">R</div>
+
 <div>
+
 <strong>Rəşad Məmmədli</strong>
+
 <span>Spotify Premium</span>
+
 </div>
+
 </div>
+
 </div>
 
 
 <div class="review">
+
 <div class="stars">★★★★★</div>
+
 <div class="review-text">
 “Dəstək komandası suallarıma tez cavab verdi və mənə kömək etdi.”
 </div>
+
 <div class="reviewer">
+
 <div class="avatar">S</div>
+
 <div>
+
 <strong>Səbinə Əliyeva</strong>
+
 <span>Müştəri</span>
+
 </div>
+
 </div>
+
 </div>
 
 
 <div class="review">
+
 <div class="stars">★★★★★</div>
+
 <div class="review-text">
 “Bir neçə dəfə sifariş vermişəm və hər dəfə xidmət problemsiz işləyib.”
 </div>
+
 <div class="reviewer">
+
 <div class="avatar">E</div>
+
 <div>
+
 <strong>Elvin Cəfərov</strong>
+
 <span>Müştəri</span>
+
 </div>
+
 </div>
+
 </div>
 
 
 <div class="review">
+
 <div class="stars">★★★★★</div>
+
 <div class="review-text">
 “Saytın istifadəsi sadədir. İstədiyim məhsulu çox tez tapdım.”
 </div>
+
 <div class="reviewer">
+
 <div class="avatar">L</div>
+
 <div>
+
 <strong>Ləman Hüseynova</strong>
+
 <span>Müştəri</span>
+
 </div>
+
 </div>
+
 </div>
 
 
 <div class="review">
+
 <div class="stars">★★★★★</div>
+
 <div class="review-text">
 “Qiymətlər münasibdir və aktivləşdirmə gözlədiyimdən daha sürətli oldu.”
 </div>
+
 <div class="reviewer">
+
 <div class="avatar">V</div>
+
 <div>
+
 <strong>Vahid Kərimov</strong>
+
 <span>Müştəri</span>
-</div>
-</div>
+
 </div>
 
 </div>
+
 </div>
+
+</div>
+
+</div>
+
 </section>
 
 
 <!-- BLOG -->
+
 <section id="blog">
 
 <div class="container">
@@ -1021,65 +1340,88 @@ Premium xidmətlər haqqında faydalı məlumatlar
 
 
 <div class="blog-card">
+
 <h3>Netflix Premium nədir?</h3>
+
 <p>
 Netflix Premium film və serial izləmək üçün
 premium imkanlar təqdim edən abunə xidmətidir.
 </p>
+
 </div>
 
 
 <div class="blog-card">
+
 <h3>YouTube Premium nə verir?</h3>
+
 <p>
 Reklamsız video, musiqi və digər premium istifadə imkanları.
 </p>
+
 </div>
 
 
 <div class="blog-card">
+
 <h3>ChatGPT Plus kimlər üçündür?</h3>
+
 <p>
 Yazı, kod, araşdırma və gündəlik AI işlərində istifadə üçün.
 </p>
+
 </div>
 
 
 <div class="blog-card">
+
 <h3>Spotify Premium üstünlükləri</h3>
+
 <p>
 Reklamsız musiqi və offline dinləmə imkanları.
 </p>
+
 </div>
 
 
 <div class="blog-card">
+
 <h3>Premium xidmət necə seçilir?</h3>
+
 <p>
 Qiymət, müddət və istifadə məqsədinə görə düzgün xidməti seçin.
 </p>
+
 </div>
 
 
 <div class="blog-card">
+
 <h3>Sifariş prosesi necə işləyir?</h3>
+
 <p>
 Məhsulu seçin, paket müddətini müəyyən edin və sifarişinizi göndərin.
 </p>
+
 </div>
 
 </div>
+
 </div>
+
 </section>
 
 
 <!-- FAQ -->
+
 <section>
 
 <div class="container">
 
 <div class="section-title">
+
 <h2>Tez-tez verilən suallar</h2>
+
 </div>
 
 <div class="faq">
@@ -1088,13 +1430,18 @@ Məhsulu seçin, paket müddətini müəyyən edin və sifarişinizi göndərin.
 <div class="faq-item">
 
 <div class="faq-question" onclick="toggleFaq(this)">
+
 Sifariş necə verilir?
+
 <span>+</span>
+
 </div>
 
 <div class="faq-answer">
+
 Məhsulu seçin, “Ətraflı bax” düyməsinə klikləyin
 və açılan məhsul səhifəsindən sifariş prosesini tamamlayın.
+
 </div>
 
 </div>
@@ -1103,12 +1450,17 @@ və açılan məhsul səhifəsindən sifariş prosesini tamamlayın.
 <div class="faq-item">
 
 <div class="faq-question" onclick="toggleFaq(this)">
+
 Hansı məhsullar satılır?
+
 <span>+</span>
+
 </div>
 
 <div class="faq-answer">
+
 Netflix Premium, YouTube Premium, ChatGPT Plus və Spotify Premium.
+
 </div>
 
 </div>
@@ -1117,12 +1469,17 @@ Netflix Premium, YouTube Premium, ChatGPT Plus və Spotify Premium.
 <div class="faq-item">
 
 <div class="faq-question" onclick="toggleFaq(this)">
+
 Dəstəklə necə əlaqə saxlayım?
+
 <span>+</span>
+
 </div>
 
 <div class="faq-answer">
+
 E-poçt vasitəsilə premium989b@gmail.com ünvanından əlaqə saxlaya bilərsiniz.
+
 </div>
 
 </div>
@@ -1131,22 +1488,30 @@ E-poçt vasitəsilə premium989b@gmail.com ünvanından əlaqə saxlaya bilərsi
 <div class="faq-item">
 
 <div class="faq-question" onclick="toggleFaq(this)">
+
 Aktivləşdirmə nə qədər çəkir?
+
 <span>+</span>
+
 </div>
 
 <div class="faq-answer">
+
 Sifarişdən sonra aktivləşdirmə adətən 5-30 dəqiqə ərzində həyata keçirilir.
+
+</div>
+
 </div>
 
 </div>
 
 </div>
-</div>
+
 </section>
 
 
 <!-- CONTACT -->
+
 <section class="contact" id="contact">
 
 <div class="container">
@@ -1167,18 +1532,27 @@ Sifarişdən sonra aktivləşdirmə adətən 5-30 dəqiqə ərzində həyata ke�
 <h3>DigiBaku.com</h3>
 
 <div class="contact-item">
+
 <strong>Şəhər</strong>
+
 <span>Bakı, Azərbaycan</span>
+
 </div>
 
 <div class="contact-item">
+
 <strong>E-poçt</strong>
+
 <span>premium989b@gmail.com</span>
+
 </div>
 
 <div class="contact-item">
+
 <strong>İş saatları</strong>
+
 <span>Hər gün 10:00 — 22:00</span>
+
 </div>
 
 </div>
@@ -1189,24 +1563,31 @@ Sifarişdən sonra aktivləşdirmə adətən 5-30 dəqiqə ərzində həyata ke�
 <h3>Sifariş və dəstək</h3>
 
 <p style="margin-bottom:20px">
+
 Məhsulu seçin və “Ətraflı bax” düyməsi ilə məhsulun
 tam məlumat səhifəsinə keçin.
+
 </p>
 
 <a href="#products" class="btn btn-primary">
+
 Məhsullara bax
+
 </a>
 
 </div>
 
 </div>
+
 </div>
+
 </section>
 
 </main>
 
 
 <!-- FOOTER -->
+
 <footer>
 
 <div class="container">
@@ -1270,7 +1651,9 @@ Netflix • YouTube Premium • ChatGPT Plus • Spotify Premium
 
 
 <div class="copyright">
+
 © 2026 DigiBaku.com. Bütün hüquqlar qorunur.
+
 </div>
 
 </div>
@@ -1280,14 +1663,159 @@ Netflix • YouTube Premium • ChatGPT Plus • Spotify Premium
 
 <script>
 
+/* FAQ */
+
 function toggleFaq(element){
 
     element.parentElement.classList.toggle("open");
 
 }
 
+
+/* SUPABASE */
+
+const SUPABASE_URL =
+"https://zeknhnkaicqkfzgnvycq.supabase.co";
+
+const SUPABASE_KEY =
+"sb_publishable_jHvCp9fXBA_BwFqrXYpwlw_VC6C1OQk";
+
+const supabaseClient =
+window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+);
+
+
+/* LOGIN VƏZİYYƏTİNİ YOXLAYIR */
+
+async function checkLogin(){
+
+    const {
+        data: { session },
+        error
+    } = await supabaseClient.auth.getSession();
+
+    if(error){
+
+        console.error(
+            "Session xətası:",
+            error
+        );
+
+        return;
+    }
+
+    const authArea =
+        document.getElementById("authArea");
+
+    if(!authArea){
+        return;
+    }
+
+
+    /* İSTİFADƏÇİ DAXİL OLUBSA */
+
+    if(session){
+
+        authArea.innerHTML = "";
+
+        const email =
+            document.createElement("span");
+
+        email.className =
+            "user-email";
+
+        email.textContent =
+            session.user.email;
+
+        const logoutButton =
+            document.createElement("button");
+
+        logoutButton.className =
+            "btn btn-dark";
+
+        logoutButton.textContent =
+            "Çıxış";
+
+        logoutButton.onclick =
+            logout;
+
+        authArea.appendChild(email);
+
+        authArea.appendChild(logoutButton);
+
+    }
+
+    /* DAXİL OLMAYIBSA */
+
+    else{
+
+        authArea.innerHTML = `
+
+        <a
+            href="login.html"
+            class="btn btn-dark">
+
+            Daxil ol
+
+        </a>
+
+        <a
+            href="login.html"
+            class="btn btn-primary">
+
+            Qeydiyyat
+
+        </a>
+
+        `;
+
+    }
+
+}
+
+
+/* ÇIXIŞ */
+
+async function logout(){
+
+    const {
+        error
+    } = await supabaseClient.auth.signOut();
+
+    if(error){
+
+        alert(
+            "Çıxış zamanı xəta baş verdi."
+        );
+
+        console.error(error);
+
+        return;
+    }
+
+    window.location.reload();
+
+}
+
+
+/* LOGIN DƏYİŞƏNDƏ SİSTEMİ YENİLƏ */
+
+supabaseClient.auth.onAuthStateChange(
+    (event, session) => {
+
+        checkLogin();
+
+    }
+);
+
+
+/* SƏHİFƏ AÇILANDA YOXLAMA */
+
+checkLogin();
+
 </script>
 
 </body>
 </html>
-```
