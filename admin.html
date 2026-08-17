@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="az">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -10,7 +9,6 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-
 *{
     box-sizing:border-box;
     margin:0;
@@ -116,7 +114,6 @@ label{
     margin-bottom:7px;
 }
 
-input,
 select,
 textarea{
     width:100%;
@@ -130,21 +127,14 @@ textarea{
     margin-bottom:17px;
 }
 
-input:focus,
 select:focus,
 textarea:focus{
     border-color:#2563eb;
 }
 
 textarea{
-    min-height:110px;
+    min-height:130px;
     resize:vertical;
-}
-
-.grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:15px;
 }
 
 .message{
@@ -179,15 +169,12 @@ textarea{
 
 .product-row strong{
     display:block;
-    margin-bottom:5px;
+    margin-bottom:7px;
 }
 
 .product-row small{
-    color:#888;
-}
-
-.row-actions{
-    margin-top:12px;
+    color:#999;
+    line-height:1.7;
 }
 
 #adminPanel{
@@ -200,11 +187,17 @@ textarea{
     color:#888;
 }
 
-@media(max-width:650px){
+.customer-info{
+    background:#080808;
+    border:1px solid #222;
+    padding:12px;
+    border-radius:9px;
+    margin-bottom:15px;
+    color:#aaa;
+    font-size:13px;
+}
 
-    .grid{
-        grid-template-columns:1fr;
-    }
+@media(max-width:650px){
 
     .card{
         padding:20px;
@@ -214,17 +207,22 @@ textarea{
         font-size:27px;
     }
 
+    .nav{
+        flex-wrap:wrap;
+        padding:10px 0;
+    }
+
+    .nav button{
+        padding:9px 11px;
+        font-size:12px;
+    }
 }
-
 </style>
-
 </head>
 
 <body>
 
-
 <header>
-
 <div class="container nav">
 
 <div class="logo">
@@ -248,14 +246,11 @@ onclick="logout()">
 </div>
 
 </div>
-
 </header>
-
 
 <div id="loading">
 Admin yoxlanılır...
 </div>
-
 
 <main id="adminPanel">
 
@@ -266,7 +261,7 @@ Admin yoxlanılır...
 <h1>Admin Panel</h1>
 
 <p>
-Müştərilərin premium məhsullarını idarə et.
+Müştərilərə ödənişdən sonra premium məhsul göndər.
 </p>
 
 </div>
@@ -280,9 +275,8 @@ Müştərilərin premium məhsullarını idarə et.
 
 <div id="message" class="message"></div>
 
-
 <label>
-Müştəri emaili
+Müştəri
 </label>
 
 <select id="customerSelect">
@@ -292,6 +286,10 @@ Müştəri seçin...
 </option>
 
 </select>
+
+<div id="selectedCustomer" class="customer-info">
+Müştəri seçilməyib.
+</div>
 
 
 <label>
@@ -330,6 +328,7 @@ Hesab məlumatı
 <textarea
 id="accountInfo"
 placeholder="Məsələn:
+
 Email: example@gmail.com
 Şifrə: ********
 
@@ -337,6 +336,7 @@ və ya müştəriyə veriləcək digər məlumatlar..."></textarea>
 
 
 <button
+id="addButton"
 class="btn btn-primary"
 onclick="addProduct()">
 
@@ -347,16 +347,16 @@ Məhsulu müştəriyə əlavə et
 </div>
 
 
-<!-- MÖVCUD MƏHSULLAR -->
+<!-- MƏHSULLAR -->
 
 <div class="card">
 
-<h2>Əlavə edilmiş məhsullar</h2>
+<h2>
+Əlavə edilmiş məhsullar
+</h2>
 
 <div id="productsList">
-
 Yüklənir...
-
 </div>
 
 </div>
@@ -387,7 +387,9 @@ const ADMIN_EMAIL =
 "zahidovorxan989@gmail.com";
 
 
-/* MESAJ */
+/* =========================
+   MESAJ
+========================= */
 
 function showMessage(text,type){
 
@@ -398,26 +400,39 @@ function showMessage(text,type){
 
     box.className =
         "message " + type;
-
 }
 
 
-/* ANA SƏHİFƏ */
+function clearMessage(){
+
+    const box =
+        document.getElementById("message");
+
+    box.textContent = "";
+
+    box.className = "message";
+}
+
+
+/* =========================
+   ANA SƏHİFƏ
+========================= */
 
 function goHome(){
 
     window.location.href =
         "index.html";
-
 }
 
 
-/* ADMIN YOXLAMA */
+/* =========================
+   ADMIN YOXLAMA
+========================= */
 
 async function checkAdmin(){
 
     const {
-        data:{session},
+        data,
         error
     } =
     await supabaseClient.auth.getSession();
@@ -425,13 +440,17 @@ async function checkAdmin(){
 
     if(error){
 
-        alert("Session xətası");
+        console.error(error);
 
         window.location.href =
             "login.html";
 
         return;
     }
+
+
+    const session =
+        data.session;
 
 
     if(!session){
@@ -447,7 +466,10 @@ async function checkAdmin(){
         (session.user.email || "").toLowerCase();
 
 
-    if(email !== ADMIN_EMAIL.toLowerCase()){
+    if(
+        email !==
+        ADMIN_EMAIL.toLowerCase()
+    ){
 
         alert(
             "Bu səhifəyə yalnız admin daxil ola bilər."
@@ -473,11 +495,12 @@ async function checkAdmin(){
     await loadCustomers();
 
     await loadProducts();
-
 }
 
 
-/* MÜŞTƏRİLƏRİ TAP */
+/* =========================
+   MÜŞTƏRİLƏR
+========================= */
 
 async function loadCustomers(){
 
@@ -487,13 +510,11 @@ async function loadCustomers(){
         );
 
 
-    /*
-      Admin bütün auth.users məlumatını
-      birbaşa browser-dən oxuya bilmir.
+    select.innerHTML =
+        `<option value="">
+        Müştərilər yüklənir...
+        </option>`;
 
-      Ona görə istifadəçilərin email-lərini
-      ayrıca profiles cədvəlindən oxumaq lazımdır.
-    */
 
     const {
         data,
@@ -507,12 +528,12 @@ async function loadCustomers(){
 
     if(error){
 
+        console.error(error);
+
         select.innerHTML =
             `<option value="">
-            profiles cədvəlində problem var
+            Müştərilər yüklənmədi
             </option>`;
-
-        console.error(error);
 
         return;
     }
@@ -524,39 +545,96 @@ async function loadCustomers(){
         </option>`;
 
 
+    if(!data || data.length === 0){
+
+        select.innerHTML =
+            `<option value="">
+            Heç bir müştəri tapılmadı
+            </option>`;
+
+        return;
+    }
+
+
     data.forEach(user => {
 
         const option =
             document.createElement("option");
 
+
         option.value =
             user.id;
 
+
         option.textContent =
-            user.email;
+            user.email || user.id;
+
+
+        option.dataset.email =
+            user.email || "";
+
 
         select.appendChild(option);
 
     });
-
 }
 
 
-/* MƏHSUL ƏLAVƏ ET */
+/* MÜŞTƏRİ SEÇİLƏNDƏ */
+
+document
+.getElementById("customerSelect")
+.addEventListener(
+    "change",
+    function(){
+
+        const option =
+            this.options[this.selectedIndex];
+
+
+        const box =
+            document.getElementById(
+                "selectedCustomer"
+            );
+
+
+        if(!this.value){
+
+            box.textContent =
+                "Müştəri seçilməyib.";
+
+            return;
+        }
+
+
+        box.textContent =
+            "Seçilən müştəri: " +
+            (option.dataset.email || option.textContent);
+
+    }
+);
+
+
+/* =========================
+   MƏHSUL ƏLAVƏ ET
+========================= */
 
 async function addProduct(){
 
-    showMessage("", "");
+    clearMessage();
+
 
     const userId =
         document.getElementById(
             "customerSelect"
         ).value;
 
+
     const product =
         document.getElementById(
             "productSelect"
         ).value;
+
 
     const accountInfo =
         document.getElementById(
@@ -597,24 +675,40 @@ async function addProduct(){
     }
 
 
+    const button =
+        document.getElementById(
+            "addButton"
+        );
+
+
+    button.disabled = true;
+
+    button.textContent =
+        "Əlavə edilir...";
+
+
     const {
-        data,
         error
     } =
     await supabaseClient
         .from("customer_products")
         .insert({
 
-            user_id:userId,
+            user_id: userId,
 
-            product_name:product,
+            product_name: product,
 
-            account_info:accountInfo,
+            account_info: accountInfo,
 
-            status:"active"
+            status: "active"
 
-        })
-        .select();
+        });
+
+
+    button.disabled = false;
+
+    button.textContent =
+        "Məhsulu müştəriyə əlavə et";
 
 
     if(error){
@@ -632,7 +726,7 @@ async function addProduct(){
 
 
     showMessage(
-        "Məhsul müştərinin hesabına əlavə edildi.",
+        "✅ Məhsul müştərinin hesabına əlavə edildi.",
         "success"
     );
 
@@ -652,12 +746,19 @@ async function addProduct(){
     ).value = "";
 
 
-    await loadProducts();
+    document.getElementById(
+        "selectedCustomer"
+    ).textContent =
+        "Müştəri seçilməyib.";
 
+
+    await loadProducts();
 }
 
 
-/* MƏHSULLARI GÖSTƏR */
+/* =========================
+   MƏHSULLARI GÖSTƏR
+========================= */
 
 async function loadProducts(){
 
@@ -676,18 +777,20 @@ async function loadProducts(){
         .select("*")
         .order(
             "created_at",
-            {ascending:false}
+            {
+                ascending:false
+            }
         );
 
 
     if(error){
 
+        console.error(error);
+
         list.innerHTML =
             `<div class="product-row">
             Məhsullar yüklənmədi.
             </div>`;
-
-        console.error(error);
 
         return;
     }
@@ -697,7 +800,7 @@ async function loadProducts(){
 
         list.innerHTML =
             `<div class="product-row">
-            Hələ heç bir məhsul əlavə edilməyib.
+            Hələ məhsul əlavə edilməyib.
             </div>`;
 
         return;
@@ -712,69 +815,75 @@ async function loadProducts(){
         const row =
             document.createElement("div");
 
+
         row.className =
             "product-row";
 
 
         const date =
             item.created_at
-            ? new Date(
+            ?
+            new Date(
                 item.created_at
-              ).toLocaleString(
+            ).toLocaleString(
                 "az-AZ"
-              )
-            : "-";
+            )
+            :
+            "-";
 
 
         row.innerHTML = `
 
-            <strong>
-                ${escapeHtml(item.product_name)}
-            </strong>
+        <strong>
+            ${escapeHtml(item.product_name)}
+        </strong>
 
-            <small>
-                Müştəri ID:
-                ${escapeHtml(item.user_id)}
-            </small>
+        <small>
+            Müştəri ID:
+            ${escapeHtml(item.user_id)}
+        </small>
 
-            <br>
+        <br>
 
-            <small>
-                Tarix: ${escapeHtml(date)}
-            </small>
+        <small>
+            Tarix:
+            ${escapeHtml(date)}
+        </small>
 
-            <div class="row-actions">
+        <div style="margin-top:12px;">
 
-                <button
-                    class="btn btn-danger"
-                    onclick="deleteProduct('${item.id}')">
+            <button
+                class="btn btn-danger"
+                onclick="deleteProduct('${item.id}')">
 
-                    Sil
+                Sil
 
-                </button>
+            </button>
 
-            </div>
+        </div>
+
         `;
 
 
         list.appendChild(row);
 
     });
-
 }
 
 
-/* MƏHSULU SİL */
+/* =========================
+   MƏHSULU SİL
+========================= */
 
 async function deleteProduct(id){
 
-    const confirmDelete =
+    const ok =
         confirm(
-            "Bu məhsulu müştərinin profilindən silmək istəyirsən?"
+            "Bu məhsulu silmək istəyirsən?"
         );
 
 
-    if(!confirmDelete){
+    if(!ok){
         return;
     }
 
@@ -790,23 +899,24 @@ async function deleteProduct(id){
 
     if(error){
 
+        console.error(error);
+
         alert(
-            "Silinmədi: " +
+            "Məhsul silinmədi: " +
             error.message
         );
-
-        console.error(error);
 
         return;
     }
 
 
     await loadProducts();
-
 }
 
 
-/* HTML TƏHLÜKƏSİZLİYİ */
+/* =========================
+   HTML TƏHLÜKƏSİZLİYİ
+========================= */
 
 function escapeHtml(text){
 
@@ -816,11 +926,12 @@ function escapeHtml(text){
         .replace(/>/g,"&gt;")
         .replace(/"/g,"&quot;")
         .replace(/'/g,"&#039;");
-
 }
 
 
-/* ÇIXIŞ */
+/* =========================
+   ÇIXIŞ
+========================= */
 
 async function logout(){
 
@@ -828,11 +939,12 @@ async function logout(){
 
     window.location.href =
         "login.html";
-
 }
 
 
-/* BAŞLAT */
+/* =========================
+   BAŞLAT
+========================= */
 
 checkAdmin();
 
