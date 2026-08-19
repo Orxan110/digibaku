@@ -294,7 +294,11 @@ gap:8px;
 flex-direction:column;
 }
 
-.product-actions a{text-align:center}
+.product-actions a,
+.product-actions button{
+text-align:center;
+width:100%;
+}
 
 /* FEATURES */
 
@@ -780,6 +784,10 @@ class="btn btn-primary">
 Ətraflı bax
 </a>
 
+<button onclick="addToCartFromHome('Netflix 4K Premium Abunəliyi (1 ay)', 6.99)" class="btn btn-dark">
+Səbətə at
+</button>
+
 </div>
 
 </div>
@@ -809,6 +817,10 @@ Reklamsız video, musiqi və premium YouTube təcrübəsi.
 class="btn btn-primary">
 Ətraflı bax
 </a>
+
+<button onclick="addToCartFromHome('YouTube Premium (1 ay)', 7.99)" class="btn btn-dark">
+Səbətə at
+</button>
 
 </div>
 
@@ -840,6 +852,10 @@ class="btn btn-primary">
 Ətraflı bax
 </a>
 
+<button onclick="addToCartFromHome('ChatGPT Plus (1 ay)', 11.99)" class="btn btn-dark">
+Səbətə at
+</button>
+
 </div>
 
 </div>
@@ -869,6 +885,10 @@ Reklamsız musiqi, yüksək keyfiyyət və offline dinləmə.
 class="btn btn-primary">
 Ətraflı bax
 </a>
+
+<button onclick="addToCartFromHome('Spotify Premium (1 ay)', 7.99)" class="btn btn-dark">
+Səbətə at
+</button>
 
 </div>
 
@@ -1523,6 +1543,13 @@ function toggleCart(){
         modal.style.display = "block";
         updateCartUI();
     }
+}
+
+function addToCartFromHome(productName, price){
+    cart.push({ name: productName, price: price });
+    localStorage.setItem("digi_cart", JSON.stringify(cart));
+    updateCartCount();
+    alert("Məhsul səbətə atıldı!");
 }
 
 function updateCartCount(){
