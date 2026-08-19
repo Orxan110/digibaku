@@ -111,47 +111,6 @@ font-size:13px;
 font-weight:bold;
 }
 
-/* SƏBƏT STİLLƏRİ */
-.header-right{
-display:flex;
-align-items:center;
-gap:12px;
-}
-
-.cart-btn{
-display:flex;
-align-items:center;
-gap:6px;
-background:#151515;
-border:1px solid #333;
-color:#fff;
-}
-
-.cart-count{
-background:#ef4444;
-color:#fff;
-border-radius:50%;
-padding:2px 6px;
-font-size:11px;
-font-weight:bold;
-}
-
-#cartModal{
-display:none;
-position:fixed;
-top:0;
-right:0;
-width:100%;
-max-width:400px;
-height:100vh;
-background:#101010;
-border-left:1px solid #262626;
-z-index:2000;
-padding:25px;
-box-sizing:border-box;
-overflow-y:auto;
-}
-
 /* HERO */
 
 .hero{
@@ -649,46 +608,21 @@ DigiBaku<span>.com</span>
 <a href="#contact">Əlaqə</a>
 </nav>
 
-<div class="header-right">
-    <button onclick="toggleCart()" class="btn cart-btn">
-        🛒 Səbət <span id="cartCount" class="cart-count">0</span>
-    </button>
+<div class="auth" id="authArea">
 
-    <div class="auth" id="authArea">
-        <a href="login.html" class="btn btn-dark">
-        Daxil ol
-        </a>
+<a href="login.html" class="btn btn-dark">
+Daxil ol
+</a>
 
-        <a href="login.html" class="btn btn-primary">
-        Qeydiyyat
-        </a>
-    </div>
+<a href="login.html" class="btn btn-primary">
+Qeydiyyat
+</a>
+
 </div>
 
 </div>
 
 </header>
-
-
-<!-- Səbət Paneli (Modal) -->
-<div id="cartModal">
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-        <h2 style="font-size: 22px; color: #fff;">Səbətiniz</h2>
-        <button onclick="toggleCart()" style="background: none; border: none; color: #aaa; font-size: 22px; cursor: pointer;">✕</button>
-    </div>
-
-    <div id="cartItemsList" style="margin-bottom: 20px;">
-        <p style="color: #777; text-align: center;">Səbətiniz boşdur</p>
-    </div>
-
-    <div style="border-top: 1px solid #222; padding-top: 15px;">
-        <div style="display: flex; justify-content: space-between; margin-bottom: 15px; font-weight: bold;">
-            <span>Ümumi məbləğ:</span>
-            <span id="cartTotalPrice">0.00 AZN</span>
-        </div>
-        <button onclick="checkoutCart()" class="btn btn-primary" style="width: 100%; text-align: center;">Sifarişi Təsdiq Et</button>
-    </div>
-</div>
 
 
 <main>
@@ -784,8 +718,8 @@ class="btn btn-primary">
 Ətraflı bax
 </a>
 
-<button onclick="addToCartFromHome('Netflix 4K Premium Abunəliyi (1 ay)', 6.99)" class="btn btn-dark">
-Səbətə at
+<button onclick="orderDirect('Netflix 4K Premium Abunəliyi', 6.99)" class="btn btn-dark">
+Sifariş et
 </button>
 
 </div>
@@ -818,8 +752,8 @@ class="btn btn-primary">
 Ətraflı bax
 </a>
 
-<button onclick="addToCartFromHome('YouTube Premium (1 ay)', 7.99)" class="btn btn-dark">
-Səbətə at
+<button onclick="orderDirect('YouTube Premium', 7.99)" class="btn btn-dark">
+Sifariş et
 </button>
 
 </div>
@@ -852,8 +786,8 @@ class="btn btn-primary">
 Ətraflı bax
 </a>
 
-<button onclick="addToCartFromHome('ChatGPT Plus (1 ay)', 11.99)" class="btn btn-dark">
-Səbətə at
+<button onclick="orderDirect('ChatGPT Plus', 11.99)" class="btn btn-dark">
+Sifariş et
 </button>
 
 </div>
@@ -886,8 +820,8 @@ class="btn btn-primary">
 Ətraflı bax
 </a>
 
-<button onclick="addToCartFromHome('Spotify Premium (1 ay)', 7.99)" class="btn btn-dark">
-Səbətə at
+<button onclick="orderDirect('Spotify Premium', 7.99)" class="btn btn-dark">
+Sifariş et
 </button>
 
 </div>
@@ -1512,6 +1446,14 @@ function toggleFaq(element){
     element.parentElement.classList.toggle("open");
 }
 
+/* BİRBAŞA WHATSAPP SİFARİŞ */
+
+function orderDirect(productName, price) {
+    const phone = "994702883484";
+    const message = `Salam DigiBaku.com!\n\nSifariş vermək istəyirəm.\n\nMəhsul: ${productName} (1 ay)\nQiymət: ${price.toFixed(2)} AZN`;
+    window.location.href = "https://wa.me/" + phone + "?text=" + encodeURIComponent(message);
+}
+
 
 /* SUPABASE */
 
@@ -1526,105 +1468,6 @@ window.supabase.createClient(
     SUPABASE_URL,
     SUPABASE_KEY
 );
-
-
-/* =========================
-   SƏBƏT FUNKSİYALARI
-========================= */
-
-let cart = JSON.parse(localStorage.getItem("digi_cart")) || [];
-
-function toggleCart(){
-    const modal = document.getElementById("cartModal");
-    if(!modal) return;
-    if(modal.style.display === "block"){
-        modal.style.display = "none";
-    } else {
-        modal.style.display = "block";
-        updateCartUI();
-    }
-}
-
-function addToCartFromHome(productName, price){
-    cart.push({ name: productName, price: price });
-    localStorage.setItem("digi_cart", JSON.stringify(cart));
-    updateCartCount();
-    alert("Məhsul səbətə atıldı!");
-}
-
-function updateCartCount(){
-    const countEl = document.getElementById("cartCount");
-    if(countEl){
-        countEl.textContent = cart.length;
-    }
-}
-
-function updateCartUI(){
-    const list = document.getElementById("cartItemsList");
-    const totalPriceEl = document.getElementById("cartTotalPrice");
-    if(!list || !totalPriceEl) return;
-    
-    if(cart.length === 0){
-        list.innerHTML = `<p style="color: #777; text-align: center;">Səbətiniz boşdur</p>`;
-        totalPriceEl.textContent = "0.00 AZN";
-        return;
-    }
-
-    let html = "";
-    let total = 0;
-
-    cart.forEach((item, index) => {
-        total += Number(item.price || 0);
-        html += `
-            <div style="background: #080808; border: 1px solid #222; border-radius: 10px; padding: 12px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;">
-                <div>
-                    <div style="font-weight: bold; color: #60a5fa; font-size: 14px;">${item.name}</div>
-                    <div style="color: #888; font-size: 12px; margin-top: 4px;">${item.price} AZN</div>
-                </div>
-                <button onclick="removeFromCart(${index})" style="background: none; border: none; color: #ef4444; cursor: pointer; font-size: 13px;">Sil</button>
-            </div>
-        `;
-    });
-
-    list.innerHTML = html;
-    totalPriceEl.textContent = total.toFixed(2) + " AZN";
-}
-
-function removeFromCart(index){
-    cart.splice(index, 1);
-    localStorage.setItem("digi_cart", JSON.stringify(cart));
-    updateCartCount();
-    updateCartUI();
-}
-
-function checkoutCart(){
-    if(cart.length === 0){
-        alert("Səbətiniz boşdur!");
-        return;
-    }
-
-    let message = "Salam DigiBaku.com!\n\nSəbətdəki məhsulları sifariş etmək istəyirəm:\n\n";
-    let total = 0;
-
-    cart.forEach((item, index) => {
-        message += `${index + 1}. ${item.name} - ${item.price.toFixed(2)} AZN\n`;
-        total += Number(item.price || 0);
-    });
-
-    message += `\nÜmumi məbləğ: ${total.toFixed(2)} AZN`;
-
-    const phone = "994702883484";
-    const whatsappUrl = "https://wa.me/" + phone + "?text=" + encodeURIComponent(message);
-
-    cart = [];
-    localStorage.removeItem("digi_cart");
-    updateCartCount();
-    toggleCart();
-
-    window.location.href = whatsappUrl;
-}
-
-updateCartCount();
 
 
 /* LOGIN YOXLAMASI */
