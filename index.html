@@ -4,450 +4,680 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>DigiBaku.com | Premium rəqəmsal xidmətlər</title>
+<title>DigiBaku.com — Premium rəqəmsal xidmətlər</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-}
 
-html{
-    scroll-behavior:smooth;
-}
+*{box-sizing:border-box;margin:0;padding:0}
+
+html{scroll-behavior:smooth}
 
 body{
-    font-family:Arial,Helvetica,sans-serif;
-    background:#070707;
-    color:#fff;
-    line-height:1.6;
+font-family:Arial,Helvetica,sans-serif;
+background:#050505;
+color:#fff;
+line-height:1.6;
 }
 
-a{
-    text-decoration:none;
-    color:inherit;
-}
+a{text-decoration:none;color:inherit}
+
+button{font-family:inherit}
 
 .container{
-    width:92%;
-    max-width:1150px;
-    margin:auto;
+width:92%;
+max-width:1200px;
+margin:auto;
 }
 
 /* HEADER */
 
 header{
-    position:sticky;
-    top:0;
-    z-index:1000;
-    background:rgba(7,7,7,.95);
-    border-bottom:1px solid #222;
-    backdrop-filter:blur(12px);
+position:sticky;
+top:0;
+z-index:1000;
+background:rgba(5,5,5,.94);
+border-bottom:1px solid #222;
+backdrop-filter:blur(12px);
 }
 
 .nav{
-    min-height:72px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:20px;
+min-height:72px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:20px;
 }
 
 .logo{
-    font-size:25px;
-    font-weight:900;
-    color:#3b82f6;
+font-size:26px;
+font-weight:900;
+color:#3b82f6;
 }
 
-.logo span{
-    color:white;
-}
+.logo span{color:#fff}
 
 .menu{
-    display:flex;
-    gap:24px;
+display:flex;
+gap:22px;
 }
 
 .menu a{
-    color:#aaa;
-    font-size:14px;
+color:#aaa;
+font-size:14px;
 }
 
-.menu a:hover{
-    color:white;
+.menu a:hover{color:#3b82f6}
+
+.auth{
+display:flex;
+gap:8px;
+align-items:center;
 }
 
-.nav-right{
-    display:flex;
-    align-items:center;
-    gap:10px;
+.btn{
+display:inline-block;
+border:0;
+border-radius:9px;
+padding:11px 17px;
+font-weight:700;
+cursor:pointer;
 }
 
-.language{
-    display:flex;
-    align-items:center;
-    gap:3px;
-    background:#111;
-    border:1px solid #292929;
-    border-radius:8px;
-    padding:4px 6px;
+.btn-primary{
+background:#2563eb;
+color:#fff;
 }
 
-.language button{
-    background:none;
-    border:0;
-    color:#777;
-    cursor:pointer;
-    font-size:11px;
-    font-weight:bold;
-    padding:5px;
+.btn-primary:hover{background:#1d4ed8}
+
+.btn-dark{
+background:#151515;
+color:#fff;
+border:1px solid #333;
 }
 
-.language button.active{
-    color:#60a5fa;
+.user-email{
+display:flex;
+align-items:center;
+max-width:180px;
+overflow:hidden;
+text-overflow:ellipsis;
+white-space:nowrap;
+background:#151515;
+border:1px solid #333;
+border-radius:9px;
+padding:10px 13px;
+color:#60a5fa;
+font-size:13px;
+font-weight:bold;
 }
 
-.profile-btn,
+/* DIL */
+
+.language-switcher{
+display:flex;
+align-items:center;
+gap:4px;
+background:#111;
+border:1px solid #292929;
+border-radius:9px;
+padding:5px 7px;
+}
+
+.language-switcher button{
+background:none;
+border:0;
+color:#777;
+font-size:12px;
+font-weight:bold;
+cursor:pointer;
+padding:5px 6px;
+border-radius:6px;
+}
+
+.language-switcher button:hover{
+color:#fff;
+}
+
+.language-switcher button.active{
+background:#2563eb;
+color:#fff;
+}
+
+/* HEADER RIGHT */
+
+.header-right{
+display:flex;
+align-items:center;
+gap:10px;
+}
+
 .cart-btn{
-    border:1px solid #333;
-    background:#151515;
-    color:#fff;
-    border-radius:8px;
-    padding:9px 12px;
-    cursor:pointer;
-    font-weight:bold;
-    font-size:13px;
+display:flex;
+align-items:center;
+gap:6px;
+background:#151515;
+border:1px solid #333;
+color:#fff;
 }
 
 .cart-count{
-    background:#ef4444;
-    border-radius:50%;
-    padding:2px 6px;
-    font-size:10px;
+background:#ef4444;
+color:#fff;
+border-radius:50%;
+padding:2px 6px;
+font-size:11px;
+font-weight:bold;
+}
+
+#cartModal{
+display:none;
+position:fixed;
+top:0;
+right:0;
+width:100%;
+max-width:400px;
+height:100vh;
+background:#101010;
+border-left:1px solid #262626;
+z-index:2000;
+padding:25px;
+box-sizing:border-box;
+overflow-y:auto;
 }
 
 /* HERO */
 
 .hero{
-    padding:85px 0;
-    text-align:center;
-    background:
-        radial-gradient(circle at top left,#172554 0,transparent 35%),
-        radial-gradient(circle at bottom right,#312e81 0,transparent 35%);
+padding:90px 0;
+background:
+radial-gradient(circle at 20% 10%,#172554 0,transparent 35%),
+radial-gradient(circle at 90% 20%,#111827 0,transparent 35%),
+#050505;
+}
+
+.hero-inner{
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:55px;
+}
+
+.hero-content{
+flex:1;
+max-width:620px;
+}
+
+.badge{
+display:inline-block;
+padding:7px 14px;
+border:1px solid #294b87;
+background:#0b1428;
+border-radius:30px;
+color:#60a5fa;
+font-size:13px;
+margin-bottom:20px;
 }
 
 .hero h1{
-    font-size:50px;
-    line-height:1.1;
-    margin-bottom:18px;
+font-size:55px;
+line-height:1.08;
+margin-bottom:20px;
 }
 
-.hero h1 span{
-    color:#3b82f6;
-}
+.hero h1 span{color:#3b82f6}
 
 .hero p{
-    max-width:650px;
-    margin:0 auto 28px;
-    color:#999;
-    font-size:17px;
+color:#aaa;
+font-size:17px;
+margin-bottom:28px;
 }
 
-.hero-btn{
-    display:inline-block;
-    background:#2563eb;
-    padding:14px 25px;
-    border-radius:10px;
-    font-weight:bold;
+.hero-buttons{
+display:flex;
+gap:10px;
 }
 
-.hero-btn:hover{
-    background:#1d4ed8;
+.hero-image{
+flex:1;
+display:flex;
+justify-content:center;
 }
+
+.hero-image img{
+width:100%;
+max-width:550px;
+height:auto;
+object-fit:contain;
+border-radius:20px;
+}
+
+/* SECTIONS */
+
+section{padding:75px 0}
+
+.section-title{
+text-align:center;
+margin-bottom:40px;
+}
+
+.section-title h2{
+font-size:36px;
+margin-bottom:8px;
+}
+
+.section-title p{color:#999}
 
 /* PRODUCTS */
 
 .products{
-    padding:70px 0;
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:20px;
 }
 
-.section-title{
-    text-align:center;
-    margin-bottom:35px;
+.product{
+background:#101010;
+border:1px solid #242424;
+border-radius:16px;
+padding:20px;
+transition:.25s;
 }
 
-.section-title h2{
-    font-size:32px;
-    margin-bottom:8px;
-}
-
-.section-title p{
-    color:#888;
-}
-
-.product-grid{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:18px;
-}
-
-.product-card{
-    background:#101010;
-    border:1px solid #252525;
-    border-radius:16px;
-    padding:20px;
-    transition:.2s;
-}
-
-.product-card:hover{
-    border-color:#2563eb;
-    transform:translateY(-3px);
+.product:hover{
+transform:translateY(-5px);
+border-color:#2563eb;
 }
 
 .product-image{
-    height:160px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    margin-bottom:15px;
+width:100%;
+height:145px;
+object-fit:contain;
+padding:15px;
+background:#080808;
+border-radius:12px;
+margin-bottom:15px;
 }
 
-.product-image img{
-    width:100%;
-    height:100%;
-    object-fit:contain;
+.product h3{
+font-size:20px;
+margin-bottom:8px;
 }
 
-.product-card h3{
-    font-size:18px;
-    margin-bottom:8px;
-}
-
-.product-card p{
-    color:#888;
-    font-size:13px;
-    min-height:60px;
+.product p{
+color:#888;
+font-size:14px;
+min-height:48px;
 }
 
 .price{
-    color:#60a5fa;
-    font-size:21px;
-    font-weight:bold;
-    margin:12px 0;
+font-size:23px;
+font-weight:900;
+margin:15px 0;
 }
 
-.product-button{
-    display:block;
-    text-align:center;
-    background:#151515;
-    border:1px solid #333;
-    padding:10px;
-    border-radius:8px;
-    color:#60a5fa;
-    font-weight:bold;
+.price small{
+color:#777;
+font-size:13px;
+font-weight:400;
 }
 
-.product-button:hover{
-    border-color:#2563eb;
+.product-actions{
+display:flex;
+gap:8px;
+flex-direction:column;
+}
+
+.product-actions a,
+.product-actions button{
+text-align:center;
+width:100%;
+}
+
+/* FEATURES */
+
+.features{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:20px;
+}
+
+.feature{
+background:#101010;
+border:1px solid #222;
+border-radius:15px;
+padding:28px;
+}
+
+.feature img{
+width:60px;
+height:60px;
+object-fit:contain;
+margin-bottom:12px;
+}
+
+.feature h3{margin-bottom:8px}
+
+.feature p{color:#999}
+
+.feature strong{
+display:block;
+margin-top:14px;
+color:#60a5fa;
 }
 
 /* ABOUT */
 
-.about{
-    padding:70px 0;
-    border-top:1px solid #222;
+.about{background:#090909}
+
+.about-content{
+max-width:850px;
+margin:auto;
+text-align:center;
 }
 
-.about-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:18px;
+.about-content h2{
+font-size:38px;
+margin-bottom:18px;
 }
 
-.about-card{
-    background:#101010;
-    border:1px solid #252525;
-    border-radius:15px;
-    padding:25px;
+.about-content p{
+color:#aaa;
+margin-bottom:14px;
 }
 
-.about-card .icon{
-    font-size:28px;
-    margin-bottom:12px;
+/* COMPARE */
+
+.compare-grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:18px;
 }
 
-.about-card h3{
-    margin-bottom:8px;
+.compare-card{
+background:#101010;
+border:1px solid #242424;
+padding:24px;
+border-radius:15px;
 }
 
-.about-card p{
-    color:#888;
-    font-size:14px;
+.compare-card:hover{border-color:#2563eb}
+
+.compare-card h3{margin-bottom:10px}
+
+.compare-card p{
+color:#999;
+margin-bottom:15px;
+}
+
+.compare-card a{
+color:#60a5fa;
+font-weight:bold;
 }
 
 /* REVIEWS */
 
-.reviews{
-    padding:70px 0;
-    border-top:1px solid #222;
-}
+.reviews{background:#090909}
 
 .review-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:18px;
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:18px;
 }
 
 .review{
-    background:#101010;
-    border:1px solid #252525;
-    border-radius:15px;
-    padding:22px;
+background:#101010;
+border:1px solid #242424;
+border-radius:15px;
+padding:23px;
 }
 
 .stars{
-    color:#facc15;
-    margin-bottom:10px;
+color:#facc15;
+font-size:18px;
+margin-bottom:12px;
 }
 
-.review p{
-    color:#aaa;
-    font-size:14px;
-    margin-bottom:15px;
+.review-text{
+color:#ddd;
+min-height:75px;
+margin-bottom:18px;
 }
 
-.review strong{
-    font-size:14px;
+.reviewer{
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+.avatar{
+width:42px;
+height:42px;
+border-radius:50%;
+background:#2563eb;
+display:flex;
+align-items:center;
+justify-content:center;
+font-weight:bold;
+}
+
+.reviewer strong{display:block}
+
+.reviewer span{
+color:#777;
+font-size:12px;
+}
+
+/* BLOG */
+
+.blog-grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:20px;
+}
+
+.blog-card{
+background:#101010;
+border:1px solid #222;
+border-radius:15px;
+padding:24px;
+}
+
+.blog-card h3{margin-bottom:9px}
+
+.blog-card p{
+color:#999;
+font-size:14px;
+}
+
+/* FAQ */
+
+.faq{
+max-width:850px;
+margin:auto;
+}
+
+.faq-item{
+background:#101010;
+border:1px solid #252525;
+border-radius:10px;
+margin-bottom:10px;
+overflow:hidden;
+}
+
+.faq-question{
+padding:17px;
+font-weight:bold;
+display:flex;
+justify-content:space-between;
+cursor:pointer;
+}
+
+.faq-answer{
+display:none;
+padding:0 17px 17px;
+color:#999;
+}
+
+.faq-item.open .faq-answer{display:block}
+
+/* CONTACT */
+
+.contact{background:#090909}
+
+.contact-grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:25px;
+}
+
+.contact-box{
+background:#101010;
+border:1px solid #222;
+border-radius:15px;
+padding:28px;
+}
+
+.contact-box p{color:#999}
+
+.contact-item{margin-top:15px}
+
+.contact-item span{
+display:block;
+color:#999;
 }
 
 /* FOOTER */
 
 footer{
-    border-top:1px solid #222;
-    background:#030303;
-    padding:35px 0;
+background:#030303;
+border-top:1px solid #222;
+padding:45px 0 20px;
 }
 
-.footer{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
+.footer-grid{
+display:grid;
+grid-template-columns:2fr 1fr 1fr 1fr;
+gap:30px;
 }
 
-.footer p{
-    color:#666;
-    font-size:13px;
+.footer-col h3{margin-bottom:13px}
+
+.footer-col p,
+.footer-col a{
+display:block;
+color:#888;
+font-size:14px;
+margin-bottom:7px;
 }
 
-/* CART */
+.footer-col a:hover{color:#3b82f6}
 
-#cartModal{
-    display:none;
-    position:fixed;
-    right:0;
-    top:0;
-    width:100%;
-    max-width:400px;
-    height:100vh;
-    background:#101010;
-    border-left:1px solid #292929;
-    z-index:3000;
-    padding:25px;
-    overflow-y:auto;
+.copyright{
+border-top:1px solid #222;
+margin-top:30px;
+padding-top:18px;
+text-align:center;
+color:#666;
+font-size:13px;
 }
 
-.cart-head{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:20px;
+/* RESPONSIVE */
+
+@media(max-width:1000px){
+
+.products{
+grid-template-columns:repeat(2,1fr);
 }
 
-.cart-close{
-    background:none;
-    border:0;
-    color:#aaa;
-    font-size:22px;
-    cursor:pointer;
+.review-grid{
+grid-template-columns:repeat(2,1fr);
 }
 
-.cart-item{
-    background:#080808;
-    border:1px solid #222;
-    border-radius:10px;
-    padding:12px;
-    margin-bottom:10px;
+.features{
+grid-template-columns:1fr;
 }
 
-.cart-item-name{
-    color:#60a5fa;
-    font-weight:bold;
-    font-size:14px;
+.footer-grid{
+grid-template-columns:1fr 1fr;
 }
 
-.cart-item-price{
-    color:#888;
-    font-size:12px;
-    margin-top:4px;
+.menu{
+display:none;
 }
-
-.remove{
-    margin-top:8px;
-    color:#ef4444;
-    background:none;
-    border:0;
-    cursor:pointer;
-}
-
-/* MOBILE */
-
-@media(max-width:900px){
-
-    .product-grid{
-        grid-template-columns:repeat(2,1fr);
-    }
-
-    .about-grid,
-    .review-grid{
-        grid-template-columns:1fr;
-    }
 
 }
 
-@media(max-width:650px){
+@media(max-width:700px){
 
-    .menu{
-        display:none;
-    }
+.nav{
+min-height:65px;
+}
 
-    .nav{
-        flex-wrap:wrap;
-        padding:10px 0;
-    }
+.logo{
+font-size:22px;
+}
 
-    .nav-right{
-        width:100%;
-        justify-content:flex-end;
-    }
+.header-right{
+gap:5px;
+}
 
-    .hero{
-        padding:60px 0;
-    }
+.language-switcher{
+padding:3px;
+}
 
-    .hero h1{
-        font-size:35px;
-    }
+.language-switcher button{
+font-size:10px;
+padding:4px;
+}
 
-    .product-grid{
-        grid-template-columns:1fr;
-    }
+.auth{
+gap:5px;
+}
 
-    .footer{
-        flex-direction:column;
-        gap:10px;
-        text-align:center;
-    }
+.auth .btn{
+padding:9px 10px;
+font-size:12px;
+}
+
+.user-email{
+max-width:120px;
+font-size:11px;
+padding:9px 8px;
+}
+
+.cart-btn{
+padding:9px 8px;
+font-size:11px;
+}
+
+.hero-inner{
+flex-direction:column;
+text-align:center;
+}
+
+.hero h1{
+font-size:39px;
+}
+
+.hero-buttons{
+justify-content:center;
+flex-direction:column;
+}
+
+.products,
+.compare-grid,
+.review-grid,
+.blog-grid,
+.contact-grid{
+grid-template-columns:1fr;
+}
+
+.footer-grid{
+grid-template-columns:1fr;
+}
 
 }
 </style>
@@ -459,37 +689,83 @@ footer{
 
 <div class="container nav">
 
-<a href="index.html" class="logo">
+<a href="#home" class="logo">
 DigiBaku<span>.com</span>
 </a>
 
 <nav class="menu">
 
-<a href="#home" id="navHome">Ana səhifə</a>
-<a href="#products" id="navProducts">Məhsullar</a>
-<a href="#about" id="navAbout">Haqqımızda</a>
-<a href="#reviews" id="navReviews">Rəylər</a>
+<a href="#home" data-i18n="home">Ana səhifə</a>
+
+<a href="#products" data-i18n="products">Məhsullar</a>
+
+<a href="#compare" data-i18n="compare">Müqayisə</a>
+
+<a href="#about" data-i18n="about">Haqqımızda</a>
+
+<a href="#reviews" data-i18n="reviews">Rəylər</a>
+
+<a href="#blog" data-i18n="blog">Bloq</a>
+
+<a href="#contact" data-i18n="contact">Əlaqə</a>
 
 </nav>
 
-<div class="nav-right">
+<div class="header-right">
 
-<div class="language">
-<button id="azBtn" onclick="setLanguage('az')">AZ</button>
-<span>|</span>
-<button id="ruBtn" onclick="setLanguage('ru')">RU</button>
-<span>|</span>
-<button id="enBtn" onclick="setLanguage('en')">EN</button>
+<!-- DİL -->
+
+<div class="language-switcher">
+
+<button
+id="langAZ"
+onclick="setLanguage('az')">
+AZ
+</button>
+
+<button
+id="langRU"
+onclick="setLanguage('ru')">
+RU
+</button>
+
+<button
+id="langEN"
+onclick="setLanguage('en')">
+EN
+</button>
+
 </div>
 
-<a href="login.html" class="profile-btn" id="profileButton">
-Giriş
+<!-- SƏBƏT -->
+
+<button onclick="toggleCart()" class="btn cart-btn">
+
+🛒 <span data-i18n="cart">Səbət</span>
+
+<span id="cartCount" class="cart-count">
+0
+</span>
+
+</button>
+
+<div class="auth" id="authArea">
+
+<a
+href="login.html"
+class="btn btn-dark"
+data-i18n="login">
+Daxil ol
 </a>
 
-<button class="cart-btn" onclick="toggleCart()">
-🛒 <span id="cartText">Səbət</span>
-<span id="cartCount" class="cart-count">0</span>
-</button>
+<a
+href="login.html"
+class="btn btn-primary"
+data-i18n="register">
+Qeydiyyat
+</a>
+
+</div>
 
 </div>
 
@@ -498,31 +774,67 @@ Giriş
 </header>
 
 
-<!-- CART -->
+<!-- SƏBƏT PANELİ -->
 
 <div id="cartModal">
 
-<div class="cart-head">
-<h2 id="yourCart">Səbətiniz</h2>
+<div style="
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:20px;
+">
 
-<button class="cart-close" onclick="toggleCart()">✕</button>
+<h2
+style="font-size:22px;color:#fff;"
+data-i18n="yourCart">
+Səbətiniz
+</h2>
+
+<button
+onclick="toggleCart()"
+style="
+background:none;
+border:none;
+color:#aaa;
+font-size:22px;
+cursor:pointer;">
+✕
+</button>
+
 </div>
 
-<div id="cartItems">
-<p style="color:#777;text-align:center;">
+
+<div
+id="cartItemsList"
+style="margin-bottom:20px;">
+
+<p
+style="color:#777;text-align:center;"
+data-i18n="cartEmpty">
 Səbətiniz boşdur
 </p>
+
 </div>
 
-<div style="border-top:1px solid #222;padding-top:18px;margin-top:20px;">
 
-<div style="display:flex;justify-content:space-between;font-weight:bold;margin-bottom:15px;">
+<div
+style="
+border-top:1px solid #222;
+padding-top:15px;">
 
-<span id="totalText">
+<div
+style="
+display:flex;
+justify-content:space-between;
+margin-bottom:15px;
+font-weight:bold;">
+
+<span data-i18n="total">
 Ümumi məbləğ:
 </span>
 
-<span id="cartTotal">
+<span id="cartTotalPrice">
 0.00 AZN
 </span>
 
@@ -530,8 +842,11 @@ Səbətiniz boşdur
 
 <button
 onclick="checkoutCart()"
-style="width:100%;background:#2563eb;color:#fff;border:0;border-radius:9px;padding:13px;font-weight:bold;cursor:pointer;"
-id="checkoutButton">
+class="btn btn-primary"
+style="
+width:100%;
+text-align:center;"
+data-i18n="confirmOrder">
 
 Sifarişi təsdiq et
 
@@ -542,23 +857,72 @@ Sifarişi təsdiq et
 </div>
 
 
+<main>
+
 <!-- HERO -->
 
 <section class="hero" id="home">
 
-<div class="container">
+<div class="container hero-inner">
 
-<h1 id="heroTitle">
-Premium xidmətlər <span>DigiBaku.com</span>
+<div class="hero-content">
+
+<div
+class="badge"
+data-i18n="badge">
+Premium rəqəmsal xidmətlər
+</div>
+
+<h1>
+
+<span data-i18n="heroTitle">
+Premium rəqəmsal xidmətlər
+</span>
+
+<br>
+
+<span data-i18n="heroTitle2">
+bir platformada
+</span>
+
 </h1>
 
-<p id="heroText">
-Netflix, YouTube Premium, ChatGPT Plus və Spotify Premium xidmətlərini rahat şəkildə əldə edin.
+<p data-i18n="heroText">
+
+Dünyanın ən çox istifadə olunan premium platformalarını
+bir araya gətirərək rəqəmsal xidmətlərə çıxışı daha rahat edirik.
+İstədiyiniz xidməti seçin, sifarişinizi tamamlayın və qısa müddət
+ərzində istifadəyə başlayın.
+
 </p>
 
-<a href="#products" class="hero-btn" id="heroButton">
+<div class="hero-buttons">
+
+<a
+href="#products"
+class="btn btn-primary"
+data-i18n="viewProducts">
 Məhsullara bax
 </a>
+
+<a
+href="#about"
+class="btn btn-dark"
+data-i18n="about">
+Haqqımızda
+</a>
+
+</div>
+
+</div>
+
+<div class="hero-image">
+
+<img
+src="homeheroimage-1784180505-800w.avif"
+alt="DigiBaku.com premium rəqəmsal xidmətlər">
+
+</div>
 
 </div>
 
@@ -567,133 +931,280 @@ Məhsullara bax
 
 <!-- PRODUCTS -->
 
-<section class="products" id="products">
+<section id="products">
 
 <div class="container">
 
 <div class="section-title">
 
-<h2 id="productsTitle">
-Premium xidmətlər
+<h2 data-i18n="products">
+Məhsullar
 </h2>
 
-<p id="productsSubtitle">
-Sizə uyğun xidməti seçin
+<p data-i18n="productsSubtitle">
+Premium rəqəmsal xidmətlərimizi kəşf edin.
 </p>
 
 </div>
 
+<div class="products">
 
-<div class="product-grid">
 
-<div class="product-card">
+<!-- NETFLIX -->
 
-<div class="product-image">
-<img src="netflix.webp" alt="Netflix">
-</div>
+<div class="product">
 
-<h3>Netflix Premium</h3>
+<img
+class="product-image"
+src="netflix.webp"
+alt="Netflix Premium">
 
-<p id="netflixText">
-Film və serialları yüksək keyfiyyətdə izləyin.
+<h3 data-i18n="netflixName">
+Netflix 4K Premium Abunəliyi
+</h3>
+
+<p data-i18n="netflixDescription">
+Film və serialları yüksək keyfiyyətdə izləmək üçün Netflix Premium.
 </p>
 
 <div class="price">
-6.99 AZN / <span id="month1">ay</span>
+6.99 AZN
+<small data-i18n="oneMonth">/ 1 ay</small>
 </div>
+
+<div class="product-actions">
 
 <a
 href="product.html?product=netflix"
-class="product-button"
-id="netflixButton">
-
+class="btn btn-primary"
+data-i18n="details">
 Ətraflı bax
-
 </a>
 
+<button
+onclick="addToCart('Netflix 4K Premium Abunəliyi (1 ay)',6.99)"
+class="btn btn-dark"
+data-i18n="order">
+Sifariş et
+</button>
+
+</div>
+
 </div>
 
 
-<div class="product-card">
+<!-- YOUTUBE -->
 
-<div class="product-image">
-<img src="youtube.webp" alt="YouTube">
-</div>
+<div class="product">
 
-<h3>YouTube Premium</h3>
+<img
+class="product-image"
+src="youtube.webp"
+alt="YouTube Premium">
 
-<p id="youtubeText">
-Videolara reklamsız baxın və YouTube Music-dən istifadə edin.
+<h3 data-i18n="youtubeName">
+YouTube Premium
+</h3>
+
+<p data-i18n="youtubeDescription">
+Reklamsız video, musiqi və premium YouTube təcrübəsi.
 </p>
 
 <div class="price">
-7.99 AZN / <span id="month2">ay</span>
+7.99 AZN
+<small data-i18n="oneMonth">/ 1 ay</small>
 </div>
+
+<div class="product-actions">
 
 <a
 href="product.html?product=youtube"
-class="product-button"
-id="youtubeButton">
-
+class="btn btn-primary"
+data-i18n="details">
 Ətraflı bax
-
 </a>
 
+<button
+onclick="addToCart('YouTube Premium (1 ay)',7.99)"
+class="btn btn-dark"
+data-i18n="order">
+Sifariş et
+</button>
+
+</div>
+
 </div>
 
 
-<div class="product-card">
+<!-- CHATGPT -->
 
-<div class="product-image">
-<img src="chatgpt.webp" alt="ChatGPT">
-</div>
+<div class="product">
 
-<h3>ChatGPT Plus</h3>
+<img
+class="product-image"
+src="chatgpt.webp"
+alt="ChatGPT Plus">
 
-<p id="chatgptText">
-Süni intellekt imkanlarından daha geniş istifadə edin.
+<h3 data-i18n="chatgptName">
+ChatGPT Plus
+</h3>
+
+<p data-i18n="chatgptDescription">
+Süni intellekt, yazı, kod və gündəlik işlər üçün premium xidmət.
 </p>
 
 <div class="price">
-11.99 AZN / <span id="month3">ay</span>
+11.99 AZN
+<small data-i18n="oneMonth">/ 1 ay</small>
 </div>
+
+<div class="product-actions">
 
 <a
 href="product.html?product=chatgpt"
-class="product-button"
-id="chatgptButton">
-
+class="btn btn-primary"
+data-i18n="details">
 Ətraflı bax
-
 </a>
 
+<button
+onclick="addToCart('ChatGPT Plus (1 ay)',11.99)"
+class="btn btn-dark"
+data-i18n="order">
+Sifariş et
+</button>
+
+</div>
+
 </div>
 
 
-<div class="product-card">
+<!-- SPOTIFY -->
 
-<div class="product-image">
-<img src="spotfiy.webp" alt="Spotify">
-</div>
+<div class="product">
 
-<h3>Spotify Premium</h3>
+<img
+class="product-image"
+src="spotfiy.webp"
+alt="Spotify Premium">
 
-<p id="spotifyText">
-Musiqiləri reklamsız və rahat şəkildə dinləyin.
+<h3 data-i18n="spotifyName">
+Spotify Premium
+</h3>
+
+<p data-i18n="spotifyDescription">
+Reklamsız musiqi, yüksək keyfiyyət və offline dinləmə.
 </p>
 
 <div class="price">
-7.99 AZN / <span id="month4">ay</span>
+7.99 AZN
+<small data-i18n="oneMonth">/ 1 ay</small>
 </div>
+
+<div class="product-actions">
 
 <a
 href="product.html?product=spotify"
-class="product-button"
-id="spotifyButton">
-
+class="btn btn-primary"
+data-i18n="details">
 Ətraflı bax
-
 </a>
+
+<button
+onclick="addToCart('Spotify Premium (1 ay)',7.99)"
+class="btn btn-dark"
+data-i18n="order">
+Sifariş et
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- FEATURES -->
+
+<section>
+
+<div class="container">
+
+<div class="section-title">
+
+<h2 data-i18n="whyUs">
+Niyə məhz biz?
+</h2>
+
+<p data-i18n="whyUsText">
+Premium xidmətlərə çıxışı daha sürətli, rahat və təhlükəsiz etmək üçün prosesi sadələşdirdik.
+</p>
+
+</div>
+
+<div class="features">
+
+
+<div class="feature">
+
+<img src="destek.webp" alt="Dəstək">
+
+<h3 data-i18n="fastActivation">
+Sürətli aktivləşdirmə
+</h3>
+
+<p data-i18n="fastActivationText">
+Sifarişinizi tamamlayın, qalanını biz həll edək.
+Hesab məlumatlarınız hazırlanaraq sizə təqdim olunur.
+</p>
+
+<strong data-i18n="activationTime">
+5-30 dəq ərzində aktivləşdirmə
+</strong>
+
+</div>
+
+
+<div class="feature">
+
+<img src="odenis.webp" alt="Ödəniş">
+
+<h3 data-i18n="securePayment">
+Təhlükəsiz ödəniş
+</h3>
+
+<p data-i18n="securePaymentText">
+Ödəniş prosesiniz qorunan sistem üzərindən aparılır
+və sifarişiniz təhlükəsiz şəkildə tamamlanır.
+</p>
+
+<strong data-i18n="protectedPayment">
+Qorunan ödəniş sistemi
+</strong>
+
+</div>
+
+
+<div class="feature">
+
+<img src="etibarli.webp" alt="Etibarlı dəstək">
+
+<h3 data-i18n="reliableSupport">
+Etibarlı dəstək
+</h3>
+
+<p data-i18n="reliableSupportText">
+Sifariş və aktivləşdirmə ilə bağlı suallarınız yarandıqda
+dəstək komandamız sizə operativ şəkildə kömək edir.
+</p>
+
+<strong data-i18n="customerSupport">
+Operativ müştəri dəstəyi
+</strong>
 
 </div>
 
@@ -708,44 +1219,131 @@ id="spotifyButton">
 
 <section class="about" id="about">
 
+<div class="container about-content">
+
+<h2 data-i18n="aboutTitle">
+DigiBaku.com haqqında
+</h2>
+
+<p data-i18n="aboutText1">
+DigiBaku.com premium rəqəmsal xidmətləri daha rahat əldə etmək
+istəyən istifadəçilər üçün yaradılmış platformadır.
+</p>
+
+<p data-i18n="aboutText2">
+Məqsədimiz istifadəçinin uyğun xidməti tez tapması,
+qiymət və müddəti aydın görməsi və sifariş prosesini
+mümkün qədər sadə şəkildə tamamlamasıdır.
+</p>
+
+<p data-i18n="aboutText3">
+Hazırda platformamızda Netflix Premium, YouTube Premium,
+ChatGPT Plus və Spotify Premium xidmətləri təqdim olunur.
+</p>
+
+</div>
+
+</section>
+
+
+<!-- COMPARE -->
+
+<section id="compare">
+
 <div class="container">
 
 <div class="section-title">
 
-<h2 id="aboutTitle">
-Haqqımızda
+<h2 data-i18n="compare">
+Müqayisə bələdçiləri
 </h2>
 
-<p id="aboutSubtitle">
-DigiBaku.com premium rəqəmsal xidmətlər platformasıdır.
+<p data-i18n="compareSubtitle">
+İstifadə məqsədinizə uyğun premium xidməti daha rahat seçin.
 </p>
 
 </div>
 
-<div class="about-grid">
+<div class="compare-grid">
 
-<div class="about-card">
-<div class="icon">⚡</div>
-<h3 id="fastTitle">Sürətli xidmət</h3>
-<p id="fastText">
-Sifarişlərinizi mümkün qədər rahat və sürətli şəkildə qəbul edirik.
+
+<div class="compare-card">
+
+<h3 data-i18n="compare1Title">
+Netflix vs YouTube Premium
+</h3>
+
+<p data-i18n="compare1Text">
+Netflix film və serial üçün, YouTube Premium isə
+reklamsız video və musiqi üçün daha uyğundur.
 </p>
+
+<a
+href="product.html?product=netflix"
+data-i18n="compareNetflix">
+Netflix Premium-a bax →
+</a>
+
 </div>
 
-<div class="about-card">
-<div class="icon">🔒</div>
-<h3 id="safeTitle">Təhlükəsiz sifariş</h3>
-<p id="safeText">
-Müştəri məlumatlarının təhlükəsizliyinə diqqət yetiririk.
+
+<div class="compare-card">
+
+<h3 data-i18n="compare2Title">
+Spotify vs YouTube Premium
+</h3>
+
+<p data-i18n="compare2Text">
+Musiqi üçün Spotify, video və musiqini bir yerdə
+istifadə etmək üçün YouTube Premium.
 </p>
+
+<a
+href="product.html?product=spotify"
+data-i18n="compareSpotify">
+Spotify Premium-a bax →
+</a>
+
 </div>
 
-<div class="about-card">
-<div class="icon">💬</div>
-<h3 id="supportTitle">Dəstək</h3>
-<p id="supportText">
-Sifarişlə bağlı suallarınız üçün bizimlə əlaqə saxlaya bilərsiniz.
+
+<div class="compare-card">
+
+<h3 data-i18n="compare3Title">
+ChatGPT Plus
+</h3>
+
+<p data-i18n="compare3Text">
+Yazı, kod, araşdırma və süni intellekt əsaslı
+gündəlik işlər üçün premium AI xidməti.
 </p>
+
+<a
+href="product.html?product=chatgpt"
+data-i18n="compareChatGPT">
+ChatGPT Plus-a bax →
+</a>
+
+</div>
+
+
+<div class="compare-card">
+
+<h3 data-i18n="compare4Title">
+Premium paket seçimi
+</h3>
+
+<p data-i18n="compare4Text">
+Qiymət, müddət və istifadə məqsədinizə uyğun
+xidməti seçin.
+</p>
+
+<a
+href="#products"
+data-i18n="compareAll">
+Bütün məhsullara bax →
+</a>
+
 </div>
 
 </div>
@@ -763,40 +1361,248 @@ Sifarişlə bağlı suallarınız üçün bizimlə əlaqə saxlaya bilərsiniz.
 
 <div class="section-title">
 
-<h2 id="reviewsTitle">
+<h2 data-i18n="reviews">
 Müştəri rəyləri
 </h2>
 
-<p id="reviewsSubtitle">
-DigiBaku.com haqqında müştərilərimizin fikirləri.
+<p data-i18n="reviewsSubtitle">
+Müştərilərimizin təcrübəsi bizim üçün ən böyük motivasiyadır.
 </p>
 
 </div>
 
 <div class="review-grid">
 
-<div class="review">
-<div class="stars">★★★★★</div>
-<p id="review1">
-“Çox rahat sifariş etdim, xidmət də tez aktivləşdirildi.”
-</p>
-<strong>Orxan</strong>
-</div>
 
 <div class="review">
+
 <div class="stars">★★★★★</div>
-<p id="review2">
-“Qiymətlər münasibdir və istifadə rahatdır.”
-</p>
-<strong>Elvin</strong>
+
+<div
+class="review-text"
+data-i18n="review1">
+“Çox sağ olun. Sifariş sürətli və problemsiz oldu.”
 </div>
 
+<div class="reviewer">
+
+<div class="avatar">O</div>
+
+<div>
+
+<strong>Orxan Hacıyev</strong>
+
+<span data-i18n="netflixPremium">
+Netflix Premium
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+
 <div class="review">
+
 <div class="stars">★★★★★</div>
-<p id="review3">
-“WhatsApp üzərindən tez cavab verdilər.”
-</p>
-<strong>Murad</strong>
+
+<div
+class="review-text"
+data-i18n="review2">
+“Əla, uyğun qiymətədir və sürətli bir şəkildə əldə etdim. Təşəkkür edirəm.”
+</div>
+
+<div class="reviewer">
+
+<div class="avatar">S</div>
+
+<div>
+
+<strong>Shabnam Valizada</strong>
+
+<span data-i18n="youtubePremium">
+YouTube Premium
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="review">
+
+<div class="stars">★★★★★</div>
+
+<div
+class="review-text"
+data-i18n="review3">
+“Sərfəli qiymətdir və sifariş prosesi çox rahatdır.”
+</div>
+
+<div class="reviewer">
+
+<div class="avatar">D</div>
+
+<div>
+
+<strong>Dergah Abdullayev</strong>
+
+<span data-i18n="chatgptPlus">
+ChatGPT Plus
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="review">
+
+<div class="stars">★★★★★</div>
+
+<div
+class="review-text"
+data-i18n="review4">
+“Etibarlı və sürətli xidmətdir. Dostlarıma da tövsiyə edirəm.”
+</div>
+
+<div class="reviewer">
+
+<div class="avatar">R</div>
+
+<div>
+
+<strong>Rəşad Məmmədli</strong>
+
+<span data-i18n="spotifyPremium">
+Spotify Premium
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="review">
+
+<div class="stars">★★★★★</div>
+
+<div
+class="review-text"
+data-i18n="review5">
+“Dəstək komandası suallarıma tez cavab verdi və mənə kömək etdi.”
+</div>
+
+<div class="reviewer">
+
+<div class="avatar">S</div>
+
+<div>
+
+<strong>Səbinə Əliyeva</strong>
+
+<span data-i18n="customer">
+Müştəri
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="review">
+
+<div class="stars">★★★★★</div>
+
+<div
+class="review-text"
+data-i18n="review6">
+“Bir neçə dəfə sifariş vermişəm və hər dəfə xidmət problemsiz işləyib.”
+</div>
+
+<div class="reviewer">
+
+<div class="avatar">E</div>
+
+<div>
+
+<strong>Elvin Cəfərov</strong>
+
+<span data-i18n="customer">
+Müştəri
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="review">
+
+<div class="stars">★★★★★</div>
+
+<div
+class="review-text"
+data-i18n="review7">
+“Saytın istifadəsi sadədir. İstədiyim məhsulu çox tez tapdım.”
+</div>
+
+<div class="reviewer">
+
+<div class="avatar">L</div>
+
+<div>
+
+<strong>Ləman Hüseynova</strong>
+
+<span data-i18n="customer">
+Müştəri
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="review">
+
+<div class="stars">★★★★★</div>
+
+<div
+class="review-text"
+data-i18n="review8">
+“Qiymətlər münasibdir və aktivləşdirmə gözlədiyimdən daha sürətli oldu.”
+</div>
+
+<div class="reviewer">
+
+<div class="avatar">V</div>
+
+<div>
+
+<strong>Vahid Kərimov</strong>
+
+<span data-i18n="customer">
+Müştəri
+</span>
+
+</div>
+
+</div>
+
 </div>
 
 </div>
@@ -806,18 +1612,442 @@ DigiBaku.com haqqında müştərilərimizin fikirləri.
 </section>
 
 
-<footer>
+<!-- BLOG -->
 
-<div class="container footer">
+<section id="blog">
 
-<div>
-<div class="logo">
-DigiBaku<span>.com</span>
+<div class="container">
+
+<div class="section-title">
+
+<h2 data-i18n="blog">
+Bloq
+</h2>
+
+<p data-i18n="blogSubtitle">
+Premium xidmətlər haqqında faydalı məlumatlar
+</p>
+
 </div>
 
-<p id="copyright">
-© 2026 DigiBaku.com. Bütün hüquqlar qorunur.
+<div class="blog-grid">
+
+
+<div class="blog-card">
+
+<h3 data-i18n="blog1Title">
+Netflix Premium nədir?
+</h3>
+
+<p data-i18n="blog1Text">
+Netflix Premium film və serial izləmək üçün
+premium imkanlar təqdim edən abunə xidmətidir.
 </p>
+
+</div>
+
+
+<div class="blog-card">
+
+<h3 data-i18n="blog2Title">
+YouTube Premium nə verir?
+</h3>
+
+<p data-i18n="blog2Text">
+Reklamsız video, musiqi və digər premium istifadə imkanları.
+</p>
+
+</div>
+
+
+<div class="blog-card">
+
+<h3 data-i18n="blog3Title">
+ChatGPT Plus kimlər üçündür?
+</h3>
+
+<p data-i18n="blog3Text">
+Yazı, kod, araşdırma və gündəlik AI işlərində istifadə üçün.
+</p>
+
+</div>
+
+
+<div class="blog-card">
+
+<h3 data-i18n="blog4Title">
+Spotify Premium üstünlükləri
+</h3>
+
+<p data-i18n="blog4Text">
+Reklamsız musiqi və offline dinləmə imkanları.
+</p>
+
+</div>
+
+
+<div class="blog-card">
+
+<h3 data-i18n="blog5Title">
+Premium xidmət necə seçilir?
+</h3>
+
+<p data-i18n="blog5Text">
+Qiymət, müddət və istifadə məqsədinə görə düzgün xidməti seçin.
+</p>
+
+</div>
+
+
+<div class="blog-card">
+
+<h3 data-i18n="blog6Title">
+Sifariş prosesi necə işləyir?
+</h3>
+
+<p data-i18n="blog6Text">
+Məhsulu seçin, paket müddətini müəyyən edin və sifarişinizi göndərin.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- FAQ -->
+
+<section>
+
+<div class="container">
+
+<div class="section-title">
+
+<h2 data-i18n="faqTitle">
+Tez-tez verilən suallar
+</h2>
+
+</div>
+
+<div class="faq">
+
+
+<div class="faq-item">
+
+<div
+class="faq-question"
+onclick="toggleFaq(this)">
+
+<span data-i18n="faq1Question">
+Sifariş necə verilir?
+</span>
+
+<span>+</span>
+
+</div>
+
+<div
+class="faq-answer"
+data-i18n="faq1Answer">
+
+Məhsulu seçin, “Ətraflı bax” düyməsinə klikləyin
+və açılan məhsul səhifəsindən sifariş prosesini tamamlayın.
+
+</div>
+
+</div>
+
+
+<div class="faq-item">
+
+<div
+class="faq-question"
+onclick="toggleFaq(this)">
+
+<span data-i18n="faq2Question">
+Hansı məhsullar satılır?
+</span>
+
+<span>+</span>
+
+</div>
+
+<div
+class="faq-answer"
+data-i18n="faq2Answer">
+
+Netflix Premium, YouTube Premium, ChatGPT Plus və Spotify Premium.
+
+</div>
+
+</div>
+
+
+<div class="faq-item">
+
+<div
+class="faq-question"
+onclick="toggleFaq(this)">
+
+<span data-i18n="faq3Question">
+Dəstəklə necə əlaqə saxlayım?
+</span>
+
+<span>+</span>
+
+</div>
+
+<div
+class="faq-answer"
+data-i18n="faq3Answer">
+
+E-poçt vasitəsilə premium989b@gmail.com ünvanından əlaqə saxlaya bilərsiniz.
+
+</div>
+
+</div>
+
+
+<div class="faq-item">
+
+<div
+class="faq-question"
+onclick="toggleFaq(this)">
+
+<span data-i18n="faq4Question">
+Aktivləşdirmə nə qədər çəkir?
+</span>
+
+<span>+</span>
+
+</div>
+
+<div
+class="faq-answer"
+data-i18n="faq4Answer">
+
+Sifarişdən sonra aktivləşdirmə adətən 5-30 dəqiqə ərzində həyata keçirilir.
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- CONTACT -->
+
+<section class="contact" id="contact">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2 data-i18n="contact">
+Əlaqə
+</h2>
+
+<p data-i18n="contactSubtitle">
+DigiBaku.com dəstək
+</p>
+
+</div>
+
+<div class="contact-grid">
+
+
+<div class="contact-box">
+
+<h3>DigiBaku.com</h3>
+
+<div class="contact-item">
+
+<strong data-i18n="city">
+Şəhər
+</strong>
+
+<span>
+Bakı, Azərbaycan
+</span>
+
+</div>
+
+<div class="contact-item">
+
+<strong data-i18n="email">
+E-poçt
+</strong>
+
+<span>
+premium989b@gmail.com
+</span>
+
+</div>
+
+<div class="contact-item">
+
+<strong data-i18n="workingHours">
+İş saatları
+</strong>
+
+<span data-i18n="workingHoursValue">
+Hər gün 10:00 — 22:00
+</span>
+
+</div>
+
+</div>
+
+
+<div class="contact-box">
+
+<h3 data-i18n="orderSupport">
+Sifariş və dəstək
+</h3>
+
+<p
+style="margin-bottom:20px"
+data-i18n="orderSupportText">
+
+Məhsulu seçin və “Ətraflı bax” düyməsi ilə məhsulun
+tam məlumat səhifəsinə keçin.
+
+</p>
+
+<a
+href="#products"
+class="btn btn-primary"
+data-i18n="viewProducts">
+Məhsullara bax
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+</main>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+<div class="container">
+
+<div class="footer-grid">
+
+
+<div class="footer-col">
+
+<h3 class="logo">
+DigiBaku<span>.com</span>
+</h3>
+
+<p data-i18n="footerText">
+Premium rəqəmsal xidmətlər bir platformada.
+</p>
+
+<p>
+Netflix • YouTube Premium • ChatGPT Plus • Spotify Premium
+</p>
+
+</div>
+
+
+<div class="footer-col">
+
+<h3 data-i18n="usefulLinks">
+Faydalı linklər
+</h3>
+
+<a href="#home" data-i18n="home">
+Ana səhifə
+</a>
+
+<a href="#products" data-i18n="products">
+Məhsullar
+</a>
+
+<a href="#compare" data-i18n="compare">
+Müqayisə
+</a>
+
+<a href="#about" data-i18n="about">
+Haqqımızda
+</a>
+
+<a href="#reviews" data-i18n="reviews">
+Rəylər
+</a>
+
+</div>
+
+
+<div class="footer-col">
+
+<h3 data-i18n="products">
+Məhsullar
+</h3>
+
+<a href="product.html?product=netflix">
+Netflix Premium
+</a>
+
+<a href="product.html?product=youtube">
+YouTube Premium
+</a>
+
+<a href="product.html?product=chatgpt">
+ChatGPT Plus
+</a>
+
+<a href="product.html?product=spotify">
+Spotify Premium
+</a>
+
+</div>
+
+
+<div class="footer-col">
+
+<h3 data-i18n="support">
+Dəstək
+</h3>
+
+<a href="#contact" data-i18n="contact">
+Əlaqə
+</a>
+
+<a href="#blog" data-i18n="blog">
+Bloq
+</a>
+
+<a href="#products" data-i18n="order">
+Sifariş
+</a>
+
+</div>
+
+</div>
+
+
+<div
+class="copyright"
+data-i18n="copyright">
+
+© 2026 DigiBaku.com. Bütün hüquqlar qorunur.
+
 </div>
 
 </div>
@@ -827,439 +2057,1079 @@ DigiBaku<span>.com</span>
 
 <script>
 
-/* ================================
-   DİL
-================================ */
+/* =========================
+   TƏRCÜMƏLƏR
+========================= */
 
-const translations={
+const translations = {
 
-az:{
+az: {
+
 home:"Ana səhifə",
 products:"Məhsullar",
+compare:"Müqayisə",
 about:"Haqqımızda",
 reviews:"Rəylər",
-login:"Giriş",
-profile:"Profilim",
+blog:"Bloq",
+contact:"Əlaqə",
+
+login:"Daxil ol",
+register:"Qeydiyyat",
 cart:"Səbət",
+
+badge:"Premium rəqəmsal xidmətlər",
+
+heroTitle:"Premium rəqəmsal xidmətlər",
+heroTitle2:"bir platformada",
+
+heroText:"Dünyanın ən çox istifadə olunan premium platformalarını bir araya gətirərək rəqəmsal xidmətlərə çıxışı daha rahat edirik. İstədiyiniz xidməti seçin, sifarişinizi tamamlayın və qısa müddət ərzində istifadəyə başlayın.",
+
+viewProducts:"Məhsullara bax",
+
+productsSubtitle:"Premium rəqəmsal xidmətlərimizi kəşf edin.",
+
+details:"Ətraflı bax",
+order:"Sifariş et",
+oneMonth:"/ 1 ay",
+
+netflixName:"Netflix 4K Premium Abunəliyi",
+netflixDescription:"Film və serialları yüksək keyfiyyətdə izləmək üçün Netflix Premium.",
+
+youtubeName:"YouTube Premium",
+youtubeDescription:"Reklamsız video, musiqi və premium YouTube təcrübəsi.",
+
+chatgptName:"ChatGPT Plus",
+chatgptDescription:"Süni intellekt, yazı, kod və gündəlik işlər üçün premium xidmət.",
+
+spotifyName:"Spotify Premium",
+spotifyDescription:"Reklamsız musiqi, yüksək keyfiyyət və offline dinləmə.",
+
+whyUs:"Niyə məhz biz?",
+whyUsText:"Premium xidmətlərə çıxışı daha sürətli, rahat və təhlükəsiz etmək üçün prosesi sadələşdirdik.",
+
+fastActivation:"Sürətli aktivləşdirmə",
+fastActivationText:"Sifarişinizi tamamlayın, qalanını biz həll edək. Hesab məlumatlarınız hazırlanaraq sizə təqdim olunur.",
+activationTime:"5-30 dəq ərzində aktivləşdirmə",
+
+securePayment:"Təhlükəsiz ödəniş",
+securePaymentText:"Ödəniş prosesiniz qorunan sistem üzərindən aparılır və sifarişiniz təhlükəsiz şəkildə tamamlanır.",
+protectedPayment:"Qorunan ödəniş sistemi",
+
+reliableSupport:"Etibarlı dəstək",
+reliableSupportText:"Sifariş və aktivləşdirmə ilə bağlı suallarınız yarandıqda dəstək komandamız sizə operativ şəkildə kömək edir.",
+customerSupport:"Operativ müştəri dəstəyi",
+
+aboutTitle:"DigiBaku.com haqqında",
+aboutText1:"DigiBaku.com premium rəqəmsal xidmətləri daha rahat əldə etmək istəyən istifadəçilər üçün yaradılmış platformadır.",
+aboutText2:"Məqsədimiz istifadəçinin uyğun xidməti tez tapması, qiymət və müddəti aydın görməsi və sifariş prosesini mümkün qədər sadə şəkildə tamamlamasıdır.",
+aboutText3:"Hazırda platformamızda Netflix Premium, YouTube Premium, ChatGPT Plus və Spotify Premium xidmətləri təqdim olunur.",
+
+compareSubtitle:"İstifadə məqsədinizə uyğun premium xidməti daha rahat seçin.",
+
+compare1Title:"Netflix vs YouTube Premium",
+compare1Text:"Netflix film və serial üçün, YouTube Premium isə reklamsız video və musiqi üçün daha uyğundur.",
+compareNetflix:"Netflix Premium-a bax →",
+
+compare2Title:"Spotify vs YouTube Premium",
+compare2Text:"Musiqi üçün Spotify, video və musiqini bir yerdə istifadə etmək üçün YouTube Premium.",
+compareSpotify:"Spotify Premium-a bax →",
+
+compare3Title:"ChatGPT Plus",
+compare3Text:"Yazı, kod, araşdırma və süni intellekt əsaslı gündəlik işlər üçün premium AI xidməti.",
+compareChatGPT:"ChatGPT Plus-a bax →",
+
+compare4Title:"Premium paket seçimi",
+compare4Text:"Qiymət, müddət və istifadə məqsədinizə uyğun xidməti seçin.",
+compareAll:"Bütün məhsullara bax →",
+
+reviewsSubtitle:"Müştərilərimizin təcrübəsi bizim üçün ən böyük motivasiyadır.",
+
+review1:"“Çox sağ olun. Sifariş sürətli və problemsiz oldu.”",
+review2:"“Əla, uyğun qiymətədir və sürətli bir şəkildə əldə etdim. Təşəkkür edirəm.”",
+review3:"“Sərfəli qiymətdir və sifariş prosesi çox rahatdır.”",
+review4:"“Etibarlı və sürətli xidmətdir. Dostlarıma da tövsiyə edirəm.”",
+review5:"“Dəstək komandası suallarıma tez cavab verdi və mənə kömək etdi.”",
+review6:"“Bir neçə dəfə sifariş vermişəm və hər dəfə xidmət problemsiz işləyib.”",
+review7:"“Saytın istifadəsi sadədir. İstədiyim məhsulu çox tez tapdım.”",
+review8:"“Qiymətlər münasibdir və aktivləşdirmə gözlədiyimdən daha sürətli oldu.”",
+
+netflixPremium:"Netflix Premium",
+youtubePremium:"YouTube Premium",
+chatgptPlus:"ChatGPT Plus",
+spotifyPremium:"Spotify Premium",
+customer:"Müştəri",
+
+blogSubtitle:"Premium xidmətlər haqqında faydalı məlumatlar",
+
+blog1Title:"Netflix Premium nədir?",
+blog1Text:"Netflix Premium film və serial izləmək üçün premium imkanlar təqdim edən abunə xidmətidir.",
+
+blog2Title:"YouTube Premium nə verir?",
+blog2Text:"Reklamsız video, musiqi və digər premium istifadə imkanları.",
+
+blog3Title:"ChatGPT Plus kimlər üçündür?",
+blog3Text:"Yazı, kod, araşdırma və gündəlik AI işlərində istifadə üçün.",
+
+blog4Title:"Spotify Premium üstünlükləri",
+blog4Text:"Reklamsız musiqi və offline dinləmə imkanları.",
+
+blog5Title:"Premium xidmət necə seçilir?",
+blog5Text:"Qiymət, müddət və istifadə məqsədinə görə düzgün xidməti seçin.",
+
+blog6Title:"Sifariş prosesi necə işləyir?",
+blog6Text:"Məhsulu seçin, paket müddətini müəyyən edin və sifarişinizi göndərin.",
+
+faqTitle:"Tez-tez verilən suallar",
+
+faq1Question:"Sifariş necə verilir?",
+faq1Answer:"Məhsulu seçin, “Ətraflı bax” düyməsinə klikləyin və açılan məhsul səhifəsindən sifariş prosesini tamamlayın.",
+
+faq2Question:"Hansı məhsullar satılır?",
+faq2Answer:"Netflix Premium, YouTube Premium, ChatGPT Plus və Spotify Premium.",
+
+faq3Question:"Dəstəklə necə əlaqə saxlayım?",
+faq3Answer:"E-poçt vasitəsilə premium989b@gmail.com ünvanından əlaqə saxlaya bilərsiniz.",
+
+faq4Question:"Aktivləşdirmə nə qədər çəkir?",
+faq4Answer:"Sifarişdən sonra aktivləşdirmə adətən 5-30 dəqiqə ərzində həyata keçirilir.",
+
+contactSubtitle:"DigiBaku.com dəstək",
+city:"Şəhər",
+email:"E-poçt",
+workingHours:"İş saatları",
+workingHoursValue:"Hər gün 10:00 — 22:00",
+
+orderSupport:"Sifariş və dəstək",
+orderSupportText:"Məhsulu seçin və “Ətraflı bax” düyməsi ilə məhsulun tam məlumat səhifəsinə keçin.",
+
+footerText:"Premium rəqəmsal xidmətlər bir platformada.",
+usefulLinks:"Faydalı linklər",
+support:"Dəstək",
+
 yourCart:"Səbətiniz",
 cartEmpty:"Səbətiniz boşdur",
 total:"Ümumi məbləğ:",
-confirm:"Sifarişi təsdiq et",
-heroTitle:"Premium xidmətlər DigiBaku.com",
-heroText:"Netflix, YouTube Premium, ChatGPT Plus və Spotify Premium xidmətlərini rahat şəkildə əldə edin.",
-heroButton:"Məhsullara bax",
-productsTitle:"Premium xidmətlər",
-productsSubtitle:"Sizə uyğun xidməti seçin",
-month:"ay",
-details:"Ətraflı bax",
-netflixText:"Film və serialları yüksək keyfiyyətdə izləyin.",
-youtubeText:"Videolara reklamsız baxın və YouTube Music-dən istifadə edin.",
-chatgptText:"Süni intellekt imkanlarından daha geniş istifadə edin.",
-spotifyText:"Musiqiləri reklamsız və rahat şəkildə dinləyin.",
-aboutTitle:"Haqqımızda",
-aboutSubtitle:"DigiBaku.com premium rəqəmsal xidmətlər platformasıdır.",
-fastTitle:"Sürətli xidmət",
-fastText:"Sifarişlərinizi mümkün qədər rahat və sürətli şəkildə qəbul edirik.",
-safeTitle:"Təhlükəsiz sifariş",
-safeText:"Müştəri məlumatlarının təhlükəsizliyinə diqqət yetiririk.",
-supportTitle:"Dəstək",
-supportText:"Sifarişlə bağlı suallarınız üçün bizimlə əlaqə saxlaya bilərsiniz.",
-reviewsTitle:"Müştəri rəyləri",
-reviewsSubtitle:"DigiBaku.com haqqında müştərilərimizin fikirləri.",
-review1:"“Çox rahat sifariş etdim, xidmət də tez aktivləşdirildi.”",
-review2:"“Qiymətlər münasibdir və istifadə rahatdır.”",
-review3:"“WhatsApp üzərindən tez cavab verdilər.”",
+confirmOrder:"Sifarişi təsdiq et",
 remove:"Sil",
-empty:"Səbətiniz boşdur",
-order:"Sifariş"
+
+added:"Məhsul səbətə əlavə edildi!",
+emptyCartAlert:"Səbətiniz boşdur!",
+logoutError:"Çıxış zamanı xəta baş verdi.",
+
+copyright:"© 2026 DigiBaku.com. Bütün hüquqlar qorunur."
+
 },
 
-ru:{
+
+ru: {
+
 home:"Главная",
 products:"Товары",
+compare:"Сравнение",
 about:"О нас",
 reviews:"Отзывы",
-login:"Вход",
-profile:"Мой профиль",
+blog:"Блог",
+contact:"Контакты",
+
+login:"Войти",
+register:"Регистрация",
 cart:"Корзина",
+
+badge:"Премиум цифровые услуги",
+
+heroTitle:"Премиум цифровые услуги",
+heroTitle2:"на одной платформе",
+
+heroText:"Мы собрали самые популярные премиум-платформы в одном месте, чтобы сделать доступ к цифровым услугам проще. Выберите нужную услугу, оформите заказ и начните пользоваться в кратчайшие сроки.",
+
+viewProducts:"Посмотреть товары",
+
+productsSubtitle:"Откройте для себя наши премиум цифровые услуги.",
+
+details:"Подробнее",
+order:"Заказать",
+oneMonth:"/ 1 месяц",
+
+netflixName:"Netflix 4K Premium",
+netflixDescription:"Netflix Premium для просмотра фильмов и сериалов в высоком качестве.",
+
+youtubeName:"YouTube Premium",
+youtubeDescription:"Видео без рекламы, музыка и премиальный опыт YouTube.",
+
+chatgptName:"ChatGPT Plus",
+chatgptDescription:"Премиальный сервис для искусственного интеллекта, текста, кода и повседневных задач.",
+
+spotifyName:"Spotify Premium",
+spotifyDescription:"Музыка без рекламы, высокое качество и офлайн-прослушивание.",
+
+whyUs:"Почему именно мы?",
+whyUsText:"Мы упростили процесс, чтобы сделать доступ к премиум-сервисам быстрее, удобнее и безопаснее.",
+
+fastActivation:"Быстрая активация",
+fastActivationText:"Оформите заказ, а остальное мы сделаем сами. Данные аккаунта будут подготовлены и предоставлены вам.",
+activationTime:"Активация за 5–30 минут",
+
+securePayment:"Безопасная оплата",
+securePaymentText:"Оплата проходит через защищённую систему, а заказ оформляется безопасно.",
+protectedPayment:"Защищённая система оплаты",
+
+reliableSupport:"Надёжная поддержка",
+reliableSupportText:"Если у вас возникнут вопросы по заказу или активации, наша команда оперативно поможет.",
+customerSupport:"Оперативная поддержка клиентов",
+
+aboutTitle:"О DigiBaku.com",
+aboutText1:"DigiBaku.com — платформа для пользователей, которые хотят удобно получать премиум цифровые услуги.",
+aboutText2:"Наша цель — помочь пользователю быстро найти подходящую услугу, увидеть цену и срок и максимально просто оформить заказ.",
+aboutText3:"На нашей платформе доступны Netflix Premium, YouTube Premium, ChatGPT Plus и Spotify Premium.",
+
+compareSubtitle:"Выберите премиум-сервис в соответствии с вашими потребностями.",
+
+compare1Title:"Netflix vs YouTube Premium",
+compare1Text:"Netflix лучше подходит для фильмов и сериалов, а YouTube Premium — для видео и музыки без рекламы.",
+compareNetflix:"Netflix Premium →",
+
+compare2Title:"Spotify vs YouTube Premium",
+compare2Text:"Spotify лучше подходит для музыки, а YouTube Premium объединяет видео и музыку.",
+compareSpotify:"Spotify Premium →",
+
+compare3Title:"ChatGPT Plus",
+compare3Text:"Премиальный AI-сервис для текста, кода, исследований и повседневных задач.",
+compareChatGPT:"ChatGPT Plus →",
+
+compare4Title:"Выбор премиум-пакета",
+compare4Text:"Выберите услугу с учётом цены, срока и ваших целей.",
+compareAll:"Все товары →",
+
+reviewsSubtitle:"Опыт наших клиентов — наша главная мотивация.",
+
+review1:"«Спасибо большое. Заказ был быстрым и без проблем.»",
+review2:"«Отличная цена, получил быстро. Спасибо!»",
+review3:"«Выгодная цена и очень удобный процесс заказа.»",
+review4:"«Надёжный и быстрый сервис. Рекомендую друзьям.»",
+review5:"«Команда поддержки быстро ответила на мои вопросы и помогла.»",
+review6:"«Заказывал несколько раз, каждый раз всё работало без проблем.»",
+review7:"«Сайт простой в использовании. Быстро нашёл нужный товар.»",
+review8:"«Цены хорошие, а активация прошла быстрее, чем я ожидал.»",
+
+netflixPremium:"Netflix Premium",
+youtubePremium:"YouTube Premium",
+chatgptPlus:"ChatGPT Plus",
+spotifyPremium:"Spotify Premium",
+customer:"Клиент",
+
+blogSubtitle:"Полезная информация о премиум-сервисах",
+
+blog1Title:"Что такое Netflix Premium?",
+blog1Text:"Netflix Premium — подписка с премиальными возможностями для просмотра фильмов и сериалов.",
+
+blog2Title:"Что даёт YouTube Premium?",
+blog2Text:"Видео без рекламы, музыка и другие премиальные возможности.",
+
+blog3Title:"Для кого подходит ChatGPT Plus?",
+blog3Text:"Для текста, кода, исследований и повседневных задач с AI.",
+
+blog4Title:"Преимущества Spotify Premium",
+blog4Text:"Музыка без рекламы и возможность офлайн-прослушивания.",
+
+blog5Title:"Как выбрать премиум-сервис?",
+blog5Text:"Выбирайте подходящий сервис с учётом цены, срока и целей использования.",
+
+blog6Title:"Как работает процесс заказа?",
+blog6Text:"Выберите товар, определите срок пакета и отправьте заказ.",
+
+faqTitle:"Часто задаваемые вопросы",
+
+faq1Question:"Как оформить заказ?",
+faq1Answer:"Выберите товар, нажмите «Подробнее» и завершите оформление на странице товара.",
+
+faq2Question:"Какие товары продаются?",
+faq2Answer:"Netflix Premium, YouTube Premium, ChatGPT Plus и Spotify Premium.",
+
+faq3Question:"Как связаться с поддержкой?",
+faq3Answer:"Вы можете связаться с нами по электронной почте premium989b@gmail.com.",
+
+faq4Question:"Сколько занимает активация?",
+faq4Answer:"После заказа активация обычно выполняется в течение 5–30 минут.",
+
+contactSubtitle:"Поддержка DigiBaku.com",
+city:"Город",
+email:"Электронная почта",
+workingHours:"Часы работы",
+workingHoursValue:"Ежедневно 10:00 — 22:00",
+
+orderSupport:"Заказ и поддержка",
+orderSupportText:"Выберите товар и нажмите «Подробнее», чтобы перейти на страницу с полной информацией.",
+
+footerText:"Премиум цифровые услуги на одной платформе.",
+usefulLinks:"Полезные ссылки",
+support:"Поддержка",
+
 yourCart:"Ваша корзина",
 cartEmpty:"Ваша корзина пуста",
 total:"Итого:",
-confirm:"Подтвердить заказ",
-heroTitle:"Премиум-сервисы DigiBaku.com",
-heroText:"Получайте Netflix, YouTube Premium, ChatGPT Plus и Spotify Premium быстро и удобно.",
-heroButton:"Посмотреть товары",
-productsTitle:"Премиум-сервисы",
-productsSubtitle:"Выберите подходящий сервис",
-month:"месяц",
-details:"Подробнее",
-netflixText:"Смотрите фильмы и сериалы в высоком качестве.",
-youtubeText:"Смотрите видео без рекламы и используйте YouTube Music.",
-chatgptText:"Используйте расширенные возможности искусственного интеллекта.",
-spotifyText:"Слушайте музыку без рекламы и удобно.",
-aboutTitle:"О нас",
-aboutSubtitle:"DigiBaku.com — платформа премиум-цифровых услуг.",
-fastTitle:"Быстрый сервис",
-fastText:"Мы стараемся принимать и обрабатывать заказы максимально быстро.",
-safeTitle:"Безопасный заказ",
-safeText:"Мы уделяем внимание безопасности данных клиентов.",
-supportTitle:"Поддержка",
-supportText:"По вопросам заказа вы можете связаться с нами.",
-reviewsTitle:"Отзывы клиентов",
-reviewsSubtitle:"Мнения наших клиентов о DigiBaku.com.",
-review1:"«Очень удобно заказал, услуга была быстро активирована.»",
-review2:"«Хорошие цены и удобно пользоваться.»",
-review3:"«Быстро ответили через WhatsApp.»",
+confirmOrder:"Подтвердить заказ",
 remove:"Удалить",
-empty:"Ваша корзина пуста",
-order:"Заказ"
+
+added:"Товар добавлен в корзину!",
+emptyCartAlert:"Ваша корзина пуста!",
+logoutError:"Произошла ошибка при выходе.",
+
+copyright:"© 2026 DigiBaku.com. Все права защищены."
+
 },
 
-en:{
+
+en: {
+
 home:"Home",
 products:"Products",
+compare:"Comparison",
 about:"About us",
 reviews:"Reviews",
+blog:"Blog",
+contact:"Contact",
+
 login:"Login",
-profile:"My Profile",
+register:"Register",
 cart:"Cart",
+
+badge:"Premium digital services",
+
+heroTitle:"Premium digital services",
+heroTitle2:"on one platform",
+
+heroText:"We bring the most popular premium platforms together in one place to make access to digital services easier. Choose the service you want, complete your order and start using it shortly.",
+
+viewProducts:"View products",
+
+productsSubtitle:"Discover our premium digital services.",
+
+details:"View details",
+order:"Order now",
+oneMonth:"/ 1 month",
+
+netflixName:"Netflix 4K Premium",
+netflixDescription:"Netflix Premium for watching movies and series in high quality.",
+
+youtubeName:"YouTube Premium",
+youtubeDescription:"Ad-free video, music and a premium YouTube experience.",
+
+chatgptName:"ChatGPT Plus",
+chatgptDescription:"Premium service for AI, writing, coding and everyday tasks.",
+
+spotifyName:"Spotify Premium",
+spotifyDescription:"Ad-free music, high quality and offline listening.",
+
+whyUs:"Why choose us?",
+whyUsText:"We simplified the process to make access to premium services faster, easier and safer.",
+
+fastActivation:"Fast activation",
+fastActivationText:"Complete your order and we will handle the rest. Your account information will be prepared and provided to you.",
+activationTime:"Activation within 5–30 minutes",
+
+securePayment:"Secure payment",
+securePaymentText:"Your payment is processed through a protected system and your order is completed securely.",
+protectedPayment:"Protected payment system",
+
+reliableSupport:"Reliable support",
+reliableSupportText:"If you have questions about your order or activation, our support team will assist you quickly.",
+customerSupport:"Fast customer support",
+
+aboutTitle:"About DigiBaku.com",
+aboutText1:"DigiBaku.com is a platform created for users who want convenient access to premium digital services.",
+aboutText2:"Our goal is to help users quickly find the right service, clearly see the price and duration and complete the order as simply as possible.",
+aboutText3:"Our platform currently offers Netflix Premium, YouTube Premium, ChatGPT Plus and Spotify Premium.",
+
+compareSubtitle:"Choose the premium service that best fits your needs.",
+
+compare1Title:"Netflix vs YouTube Premium",
+compare1Text:"Netflix is better for movies and series, while YouTube Premium is better for ad-free video and music.",
+compareNetflix:"View Netflix Premium →",
+
+compare2Title:"Spotify vs YouTube Premium",
+compare2Text:"Spotify is ideal for music, while YouTube Premium combines video and music.",
+compareSpotify:"View Spotify Premium →",
+
+compare3Title:"ChatGPT Plus",
+compare3Text:"A premium AI service for writing, coding, research and everyday tasks.",
+compareChatGPT:"View ChatGPT Plus →",
+
+compare4Title:"Choose a premium package",
+compare4Text:"Choose a service according to price, duration and your needs.",
+compareAll:"View all products →",
+
+reviewsSubtitle:"Our customers' experience is our greatest motivation.",
+
+review1:"“Thank you very much. The order was fast and problem-free.”",
+review2:"“Great price and I received it quickly. Thank you!”",
+review3:"“Affordable price and a very convenient ordering process.”",
+review4:"“Reliable and fast service. I recommend it to my friends.”",
+review5:"“The support team answered my questions quickly and helped me.”",
+review6:"“I have ordered several times and everything worked perfectly each time.”",
+review7:"“The website is easy to use. I found what I wanted very quickly.”",
+review8:"“Good prices and activation was faster than I expected.”",
+
+netflixPremium:"Netflix Premium",
+youtubePremium:"YouTube Premium",
+chatgptPlus:"ChatGPT Plus",
+spotifyPremium:"Spotify Premium",
+customer:"Customer",
+
+blogSubtitle:"Useful information about premium services",
+
+blog1Title:"What is Netflix Premium?",
+blog1Text:"Netflix Premium is a subscription with premium features for watching movies and series.",
+
+blog2Title:"What does YouTube Premium offer?",
+blog2Text:"Ad-free videos, music and other premium features.",
+
+blog3Title:"Who is ChatGPT Plus for?",
+blog3Text:"For writing, coding, research and everyday AI tasks.",
+
+blog4Title:"Spotify Premium benefits",
+blog4Text:"Ad-free music and offline listening.",
+
+blog5Title:"How to choose a premium service?",
+blog5Text:"Choose the right service according to price, duration and your purpose.",
+
+blog6Title:"How does the ordering process work?",
+blog6Text:"Choose a product, select the package duration and send your order.",
+
+faqTitle:"Frequently asked questions",
+
+faq1Question:"How do I place an order?",
+faq1Answer:"Choose a product, click “View details” and complete the order on the product page.",
+
+faq2Question:"What products are available?",
+faq2Answer:"Netflix Premium, YouTube Premium, ChatGPT Plus and Spotify Premium.",
+
+faq3Question:"How can I contact support?",
+faq3Answer:"You can contact us by email at premium989b@gmail.com.",
+
+faq4Question:"How long does activation take?",
+faq4Answer:"Activation is usually completed within 5–30 minutes after the order.",
+
+contactSubtitle:"DigiBaku.com support",
+city:"City",
+email:"Email",
+workingHours:"Working hours",
+workingHoursValue:"Every day 10:00 — 22:00",
+
+orderSupport:"Order and support",
+orderSupportText:"Choose a product and click “View details” to open the full product information page.",
+
+footerText:"Premium digital services on one platform.",
+usefulLinks:"Useful links",
+support:"Support",
+
 yourCart:"Your cart",
 cartEmpty:"Your cart is empty",
 total:"Total:",
-confirm:"Confirm order",
-heroTitle:"Premium services by DigiBaku.com",
-heroText:"Get Netflix, YouTube Premium, ChatGPT Plus and Spotify Premium quickly and easily.",
-heroButton:"View products",
-productsTitle:"Premium services",
-productsSubtitle:"Choose the service that suits you",
-month:"month",
-details:"View details",
-netflixText:"Watch movies and series in high quality.",
-youtubeText:"Watch videos without ads and use YouTube Music.",
-chatgptText:"Use extended artificial intelligence capabilities.",
-spotifyText:"Listen to music without ads.",
-aboutTitle:"About us",
-aboutSubtitle:"DigiBaku.com is a premium digital services platform.",
-fastTitle:"Fast service",
-fastText:"We try to process your orders as quickly and conveniently as possible.",
-safeTitle:"Secure ordering",
-safeText:"We pay attention to the security of customer information.",
-supportTitle:"Support",
-supportText:"You can contact us if you have questions about your order.",
-reviewsTitle:"Customer reviews",
-reviewsSubtitle:"What our customers say about DigiBaku.com.",
-review1:"“Very easy to order and the service was activated quickly.”",
-review2:"“Good prices and easy to use.”",
-review3:"“They replied quickly through WhatsApp.”",
+confirmOrder:"Confirm order",
 remove:"Remove",
-empty:"Your cart is empty",
-order:"Order"
+
+added:"Product added to cart!",
+emptyCartAlert:"Your cart is empty!",
+logoutError:"An error occurred while logging out.",
+
+copyright:"© 2026 DigiBaku.com. All rights reserved."
+
 }
 
 };
 
 
+/* =========================
+   DİL FUNKSİYALARI
+========================= */
+
 function getLanguage(){
-    return localStorage.getItem("digi_language") || "az";
-}
 
-
-function setLanguage(lang){
-
-    if(!translations[lang]){
-        lang="az";
-    }
-
-    localStorage.setItem("digi_language",lang);
-
-    applyLanguage();
+return localStorage.getItem("digi_language") || "az";
 
 }
 
 
 function t(key){
 
-    const lang=getLanguage();
+const lang=getLanguage();
 
-    return translations[lang][key]
-        || translations.az[key]
-        || key;
+return translations[lang]?.[key]
+|| translations.az[key]
+|| key;
 
 }
 
 
-/* ================================
-   DİLİ TƏTBİQ ET
-================================ */
+function setLanguage(lang){
+
+if(!translations[lang]){
+lang="az";
+}
+
+localStorage.setItem(
+"digi_language",
+lang
+);
+
+applyLanguage();
+
+}
+
 
 function applyLanguage(){
 
-    const lang=getLanguage();
+const lang=getLanguage();
 
-    document.documentElement.lang=lang;
+document.documentElement.lang=lang;
 
-    document.getElementById("navHome").textContent=t("home");
-    document.getElementById("navProducts").textContent=t("products");
-    document.getElementById("navAbout").textContent=t("about");
-    document.getElementById("navReviews").textContent=t("reviews");
+document.title=
+lang==="az"
+?
+"DigiBaku.com — Premium rəqəmsal xidmətlər"
+:
+lang==="ru"
+?
+"DigiBaku.com — Премиум цифровые услуги"
+:
+"DigiBaku.com — Premium digital services";
 
-    document.getElementById("profileButton").textContent=t("login");
 
-    document.getElementById("cartText").textContent=t("cart");
-    document.getElementById("yourCart").textContent=t("yourCart");
-    document.getElementById("totalText").textContent=t("total");
-    document.getElementById("checkoutButton").textContent=t("confirm");
+document
+.querySelectorAll("[data-i18n]")
+.forEach(element=>{
 
-    document.getElementById("heroTitle").innerHTML=
-        t("heroTitle").replace(
-            "DigiBaku.com",
-            "<span>DigiBaku.com</span>"
-        );
+const key=
+element.getAttribute("data-i18n");
 
-    document.getElementById("heroText").textContent=t("heroText");
-    document.getElementById("heroButton").textContent=t("heroButton");
+if(translations[lang]?.[key]){
 
-    document.getElementById("productsTitle").textContent=t("productsTitle");
-    document.getElementById("productsSubtitle").textContent=t("productsSubtitle");
+element.textContent=
+translations[lang][key];
 
-    document.getElementById("netflixText").textContent=t("netflixText");
-    document.getElementById("youtubeText").textContent=t("youtubeText");
-    document.getElementById("chatgptText").textContent=t("chatgptText");
-    document.getElementById("spotifyText").textContent=t("spotifyText");
+}
 
-    document.getElementById("netflixButton").textContent=t("details");
-    document.getElementById("youtubeButton").textContent=t("details");
-    document.getElementById("chatgptButton").textContent=t("details");
-    document.getElementById("spotifyButton").textContent=t("details");
+});
 
-    document.getElementById("month1").textContent=t("month");
-    document.getElementById("month2").textContent=t("month");
-    document.getElementById("month3").textContent=t("month");
-    document.getElementById("month4").textContent=t("month");
 
-    document.getElementById("aboutTitle").textContent=t("aboutTitle");
-    document.getElementById("aboutSubtitle").textContent=t("aboutSubtitle");
+/* AKTİV DİL */
 
-    document.getElementById("fastTitle").textContent=t("fastTitle");
-    document.getElementById("fastText").textContent=t("fastText");
+document
+.querySelectorAll(".language-switcher button")
+.forEach(button=>{
+button.classList.remove("active");
+});
 
-    document.getElementById("safeTitle").textContent=t("safeTitle");
-    document.getElementById("safeText").textContent=t("safeText");
 
-    document.getElementById("supportTitle").textContent=t("supportTitle");
-    document.getElementById("supportText").textContent=t("supportText");
+const activeButton=
+document.getElementById(
+"lang"+
+lang.toUpperCase()
+);
 
-    document.getElementById("reviewsTitle").textContent=t("reviewsTitle");
-    document.getElementById("reviewsSubtitle").textContent=t("reviewsSubtitle");
+if(activeButton){
 
-    document.getElementById("review1").textContent=t("review1");
-    document.getElementById("review2").textContent=t("review2");
-    document.getElementById("review3").textContent=t("review3");
-
-    document.getElementById("copyright").textContent=
-        lang==="ru"
-        ? "© 2026 DigiBaku.com. Все права защищены."
-        : lang==="en"
-        ? "© 2026 DigiBaku.com. All rights reserved."
-        : "© 2026 DigiBaku.com. Bütün hüquqlar qorunur.";
-
-    ["az","ru","en"].forEach(x=>{
-        document.getElementById(x+"Btn").classList.remove("active");
-    });
-
-    document.getElementById(lang+"Btn").classList.add("active");
-
-    updateCartUI();
+activeButton.classList.add("active");
 
 }
 
 
-/* ================================
+/* SƏBƏTİ YENİ DİLLƏ YENİLƏ */
+
+updateCartUI();
+
+}
+
+
+/* =========================
+   FAQ
+========================= */
+
+function toggleFaq(element){
+
+element.parentElement
+.classList.toggle("open");
+
+}
+
+
+/* =========================
+   SUPABASE
+========================= */
+
+const SUPABASE_URL=
+"https://zeknhnkaicqkfzgnvycq.supabase.co";
+
+const SUPABASE_KEY=
+"sb_publishable_jHvCp9fXBA_BwFqrXYpwlw_VC6C1OQk";
+
+const supabaseClient=
+window.supabase.createClient(
+SUPABASE_URL,
+SUPABASE_KEY
+);
+
+
+/* =========================
    SƏBƏT
-================================ */
+========================= */
 
 let cart=
-    JSON.parse(localStorage.getItem("digi_cart")) || [];
-
-
-function saveCart(){
-
-    localStorage.setItem(
-        "digi_cart",
-        JSON.stringify(cart)
-    );
-
-}
+JSON.parse(
+localStorage.getItem("digi_cart")
+) || [];
 
 
 function toggleCart(){
 
-    const modal=document.getElementById("cartModal");
+const modal=
+document.getElementById(
+"cartModal"
+);
 
-    modal.style.display=
-        modal.style.display==="block"
-        ? "none"
-        : "block";
+if(!modal)return;
 
-    updateCartUI();
+if(modal.style.display==="block"){
+
+modal.style.display="none";
+
+}else{
+
+modal.style.display="block";
+
+updateCartUI();
+
+}
 
 }
 
 
-function addCartItem(name,price){
+function addToCart(
+productName,
+price
+){
 
-    cart.push({
-        name:name,
-        price:Number(price)
-    });
+cart.push({
+name:productName,
+price:price
+});
 
-    saveCart();
+localStorage.setItem(
+"digi_cart",
+JSON.stringify(cart)
+);
 
-    updateCartUI();
+updateCartCount();
 
-    document.getElementById("cartModal").style.display="block";
+alert(t("added"));
 
 }
 
 
-function removeFromCart(index){
+function updateCartCount(){
 
-    cart.splice(index,1);
+const countEl=
+document.getElementById(
+"cartCount"
+);
 
-    saveCart();
+if(countEl){
 
-    updateCartUI();
+countEl.textContent=
+cart.length;
+
+}
 
 }
 
 
 function updateCartUI(){
 
-    const count=document.getElementById("cartCount");
+const list=
+document.getElementById(
+"cartItemsList"
+);
 
-    count.textContent=cart.length;
+const totalPriceEl=
+document.getElementById(
+"cartTotalPrice"
+);
 
-    const list=document.getElementById("cartItems");
+if(!list || !totalPriceEl)return;
 
-    let total=0;
 
-    if(cart.length===0){
+if(cart.length===0){
 
-        list.innerHTML=`
-        <p style="color:#777;text-align:center;">
-        ${t("cartEmpty")}
-        </p>`;
+list.innerHTML=`
 
-        document.getElementById("cartTotal").textContent="0.00 AZN";
+<p style="
+color:#777;
+text-align:center;">
+${t("cartEmpty")}
+</p>
 
-        return;
-    }
+`;
 
-    let html="";
+totalPriceEl.textContent=
+"0.00 AZN";
 
-    cart.forEach((item,index)=>{
+return;
 
-        total+=Number(item.price);
+}
 
-        html+=`
-        <div class="cart-item">
 
-            <div class="cart-item-name">
-                ${escapeHtml(item.name)}
-            </div>
+let html="";
+let total=0;
 
-            <div class="cart-item-price">
-                ${Number(item.price).toFixed(2)} AZN
-            </div>
 
-            <button
-            class="remove"
-            onclick="removeFromCart(${index})">
+cart.forEach(
+(item,index)=>{
 
-            ${t("remove")}
+total+=
+Number(item.price||0);
 
-            </button>
+html+=`
 
-        </div>
-        `;
+<div style="
+background:#080808;
+border:1px solid #222;
+border-radius:10px;
+padding:12px;
+margin-bottom:10px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+">
 
-    });
+<div>
 
-    list.innerHTML=html;
+<div style="
+font-weight:bold;
+color:#60a5fa;
+font-size:14px;">
 
-    document.getElementById("cartTotal").textContent=
-        total.toFixed(2)+" AZN";
+${escapeHtml(item.name)}
+
+</div>
+
+<div style="
+color:#888;
+font-size:12px;
+margin-top:4px;">
+
+${Number(item.price).toFixed(2)} AZN
+
+</div>
+
+</div>
+
+<button
+onclick="removeFromCart(${index})"
+style="
+background:none;
+border:none;
+color:#ef4444;
+cursor:pointer;
+font-size:13px;">
+
+${t("remove")}
+
+</button>
+
+</div>
+
+`;
+
+});
+
+
+list.innerHTML=html;
+
+totalPriceEl.textContent=
+total.toFixed(2)+" AZN";
+
+}
+
+
+function removeFromCart(index){
+
+cart.splice(index,1);
+
+localStorage.setItem(
+"digi_cart",
+JSON.stringify(cart)
+);
+
+updateCartCount();
+
+updateCartUI();
 
 }
 
 
 function checkoutCart(){
 
-    if(cart.length===0){
+if(cart.length===0){
 
-        alert(t("cartEmpty"));
+alert(t("emptyCartAlert"));
 
-        return;
-    }
-
-    let message=
-        "Salam DigiBaku.com!\n\n"+
-        t("order")+
-        ":\n\n";
-
-    let total=0;
-
-    cart.forEach((item,index)=>{
-
-        message+=
-            (index+1)+". "+
-            item.name+
-            " - "+
-            Number(item.price).toFixed(2)+
-            " AZN\n";
-
-        total+=Number(item.price);
-
-    });
-
-    message+=
-        "\n"+
-        t("total")+" "+
-        total.toFixed(2)+
-        " AZN";
-
-    const phone="994702883484";
-
-    cart=[];
-
-    saveCart();
-
-    updateCartUI();
-
-    window.location.href=
-        "https://wa.me/"+
-        phone+
-        "?text="+
-        encodeURIComponent(message);
+return;
 
 }
 
+
+let message=
+"Salam DigiBaku.com!\n\n"+
+"Səbətdəki məhsulları sifariş etmək istəyirəm:\n\n";
+
+let total=0;
+
+
+cart.forEach(
+(item,index)=>{
+
+message+=
+`${index+1}. ${item.name} - ${Number(item.price).toFixed(2)} AZN\n`;
+
+total+=
+Number(item.price||0);
+
+});
+
+
+message+=
+`\nÜmumi məbləğ: ${total.toFixed(2)} AZN`;
+
+
+const phone=
+"994702883484";
+
+const whatsappUrl=
+"https://wa.me/"
++phone
++"?text="
++encodeURIComponent(message);
+
+
+cart=[];
+
+localStorage.removeItem(
+"digi_cart"
+);
+
+updateCartCount();
+
+toggleCart();
+
+window.location.href=
+whatsappUrl;
+
+}
+
+
+/* =========================
+   HTML TƏHLÜKƏSİZLİYİ
+========================= */
 
 function escapeHtml(text){
 
-    return String(text)
-        .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;")
-        .replace(/'/g,"&#039;");
+return String(text)
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;")
+.replace(/'/g,"&#039;");
 
 }
 
 
-/* START */
+/* =========================
+   LOGIN YOXLAMASI
+========================= */
+
+async function checkLogin(){
+
+const {
+data:{session},
+error
+}=
+await supabaseClient
+.auth
+.getSession();
+
+
+if(error){
+
+console.error(
+"Session xətası:",
+error
+);
+
+return;
+
+}
+
+
+const authArea=
+document.getElementById(
+"authArea"
+);
+
+if(!authArea)return;
+
+
+/* LOGIN OLUBSA */
+
+if(session){
+
+authArea.innerHTML="";
+
+
+/* PROFİL */
+
+const profileButton=
+document.createElement("a");
+
+profileButton.href=
+"profile.html";
+
+profileButton.className=
+"btn btn-primary";
+
+profileButton.textContent=
+t("profile") || "Profil";
+
+
+/* EMAIL */
+
+const email=
+document.createElement("span");
+
+email.className=
+"user-email";
+
+email.textContent=
+session.user.email;
+
+
+/* ÇIXIŞ */
+
+const logoutButton=
+document.createElement("button");
+
+logoutButton.className=
+"btn btn-dark";
+
+logoutButton.textContent=
+t("logout") || "Çıxış";
+
+logoutButton.onclick=
+logout;
+
+
+authArea.appendChild(
+profileButton
+);
+
+authArea.appendChild(
+email
+);
+
+authArea.appendChild(
+logoutButton
+);
+
+}
+
+
+/* LOGIN OLMAYIBSA */
+
+else{
+
+authArea.innerHTML=`
+
+<a
+href="login.html"
+class="btn btn-dark">
+
+${t("login")}
+
+</a>
+
+<a
+href="login.html"
+class="btn btn-primary">
+
+${t("register")}
+
+</a>
+
+`;
+
+}
+
+}
+
+
+/* =========================
+   ÇIXIŞ
+========================= */
+
+async function logout(){
+
+const {error}=
+await supabaseClient
+.auth
+.signOut();
+
+
+if(error){
+
+alert(t("logoutError"));
+
+console.error(error);
+
+return;
+
+}
+
+
+window.location.reload();
+
+}
+
+
+/* =========================
+   LOGIN DƏYİŞƏNDƏ
+========================= */
+
+supabaseClient
+.auth
+.onAuthStateChange(
+(event,session)=>{
+
+checkLogin();
+
+}
+);
+
+
+/* =========================
+   SƏHİFƏ AÇILANDA
+========================= */
+
+document.addEventListener(
+"DOMContentLoaded",
+()=>{
 
 applyLanguage();
+
+updateCartCount();
+
+checkLogin();
+
+}
+);
 
 </script>
 
