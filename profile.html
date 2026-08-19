@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>DigiBaku.com | Profil</title>
+<title>DigiBaku.com</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -67,7 +67,7 @@ header{
 .header-right{
     display:flex;
     align-items:center;
-    gap:12px;
+    gap:15px;
 }
 
 .back{
@@ -79,30 +79,26 @@ header{
 
 .language{
     display:flex;
-    gap:5px;
     align-items:center;
+    gap:5px;
+    background:#111;
+    border:1px solid #292929;
+    border-radius:8px;
+    padding:5px 8px;
 }
 
 .language button{
-    background:#151515;
-    border:1px solid #333;
-    color:#888;
-    padding:6px 9px;
-    border-radius:6px;
+    background:none;
+    border:0;
+    color:#777;
     cursor:pointer;
-    font-size:11px;
+    font-size:12px;
     font-weight:bold;
-}
-
-.language button:hover{
-    color:#fff;
-    border-color:#2563eb;
+    padding:4px 5px;
 }
 
 .language button.active{
-    background:#2563eb;
-    border-color:#2563eb;
-    color:#fff;
+    color:#60a5fa;
 }
 
 /* PROFILE */
@@ -125,7 +121,7 @@ header{
     color:#888;
 }
 
-/* CARDS */
+/* CARD */
 
 .user-card,
 .orders{
@@ -285,8 +281,6 @@ header{
     display:none;
 }
 
-/* MOBILE */
-
 @media(max-width:600px){
 
     .nav{
@@ -296,7 +290,7 @@ header{
 
     .header-right{
         width:100%;
-        justify-content:space-between;
+        justify-content:flex-end;
     }
 
     .profile-title h1{
@@ -351,17 +345,15 @@ DigiBaku<span>.com</span>
 
 <div class="language">
 
-<button id="azBtn" onclick="setLanguage('az')">
-AZ
-</button>
+<button id="azBtn" onclick="setLanguage('az')">AZ</button>
 
-<button id="ruBtn" onclick="setLanguage('ru')">
-RU
-</button>
+<span style="color:#444;">|</span>
 
-<button id="enBtn" onclick="setLanguage('en')">
-EN
-</button>
+<button id="ruBtn" onclick="setLanguage('ru')">RU</button>
+
+<span style="color:#444;">|</span>
+
+<button id="enBtn" onclick="setLanguage('en')">EN</button>
 
 </div>
 
@@ -386,6 +378,7 @@ Profil yüklənir...
 <section class="profile-section">
 
 <div class="container">
+
 
 <div class="profile-title">
 
@@ -447,8 +440,8 @@ Hesab statusu
 </span>
 
 <strong
-id="statusText"
-class="status">
+class="status"
+id="statusValue">
 
 ● Aktiv
 
@@ -491,7 +484,7 @@ style="font-size:11px;word-break:break-all;">
 </div>
 
 
-<!-- PRODUCTS -->
+<!-- MƏHSULLAR -->
 
 <div class="orders">
 
@@ -564,87 +557,90 @@ id="logoutButton">
 
 <script>
 
-/* =====================================================
-   DİLLƏR
-===================================================== */
+/* ==========================================
+   DİL SİSTEMİ
+========================================== */
 
 const translations = {
 
-az:{
-    profile:"Profilim",
-    profileSubtitle:"DigiBaku.com hesab məlumatlarınız",
-    myAccount:"Hesabım",
-    email:"Email",
-    status:"Hesab statusu",
-    active:"● Aktiv",
-    registrationDate:"Qeydiyyat tarixi",
-    userId:"İstifadəçi ID",
-    myProducts:"Məhsullarım",
-    purchasedProducts:"Satın aldığınız premium xidmətlər burada görünür.",
-    loading:"Yüklənir...",
-    profileLoading:"Profil yüklənir...",
-    noProducts:"Hazırda sifarişiniz yoxdur.",
-    viewProducts:"Məhsullara bax",
-    added:"Əlavə olunub:",
-    accountActions:"Hesab əməliyyatları",
-    home:"Ana səhifə",
-    logout:"Çıxış",
-    backHome:"← Ana səhifə",
-    productsError:"Məhsullar yüklənmədi."
+az: {
+
+pageTitle:"Profilim — DigiBaku.com",
+profile:"Profilim",
+profileSubtitle:"DigiBaku.com hesab məlumatlarınız",
+myAccount:"Hesabım",
+email:"Email",
+accountStatus:"Hesab statusu",
+active:"● Aktiv",
+registrationDate:"Qeydiyyat tarixi",
+userId:"İstifadəçi ID",
+myProducts:"Məhsullarım",
+purchasedProducts:"Satın aldığınız premium xidmətlər burada görünür.",
+loading:"Yüklənir...",
+profileLoading:"Profil yüklənir...",
+noProducts:"Hazırda sifarişiniz yoxdur.",
+viewProducts:"Məhsullara bax",
+accountActions:"Hesab əməliyyatları",
+home:"Ana səhifə",
+backHome:"← Ana səhifə",
+logout:"Çıxış",
+added:"Əlavə olunub:"
 },
 
-ru:{
-    profile:"Мой профиль",
-    profileSubtitle:"Информация вашего аккаунта DigiBaku.com",
-    myAccount:"Мой аккаунт",
-    email:"Email",
-    status:"Статус аккаунта",
-    active:"● Активен",
-    registrationDate:"Дата регистрации",
-    userId:"ID пользователя",
-    myProducts:"Мои товары",
-    purchasedProducts:"Здесь отображаются приобретённые вами премиум-услуги.",
-    loading:"Загрузка...",
-    profileLoading:"Загрузка профиля...",
-    noProducts:"У вас пока нет заказов.",
-    viewProducts:"Посмотреть товары",
-    added:"Добавлено:",
-    accountActions:"Действия с аккаунтом",
-    home:"Главная",
-    logout:"Выйти",
-    backHome:"← Главная",
-    productsError:"Не удалось загрузить товары."
+ru: {
+
+pageTitle:"Мой профиль — DigiBaku.com",
+profile:"Мой профиль",
+profileSubtitle:"Информация вашего аккаунта DigiBaku.com",
+myAccount:"Мой аккаунт",
+email:"Email",
+accountStatus:"Статус аккаунта",
+active:"● Активен",
+registrationDate:"Дата регистрации",
+userId:"ID пользователя",
+myProducts:"Мои товары",
+purchasedProducts:"Здесь отображаются приобретённые вами премиум-услуги.",
+loading:"Загрузка...",
+profileLoading:"Загрузка профиля...",
+noProducts:"У вас пока нет заказов.",
+viewProducts:"Посмотреть товары",
+accountActions:"Действия с аккаунтом",
+home:"Главная",
+backHome:"← Главная",
+logout:"Выйти",
+added:"Добавлено:"
 },
 
-en:{
-    profile:"My Profile",
-    profileSubtitle:"Your DigiBaku.com account information",
-    myAccount:"My Account",
-    email:"Email",
-    status:"Account status",
-    active:"● Active",
-    registrationDate:"Registration date",
-    userId:"User ID",
-    myProducts:"My products",
-    purchasedProducts:"Your purchased premium services will appear here.",
-    loading:"Loading...",
-    profileLoading:"Loading profile...",
-    noProducts:"You have no orders yet.",
-    viewProducts:"View products",
-    added:"Added:",
-    accountActions:"Account actions",
-    home:"Home",
-    logout:"Logout",
-    backHome:"← Home",
-    productsError:"Failed to load products."
+en: {
+
+pageTitle:"My Profile — DigiBaku.com",
+profile:"My Profile",
+profileSubtitle:"Your DigiBaku.com account information",
+myAccount:"My Account",
+email:"Email",
+accountStatus:"Account status",
+active:"● Active",
+registrationDate:"Registration date",
+userId:"User ID",
+myProducts:"My Products",
+purchasedProducts:"Your purchased premium services will appear here.",
+loading:"Loading...",
+profileLoading:"Loading profile...",
+noProducts:"You have no orders yet.",
+viewProducts:"View products",
+accountActions:"Account actions",
+home:"Home",
+backHome:"← Home",
+logout:"Logout",
+added:"Added:"
 }
 
 };
 
 
-/* =====================================================
-   DİL SİSTEMİ
-===================================================== */
+/* ==========================================
+   DİL FUNKSİYALARI
+========================================== */
 
 function getLanguage(){
 
@@ -673,16 +669,16 @@ function t(key){
 
     const lang=getLanguage();
 
-    return translations[lang]?.[key]
+    return translations[lang][key]
         || translations.az[key]
         || key;
 
 }
 
 
-/* =====================================================
-   DİLİ TƏTBİQ ET
-===================================================== */
+/* ==========================================
+   DİLİ SƏHİFƏYƏ TƏTBİQ ET
+========================================== */
 
 function applyLanguage(){
 
@@ -690,80 +686,79 @@ function applyLanguage(){
 
     document.documentElement.lang=lang;
 
+    document.title=t("pageTitle");
 
-    document.getElementById("profileTitle").textContent =
+
+    document.getElementById("profileTitle").textContent=
         t("profile");
 
-
-    document.getElementById("profileSubtitle").textContent =
+    document.getElementById("profileSubtitle").textContent=
         t("profileSubtitle");
 
-
-    document.getElementById("myAccount").textContent =
+    document.getElementById("myAccount").textContent=
         t("myAccount");
 
-
-    document.getElementById("emailLabel").textContent =
+    document.getElementById("emailLabel").textContent=
         t("email");
 
+    document.getElementById("statusLabel").textContent=
+        t("accountStatus");
 
-    document.getElementById("statusLabel").textContent =
-        t("status");
-
-
-    document.getElementById("statusText").textContent =
+    document.getElementById("statusValue").textContent=
         t("active");
 
-
-    document.getElementById("registrationLabel").textContent =
+    document.getElementById("registrationLabel").textContent=
         t("registrationDate");
 
-
-    document.getElementById("userIdLabel").textContent =
+    document.getElementById("userIdLabel").textContent=
         t("userId");
 
-
-    document.getElementById("myProducts").textContent =
+    document.getElementById("myProducts").textContent=
         t("myProducts");
 
-
-    document.getElementById("productsSubtitle").textContent =
+    document.getElementById("productsSubtitle").textContent=
         t("purchasedProducts");
 
-
-    document.getElementById("accountActions").textContent =
+    document.getElementById("accountActions").textContent=
         t("accountActions");
 
-
-    document.getElementById("homeButton").textContent =
+    document.getElementById("homeButton").textContent=
         t("home");
 
-
-    document.getElementById("logoutButton").textContent =
+    document.getElementById("logoutButton").textContent=
         t("logout");
 
-
-    document.getElementById("backHome").textContent =
+    document.getElementById("backHome").textContent=
         t("backHome");
 
-
-    document.getElementById("azBtn")
-        .classList.toggle("active",lang==="az");
-
-
-    document.getElementById("ruBtn")
-        .classList.toggle("active",lang==="ru");
+    document.getElementById("loading").textContent=
+        t("profileLoading");
 
 
-    document.getElementById("enBtn")
-        .classList.toggle("active",lang==="en");
+    /* DİL DÜYMƏSİ */
+
+    document.getElementById("azBtn").classList.remove("active");
+    document.getElementById("ruBtn").classList.remove("active");
+    document.getElementById("enBtn").classList.remove("active");
+
+    document.getElementById(lang+"Btn")
+        .classList.add("active");
+
+
+    /* MƏHSULLARI YENİ DİLLƏ YENİLƏ */
+
+    if(window.currentProductsData){
+        renderProducts(
+            window.currentProductsData
+        );
+    }
 
 }
 
 
-/* =====================================================
+/* ==========================================
    SUPABASE
-===================================================== */
+========================================== */
 
 const SUPABASE_URL =
 "https://zeknhnkaicqkfzgnvycq.supabase.co";
@@ -778,9 +773,9 @@ window.supabase.createClient(
 );
 
 
-/* =====================================================
-   PROFİLİ YÜKLƏ
-===================================================== */
+/* ==========================================
+   PROFİL
+========================================== */
 
 async function loadProfile(){
 
@@ -798,7 +793,6 @@ async function loadProfile(){
         window.location.href="login.html";
 
         return;
-
     }
 
 
@@ -810,66 +804,41 @@ async function loadProfile(){
         window.location.href="login.html";
 
         return;
-
     }
 
 
     const user=session.user;
 
 
-    /* EMAIL */
-
-    document.getElementById(
-        "userEmail"
-    ).textContent =
+    document.getElementById("userEmail").textContent=
         user.email || "-";
 
 
-    document.getElementById(
-        "emailInfo"
-    ).textContent =
+    document.getElementById("emailInfo").textContent=
         user.email || "-";
 
-
-    /* AVATAR */
 
     if(user.email){
 
-        document.getElementById(
-            "avatar"
-        ).textContent =
-            user.email
-                .charAt(0)
-                .toUpperCase();
+        document.getElementById("avatar").textContent=
+            user.email.charAt(0).toUpperCase();
 
     }
 
 
-    /* USER ID */
-
-    document.getElementById(
-        "userId"
-    ).textContent =
+    document.getElementById("userId").textContent=
         user.id;
 
 
-    /* TARİX */
-
     if(user.created_at){
 
-        const date =
-            new Date(user.created_at);
+        const date=new Date(user.created_at);
 
-
-        document.getElementById(
-            "createdDate"
-        ).textContent =
+        document.getElementById("createdDate").textContent=
             date.toLocaleDateString(
-                getLanguage()==="ru"
-                    ? "ru-RU"
-                    : getLanguage()==="en"
-                        ? "en-US"
-                        : "az-AZ",
+                getLanguage()==="ru" ? "ru-RU" :
+                getLanguage()==="en" ? "en-US" :
+                "az-AZ",
                 {
                     year:"numeric",
                     month:"long",
@@ -880,35 +849,26 @@ async function loadProfile(){
     }
 
 
-    /* MƏHSULLAR */
-
     await loadMyProducts(user.id);
 
 
-    /* GÖSTƏR */
+    document.getElementById("loading").style.display="none";
 
-    document.getElementById(
-        "loading"
-    ).style.display="none";
+    document.getElementById("profileContent").style.display="block";
 
 
-    document.getElementById(
-        "profileContent"
-    ).style.display="block";
+    applyLanguage();
 
 }
 
 
-/* =====================================================
-   MƏHSULLARI YÜKLƏ
-===================================================== */
+/* ==========================================
+   MƏHSULLAR
+========================================== */
 
 async function loadMyProducts(userId){
 
-    const list =
-        document.getElementById(
-            "productsList"
-        );
+    const list=document.getElementById("productsList");
 
 
     const {
@@ -916,20 +876,20 @@ async function loadMyProducts(userId){
         error
     } =
     await supabaseClient
-        .from("customer_products")
-        .select(
-            "id,product_name,account_info,status,created_at"
-        )
-        .eq(
-            "user_id",
-            userId
-        )
-        .order(
-            "created_at",
-            {
-                ascending:false
-            }
-        );
+    .from("customer_products")
+    .select(
+        "id,product_name,account_info,status,created_at"
+    )
+    .eq(
+        "user_id",
+        userId
+    )
+    .order(
+        "created_at",
+        {
+            ascending:false
+        }
+    );
 
 
     if(error){
@@ -937,20 +897,31 @@ async function loadMyProducts(userId){
         console.error(error);
 
         list.innerHTML=`
-
         <div class="empty">
-
-            ${escapeHtml(
-                t("productsError")
-            )}
-
+            ${t("error")}
         </div>
-
         `;
 
         return;
-
     }
+
+
+    window.currentProductsData=data || [];
+
+    renderProducts(window.currentProductsData);
+
+}
+
+
+/* ==========================================
+   MƏHSULLARI GÖSTƏR
+========================================== */
+
+function renderProducts(data){
+
+    const list=document.getElementById("productsList");
+
+    if(!list) return;
 
 
     if(!data || data.length===0){
@@ -960,9 +931,7 @@ async function loadMyProducts(userId){
         <div class="empty">
 
             <p>
-            ${escapeHtml(
-                t("noProducts")
-            )}
+            ${t("noProducts")}
             </p>
 
             <br>
@@ -971,9 +940,7 @@ async function loadMyProducts(userId){
             href="index.html#products"
             class="btn btn-primary">
 
-            ${escapeHtml(
-                t("viewProducts")
-            )}
+            ${t("viewProducts")}
 
             </a>
 
@@ -982,7 +949,6 @@ async function loadMyProducts(userId){
         `;
 
         return;
-
     }
 
 
@@ -991,24 +957,23 @@ async function loadMyProducts(userId){
 
     data.forEach(item=>{
 
-        const product =
+        const product=
             document.createElement("div");
-
 
         product.className="product";
 
 
-        const date =
-            item.created_at
+        const date=item.created_at
             ?
-            new Date(
-                item.created_at
-            ).toLocaleString(
+            new Date(item.created_at)
+            .toLocaleString(
                 getLanguage()==="ru"
-                    ? "ru-RU"
-                    : getLanguage()==="en"
-                        ? "en-US"
-                        : "az-AZ"
+                ? "ru-RU"
+                :
+                getLanguage()==="en"
+                ? "en-US"
+                :
+                "az-AZ"
             )
             :
             "-";
@@ -1018,29 +983,20 @@ async function loadMyProducts(userId){
 
         <div class="product-name">
 
-            ${escapeHtml(
-                item.product_name
-            )}
+            ${escapeHtml(item.product_name)}
 
         </div>
 
-
         <div class="product-date">
 
-            ${escapeHtml(
-                t("added")
-            )}
-
+            ${t("added")}
             ${escapeHtml(date)}
 
         </div>
 
-
         <div class="account-box">
 
-            ${escapeHtml(
-                item.account_info || ""
-            )}
+            ${escapeHtml(item.account_info)}
 
         </div>
 
@@ -1054,14 +1010,13 @@ async function loadMyProducts(userId){
 }
 
 
-/* =====================================================
+/* ==========================================
    HTML TƏHLÜKƏSİZLİYİ
-===================================================== */
+========================================== */
 
 function escapeHtml(text){
 
-    return String(text)
-
+    return String(text ?? "")
         .replace(/&/g,"&amp;")
         .replace(/</g,"&lt;")
         .replace(/>/g,"&gt;")
@@ -1071,9 +1026,9 @@ function escapeHtml(text){
 }
 
 
-/* =====================================================
+/* ==========================================
    ÇIXIŞ
-===================================================== */
+========================================== */
 
 async function logout(){
 
@@ -1084,9 +1039,9 @@ async function logout(){
 }
 
 
-/* =====================================================
+/* ==========================================
    BAŞLAT
-===================================================== */
+========================================== */
 
 applyLanguage();
 
