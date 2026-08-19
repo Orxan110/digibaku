@@ -78,6 +78,32 @@ header {
     gap: 12px;
 }
 
+.language {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: #151515;
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 4px 6px;
+}
+
+.language button {
+    background: none;
+    border: none;
+    color: #777;
+    padding: 5px 6px;
+    font-size: 11px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.language button.active {
+    color: #60a5fa;
+    background: #0c172b;
+}
+
 .cart-btn {
     display: flex;
     align-items: center;
@@ -693,6 +719,18 @@ footer {
     .image-box {
         min-height: 330px;
     }
+
+    .nav-right {
+        gap: 5px;
+    }
+
+    .language button {
+        padding: 5px 4px;
+    }
+
+    .cart-btn {
+        padding: 9px 10px;
+    }
 }
 </style>
 </head>
@@ -707,17 +745,40 @@ DigiBaku<span>.com</span>
 </a>
 
 <nav class="menu">
-<a href="index.html">Ana səhifə</a>
-<a href="index.html#products">Məhsullar</a>
-<a href="index.html#about">Haqqımızda</a>
-<a href="index.html#reviews">Rəylər</a>
+<a href="index.html" data-i18n="home">Ana səhifə</a>
+<a href="index.html#products" data-i18n="products">Məhsullar</a>
+<a href="index.html#about" data-i18n="about">Haqqımızda</a>
+<a href="index.html#reviews" data-i18n="reviews">Rəylər</a>
 </nav>
 
 <div class="nav-right">
+
+    <div class="language">
+
+        <button id="azBtn" onclick="setLanguage('az')">
+            AZ
+        </button>
+
+        <span style="color:#444;">|</span>
+
+        <button id="ruBtn" onclick="setLanguage('ru')">
+            RU
+        </button>
+
+        <span style="color:#444;">|</span>
+
+        <button id="enBtn" onclick="setLanguage('en')">
+            EN
+        </button>
+
+    </div>
+
     <!-- Səbət düyməsi və sayğac -->
     <button onclick="toggleCart()" class="cart-btn">
-        🛒 Səbət <span id="cartCount" class="cart-count">0</span>
+        🛒 <span data-i18n="cart">Səbət</span>
+        <span id="cartCount" class="cart-count">0</span>
     </button>
+
 </div>
 
 </div>
@@ -725,127 +786,409 @@ DigiBaku<span>.com</span>
 
 <!-- Səbət Paneli (Modal) -->
 <div id="cartModal">
+
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-        <h2 style="font-size: 22px; color: #fff;">Səbətiniz</h2>
-        <button onclick="toggleCart()" style="background: none; border: none; color: #aaa; font-size: 22px; cursor: pointer;">✕</button>
+
+        <h2
+        id="cartTitle"
+        style="font-size: 22px; color: #fff;">
+        Səbətiniz
+        </h2>
+
+        <button
+        onclick="toggleCart()"
+        style="background: none; border: none; color: #aaa; font-size: 22px; cursor: pointer;">
+        ✕
+        </button>
+
     </div>
 
-    <div id="cartItemsList" style="margin-bottom: 20px;">
-        <p style="color: #777; text-align: center;">Səbətiniz boşdur</p>
+    <div
+    id="cartItemsList"
+    style="margin-bottom: 20px;">
+
+        <p
+        id="emptyCartText"
+        style="color: #777; text-align: center;">
+        Səbətiniz boşdur
+        </p>
+
     </div>
 
     <div style="border-top: 1px solid #222; padding-top: 15px;">
+
         <div style="display: flex; justify-content: space-between; margin-bottom: 15px; font-weight: bold;">
-            <span>Ümumi məbləğ:</span>
-            <span id="cartTotalPrice">0.00 AZN</span>
+
+            <span id="totalText">
+                Ümumi məbləğ:
+            </span>
+
+            <span id="cartTotalPrice">
+                0.00 AZN
+            </span>
+
         </div>
-        <button onclick="checkoutCart()" style="width: 100%; background: #2563eb; color: white; border: none; border-radius: 9px; padding: 12px; font-weight: bold; cursor: pointer;">Sifarişi Təsdiq Et</button>
+
+        <button
+        onclick="checkoutCart()"
+        id="checkoutButton"
+        style="width: 100%; background: #2563eb; color: white; border: none; border-radius: 9px; padding: 12px; font-weight: bold; cursor: pointer;">
+        Sifarişi Təsdiq Et
+        </button>
+
     </div>
+
 </div>
 
 <main>
 <div class="container">
 
 <div class="breadcrumb">
-<a href="index.html">Ana səhifə</a>
+
+<a
+href="index.html"
+data-i18n="home">
+Ana səhifə
+</a>
+
 &nbsp; / &nbsp;
-<span id="breadcrumb">Məhsul</span>
+
+<span id="breadcrumb">
+Məhsul
+</span>
+
 </div>
 
 <div class="product">
+
 <div class="image-box">
-<img id="productImage" src="netflix.webp" alt="Məhsul">
+
+<img
+id="productImage"
+src="netflix.webp"
+alt="Məhsul">
+
 </div>
 
 <div>
-<span class="badge">Premium rəqəmsal xidmət</span>
-<h1 id="productName">Netflix 4K Premium Abunəliyi</h1>
-<div class="rating">★★★★★ <span id="rating">5.0 (1 rəy)</span></div>
-<p class="short" id="shortDescription"></p>
 
-<div class="package-title">Müddət seçin</div>
-<div class="packages" id="packages"></div>
+<span
+class="badge"
+id="premiumBadge">
+Premium rəqəmsal xidmət
+</span>
+
+<h1 id="productName">
+Netflix 4K Premium Abunəliyi
+</h1>
+
+<div class="rating">
+★★★★★
+<span id="rating">
+5.0 (1 rəy)
+</span>
+</div>
+
+<p
+class="short"
+id="shortDescription">
+</p>
+
+<div
+class="package-title"
+id="packageTitle">
+Müddət seçin
+</div>
+
+<div
+class="packages"
+id="packages">
+</div>
 
 <div class="selected">
-<span class="selected-price" id="selectedPrice">6.99 AZN</span>
-<span class="selected-period" id="selectedPeriod">1 ay</span>
+
+<span
+class="selected-price"
+id="selectedPrice">
+6.99 AZN
+</span>
+
+<span
+class="selected-period"
+id="selectedPeriod">
+1 ay
+</span>
+
 </div>
 
 <div class="buttons">
-<button class="buy" onclick="buyNow()">İndi al</button>
-<button class="cart" onclick="addToCart()">Səbətə at</button>
+
+<button
+class="buy"
+onclick="buyNow()"
+id="buyButton">
+İndi al
+</button>
+
+<button
+class="cart"
+onclick="addToCart()"
+id="addCartButton">
+Səbətə at
+</button>
+
 </div>
 
-<div class="safety">🔒 Məlumatlarınız təhlükəsiz saxlanılır.</div>
+<div
+class="safety"
+id="safetyText">
+🔒 Məlumatlarınız təhlükəsiz saxlanılır.
+</div>
+
 </div>
 </div>
 
 <div class="description">
+
 <div id="content"></div>
 
 <div class="faq-section">
+
 <div class="section-heading">
-<h2>FAQ</h2>
-<p id="faqSubtitle">Məhsul, qiymət, aktivləşdirmə və istifadə ilə bağlı ən çox verilən suallara burada cavab tapın.</p>
+
+<h2 id="faqTitle">
+FAQ
+</h2>
+
+<p
+id="faqSubtitle">
+Məhsul, qiymət, aktivləşdirmə və istifadə ilə bağlı ən çox verilən suallara burada cavab tapın.
+</p>
+
 </div>
-<div class="faq-list" id="faqList"></div>
+
+<div
+class="faq-list"
+id="faqList">
+</div>
+
 </div>
 
 <div class="reviews-section">
+
 <div class="section-heading">
-<h2>Məhsul haqqında rəylər</h2>
-<p>Müştərilərimizin DigiBaku.com xidmətləri haqqında fikirləri.</p>
+
+<h2 id="reviewsTitle">
+Məhsul haqqında rəylər
+</h2>
+
+<p id="reviewsSubtitle">
+Müştərilərimizin DigiBaku.com xidmətləri haqqında fikirləri.
+</p>
+
 </div>
-<div class="reviews-grid" id="reviewsGrid"></div>
+
+<div
+class="reviews-grid"
+id="reviewsGrid">
+</div>
+
 </div>
 
 <div class="articles-section">
+
 <div class="section-heading">
-<h2>Faydalı oxu</h2>
-<p>Premium xidmət seçərkən sizə kömək edəcək məlumatlar.</p>
+
+<h2 id="articlesTitle">
+Faydalı oxu
+</h2>
+
+<p id="articlesSubtitle">
+Premium xidmət seçərkən sizə kömək edəcək məlumatlar.
+</p>
+
 </div>
-<div class="articles-grid" id="articlesGrid"></div>
+
+<div
+class="articles-grid"
+id="articlesGrid">
+</div>
+
 <div class="guides-section">
-<h3 class="guides-title">Praktik bələdçilər</h3>
-<div class="guides-list" id="guidesList"></div>
+
+<h3
+class="guides-title"
+id="guidesTitle">
+Praktik bələdçilər
+</h3>
+
+<div
+class="guides-list"
+id="guidesList">
 </div>
+
+</div>
+
 </div>
 
 <div class="trust">
+
 <div class="trust-title">
-<h2>Etibar və sifariş axını</h2>
-<p>DigiBaku.com-da sifariş prosesi sadə, rahat və sürətli şəkildə hazırlanıb.</p>
+
+<h2 id="trustTitle">
+Etibar və sifariş axını
+</h2>
+
+<p id="trustSubtitle">
+DigiBaku.com-da sifariş prosesi sadə, rahat və sürətli şəkildə hazırlanıb.
+</p>
+
 </div>
+
 <div class="trust-grid">
+
 <div class="trust-card">
-<div class="trust-icon">⚡</div>
-<h3>Sürətli aktivləşdirmə</h3>
-<p>Sifarişiniz təsdiqləndikdən sonra seçdiyiniz premium xidmətin aktivləşdirilməsi üçün proses başladılır.</p>
+
+<div class="trust-icon">
+⚡
 </div>
+
+<h3 id="fastTitle">
+Sürətli aktivləşdirmə
+</h3>
+
+<p id="fastText">
+Sifarişiniz təsdiqləndikdən sonra seçdiyiniz premium xidmətin aktivləşdirilməsi üçün proses başladılır.
+</p>
+
+</div>
+
 <div class="trust-card">
-<div class="trust-icon">🔒</div>
-<h3>Təhlükəsiz sifariş</h3>
-<p>Sifariş zamanı təqdim etdiyiniz məlumatların təhlükəsizliyinə diqqət yetiririk.</p>
+
+<div class="trust-icon">
+🔒
 </div>
+
+<h3 id="secureTitle">
+Təhlükəsiz sifariş
+</h3>
+
+<p id="secureText">
+Sifariş zamanı təqdim etdiyiniz məlumatların təhlükəsizliyinə diqqət yetiririk.
+</p>
+
+</div>
+
 <div class="trust-card">
-<div class="trust-icon">💬</div>
-<h3>Operativ dəstək</h3>
-<p>Sifariş və istifadə ilə bağlı suallarınız yaranarsa, WhatsApp üzərindən bizimlə əlaqə saxlaya bilərsiniz.</p>
+
+<div class="trust-icon">
+💬
 </div>
+
+<h3 id="supportTitle">
+Operativ dəstək
+</h3>
+
+<p id="supportText">
+Sifariş və istifadə ilə bağlı suallarınız yaranarsa, WhatsApp üzərindən bizimlə əlaqə saxlaya bilərsiniz.
+</p>
+
 </div>
+
+</div>
+
 </div>
 
 <div class="other">
+
 <div class="other-title">
-<h2>Digər premium xidmətlər</h2>
-<p>DigiBaku.com-da digər xidmətlərə də baxın.</p>
+
+<h2 id="otherTitle">
+Digər premium xidmətlər
+</h2>
+
+<p id="otherSubtitle">
+DigiBaku.com-da digər xidmətlərə də baxın.
+</p>
+
 </div>
+
 <div class="other-grid">
-<div class="other-card"><img src="netflix.webp" alt="Netflix"><h3>Netflix Premium</h3><a href="product.html?product=netflix">Ətraflı bax</a></div>
-<div class="other-card"><img src="youtube.webp" alt="YouTube Premium"><h3>YouTube Premium</h3><a href="product.html?product=youtube">Ətraflı bax</a></div>
-<div class="other-card"><img src="chatgpt.webp" alt="ChatGPT Plus"><h3>ChatGPT Plus</h3><a href="product.html?product=chatgpt">Ətraflı bax</a></div>
-<div class="other-card"><img src="spotfiy.webp" alt="Spotify Premium"><h3>Spotify Premium</h3><a href="product.html?product=spotify">Ətraflı bax</a></div>
+
+<div class="other-card">
+
+<img
+src="netflix.webp"
+alt="Netflix">
+
+<h3>
+Netflix Premium
+</h3>
+
+<a
+href="product.html?product=netflix"
+data-i18n="viewDetails">
+Ətraflı bax
+</a>
+
 </div>
+
+<div class="other-card">
+
+<img
+src="youtube.webp"
+alt="YouTube Premium">
+
+<h3>
+YouTube Premium
+</h3>
+
+<a
+href="product.html?product=youtube"
+data-i18n="viewDetails">
+Ətraflı bax
+</a>
+
+</div>
+
+<div class="other-card">
+
+<img
+src="chatgpt.webp"
+alt="ChatGPT Plus">
+
+<h3>
+ChatGPT Plus
+</h3>
+
+<a
+href="product.html?product=chatgpt"
+data-i18n="viewDetails">
+Ətraflı bax
+</a>
+
+</div>
+
+<div class="other-card">
+
+<img
+src="spotfiy.webp"
+alt="Spotify Premium">
+
+<h3>
+Spotify Premium
+</h3>
+
+<a
+href="product.html?product=spotify"
+data-i18n="viewDetails">
+Ətraflı bax
+</a>
+
+</div>
+
+</div>
+
 </div>
 
 </div>
@@ -853,242 +1196,2115 @@ DigiBaku<span>.com</span>
 </main>
 
 <footer>
+
 <div class="container footer">
+
 <div>
-<div class="logo">DigiBaku<span>.com</span></div>
-<p>© 2026 DigiBaku.com. Bütün hüquqlar qorunur.</p>
+
+<div class="logo">
+DigiBaku<span>.com</span>
 </div>
+
+<p id="footerText">
+© 2026 DigiBaku.com. Bütün hüquqlar qorunur.
+</p>
+
 </div>
+
+</div>
+
 </footer>
 
 <script>
-const products = {
-netflix: {
-name: "Netflix 4K Premium Abunəliyi",
-image: "netflix.webp",
-rating: "4.0 (1 rəy)",
-short: "Netflix Premium abunəliyi ilə film və serialları Ultra HD keyfiyyətdə izləyin. Premium məzmunlara rahat şəkildə çıxış əldə edin.",
-packages: [{ name: "1 ay", price: 6.99 }, { name: "2 ay", price: 12.99 }, { name: "3 ay", price: 20.99 }],
-content: `<h2>Netflix Premium abunəliyi haqqında</h2><p>Netflix film, serial və müxtəlif video məzmunları izləmək üçün istifadə olunan premium platformadır.</p>`,
-faq: [["Netflix Premium abunəliyi neçəyədir?", "Netflix Premium paketləri DigiBaku.com-da 1 ay üçün 6.99 AZN-dir."]],
-reviews: [["Əla xidmət", "Orxan", "Netflix Premium"]],
-articles: [["Netflix Premium nədir? Üstünlükləri", "18.05.2026"]],
-guides: ["Netflix 4K üçün internet sürəti"]
-},
-youtube: {
-name: "YouTube Premium",
-image: "youtube.webp",
-rating: "5.0 (1 rəy)",
-short: "YouTube Premium ilə videolara reklamsız baxın, musiqidən rahat istifadə edin.",
-packages: [{ name: "1 ay", price: 7.99 }, { name: "2 ay", price: 14.99 }, { name: "3 ay", price: 21.99 }],
-content: `<h2>YouTube Premium haqqında</h2><p>Videolara reklamsız baxış və YouTube Music imkanları.</p>`,
-faq: [["YouTube Premium neçəyədir?", "1 ay üçün 7.99 AZN-dir."]],
-reviews: [["Əla xidmətdir", "Orxan", "YouTube Premium"]],
-articles: [["YouTube Premium nədir?", "18.05.2026"]],
-guides: ["YouTube Premium istifadə qaydaları"]
-},
-chatgpt: {
-name: "ChatGPT Plus",
-image: "chatgpt.webp",
-rating: "5.0 (1 rəy)",
-short: "ChatGPT Plus yazı, kod, araşdırma və gündəlik işlərdə süni intellekt imkanları.",
-packages: [{ name: "1 ay", price: 11.99 }, { name: "2 ay", price: 22.99 }, { name: "3 ay", price: 33.99 }],
-content: `<h2>ChatGPT Plus haqqında</h2><p>Süni intellekt köməkçisi ilə işlərinizi sürətləndirin.</p>`,
-faq: [["ChatGPT Plus neçəyədir?", "1 ay üçün 11.99 AZN-dir."]],
-reviews: [["Çox kömək edir", "Orxan", "ChatGPT Plus"]],
-articles: [["ChatGPT Plus nədir?", "18.05.2026"]],
-guides: ["ChatGPT Plus istifadə bələdçisi"]
-},
-spotify: {
-name: "Spotify Premium",
-image: "spotfiy.webp",
-rating: "5.0 (1 rəy)",
-short: "Spotify Premium ilə musiqiləri reklamsız dinləyin.",
-packages: [{ name: "1 ay", price: 7.99 }, { name: "2 ay", price: 14.99 }, { name: "3 ay", price: 21.99 }],
-content: `<h2>Spotify Premium haqqında</h2><p>Reklamsız musiqi və offline dinləmə imkanı.</p>`,
-faq: [["Spotify Premium neçəyədir?", "1 ay üçün 7.99 AZN-dir."]],
-reviews: [["Çox rahat", "Orxan", "Spotify Premium"]],
-articles: [["Spotify Premium nədir?", "18.05.2026"]],
-guides: ["Spotify Premium bələdçisi"]
-}
+
+/* =========================================================
+   DİL SİSTEMİ
+   ========================================================= */
+
+const translations = {
+
+    az: {
+
+        pageTitle: "DigiBaku.com | Premium xidmət",
+
+        home: "Ana səhifə",
+        products: "Məhsullar",
+        about: "Haqqımızda",
+        reviews: "Rəylər",
+
+        cart: "Səbət",
+        cartTitle: "Səbətiniz",
+        emptyCart: "Səbətiniz boşdur",
+        total: "Ümumi məbləğ:",
+        checkout: "Sifarişi Təsdiq Et",
+
+        product: "Məhsul",
+
+        premiumService: "Premium rəqəmsal xidmət",
+
+        packageTitle: "Müddət seçin",
+
+        buyNow: "İndi al",
+        addToCart: "Səbətə at",
+
+        safety: "🔒 Məlumatlarınız təhlükəsiz saxlanılır.",
+
+        faqTitle: "FAQ",
+
+        faqSubtitle:
+        "Məhsul, qiymət, aktivləşdirmə və istifadə ilə bağlı ən çox verilən suallara burada cavab tapın.",
+
+        reviewsTitle: "Məhsul haqqında rəylər",
+
+        reviewsSubtitle:
+        "Müştərilərimizin DigiBaku.com xidmətləri haqqında fikirləri.",
+
+        articlesTitle: "Faydalı oxu",
+
+        articlesSubtitle:
+        "Premium xidmət seçərkən sizə kömək edəcək məlumatlar.",
+
+        guidesTitle: "Praktik bələdçilər",
+
+        trustTitle: "Etibar və sifariş axını",
+
+        trustSubtitle:
+        "DigiBaku.com-da sifariş prosesi sadə, rahat və sürətli şəkildə hazırlanıb.",
+
+        fastTitle: "Sürətli aktivləşdirmə",
+
+        fastText:
+        "Sifarişiniz təsdiqləndikdən sonra seçdiyiniz premium xidmətin aktivləşdirilməsi üçün proses başladılır.",
+
+        secureTitle: "Təhlükəsiz sifariş",
+
+        secureText:
+        "Sifariş zamanı təqdim etdiyiniz məlumatların təhlükəsizliyinə diqqət yetiririk.",
+
+        supportTitle: "Operativ dəstək",
+
+        supportText:
+        "Sifariş və istifadə ilə bağlı suallarınız yaranarsa, WhatsApp üzərindən bizimlə əlaqə saxlaya bilərsiniz.",
+
+        otherTitle: "Digər premium xidmətlər",
+
+        otherSubtitle:
+        "DigiBaku.com-da digər xidmətlərə də baxın.",
+
+        viewDetails: "Ətraflı bax",
+
+        footer:
+        "© 2026 DigiBaku.com. Bütün hüquqlar qorunur.",
+
+        addedToCart: "Məhsul səbətə atıldı!",
+
+        emptyCartAlert:
+        "Səbətiniz boşdur!",
+
+        remove: "Sil",
+
+        orderMessage:
+        "Salam DigiBaku.com!\n\nSifariş vermək istəyirəm.\n\n",
+
+        cartOrderMessage:
+        "Salam DigiBaku.com!\n\nSəbətdəki məhsulları sifariş etmək istəyirəm:\n\n",
+
+        productLabel: "Məhsul:",
+        periodLabel: "Müddət:",
+        priceLabel: "Qiymət:",
+
+        totalAmount: "Ümumi məbləğ:",
+
+        cartProductAdded:
+        "Məhsul səbətə atıldı!"
+
+    },
+
+    ru: {
+
+        pageTitle: "DigiBaku.com | Премиум услуга",
+
+        home: "Главная",
+        products: "Товары",
+        about: "О нас",
+        reviews: "Отзывы",
+
+        cart: "Корзина",
+        cartTitle: "Ваша корзина",
+        emptyCart: "Ваша корзина пуста",
+        total: "Общая сумма:",
+        checkout: "Подтвердить заказ",
+
+        product: "Товар",
+
+        premiumService: "Премиум цифровая услуга",
+
+        packageTitle: "Выберите срок",
+
+        buyNow: "Купить сейчас",
+        addToCart: "В корзину",
+
+        safety: "🔒 Ваши данные хранятся в безопасности.",
+
+        faqTitle: "FAQ",
+
+        faqSubtitle:
+        "Здесь вы найдёте ответы на самые часто задаваемые вопросы о товаре, цене, активации и использовании.",
+
+        reviewsTitle: "Отзывы о товаре",
+
+        reviewsSubtitle:
+        "Мнения наших клиентов об услугах DigiBaku.com.",
+
+        articlesTitle: "Полезно прочитать",
+
+        articlesSubtitle:
+        "Информация, которая поможет вам выбрать премиум-услугу.",
+
+        guidesTitle: "Практические руководства",
+
+        trustTitle: "Надёжность и процесс заказа",
+
+        trustSubtitle:
+        "Процесс заказа на DigiBaku.com разработан максимально просто, удобно и быстро.",
+
+        fastTitle: "Быстрая активация",
+
+        fastText:
+        "После подтверждения вашего заказа начинается процесс активации выбранной премиум-услуги.",
+
+        secureTitle: "Безопасный заказ",
+
+        secureText:
+        "Мы уделяем особое внимание безопасности информации, предоставленной вами при заказе.",
+
+        supportTitle: "Оперативная поддержка",
+
+        supportText:
+        "Если у вас возникнут вопросы по заказу или использованию, вы можете связаться с нами через WhatsApp.",
+
+        otherTitle: "Другие премиум-услуги",
+
+        otherSubtitle:
+        "Посмотрите другие услуги на DigiBaku.com.",
+
+        viewDetails: "Подробнее",
+
+        footer:
+        "© 2026 DigiBaku.com. Все права защищены.",
+
+        addedToCart:
+        "Товар добавлен в корзину!",
+
+        emptyCartAlert:
+        "Ваша корзина пуста!",
+
+        remove: "Удалить",
+
+        orderMessage:
+        "Здравствуйте, DigiBaku.com!\n\nЯ хочу оформить заказ.\n\n",
+
+        cartOrderMessage:
+        "Здравствуйте, DigiBaku.com!\n\nЯ хочу заказать товары из корзины:\n\n",
+
+        productLabel: "Товар:",
+        periodLabel: "Срок:",
+        priceLabel: "Цена:",
+
+        totalAmount: "Общая сумма:",
+
+        cartProductAdded:
+        "Товар добавлен в корзину!"
+
+    },
+
+    en: {
+
+        pageTitle: "DigiBaku.com | Premium service",
+
+        home: "Home",
+        products: "Products",
+        about: "About us",
+        reviews: "Reviews",
+
+        cart: "Cart",
+        cartTitle: "Your Cart",
+        emptyCart: "Your cart is empty",
+        total: "Total amount:",
+        checkout: "Confirm Order",
+
+        product: "Product",
+
+        premiumService: "Premium digital service",
+
+        packageTitle: "Choose duration",
+
+        buyNow: "Buy now",
+        addToCart: "Add to cart",
+
+        safety: "🔒 Your information is stored securely.",
+
+        faqTitle: "FAQ",
+
+        faqSubtitle:
+        "Find answers to the most frequently asked questions about the product, price, activation and usage here.",
+
+        reviewsTitle: "Product reviews",
+
+        reviewsSubtitle:
+        "What our customers think about DigiBaku.com services.",
+
+        articlesTitle: "Useful reading",
+
+        articlesSubtitle:
+        "Information that will help you choose a premium service.",
+
+        guidesTitle: "Practical guides",
+
+        trustTitle: "Trust and order process",
+
+        trustSubtitle:
+        "The ordering process at DigiBaku.com is designed to be simple, convenient and fast.",
+
+        fastTitle: "Fast activation",
+
+        fastText:
+        "After your order is confirmed, the activation process for your selected premium service begins.",
+
+        secureTitle: "Secure ordering",
+
+        secureText:
+        "We pay close attention to the security of the information you provide during the order process.",
+
+        supportTitle: "Fast support",
+
+        supportText:
+        "If you have questions about your order or usage, you can contact us through WhatsApp.",
+
+        otherTitle: "Other premium services",
+
+        otherSubtitle:
+        "Explore other services available on DigiBaku.com.",
+
+        viewDetails: "View details",
+
+        footer:
+        "© 2026 DigiBaku.com. All rights reserved.",
+
+        addedToCart:
+        "Product added to cart!",
+
+        emptyCartAlert:
+        "Your cart is empty!",
+
+        remove: "Remove",
+
+        orderMessage:
+        "Hello DigiBaku.com!\n\nI would like to place an order.\n\n",
+
+        cartOrderMessage:
+        "Hello DigiBaku.com!\n\nI would like to order the products in my cart:\n\n",
+
+        productLabel: "Product:",
+        periodLabel: "Duration:",
+        priceLabel: "Price:",
+
+        totalAmount: "Total amount:",
+
+        cartProductAdded:
+        "Product added to cart!"
+
+    }
+
 };
 
-const urlParams = new URLSearchParams(window.location.search);
-let productKey = urlParams.get("product");
-if (!products[productKey]) { productKey = "netflix"; }
-const product = products[productKey];
+
+/* =========================================================
+   DİLİN ALINMASI
+   ========================================================= */
+
+function getLanguage() {
+
+    return localStorage.getItem("digi_language") || "az";
+
+}
+
+
+/* =========================================================
+   TƏRCÜMƏ
+   ========================================================= */
+
+function t(key) {
+
+    const lang = getLanguage();
+
+    return translations[lang][key]
+        || translations.az[key]
+        || key;
+
+}
+
+
+/* =========================================================
+   DİLİ DƏYİŞ
+   ========================================================= */
+
+function setLanguage(lang) {
+
+    if (!translations[lang]) {
+        lang = "az";
+    }
+
+    localStorage.setItem(
+        "digi_language",
+        lang
+    );
+
+    applyLanguage();
+
+}
+
+
+/* =========================================================
+   DİLİ SƏHİFƏYƏ TƏTBİQ ET
+   ========================================================= */
+
+function applyLanguage() {
+
+    const lang = getLanguage();
+
+    document.documentElement.lang = lang;
+
+    document.title =
+        t("pageTitle");
+
+
+    document
+        .querySelectorAll("[data-i18n]")
+        .forEach(function(element) {
+
+            const key =
+                element.getAttribute("data-i18n");
+
+            element.textContent =
+                t(key);
+
+        });
+
+
+    document.getElementById("cartTitle")
+        .textContent =
+        t("cartTitle");
+
+    document.getElementById("emptyCartText")
+        .textContent =
+        t("emptyCart");
+
+    document.getElementById("totalText")
+        .textContent =
+        t("total");
+
+    document.getElementById("checkoutButton")
+        .textContent =
+        t("checkout");
+
+    document.getElementById("breadcrumb")
+        .textContent =
+        product.name;
+
+    document.getElementById("premiumBadge")
+        .textContent =
+        t("premiumService");
+
+    document.getElementById("packageTitle")
+        .textContent =
+        t("packageTitle");
+
+    document.getElementById("buyButton")
+        .textContent =
+        t("buyNow");
+
+    document.getElementById("addCartButton")
+        .textContent =
+        t("addToCart");
+
+    document.getElementById("safetyText")
+        .textContent =
+        t("safety");
+
+    document.getElementById("faqTitle")
+        .textContent =
+        t("faqTitle");
+
+    document.getElementById("faqSubtitle")
+        .textContent =
+        t("faqSubtitle");
+
+    document.getElementById("reviewsTitle")
+        .textContent =
+        t("reviewsTitle");
+
+    document.getElementById("reviewsSubtitle")
+        .textContent =
+        t("reviewsSubtitle");
+
+    document.getElementById("articlesTitle")
+        .textContent =
+        t("articlesTitle");
+
+    document.getElementById("articlesSubtitle")
+        .textContent =
+        t("articlesSubtitle");
+
+    document.getElementById("guidesTitle")
+        .textContent =
+        t("guidesTitle");
+
+    document.getElementById("trustTitle")
+        .textContent =
+        t("trustTitle");
+
+    document.getElementById("trustSubtitle")
+        .textContent =
+        t("trustSubtitle");
+
+    document.getElementById("fastTitle")
+        .textContent =
+        t("fastTitle");
+
+    document.getElementById("fastText")
+        .textContent =
+        t("fastText");
+
+    document.getElementById("secureTitle")
+        .textContent =
+        t("secureTitle");
+
+    document.getElementById("secureText")
+        .textContent =
+        t("secureText");
+
+    document.getElementById("supportTitle")
+        .textContent =
+        t("supportTitle");
+
+    document.getElementById("supportText")
+        .textContent =
+        t("supportText");
+
+    document.getElementById("otherTitle")
+        .textContent =
+        t("otherTitle");
+
+    document.getElementById("otherSubtitle")
+        .textContent =
+        t("otherSubtitle");
+
+    document.getElementById("footerText")
+        .textContent =
+        t("footer");
+
+
+    document.getElementById("azBtn")
+        .classList.remove("active");
+
+    document.getElementById("ruBtn")
+        .classList.remove("active");
+
+    document.getElementById("enBtn")
+        .classList.remove("active");
+
+
+    document.getElementById(lang + "Btn")
+        .classList.add("active");
+
+
+    renderDynamicContent();
+
+    updateCartUI();
+
+}
+
+
+/* =========================================================
+   MƏHSULLAR
+   ========================================================= */
+
+const products = {
+
+netflix: {
+
+name: "Netflix 4K Premium Abunəliyi",
+
+nameRu: "Netflix 4K Premium подписка",
+
+nameEn: "Netflix 4K Premium Subscription",
+
+image: "netflix.webp",
+
+rating: "4.0 (1 rəy)",
+
+ratingRu: "4.0 (1 отзыв)",
+
+ratingEn: "4.0 (1 review)",
+
+short:
+"Netflix Premium abunəliyi ilə film və serialları Ultra HD keyfiyyətdə izləyin. Premium məzmunlara rahat şəkildə çıxış əldə edin.",
+
+shortRu:
+"С подпиской Netflix Premium смотрите фильмы и сериалы в качестве Ultra HD. Получите удобный доступ к премиум-контенту.",
+
+shortEn:
+"Watch movies and series in Ultra HD quality with Netflix Premium. Get convenient access to premium content.",
+
+packages: [
+
+{
+name: "1 ay",
+nameRu: "1 месяц",
+nameEn: "1 month",
+price: 6.99
+},
+
+{
+name: "2 ay",
+nameRu: "2 месяца",
+nameEn: "2 months",
+price: 12.99
+},
+
+{
+name: "3 ay",
+nameRu: "3 месяца",
+nameEn: "3 months",
+price: 20.99
+}
+
+],
+
+contentAz:
+`<h2>Netflix Premium abunəliyi haqqında</h2><p>Netflix film, serial və müxtəlif video məzmunları izləmək üçün istifadə olunan premium platformadır.</p>`,
+
+contentRu:
+`<h2>О подписке Netflix Premium</h2><p>Netflix — это премиальная платформа для просмотра фильмов, сериалов и различного видеоконтента.</p>`,
+
+contentEn:
+`<h2>About Netflix Premium subscription</h2><p>Netflix is a premium platform used to watch movies, series and various video content.</p>`,
+
+faq: [
+
+[
+"Netflix Premium abunəliyi neçəyədir?",
+"Netflix Premium paketləri DigiBaku.com-da 1 ay üçün 6.99 AZN-dir."
+],
+
+[
+"Netflix Premium nə üçün istifadə olunur?",
+"Netflix Premium film və serialları izləmək üçün istifadə olunur."
+]
+
+],
+
+faqRu: [
+
+[
+"Сколько стоит подписка Netflix Premium?",
+"Пакет Netflix Premium на DigiBaku.com стоит 6.99 AZN за 1 месяц."
+],
+
+[
+"Для чего используется Netflix Premium?",
+"Netflix Premium используется для просмотра фильмов и сериалов."
+]
+
+],
+
+faqEn: [
+
+[
+"How much is Netflix Premium?",
+"The Netflix Premium package on DigiBaku.com costs 6.99 AZN for 1 month."
+],
+
+[
+"What is Netflix Premium used for?",
+"Netflix Premium is used to watch movies and series."
+]
+
+],
+
+reviews: [
+[
+"Əla xidmət",
+"Orxan",
+"Netflix Premium"
+]
+],
+
+reviewsRu: [
+[
+"Отличный сервис",
+"Orxan",
+"Netflix Premium"
+]
+],
+
+reviewsEn: [
+[
+"Excellent service",
+"Orxan",
+"Netflix Premium"
+]
+],
+
+articles: [
+[
+"Netflix Premium nədir? Üstünlükləri",
+"18.05.2026"
+]
+],
+
+articlesRu: [
+[
+"Что такое Netflix Premium? Преимущества",
+"18.05.2026"
+]
+],
+
+articlesEn: [
+[
+"What is Netflix Premium? Benefits",
+"18.05.2026"
+]
+],
+
+guides: [
+"Netflix 4K üçün internet sürəti"
+],
+
+guidesRu: [
+"Скорость интернета для Netflix 4K"
+],
+
+guidesEn: [
+"Internet speed for Netflix 4K"
+]
+
+},
+
+youtube: {
+
+name: "YouTube Premium",
+
+nameRu: "YouTube Premium",
+
+nameEn: "YouTube Premium",
+
+image: "youtube.webp",
+
+rating: "5.0 (1 rəy)",
+
+ratingRu: "5.0 (1 отзыв)",
+
+ratingEn: "5.0 (1 review)",
+
+short:
+"YouTube Premium ilə videolara reklamsız baxın, musiqidən rahat istifadə edin.",
+
+shortRu:
+"С YouTube Premium смотрите видео без рекламы и удобно пользуйтесь музыкой.",
+
+shortEn:
+"Watch videos without ads and enjoy music conveniently with YouTube Premium.",
+
+packages: [
+
+{
+name: "1 ay",
+nameRu: "1 месяц",
+nameEn: "1 month",
+price: 7.99
+},
+
+{
+name: "2 ay",
+nameRu: "2 месяца",
+nameEn: "2 months",
+price: 14.99
+},
+
+{
+name: "3 ay",
+nameRu: "3 месяца",
+nameEn: "3 months",
+price: 21.99
+}
+
+],
+
+contentAz:
+`<h2>YouTube Premium haqqında</h2><p>Videolara reklamsız baxış və YouTube Music imkanları.</p>`,
+
+contentRu:
+`<h2>О YouTube Premium</h2><p>Просмотр видео без рекламы и возможности YouTube Music.</p>`,
+
+contentEn:
+`<h2>About YouTube Premium</h2><p>Ad-free video viewing and YouTube Music features.</p>`,
+
+faq: [
+[
+"YouTube Premium neçəyədir?",
+"1 ay üçün 7.99 AZN-dir."
+]
+],
+
+faqRu: [
+[
+"Сколько стоит YouTube Premium?",
+"Стоимость составляет 7.99 AZN за 1 месяц."
+]
+],
+
+faqEn: [
+[
+"How much is YouTube Premium?",
+"It costs 7.99 AZN for 1 month."
+]
+],
+
+reviews: [
+[
+"Əla xidmətdir",
+"Orxan",
+"YouTube Premium"
+]
+],
+
+reviewsRu: [
+[
+"Отличный сервис",
+"Orxan",
+"YouTube Premium"
+]
+],
+
+reviewsEn: [
+[
+"Excellent service",
+"Orxan",
+"YouTube Premium"
+]
+],
+
+articles: [
+[
+"YouTube Premium nədir?",
+"18.05.2026"
+]
+],
+
+articlesRu: [
+[
+"Что такое YouTube Premium?",
+"18.05.2026"
+]
+],
+
+articlesEn: [
+[
+"What is YouTube Premium?",
+"18.05.2026"
+]
+],
+
+guides: [
+"YouTube Premium istifadə qaydaları"
+],
+
+guidesRu: [
+"Руководство по использованию YouTube Premium"
+],
+
+guidesEn: [
+"YouTube Premium usage guide"
+]
+
+},
+
+chatgpt: {
+
+name: "ChatGPT Plus",
+
+nameRu: "ChatGPT Plus",
+
+nameEn: "ChatGPT Plus",
+
+image: "chatgpt.webp",
+
+rating: "5.0 (1 rəy)",
+
+ratingRu: "5.0 (1 отзыв)",
+
+ratingEn: "5.0 (1 review)",
+
+short:
+"ChatGPT Plus yazı, kod, araşdırma və gündəlik işlərdə süni intellekt imkanları.",
+
+shortRu:
+"ChatGPT Plus предоставляет возможности искусственного интеллекта для написания текстов, кода, исследований и повседневных задач.",
+
+shortEn:
+"ChatGPT Plus provides AI capabilities for writing, coding, research and everyday tasks.",
+
+packages: [
+
+{
+name: "1 ay",
+nameRu: "1 месяц",
+nameEn: "1 month",
+price: 11.99
+},
+
+{
+name: "2 ay",
+nameRu: "2 месяца",
+nameEn: "2 months",
+price: 22.99
+},
+
+{
+name: "3 ay",
+nameRu: "3 месяца",
+nameEn: "3 months",
+price: 33.99
+}
+
+],
+
+contentAz:
+`<h2>ChatGPT Plus haqqında</h2><p>Süni intellekt köməkçisi ilə işlərinizi sürətləndirin.</p>`,
+
+contentRu:
+`<h2>О ChatGPT Plus</h2><p>Ускорьте выполнение своих задач с помощью искусственного интеллекта.</p>`,
+
+contentEn:
+`<h2>About ChatGPT Plus</h2><p>Speed up your tasks with an artificial intelligence assistant.</p>`,
+
+faq: [
+[
+"ChatGPT Plus neçəyədir?",
+"1 ay üçün 11.99 AZN-dir."
+]
+],
+
+faqRu: [
+[
+"Сколько стоит ChatGPT Plus?",
+"Стоимость составляет 11.99 AZN за 1 месяц."
+]
+],
+
+faqEn: [
+[
+"How much is ChatGPT Plus?",
+"It costs 11.99 AZN for 1 month."
+]
+],
+
+reviews: [
+[
+"Çox kömək edir",
+"Orxan",
+"ChatGPT Plus"
+]
+],
+
+reviewsRu: [
+[
+"Очень помогает",
+"Orxan",
+"ChatGPT Plus"
+]
+],
+
+reviewsEn: [
+[
+"Very helpful",
+"Orxan",
+"ChatGPT Plus"
+]
+],
+
+articles: [
+[
+"ChatGPT Plus nədir?",
+"18.05.2026"
+]
+],
+
+articlesRu: [
+[
+"Что такое ChatGPT Plus?",
+"18.05.2026"
+]
+],
+
+articlesEn: [
+[
+"What is ChatGPT Plus?",
+"18.05.2026"
+]
+],
+
+guides: [
+"ChatGPT Plus istifadə bələdçisi"
+],
+
+guidesRu: [
+"Руководство по использованию ChatGPT Plus"
+],
+
+guidesEn: [
+"ChatGPT Plus usage guide"
+]
+
+},
+
+spotify: {
+
+name: "Spotify Premium",
+
+nameRu: "Spotify Premium",
+
+nameEn: "Spotify Premium",
+
+image: "spotfiy.webp",
+
+rating: "5.0 (1 rəy)",
+
+ratingRu: "5.0 (1 отзыв)",
+
+ratingEn: "5.0 (1 review)",
+
+short:
+"Spotify Premium ilə musiqiləri reklamsız dinləyin.",
+
+shortRu:
+"Слушайте музыку без рекламы с Spotify Premium.",
+
+shortEn:
+"Listen to music without ads with Spotify Premium.",
+
+packages: [
+
+{
+name: "1 ay",
+nameRu: "1 месяц",
+nameEn: "1 month",
+price: 7.99
+},
+
+{
+name: "2 ay",
+nameRu: "2 месяца",
+nameEn: "2 months",
+price: 14.99
+},
+
+{
+name: "3 ay",
+nameRu: "3 месяца",
+nameEn: "3 months",
+price: 21.99
+}
+
+],
+
+contentAz:
+`<h2>Spotify Premium haqqında</h2><p>Reklamsız musiqi və offline dinləmə imkanı.</p>`,
+
+contentRu:
+`<h2>О Spotify Premium</h2><p>Музыка без рекламы и возможность прослушивания офлайн.</p>`,
+
+contentEn:
+`<h2>About Spotify Premium</h2><p>Ad-free music and offline listening.</p>`,
+
+faq: [
+[
+"Spotify Premium neçəyədir?",
+"1 ay üçün 7.99 AZN-dir."
+]
+],
+
+faqRu: [
+[
+"Сколько стоит Spotify Premium?",
+"Стоимость составляет 7.99 AZN за 1 месяц."
+]
+],
+
+faqEn: [
+[
+"How much is Spotify Premium?",
+"It costs 7.99 AZN for 1 month."
+]
+],
+
+reviews: [
+[
+"Çox rahat",
+"Orxan",
+"Spotify Premium"
+]
+],
+
+reviewsRu: [
+[
+"Очень удобно",
+"Orxan",
+"Spotify Premium"
+]
+],
+
+reviewsEn: [
+[
+"Very convenient",
+"Orxan",
+"Spotify Premium"
+]
+],
+
+articles: [
+[
+"Spotify Premium nədir?",
+"18.05.2026"
+]
+],
+
+articlesRu: [
+[
+"Что такое Spotify Premium?",
+"18.05.2026"
+]
+],
+
+articlesEn: [
+[
+"What is Spotify Premium?",
+"18.05.2026"
+]
+],
+
+guides: [
+"Spotify Premium bələdçisi"
+],
+
+guidesRu: [
+"Руководство Spotify Premium"
+],
+
+guidesEn: [
+"Spotify Premium guide"
+]
+
+}
+
+};
+
+
+/* =========================================================
+   URL-DƏN MƏHSULU GÖTÜR
+   ========================================================= */
+
+const urlParams =
+new URLSearchParams(
+    window.location.search
+);
+
+let productKey =
+urlParams.get("product");
+
+if (!products[productKey]) {
+
+    productKey = "netflix";
+
+}
+
+const product =
+products[productKey];
+
 let selectedPackage = 0;
 
-document.title = "DigiBaku.com | " + product.name;
-document.getElementById("productName").textContent = product.name;
-document.getElementById("breadcrumb").textContent = product.name;
-document.getElementById("productImage").src = product.image;
-document.getElementById("rating").textContent = product.rating;
-document.getElementById("shortDescription").textContent = product.short;
-document.getElementById("content").innerHTML = product.content;
 
-const faqList = document.getElementById("faqList");
-product.faq.forEach(function(item) {
-    const faqItem = document.createElement("div");
-    faqItem.className = "faq-item";
-    faqItem.innerHTML = `<button class="faq-question"><span>${item[0]}</span><span class="faq-plus">+</span></button><div class="faq-answer">${item[1]}</div>`;
-    faqItem.querySelector(".faq-question").onclick = function() {
-        faqItem.classList.toggle("open");
-        faqItem.querySelector(".faq-plus").textContent = faqItem.classList.contains("open") ? "−" : "+";
-    };
-    faqList.appendChild(faqItem);
-});
+/* =========================================================
+   MƏHSUL ADI
+   ========================================================= */
 
-const reviewsGrid = document.getElementById("reviewsGrid");
-product.reviews.forEach(function(review) {
-    const card = document.createElement("div");
-    card.className = "review-card";
-    card.innerHTML = `<div class="review-stars">★★★★★</div><div class="review-text">${review[0]}</div><div class="review-name">${review[1]}</div><div class="review-role">${review[2]}</div>`;
-    reviewsGrid.appendChild(card);
-});
+function getProductName() {
 
-const articlesGrid = document.getElementById("articlesGrid");
-product.articles.forEach(function(article) {
-    const card = document.createElement("div");
-    card.className = "article-card";
-    card.innerHTML = `<h3>${article[0]}</h3><p>Premium xidmətlər haqqında faydalı məlumatlar.</p><div class="article-date">${article[1]}</div>`;
-    articlesGrid.appendChild(card);
-});
+    const lang = getLanguage();
 
-const guidesList = document.getElementById("guidesList");
-product.guides.forEach(function(guide) {
-    const guideCard = document.createElement("div");
-    guideCard.className = "guide-card";
-    guideCard.textContent = guide;
-    guidesList.appendChild(guideCard);
-});
+    if (lang === "ru") {
 
-const packagesBox = document.getElementById("packages");
-function showPackages() {
-    packagesBox.innerHTML = "";
-    product.packages.forEach((item, index) => {
-        const el = document.createElement("div");
-        el.className = "package" + (index === selectedPackage ? " active" : "");
-        el.innerHTML = `<span class="package-name">${item.name}</span><span class="package-price">${item.price.toFixed(2)} AZN</span>`;
-        el.onclick = function() {
-            selectedPackage = index;
-            showPackages();
-            updateSelected();
-        };
-        packagesBox.appendChild(el);
-    });
+        return product.nameRu;
+
+    }
+
+    if (lang === "en") {
+
+        return product.nameEn;
+
+    }
+
+    return product.name;
+
 }
+
+
+/* =========================================================
+   MƏHSUL QISA MƏLUMATI
+   ========================================================= */
+
+function getProductShort() {
+
+    const lang = getLanguage();
+
+    if (lang === "ru") {
+
+        return product.shortRu;
+
+    }
+
+    if (lang === "en") {
+
+        return product.shortEn;
+
+    }
+
+    return product.short;
+
+}
+
+
+/* =========================================================
+   MƏHSUL KONTENTİ
+   ========================================================= */
+
+function getProductContent() {
+
+    const lang = getLanguage();
+
+    if (lang === "ru") {
+
+        return product.contentRu;
+
+    }
+
+    if (lang === "en") {
+
+        return product.contentEn;
+
+    }
+
+    return product.contentAz;
+
+}
+
+
+/* =========================================================
+   FAQ MƏLUMATLARI
+   ========================================================= */
+
+function getProductFaq() {
+
+    const lang = getLanguage();
+
+    if (lang === "ru") {
+
+        return product.faqRu;
+
+    }
+
+    if (lang === "en") {
+
+        return product.faqEn;
+
+    }
+
+    return product.faq;
+
+}
+
+
+/* =========================================================
+   RƏYLƏR
+   ========================================================= */
+
+function getProductReviews() {
+
+    const lang = getLanguage();
+
+    if (lang === "ru") {
+
+        return product.reviewsRu;
+
+    }
+
+    if (lang === "en") {
+
+        return product.reviewsEn;
+
+    }
+
+    return product.reviews;
+
+}
+
+
+/* =========================================================
+   MƏQALƏLƏR
+   ========================================================= */
+
+function getProductArticles() {
+
+    const lang = getLanguage();
+
+    if (lang === "ru") {
+
+        return product.articlesRu;
+
+    }
+
+    if (lang === "en") {
+
+        return product.articlesEn;
+
+    }
+
+    return product.articles;
+
+}
+
+
+/* =========================================================
+   BƏLƏDÇİLƏR
+   ========================================================= */
+
+function getProductGuides() {
+
+    const lang = getLanguage();
+
+    if (lang === "ru") {
+
+        return product.guidesRu;
+
+    }
+
+    if (lang === "en") {
+
+        return product.guidesEn;
+
+    }
+
+    return product.guides;
+
+}
+
+
+/* =========================================================
+   MƏHSUL RATING
+   ========================================================= */
+
+function getProductRating() {
+
+    const lang = getLanguage();
+
+    if (lang === "ru") {
+
+        return product.ratingRu;
+
+    }
+
+    if (lang === "en") {
+
+        return product.ratingEn;
+
+    }
+
+    return product.rating;
+
+}
+
+
+/* =========================================================
+   MƏHSULU İLK DƏFƏ YÜKLƏ
+   ========================================================= */
+
+document.getElementById("productName")
+    .textContent =
+    getProductName();
+
+document.getElementById("breadcrumb")
+    .textContent =
+    getProductName();
+
+document.getElementById("productImage")
+    .src =
+    product.image;
+
+document.getElementById("rating")
+    .textContent =
+    getProductRating();
+
+document.getElementById("shortDescription")
+    .textContent =
+    getProductShort();
+
+document.getElementById("content")
+    .innerHTML =
+    getProductContent();
+
+
+/* =========================================================
+   FAQ GÖSTƏR
+   ========================================================= */
+
+function renderFaq() {
+
+    const faqList =
+        document.getElementById("faqList");
+
+    faqList.innerHTML = "";
+
+    const faqData =
+        getProductFaq();
+
+    faqData.forEach(function(item) {
+
+        const faqItem =
+            document.createElement("div");
+
+        faqItem.className =
+            "faq-item";
+
+        faqItem.innerHTML = `
+
+            <button class="faq-question">
+
+                <span>
+                    ${item[0]}
+                </span>
+
+                <span class="faq-plus">
+                    +
+                </span>
+
+            </button>
+
+            <div class="faq-answer">
+                ${item[1]}
+            </div>
+
+        `;
+
+        faqItem
+            .querySelector(".faq-question")
+            .onclick =
+            function() {
+
+                faqItem.classList.toggle("open");
+
+                faqItem
+                    .querySelector(".faq-plus")
+                    .textContent =
+                    faqItem.classList.contains("open")
+                    ? "−"
+                    : "+";
+
+            };
+
+        faqList.appendChild(faqItem);
+
+    });
+
+}
+
+
+/* =========================================================
+   RƏYLƏRİ GÖSTƏR
+   ========================================================= */
+
+function renderReviews() {
+
+    const reviewsGrid =
+        document.getElementById("reviewsGrid");
+
+    reviewsGrid.innerHTML = "";
+
+    const reviewsData =
+        getProductReviews();
+
+    reviewsData.forEach(function(review) {
+
+        const card =
+            document.createElement("div");
+
+        card.className =
+            "review-card";
+
+        card.innerHTML = `
+
+            <div class="review-stars">
+                ★★★★★
+            </div>
+
+            <div class="review-text">
+                ${review[0]}
+            </div>
+
+            <div class="review-name">
+                ${review[1]}
+            </div>
+
+            <div class="review-role">
+                ${review[2]}
+            </div>
+
+        `;
+
+        reviewsGrid.appendChild(card);
+
+    });
+
+}
+
+
+/* =========================================================
+   MƏQALƏLƏRİ GÖSTƏR
+   ========================================================= */
+
+function renderArticles() {
+
+    const articlesGrid =
+        document.getElementById("articlesGrid");
+
+    articlesGrid.innerHTML = "";
+
+    const articlesData =
+        getProductArticles();
+
+    articlesData.forEach(function(article) {
+
+        const card =
+            document.createElement("div");
+
+        card.className =
+            "article-card";
+
+        card.innerHTML = `
+
+            <h3>
+                ${article[0]}
+            </h3>
+
+            <p>
+                ${getArticleDescription()}
+            </p>
+
+            <div class="article-date">
+                ${article[1]}
+            </div>
+
+        `;
+
+        articlesGrid.appendChild(card);
+
+    });
+
+}
+
+
+/* =========================================================
+   MƏQALƏ AÇIQLAMASI
+   ========================================================= */
+
+function getArticleDescription() {
+
+    const lang =
+        getLanguage();
+
+    if (lang === "ru") {
+
+        return "Полезная информация о премиум-услугах.";
+
+    }
+
+    if (lang === "en") {
+
+        return "Useful information about premium services.";
+
+    }
+
+    return "Premium xidmətlər haqqında faydalı məlumatlar.";
+
+}
+
+
+/* =========================================================
+   BƏLƏDÇİLƏRİ GÖSTƏR
+   ========================================================= */
+
+function renderGuides() {
+
+    const guidesList =
+        document.getElementById("guidesList");
+
+    guidesList.innerHTML = "";
+
+    const guidesData =
+        getProductGuides();
+
+    guidesData.forEach(function(guide) {
+
+        const guideCard =
+            document.createElement("div");
+
+        guideCard.className =
+            "guide-card";
+
+        guideCard.textContent =
+            guide;
+
+        guidesList.appendChild(guideCard);
+
+    });
+
+}
+
+
+/* =========================================================
+   DİNAMİK MƏLUMATLARI YENİLƏ
+   ========================================================= */
+
+function renderDynamicContent() {
+
+    document.title =
+        t("pageTitle") +
+        " | " +
+        getProductName();
+
+    document.getElementById("productName")
+        .textContent =
+        getProductName();
+
+    document.getElementById("breadcrumb")
+        .textContent =
+        getProductName();
+
+    document.getElementById("rating")
+        .textContent =
+        getProductRating();
+
+    document.getElementById("shortDescription")
+        .textContent =
+        getProductShort();
+
+    document.getElementById("content")
+        .innerHTML =
+        getProductContent();
+
+    renderFaq();
+
+    renderReviews();
+
+    renderArticles();
+
+    renderGuides();
+
+    showPackages();
+
+    updateSelected();
+
+}
+
+
+/* =========================================================
+   PAKETLƏR
+   ========================================================= */
+
+const packagesBox =
+    document.getElementById("packages");
+
+
+function getPackageName(item) {
+
+    const lang =
+        getLanguage();
+
+    if (lang === "ru") {
+
+        return item.nameRu;
+
+    }
+
+    if (lang === "en") {
+
+        return item.nameEn;
+
+    }
+
+    return item.name;
+
+}
+
+
+function showPackages() {
+
+    packagesBox.innerHTML = "";
+
+    product.packages.forEach(
+        function(item, index) {
+
+            const el =
+                document.createElement("div");
+
+            el.className =
+                "package" +
+                (
+                    index === selectedPackage
+                    ? " active"
+                    : ""
+                );
+
+            el.innerHTML = `
+
+                <span class="package-name">
+                    ${getPackageName(item)}
+                </span>
+
+                <span class="package-price">
+                    ${item.price.toFixed(2)} AZN
+                </span>
+
+            `;
+
+            el.onclick =
+                function() {
+
+                    selectedPackage =
+                        index;
+
+                    showPackages();
+
+                    updateSelected();
+
+                };
+
+            packagesBox.appendChild(el);
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   SEÇİLMİŞ PAKET
+   ========================================================= */
 
 function updateSelected() {
-    const item = product.packages[selectedPackage];
-    document.getElementById("selectedPrice").textContent = item.price.toFixed(2) + " AZN";
-    document.getElementById("selectedPeriod").textContent = item.name;
+
+    const item =
+        product.packages[selectedPackage];
+
+    document.getElementById("selectedPrice")
+        .textContent =
+        item.price.toFixed(2) +
+        " AZN";
+
+    document.getElementById("selectedPeriod")
+        .textContent =
+        getPackageName(item);
+
 }
+
+
 showPackages();
+
 updateSelected();
 
+
+/* =========================================================
+   İNDİ AL
+   ========================================================= */
+
 function buyNow() {
-    const item = product.packages[selectedPackage];
-    const phone = "994702883484";
-    const message = `Salam DigiBaku.com!\n\nSifariş vermək istəyirəm.\n\nMəhsul: ${product.name}\nMüddət: ${item.name}\nQiymət: ${item.price.toFixed(2)} AZN`;
-    window.location.href = "https://wa.me/" + phone + "?text=" + encodeURIComponent(message);
+
+    const item =
+        product.packages[selectedPackage];
+
+    const phone =
+        "994702883484";
+
+    const message =
+        t("orderMessage") +
+
+        t("productLabel") +
+        " " +
+        getProductName() +
+        "\n" +
+
+        t("periodLabel") +
+        " " +
+        getPackageName(item) +
+        "\n" +
+
+        t("priceLabel") +
+        " " +
+        item.price.toFixed(2) +
+        " AZN";
+
+    window.location.href =
+        "https://wa.me/" +
+        phone +
+        "?text=" +
+        encodeURIComponent(message);
+
 }
 
-/* SƏBƏT FUNKSİYALARI */
-let cart = JSON.parse(localStorage.getItem("digi_cart")) || [];
+
+/* =========================================================
+   SƏBƏT
+   ========================================================= */
+
+let cart =
+    JSON.parse(
+        localStorage.getItem("digi_cart")
+    ) || [];
+
+
+/* =========================================================
+   SƏBƏTİ AÇ / BAĞLA
+   ========================================================= */
 
 function toggleCart() {
-    const modal = document.getElementById("cartModal");
+
+    const modal =
+        document.getElementById("cartModal");
+
     if (!modal) return;
-    if (modal.style.display === "block") {
-        modal.style.display = "none";
+
+    if (
+        modal.style.display === "block"
+    ) {
+
+        modal.style.display =
+            "none";
+
     } else {
-        modal.style.display = "block";
+
+        modal.style.display =
+            "block";
+
         updateCartUI();
+
     }
+
 }
+
+
+/* =========================================================
+   SƏBƏTƏ ƏLAVƏ ET
+   ========================================================= */
 
 function addToCart() {
-    const item = product.packages[selectedPackage];
-    cart.push({ name: product.name + " (" + item.name + ")", price: item.price });
-    localStorage.setItem("digi_cart", JSON.stringify(cart));
+
+    const item =
+        product.packages[selectedPackage];
+
+    cart.push({
+
+        name:
+            getProductName() +
+            " (" +
+            getPackageName(item) +
+            ")",
+
+        price:
+            item.price
+
+    });
+
+    localStorage.setItem(
+        "digi_cart",
+        JSON.stringify(cart)
+    );
+
     updateCartCount();
-    alert("Məhsul səbətə atıldı!");
+
+    alert(
+        t("cartProductAdded")
+    );
+
 }
+
+
+/* =========================================================
+   SƏBƏT SAYĞACI
+   ========================================================= */
 
 function updateCartCount() {
-    const countEl = document.getElementById("cartCount");
+
+    const countEl =
+        document.getElementById(
+            "cartCount"
+        );
+
     if (countEl) {
-        countEl.textContent = cart.length;
+
+        countEl.textContent =
+            cart.length;
+
     }
+
 }
+
+
+/* =========================================================
+   SƏBƏTİN İÇİNİ GÖSTƏR
+   ========================================================= */
 
 function updateCartUI() {
-    const list = document.getElementById("cartItemsList");
-    const totalPriceEl = document.getElementById("cartTotalPrice");
-    if (!list || !totalPriceEl) return;
-    
+
+    const list =
+        document.getElementById(
+            "cartItemsList"
+        );
+
+    const totalPriceEl =
+        document.getElementById(
+            "cartTotalPrice"
+        );
+
+    if (
+        !list ||
+        !totalPriceEl
+    ) return;
+
+
     if (cart.length === 0) {
-        list.innerHTML = `<p style="color: #777; text-align: center;">Səbətiniz boşdur</p>`;
-        totalPriceEl.textContent = "0.00 AZN";
+
+        list.innerHTML = `
+
+            <p
+            style="color: #777; text-align: center;">
+
+                ${t("emptyCart")}
+
+            </p>
+
+        `;
+
+        totalPriceEl.textContent =
+            "0.00 AZN";
+
         return;
+
     }
+
 
     let html = "";
+
     let total = 0;
 
-    cart.forEach((item, index) => {
-        total += Number(item.price || 0);
-        html += `
-            <div style="background: #080808; border: 1px solid #222; border-radius: 10px; padding: 12px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;">
-                <div>
-                    <div style="font-weight: bold; color: #60a5fa; font-size: 14px;">${item.name}</div>
-                    <div style="color: #888; font-size: 12px; margin-top: 4px;">${item.price} AZN</div>
-                </div>
-                <button onclick="removeFromCart(${index})" style="background: none; border: none; color: #ef4444; cursor: pointer; font-size: 13px;">Sil</button>
-            </div>
-        `;
-    });
 
-    list.innerHTML = html;
-    totalPriceEl.textContent = total.toFixed(2) + " AZN";
+    cart.forEach(
+        function(item, index) {
+
+            total +=
+                Number(
+                    item.price || 0
+                );
+
+            html += `
+
+                <div
+                style="
+                background: #080808;
+                border: 1px solid #222;
+                border-radius: 10px;
+                padding: 12px;
+                margin-bottom: 10px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                ">
+
+                    <div>
+
+                        <div
+                        style="
+                        font-weight: bold;
+                        color: #60a5fa;
+                        font-size: 14px;
+                        ">
+
+                            ${item.name}
+
+                        </div>
+
+                        <div
+                        style="
+                        color: #888;
+                        font-size: 12px;
+                        margin-top: 4px;
+                        ">
+
+                            ${Number(item.price).toFixed(2)}
+                            AZN
+
+                        </div>
+
+                    </div>
+
+                    <button
+                    onclick="removeFromCart(${index})"
+                    style="
+                    background: none;
+                    border: none;
+                    color: #ef4444;
+                    cursor: pointer;
+                    font-size: 13px;
+                    ">
+
+                        ${t("remove")}
+
+                    </button>
+
+                </div>
+
+            `;
+
+        }
+    );
+
+
+    list.innerHTML =
+        html;
+
+    totalPriceEl.textContent =
+        total.toFixed(2) +
+        " AZN";
+
 }
+
+
+/* =========================================================
+   SƏBƏTDƏN SİL
+   ========================================================= */
 
 function removeFromCart(index) {
-    cart.splice(index, 1);
-    localStorage.setItem("digi_cart", JSON.stringify(cart));
+
+    cart.splice(
+        index,
+        1
+    );
+
+    localStorage.setItem(
+        "digi_cart",
+        JSON.stringify(cart)
+    );
+
     updateCartCount();
+
     updateCartUI();
+
 }
+
+
+/* =========================================================
+   SİFARİŞİ TƏSDİQLƏ
+   ========================================================= */
 
 function checkoutCart() {
+
     if (cart.length === 0) {
-        alert("Səbətiniz boşdur!");
+
+        alert(
+            t("emptyCartAlert")
+        );
+
         return;
+
     }
 
-    let message = "Salam DigiBaku.com!\n\nSəbətdəki məhsulları sifariş etmək istəyirəm:\n\n";
+
+    let message =
+        t("cartOrderMessage");
+
     let total = 0;
 
-    cart.forEach((item, index) => {
-        message += `${index + 1}. ${item.name} - ${item.price.toFixed(2)} AZN\n`;
-        total += Number(item.price || 0);
-    });
 
-    message += `\nÜmumi məbləğ: ${total.toFixed(2)} AZN`;
+    cart.forEach(
+        function(item, index) {
 
-    const phone = "994702883484";
-    const whatsappUrl = "https://wa.me/" + phone + "?text=" + encodeURIComponent(message);
+            message +=
+                `${index + 1}. ${item.name} - ${Number(item.price).toFixed(2)} AZN\n`;
+
+            total +=
+                Number(
+                    item.price || 0
+                );
+
+        }
+    );
+
+
+    message +=
+        "\n" +
+        t("totalAmount") +
+        " " +
+        total.toFixed(2) +
+        " AZN";
+
+
+    const phone =
+        "994702883484";
+
+
+    const whatsappUrl =
+        "https://wa.me/" +
+        phone +
+        "?text=" +
+        encodeURIComponent(
+            message
+        );
+
 
     cart = [];
-    localStorage.removeItem("digi_cart");
+
+    localStorage.removeItem(
+        "digi_cart"
+    );
+
     updateCartCount();
+
     toggleCart();
 
-    window.location.href = whatsappUrl;
+    window.location.href =
+        whatsappUrl;
+
 }
 
+
+/* =========================================================
+   BAŞLANĞIC
+   ========================================================= */
+
 updateCartCount();
+
+applyLanguage();
+
 </script>
 
 </body>
