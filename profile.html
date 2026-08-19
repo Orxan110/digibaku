@@ -566,73 +566,141 @@ const translations = {
 az: {
 
 pageTitle:"Profilim — DigiBaku.com",
+
 profile:"Profilim",
+
 profileSubtitle:"DigiBaku.com hesab məlumatlarınız",
+
 myAccount:"Hesabım",
+
 email:"Email",
+
 accountStatus:"Hesab statusu",
+
 active:"● Aktiv",
+
 registrationDate:"Qeydiyyat tarixi",
+
 userId:"İstifadəçi ID",
+
 myProducts:"Məhsullarım",
+
 purchasedProducts:"Satın aldığınız premium xidmətlər burada görünür.",
+
 loading:"Yüklənir...",
+
 profileLoading:"Profil yüklənir...",
+
 noProducts:"Hazırda sifarişiniz yoxdur.",
+
 viewProducts:"Məhsullara bax",
+
 accountActions:"Hesab əməliyyatları",
+
 home:"Ana səhifə",
+
 backHome:"← Ana səhifə",
+
 logout:"Çıxış",
-added:"Əlavə olunub:"
+
+added:"Əlavə olunub:",
+
+error:"Xəta baş verdi."
+
 },
+
 
 ru: {
 
 pageTitle:"Мой профиль — DigiBaku.com",
+
 profile:"Мой профиль",
+
 profileSubtitle:"Информация вашего аккаунта DigiBaku.com",
+
 myAccount:"Мой аккаунт",
+
 email:"Email",
+
 accountStatus:"Статус аккаунта",
+
 active:"● Активен",
+
 registrationDate:"Дата регистрации",
+
 userId:"ID пользователя",
+
 myProducts:"Мои товары",
+
 purchasedProducts:"Здесь отображаются приобретённые вами премиум-услуги.",
+
 loading:"Загрузка...",
+
 profileLoading:"Загрузка профиля...",
+
 noProducts:"У вас пока нет заказов.",
+
 viewProducts:"Посмотреть товары",
+
 accountActions:"Действия с аккаунтом",
+
 home:"Главная",
+
 backHome:"← Главная",
+
 logout:"Выйти",
-added:"Добавлено:"
+
+added:"Добавлено:",
+
+error:"Произошла ошибка."
+
 },
+
 
 en: {
 
 pageTitle:"My Profile — DigiBaku.com",
+
 profile:"My Profile",
+
 profileSubtitle:"Your DigiBaku.com account information",
+
 myAccount:"My Account",
+
 email:"Email",
+
 accountStatus:"Account status",
+
 active:"● Active",
+
 registrationDate:"Registration date",
+
 userId:"User ID",
+
 myProducts:"My Products",
+
 purchasedProducts:"Your purchased premium services will appear here.",
+
 loading:"Loading...",
+
 profileLoading:"Loading profile...",
+
 noProducts:"You have no orders yet.",
+
 viewProducts:"View products",
+
 accountActions:"Account actions",
+
 home:"Home",
+
 backHome:"← Home",
+
 logout:"Logout",
-added:"Added:"
+
+added:"Added:",
+
+error:"An error occurred."
+
 }
 
 };
@@ -652,7 +720,9 @@ function getLanguage(){
 function setLanguage(lang){
 
     if(!translations[lang]){
+
         lang="az";
+
     }
 
     localStorage.setItem(
@@ -669,9 +739,34 @@ function t(key){
 
     const lang=getLanguage();
 
-    return translations[lang][key]
+    return translations[lang]?.[key]
         || translations.az[key]
         || key;
+
+}
+
+
+/* ==========================================
+   TARİX DİLİ
+========================================== */
+
+function getDateLocale(){
+
+    const lang=getLanguage();
+
+    if(lang==="ru"){
+
+        return "ru-RU";
+
+    }
+
+    if(lang==="en"){
+
+        return "en-US";
+
+    }
+
+    return "az-AZ";
 
 }
 
@@ -689,68 +784,159 @@ function applyLanguage(){
     document.title=t("pageTitle");
 
 
-    document.getElementById("profileTitle").textContent=
+    document.getElementById(
+        "profileTitle"
+    ).textContent=
         t("profile");
 
-    document.getElementById("profileSubtitle").textContent=
+
+    document.getElementById(
+        "profileSubtitle"
+    ).textContent=
         t("profileSubtitle");
 
-    document.getElementById("myAccount").textContent=
+
+    document.getElementById(
+        "myAccount"
+    ).textContent=
         t("myAccount");
 
-    document.getElementById("emailLabel").textContent=
+
+    document.getElementById(
+        "emailLabel"
+    ).textContent=
         t("email");
 
-    document.getElementById("statusLabel").textContent=
+
+    document.getElementById(
+        "statusLabel"
+    ).textContent=
         t("accountStatus");
 
-    document.getElementById("statusValue").textContent=
+
+    document.getElementById(
+        "statusValue"
+    ).textContent=
         t("active");
 
-    document.getElementById("registrationLabel").textContent=
+
+    document.getElementById(
+        "registrationLabel"
+    ).textContent=
         t("registrationDate");
 
-    document.getElementById("userIdLabel").textContent=
+
+    document.getElementById(
+        "userIdLabel"
+    ).textContent=
         t("userId");
 
-    document.getElementById("myProducts").textContent=
+
+    document.getElementById(
+        "myProducts"
+    ).textContent=
         t("myProducts");
 
-    document.getElementById("productsSubtitle").textContent=
+
+    document.getElementById(
+        "productsSubtitle"
+    ).textContent=
         t("purchasedProducts");
 
-    document.getElementById("accountActions").textContent=
+
+    document.getElementById(
+        "accountActions"
+    ).textContent=
         t("accountActions");
 
-    document.getElementById("homeButton").textContent=
+
+    document.getElementById(
+        "homeButton"
+    ).textContent=
         t("home");
 
-    document.getElementById("logoutButton").textContent=
+
+    document.getElementById(
+        "logoutButton"
+    ).textContent=
         t("logout");
 
-    document.getElementById("backHome").textContent=
+
+    document.getElementById(
+        "backHome"
+    ).textContent=
         t("backHome");
 
-    document.getElementById("loading").textContent=
+
+    document.getElementById(
+        "loading"
+    ).textContent=
         t("profileLoading");
 
 
-    /* DİL DÜYMƏSİ */
+    /* DİL DÜYMƏLƏRİ */
 
-    document.getElementById("azBtn").classList.remove("active");
-    document.getElementById("ruBtn").classList.remove("active");
-    document.getElementById("enBtn").classList.remove("active");
+    document.getElementById(
+        "azBtn"
+    ).classList.remove("active");
 
-    document.getElementById(lang+"Btn")
-        .classList.add("active");
+
+    document.getElementById(
+        "ruBtn"
+    ).classList.remove("active");
+
+
+    document.getElementById(
+        "enBtn"
+    ).classList.remove("active");
+
+
+    const activeButton =
+        document.getElementById(
+            lang + "Btn"
+        );
+
+
+    if(activeButton){
+
+        activeButton.classList.add("active");
+
+    }
+
+
+    /* TARİXİ YENİ DİLƏ ÇEVİR */
+
+    if(window.profileCreatedAt){
+
+        const date =
+            new Date(
+                window.profileCreatedAt
+            );
+
+
+        document.getElementById(
+            "createdDate"
+        ).textContent=
+            date.toLocaleDateString(
+                getDateLocale(),
+                {
+                    year:"numeric",
+                    month:"long",
+                    day:"numeric"
+                }
+            );
+
+    }
 
 
     /* MƏHSULLARI YENİ DİLLƏ YENİLƏ */
 
     if(window.currentProductsData){
+
         renderProducts(
             window.currentProductsData
         );
+
     }
 
 }
@@ -763,8 +949,10 @@ function applyLanguage(){
 const SUPABASE_URL =
 "https://zeknhnkaicqkfzgnvycq.supabase.co";
 
+
 const SUPABASE_KEY =
 "sb_publishable_jHvCp9fXBA_BwFqrXYpwlw_VC6C1OQk";
+
 
 const supabaseClient =
 window.supabase.createClient(
@@ -783,62 +971,94 @@ async function loadProfile(){
         data,
         error
     } =
-    await supabaseClient.auth.getSession();
+    await supabaseClient
+        .auth
+        .getSession();
 
 
     if(error){
 
         console.error(error);
 
-        window.location.href="login.html";
+        window.location.href=
+            "login.html";
 
         return;
     }
 
 
-    const session=data.session;
+    const session =
+        data.session;
 
 
     if(!session){
 
-        window.location.href="login.html";
+        window.location.href=
+            "login.html";
 
         return;
     }
 
 
-    const user=session.user;
+    const user =
+        session.user;
 
 
-    document.getElementById("userEmail").textContent=
+    /* EMAIL */
+
+    document.getElementById(
+        "userEmail"
+    ).textContent=
         user.email || "-";
 
 
-    document.getElementById("emailInfo").textContent=
+    document.getElementById(
+        "emailInfo"
+    ).textContent=
         user.email || "-";
 
+
+    /* AVATAR */
 
     if(user.email){
 
-        document.getElementById("avatar").textContent=
-            user.email.charAt(0).toUpperCase();
+        document.getElementById(
+            "avatar"
+        ).textContent=
+            user.email
+                .charAt(0)
+                .toUpperCase();
 
     }
 
 
-    document.getElementById("userId").textContent=
+    /* USER ID */
+
+    document.getElementById(
+        "userId"
+    ).textContent=
         user.id;
 
 
+    /* QEYDİYYAT TARİXİ */
+
     if(user.created_at){
 
-        const date=new Date(user.created_at);
+        window.profileCreatedAt =
+            user.created_at;
 
-        document.getElementById("createdDate").textContent=
+
+        const date =
+            new Date(
+                user.created_at
+            );
+
+
+        document.getElementById(
+            "createdDate"
+        ).textContent=
             date.toLocaleDateString(
-                getLanguage()==="ru" ? "ru-RU" :
-                getLanguage()==="en" ? "en-US" :
-                "az-AZ",
+                getDateLocale(),
                 {
                     year:"numeric",
                     month:"long",
@@ -849,12 +1069,25 @@ async function loadProfile(){
     }
 
 
-    await loadMyProducts(user.id);
+    /* MƏHSULLARI YÜKLƏ */
+
+    await loadMyProducts(
+        user.id
+    );
 
 
-    document.getElementById("loading").style.display="none";
+    /* GÖSTƏR */
 
-    document.getElementById("profileContent").style.display="block";
+    document.getElementById(
+        "loading"
+    ).style.display=
+        "none";
+
+
+    document.getElementById(
+        "profileContent"
+    ).style.display=
+        "block";
 
 
     applyLanguage();
@@ -866,9 +1099,14 @@ async function loadProfile(){
    MƏHSULLAR
 ========================================== */
 
-async function loadMyProducts(userId){
+async function loadMyProducts(
+    userId
+){
 
-    const list=document.getElementById("productsList");
+    const list =
+        document.getElementById(
+            "productsList"
+        );
 
 
     const {
@@ -876,39 +1114,48 @@ async function loadMyProducts(userId){
         error
     } =
     await supabaseClient
-    .from("customer_products")
-    .select(
-        "id,product_name,account_info,status,created_at"
-    )
-    .eq(
-        "user_id",
-        userId
-    )
-    .order(
-        "created_at",
-        {
-            ascending:false
-        }
-    );
+        .from("customer_products")
+        .select(
+            "id,product_name,account_info,status,created_at"
+        )
+        .eq(
+            "user_id",
+            userId
+        )
+        .order(
+            "created_at",
+            {
+                ascending:false
+            }
+        );
 
 
     if(error){
 
         console.error(error);
 
+
         list.innerHTML=`
+
         <div class="empty">
+
             ${t("error")}
+
         </div>
+
         `;
 
         return;
     }
 
 
-    window.currentProductsData=data || [];
+    window.currentProductsData =
+        data || [];
 
-    renderProducts(window.currentProductsData);
+
+    renderProducts(
+        window.currentProductsData
+    );
 
 }
 
@@ -917,30 +1164,45 @@ async function loadMyProducts(userId){
    MƏHSULLARI GÖSTƏR
 ========================================== */
 
-function renderProducts(data){
+function renderProducts(
+    data
+){
 
-    const list=document.getElementById("productsList");
+    const list =
+        document.getElementById(
+            "productsList"
+        );
 
-    if(!list) return;
+
+    if(!list){
+
+        return;
+
+    }
 
 
-    if(!data || data.length===0){
+    /* SİFARİŞ YOXDUR */
+
+    if(
+        !data ||
+        data.length===0
+    ){
 
         list.innerHTML=`
 
         <div class="empty">
 
             <p>
-            ${t("noProducts")}
+                ${t("noProducts")}
             </p>
 
             <br>
 
             <a
-            href="index.html#products"
-            class="btn btn-primary">
+                href="index.html#products"
+                class="btn btn-primary">
 
-            ${t("viewProducts")}
+                ${t("viewProducts")}
 
             </a>
 
@@ -955,57 +1217,74 @@ function renderProducts(data){
     list.innerHTML="";
 
 
-    data.forEach(item=>{
+    data.forEach(
+        item=>{
 
-        const product=
-            document.createElement("div");
+            const product =
+                document.createElement(
+                    "div"
+                );
 
-        product.className="product";
+
+            product.className=
+                "product";
 
 
-        const date=item.created_at
-            ?
-            new Date(item.created_at)
-            .toLocaleString(
-                getLanguage()==="ru"
-                ? "ru-RU"
+            /* TARİX */
+
+            const date =
+                item.created_at
+                ?
+                new Date(
+                    item.created_at
+                ).toLocaleString(
+                    getDateLocale()
+                )
                 :
-                getLanguage()==="en"
-                ? "en-US"
-                :
-                "az-AZ"
-            )
-            :
-            "-";
+                "-";
 
 
-        product.innerHTML=`
+            product.innerHTML=`
 
-        <div class="product-name">
+            <div class="product-name">
 
-            ${escapeHtml(item.product_name)}
+                ${escapeHtml(
+                    item.product_name
+                )}
 
-        </div>
-
-        <div class="product-date">
-
-            ${t("added")}
-            ${escapeHtml(date)}
-
-        </div>
-
-        <div class="account-box">
-
-            ${escapeHtml(item.account_info)}
-
-        </div>
-
-        `;
+            </div>
 
 
-        list.appendChild(product);
+            <div class="product-date">
 
-    });
+                ${escapeHtml(
+                    t("added")
+                )}
+
+                ${escapeHtml(
+                    date
+                )}
+
+            </div>
+
+
+            <div class="account-box">
+
+                ${escapeHtml(
+                    item.account_info
+                )}
+
+            </div>
+
+            `;
+
+
+            list.appendChild(
+                product
+            );
+
+        }
+    );
 
 }
 
@@ -1014,14 +1293,33 @@ function renderProducts(data){
    HTML TƏHLÜKƏSİZLİYİ
 ========================================== */
 
-function escapeHtml(text){
+function escapeHtml(
+    text
+){
 
-    return String(text ?? "")
-        .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;")
-        .replace(/'/g,"&#039;");
+    return String(
+        text ?? ""
+    )
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+    .replace(
+        /</g,
+        "&lt;"
+    )
+    .replace(
+        />/g,
+        "&gt;"
+    )
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+    .replace(
+        /'/g,
+        "&#039;"
+    );
 
 }
 
@@ -1032,9 +1330,13 @@ function escapeHtml(text){
 
 async function logout(){
 
-    await supabaseClient.auth.signOut();
+    await supabaseClient
+        .auth
+        .signOut();
 
-    window.location.href="login.html";
+
+    window.location.href=
+        "login.html";
 
 }
 
