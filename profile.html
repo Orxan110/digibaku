@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Profilim — DigiBaku.com</title>
+<title>DigiBaku.com | Profil</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -51,6 +51,7 @@ header{
     display:flex;
     align-items:center;
     justify-content:space-between;
+    gap:15px;
 }
 
 .logo{
@@ -63,9 +64,45 @@ header{
     color:#fff;
 }
 
+.header-right{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
 .back{
     color:#aaa;
     font-size:14px;
+}
+
+/* LANGUAGE */
+
+.language{
+    display:flex;
+    gap:5px;
+    align-items:center;
+}
+
+.language button{
+    background:#151515;
+    border:1px solid #333;
+    color:#888;
+    padding:6px 9px;
+    border-radius:6px;
+    cursor:pointer;
+    font-size:11px;
+    font-weight:bold;
+}
+
+.language button:hover{
+    color:#fff;
+    border-color:#2563eb;
+}
+
+.language button.active{
+    background:#2563eb;
+    border-color:#2563eb;
+    color:#fff;
 }
 
 /* PROFILE */
@@ -88,7 +125,7 @@ header{
     color:#888;
 }
 
-/* CARD */
+/* CARDS */
 
 .user-card,
 .orders{
@@ -248,7 +285,19 @@ header{
     display:none;
 }
 
+/* MOBILE */
+
 @media(max-width:600px){
+
+    .nav{
+        flex-wrap:wrap;
+        padding:12px 0;
+    }
+
+    .header-right{
+        width:100%;
+        justify-content:space-between;
+    }
 
     .profile-title h1{
         font-size:30px;
@@ -279,6 +328,7 @@ header{
 
     .actions .btn{
         width:100%;
+        text-align:center;
     }
 
 }
@@ -297,9 +347,29 @@ header{
 DigiBaku<span>.com</span>
 </a>
 
-<a href="index.html" class="back">
+<div class="header-right">
+
+<div class="language">
+
+<button id="azBtn" onclick="setLanguage('az')">
+AZ
+</button>
+
+<button id="ruBtn" onclick="setLanguage('ru')">
+RU
+</button>
+
+<button id="enBtn" onclick="setLanguage('en')">
+EN
+</button>
+
+</div>
+
+<a href="index.html" class="back" id="backHome">
 ← Ana səhifə
 </a>
+
+</div>
 
 </div>
 
@@ -317,12 +387,13 @@ Profil yüklənir...
 
 <div class="container">
 
-
 <div class="profile-title">
 
-<h1>Profilim</h1>
+<h1 id="profileTitle">
+Profilim
+</h1>
 
-<p>
+<p id="profileSubtitle">
 DigiBaku.com hesab məlumatlarınız
 </p>
 
@@ -341,7 +412,9 @@ DigiBaku.com hesab məlumatlarınız
 
 <div class="user-info">
 
-<h2>Hesabım</h2>
+<h2 id="myAccount">
+Hesabım
+</h2>
 
 <p id="userEmail">
 Yüklənir...
@@ -356,7 +429,9 @@ Yüklənir...
 
 <div class="info-box">
 
-<span>Email</span>
+<span id="emailLabel">
+Email
+</span>
 
 <strong id="emailInfo">
 -
@@ -367,10 +442,16 @@ Yüklənir...
 
 <div class="info-box">
 
-<span>Hesab statusu</span>
+<span id="statusLabel">
+Hesab statusu
+</span>
 
-<strong class="status">
+<strong
+id="statusText"
+class="status">
+
 ● Aktiv
+
 </strong>
 
 </div>
@@ -378,7 +459,9 @@ Yüklənir...
 
 <div class="info-box">
 
-<span>Qeydiyyat tarixi</span>
+<span id="registrationLabel">
+Qeydiyyat tarixi
+</span>
 
 <strong id="createdDate">
 -
@@ -389,12 +472,16 @@ Yüklənir...
 
 <div class="info-box">
 
-<span>İstifadəçi ID</span>
+<span id="userIdLabel">
+İstifadəçi ID
+</span>
 
 <strong
 id="userId"
 style="font-size:11px;word-break:break-all;">
+
 -
+
 </strong>
 
 </div>
@@ -404,16 +491,20 @@ style="font-size:11px;word-break:break-all;">
 </div>
 
 
-<!-- MƏHSULLAR -->
+<!-- PRODUCTS -->
 
 <div class="orders">
 
-<h2>
+<h2 id="myProducts">
 Məhsullarım
 </h2>
 
-<p class="orders-subtitle">
+<p
+class="orders-subtitle"
+id="productsSubtitle">
+
 Satın aldığınız premium xidmətlər burada görünür.
+
 </p>
 
 
@@ -430,15 +521,20 @@ Yüklənir...
 
 <div class="user-card">
 
-<h2 style="margin-bottom:18px;">
+<h2
+id="accountActions"
+style="margin-bottom:18px;">
+
 Hesab əməliyyatları
+
 </h2>
 
 <div class="actions">
 
 <a
 href="index.html"
-class="btn btn-primary">
+class="btn btn-primary"
+id="homeButton">
 
 Ana səhifə
 
@@ -447,7 +543,8 @@ Ana səhifə
 
 <button
 onclick="logout()"
-class="btn btn-dark">
+class="btn btn-dark"
+id="logoutButton">
 
 Çıxış
 
@@ -467,9 +564,206 @@ class="btn btn-dark">
 
 <script>
 
-/* =========================
+/* =====================================================
+   DİLLƏR
+===================================================== */
+
+const translations = {
+
+az:{
+    profile:"Profilim",
+    profileSubtitle:"DigiBaku.com hesab məlumatlarınız",
+    myAccount:"Hesabım",
+    email:"Email",
+    status:"Hesab statusu",
+    active:"● Aktiv",
+    registrationDate:"Qeydiyyat tarixi",
+    userId:"İstifadəçi ID",
+    myProducts:"Məhsullarım",
+    purchasedProducts:"Satın aldığınız premium xidmətlər burada görünür.",
+    loading:"Yüklənir...",
+    profileLoading:"Profil yüklənir...",
+    noProducts:"Hazırda sifarişiniz yoxdur.",
+    viewProducts:"Məhsullara bax",
+    added:"Əlavə olunub:",
+    accountActions:"Hesab əməliyyatları",
+    home:"Ana səhifə",
+    logout:"Çıxış",
+    backHome:"← Ana səhifə",
+    productsError:"Məhsullar yüklənmədi."
+},
+
+ru:{
+    profile:"Мой профиль",
+    profileSubtitle:"Информация вашего аккаунта DigiBaku.com",
+    myAccount:"Мой аккаунт",
+    email:"Email",
+    status:"Статус аккаунта",
+    active:"● Активен",
+    registrationDate:"Дата регистрации",
+    userId:"ID пользователя",
+    myProducts:"Мои товары",
+    purchasedProducts:"Здесь отображаются приобретённые вами премиум-услуги.",
+    loading:"Загрузка...",
+    profileLoading:"Загрузка профиля...",
+    noProducts:"У вас пока нет заказов.",
+    viewProducts:"Посмотреть товары",
+    added:"Добавлено:",
+    accountActions:"Действия с аккаунтом",
+    home:"Главная",
+    logout:"Выйти",
+    backHome:"← Главная",
+    productsError:"Не удалось загрузить товары."
+},
+
+en:{
+    profile:"My Profile",
+    profileSubtitle:"Your DigiBaku.com account information",
+    myAccount:"My Account",
+    email:"Email",
+    status:"Account status",
+    active:"● Active",
+    registrationDate:"Registration date",
+    userId:"User ID",
+    myProducts:"My products",
+    purchasedProducts:"Your purchased premium services will appear here.",
+    loading:"Loading...",
+    profileLoading:"Loading profile...",
+    noProducts:"You have no orders yet.",
+    viewProducts:"View products",
+    added:"Added:",
+    accountActions:"Account actions",
+    home:"Home",
+    logout:"Logout",
+    backHome:"← Home",
+    productsError:"Failed to load products."
+}
+
+};
+
+
+/* =====================================================
+   DİL SİSTEMİ
+===================================================== */
+
+function getLanguage(){
+
+    return localStorage.getItem("digi_language") || "az";
+
+}
+
+
+function setLanguage(lang){
+
+    if(!translations[lang]){
+        lang="az";
+    }
+
+    localStorage.setItem(
+        "digi_language",
+        lang
+    );
+
+    applyLanguage();
+
+}
+
+
+function t(key){
+
+    const lang=getLanguage();
+
+    return translations[lang]?.[key]
+        || translations.az[key]
+        || key;
+
+}
+
+
+/* =====================================================
+   DİLİ TƏTBİQ ET
+===================================================== */
+
+function applyLanguage(){
+
+    const lang=getLanguage();
+
+    document.documentElement.lang=lang;
+
+
+    document.getElementById("profileTitle").textContent =
+        t("profile");
+
+
+    document.getElementById("profileSubtitle").textContent =
+        t("profileSubtitle");
+
+
+    document.getElementById("myAccount").textContent =
+        t("myAccount");
+
+
+    document.getElementById("emailLabel").textContent =
+        t("email");
+
+
+    document.getElementById("statusLabel").textContent =
+        t("status");
+
+
+    document.getElementById("statusText").textContent =
+        t("active");
+
+
+    document.getElementById("registrationLabel").textContent =
+        t("registrationDate");
+
+
+    document.getElementById("userIdLabel").textContent =
+        t("userId");
+
+
+    document.getElementById("myProducts").textContent =
+        t("myProducts");
+
+
+    document.getElementById("productsSubtitle").textContent =
+        t("purchasedProducts");
+
+
+    document.getElementById("accountActions").textContent =
+        t("accountActions");
+
+
+    document.getElementById("homeButton").textContent =
+        t("home");
+
+
+    document.getElementById("logoutButton").textContent =
+        t("logout");
+
+
+    document.getElementById("backHome").textContent =
+        t("backHome");
+
+
+    document.getElementById("azBtn")
+        .classList.toggle("active",lang==="az");
+
+
+    document.getElementById("ruBtn")
+        .classList.toggle("active",lang==="ru");
+
+
+    document.getElementById("enBtn")
+        .classList.toggle("active",lang==="en");
+
+}
+
+
+/* =====================================================
    SUPABASE
-========================= */
+===================================================== */
 
 const SUPABASE_URL =
 "https://zeknhnkaicqkfzgnvycq.supabase.co";
@@ -484,9 +778,9 @@ window.supabase.createClient(
 );
 
 
-/* =========================
-   PROFİL
-========================= */
+/* =====================================================
+   PROFİLİ YÜKLƏ
+===================================================== */
 
 async function loadProfile(){
 
@@ -501,44 +795,26 @@ async function loadProfile(){
 
         console.error(error);
 
-        window.location.href =
-            "login.html";
+        window.location.href="login.html";
 
         return;
+
     }
 
 
-    const session =
-        data.session;
+    const session=data.session;
 
 
     if(!session){
 
-        window.location.href =
-            "login.html";
+        window.location.href="login.html";
 
         return;
+
     }
 
 
-    const user =
-        session.user;
-
-
-    /* ADMIN YOXLAMASI */
-
-    const ADMIN_EMAIL =
-        "zahidovorxan989@gmail.com";
-
-    if (
-        (user.email || "").toLowerCase().trim()
-        === ADMIN_EMAIL.toLowerCase()
-    ) {
-        window.location.href =
-            "gizli_panel.html";
-
-        return;
-    }
+    const user=session.user;
 
 
     /* EMAIL */
@@ -582,16 +858,18 @@ async function loadProfile(){
     if(user.created_at){
 
         const date =
-            new Date(
-                user.created_at
-            );
+            new Date(user.created_at);
 
 
         document.getElementById(
             "createdDate"
         ).textContent =
             date.toLocaleDateString(
-                "az-AZ",
+                getLanguage()==="ru"
+                    ? "ru-RU"
+                    : getLanguage()==="en"
+                        ? "en-US"
+                        : "az-AZ",
                 {
                     year:"numeric",
                     month:"long",
@@ -602,7 +880,7 @@ async function loadProfile(){
     }
 
 
-    /* MƏHSULLARI YÜKLƏ */
+    /* MƏHSULLAR */
 
     await loadMyProducts(user.id);
 
@@ -611,21 +889,19 @@ async function loadProfile(){
 
     document.getElementById(
         "loading"
-    ).style.display =
-        "none";
+    ).style.display="none";
 
 
     document.getElementById(
         "profileContent"
-    ).style.display =
-        "block";
+    ).style.display="block";
 
 }
 
 
-/* =========================
-   MƏHSULLARIM
-========================= */
+/* =====================================================
+   MƏHSULLARI YÜKLƏ
+===================================================== */
 
 async function loadMyProducts(userId){
 
@@ -660,28 +936,33 @@ async function loadMyProducts(userId){
 
         console.error(error);
 
-        list.innerHTML = `
+        list.innerHTML=`
 
         <div class="empty">
 
-            Məhsullar yüklənmədi.
+            ${escapeHtml(
+                t("productsError")
+            )}
 
         </div>
 
         `;
 
         return;
+
     }
 
 
-    if(!data || data.length === 0){
+    if(!data || data.length===0){
 
-        list.innerHTML = `
+        list.innerHTML=`
 
         <div class="empty">
 
             <p>
-            Hazırda sifarişiniz yoxdur.
+            ${escapeHtml(
+                t("noProducts")
+            )}
             </p>
 
             <br>
@@ -690,7 +971,9 @@ async function loadMyProducts(userId){
             href="index.html#products"
             class="btn btn-primary">
 
-            Məhsullara bax
+            ${escapeHtml(
+                t("viewProducts")
+            )}
 
             </a>
 
@@ -699,20 +982,20 @@ async function loadMyProducts(userId){
         `;
 
         return;
+
     }
 
 
-    list.innerHTML = "";
+    list.innerHTML="";
 
 
-    data.forEach(item => {
+    data.forEach(item=>{
 
         const product =
             document.createElement("div");
 
 
-        product.className =
-            "product";
+        product.className="product";
 
 
         const date =
@@ -721,13 +1004,17 @@ async function loadMyProducts(userId){
             new Date(
                 item.created_at
             ).toLocaleString(
-                "az-AZ"
+                getLanguage()==="ru"
+                    ? "ru-RU"
+                    : getLanguage()==="en"
+                        ? "en-US"
+                        : "az-AZ"
             )
             :
             "-";
 
 
-        product.innerHTML = `
+        product.innerHTML=`
 
         <div class="product-name">
 
@@ -740,7 +1027,10 @@ async function loadMyProducts(userId){
 
         <div class="product-date">
 
-            Əlavə olunub:
+            ${escapeHtml(
+                t("added")
+            )}
+
             ${escapeHtml(date)}
 
         </div>
@@ -749,7 +1039,7 @@ async function loadMyProducts(userId){
         <div class="account-box">
 
             ${escapeHtml(
-                item.account_info
+                item.account_info || ""
             )}
 
         </div>
@@ -764,13 +1054,14 @@ async function loadMyProducts(userId){
 }
 
 
-/* =========================
+/* =====================================================
    HTML TƏHLÜKƏSİZLİYİ
-========================= */
+===================================================== */
 
 function escapeHtml(text){
 
     return String(text)
+
         .replace(/&/g,"&amp;")
         .replace(/</g,"&lt;")
         .replace(/>/g,"&gt;")
@@ -780,23 +1071,24 @@ function escapeHtml(text){
 }
 
 
-/* =========================
+/* =====================================================
    ÇIXIŞ
-========================= */
+===================================================== */
 
 async function logout(){
 
     await supabaseClient.auth.signOut();
 
-    window.location.href =
-        "login.html";
+    window.location.href="login.html";
 
 }
 
 
-/* =========================
+/* =====================================================
    BAŞLAT
-========================= */
+===================================================== */
+
+applyLanguage();
 
 loadProfile();
 
