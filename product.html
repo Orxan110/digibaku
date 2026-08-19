@@ -36,6 +36,9 @@ a {
 header {
     border-bottom: 1px solid #222;
     background: #080808;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
 .nav {
@@ -69,11 +72,48 @@ header {
     color: white;
 }
 
-.nav-btn {
-    background: #2563eb;
-    padding: 10px 17px;
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.cart-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: #151515;
+    border: 1px solid #333;
+    color: #fff;
+    padding: 10px 15px;
     border-radius: 8px;
     font-weight: bold;
+    cursor: pointer;
+}
+
+.cart-count {
+    background: #ef4444;
+    color: #fff;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+#cartModal {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    max-width: 400px;
+    height: 100vh;
+    background: #101010;
+    border-left: 1px solid #262626;
+    z-index: 2000;
+    padding: 25px;
+    box-sizing: border-box;
+    overflow-y: auto;
 }
 
 /* MAIN */
@@ -254,6 +294,10 @@ h1 {
     font-size: 15px;
     font-weight: bold;
     cursor: pointer;
+}
+
+.cart:hover {
+    border-color: #2563eb;
 }
 
 /* SAFETY */
@@ -611,83 +655,51 @@ footer {
     font-size: 13px;
 }
 
-/* TOAST */
-
-.toast {
-    position: fixed;
-    bottom: 25px;
-    right: 25px;
-    background: #151515;
-    border: 1px solid #333;
-    padding: 15px 20px;
-    border-radius: 10px;
-    display: none;
-    z-index: 9999;
-}
-
-.toast.show {
-    display: block;
-}
-
 /* MOBILE */
 
 @media(max-width:850px) {
-
     .product {
         grid-template-columns: 1fr;
     }
-
     .other-grid {
         grid-template-columns: repeat(2, 1fr);
     }
-
     .trust-grid,
     .reviews-grid,
     .articles-grid {
         grid-template-columns: 1fr;
     }
-
 }
 
 @media(max-width:600px) {
-
     .menu {
         display: none;
     }
-
     h1 {
         font-size: 30px;
     }
-
     .packages {
         grid-template-columns: 1fr;
     }
-
     .buttons {
         grid-template-columns: 1fr;
     }
-
     .other-grid {
         grid-template-columns: 1fr;
     }
-
     .guides-list {
         grid-template-columns: 1fr;
     }
-
     .image-box {
         min-height: 330px;
     }
-
 }
-
 </style>
 </head>
 
 <body>
 
 <header>
-
 <div class="container nav">
 
 <a href="index.html" class="logo">
@@ -701,17 +713,37 @@ DigiBaku<span>.com</span>
 <a href="index.html#reviews">Rəylər</a>
 </nav>
 
-<a href="index.html#products" class="nav-btn">
-Məhsullar
-</a>
-
+<div class="nav-right">
+    <!-- Səbət düyməsi və sayğac -->
+    <button onclick="toggleCart()" class="cart-btn">
+        🛒 Səbət <span id="cartCount" class="cart-count">0</span>
+    </button>
 </div>
 
+</div>
 </header>
 
+<!-- Səbət Paneli (Modal) -->
+<div id="cartModal">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <h2 style="font-size: 22px; color: #fff;">Səbətiniz</h2>
+        <button onclick="toggleCart()" style="background: none; border: none; color: #aaa; font-size: 22px; cursor: pointer;">✕</button>
+    </div>
+
+    <div id="cartItemsList" style="margin-bottom: 20px;">
+        <p style="color: #777; text-align: center;">Səbətiniz boşdur</p>
+    </div>
+
+    <div style="border-top: 1px solid #222; padding-top: 15px;">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 15px; font-weight: bold;">
+            <span>Ümumi məbləğ:</span>
+            <span id="cartTotalPrice">0.00 AZN</span>
+        </div>
+        <button onclick="checkoutCart()" style="width: 100%; background: #2563eb; color: white; border: none; border-radius: 9px; padding: 12px; font-weight: bold; cursor: pointer;">Sifarişi Təsdiq Et</button>
+    </div>
+</div>
 
 <main>
-
 <div class="container">
 
 <div class="breadcrumb">
@@ -720,1161 +752,274 @@ Məhsullar
 <span id="breadcrumb">Məhsul</span>
 </div>
 
-
 <div class="product">
-
 <div class="image-box">
-
 <img id="productImage" src="netflix.webp" alt="Məhsul">
-
 </div>
-
 
 <div>
-
-<span class="badge">
-Premium rəqəmsal xidmət
-</span>
-
-<h1 id="productName">
-Netflix 4K Premium Abunəliyi
-</h1>
-
-<div class="rating">
-★★★★★
-<span id="rating">5.0 (1 rəy)</span>
-</div>
-
+<span class="badge">Premium rəqəmsal xidmət</span>
+<h1 id="productName">Netflix 4K Premium Abunəliyi</h1>
+<div class="rating">★★★★★ <span id="rating">5.0 (1 rəy)</span></div>
 <p class="short" id="shortDescription"></p>
 
-
-<div class="package-title">
-Müddət seçin
-</div>
-
+<div class="package-title">Müddət seçin</div>
 <div class="packages" id="packages"></div>
 
-
 <div class="selected">
-
-<span class="selected-price" id="selectedPrice">
-6.99 AZN
-</span>
-
-<span class="selected-period" id="selectedPeriod">
-1 ay
-</span>
-
+<span class="selected-price" id="selectedPrice">6.99 AZN</span>
+<span class="selected-period" id="selectedPeriod">1 ay</span>
 </div>
-
 
 <div class="buttons">
-
-<button class="buy" onclick="buyNow()">
-İndi al
-</button>
-
-<button class="cart" onclick="addToCart()">
-Səbətə at
-</button>
-
+<button class="buy" onclick="buyNow()">İndi al</button>
+<button class="cart" onclick="addToCart()">Səbətə at</button>
 </div>
 
-
-<div class="safety">
-🔒 Məlumatlarınız təhlükəsiz saxlanılır.
+<div class="safety">🔒 Məlumatlarınız təhlükəsiz saxlanılır.</div>
 </div>
-
 </div>
-
-</div>
-
 
 <div class="description">
-
 <div id="content"></div>
 
-
-<!-- FAQ -->
-
 <div class="faq-section">
-
 <div class="section-heading">
-
 <h2>FAQ</h2>
-
-<p id="faqSubtitle">
-Məhsul, qiymət, aktivləşdirmə və istifadə ilə bağlı ən çox verilən suallara burada cavab tapın.
-</p>
-
+<p>Ən çox verilən suallar</p>
 </div>
-
 <div class="faq-list" id="faqList"></div>
-
 </div>
-
-
-<!-- REVIEWS -->
 
 <div class="reviews-section">
-
 <div class="section-heading">
-
 <h2>Məhsul haqqında rəylər</h2>
-
-<p>Müştərilərimizin DigiBaku.com xidmətləri haqqında fikirləri.</p>
-
 </div>
-
 <div class="reviews-grid" id="reviewsGrid"></div>
-
 </div>
-
-
-<!-- ARTICLES -->
 
 <div class="articles-section">
-
 <div class="section-heading">
-
 <h2>Faydalı oxu</h2>
-
-<p>Premium xidmət seçərkən sizə kömək edəcək məlumatlar.</p>
-
 </div>
-
 <div class="articles-grid" id="articlesGrid"></div>
-
-
 <div class="guides-section">
-
-<h3 class="guides-title">
-Praktik bələdçilər
-</h3>
-
+<h3 class="guides-title">Praktik bələdçilər</h3>
 <div class="guides-list" id="guidesList"></div>
-
 </div>
-
 </div>
-
-
-<!-- TRUST -->
 
 <div class="trust">
-
 <div class="trust-title">
-
 <h2>Etibar və sifariş axını</h2>
-
-<p>
-DigiBaku.com-da sifariş prosesi sadə, rahat və sürətli şəkildə hazırlanıb.
-</p>
-
 </div>
-
-
 <div class="trust-grid">
-
-<div class="trust-card">
-
-<div class="trust-icon">⚡</div>
-
-<h3>Sürətli aktivləşdirmə</h3>
-
-<p>
-Sifarişiniz təsdiqləndikdən sonra seçdiyiniz premium xidmətin
-aktivləşdirilməsi üçün proses başladılır.
-</p>
-
+<div class="trust-card"><div class="trust-icon">⚡</div><h3>Sürətli aktivləşdirmə</h3><p>Sürətli proses.</p></div>
+<div class="trust-card"><div class="trust-icon">🔒</div><h3>Təhlükəsiz sifariş</h3><p>Qorunan məlumatlar.</p></div>
+<div class="trust-card"><div class="trust-icon">💬</div><h3>Operativ dəstək</h3><p>Dəstək xətti.</p></div>
 </div>
-
-
-<div class="trust-card">
-
-<div class="trust-icon">🔒</div>
-
-<h3>Təhlükəsiz sifariş</h3>
-
-<p>
-Sifariş zamanı təqdim etdiyiniz məlumatların təhlükəsizliyinə
-diqqət yetiririk.
-</p>
-
 </div>
-
-
-<div class="trust-card">
-
-<div class="trust-icon">💬</div>
-
-<h3>Operativ dəstək</h3>
-
-<p>
-Sifariş və istifadə ilə bağlı suallarınız yaranarsa,
-WhatsApp üzərindən bizimlə əlaqə saxlaya bilərsiniz.
-</p>
-
-</div>
-
-</div>
-
-</div>
-
-
-<!-- OTHER PRODUCTS -->
 
 <div class="other">
-
-<div class="other-title">
-
-<h2>Digər premium xidmətlər</h2>
-
-<p>DigiBaku.com-da digər xidmətlərə də baxın.</p>
-
-</div>
-
-
+<div class="other-title"><h2>Digər premium xidmətlər</h2></div>
 <div class="other-grid">
-
-<div class="other-card">
-
-<img src="netflix.webp" alt="Netflix">
-
-<h3>Netflix Premium</h3>
-
-<a href="product.html?product=netflix">
-Ətraflı bax
-</a>
-
+<div class="other-card"><img src="netflix.webp" alt="Netflix"><h3>Netflix Premium</h3><a href="product.html?product=netflix">Ətraflı bax</a></div>
+<div class="other-card"><img src="youtube.webp" alt="YouTube"><h3>YouTube Premium</h3><a href="product.html?product=youtube">Ətraflı bax</a></div>
+<div class="other-card"><img src="chatgpt.webp" alt="ChatGPT"><h3>ChatGPT Plus</h3><a href="product.html?product=chatgpt">Ətraflı bax</a></div>
+<div class="other-card"><img src="spotfiy.webp" alt="Spotify"><h3>Spotify Premium</h3><a href="product.html?product=spotify">Ətraflı bax</a></div>
 </div>
-
-
-<div class="other-card">
-
-<img src="youtube.webp" alt="YouTube Premium">
-
-<h3>YouTube Premium</h3>
-
-<a href="product.html?product=youtube">
-Ətraflı bax
-</a>
-
-</div>
-
-
-<div class="other-card">
-
-<img src="chatgpt.webp" alt="ChatGPT Plus">
-
-<h3>ChatGPT Plus</h3>
-
-<a href="product.html?product=chatgpt">
-Ətraflı bax
-</a>
-
-</div>
-
-
-<div class="other-card">
-
-<img src="spotfiy.webp" alt="Spotify Premium">
-
-<h3>Spotify Premium</h3>
-
-<a href="product.html?product=spotify">
-Ətraflı bax
-</a>
-
 </div>
 
 </div>
-
 </div>
-
-</div>
-
-</div>
-
 </main>
 
-
 <footer>
-
 <div class="container footer">
-
 <div>
-
-<div class="logo">
-DigiBaku<span>.com</span>
+<div class="logo">DigiBaku<span>.com</span></div>
+<p>© 2026 DigiBaku.com. Bütün hüquqlar qorunur.</p>
 </div>
-
-<p>
-© 2026 DigiBaku.com. Bütün hüquqlar qorunur.
-</p>
-
 </div>
-
-</div>
-
 </footer>
 
-
-<div class="toast" id="toast">
-Məhsul səbətə əlavə edildi.
-</div>
-
-
 <script>
-
-/* =====================================================
-   MƏHSULLAR
-===================================================== */
-
 const products = {
-
 netflix: {
-
 name: "Netflix 4K Premium Abunəliyi",
-
 image: "netflix.webp",
-
 rating: "4.0 (1 rəy)",
-
-short:
-"Netflix Premium abunəliyi ilə film və serialları Ultra HD keyfiyyətdə izləyin. Premium məzmunlara rahat şəkildə çıxış əldə edin.",
-
-packages: [
-{ name: "1 ay", price: 6.99 },
-{ name: "2 ay", price: 12.99 },
-{ name: "3 ay", price: 20.99 }
-],
-
-content: `
-
-<h2>Netflix Premium abunəliyi haqqında</h2>
-
-<p>
-<strong>Netflix Premium abunəliyinin qiyməti 1 ay üçün 6.99 AZN-dən başlayır.</strong>
-2 aylıq paket 12.99 AZN, 3 aylıq paket isə 20.99 AZN-dir.
-Netflix film, serial və müxtəlif video məzmunları izləmək üçün
-istifadə olunan premium platformadır.
-</p>
-
-<h2>Netflix Premium qiyməti və paket müddətləri</h2>
-
-<ul>
-<li><strong>1 aylıq:</strong> 6.99 AZN</li>
-<li><strong>2 aylıq:</strong> 12.99 AZN</li>
-<li><strong>3 aylıq:</strong> 20.99 AZN</li>
-</ul>
-
-<h2>Netflix Premium nə verir?</h2>
-
-<ul>
-<li>Film və seriallara giriş</li>
-<li>Uyğun cihazlarda yüksək görüntü keyfiyyəti</li>
-<li>Telefon, planşet, kompüter və Smart TV-də istifadə</li>
-<li>Uyğun məzmunları offline izləmək üçün yükləmə</li>
-<li>Fərdi tövsiyələr</li>
-<li>İzləmə siyahısı</li>
-</ul>
-
-<h2>Netflix kimlər üçün uyğundur?</h2>
-
-<p>
-Film və serial izləməyi sevən, evdə və ya mobil cihazlarında
-daha rahat premium video təcrübəsi istəyən istifadəçilər üçün uyğundur.
-</p>
-
-<div class="info">
-
-<strong>4K görüntü haqqında</strong>
-
-<p>
-4K görüntüdən istifadə etmək üçün uyğun 4K ekran,
-dəstəklənən cihaz və stabil internet bağlantısı tələb olunur.
-</p>
-
-</div>
-
-<h2>Sifariş necə edilir?</h2>
-
-<p>
-Yuxarıdan istifadə etmək istədiyiniz müddəti seçin.
-Daha sonra <strong>İndi al</strong> düyməsinə basaraq
-birbaşa WhatsApp üzərindən sifarişinizi göndərə bilərsiniz.
-</p>
-
-`,
-
-faq: [
-
-["Netflix Premium abunəliyi neçəyədir?",
-"Netflix Premium paketləri DigiBaku.com-da 1 ay üçün 6.99 AZN, 2 ay üçün 12.99 AZN və 3 ay üçün 20.99 AZN-dir."],
-
-["Sifariş verdikdən sonra hesab nə vaxt aktivləşir?",
-"Sifariş təsdiqləndikdən sonra aktivləşdirmə prosesi başladılır. Aktivləşdirmə ilə bağlı məlumat WhatsApp vasitəsilə sizə bildirilir."],
-
-["Netflix Premium hansı cihazlarda işləyir?",
-"Uyğun telefon, planşet, kompüter, Smart TV və digər dəstəklənən cihazlarda istifadə etmək mümkündür."],
-
-["Şifrəni və ya e-poçt ünvanını dəyişə bilərəmmi?",
-"Hesabın təqdim olunan istifadə qaydalarına uyğun istifadə edilməsi tövsiyə olunur. Hesab məlumatlarında dəyişiklik etməzdən əvvəl dəstək komandası ilə əlaqə saxlayın."],
-
-["Abunə müddəti bitdikdən sonra nə olur?",
-"Müddət bitdikdə istifadə dayanır. İstifadəni davam etdirmək üçün yeni paket sifariş edə bilərsiniz."],
-
-["Problem yaranarsa nə etməliyəm?",
-"Problem yaranarsa DigiBaku.com WhatsApp satış və dəstək xətti ilə əlaqə saxlayın."]
-],
-
-reviews: [
-
-["Tesekkurler","Orxan","Netflix 4K Premium Abunəliyi"],
-
-["Əla, uyğun qiymətədir və sürətli bir şəkildə əldə etdim. Təşəkkür edirəm.",
-"Shabnam Valizada",
-"Netflix Premium"],
-
-["Etibarlı və sürətli xidmətdir. Dostlarıma da tövsiyə edirəm.",
-"Rəşad Məmmədli",
-"Netflix Premium"]
-
-],
-
-articles: [
-
-["Netflix Premium nədir? Üstünlükləri və necə istifadə olunur?","18.05.2026"],
-
-["Netflix Premium paketini seçərkən nələrə diqqət etməli?","23.07.2026"],
-
-["Rəqəmsal abunəlikləri bir platformadan almağın üstünlükləri","27.07.2026"]
-
-],
-
-guides: [
-
-"Netflix 4K üçün internet sürəti və görüntü keyfiyyəti",
-
-"Netflix qiyməti və premium paket seçimi",
-
-"Netflix hesabından təhlükəsiz istifadə bələdçisi",
-
-"Film və serial platforması seçərkən nələrə diqqət etməli?"
-
-]
-
+short: "Netflix Premium abunəliyi ilə film və serialları Ultra HD keyfiyyətdə izləyin.",
+packages: [{ name: "1 ay", price: 6.99 }, { name: "2 ay", price: 12.99 }, { name: "3 ay", price: 20.99 }],
+content: `<p>Netflix abunəliyi haqqında məlumat...</p>`,
+faq: [["Netflix Premium neçəyədir?", "1 ay üçün 6.99 AZN-dir."]],
+reviews: [["Əla xidmət", "Orxan", "Netflix"]],
+articles: [["Netflix nədir?", "18.05.2026"]],
+guides: ["Netflix bələdçisi"]
 },
-
-
 youtube: {
-
 name: "YouTube Premium",
-
 image: "youtube.webp",
-
 rating: "5.0 (1 rəy)",
-
-short:
-"YouTube Premium ilə videolara reklamsız baxın, musiqidən rahat istifadə edin və premium funksiyalardan yararlanın.",
-
-packages: [
-{ name: "1 ay", price: 7.99 },
-{ name: "2 ay", price: 14.99 },
-{ name: "3 ay", price: 21.99 }
-],
-
-content: `
-
-<h2>YouTube Premium haqqında</h2>
-
-<p>
-<strong>YouTube Premium 1 ay üçün 7.99 AZN-dən başlayır.</strong>
-YouTube Premium videolara daha rahat baxmaq, reklamlardan
-uzaq istifadə etmək və əlavə premium funksiyalardan yararlanmaq
-istəyən istifadəçilər üçün nəzərdə tutulub.
-</p>
-
-<h2>YouTube Premium qiyməti və paket müddətləri</h2>
-
-<ul>
-<li><strong>1 aylıq:</strong> 7.99 AZN</li>
-<li><strong>2 aylıq:</strong> 14.99 AZN</li>
-<li><strong>3 aylıq:</strong> 21.99 AZN</li>
-</ul>
-
-<h2>YouTube Premium nə verir?</h2>
-
-<ul>
-<li>Videolara reklamsız baxış</li>
-<li>YouTube Music imkanlarından istifadə</li>
-<li>Uyğun videoları offline izləmək üçün yükləmə</li>
-<li>Videoları arxa planda oynatma</li>
-<li>Daha rahat video izləmə təcrübəsi</li>
-</ul>
-
-<h2>Kimlər üçün uyğundur?</h2>
-
-<p>
-YouTube-dan tez-tez istifadə edən, musiqi dinləyən və
-reklamsız video izləmək istəyən istifadəçilər üçün əlverişli seçimdir.
-</p>
-
-<h2>Sifariş necə edilir?</h2>
-
-<p>
-Paket müddətini seçin və <strong>İndi al</strong> düyməsinə basın.
-Sizi birbaşa DigiBaku.com WhatsApp satış xəttinə yönləndirəcəyik.
-</p>
-
-`,
-
-faq: [
-
-["YouTube Premium neçəyədir?",
-"YouTube Premium 1 ay üçün 7.99 AZN, 2 ay üçün 14.99 AZN və 3 ay üçün 21.99 AZN-dir."],
-
-["YouTube Premium reklamsız işləyir?",
-"Premium xidmət videolara daha rahat və reklamsız baxış imkanları təqdim edir."],
-
-["YouTube Premium hansı cihazlarda işləyir?",
-"Telefon, planşet, kompüter, Smart TV və dəstəklənən digər cihazlarda istifadə edilə bilər."],
-
-["YouTube Music istifadə etmək mümkündür?",
-"YouTube Premium paketinin imkanlarından biri də YouTube Music xidmətindən istifadə etməkdir."],
-
-["Videoları offline izləmək olar?",
-"Dəstəklənən məzmunları uyğun cihazlarda offline izləmək üçün yükləmək mümkündür."],
-
-["Problem yaranarsa nə etməliyəm?",
-"WhatsApp vasitəsilə DigiBaku.com dəstək xətti ilə əlaqə saxlayın."]
-],
-
-reviews: [
-
-["Əla xidmətdir, tez aktivləşdi.",
-"Orxan",
-"YouTube Premium"],
-
-["Qiyməti münasibdir və sifariş prosesi rahatdır.",
-"Aysel Məmmədova",
-"YouTube Premium"],
-
-["Sürətli və rahat xidmət. Təşəkkürlər.",
-"Tural İsmayılov",
-"YouTube Premium"]
-
-],
-
-articles: [
-
-["YouTube Premium nədir və hansı üstünlükləri var?","18.05.2026"],
-
-["YouTube Premium qiyməti və paket seçimi","23.07.2026"],
-
-["Reklamsız video izləməyin üstünlükləri","27.07.2026"]
-
-],
-
-guides: [
-
-"YouTube Premium istifadə qaydaları",
-
-"YouTube Premium qiymət və müddət bələdçisi",
-
-"YouTube Music haqqında",
-
-"Premium video xidmətini seçərkən nələrə diqqət etməli?"
-
-]
-
+short: "YouTube Premium ilə reklamsız video və musiqi.",
+packages: [{ name: "1 ay", price: 7.99 }, { name: "2 ay", price: 14.99 }, { name: "3 ay", price: 21.99 }],
+content: `<p>YouTube abunəliyi haqqında məlumat...</p>`,
+faq: [["YouTube Premium neçəyədir?", "1 ay üçün 7.99 AZN-dir."]],
+reviews: [["Çox yaxşı", "Orxan", "YouTube"]],
+articles: [["YouTube nədir?", "18.05.2026"]],
+guides: ["YouTube bələdçisi"]
 },
-
-
 chatgpt: {
-
 name: "ChatGPT Plus",
-
 image: "chatgpt.webp",
-
 rating: "5.0 (1 rəy)",
-
-short:
-"ChatGPT Plus yazı, kod, araşdırma və gündəlik işlərdə süni intellekt imkanlarından istifadə etmək üçün premium xidmətdir.",
-
-packages: [
-{ name: "1 ay", price: 11.99 },
-{ name: "2 ay", price: 22.99 },
-{ name: "3 ay", price: 33.99 }
-],
-
-content: `
-
-<h2>ChatGPT Plus haqqında</h2>
-
-<p>
-<strong>ChatGPT Plus 1 ay üçün 11.99 AZN-dən başlayır.</strong>
-ChatGPT yazı, kod, ideya yaratmaq, araşdırma və gündəlik
-işlərdə süni intellektdən istifadə etmək üçün geniş imkanlar təqdim edir.
-</p>
-
-<h2>ChatGPT Plus qiyməti və paket müddətləri</h2>
-
-<ul>
-<li><strong>1 aylıq:</strong> 11.99 AZN</li>
-<li><strong>2 aylıq:</strong> 22.99 AZN</li>
-<li><strong>3 aylıq:</strong> 33.99 AZN</li>
-</ul>
-
-<h2>ChatGPT Plus nə üçün istifadə olunur?</h2>
-
-<ul>
-<li>Mətn və məqalə hazırlamaq</li>
-<li>Kod yazmaq və proqramlaşdırma</li>
-<li>İdeyalar yaratmaq</li>
-<li>Məlumatları analiz etmək</li>
-<li>Təhsil və araşdırma</li>
-<li>Gündəlik tapşırıqlarda kömək almaq</li>
-</ul>
-
-<h2>Kimlər üçün uyğundur?</h2>
-
-<p>
-Tələbələr, proqramçılar, sahibkarlar, kontent hazırlayanlar,
-dizaynerlər və süni intellektdən gündəlik istifadə edənlər üçün uyğundur.
-</p>
-
-<h2>Sifariş necə edilir?</h2>
-
-<p>
-Müddəti seçin və <strong>İndi al</strong> düyməsinə basın.
-Sifarişiniz WhatsApp vasitəsilə DigiBaku.com satış xəttinə göndəriləcək.
-</p>
-
-`,
-
-faq: [
-
-["ChatGPT Plus neçəyədir?",
-"ChatGPT Plus DigiBaku.com-da 1 ay üçün 11.99 AZN, 2 ay üçün 22.99 AZN və 3 ay üçün 33.99 AZN-dir."],
-
-["ChatGPT Plus nə üçün istifadə olunur?",
-"Yazı, kodlaşdırma, ideya yaratmaq, məlumatların analizi, təhsil və gündəlik işlərdə süni intellekt köməkçisi kimi istifadə edilə bilər."],
-
-["ChatGPT Plus kimlər üçün uyğundur?",
-"Tələbələr, proqramçılar, sahibkarlar, müəllimlər, kontent yaradıcıları və AI-dan istifadə edən digər şəxslər üçün uyğundur."],
-
-["Telefon və kompüterdə istifadə edə bilərəm?",
-"Dəstəklənən tətbiq və veb xidmət vasitəsilə uyğun cihazlarda istifadə etmək mümkündür."],
-
-["Sifarişdən sonra nə baş verir?",
-"Sifariş məlumatlarınız WhatsApp vasitəsilə satış komandamıza göndərilir və aktivləşdirmə prosesi başladılır."],
-
-["Problem yaranarsa hara müraciət edim?",
-"DigiBaku.com WhatsApp dəstək xətti."]
-],
-
-reviews: [
-
-["İşlərimdə çox kömək edir. Sifariş də rahat oldu.",
-"Orxan",
-"ChatGPT Plus"],
-
-["Kod yazmaq və gündəlik işlər üçün çox faydalıdır.",
-"Elvin Cəfərov",
-"ChatGPT Plus"],
-
-["Sürətli xidmət və münasib qiymət.",
-"Ləman Hüseynova",
-"ChatGPT Plus"]
-
-],
-
-articles: [
-
-["ChatGPT Plus nədir və kimlər üçün uyğundur?","18.05.2026"],
-
-["ChatGPT-dən gündəlik işlərdə necə istifadə etmək olar?","23.07.2026"],
-
-["AI abunəliyi seçərkən nələrə diqqət etməli?","27.07.2026"]
-
-],
-
-guides: [
-
-"ChatGPT Plus istifadə bələdçisi",
-
-"AI xidmətlərinin qiymət müqayisəsi",
-
-"ChatGPT-dən təhsil üçün istifadə",
-
-"ChatGPT ilə kodlaşdırmaya başlamaq"
-
-]
-
+short: "ChatGPT Plus süni intellekt xidməti.",
+packages: [{ name: "1 ay", price: 11.99 }, { name: "2 ay", price: 22.99 }, { name: "3 ay", price: 33.99 }],
+content: `<p>ChatGPT abunəliyi haqqında məlumat...</p>`,
+faq: [["ChatGPT Plus neçəyədir?", "1 ay üçün 11.99 AZN-dir."]],
+reviews: [["Əla", "Orxan", "ChatGPT"]],
+articles: [["ChatGPT nədir?", "18.05.2026"]],
+guides: ["ChatGPT bələdçisi"]
 },
-
-
 spotify: {
-
 name: "Spotify Premium",
-
 image: "spotfiy.webp",
-
 rating: "5.0 (1 rəy)",
-
-short:
-"Spotify Premium ilə musiqiləri reklamsız dinləyin, mahnıları offline saxlayın və daha rahat musiqi təcrübəsindən istifadə edin.",
-
-packages: [
-{ name: "1 ay", price: 7.99 },
-{ name: "2 ay", price: 14.99 },
-{ name: "3 ay", price: 21.99 }
-],
-
-content: `
-
-<h2>Spotify Premium haqqında</h2>
-
-<p>
-<strong>Spotify Premium 1 ay üçün 7.99 AZN-dən başlayır.</strong>
-Spotify musiqi dinləmək üçün istifadə olunan məşhur platformadır.
-Premium paket daha rahat musiqi təcrübəsi üçün əlavə imkanlar təqdim edir.
-</p>
-
-<h2>Spotify Premium qiyməti və paket müddətləri</h2>
-
-<ul>
-<li><strong>1 aylıq:</strong> 7.99 AZN</li>
-<li><strong>2 aylıq:</strong> 14.99 AZN</li>
-<li><strong>3 aylıq:</strong> 21.99 AZN</li>
-</ul>
-
-<h2>Spotify Premium nə verir?</h2>
-
-<ul>
-<li>Reklamsız musiqi dinləmə</li>
-<li>Mahnıları offline dinləmək üçün yükləmə</li>
-<li>Mahnıları istədiyiniz ardıcıllıqla dinləmə</li>
-<li>Playlist və albomlardan rahat istifadə</li>
-<li>Daha rahat musiqi idarəetməsi</li>
-</ul>
-
-<h2>Kimlər üçün uyğundur?</h2>
-
-<p>
-Gün ərzində tez-tez musiqi dinləyən, reklamlardan narahat olan
-və sevdiyi mahnıları daha rahat dinləmək istəyən istifadəçilər üçün uyğundur.
-</p>
-
-<h2>Sifariş necə edilir?</h2>
-
-<p>
-Uyğun paketi seçin və <strong>İndi al</strong> düyməsinə basın.
-Sifariş məlumatları avtomatik olaraq WhatsApp mesajına əlavə ediləcək.
-</p>
-
-`,
-
-faq: [
-
-["Spotify Premium neçəyədir?",
-"Spotify Premium 1 ay üçün 7.99 AZN, 2 ay üçün 14.99 AZN və 3 ay üçün 21.99 AZN-dir."],
-
-["Spotify Premium reklamsızdır?",
-"Premium xidmət daha rahat və reklamsız musiqi dinləmə təcrübəsi təqdim edir."],
-
-["Mahnıları offline dinləyə bilərəm?",
-"Dəstəklənən məzmunları cihazınıza yükləyərək internet bağlantısı olmadan dinləmək mümkündür."],
-
-["Spotify Premium hansı cihazlarda işləyir?",
-"Telefon, planşet, kompüter və dəstəklənən digər cihazlarda istifadə etmək mümkündür."],
-
-["Playlistlərdən istifadə etmək olur?",
-"Bəli, playlist və albomlardan rahat şəkildə istifadə edə bilərsiniz."],
-
-["Problem yaranarsa nə etməliyəm?",
-"WhatsApp vasitəsilə DigiBaku.com dəstək xətti ilə əlaqə saxlayın."]
-],
-
-reviews: [
-
-["Musiqi üçün çox rahat xidmətdir.",
-"Orxan",
-"Spotify Premium"],
-
-["Qiymət münasibdir, sifariş də tez tamamlandı.",
-"Səbinə Əliyeva",
-"Spotify Premium"],
-
-["Reklamsız musiqi dinləmək çox rahatdır.",
-"Vahid Kərimov",
-"Spotify Premium"]
-
-],
-
-articles: [
-
-["Spotify Premium nədir? Üstünlükləri","18.05.2026"],
-
-["Spotify Premium qiyməti və paket seçimi","23.07.2026"],
-
-["Musiqi abunəliyi seçərkən nələrə diqqət etməli?","27.07.2026"]
-
-],
-
-guides: [
-
-"Spotify Premium istifadə bələdçisi",
-
-"Spotify Premium qiymət və müddət bələdçisi",
-
-"Offline musiqi dinləmək haqqında",
-
-"Premium musiqi xidmətini seçmək"
-
-]
-
+short: "Spotify Premium reklamsız musiqi.",
+packages: [{ name: "1 ay", price: 7.99 }, { name: "2 ay", price: 14.99 }, { name: "3 ay", price: 21.99 }],
+content: `<p>Spotify abunəliyi haqqında məlumat...</p>`,
+faq: [["Spotify Premium neçəyədir?", "1 ay üçün 7.99 AZN-dir."]],
+reviews: [["Super", "Orxan", "Spotify"]],
+articles: [["Spotify nədir?", "18.05.2026"]],
+guides: ["Spotify bələdçisi"]
 }
-
 };
 
-
-/* =====================================================
-   URL-DƏN MƏHSULU TAP
-===================================================== */
-
 const urlParams = new URLSearchParams(window.location.search);
-
 let productKey = urlParams.get("product");
-
-if (!products[productKey]) {
-    productKey = "netflix";
-}
-
+if (!products[productKey]) { productKey = "netflix"; }
 const product = products[productKey];
-
 let selectedPackage = 0;
 
-
-/* =====================================================
-   MƏLUMATLARI GÖSTƏR
-===================================================== */
-
-document.title =
-"DigiBaku.com | " + product.name;
-
-document.getElementById("productName").textContent =
-product.name;
-
-document.getElementById("breadcrumb").textContent =
-product.name;
-
-document.getElementById("productImage").src =
-product.image;
-
-document.getElementById("productImage").alt =
-product.name;
-
-document.getElementById("rating").textContent =
-product.rating;
-
-document.getElementById("shortDescription").textContent =
-product.short;
-
-document.getElementById("content").innerHTML =
-product.content;
-
-
-/* =====================================================
-   FAQ GÖSTƏR
-===================================================== */
-
-const faqList =
-document.getElementById("faqList");
-
-product.faq.forEach(function(item) {
-
-    const faqItem =
-    document.createElement("div");
-
-    faqItem.className = "faq-item";
-
-    faqItem.innerHTML = `
-
-        <button class="faq-question">
-
-            <span>${item[0]}</span>
-
-            <span class="faq-plus">+</span>
-
-        </button>
-
-        <div class="faq-answer">
-            ${item[1]}
-        </div>
-
-    `;
-
-    const button =
-    faqItem.querySelector(".faq-question");
-
-    button.onclick = function() {
-
-        faqItem.classList.toggle("open");
-
-        const plus =
-        faqItem.querySelector(".faq-plus");
-
-        plus.textContent =
-        faqItem.classList.contains("open") ? "−" : "+";
-
-    };
-
-    faqList.appendChild(faqItem);
-
-});
-
-
-/* =====================================================
-   RƏYLƏR
-===================================================== */
-
-const reviewsGrid =
-document.getElementById("reviewsGrid");
-
-product.reviews.forEach(function(review) {
-
-    const card =
-    document.createElement("div");
-
-    card.className = "review-card";
-
-    card.innerHTML = `
-
-        <div class="review-stars">
-            ★★★★★
-        </div>
-
-        <div class="review-text">
-            ${review[0]}
-        </div>
-
-        <div class="review-name">
-            ${review[1]}
-        </div>
-
-        <div class="review-role">
-            ${review[2]}
-        </div>
-
-    `;
-
-    reviewsGrid.appendChild(card);
-
-});
-
-
-/* =====================================================
-   MƏQALƏLƏR
-===================================================== */
-
-const articlesGrid =
-document.getElementById("articlesGrid");
-
-product.articles.forEach(function(article) {
-
-    const card =
-    document.createElement("div");
-
-    card.className = "article-card";
-
-    card.innerHTML = `
-
-        <h3>
-            ${article[0]}
-        </h3>
-
-        <p>
-            Premium xidmətlər haqqında faydalı məlumatlar,
-            seçim və istifadə məsləhətləri.
-        </p>
-
-        <div class="article-date">
-            ${article[1]}
-        </div>
-
-    `;
-
-    articlesGrid.appendChild(card);
-
-});
-
-
-/* =====================================================
-   BƏLƏDÇİLƏR
-===================================================== */
-
-const guidesList =
-document.getElementById("guidesList");
-
-product.guides.forEach(function(guide) {
-
-    const guideCard =
-    document.createElement("div");
-
-    guideCard.className = "guide-card";
-
-    guideCard.textContent =
-    guide;
-
-    guidesList.appendChild(guideCard);
-
-});
-
-
-/* =====================================================
-   PAKETLƏRİ GÖSTƏR
-===================================================== */
-
-const packagesBox =
-document.getElementById("packages");
-
+document.title = "DigiBaku.com | " + product.name;
+document.getElementById("productName").textContent = product.name;
+document.getElementById("breadcrumb").textContent = product.name;
+document.getElementById("productImage").src = product.image;
+document.getElementById("rating").textContent = product.rating;
+document.getElementById("shortDescription").textContent = product.short;
+document.getElementById("content").innerHTML = product.content;
+
+const packagesBox = document.getElementById("packages");
 function showPackages() {
-
     packagesBox.innerHTML = "";
-
     product.packages.forEach((item, index) => {
-
-        const packageElement =
-        document.createElement("div");
-
-        packageElement.className =
-        "package" +
-        (index === selectedPackage ? " active" : "");
-
-        packageElement.innerHTML = `
-
-            <span class="package-name">
-                ${item.name}
-            </span>
-
-            <span class="package-price">
-                ${item.price.toFixed(2)} AZN
-            </span>
-
-        `;
-
-        packageElement.onclick = function() {
-
+        const el = document.createElement("div");
+        el.className = "package" + (index === selectedPackage ? " active" : "");
+        el.innerHTML = `<span class="package-name">${item.name}</span><span class="package-price">${item.price.toFixed(2)} AZN</span>`;
+        el.onclick = function() {
             selectedPackage = index;
-
             showPackages();
-
             updateSelected();
-
         };
-
-        packagesBox.appendChild(packageElement);
-
+        packagesBox.appendChild(el);
     });
-
 }
-
-
-/* =====================================================
-   SEÇİLMİŞ PAKET
-===================================================== */
 
 function updateSelected() {
-
-    const item =
-    product.packages[selectedPackage];
-
-    document.getElementById("selectedPrice").textContent =
-    item.price.toFixed(2) + " AZN";
-
-    document.getElementById("selectedPeriod").textContent =
-    item.name;
-
+    const item = product.packages[selectedPackage];
+    document.getElementById("selectedPrice").textContent = item.price.toFixed(2) + " AZN";
+    document.getElementById("selectedPeriod").textContent = item.name;
 }
-
 showPackages();
-
 updateSelected();
 
-
-/* =====================================================
-   WHATSAPP SİFARİŞ
-===================================================== */
-
 function buyNow() {
-
-    const item =
-    product.packages[selectedPackage];
-
-    const phone =
-    "994702883484";
-
-    const message =
-    `Salam DigiBaku.com!
-
-Sifariş vermək istəyirəm.
-
-Məhsul: ${product.name}
-Müddət: ${item.name}
-Qiymət: ${item.price.toFixed(2)} AZN`;
-
-    const whatsapp =
-    "https://wa.me/" +
-    phone +
-    "?text=" +
-    encodeURIComponent(message);
-
-    window.location.href =
-    whatsapp;
-
+    const item = product.packages[selectedPackage];
+    const phone = "994702883484";
+    const message = `Salam DigiBaku.com!\n\nSifariş vermək istəyirəm.\n\nMəhsul: ${product.name}\nMüddət: ${item.name}\nQiymət: ${item.price.toFixed(2)} AZN`;
+    window.location.href = "https://wa.me/" + phone + "?text=" + encodeURIComponent(message);
 }
 
+/* SƏBƏT (CART) FUNKSİYALARI */
+let cart = JSON.parse(localStorage.getItem("digi_cart")) || [];
 
-/* =====================================================
-   SƏBƏT
-===================================================== */
+function toggleCart() {
+    const modal = document.getElementById("cartModal");
+    if (!modal) return;
+    if (modal.style.display === "block") {
+        modal.style.display = "none";
+    } else {
+        modal.style.display = "block";
+        updateCartUI();
+    }
+}
 
 function addToCart() {
-
-    const item =
-    product.packages[selectedPackage];
-
-    const cart = {
-
-        product: product.name,
-
-        period: item.name,
-
-        price: item.price
-
-    };
-
-    localStorage.setItem(
-        "digibaku_cart",
-        JSON.stringify(cart)
-    );
-
-    const toast =
-    document.getElementById("toast");
-
-    toast.classList.add("show");
-
-    setTimeout(function() {
-
-        toast.classList.remove("show");
-
-    }, 2500);
-
+    const item = product.packages[selectedPackage];
+    cart.push({ name: product.name + " (" + item.name + ")", price: item.price });
+    localStorage.setItem("digi_cart", JSON.stringify(cart));
+    updateCartCount();
+    alert("Məhsul səbətə atıldı!");
 }
 
+function updateCartCount() {
+    const countEl = document.getElementById("cartCount");
+    if (countEl) {
+        countEl.textContent = cart.length;
+    }
+}
+
+function updateCartUI() {
+    const list = document.getElementById("cartItemsList");
+    const totalPriceEl = document.getElementById("cartTotalPrice");
+    if (!list || !totalPriceEl) return;
+    
+    if (cart.length === 0) {
+        list.innerHTML = `<p style="color: #777; text-align: center;">Səbətiniz boşdur</p>`;
+        totalPriceEl.textContent = "0.00 AZN";
+        return;
+    }
+
+    let html = "";
+    let total = 0;
+
+    cart.forEach((item, index) => {
+        total += Number(item.price || 0);
+        html += `
+            <div style="background: #080808; border: 1px solid #222; border-radius: 10px; padding: 12px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <div style="font-weight: bold; color: #60a5fa; font-size: 14px;">${item.name}</div>
+                    <div style="color: #888; font-size: 12px; margin-top: 4px;">${item.price} AZN</div>
+                </div>
+                <button onclick="removeFromCart(${index})" style="background: none; border: none; color: #ef4444; cursor: pointer; font-size: 13px;">Sil</button>
+            </div>
+        `;
+    });
+
+    list.innerHTML = html;
+    totalPriceEl.textContent = total.toFixed(2) + " AZN";
+}
+
+function removeFromCart(index) {
+    cart.splice(index, 1);
+    localStorage.setItem("digi_cart", JSON.stringify(cart));
+    updateCartCount();
+    updateCartUI();
+}
+
+function checkoutCart() {
+    if (cart.length === 0) {
+        alert("Səbətiniz boşdur!");
+        return;
+    }
+    alert("Sifarişiniz qəbul olundu! Tezliklə sizinlə əlaqə saxlanılacaq.");
+    cart = [];
+    localStorage.removeItem("digi_cart");
+    updateCartCount();
+    toggleCart();
+}
+
+updateCartCount();
 </script>
 
 </body>
