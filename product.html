@@ -1012,11 +1012,28 @@ function checkoutCart() {
         alert("Səbətiniz boşdur!");
         return;
     }
-    alert("Sifarişiniz qəbul olundu! Tezliklə sizinlə əlaqə saxlanılacaq.");
+
+    let message = "Salam DigiBaku.com!\n\nSəbətdəki məhsulları sifariş etmək istəyirəm:\n\n";
+    let total = 0;
+
+    cart.forEach((item, index) => {
+        message += `${index + 1}. ${item.name} - ${item.price.toFixed(2)} AZN\n`;
+        total += Number(item.price || 0);
+    });
+
+    message += `\nÜmumi məbləğ: ${total.toFixed(2)} AZN`;
+
+    const phone = "994702883484";
+    const whatsappUrl = "https://wa.me/" + phone + "?text=" + encodeURIComponent(message);
+
+    // Səbəti təmizləyirik
     cart = [];
     localStorage.removeItem("digi_cart");
     updateCartCount();
     toggleCart();
+
+    // WhatsApp-a yönləndiririk
+    window.location.href = whatsappUrl;
 }
 
 updateCartCount();
