@@ -1,4551 +1,555 @@
 <!DOCTYPE html>
 <html lang="az">
 <head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>DigiBaku.com — Premium rəqəmsal xidmətlər</title>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<style>
-
-*{
-box-sizing:border-box;
-margin:0;
-padding:0;
-}
-
-html{
-scroll-behavior:smooth;
-}
-
-body{
-font-family:Arial,Helvetica,sans-serif;
-background:#050505;
-color:#fff;
-line-height:1.6;
-}
-
-a{
-text-decoration:none;
-color:inherit;
-}
-
-button{
-font-family:inherit;
-}
-
-.container{
-width:92%;
-max-width:1200px;
-margin:auto;
-}
-
-/* =========================
-HEADER
-========================= */
-
-header{
-position:sticky;
-top:0;
-z-index:1000;
-background:rgba(5,5,5,.94);
-border-bottom:1px solid #222;
-backdrop-filter:blur(12px);
-}
-
-.nav{
-min-height:72px;
-display:flex;
-align-items:center;
-justify-content:space-between;
-gap:20px;
-}
-
-.logo{
-font-size:26px;
-font-weight:900;
-color:#3b82f6;
-}
-
-.logo span{
-color:#fff;
-}
-
-.menu{
-display:flex;
-gap:20px;
-}
-
-.menu a{
-color:#aaa;
-font-size:14px;
-transition:.2s;
-}
-
-.menu a:hover{
-color:#3b82f6;
-}
-
-.header-right{
-display:flex;
-align-items:center;
-gap:8px;
-}
-
-.auth{
-display:flex;
-gap:7px;
-align-items:center;
-}
-
-.btn{
-display:inline-block;
-border:0;
-border-radius:9px;
-padding:11px 17px;
-font-weight:700;
-cursor:pointer;
-font-size:14px;
-transition:.2s;
-}
-
-.btn-primary{
-background:#2563eb;
-color:#fff;
-}
-
-.btn-primary:hover{
-background:#1d4ed8;
-}
-
-.btn-dark{
-background:#151515;
-color:#fff;
-border:1px solid #333;
-}
-
-.btn-dark:hover{
-background:#202020;
-}
-
-.user-email{
-display:flex;
-align-items:center;
-max-width:180px;
-overflow:hidden;
-text-overflow:ellipsis;
-white-space:nowrap;
-background:#151515;
-border:1px solid #333;
-border-radius:9px;
-padding:10px 13px;
-color:#60a5fa;
-font-size:13px;
-font-weight:bold;
-}
-
-/* =========================
-DİL
-========================= */
-
-.language-switcher{
-display:flex;
-align-items:center;
-gap:5px;
-margin-left:4px;
-}
-
-.language-switcher button{
-background:none;
-border:0;
-color:#777;
-cursor:pointer;
-font-size:12px;
-font-weight:bold;
-padding:3px;
-}
-
-.language-switcher button:hover{
-color:#fff;
-}
-
-.language-switcher button.active{
-color:#3b82f6;
-}
-
-.language-switcher span{
-color:#333;
-}
-
-.mobile-language{
-display:none;
-}
-
-/* =========================
-CART
-========================= */
-
-.cart-btn{
-display:flex;
-align-items:center;
-gap:6px;
-background:#151515;
-border:1px solid #333;
-color:#fff;
-}
-
-.cart-count{
-background:#ef4444;
-color:#fff;
-border-radius:50%;
-min-width:20px;
-height:20px;
-display:inline-flex;
-align-items:center;
-justify-content:center;
-font-size:11px;
-font-weight:bold;
-padding:0 5px;
-}
-
-#cartModal{
-display:none;
-position:fixed;
-top:0;
-right:0;
-width:100%;
-max-width:420px;
-height:100vh;
-background:#101010;
-border-left:1px solid #262626;
-z-index:2000;
-padding:25px;
-overflow-y:auto;
-box-shadow:-10px 0 40px rgba(0,0,0,.4);
-}
-
-.cart-header{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:20px;
-}
-
-.cart-header h2{
-font-size:22px;
-}
-
-.cart-close{
-background:none;
-border:0;
-color:#aaa;
-font-size:23px;
-cursor:pointer;
-}
-
-.cart-item{
-background:#080808;
-border:1px solid #222;
-border-radius:10px;
-padding:13px;
-margin-bottom:10px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-gap:10px;
-}
-
-.cart-item-name{
-font-weight:bold;
-color:#60a5fa;
-font-size:14px;
-}
-
-.cart-item-price{
-color:#888;
-font-size:12px;
-margin-top:4px;
-}
-
-.cart-remove{
-background:none;
-border:0;
-color:#ef4444;
-cursor:pointer;
-font-size:13px;
-}
-
-.cart-total{
-border-top:1px solid #222;
-padding-top:15px;
-margin-top:15px;
-}
-
-.cart-total-row{
-display:flex;
-justify-content:space-between;
-margin-bottom:15px;
-font-weight:bold;
-}
-
-.cart-empty{
-color:#777;
-text-align:center;
-padding:25px 10px;
-}
-
-/* =========================
-HERO
-========================= */
-
-.hero{
-padding:90px 0;
-background:
-radial-gradient(circle at 20% 10%,#172554 0,transparent 35%),
-radial-gradient(circle at 90% 20%,#111827 0,transparent 35%),
-#050505;
-}
-
-.hero-inner{
-display:flex;
-align-items:center;
-justify-content:space-between;
-gap:55px;
-}
-
-.hero-content{
-flex:1;
-max-width:620px;
-}
-
-.badge{
-display:inline-block;
-padding:7px 14px;
-border:1px solid #294b87;
-background:#0b1428;
-border-radius:30px;
-color:#60a5fa;
-font-size:13px;
-margin-bottom:20px;
-}
-
-.hero h1{
-font-size:55px;
-line-height:1.08;
-margin-bottom:20px;
-}
-
-.hero h1 span{
-color:#3b82f6;
-display:block;
-}
-
-.hero p{
-color:#aaa;
-font-size:17px;
-margin-bottom:28px;
-}
-
-.hero-buttons{
-display:flex;
-gap:10px;
-}
-
-.hero-image{
-flex:1;
-display:flex;
-justify-content:center;
-}
-
-.hero-image img{
-width:100%;
-max-width:550px;
-height:auto;
-object-fit:contain;
-border-radius:20px;
-}
-
-/* =========================
-SECTIONS
-========================= */
-
-section{
-padding:75px 0;
-}
-
-.section-title{
-text-align:center;
-margin-bottom:40px;
-}
-
-.section-title h2{
-font-size:36px;
-margin-bottom:8px;
-}
-
-.section-title p{
-color:#999;
-}
-
-/* =========================
-PRODUCTS
-========================= */
-
-.products{
-display:grid;
-grid-template-columns:repeat(4,1fr);
-gap:20px;
-}
-
-.product{
-background:#101010;
-border:1px solid #242424;
-border-radius:16px;
-padding:20px;
-transition:.25s;
-}
-
-.product:hover{
-transform:translateY(-5px);
-border-color:#2563eb;
-}
-
-.product-image{
-width:100%;
-height:145px;
-object-fit:contain;
-padding:15px;
-background:#080808;
-border-radius:12px;
-margin-bottom:15px;
-}
-
-.product h3{
-font-size:20px;
-margin-bottom:8px;
-}
-
-.product p{
-color:#888;
-font-size:14px;
-min-height:48px;
-}
-
-.price{
-font-size:23px;
-font-weight:900;
-margin:15px 0;
-}
-
-.price small{
-color:#777;
-font-size:13px;
-font-weight:400;
-}
-
-.product-actions{
-display:flex;
-gap:8px;
-flex-direction:column;
-}
-
-.product-actions a,
-.product-actions button{
-text-align:center;
-width:100%;
-}
-
-/* =========================
-FEATURES
-========================= */
-
-.features{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:20px;
-}
-
-.feature{
-background:#101010;
-border:1px solid #222;
-border-radius:15px;
-padding:28px;
-}
-
-.feature img{
-width:60px;
-height:60px;
-object-fit:contain;
-margin-bottom:12px;
-}
-
-.feature h3{
-margin-bottom:8px;
-}
-
-.feature p{
-color:#999;
-}
-
-.feature strong{
-display:block;
-margin-top:14px;
-color:#60a5fa;
-}
-
-/* =========================
-ABOUT
-========================= */
-
-.about{
-background:#090909;
-}
-
-.about-content{
-max-width:900px;
-margin:auto;
-text-align:center;
-}
-
-.about-content h2{
-font-size:38px;
-margin-bottom:18px;
-}
-
-.about-content p{
-color:#aaa;
-margin-bottom:14px;
-}
-
-.about-grid{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:18px;
-margin-top:30px;
-text-align:left;
-}
-
-.about-box{
-background:#101010;
-border:1px solid #242424;
-border-radius:15px;
-padding:24px;
-}
-
-.about-box h3{
-color:#60a5fa;
-margin-bottom:8px;
-}
-
-.about-box p{
-margin:0;
-}
-
-/* =========================
-COMPARE
-========================= */
-
-.compare-grid{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:18px;
-}
-
-.compare-card{
-background:#101010;
-border:1px solid #242424;
-padding:24px;
-border-radius:15px;
-}
-
-.compare-card:hover{
-border-color:#2563eb;
-}
-
-.compare-card h3{
-margin-bottom:10px;
-}
-
-.compare-card p{
-color:#999;
-margin-bottom:15px;
-}
-
-.compare-card a{
-color:#60a5fa;
-font-weight:bold;
-}
-
-/* =========================
-REVIEWS
-========================= */
-
-.reviews{
-background:#090909;
-}
-
-.review-grid{
-display:grid;
-grid-template-columns:repeat(4,1fr);
-gap:18px;
-}
-
-.review{
-background:#101010;
-border:1px solid #242424;
-border-radius:15px;
-padding:23px;
-}
-
-.stars{
-color:#facc15;
-font-size:18px;
-margin-bottom:12px;
-}
-
-.review-text{
-color:#ddd;
-min-height:75px;
-margin-bottom:18px;
-}
-
-.reviewer{
-display:flex;
-align-items:center;
-gap:10px;
-}
-
-.avatar{
-width:42px;
-height:42px;
-border-radius:50%;
-background:#2563eb;
-display:flex;
-align-items:center;
-justify-content:center;
-font-weight:bold;
-}
-
-.reviewer strong{
-display:block;
-}
-
-.reviewer span{
-color:#777;
-font-size:12px;
-}
-
-/* =========================
-BLOG
-========================= */
-
-.blog-grid{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:20px;
-}
-
-.blog-card{
-background:#101010;
-border:1px solid #222;
-border-radius:15px;
-padding:24px;
-}
-
-.blog-card h3{
-margin-bottom:9px;
-}
-
-.blog-card p{
-color:#999;
-font-size:14px;
-}
-
-/* =========================
-NEW INFO PAGES / CONTENT
-========================= */
-
-.info-section{
-background:#090909;
-}
-
-.info-wrapper{
-max-width:900px;
-margin:auto;
-}
-
-.info-wrapper h2{
-font-size:36px;
-margin-bottom:12px;
-}
-
-.info-wrapper h3{
-font-size:23px;
-margin-top:30px;
-margin-bottom:10px;
-color:#fff;
-}
-
-.info-wrapper p{
-color:#aaa;
-margin-bottom:15px;
-}
-
-.info-wrapper ul{
-padding-left:22px;
-color:#aaa;
-margin:15px 0;
-}
-
-.info-wrapper li{
-margin-bottom:9px;
-}
-
-.info-lead{
-color:#999;
-font-size:16px;
-margin-bottom:30px;
-}
-
-.info-cards{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:18px;
-margin:30px 0;
-}
-
-.info-card{
-background:#101010;
-border:1px solid #242424;
-border-radius:15px;
-padding:23px;
-}
-
-.info-card h3{
-margin:0 0 9px;
-color:#60a5fa;
-font-size:19px;
-}
-
-.info-card p{
-margin:0;
-}
-
-.steps{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:18px;
-margin-top:25px;
-}
-
-.step{
-background:#101010;
-border:1px solid #242424;
-border-radius:15px;
-padding:23px;
-}
-
-.step-number{
-width:38px;
-height:38px;
-border-radius:50%;
-background:#2563eb;
-display:flex;
-align-items:center;
-justify-content:center;
-font-weight:900;
-margin-bottom:12px;
-}
-
-.step h3{
-margin:0 0 8px;
-}
-
-.step p{
-margin:0;
-}
-
-/* =========================
-FAQ
-========================= */
-
-.faq{
-max-width:850px;
-margin:auto;
-}
-
-.faq-item{
-background:#101010;
-border:1px solid #252525;
-border-radius:10px;
-margin-bottom:10px;
-overflow:hidden;
-}
-
-.faq-question{
-padding:17px;
-font-weight:bold;
-display:flex;
-justify-content:space-between;
-cursor:pointer;
-}
-
-.faq-answer{
-display:none;
-padding:0 17px 17px;
-color:#999;
-}
-
-.faq-item.open .faq-answer{
-display:block;
-}
-
-/* =========================
-CONTACT
-========================= */
-
-.contact{
-background:#090909;
-}
-
-.contact-grid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:25px;
-}
-
-.contact-box{
-background:#101010;
-border:1px solid #222;
-border-radius:15px;
-padding:28px;
-}
-
-.contact-box p{
-color:#999;
-}
-
-.contact-item{
-margin-top:15px;
-}
-
-.contact-item span{
-display:block;
-color:#999;
-}
-
-/* =========================
-FOOTER
-========================= */
-
-footer{
-background:#030303;
-border-top:1px solid #222;
-padding:45px 0 20px;
-}
-
-.footer-grid{
-display:grid;
-grid-template-columns:2fr 1fr 1fr 1fr;
-gap:30px;
-}
-
-.footer-col h3{
-margin-bottom:13px;
-}
-
-.footer-col p,
-.footer-col a{
-display:block;
-color:#888;
-font-size:14px;
-margin-bottom:7px;
-}
-
-.footer-col a:hover{
-color:#3b82f6;
-}
-
-.copyright{
-border-top:1px solid #222;
-margin-top:30px;
-padding-top:18px;
-text-align:center;
-color:#666;
-font-size:13px;
-}
-
-/* =========================
-MOBILE
-========================= */
-
-@media(max-width:1000px){
-
-.products{
-grid-template-columns:repeat(2,1fr);
-}
-
-.review-grid{
-grid-template-columns:repeat(2,1fr);
-}
-
-.features{
-grid-template-columns:1fr;
-}
-
-.footer-grid{
-grid-template-columns:1fr 1fr;
-}
-
-.menu{
-display:none;
-}
-
-.info-cards{
-grid-template-columns:1fr;
-}
-
-}
-
-@media(max-width:700px){
-
-.nav{
-min-height:65px;
-}
-
-.logo{
-font-size:22px;
-}
-
-.header-right{
-gap:5px;
-}
-
-.auth{
-gap:5px;
-}
-
-.auth .btn{
-padding:9px 10px;
-font-size:12px;
-}
-
-.user-email{
-max-width:120px;
-font-size:11px;
-padding:9px 8px;
-}
-
-.language-switcher{
-display:none;
-}
-
-.cart-btn{
-padding:9px 10px;
-font-size:12px;
-}
-
-.hero-inner{
-flex-direction:column;
-text-align:center;
-}
-
-.hero h1{
-font-size:39px;
-}
-
-.hero-buttons{
-justify-content:center;
-flex-direction:column;
-}
-
-.products,
-.compare-grid,
-.review-grid,
-.blog-grid,
-.contact-grid,
-.about-grid,
-.steps{
-grid-template-columns:1fr;
-}
-
-.footer-grid{
-grid-template-columns:1fr;
-}
-
-#cartModal{
-max-width:100%;
-}
-
-.mobile-language{
-display:flex;
-justify-content:center;
-align-items:center;
-gap:8px;
-padding:10px 0;
-border-top:1px solid #222;
-background:#080808;
-}
-
-.mobile-language button{
-background:none;
-border:0;
-color:#777;
-font-weight:bold;
-cursor:pointer;
-}
-
-.mobile-language button.active{
-color:#3b82f6;
-}
-
-.mobile-language span{
-color:#333;
-}
-
-.info-wrapper h2{
-font-size:29px;
-}
-
-}
-
-/* =========================
-UTILITY
-========================= */
-
-.cta-box{
-margin-top:35px;
-padding:28px;
-border:1px solid #294b87;
-background:linear-gradient(135deg,#0b1428,#101010);
-border-radius:16px;
-text-align:center;
-}
-
-.cta-box h3{
-font-size:24px;
-margin-bottom:8px;
-}
-
-.cta-box p{
-color:#aaa;
-margin-bottom:18px;
-}
-
-.anchor-nav{
-display:flex;
-flex-wrap:wrap;
-justify-content:center;
-gap:10px;
-margin-bottom:35px;
-}
-
-.anchor-nav a{
-background:#101010;
-border:1px solid #292929;
-border-radius:8px;
-padding:8px 13px;
-color:#aaa;
-font-size:13px;
-}
-
-.anchor-nav a:hover{
-border-color:#2563eb;
-color:#60a5fa;
-}
-
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DigiBaku — Premium Rəqəmsal Xidmətlər</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            color: #111;
+            background: #fff;
+            line-height: 1.6;
+        }
+
+        header {
+            width: 100%;
+            padding: 20px 6%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #eee;
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: 700;
+            color: #111;
+            text-decoration: none;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 22px;
+        }
+
+        nav a {
+            color: #111;
+            text-decoration: none;
+        }
+
+        .login {
+            padding: 10px 18px;
+            border-radius: 8px;
+            background: #111;
+            color: #fff;
+        }
+
+        .language {
+            border: 1px solid #ddd;
+            padding: 9px 12px;
+            border-radius: 8px;
+            background: #fff;
+        }
+
+        .hero {
+            padding: 100px 6%;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 52px;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            max-width: 750px;
+            margin: auto;
+            color: #666;
+            font-size: 18px;
+        }
+
+        section {
+            padding: 80px 6%;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        h2 {
+            font-size: 36px;
+            margin-bottom: 35px;
+        }
+
+        h3 {
+            font-size: 22px;
+            margin: 25px 0 10px;
+        }
+
+        p {
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        ul {
+            padding-left: 25px;
+            color: #555;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        .card {
+            padding: 30px;
+            border: 1px solid #eee;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+
+        footer {
+            background: #111;
+            color: #fff;
+            padding: 50px 6%;
+            text-align: center;
+        }
+
+        @media(max-width: 768px) {
+            header {
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+
+            nav {
+                width: 100%;
+                flex-wrap: wrap;
+            }
+
+            .hero h1 {
+                font-size: 38px;
+            }
+
+            h2 {
+                font-size: 30px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
 <header>
+    <a href="#" class="logo">DigiBaku</a>
 
-<div class="container nav">
+    <nav>
+        <a href="#about">Haqqımızda</a>
+        <a href="#faq">FAQ</a>
+        <a href="#how">Necə işləyir?</a>
+        <a href="#security">Təhlükəsizlik</a>
+        <a href="#editorial">Redaksiya</a>
+        <a href="#terms">Şərtlər</a>
+        <a href="#contact">Əlaqə</a>
 
-<a href="#home" class="logo">
-DigiBaku<span>.com</span>
-</a>
+        <a href="#" class="login">Daxil olun</a>
 
-<nav class="menu">
-
-<a href="#home" data-i18n="home">Ana səhifə</a>
-<a href="#products" data-i18n="products">Məhsullar</a>
-<a href="#compare" data-i18n="compare">Müqayisə</a>
-<a href="#about" data-i18n="about">Haqqımızda</a>
-<a href="#reviews" data-i18n="reviews">Rəylər</a>
-<a href="#blog" data-i18n="blog">Bloq</a>
-<a href="#contact" data-i18n="contact">Əlaqə</a>
-
-</nav>
-
-<div class="header-right">
-
-<button
-onclick="toggleCart()"
-class="btn cart-btn">
-
-🛒 <span data-i18n="cart">Səbət</span>
-
-<span id="cartCount" class="cart-count">0</span>
-
-</button>
-
-<div class="language-switcher">
-
-<button onclick="setLanguage('az')" id="langAZ">AZ</button>
-<span>|</span>
-<button onclick="setLanguage('ru')" id="langRU">RU</button>
-<span>|</span>
-<button onclick="setLanguage('en')" id="langEN">EN</button>
-
-</div>
-
-<div class="auth" id="authArea">
-
-<a
-href="login.html"
-class="btn btn-dark"
-data-i18n="login">
-Daxil ol
-</a>
-
-<a
-href="login.html"
-class="btn btn-primary"
-data-i18n="register">
-Qeydiyyat
-</a>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="mobile-language">
-
-<button onclick="setLanguage('az')" id="mobileLangAZ">AZ</button>
-<span>|</span>
-<button onclick="setLanguage('ru')" id="mobileLangRU">RU</button>
-<span>|</span>
-<button onclick="setLanguage('en')" id="mobileLangEN">EN</button>
-
-</div>
-
+        <select class="language">
+            <option value="az">AZ</option>
+            <option value="en">EN</option>
+            <option value="ru">RU</option>
+        </select>
+    </nav>
 </header>
 
 
-<!-- =========================
-CART
-========================= -->
-
-<div id="cartModal">
-
-<div class="cart-header">
-
-<h2 data-i18n="yourCart">Səbətiniz</h2>
-
-<button
-onclick="toggleCart()"
-class="cart-close">
-✕
-</button>
-
-</div>
-
-<div id="cartItemsList">
-
-<p class="cart-empty" data-i18n="cartEmpty">
-Səbətiniz boşdur
-</p>
-
-</div>
-
-<div class="cart-total">
-
-<div class="cart-total-row">
-
-<span data-i18n="total">
-Ümumi məbləğ:
-</span>
-
-<span id="cartTotalPrice">
-0.00 AZN
-</span>
-
-</div>
-
-<button
-onclick="checkoutCart()"
-class="btn btn-primary"
-style="width:100%;">
-
-<span data-i18n="confirmOrder">
-Sifarişi təsdiq et
-</span>
-
-</button>
-
-</div>
-
-</div>
-
-
-<main>
-
-<!-- =========================
-HERO
-========================= -->
-
-<section class="hero" id="home">
-
-<div class="container hero-inner">
-
-<div class="hero-content">
-
-<div class="badge" data-i18n="premiumService">
-Premium rəqəmsal xidmətlər
-</div>
-
-<h1>
-<span data-i18n="heroTitle">Premium rəqəmsal xidmətlər</span>
-
-<span data-i18n="heroTitleSpan">
-bir platformada
-</span>
-</h1>
-
-<p data-i18n="heroText">
-Dünyanın ən çox istifadə olunan premium platformalarını
-bir araya gətirərək rəqəmsal xidmətlərə çıxışı daha rahat edirik.
-İstədiyiniz xidməti seçin, sifarişinizi tamamlayın və qısa müddət
-ərzində istifadəyə başlayın.
-</p>
-
-<div class="hero-buttons">
-
-<a
-href="#products"
-class="btn btn-primary"
-data-i18n="viewProducts">
-Məhsullara bax
-</a>
-
-<a
-href="#about"
-class="btn btn-dark"
-data-i18n="about">
-Haqqımızda
-</a>
-
-</div>
-
-</div>
-
-<div class="hero-image">
-
-<img
-src="homeheroimage-1784180505-800w.avif"
-alt="DigiBaku.com premium rəqəmsal xidmətlər">
-
-</div>
-
-</div>
-
+<section class="hero">
+    <div class="container">
+        <h1>DigiBaku</h1>
+        <p>
+            Premium rəqəmsal hesab və abunəlikləri daha rahat əldə etmək üçün
+            yaradılmış yerli platforma.
+        </p>
+    </div>
 </section>
 
 
-<!-- =========================
-PRODUCTS
-========================= -->
+<!-- HAQQIMIZDA -->
 
-<section id="products">
+<section id="about">
+    <div class="container">
 
-<div class="container">
+        <h2>Haqqımızda</h2>
 
-<div class="section-title">
+        <div class="card">
 
-<h2 data-i18n="products">
-Məhsullar
-</h2>
+            <h3>DigiBaku haqqında</h3>
 
-<p data-i18n="productsSubtitle">
-Premium rəqəmsal xidmətlərimizi kəşf edin.
-</p>
+            <p>
+                DigiBaku premium rəqəmsal hesab və abunəlikləri daha rahat əldə
+                etmək istəyən istifadəçilər üçün yaradılmış yerli platformadır.
+            </p>
 
-</div>
+            <p>
+                Biz Netflix, Spotify Premium, ChatGPT Plus, YouTube Premium,
+                Canva Pro, Microsoft 365, Disney+, Prime Video və digər
+                populyar rəqəmsal xidmətlər üzrə paketləri bir yerdə təqdim edirik.
+            </p>
 
-<div class="products">
+            <h3>Sürətli aktivləşdirmə</h3>
 
-<!-- NETFLIX -->
+            <p>
+                Sifariş təsdiqləndikdən sonra hesab və ya abunəlik məlumatları
+                mümkün qədər qısa müddətdə təqdim olunur.
+            </p>
 
-<div class="product">
+            <h3>Aydın paket seçimi</h3>
 
-<img
-class="product-image"
-src="netflix.webp"
-alt="Netflix Premium">
+            <p>
+                Müddət, qiymət və istifadə qaydaları məhsul səhifələrində
+                əvvəlcədən göstərilir.
+            </p>
 
-<h3 data-i18n="netflixName">
-Netflix 4K Premium Abunəliyi
-</h3>
+            <h3>Dəstək komandası</h3>
 
-<p data-i18n="netflixDescription">
-Film və serialları yüksək keyfiyyətdə izləmək üçün Netflix Premium.
-</p>
+            <p>
+                Aktivləşdirmə, giriş və istifadə zamanı yaranan suallarda
+                komandamız operativ kömək edir.
+            </p>
 
-<div class="price">
-6.99 AZN
-<small data-i18n="month1">/ 1 ay</small>
-</div>
+            <h3>Biz nəyi asanlaşdırırıq?</h3>
 
-<div class="product-actions">
+            <p>
+                Rəqəmsal xidmətlərdə düzgün paket seçmək, hesabı aktivləşdirmək
+                və qaydaları başa düşmək bəzən vaxt aparır. DigiBaku bu prosesi
+                sadələşdirir: məhsulları kateqoriyalara ayırır, müqayisəni
+                rahatlaşdırır və sifarişdən sonra istifadəçini tək qoymur.
+            </p>
 
-<a
-href="product.html?product=netflix"
-class="btn btn-primary"
-data-i18n="details">
-Ətraflı bax
-</a>
+            <ul>
+                <li>Film, musiqi, süni intellekt, dizayn, oyun və sosial media xidmətləri bir platformada toplanır.</li>
+                <li>Hər məhsul üzrə qiymət, müddət və əsas istifadə məlumatları ayrıca göstərilir.</li>
+                <li>Sifariş prosesi qısa, sadə və mobil cihazlarda rahat istifadə ediləcək şəkildə qurulub.</li>
+            </ul>
 
-<button
-onclick="orderNow('Netflix 4K Premium Abunəliyi (1 ay)',6.99)"
-class="btn btn-dark"
-data-i18n="order">
-Sifariş et
-</button>
+            <h3>Niyə DigiBaku?</h3>
 
-<button
-onclick="addToCart('Netflix 4K Premium Abunəliyi (1 ay)',6.99)"
-class="btn btn-dark"
-data-i18n="addCart">
-Səbətə at
-</button>
+            <p>
+                Bizim üçün əsas dəyər şəffaflıq və istifadəçi rahatlığıdır.
+                Məhsul səhifələrində şərtləri mümkün qədər açıq göstərir,
+                sifarişdən sonra isə aktivləşdirmə və istifadə ilə bağlı
+                suallara dəstək veririk.
+            </p>
 
-</div>
+            <p>
+                DigiBaku premium rəqəmsal xidmətləri daha əlçatan,
+                başadüşülən və rahat etmək üçün inkişaf etdirilir.
+                Platformanı davamlı olaraq yeniləyir, yeni məhsullar əlavə edir
+                və istifadəçi təcrübəsini yaxşılaşdırırıq.
+            </p>
 
-</div>
-
-
-<!-- YOUTUBE -->
-
-<div class="product">
-
-<img
-class="product-image"
-src="youtube.webp"
-alt="YouTube Premium">
-
-<h3 data-i18n="youtubeName">
-YouTube Premium
-</h3>
-
-<p data-i18n="youtubeDescription">
-Reklamsız video, musiqi və premium YouTube təcrübəsi.
-</p>
-
-<div class="price">
-7.99 AZN
-<small data-i18n="month1">/ 1 ay</small>
-</div>
-
-<div class="product-actions">
-
-<a
-href="product.html?product=youtube"
-class="btn btn-primary"
-data-i18n="details">
-Ətraflı bax
-</a>
-
-<button
-onclick="orderNow('YouTube Premium (1 ay)',7.99)"
-class="btn btn-dark"
-data-i18n="order">
-Sifariş et
-</button>
-
-<button
-onclick="addToCart('YouTube Premium (1 ay)',7.99)"
-class="btn btn-dark"
-data-i18n="addCart">
-Səbətə at
-</button>
-
-</div>
-
-</div>
-
-
-<!-- CHATGPT -->
-
-<div class="product">
-
-<img
-class="product-image"
-src="chatgpt.webp"
-alt="ChatGPT Plus">
-
-<h3 data-i18n="chatgptName">
-ChatGPT Plus
-</h3>
-
-<p data-i18n="chatgptDescription">
-Süni intellekt, yazı, kod və gündəlik işlər üçün premium xidmət.
-</p>
-
-<div class="price">
-11.99 AZN
-<small data-i18n="month1">/ 1 ay</small>
-</div>
-
-<div class="product-actions">
-
-<a
-href="product.html?product=chatgpt"
-class="btn btn-primary"
-data-i18n="details">
-Ətraflı bax
-</a>
-
-<button
-onclick="orderNow('ChatGPT Plus (1 ay)',11.99)"
-class="btn btn-dark"
-data-i18n="order">
-Sifariş et
-</button>
-
-<button
-onclick="addToCart('ChatGPT Plus (1 ay)',11.99)"
-class="btn btn-dark"
-data-i18n="addCart">
-Səbətə at
-</button>
-
-</div>
-
-</div>
-
-
-<!-- SPOTIFY -->
-
-<div class="product">
-
-<img
-class="product-image"
-src="spotfiy.webp"
-alt="Spotify Premium">
-
-<h3 data-i18n="spotifyName">
-Spotify Premium
-</h3>
-
-<p data-i18n="spotifyDescription">
-Reklamsız musiqi, yüksək keyfiyyət və offline dinləmə.
-</p>
-
-<div class="price">
-7.99 AZN
-<small data-i18n="month1">/ 1 ay</small>
-</div>
-
-<div class="product-actions">
-
-<a
-href="product.html?product=spotify"
-class="btn btn-primary"
-data-i18n="details">
-Ətraflı bax
-</a>
-
-<button
-onclick="orderNow('Spotify Premium (1 ay)',7.99)"
-class="btn btn-dark"
-data-i18n="order">
-Sifariş et
-</button>
-
-<button
-onclick="addToCart('Spotify Premium (1 ay)',7.99)"
-class="btn btn-dark"
-data-i18n="addCart">
-Səbətə at
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
+        </div>
+    </div>
 </section>
 
 
-<!-- =========================
-FEATURES
-========================= -->
-
-<section>
-
-<div class="container">
-
-<div class="section-title">
-
-<h2 data-i18n="whyUs">
-Niyə məhz biz?
-</h2>
-
-<p data-i18n="whyUsText">
-Premium xidmətlərə çıxışı daha sürətli, rahat və təhlükəsiz etmək üçün prosesi sadələşdirdik.
-</p>
-
-</div>
-
-<div class="features">
-
-<div class="feature">
-
-<img src="destek.webp" alt="Dəstək">
-
-<h3 data-i18n="fastActivation">
-Sürətli aktivləşdirmə
-</h3>
-
-<p data-i18n="fastActivationText">
-Sifarişinizi tamamlayın, qalanını biz həll edək.
-Hesab məlumatlarınız hazırlanaraq sizə təqdim olunur.
-</p>
-
-<strong data-i18n="activationTime">
-5-30 dəq ərzində aktivləşdirmə
-</strong>
-
-</div>
-
-
-<div class="feature">
-
-<img src="odenis.webp" alt="Ödəniş">
-
-<h3 data-i18n="safeOrder">
-Təhlükəsiz ödəniş
-</h3>
-
-<p data-i18n="safeOrderText">
-Ödəniş prosesiniz qorunan sistem üzərindən aparılır
-və sifarişiniz təhlükəsiz şəkildə tamamlanır.
-</p>
-
-<strong data-i18n="protectedPayment">
-Qorunan ödəniş sistemi
-</strong>
-
-</div>
-
-
-<div class="feature">
-
-<img src="etibarli.webp" alt="Etibarlı dəstək">
-
-<h3 data-i18n="support">
-Etibarlı dəstək
-</h3>
-
-<p data-i18n="supportText">
-Sifariş və aktivləşdirmə ilə bağlı suallarınız yarandıqda
-dəstək komandamız sizə operativ şəkildə kömək edir.
-</p>
-
-<strong data-i18n="customerSupport">
-Operativ müştəri dəstəyi
-</strong>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- =========================
-ABOUT
-========================= -->
-
-<section class="about" id="about">
-
-<div class="container about-content">
-
-<h2 data-i18n="aboutTitle">
-DigiBaku.com haqqında
-</h2>
-
-<p data-i18n="aboutText1">
-DigiBaku.com premium rəqəmsal hesab və abunəlikləri daha rahat əldə etmək
-istəyən istifadəçilər üçün yaradılmış yerli platformadır.
-</p>
-
-<p data-i18n="aboutText2">
-Biz Netflix, Spotify Premium, ChatGPT Plus, YouTube Premium və digər
-populyar rəqəmsal xidmətlər üzrə paketləri bir yerdə təqdim edirik.
-Məqsədimiz istifadəçinin uyğun xidməti tez tapması, şərtləri aydın
-görməsi və sifarişi problemsiz tamamlamasıdır.
-</p>
-
-<div class="about-grid">
-
-<div class="about-box">
-
-<h3 data-i18n="aboutFast">
-Sürətli aktivləşdirmə
-</h3>
-
-<p data-i18n="aboutFastText">
-Sifariş təsdiqləndikdən sonra hesab və ya abunəlik məlumatları
-mümkün qədər qısa müddətdə təqdim olunur.
-</p>
-
-</div>
-
-
-<div class="about-box">
-
-<h3 data-i18n="aboutChoice">
-Aydın paket seçimi
-</h3>
-
-<p data-i18n="aboutChoiceText">
-Müddət, qiymət və istifadə qaydaları məhsul səhifələrində
-əvvəlcədən göstərilir.
-</p>
-
-</div>
-
-
-<div class="about-box">
-
-<h3 data-i18n="aboutSupport">
-Dəstək komandası
-</h3>
-
-<p data-i18n="aboutSupportText">
-Aktivləşdirmə, giriş və istifadə zamanı yaranan suallarda
-komandamız operativ kömək edir.
-</p>
-
-</div>
-
-</div>
-
-<h3 data-i18n="whatWeSimplify">
-Biz nəyi asanlaşdırırıq?
-</h3>
-
-<p data-i18n="whatWeSimplifyText">
-Rəqəmsal xidmətlərdə düzgün paket seçmək, hesabı aktivləşdirmək
-və qaydaları başa düşmək bəzən vaxt aparır. DigiBaku.com bu prosesi
-sadələşdirir: məhsulları kateqoriyalara ayırır, müqayisəni rahatlaşdırır
-və sifarişdən sonra istifadəçini tək qoymur.
-</p>
-
-<ul style="text-align:left">
-
-<li data-i18n="aboutList1">
-Film, musiqi, süni intellekt, dizayn və digər rəqəmsal xidmətlər
-bir platformada toplanır.
-</li>
-
-<li data-i18n="aboutList2">
-Hər məhsul üzrə qiymət, müddət və əsas istifadə məlumatları ayrıca göstərilir.
-</li>
-
-<li data-i18n="aboutList3">
-Sifariş prosesi qısa, sadə və mobil cihazlarda rahat istifadə ediləcək şəkildə qurulub.
-</li>
-
-</ul>
-
-<p data-i18n="aboutText3">
-DigiBaku.com premium rəqəmsal xidmətləri daha əlçatan, başadüşülən
-və rahat etmək üçün inkişaf etdirilir. Platformanı davamlı olaraq
-yeniləyir, yeni məhsullar əlavə edir və istifadəçi təcrübəsini yaxşılaşdırırıq.
-</p>
-
-</div>
-
-</section>
-
-
-<!-- =========================
-COMPARE
-========================= -->
-
-<section id="compare">
-
-<div class="container">
-
-<div class="section-title">
-
-<h2 data-i18n="compareTitle">
-Müqayisə bələdçiləri
-</h2>
-
-<p data-i18n="compareSubtitle">
-İstifadə məqsədinizə uyğun premium xidməti daha rahat seçin.
-</p>
-
-</div>
-
-<div class="compare-grid">
-
-<div class="compare-card">
-
-<h3 data-i18n="compareNetflixYoutube">
-Netflix vs YouTube Premium
-</h3>
-
-<p data-i18n="compareNetflixYoutubeText">
-Netflix film və serial üçün, YouTube Premium isə
-reklamsız video və musiqi üçün daha uyğundur.
-</p>
-
-<a
-href="product.html?product=netflix"
-data-i18n="netflixLook">
-Netflix Premium-a bax →
-</a>
-
-</div>
-
-
-<div class="compare-card">
-
-<h3 data-i18n="compareSpotifyYoutube">
-Spotify vs YouTube Premium
-</h3>
-
-<p data-i18n="compareSpotifyYoutubeText">
-Musiqi üçün Spotify, video və musiqini bir yerdə
-istifadə etmək üçün YouTube Premium.
-</p>
-
-<a
-href="product.html?product=spotify"
-data-i18n="spotifyLook">
-Spotify Premium-a bax →
-</a>
-
-</div>
-
-
-<div class="compare-card">
-
-<h3 data-i18n="compareChatGPT">
-ChatGPT Plus
-</h3>
-
-<p data-i18n="compareChatGPTText">
-Yazı, kod, araşdırma və süni intellekt əsaslı
-gündəlik işlər üçün premium AI xidməti.
-</p>
-
-<a
-href="product.html?product=chatgpt"
-data-i18n="chatgptLook">
-ChatGPT Plus-a bax →
-</a>
-
-</div>
-
-
-<div class="compare-card">
-
-<h3 data-i18n="comparePackage">
-Premium paket seçimi
-</h3>
-
-<p data-i18n="comparePackageText">
-Qiymət, müddət və istifadə məqsədinizə uyğun
-xidməti seçin.
-</p>
-
-<a
-href="#products"
-data-i18n="allProducts">
-Bütün məhsullara bax →
-</a>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- =========================
-REVIEWS
-========================= -->
-
-<section class="reviews" id="reviews">
-
-<div class="container">
-
-<div class="section-title">
-
-<h2 data-i18n="reviewsTitle">
-Müştəri rəyləri
-</h2>
-
-<p data-i18n="reviewsSubtitle">
-Müştərilərimizin təcrübəsi bizim üçün ən böyük motivasiyadır.
-</p>
-
-</div>
-
-<div class="review-grid">
-
-<div class="review">
-
-<div class="stars">★★★★★</div>
-
-<div class="review-text" data-i18n="review1">
-“Çox sağ olun. Sifariş sürətli və problemsiz oldu.”
-</div>
-
-<div class="reviewer">
-
-<div class="avatar">O</div>
-
-<div>
-<strong>Orxan Hacıyev</strong>
-<span>Netflix Premium</span>
-</div>
-
-</div>
-
-</div>
-
-
-<div class="review">
-
-<div class="stars">★★★★★</div>
-
-<div class="review-text" data-i18n="review2">
-“Əla, uyğun qiymətədir və sürətli bir şəkildə əldə etdim. Təşəkkür edirəm.”
-</div>
-
-<div class="reviewer">
-
-<div class="avatar">S</div>
-
-<div>
-<strong>Shabnam Valizada</strong>
-<span>YouTube Premium</span>
-</div>
-
-</div>
-
-</div>
-
-
-<div class="review">
-
-<div class="stars">★★★★★</div>
-
-<div class="review-text" data-i18n="review3">
-“Sərfəli qiymətdir və sifariş prosesi çox rahatdır.”
-</div>
-
-<div class="reviewer">
-
-<div class="avatar">D</div>
-
-<div>
-<strong>Dergah Abdullayev</strong>
-<span>ChatGPT Plus</span>
-</div>
-
-</div>
-
-</div>
-
-
-<div class="review">
-
-<div class="stars">★★★★★</div>
-
-<div class="review-text" data-i18n="review4">
-“Etibarlı və sürətli xidmətdir. Dostlarıma da tövsiyə edirəm.”
-</div>
-
-<div class="reviewer">
-
-<div class="avatar">R</div>
-
-<div>
-<strong>Rəşad Məmmədli</strong>
-<span>Spotify Premium</span>
-</div>
-
-</div>
-
-</div>
-
-
-<div class="review">
-
-<div class="stars">★★★★★</div>
-
-<div class="review-text" data-i18n="review5">
-“Dəstək komandası suallarıma tez cavab verdi və mənə kömək etdi.”
-</div>
-
-<div class="reviewer">
-
-<div class="avatar">S</div>
-
-<div>
-<strong>Səbinə Əliyeva</strong>
-<span>Müştəri</span>
-</div>
-
-</div>
-
-</div>
-
-
-<div class="review">
-
-<div class="stars">★★★★★</div>
-
-<div class="review-text" data-i18n="review6">
-“Bir neçə dəfə sifariş vermişəm və hər dəfə xidmət problemsiz işləyib.”
-</div>
-
-<div class="reviewer">
-
-<div class="avatar">E</div>
-
-<div>
-<strong>Elvin Cəfərov</strong>
-<span>Müştəri</span>
-</div>
-
-</div>
-
-</div>
-
-
-<div class="review">
-
-<div class="stars">★★★★★</div>
-
-<div class="review-text" data-i18n="review7">
-“Saytın istifadəsi sadədir. İstədiyim məhsulu çox tez tapdım.”
-</div>
-
-<div class="reviewer">
-
-<div class="avatar">L</div>
-
-<div>
-<strong>Ləman Hüseynova</strong>
-<span>Müştəri</span>
-</div>
-
-</div>
-
-</div>
-
-
-<div class="review">
-
-<div class="stars">★★★★★</div>
-
-<div class="review-text" data-i18n="review8">
-“Qiymətlər münasibdir və aktivləşdirmə gözlədiyimdən daha sürətli oldu.”
-</div>
-
-<div class="reviewer">
-
-<div class="avatar">V</div>
-
-<div>
-<strong>Vahid Kərimov</strong>
-<span>Müştəri</span>
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- =========================
-BLOG
-========================= -->
-
-<section id="blog">
-
-<div class="container">
-
-<div class="section-title">
-
-<h2 data-i18n="blogTitle">
-Bloq
-</h2>
-
-<p data-i18n="blogSubtitle">
-Premium xidmətlər haqqında faydalı məlumatlar
-</p>
-
-</div>
-
-<div class="blog-grid">
-
-<div class="blog-card">
-
-<h3 data-i18n="blog1Title">
-Netflix Premium nədir?
-</h3>
-
-<p data-i18n="blog1Text">
-Netflix Premium film və serial izləmək üçün premium imkanlar təqdim edən abunə xidmətidir.
-</p>
-
-</div>
-
-
-<div class="blog-card">
-
-<h3 data-i18n="blog2Title">
-YouTube Premium nə verir?
-</h3>
-
-<p data-i18n="blog2Text">
-Reklamsız video, musiqi və digər premium istifadə imkanları.
-</p>
-
-</div>
-
-
-<div class="blog-card">
-
-<h3 data-i18n="blog3Title">
-ChatGPT Plus kimlər üçündür?
-</h3>
-
-<p data-i18n="blog3Text">
-Yazı, kod, araşdırma və gündəlik AI işlərində istifadə üçün.
-</p>
-
-</div>
-
-
-<div class="blog-card">
-
-<h3 data-i18n="blog4Title">
-Spotify Premium üstünlükləri
-</h3>
-
-<p data-i18n="blog4Text">
-Reklamsız musiqi və offline dinləmə imkanları.
-</p>
-
-</div>
-
-
-<div class="blog-card">
-
-<h3 data-i18n="blog5Title">
-Premium xidmət necə seçilir?
-</h3>
-
-<p data-i18n="blog5Text">
-Qiymət, müddət və istifadə məqsədinə görə düzgün xidməti seçin.
-</p>
-
-</div>
-
-
-<div class="blog-card">
-
-<h3 data-i18n="blog6Title">
-Sifariş prosesi necə işləyir?
-</h3>
-
-<p data-i18n="blog6Text">
-Məhsulu seçin, paket müddətini müəyyən edin və sifarişinizi göndərin.
-</p>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- =========================
-NECƏ İŞLƏYİR
-========================= -->
-
-<section class="info-section" id="how-it-works">
-
-<div class="container info-wrapper">
-
-<div class="section-title">
-
-<h2 data-i18n="howTitle">
-Sifariş və aktivləşdirmə necə işləyir?
-</h2>
-
-<p data-i18n="howSubtitle">
-Prosesi sadə saxlayırıq: məhsulu seçin, qaydaları yoxlayın,
-sifarişi tamamlayın və aktivləşdirməni izləyin.
-</p>
-
-</div>
-
-<div class="info-cards">
-
-<div class="info-card">
-
-<h3 data-i18n="clearProcess">
-Aydın proses
-</h3>
-
-<p data-i18n="clearProcessText">
-Hər məhsulda qiymət, müddət və istifadə qeydləri əvvəlcədən göstərilir.
-</p>
-
-</div>
-
-<div class="info-card">
-
-<h3 data-i18n="mobileComfort">
-Mobil rahatlıq
-</h3>
-
-<p data-i18n="mobileComfortText">
-Əsas seçim və sifariş addımları telefon ekranında rahat istifadə üçün qurulub.
-</p>
-
-</div>
-
-<div class="info-card">
-
-<h3 data-i18n="supportProcess">
-Dəstək
-</h3>
-
-<p data-i18n="supportProcessText">
-Problem olduqda sifariş məlumatı əsasında yoxlama aparılır.
-</p>
-
-</div>
-
-</div>
-
-<h3 data-i18n="processShort">
-Prosesin qısa izahı
-</h3>
-
-<div class="steps">
-
-<div class="step">
-
-<div class="step-number">1</div>
-
-<h3 data-i18n="step1Title">
-Məhsulu seçin
-</h3>
-
-<p data-i18n="step1Text">
-Kateqoriya, qiymət, müddət və istifadə məqsədinə görə məhsulu seçin.
-</p>
-
-</div>
-
-
-<div class="step">
-
-<div class="step-number">2</div>
-
-<h3 data-i18n="step2Title">
-Qaydaları oxuyun
-</h3>
-
-<p data-i18n="step2Text">
-Məhsul səhifəsində hesab tipi, müddət, istifadə qeydləri və təhlükəsizlik məsləhətlərini yoxlayın.
-</p>
-
-</div>
-
-
-<div class="step">
-
-<div class="step-number">3</div>
-
-<h3 data-i18n="step3Title">
-Sifarişi tamamlayın
-</h3>
-
-<p data-i18n="step3Text">
-Sifariş forması mobil və desktop üçün sadə saxlanılıb. Məlumatları diqqətlə daxil edin.
-</p>
-
-</div>
-
-
-<div class="step">
-
-<div class="step-number">4</div>
-
-<h3 data-i18n="step4Title">
-Aktivləşdirməni alın
-</h3>
-
-<p data-i18n="step4Text">
-Ödəniş təsdiqləndikdən sonra aktivləşdirmə məlumatı təqdim olunur.
-</p>
-
-</div>
-
-
-<div class="step">
-
-<div class="step-number">5</div>
-
-<h3 data-i18n="step5Title">
-Dəstəkdən istifadə edin
-</h3>
-
-<p data-i18n="step5Text">
-Sual və problem yaranarsa əlaqə kanalları vasitəsilə dəstək ala bilərsiniz.
-</p>
-
-</div>
-
-</div>
-
-<div class="cta-box">
-
-<h3 data-i18n="readyTitle">
-Uyğun paketi seçməyə hazırsınız?
-</h3>
-
-<p data-i18n="readyText">
-Qiymət, müddət və istifadə qaydasını məhsul səhifəsində yoxlayın,
-sonra sifarişi tamamlayın.
-</p>
-
-<a
-href="#products"
-class="btn btn-primary"
-data-i18n="products">
-Məhsullar
-</a>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- =========================
-TEHLUKESIZLIK
-========================= -->
-
-<section id="security">
-
-<div class="container info-wrapper">
-
-<div class="section-title">
-
-<h2 data-i18n="securityTitle">
-Təhlükəsizlik, qaydalar və dəstək prinsipləri
-</h2>
-
-<p data-i18n="securitySubtitle">
-Premium abunəlik seçərkən qiymət qədər etibar da önəmlidir.
-</p>
-
-</div>
-
-<div class="info-cards">
-
-<div class="info-card">
-
-<h3 data-i18n="transparentInfo">
-Şəffaf məlumat
-</h3>
-
-<p data-i18n="transparentInfoText">
-Məhsul səhifələrində qiymət, müddət və istifadə qaydaları əvvəlcədən göstərilir.
-</p>
-
-</div>
-
-<div class="info-card">
-
-<h3 data-i18n="safeUse">
-Təhlükəsiz istifadə
-</h3>
-
-<p data-i18n="safeUseText">
-Hesab məlumatlarının qorunması və icazəsiz dəyişiklik etməmək əsas prinsipdir.
-</p>
-
-</div>
-
-<div class="info-card">
-
-<h3 data-i18n="supportPrinciple">
-Dəstək prosesi
-</h3>
-
-<p data-i18n="supportPrincipleText">
-Problem olduqda sifariş məlumatına əsasən yoxlama aparılır və istifadəçiyə yönləndirmə verilir.
-</p>
-
-</div>
-
-</div>
-
-<h3 data-i18n="whyTrust">
-Niyə etibar siqnalları vacibdir?
-</h3>
-
-<p data-i18n="whyTrustText">
-Rəqəmsal abunəliklərdə istifadəçi əvvəlcədən nə aldığını,
-necə istifadə edəcəyini və problem yaranarsa hara müraciət edəcəyini bilməlidir.
-</p>
-
-<ul>
-
-<li data-i18n="trustList1">
-Məhsul səhifəsində əsas şərtlər oxunaqlı verilir.
-</li>
-
-<li data-i18n="trustList2">
-Sifarişdən sonra dəstək kanalları açıq saxlanılır.
-</li>
-
-<li data-i18n="trustList3">
-Təhlükəsizlik qaydaları istifadəçi təcrübəsini qoruyur.
-</li>
-
-</ul>
-
-<div class="cta-box">
-
-<h3 data-i18n="readyTitle">
-Uyğun paketi seçməyə hazırsınız?
-</h3>
-
-<p data-i18n="readyText">
-Qiymət, müddət və istifadə qaydasını məhsul səhifəsində yoxlayın,
-sonra sifarişi tamamlayın.
-</p>
-
-<a
-href="#products"
-class="btn btn-primary"
-data-i18n="products">
-Məhsullar
-</a>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- =========================
-REDAKSIYA SIYASETI
-========================= -->
-
-<section class="info-section" id="editorial">
-
-<div class="container info-wrapper">
-
-<div class="section-title">
-
-<h2 data-i18n="editorialTitle">
-Redaksiya siyasəti və məzmun standartları
-</h2>
-
-<p data-i18n="editorialSubtitle">
-DigiBaku.com-da məlumatların hazırlanması, yenilənməsi və düzəldilməsi prinsipləri.
-</p>
-
-</div>
-
-<div class="info-cards">
-
-<div class="info-card">
-
-<h3 data-i18n="accuracy">
-Dəqiqlik
-</h3>
-
-<p data-i18n="accuracyText">
-Qiymət, müddət və xüsusiyyət kimi qərara təsir edən məlumatlar
-mümkün olduqda rəsmi mənbələr və məhsul qeydləri ilə yoxlanır.
-</p>
-
-</div>
-
-<div class="info-card">
-
-<h3 data-i18n="independentExplanation">
-Müstəqil izah
-</h3>
-
-<p data-i18n="independentExplanationText">
-Məhsul təqdim edilsə belə üstünlük və məhdudiyyətlər
-aydın və şişirtməsiz şəkildə izah edilir.
-</p>
-
-</div>
-
-<div class="info-card">
-
-<h3 data-i18n="correction">
-Düzəliş
-</h3>
-
-<p data-i18n="correctionText">
-Səhv və ya köhnəlmiş məlumat aşkarlandıqda həmin hissə yenilənir.
-</p>
-
-</div>
-
-</div>
-
-<h3 data-i18n="editorialProcess">
-Prosesin qısa izahı
-</h3>
-
-<div class="steps">
-
-<div class="step">
-
-<div class="step-number">1</div>
-
-<h3 data-i18n="editorStep1Title">
-Axtarış niyyətini müəyyən edirik
-</h3>
-
-<p data-i18n="editorStep1Text">
-Oxucunun qiymət, müqayisə, problem həlli və ya seçim axtardığını müəyyənləşdiririk.
-</p>
-
-</div>
-
-
-<div class="step">
-
-<div class="step-number">2</div>
-
-<h3 data-i18n="editorStep2Title">
-Faktları toplayırıq
-</h3>
-
-<p data-i18n="editorStep2Text">
-Paket, qiymət, müddət, istifadə qaydası və uyğun alternativləri yoxlayırıq.
-</p>
-
-</div>
-
-
-<div class="step">
-
-<div class="step-number">3</div>
-
-<h3 data-i18n="editorStep3Title">
-Oxunaqlı quruluş yaradırıq
-</h3>
-
-<p data-i18n="editorStep3Text">
-Qısa giriş, aydın başlıqlar, addımlar və sual-cavablarla məzmunu rahat oxunan edirik.
-</p>
-
-</div>
-
-
-<div class="step">
-
-<div class="step-number">4</div>
-
-<h3 data-i18n="editorStep4Title">
-Yeniləyirik
-</h3>
-
-<p data-i18n="editorStep4Text">
-Məhsul və bazar məlumatı dəyişəndə prioritet səhifələr yenidən yoxlanır.
-</p>
-
-</div>
-
-</div>
-
-<h3 data-i18n="commercialTransparency">
-Kommersiya şəffaflığı
-</h3>
-
-<p data-i18n="commercialTransparencyText">
-DigiBaku.com rəqəmsal paketlər təqdim edir. Məqalədə məhsula keçid
-satışla nəticələnə bilər, lakin müqayisə meyarları qiymət,
-istifadə məqsədi və paket xüsusiyyətlərinə əsaslanır.
-</p>
-
-<ul>
-
-<li data-i18n="editorialList1">
-Uydurma müəllif və təcrübə iddiası istifadə edilmir.
-</li>
-
-<li data-i18n="editorialList2">
-Real olmayan rəy yaradılmır.
-</li>
-
-<li data-i18n="editorialList3">
-Məhsulun qərar üçün vacib məhdudiyyəti gizlədilmir.
-</li>
-
-</ul>
-
-<h3 data-i18n="priceReview">
-Qiymət və rəy yeniləmə prosesi
-</h3>
-
-<p data-i18n="priceReviewText">
-Qiymət və paket şərtləri dəyişə bildiyi üçün məhsul və qiymət
-məlumatları mütəmadi yoxlanır. Rəylərin həqiqiliyi qorunmağa çalışılır
-və real olmayan rəy yaradılmır.
-</p>
-
-<h3 data-i18n="correctionContact">
-Düzəliş və əlaqə
-</h3>
-
-<p data-i18n="correctionContactText">
-Səhv, köhnəlmiş qiymət və ya anlaşılmaz ifadə görsəniz,
-əlaqə kanalı vasitəsilə səhifənin adını və düzəliş təklifini göndərə bilərsiniz.
-</p>
-
-</div>
-
-</section>
-
-
-<!-- =========================
-FAQ
-========================= -->
+<!-- FAQ -->
 
 <section id="faq">
-
-<div class="container">
-
-<div class="section-title">
-
-<h2 data-i18n="faqTitle">
-Tez-tez verilən suallar
-</h2>
-
-<p data-i18n="faqSubtitle">
-Sifarişdən əvvəl və sonra ən çox verilən sualların qısa, aydın cavabları.
-</p>
-
-</div>
-
-<div class="faq">
-
-<div class="faq-item">
-
-<div
-class="faq-question"
-onclick="toggleFaq(this)">
-
-<span data-i18n="faq1Question">
-Sifariş necə verilir?
-</span>
-
-<span>+</span>
-
-</div>
-
-<div
-class="faq-answer"
-data-i18n="faq1Answer">
-
-Məhsulu seçirsiniz, paket müddətini yoxlayırsınız,
-sifarişi tamamlayırsınız və aktivləşdirmə məlumatı dəstək prosesi ilə təqdim olunur.
-
-</div>
-
-</div>
-
-
-<div class="faq-item">
-
-<div
-class="faq-question"
-onclick="toggleFaq(this)">
-
-<span data-i18n="faq2Question">
-Qiyməti harada görürəm?
-</span>
-
-<span>+</span>
-
-</div>
-
-<div
-class="faq-answer"
-data-i18n="faq2Answer">
-
-Qiymət məhsul kartında və məhsul səhifəsində göstərilir.
-Müddətə görə qiymət dəyişə bilər.
-
-</div>
-
-</div>
-
-
-<div class="faq-item">
-
-<div
-class="faq-question"
-onclick="toggleFaq(this)">
-
-<span data-i18n="faq3Question">
-Telefondan sifariş verə bilərəm?
-</span>
-
-<span>+</span>
-
-</div>
-
-<div
-class="faq-answer"
-data-i18n="faq3Answer">
-
-Bəli. Məhsul kartları və sifariş prosesi mobil ekranlar üçün uyğunlaşdırılıb.
-
-</div>
-
-</div>
-
-
-<div class="faq-item">
-
-<div
-class="faq-question"
-onclick="toggleFaq(this)">
-
-<span data-i18n="faq4Question">
-Aktivləşdirmə nə qədər çəkir?
-</span>
-
-<span>+</span>
-
-</div>
-
-<div
-class="faq-answer"
-data-i18n="faq4Answer">
-
-Ödəniş təsdiqləndikdən sonra məlumatlar qısa müddətdə təqdim olunur.
-Məhsuldan asılı olaraq dəqiq proses fərqlənə bilər.
-
-</div>
-
-</div>
-
-
-<div class="faq-item">
-
-<div
-class="faq-question"
-onclick="toggleFaq(this)">
-
-<span data-i18n="faq5Question">
-Hesab məlumatlarını dəyişə bilərəm?
-</span>
-
-<span>+</span>
-
-</div>
-
-<div
-class="faq-answer"
-data-i18n="faq5Answer">
-
-Məhsul qaydalarında icazə verilmirsə e-poçt,
-şifrə və təhlükəsizlik məlumatlarını dəyişməyin.
-
-</div>
-
-</div>
-
-
-<div class="faq-item">
-
-<div
-class="faq-question"
-onclick="toggleFaq(this)">
-
-<span data-i18n="faq6Question">
-Problem yaranarsa nə etməliyəm?
-</span>
-
-<span>+</span>
-
-</div>
-
-<div
-class="faq-answer"
-data-i18n="faq6Answer">
-
-Əlaqə kanalları vasitəsilə sifariş məlumatı ilə müraciət edin.
-Dəstək komandası statusu yoxlayacaq.
-
-</div>
-
-</div>
-
-
-<div class="faq-item">
-
-<div
-class="faq-question"
-onclick="toggleFaq(this)">
-
-<span data-i18n="faq7Question">
-Məlumatlarımı necə qoruyum?
-</span>
-
-<span>+</span>
-
-</div>
-
-<div
-class="faq-answer"
-data-i18n="faq7Answer">
-
-Hesab məlumatlarını üçüncü şəxslərlə paylaşmayın,
-icazəsiz dəyişiklik etməyin və məhsul səhifəsindəki qaydalara əməl edin.
-
-</div>
-
-</div>
-
-
-<div class="faq-item">
-
-<div
-class="faq-question"
-onclick="toggleFaq(this)">
-
-<span data-i18n="faq8Question">
-Geri qaytarma şərtləri haradadır?
-</span>
-
-<span>+</span>
-
-</div>
-
-<div
-class="faq-answer"
-data-i18n="faq8Answer">
-
-Geri qaytarma şərtləri ayrıca məlumat səhifəsində göstərilir
-və məhsul qaydalarına görə tətbiq edilir.
-
-</div>
-
-</div>
-
-
-<div class="faq-item">
-
-<div
-class="faq-question"
-onclick="toggleFaq(this)">
-
-<span data-i18n="faq9Question">
-Hansı məhsulu seçəcəyimi bilmirəm?
-</span>
-
-<span>+</span>
-
-</div>
-
-<div
-class="faq-answer"
-data-i18n="faq9Answer">
-
-Müqayisə bölməsindən istifadə edin, sonra məhsul səhifəsində
-qiymət və qaydaları yoxlayın.
-
-</div>
-
-</div>
-
-</div>
-
-<div class="cta-box" style="max-width:850px;margin:30px auto 0;">
-
-<h3 data-i18n="readyTitle">
-Uyğun paketi seçməyə hazırsınız?
-</h3>
-
-<p data-i18n="readyText">
-Qiymət, müddət və istifadə qaydasını məhsul səhifəsində yoxlayın,
-sonra sifarişi tamamlayın.
-</p>
-
-<a
-href="#products"
-class="btn btn-primary"
-data-i18n="products">
-Məhsullar
-</a>
-
-</div>
-
-</div>
-
+    <div class="container">
+
+        <h2>Tez-tez verilən suallar</h2>
+
+        <div class="card">
+
+            <h3>Sifariş və ödəniş</h3>
+
+            <h3>Sifariş necə verilir?</h3>
+            <p>
+                Məhsulu seçirsiniz, paket müddətini yoxlayırsınız,
+                sifarişi tamamlayırsınız və aktivləşdirmə məlumatı
+                dəstək prosesi ilə təqdim olunur.
+            </p>
+
+            <h3>Qiyməti harada görürəm?</h3>
+            <p>
+                Qiymət məhsul kartında və məhsul səhifəsində göstərilir.
+                Müddətə görə qiymət dəyişə bilər.
+            </p>
+
+            <h3>Telefondan sifariş verə bilərəm?</h3>
+            <p>
+                Bəli. Məhsul kartları və formalar mobil ekranlar üçün
+                uyğunlaşdırılıb.
+            </p>
+
+            <h3>Aktivləşdirmə və istifadə</h3>
+
+            <h3>Aktivləşdirmə nə qədər çəkir?</h3>
+            <p>
+                Ödəniş təsdiqləndikdən sonra məlumatlar qısa müddətdə
+                təqdim olunur. Məhsuldan asılı olaraq dəqiq proses
+                fərqlənə bilər.
+            </p>
+
+            <h3>Hesab məlumatlarını dəyişə bilərəm?</h3>
+            <p>
+                Məhsul qaydalarında icazə verilmirsə e-poçt, şifrə və
+                təhlükəsizlik məlumatlarını dəyişməyin.
+            </p>
+
+            <h3>Problem yaranarsa nə etməliyəm?</h3>
+            <p>
+                Əlaqə kanalları vasitəsilə sifariş məlumatı ilə müraciət edin.
+                Dəstək komandası statusu yoxlayacaq.
+            </p>
+
+            <h3>Təhlükəsizlik və qaydalar</h3>
+
+            <h3>Məlumatlarımı necə qoruyum?</h3>
+            <p>
+                Hesab məlumatlarını üçüncü şəxslərlə paylaşmayın,
+                icazəsiz dəyişiklik etməyin və məhsul səhifəsindəki
+                qaydalara əməl edin.
+            </p>
+
+            <h3>Geri qaytarma şərtləri haradadır?</h3>
+            <p>
+                Geri qaytarma şərtləri ayrıca məlumat səhifəsində göstərilir
+                və məhsul qaydalarına görə tətbiq edilir.
+            </p>
+
+            <h3>Hansı məhsulu seçəcəyimi bilmirəm?</h3>
+            <p>
+                Müqayisə və ən yaxşı seçim səhifələrindən istifadə edin,
+                sonra məhsul səhifəsində qiymət və qaydaları yoxlayın.
+            </p>
+
+        </div>
+    </div>
 </section>
 
 
-<!-- =========================
-TERMS
-========================= -->
+<!-- NECƏ ISLEYIR -->
 
-<section class="info-section" id="terms">
+<section id="how">
+    <div class="container">
 
-<div class="container info-wrapper">
+        <h2>Sifariş və aktivləşdirmə necə işləyir?</h2>
 
-<div class="section-title">
+        <div class="card">
 
-<h2 data-i18n="termsTitle">
-Şərtlər və qaydalar
-</h2>
+            <h3>1. Məhsulu seçin</h3>
+            <p>
+                Kateqoriya, qiymət, müddət və istifadə məqsədinə görə
+                məhsulu seçin.
+            </p>
 
-</div>
+            <h3>2. Qaydaları oxuyun</h3>
+            <p>
+                Məhsul səhifəsində hesab tipi, müddət, istifadə qeydləri
+                və təhlükəsizlik məsləhətləri göstərilir.
+            </p>
 
-<h3 data-i18n="generalTerms">
-Ümumi şərtlər
-</h3>
+            <h3>3. Sifarişi tamamlayın</h3>
+            <p>
+                Sifariş forması mobil və desktop üçün sadə saxlanılıb.
+                Məlumatları diqqətlə daxil edin.
+            </p>
 
-<p data-i18n="generalTermsText">
-Saytdan istifadə etməklə bu şərtləri qəbul etmiş olursunuz.
-Xidmətlər və məhsullar haqqında məlumat sifariş zamanı göstərilən xüsusiyyətlərə əsaslanır.
-</p>
+            <h3>4. Aktivləşdirməni alın</h3>
+            <p>
+                Ödəniş təsdiqləndikdən sonra aktivləşdirmə məlumatı təqdim olunur.
+            </p>
 
-<h3 data-i18n="accountOrders">
-Hesab və sifarişlər
-</h3>
+            <h3>5. Dəstəkdən istifadə edin</h3>
+            <p>
+                Sual və problem yaranarsa əlaqə kanalları vasitəsilə
+                dəstək ala bilərsiniz.
+            </p>
 
-<p data-i18n="accountOrdersText">
-İstifadəçi təqdim etdiyi məlumatların düzgünlüyünə cavabdehdir.
-Sifariş yalnız təsdiqləndikdən sonra icraya qəbul edilir.
-Hesab məlumatlarınızı üçüncü şəxslərlə paylaşmamağınız tövsiyə olunur.
-</p>
-
-<h3 data-i18n="paymentService">
-Ödəniş və xidmət
-</h3>
-
-<p data-i18n="paymentServiceText">
-Qiymət, xidmət müddəti və digər şərtlər məhsul səhifəsində göstərilir.
-Texniki və ya təhlükəsizlik səbəbilə xidmətin təqdim edilmə qaydası dəyişə bilər.
-</p>
-
-<div class="cta-box">
-
-<h3 data-i18n="termsContactTitle">
-Sualınız var?
-</h3>
-
-<p data-i18n="termsContactText">
-Sifariş və xidmətlə bağlı suallarınız üçün bizimlə əlaqə saxlayın.
-</p>
-
-<a
-href="#contact"
-class="btn btn-primary"
-data-i18n="contact">
-Əlaqə
-</a>
-
-</div>
-
-</div>
-
+        </div>
+    </div>
 </section>
 
 
-<!-- =========================
-CONTACT
-========================= -->
+<!-- TEHLUKESIZLIK -->
 
-<section class="contact" id="contact">
+<section id="security">
+    <div class="container">
 
-<div class="container">
+        <h2>Təhlükəsizlik, qaydalar və dəstək prinsipləri</h2>
 
-<div class="section-title">
+        <div class="card">
 
-<h2 data-i18n="contactTitle">
-Əlaqə
-</h2>
+            <h3>Şəffaf məlumat</h3>
+            <p>
+                Məhsul səhifələrində qiymət, müddət və istifadə qaydaları
+                əvvəlcədən göstərilir.
+            </p>
 
-<p data-i18n="contactSubtitle">
-DigiBaku.com dəstək
-</p>
+            <h3>Təhlükəsiz istifadə</h3>
+            <p>
+                Hesab məlumatlarının qorunması və icazəsiz dəyişiklik
+                etməmək əsas prinsipdir.
+            </p>
 
-</div>
+            <h3>Dəstək prosesi</h3>
+            <p>
+                Problem olduqda sifariş məlumatına əsasən yoxlama aparılır
+                və istifadəçiyə yönləndirmə verilir.
+            </p>
 
-<div class="contact-grid">
+            <h3>Niyə etibar siqnalları vacibdir?</h3>
+            <p>
+                Rəqəmsal abunəliklərdə istifadəçi əvvəlcədən nə aldığını,
+                necə istifadə edəcəyini və problem yaranarsa hara müraciət
+                edəcəyini bilməlidir.
+            </p>
 
-<div class="contact-box">
-
-<h3>DigiBaku.com</h3>
-
-<div class="contact-item">
-
-<strong data-i18n="city">
-Şəhər
-</strong>
-
-<span>
-Bakı, Azərbaycan
-</span>
-
-</div>
-
-<div class="contact-item">
-
-<strong data-i18n="email">
-E-poçt
-</strong>
-
-<span>
-premium989b@gmail.com
-</span>
-
-</div>
-
-<div class="contact-item">
-
-<strong data-i18n="workingHours">
-İş saatları
-</strong>
-
-<span>
-10:00 — 22:00
-</span>
-
-</div>
-
-</div>
-
-
-<div class="contact-box">
-
-<h3 data-i18n="orderSupport">
-Sifariş və dəstək
-</h3>
-
-<p
-style="margin-bottom:20px"
-data-i18n="orderSupportText">
-
-Məhsulu seçin və “Sifariş et” düyməsi ilə
-WhatsApp üzərindən sifarişinizi göndərin.
-
-</p>
-
-<a
-href="#products"
-class="btn btn-primary"
-data-i18n="viewProducts">
-Məhsullara bax
-</a>
-
-</div>
-
-</div>
-
-</div>
-
+        </div>
+    </div>
 </section>
 
-</main>
+
+<!-- REDAKSIYA -->
+
+<section id="editorial">
+    <div class="container">
+
+        <h2>Redaksiya siyasəti və məzmun standartları</h2>
+
+        <div class="card">
+
+            <h3>Dəqiqlik</h3>
+            <p>
+                Qiymət, müddət və xüsusiyyət kimi qərara təsir edən
+                məlumatlar məhsul qeydləri və mümkün olduqda rəsmi
+                mənbələrlə yoxlanır.
+            </p>
+
+            <h3>Müstəqil izah</h3>
+            <p>
+                Məhsul satılsa belə üstünlük və məhdudiyyətlər oxucunun
+                qərarına uyğun, aydın və şişirtməsiz yazılır.
+            </p>
+
+            <h3>Düzəliş</h3>
+            <p>
+                Səhv və ya köhnəlmiş məlumat aşkarlandıqda həmin hissə
+                yenilənir, məqalənin dəyişiklik tarixi göstərilir.
+            </p>
+
+            <h3>Kommersiya şəffaflığı</h3>
+            <p>
+                DigiBaku rəqəmsal paketlər təqdim edir. Məqalədə məhsula
+                keçid satışla nəticələnə bilər, lakin müqayisə meyarları
+                qiymət, istifadə məqsədi və paket xüsusiyyətlərinə əsaslanır.
+            </p>
+
+            <ul>
+                <li>Uydurma müəllif və təcrübə iddiası istifadə edilmir.</li>
+                <li>Real olmayan rəy yaradılmır.</li>
+                <li>Məhsulun məhdudiyyəti qərar üçün vacibdirsə gizlədilmir.</li>
+            </ul>
+
+        </div>
+    </div>
+</section>
 
 
-<!-- =========================
-FOOTER
-========================= -->
+<!-- SHERTLER -->
+
+<section id="terms">
+    <div class="container">
+
+        <h2>Şərtlər və qaydalar</h2>
+
+        <div class="card">
+
+            <h3>Ümumi şərtlər</h3>
+
+            <p>
+                Saytdan istifadə etməklə bu şərtləri qəbul etmiş olursunuz.
+                Xidmətlər və məhsullar haqqında məlumat sifariş zamanı
+                göstərilən xüsusiyyətlərə əsaslanır.
+            </p>
+
+            <h3>Hesab və sifarişlər</h3>
+
+            <p>
+                İstifadəçi təqdim etdiyi məlumatların düzgünlüyünə cavabdehdir.
+                Sifariş yalnız təsdiqləndikdən sonra icraya qəbul edilir.
+                Hesab məlumatlarınızı üçüncü şəxslərlə paylaşmamağınız
+                tövsiyə olunur.
+            </p>
+
+            <h3>Ödəniş və xidmət</h3>
+
+            <p>
+                Qiymət, xidmət müddəti və digər şərtlər məhsul səhifəsində
+                göstərilir. Texniki və ya təhlükəsizlik səbəbilə xidmətin
+                təqdim edilmə qaydası dəyişə bilər.
+            </p>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- ELAQE -->
+
+<section id="contact">
+    <div class="container">
+
+        <h2>Əlaqə</h2>
+
+        <div class="card">
+
+            <h3>DigiBaku dəstək komandası</h3>
+
+            <p>
+                Sifariş, aktivləşdirmə, giriş və istifadə ilə bağlı
+                suallarınız yaranarsa bizimlə əlaqə saxlaya bilərsiniz.
+            </p>
+
+            <p>
+                Sifariş məlumatınızı qeyd etməyiniz müraciətin daha
+                sürətli yoxlanmasına kömək edir.
+            </p>
+
+        </div>
+    </div>
+</section>
+
 
 <footer>
-
-<div class="container">
-
-<div class="footer-grid">
-
-<div class="footer-col">
-
-<h3 class="logo">
-DigiBaku<span>.com</span>
-</h3>
-
-<p data-i18n="footerText">
-Premium rəqəmsal xidmətlər bir platformada.
-</p>
-
-<p>
-Netflix • YouTube Premium • ChatGPT Plus • Spotify Premium
-</p>
-
-</div>
-
-
-<div class="footer-col">
-
-<h3 data-i18n="usefulLinks">
-Faydalı linklər
-</h3>
-
-<a href="#home" data-i18n="home">
-Ana səhifə
-</a>
-
-<a href="#products" data-i18n="products">
-Məhsullar
-</a>
-
-<a href="#compare" data-i18n="compare">
-Müqayisə
-</a>
-
-<a href="#about" data-i18n="about">
-Haqqımızda
-</a>
-
-<a href="#reviews" data-i18n="reviews">
-Rəylər
-</a>
-
-<a href="#blog" data-i18n="blog">
-Bloq
-</a>
-
-</div>
-
-
-<div class="footer-col">
-
-<h3 data-i18n="information">
-Məlumat
-</h3>
-
-<a href="#how-it-works" data-i18n="howTitle">
-Sifariş və aktivləşdirmə
-</a>
-
-<a href="#security" data-i18n="securityTitle">
-Təhlükəsizlik və qaydalar
-</a>
-
-<a href="#editorial" data-i18n="editorialTitle">
-Redaksiya siyasəti
-</a>
-
-<a href="#faq" data-i18n="faqTitle">
-FAQ
-</a>
-
-<a href="#terms" data-i18n="termsTitle">
-Şərtlər və qaydalar
-</a>
-
-</div>
-
-
-<div class="footer-col">
-
-<h3 data-i18n="support">
-Dəstək
-</h3>
-
-<a href="#contact" data-i18n="contactTitle">
-Əlaqə
-</a>
-
-<a href="#faq" data-i18n="faqTitle">
-Tez-tez verilən suallar
-</a>
-
-<a href="#products" data-i18n="order">
-Sifariş
-</a>
-
-</div>
-
-</div>
-
-
-<div class="copyright">
-
-© 2026 DigiBaku.com.
-
-<span data-i18n="copyright">
-Bütün hüquqlar qorunur.
-</span>
-
-</div>
-
-</div>
-
+    <p style="color:#fff;">
+        © 2026 DigiBaku. Bütün hüquqlar qorunur.
+    </p>
 </footer>
 
 
 <script>
-
-/* =========================================================
-TƏRCÜMƏLƏR
-========================================================= */
-
-const translations={
-
-az:{
-
-home:"Ana səhifə",
-products:"Məhsullar",
-compare:"Müqayisə",
-about:"Haqqımızda",
-reviews:"Rəylər",
-blog:"Bloq",
-contact:"Əlaqə",
-
-login:"Daxil ol",
-register:"Qeydiyyat",
-logout:"Çıxış",
-profile:"Profil",
-
-cart:"Səbət",
-yourCart:"Səbətiniz",
-cartEmpty:"Səbətiniz boşdur",
-total:"Ümumi məbləğ:",
-confirmOrder:"Sifarişi təsdiq et",
-remove:"Sil",
-
-premiumService:"Premium rəqəmsal xidmətlər",
-heroTitle:"Premium rəqəmsal xidmətlər",
-heroTitleSpan:"bir platformada",
-
-viewProducts:"Məhsullara bax",
-
-heroText:"Dünyanın ən çox istifadə olunan premium platformalarını bir araya gətirərək rəqəmsal xidmətlərə çıxışı daha rahat edirik. İstədiyiniz xidməti seçin, sifarişinizi tamamlayın və qısa müddət ərzində istifadəyə başlayın.",
-
-productsSubtitle:"Premium rəqəmsal xidmətlərimizi kəşf edin.",
-
-details:"Ətraflı bax",
-order:"Sifariş et",
-addCart:"Səbətə at",
-month1:"/ 1 ay",
-
-netflixName:"Netflix 4K Premium Abunəliyi",
-netflixDescription:"Film və serialları yüksək keyfiyyətdə izləmək üçün Netflix Premium.",
-
-youtubeName:"YouTube Premium",
-youtubeDescription:"Reklamsız video, musiqi və premium YouTube təcrübəsi.",
-
-chatgptName:"ChatGPT Plus",
-chatgptDescription:"Süni intellekt, yazı, kod və gündəlik işlər üçün premium xidmət.",
-
-spotifyName:"Spotify Premium",
-spotifyDescription:"Reklamsız musiqi, yüksək keyfiyyət və offline dinləmə.",
-
-whyUs:"Niyə məhz biz?",
-whyUsText:"Premium xidmətlərə çıxışı daha sürətli, rahat və təhlükəsiz etmək üçün prosesi sadələşdirdik.",
-
-fastActivation:"Sürətli aktivləşdirmə",
-fastActivationText:"Sifarişinizi tamamlayın, qalanını biz həll edək. Hesab məlumatlarınız hazırlanaraq sizə təqdim olunur.",
-activationTime:"5-30 dəq ərzində aktivləşdirmə",
-
-safeOrder:"Təhlükəsiz ödəniş",
-safeOrderText:"Ödəniş prosesiniz qorunan sistem üzərindən aparılır və sifarişiniz təhlükəsiz şəkildə tamamlanır.",
-protectedPayment:"Qorunan ödəniş sistemi",
-
-support:"Etibarlı dəstək",
-supportText:"Sifariş və aktivləşdirmə ilə bağlı suallarınız yarandıqda dəstək komandamız sizə operativ şəkildə kömək edir.",
-customerSupport:"Operativ müştəri dəstəyi",
-
-aboutTitle:"DigiBaku.com haqqında",
-
-aboutText1:"DigiBaku.com premium rəqəmsal hesab və abunəlikləri daha rahat əldə etmək istəyən istifadəçilər üçün yaradılmış yerli platformadır.",
-
-aboutText2:"Biz Netflix, Spotify Premium, ChatGPT Plus, YouTube Premium və digər populyar rəqəmsal xidmətlər üzrə paketləri bir yerdə təqdim edirik. Məqsədimiz istifadəçinin uyğun xidməti tez tapması, şərtləri aydın görməsi və sifarişi problemsiz tamamlamasıdır.",
-
-aboutFast:"Sürətli aktivləşdirmə",
-aboutFastText:"Sifariş təsdiqləndikdən sonra hesab və ya abunəlik məlumatları mümkün qədər qısa müddətdə təqdim olunur.",
-
-aboutChoice:"Aydın paket seçimi",
-aboutChoiceText:"Müddət, qiymət və istifadə qaydaları məhsul səhifələrində əvvəlcədən göstərilir.",
-
-aboutSupport:"Dəstək komandası",
-aboutSupportText:"Aktivləşdirmə, giriş və istifadə zamanı yaranan suallarda komandamız operativ kömək edir.",
-
-whatWeSimplify:"Biz nəyi asanlaşdırırıq?",
-
-whatWeSimplifyText:"Rəqəmsal xidmətlərdə düzgün paket seçmək, hesabı aktivləşdirmək və qaydaları başa düşmək bəzən vaxt aparır. DigiBaku.com bu prosesi sadələşdirir: məhsulları kateqoriyalara ayırır, müqayisəni rahatlaşdırır və sifarişdən sonra istifadəçini tək qoymur.",
-
-aboutList1:"Film, musiqi, süni intellekt, dizayn və digər rəqəmsal xidmətlər bir platformada toplanır.",
-aboutList2:"Hər məhsul üzrə qiymət, müddət və əsas istifadə məlumatları ayrıca göstərilir.",
-aboutList3:"Sifariş prosesi qısa, sadə və mobil cihazlarda rahat istifadə ediləcək şəkildə qurulub.",
-
-aboutText3:"DigiBaku.com premium rəqəmsal xidmətləri daha əlçatan, başadüşülən və rahat etmək üçün inkişaf etdirilir. Platformanı davamlı olaraq yeniləyir, yeni məhsullar əlavə edir və istifadəçi təcrübəsini yaxşılaşdırırıq.",
-
-compareTitle:"Müqayisə bələdçiləri",
-compareSubtitle:"İstifadə məqsədinizə uyğun premium xidməti daha rahat seçin.",
-
-compareNetflixYoutube:"Netflix vs YouTube Premium",
-compareNetflixYoutubeText:"Netflix film və serial üçün, YouTube Premium isə reklamsız video və musiqi üçün daha uyğundur.",
-netflixLook:"Netflix Premium-a bax →",
-
-compareSpotifyYoutube:"Spotify vs YouTube Premium",
-compareSpotifyYoutubeText:"Musiqi üçün Spotify, video və musiqini bir yerdə istifadə etmək üçün YouTube Premium.",
-spotifyLook:"Spotify Premium-a bax →",
-
-compareChatGPT:"ChatGPT Plus",
-compareChatGPTText:"Yazı, kod, araşdırma və süni intellekt əsaslı gündəlik işlər üçün premium AI xidməti.",
-chatgptLook:"ChatGPT Plus-a bax →",
-
-comparePackage:"Premium paket seçimi",
-comparePackageText:"Qiymət, müddət və istifadə məqsədinizə uyğun xidməti seçin.",
-allProducts:"Bütün məhsullara bax →",
-
-reviewsTitle:"Müştəri rəyləri",
-reviewsSubtitle:"Müştərilərimizin təcrübəsi bizim üçün ən böyük motivasiyadır.",
-
-review1:"“Çox sağ olun. Sifariş sürətli və problemsiz oldu.”",
-review2:"“Əla, uyğun qiymətədir və sürətli bir şəkildə əldə etdim. Təşəkkür edirəm.”",
-review3:"“Sərfəli qiymətdir və sifariş prosesi çox rahatdır.”",
-review4:"“Etibarlı və sürətli xidmətdir. Dostlarıma da tövsiyə edirəm.”",
-review5:"“Dəstək komandası suallarıma tez cavab verdi və mənə kömək etdi.”",
-review6:"“Bir neçə dəfə sifariş vermişəm və hər dəfə xidmət problemsiz işləyib.”",
-review7:"“Saytın istifadəsi sadədir. İstədiyim məhsulu çox tez tapdım.”",
-review8:"“Qiymətlər münasibdir və aktivləşdirmə gözlədiyimdən daha sürətli oldu.”",
-
-blogTitle:"Bloq",
-blogSubtitle:"Premium xidmətlər haqqında faydalı məlumatlar",
-
-blog1Title:"Netflix Premium nədir?",
-blog1Text:"Netflix Premium film və serial izləmək üçün premium imkanlar təqdim edən abunə xidmətidir.",
-
-blog2Title:"YouTube Premium nə verir?",
-blog2Text:"Reklamsız video, musiqi və digər premium istifadə imkanları.",
-
-blog3Title:"ChatGPT Plus kimlər üçündür?",
-blog3Text:"Yazı, kod, araşdırma və gündəlik AI işlərində istifadə üçün.",
-
-blog4Title:"Spotify Premium üstünlükləri",
-blog4Text:"Reklamsız musiqi və offline dinləmə imkanları.",
-
-blog5Title:"Premium xidmət necə seçilir?",
-blog5Text:"Qiymət, müddət və istifadə məqsədinə görə düzgün xidməti seçin.",
-
-blog6Title:"Sifariş prosesi necə işləyir?",
-blog6Text:"Məhsulu seçin, paket müddətini müəyyən edin və sifarişinizi göndərin.",
-
-howTitle:"Sifariş və aktivləşdirmə necə işləyir?",
-howSubtitle:"Prosesi sadə saxlayırıq: məhsulu seçin, qaydaları yoxlayın, sifarişi tamamlayın və aktivləşdirməni izləyin.",
-
-clearProcess:"Aydın proses",
-clearProcessText:"Hər məhsulda qiymət, müddət və istifadə qeydləri əvvəlcədən göstərilir.",
-
-mobileComfort:"Mobil rahatlıq",
-mobileComfortText:"Əsas seçim və sifariş addımları telefon ekranında rahat istifadə üçün qurulub.",
-
-supportProcess:"Dəstək",
-supportProcessText:"Problem olduqda sifariş məlumatı əsasında yoxlama aparılır.",
-
-processShort:"Prosesin qısa izahı",
-
-step1Title:"Məhsulu seçin",
-step1Text:"Kateqoriya, qiymət, müddət və istifadə məqsədinə görə məhsulu seçin.",
-
-step2Title:"Qaydaları oxuyun",
-step2Text:"Məhsul səhifəsində hesab tipi, müddət, istifadə qeydləri və təhlükəsizlik məsləhətlərini yoxlayın.",
-
-step3Title:"Sifarişi tamamlayın",
-step3Text:"Sifariş forması mobil və desktop üçün sadə saxlanılıb. Məlumatları diqqətlə daxil edin.",
-
-step4Title:"Aktivləşdirməni alın",
-step4Text:"Ödəniş təsdiqləndikdən sonra aktivləşdirmə məlumatı təqdim olunur.",
-
-step5Title:"Dəstəkdən istifadə edin",
-step5Text:"Sual və problem yaranarsa əlaqə kanalları vasitəsilə dəstək ala bilərsiniz.",
-
-readyTitle:"Uyğun paketi seçməyə hazırsınız?",
-readyText:"Qiymət, müddət və istifadə qaydasını məhsul səhifəsində yoxlayın, sonra sifarişi tamamlayın.",
-
-securityTitle:"Təhlükəsizlik, qaydalar və dəstək prinsipləri",
-securitySubtitle:"Premium abunəlik seçərkən qiymət qədər etibar da önəmlidir.",
-
-transparentInfo:"Şəffaf məlumat",
-transparentInfoText:"Məhsul səhifələrində qiymət, müddət və istifadə qaydaları əvvəlcədən göstərilir.",
-
-safeUse:"Təhlükəsiz istifadə",
-safeUseText:"Hesab məlumatlarının qorunması və icazəsiz dəyişiklik etməmək əsas prinsipdir.",
-
-supportPrinciple:"Dəstək prosesi",
-supportPrincipleText:"Problem olduqda sifariş məlumatına əsasən yoxlama aparılır və istifadəçiyə yönləndirmə verilir.",
-
-whyTrust:"Niyə etibar siqnalları vacibdir?",
-whyTrustText:"Rəqəmsal abunəliklərdə istifadəçi əvvəlcədən nə aldığını, necə istifadə edəcəyini və problem yaranarsa hara müraciət edəcəyini bilməlidir.",
-
-trustList1:"Məhsul səhifəsində əsas şərtlər oxunaqlı verilir.",
-trustList2:"Sifarişdən sonra dəstək kanalları açıq saxlanılır.",
-trustList3:"Təhlükəsizlik qaydaları istifadəçi təcrübəsini qoruyur.",
-
-editorialTitle:"Redaksiya siyasəti və məzmun standartları",
-editorialSubtitle:"DigiBaku.com-da məlumatların hazırlanması, yenilənməsi və düzəldilməsi prinsipləri.",
-
-accuracy:"Dəqiqlik",
-accuracyText:"Qiymət, müddət və xüsusiyyət kimi qərara təsir edən məlumatlar mümkün olduqda rəsmi mənbələr və məhsul qeydləri ilə yoxlanır.",
-
-independentExplanation:"Müstəqil izah",
-independentExplanationText:"Məhsul təqdim edilsə belə üstünlük və məhdudiyyətlər aydın və şişirtməsiz şəkildə izah edilir.",
-
-correction:"Düzəliş",
-correctionText:"Səhv və ya köhnəlmiş məlumat aşkarlandıqda həmin hissə yenilənir.",
-
-editorialProcess:"Prosesin qısa izahı",
-
-editorStep1Title:"Axtarış niyyətini müəyyən edirik",
-editorStep1Text:"Oxucunun qiymət, müqayisə, problem həlli və ya seçim axtardığını müəyyənləşdiririk.",
-
-editorStep2Title:"Faktları toplayırıq",
-editorStep2Text:"Paket, qiymət, müddət, istifadə qaydası və uyğun alternativləri yoxlayırıq.",
-
-editorStep3Title:"Oxunaqlı quruluş yaradırıq",
-editorStep3Text:"Qısa giriş, aydın başlıqlar, addımlar və sual-cavablarla məzmunu rahat oxunan edirik.",
-
-editorStep4Title:"Yeniləyirik",
-editorStep4Text:"Məhsul və bazar məlumatı dəyişəndə prioritet səhifələr yenidən yoxlanır.",
-
-commercialTransparency:"Kommersiya şəffaflığı",
-commercialTransparencyText:"DigiBaku.com rəqəmsal paketlər təqdim edir. Məqalədə məhsula keçid satışla nəticələnə bilər, lakin müqayisə meyarları qiymət, istifadə məqsədi və paket xüsusiyyətlərinə əsaslanır.",
-
-editorialList1:"Uydurma müəllif və təcrübə iddiası istifadə edilmir.",
-editorialList2:"Real olmayan rəy yaradılmır.",
-editorialList3:"Məhsulun qərar üçün vacib məhdudiyyəti gizlədilmir.",
-
-priceReview:"Qiymət və rəy yeniləmə prosesi",
-priceReviewText:"Qiymət və paket şərtləri dəyişə bildiyi üçün məhsul və qiymət məlumatları mütəmadi yoxlanır. Rəylərin həqiqiliyi qorunmağa çalışılır və real olmayan rəy yaradılmır.",
-
-correctionContact:"Düzəliş və əlaqə",
-correctionContactText:"Səhv, köhnəlmiş qiymət və ya anlaşılmaz ifadə görsəniz, əlaqə kanalı vasitəsilə səhifənin adını və düzəliş təklifini göndərə bilərsiniz.",
-
-faqTitle:"Tez-tez verilən suallar",
-faqSubtitle:"Sifarişdən əvvəl və sonra ən çox verilən sualların qısa, aydın cavabları.",
-
-faq1Question:"Sifariş necə verilir?",
-faq1Answer:"Məhsulu seçirsiniz, paket müddətini yoxlayırsınız, sifarişi tamamlayırsınız və aktivləşdirmə məlumatı dəstək prosesi ilə təqdim olunur.",
-
-faq2Question:"Qiyməti harada görürəm?",
-faq2Answer:"Qiymət məhsul kartında və məhsul səhifəsində göstərilir. Müddətə görə qiymət dəyişə bilər.",
-
-faq3Question:"Telefondan sifariş verə bilərəm?",
-faq3Answer:"Bəli. Məhsul kartları və sifariş prosesi mobil ekranlar üçün uyğunlaşdırılıb.",
-
-faq4Question:"Aktivləşdirmə nə qədər çəkir?",
-faq4Answer:"Ödəniş təsdiqləndikdən sonra məlumatlar qısa müddətdə təqdim olunur. Məhsuldan asılı olaraq dəqiq proses fərqlənə bilər.",
-
-faq5Question:"Hesab məlumatlarını dəyişə bilərəm?",
-faq5Answer:"Məhsul qaydalarında icazə verilmirsə e-poçt, şifrə və təhlükəsizlik məlumatlarını dəyişməyin.",
-
-faq6Question:"Problem yaranarsa nə etməliyəm?",
-faq6Answer:"Əlaqə kanalları vasitəsilə sifariş məlumatı ilə müraciət edin. Dəstək komandası statusu yoxlayacaq.",
-
-faq7Question:"Məlumatlarımı necə qoruyum?",
-faq7Answer:"Hesab məlumatlarını üçüncü şəxslərlə paylaşmayın, icazəsiz dəyişiklik etməyin və məhsul səhifəsindəki qaydalara əməl edin.",
-
-faq8Question:"Geri qaytarma şərtləri haradadır?",
-faq8Answer:"Geri qaytarma şərtləri ayrıca məlumat səhifəsində göstərilir və məhsul qaydalarına görə tətbiq edilir.",
-
-faq9Question:"Hansı məhsulu seçəcəyimi bilmirəm?",
-faq9Answer:"Müqayisə bölməsindən istifadə edin, sonra məhsul səhifəsində qiymət və qaydaları yoxlayın.",
-
-termsTitle:"Şərtlər və qaydalar",
-
-generalTerms:"Ümumi şərtlər",
-generalTermsText:"Saytdan istifadə etməklə bu şərtləri qəbul etmiş olursunuz. Xidmətlər və məhsullar haqqında məlumat sifariş zamanı göstərilən xüsusiyyətlərə əsaslanır.",
-
-accountOrders:"Hesab və sifarişlər",
-accountOrdersText:"İstifadəçi təqdim etdiyi məlumatların düzgünlüyünə cavabdehdir. Sifariş yalnız təsdiqləndikdən sonra icraya qəbul edilir. Hesab məlumatlarınızı üçüncü şəxslərlə paylaşmamağınız tövsiyə olunur.",
-
-paymentService:"Ödəniş və xidmət",
-paymentServiceText:"Qiymət, xidmət müddəti və digər şərtlər məhsul səhifəsində göstərilir. Texniki və ya təhlükəsizlik səbəbilə xidmətin təqdim edilmə qaydası dəyişə bilər.",
-
-termsContactTitle:"Sualınız var?",
-termsContactText:"Sifariş və xidmətlə bağlı suallarınız üçün bizimlə əlaqə saxlayın.",
-
-faqOldSupport:"Dəstəklə necə əlaqə saxlayım?",
-faqOldSupportText:"E-poçt vasitəsilə premium989b@gmail.com ünvanından əlaqə saxlaya bilərsiniz.",
-
-contactTitle:"Əlaqə",
-contactSubtitle:"DigiBaku.com dəstək",
-city:"Şəhər",
-email:"E-poçt",
-workingHours:"İş saatları",
-orderSupport:"Sifariş və dəstək",
-orderSupportText:"Məhsulu seçin və “Sifariş et” düyməsi ilə WhatsApp üzərindən sifarişinizi göndərin.",
-
-footerText:"Premium rəqəmsal xidmətlər bir platformada.",
-usefulLinks:"Faydalı linklər",
-information:"Məlumat",
-
-copyright:"Bütün hüquqlar qorunur.",
-
-orderMessage:"Salam DigiBaku.com!\n\nBu məhsulu sifariş etmək istəyirəm:",
-orderSent:"Sifariş WhatsApp-a yönləndirilir...",
-addedToCart:"Məhsul səbətə əlavə edildi!",
-emptyCartAlert:"Səbətiniz boşdur!"
-
-},
-
-ru:{
-
-home:"Главная",
-products:"Товары",
-compare:"Сравнение",
-about:"О нас",
-reviews:"Отзывы",
-blog:"Блог",
-contact:"Контакты",
-
-login:"Войти",
-register:"Регистрация",
-logout:"Выйти",
-profile:"Профиль",
-
-cart:"Корзина",
-yourCart:"Ваша корзина",
-cartEmpty:"Ваша корзина пуста",
-total:"Итого:",
-confirmOrder:"Подтвердить заказ",
-remove:"Удалить",
-
-premiumService:"Премиум цифровые услуги",
-heroTitle:"Премиальные цифровые услуги",
-heroTitleSpan:"на одной платформе",
-viewProducts:"Посмотреть товары",
-
-heroText:"Мы собрали популярные премиальные цифровые сервисы на одной платформе, чтобы сделать доступ к ним проще. Выберите нужную услугу, оформите заказ и начните пользоваться в короткие сроки.",
-
-productsSubtitle:"Откройте для себя наши премиальные цифровые услуги.",
-
-details:"Подробнее",
-order:"Заказать",
-addCart:"В корзину",
-month1:"/ 1 месяц",
-
-netflixName:"Netflix 4K Premium",
-netflixDescription:"Netflix Premium для просмотра фильмов и сериалов в высоком качестве.",
-
-youtubeName:"YouTube Premium",
-youtubeDescription:"Видео и музыка без рекламы с премиальными возможностями YouTube.",
-
-chatgptName:"ChatGPT Plus",
-chatgptDescription:"Премиальный AI-сервис для текста, кода и повседневных задач.",
-
-spotifyName:"Spotify Premium",
-spotifyDescription:"Музыка без рекламы, высокое качество и офлайн-прослушивание.",
-
-whyUs:"Почему именно мы?",
-whyUsText:"Мы упростили процесс, чтобы сделать доступ к премиальным сервисам быстрым, удобным и безопасным.",
-
-fastActivation:"Быстрая активация",
-fastActivationText:"Оформите заказ, остальное мы сделаем сами. Данные аккаунта будут подготовлены и предоставлены вам.",
-activationTime:"Активация за 5-30 минут",
-
-safeOrder:"Безопасная оплата",
-safeOrderText:"Оплата проходит через защищённую систему, а заказ оформляется безопасно.",
-protectedPayment:"Защищённая система оплаты",
-
-support:"Надёжная поддержка",
-supportText:"Если у вас возникнут вопросы по заказу или активации, наша команда оперативно поможет.",
-customerSupport:"Оперативная поддержка",
-
-aboutTitle:"О DigiBaku.com",
-aboutText1:"DigiBaku.com — местная платформа для пользователей, которые хотят удобно получать премиальные цифровые аккаунты и подписки.",
-aboutText2:"Мы объединяем популярные цифровые услуги на одной платформе, чтобы пользователь мог быстро найти подходящую услугу, увидеть условия и оформить заказ.",
-aboutFast:"Быстрая активация",
-aboutFastText:"После подтверждения заказа данные аккаунта или подписки предоставляются максимально быстро.",
-aboutChoice:"Понятный выбор пакета",
-aboutChoiceText:"Срок, цена и правила использования указываются заранее.",
-aboutSupport:"Команда поддержки",
-aboutSupportText:"Мы оперативно помогаем при вопросах об активации, входе и использовании.",
-whatWeSimplify:"Что мы упрощаем?",
-whatWeSimplifyText:"Мы упрощаем выбор цифровых услуг, сравнение пакетов и процесс заказа.",
-aboutList1:"Фильмы, музыка, AI, дизайн и другие цифровые услуги в одном месте.",
-aboutList2:"Цена, срок и основные условия отображаются отдельно для каждого продукта.",
-aboutList3:"Процесс заказа удобен как на компьютере, так и на телефоне.",
-aboutText3:"DigiBaku.com постоянно развивается, добавляет новые продукты и улучшает пользовательский опыт.",
-
-compareTitle:"Руководства по сравнению",
-compareSubtitle:"Выберите премиальную услугу в соответствии со своими потребностями.",
-compareNetflixYoutube:"Netflix vs YouTube Premium",
-compareNetflixYoutubeText:"Netflix лучше подходит для фильмов и сериалов, а YouTube Premium — для видео и музыки без рекламы.",
-netflixLook:"Netflix Premium →",
-compareSpotifyYoutube:"Spotify vs YouTube Premium",
-compareSpotifyYoutubeText:"Spotify подходит для музыки, а YouTube Premium объединяет видео и музыку.",
-spotifyLook:"Spotify Premium →",
-compareChatGPT:"ChatGPT Plus",
-compareChatGPTText:"Премиальный AI-сервис для текста, кода, исследований и повседневных задач.",
-chatgptLook:"ChatGPT Plus →",
-comparePackage:"Выбор премиального пакета",
-comparePackageText:"Выберите услугу по цене, сроку и вашим потребностям.",
-allProducts:"Все товары →",
-
-reviewsTitle:"Отзывы клиентов",
-reviewsSubtitle:"Опыт наших клиентов — наша главная мотивация.",
-review1:"«Большое спасибо. Заказ был быстрым и без проблем.»",
-review2:"«Отличная цена и быстро получил услугу. Спасибо.»",
-review3:"«Хорошая цена и очень удобный процесс заказа.»",
-review4:"«Надёжный и быстрый сервис. Рекомендую друзьям.»",
-review5:"«Команда поддержки быстро ответила на мои вопросы.»",
-review6:"«Заказывал несколько раз, каждый раз всё работало без проблем.»",
-review7:"«Сайт простой в использовании. Быстро нашёл нужный товар.»",
-review8:"«Цены хорошие, активация прошла быстрее, чем ожидал.»",
-
-blogTitle:"Блог",
-blogSubtitle:"Полезная информация о премиальных услугах",
-blog1Title:"Что такое Netflix Premium?",
-blog1Text:"Netflix Premium — подписка с премиальными возможностями для просмотра фильмов и сериалов.",
-blog2Title:"Что даёт YouTube Premium?",
-blog2Text:"Видео и музыка без рекламы и другие премиальные возможности.",
-blog3Title:"Для кого ChatGPT Plus?",
-blog3Text:"Для текста, кода, исследований и повседневных задач с AI.",
-blog4Title:"Преимущества Spotify Premium",
-blog4Text:"Музыка без рекламы и возможность офлайн-прослушивания.",
-blog5Title:"Как выбрать премиальную услугу?",
-blog5Text:"Выбирайте услугу с учётом цены, срока и цели использования.",
-blog6Title:"Как работает процесс заказа?",
-blog6Text:"Выберите товар, определите срок и отправьте заказ.",
-
-howTitle:"Как работает заказ и активация?",
-howSubtitle:"Выберите продукт, проверьте правила, оформите заказ и следите за активацией.",
-clearProcess:"Понятный процесс",
-clearProcessText:"Цена, срок и основные условия указаны заранее.",
-mobileComfort:"Удобство на телефоне",
-mobileComfortText:"Основные шаги заказа адаптированы для мобильных экранов.",
-supportProcess:"Поддержка",
-supportProcessText:"При проблеме проверка проводится по данным заказа.",
-processShort:"Кратко о процессе",
-step1Title:"Выберите продукт",
-step1Text:"Выберите продукт по категории, цене, сроку и цели использования.",
-step2Title:"Прочитайте правила",
-step2Text:"Проверьте тип аккаунта, срок, условия использования и рекомендации по безопасности.",
-step3Title:"Оформите заказ",
-step3Text:"Заполните данные заказа внимательно.",
-step4Title:"Получите активацию",
-step4Text:"После подтверждения оплаты предоставляется информация для активации.",
-step5Title:"Получите поддержку",
-step5Text:"При вопросах или проблемах обратитесь в поддержку.",
-readyTitle:"Готовы выбрать подходящий пакет?",
-readyText:"Проверьте цену, срок и правила использования на странице продукта.",
-
-securityTitle:"Безопасность, правила и поддержка",
-securitySubtitle:"При выборе цифровой подписки доверие важно не меньше цены.",
-transparentInfo:"Прозрачная информация",
-transparentInfoText:"Цена, срок и правила использования указываются заранее.",
-safeUse:"Безопасное использование",
-safeUseText:"Защита данных аккаунта и запрет несанкционированных изменений являются основными принципами.",
-supportPrinciple:"Процесс поддержки",
-supportPrincipleText:"При проблеме проводится проверка по данным заказа.",
-whyTrust:"Почему важны сигналы доверия?",
-whyTrustText:"Пользователь должен заранее понимать, что покупает, как использовать услугу и куда обращаться при проблеме.",
-trustList1:"Основные условия доступны на странице продукта.",
-trustList2:"Каналы поддержки остаются доступными после заказа.",
-trustList3:"Правила безопасности помогают защищать пользовательский опыт.",
-
-editorialTitle:"Редакционная политика и стандарты контента",
-editorialSubtitle:"Принципы подготовки, обновления и исправления информации DigiBaku.com.",
-accuracy:"Точность",
-accuracyText:"Цена, срок и характеристики по возможности проверяются по данным продукта и официальным источникам.",
-independentExplanation:"Независимое объяснение",
-independentExplanationText:"Преимущества и ограничения описываются ясно и без преувеличений.",
-correction:"Исправления",
-correctionText:"Ошибочная или устаревшая информация обновляется.",
-editorialProcess:"Краткий процесс",
-editorStep1Title:"Определяем намерение поиска",
-editorStep1Text:"Определяем, ищет ли читатель цену, сравнение, решение проблемы или выбор.",
-editorStep2Title:"Собираем факты",
-editorStep2Text:"Проверяем пакет, цену, срок, правила и альтернативы.",
-editorStep3Title:"Создаём понятную структуру",
-editorStep3Text:"Используем понятные заголовки, шаги и FAQ.",
-editorStep4Title:"Обновляем",
-editorStep4Text:"При изменении информации приоритетные страницы проверяются повторно.",
-commercialTransparency:"Коммерческая прозрачность",
-commercialTransparencyText:"DigiBaku.com предлагает цифровые пакеты. Переход на продукт может привести к продаже, однако сравнение основано на цене, цели использования и характеристиках пакета.",
-editorialList1:"Не используются вымышленные авторы и личный опыт.",
-editorialList2:"Не создаются нереальные отзывы.",
-editorialList3:"Важные ограничения продукта не скрываются.",
-priceReview:"Обновление цен и отзывов",
-priceReviewText:"Цены и условия пакетов могут меняться, поэтому информация регулярно проверяется.",
-correctionContact:"Исправления и связь",
-correctionContactText:"Если нашли ошибку или устаревшую информацию, отправьте нам название страницы и предложение по исправлению.",
-
-faqTitle:"Часто задаваемые вопросы",
-faqSubtitle:"Краткие ответы на основные вопросы до и после заказа.",
-faq1Question:"Как оформить заказ?",
-faq1Answer:"Выберите продукт, проверьте срок, оформите заказ и получите данные активации.",
-faq2Question:"Где посмотреть цену?",
-faq2Answer:"Цена отображается в карточке и на странице продукта.",
-faq3Question:"Можно заказать с телефона?",
-faq3Answer:"Да. Сайт адаптирован для мобильных устройств.",
-faq4Question:"Сколько занимает активация?",
-faq4Answer:"После подтверждения оплаты данные предоставляются в короткие сроки.",
-faq5Question:"Можно менять данные аккаунта?",
-faq5Answer:"Если правила продукта этого не разрешают, не меняйте email, пароль и данные безопасности.",
-faq6Question:"Что делать при проблеме?",
-faq6Answer:"Обратитесь в поддержку с информацией о заказе.",
-faq7Question:"Как защитить данные?",
-faq7Answer:"Не передавайте данные аккаунта третьим лицам.",
-faq8Question:"Где условия возврата?",
-faq8Answer:"Условия возврата указываются отдельно и зависят от правил продукта.",
-faq9Question:"Не знаю, какой продукт выбрать.",
-faq9Answer:"Используйте сравнение, затем проверьте цену и правила на странице продукта.",
-
-termsTitle:"Условия и правила",
-generalTerms:"Общие условия",
-generalTermsText:"Используя сайт, вы принимаете эти условия. Информация о товарах основывается на характеристиках, указанных при заказе.",
-accountOrders:"Аккаунт и заказы",
-accountOrdersText:"Пользователь отвечает за правильность предоставленной информации. Заказ принимается после подтверждения.",
-paymentService:"Оплата и услуга",
-paymentServiceText:"Цена, срок и другие условия указываются на странице продукта. Способ предоставления услуги может измениться по техническим или безопасностным причинам.",
-termsContactTitle:"Есть вопрос?",
-termsContactText:"Свяжитесь с нами по вопросам заказа и обслуживания.",
-
-contactTitle:"Контакты",
-contactSubtitle:"Поддержка DigiBaku.com",
-city:"Город",
-email:"Email",
-workingHours:"Рабочие часы",
-orderSupport:"Заказ и поддержка",
-orderSupportText:"Выберите товар и нажмите «Заказать», чтобы отправить заказ через WhatsApp.",
-
-footerText:"Премиальные цифровые услуги на одной платформе.",
-usefulLinks:"Полезные ссылки",
-information:"Информация",
-copyright:"Все права защищены.",
-
-orderMessage:"Здравствуйте, DigiBaku.com!\n\nЯ хочу заказать этот товар:",
-addedToCart:"Товар добавлен в корзину!",
-emptyCartAlert:"Ваша корзина пуста!"
-
-},
-
-en:{
-
-home:"Home",
-products:"Products",
-compare:"Comparison",
-about:"About us",
-reviews:"Reviews",
-blog:"Blog",
-contact:"Contact",
-
-login:"Login",
-register:"Register",
-logout:"Logout",
-profile:"Profile",
-
-cart:"Cart",
-yourCart:"Your cart",
-cartEmpty:"Your cart is empty",
-total:"Total:",
-confirmOrder:"Confirm order",
-remove:"Remove",
-
-premiumService:"Premium digital services",
-heroTitle:"Premium digital services",
-heroTitleSpan:"on one platform",
-viewProducts:"View products",
-
-heroText:"We bring popular premium digital services together on one platform to make access easier. Choose the service you need, complete your order and start using it shortly.",
-
-productsSubtitle:"Discover our premium digital services.",
-
-details:"View details",
-order:"Order now",
-addCart:"Add to cart",
-month1:"/ 1 month",
-
-netflixName:"Netflix 4K Premium",
-netflixDescription:"Netflix Premium for watching movies and series in high quality.",
-
-youtubeName:"YouTube Premium",
-youtubeDescription:"Ad-free videos and music with premium YouTube features.",
-
-chatgptName:"ChatGPT Plus",
-chatgptDescription:"A premium AI service for writing, coding and everyday tasks.",
-
-spotifyName:"Spotify Premium",
-spotifyDescription:"Ad-free music, high quality and offline listening.",
-
-whyUs:"Why choose us?",
-whyUsText:"We simplified the process to make access to premium services faster, easier and safer.",
-
-fastActivation:"Fast activation",
-fastActivationText:"Complete your order and let us handle the rest.",
-activationTime:"Activation within 5-30 minutes",
-
-safeOrder:"Secure payment",
-safeOrderText:"Your payment is processed through a protected system.",
-protectedPayment:"Protected payment system",
-
-support:"Reliable support",
-supportText:"Our support team helps quickly with order and activation questions.",
-customerSupport:"Fast customer support",
-
-aboutTitle:"About DigiBaku.com",
-aboutText1:"DigiBaku.com is a local platform created for users who want convenient access to premium digital accounts and subscriptions.",
-aboutText2:"We bring popular digital services together so users can quickly find the right service, understand the conditions and complete their order.",
-aboutFast:"Fast activation",
-aboutFastText:"After confirmation, account or subscription information is provided as quickly as possible.",
-aboutChoice:"Clear package selection",
-aboutChoiceText:"Duration, price and usage rules are shown in advance.",
-aboutSupport:"Support team",
-aboutSupportText:"Our team provides quick assistance with activation, login and usage.",
-whatWeSimplify:"What do we simplify?",
-whatWeSimplifyText:"We simplify choosing digital services, comparing packages and completing orders.",
-aboutList1:"Movies, music, AI, design and other digital services in one platform.",
-aboutList2:"Price, duration and key usage information are shown for each product.",
-aboutList3:"The order process is simple and mobile-friendly.",
-aboutText3:"DigiBaku.com continues to improve, add new products and enhance the user experience.",
-
-compareTitle:"Comparison guides",
-compareSubtitle:"Choose the premium service that fits your needs.",
-compareNetflixYoutube:"Netflix vs YouTube Premium",
-compareNetflixYoutubeText:"Netflix is better for movies and series, while YouTube Premium is better for ad-free video and music.",
-netflixLook:"View Netflix Premium →",
-compareSpotifyYoutube:"Spotify vs YouTube Premium",
-compareSpotifyYoutubeText:"Spotify is ideal for music, while YouTube Premium combines video and music.",
-spotifyLook:"View Spotify Premium →",
-compareChatGPT:"ChatGPT Plus",
-compareChatGPTText:"A premium AI service for writing, coding, research and everyday tasks.",
-chatgptLook:"View ChatGPT Plus →",
-comparePackage:"Premium package selection",
-comparePackageText:"Choose according to price, duration and your needs.",
-allProducts:"View all products →",
-
-reviewsTitle:"Customer reviews",
-reviewsSubtitle:"Our customers' experience is our greatest motivation.",
-review1:"“Thank you very much. The order was fast and problem-free.”",
-review2:"“Great price and I received it quickly. Thank you.”",
-review3:"“Good price and a very easy ordering process.”",
-review4:"“Reliable and fast service. I recommend it to my friends.”",
-review5:"“The support team answered my questions quickly and helped me.”",
-review6:"“I have ordered several times and everything worked without problems.”",
-review7:"“The website is easy to use. I found what I needed very quickly.”",
-review8:"“Good prices and activation was faster than I expected.”",
-
-blogTitle:"Blog",
-blogSubtitle:"Useful information about premium services",
-blog1Title:"What is Netflix Premium?",
-blog1Text:"Netflix Premium is a subscription with premium features for watching movies and series.",
-blog2Title:"What does YouTube Premium offer?",
-blog2Text:"Ad-free video, music and other premium features.",
-blog3Title:"Who is ChatGPT Plus for?",
-blog3Text:"For writing, coding, research and everyday AI tasks.",
-blog4Title:"Spotify Premium benefits",
-blog4Text:"Ad-free music and offline listening.",
-blog5Title:"How to choose a premium service?",
-blog5Text:"Choose according to price, duration and your purpose.",
-blog6Title:"How does the order process work?",
-blog6Text:"Choose a product, select the duration and send your order.",
-
-howTitle:"How does ordering and activation work?",
-howSubtitle:"Choose a product, check the rules, complete your order and follow the activation process.",
-clearProcess:"Clear process",
-clearProcessText:"Price, duration and usage notes are shown in advance.",
-mobileComfort:"Mobile convenience",
-mobileComfortText:"Main selection and ordering steps are designed for mobile screens.",
-supportProcess:"Support",
-supportProcessText:"If a problem occurs, we check the order information.",
-processShort:"Process overview",
-step1Title:"Choose a product",
-step1Text:"Choose according to category, price, duration and purpose.",
-step2Title:"Read the rules",
-step2Text:"Check account type, duration, usage notes and security recommendations.",
-step3Title:"Complete your order",
-step3Text:"Enter the required information carefully.",
-step4Title:"Receive activation",
-step4Text:"Activation information is provided after payment confirmation.",
-step5Title:"Use support",
-step5Text:"Contact support if you have a question or problem.",
-readyTitle:"Ready to choose the right package?",
-readyText:"Check price, duration and usage rules on the product page.",
-
-securityTitle:"Security, rules and support principles",
-securitySubtitle:"Trust is just as important as price when choosing a premium subscription.",
-transparentInfo:"Transparent information",
-transparentInfoText:"Price, duration and usage rules are shown in advance.",
-safeUse:"Safe usage",
-safeUseText:"Protecting account information and avoiding unauthorized changes are key principles.",
-supportPrinciple:"Support process",
-supportPrincipleText:"Problems are checked using order information.",
-whyTrust:"Why do trust signals matter?",
-whyTrustText:"Users should know what they are buying, how to use it and where to ask for help.",
-trustList1:"Key conditions are clearly shown on product pages.",
-trustList2:"Support channels remain available after ordering.",
-trustList3:"Security rules help protect the user experience.",
-
-editorialTitle:"Editorial policy and content standards",
-editorialSubtitle:"How DigiBaku.com prepares, updates and corrects information.",
-accuracy:"Accuracy",
-accuracyText:"Price, duration and features are checked against product information and official sources when possible.",
-independentExplanation:"Independent explanation",
-independentExplanationText:"Advantages and limitations are explained clearly without exaggeration.",
-correction:"Corrections",
-correctionText:"Incorrect or outdated information is updated.",
-editorialProcess:"Process overview",
-editorStep1Title:"Identify search intent",
-editorStep1Text:"We identify whether the reader is looking for price, comparison, problem solving or selection.",
-editorStep2Title:"Collect facts",
-editorStep2Text:"We check packages, prices, duration, rules and alternatives.",
-editorStep3Title:"Create a clear structure",
-editorStep3Text:"We use clear headings, steps and FAQs.",
-editorStep4Title:"Update",
-editorStep4Text:"Priority pages are reviewed when product information changes.",
-commercialTransparency:"Commercial transparency",
-commercialTransparencyText:"DigiBaku.com offers digital packages. Product links may result in a sale, while comparisons are based on price, purpose and package features.",
-editorialList1:"No fictional authors or personal experience claims are used.",
-editorialList2:"Fake reviews are not created.",
-editorialList3:"Important product limitations are not hidden.",
-priceReview:"Price and review updates",
-priceReviewText:"Prices and package terms can change, so product information is reviewed regularly.",
-correctionContact:"Corrections and contact",
-correctionContactText:"If you find an error or outdated information, send us the page name and suggested correction.",
-
-faqTitle:"Frequently asked questions",
-faqSubtitle:"Short answers to common questions before and after ordering.",
-faq1Question:"How do I place an order?",
-faq1Answer:"Choose a product, check the duration, complete the order and receive activation information.",
-faq2Question:"Where can I see the price?",
-faq2Answer:"The price is displayed on the product card and product page.",
-faq3Question:"Can I order from my phone?",
-faq3Answer:"Yes. The website is optimized for mobile devices.",
-faq4Question:"How long does activation take?",
-faq4Answer:"After payment confirmation, information is usually provided shortly.",
-faq5Question:"Can I change account information?",
-faq5Answer:"If product rules do not allow it, do not change email, password or security information.",
-faq6Question:"What should I do if there is a problem?",
-faq6Answer:"Contact support with your order information.",
-faq7Question:"How can I protect my information?",
-faq7Answer:"Do not share account information with third parties.",
-faq8Question:"Where are refund terms?",
-faq8Answer:"Refund terms are shown separately and depend on product rules.",
-faq9Question:"I do not know which product to choose.",
-faq9Answer:"Use the comparison section and then check price and rules on the product page.",
-
-termsTitle:"Terms and conditions",
-generalTerms:"General terms",
-generalTermsText:"By using the website, you accept these terms. Product information is based on the characteristics shown at the time of order.",
-accountOrders:"Accounts and orders",
-accountOrdersText:"Users are responsible for the accuracy of submitted information. Orders are accepted after confirmation.",
-paymentService:"Payment and service",
-paymentServiceText:"Price, duration and other terms are shown on product pages. The delivery method may change for technical or security reasons.",
-termsContactTitle:"Have a question?",
-termsContactText:"Contact us for questions about orders and services.",
-
-contactTitle:"Contact",
-contactSubtitle:"DigiBaku.com support",
-city:"City",
-email:"Email",
-workingHours:"Working hours",
-orderSupport:"Orders and support",
-orderSupportText:"Choose a product and click “Order now” to send your order through WhatsApp.",
-
-footerText:"Premium digital services on one platform.",
-usefulLinks:"Useful links",
-information:"Information",
-copyright:"All rights reserved.",
-
-orderMessage:"Hello DigiBaku.com!\n\nI would like to order this product:",
-addedToCart:"Product added to cart!",
-emptyCartAlert:"Your cart is empty!"
-
-}
-
-};
-
-
-/* =========================================================
-DİL FUNKSİYALARI
-========================================================= */
-
-function getLanguage(){
-
-return localStorage.getItem("digi_language") || "az";
-
-}
-
-
-function setLanguage(lang){
-
-if(!translations[lang]){
-
-lang="az";
-
-}
-
-localStorage.setItem("digi_language",lang);
-
-applyLanguage(lang);
-
-}
-
-
-function t(key){
-
-const lang=getLanguage();
-
-return translations[lang]?.[key]
-|| translations.az?.[key]
-|| key;
-
-}
-
-
-function applyLanguage(lang){
-
-const dictionary=translations[lang] || translations.az;
-
-document.documentElement.lang=lang;
-
-document.querySelectorAll("[data-i18n]").forEach(element=>{
-
-const key=element.getAttribute("data-i18n");
-
-if(dictionary[key]!==undefined){
-
-element.textContent=dictionary[key];
-
-}
-
-});
-
-
-["az","ru","en"].forEach(code=>{
-
-const desktop=document.getElementById(
-"lang"+code.toUpperCase()
-);
-
-const mobile=document.getElementById(
-"mobileLang"+code.toUpperCase()
-);
-
-if(desktop){
-
-desktop.classList.toggle(
-"active",
-code===lang
-);
-
-}
-
-if(mobile){
-
-mobile.classList.toggle(
-"active",
-code===lang
-);
-
-}
-
-});
-
-
-if(lang==="ru"){
-
-document.title=
-"DigiBaku.com — Премиальные цифровые услуги";
-
-}else if(lang==="en"){
-
-document.title=
-"DigiBaku.com — Premium digital services";
-
-}else{
-
-document.title=
-"DigiBaku.com — Premium rəqəmsal xidmətlər";
-
-}
-
-updateCartUI();
-
-checkLogin();
-
-}
-
-
-/* =========================================================
-FAQ
-========================================================= */
-
-function toggleFaq(element){
-
-element.parentElement.classList.toggle("open");
-
-}
-
-
-/* =========================================================
-SUPABASE
-========================================================= */
-
-const SUPABASE_URL=
-"https://zeknhnkaicqkfzgnvycq.supabase.co";
-
-const SUPABASE_KEY=
-"sb_publishable_jHvCp9fXBA_BwFqrXYpwlw_VC6C1OQk";
-
-const supabaseClient=
-window.supabase.createClient(
-SUPABASE_URL,
-SUPABASE_KEY
-);
-
-
-/* =========================================================
-CART
-========================================================= */
-
-let cart=
-JSON.parse(
-localStorage.getItem("digi_cart")
-) || [];
-
-
-function saveCart(){
-
-localStorage.setItem(
-"digi_cart",
-JSON.stringify(cart)
-);
-
-}
-
-
-function toggleCart(){
-
-const modal=
-document.getElementById("cartModal");
-
-if(!modal)return;
-
-if(modal.style.display==="block"){
-
-modal.style.display="none";
-
-}else{
-
-modal.style.display="block";
-
-updateCartUI();
-
-}
-
-}
-
-
-function addToCart(productName,price){
-
-cart.push({
-
-name:productName,
-
-price:Number(price)
-
-});
-
-saveCart();
-
-updateCartCount();
-
-updateCartUI();
-
-alert(t("addedToCart"));
-
-}
-
-
-function updateCartCount(){
-
-const countEl=
-document.getElementById("cartCount");
-
-if(countEl){
-
-countEl.textContent=cart.length;
-
-}
-
-}
-
-
-function updateCartUI(){
-
-const list=
-document.getElementById("cartItemsList");
-
-const totalPriceEl=
-document.getElementById("cartTotalPrice");
-
-if(!list || !totalPriceEl)return;
-
-if(cart.length===0){
-
-list.innerHTML=`
-
-<p class="cart-empty">
-${t("cartEmpty")}
-</p>
-
-`;
-
-totalPriceEl.textContent="0.00 AZN";
-
-return;
-
-}
-
-
-let html="";
-
-let total=0;
-
-
-cart.forEach((item,index)=>{
-
-const price=
-Number(item.price || 0);
-
-total+=price;
-
-html+=`
-
-<div class="cart-item">
-
-<div>
-
-<div class="cart-item-name">
-
-${escapeHtml(item.name)}
-
-</div>
-
-<div class="cart-item-price">
-
-${price.toFixed(2)} AZN
-
-</div>
-
-</div>
-
-<button
-onclick="removeFromCart(${index})"
-class="cart-remove">
-
-${t("remove")}
-
-</button>
-
-</div>
-
-`;
-
-});
-
-
-list.innerHTML=html;
-
-totalPriceEl.textContent=
-total.toFixed(2)+" AZN";
-
-}
-
-
-function removeFromCart(index){
-
-cart.splice(index,1);
-
-saveCart();
-
-updateCartCount();
-
-updateCartUI();
-
-}
-
-
-/* =========================================================
-SİFARİŞ
-========================================================= */
-
-function orderNow(productName,price){
-
-const message=
-t("orderMessage")
-+
-"\n\n1. "
-+
-productName
-+
-" — "
-+
-Number(price).toFixed(2)
-+
-" AZN";
-
-
-const phone="994702883484";
-
-const whatsappUrl=
-"https://wa.me/"
-+
-phone
-+
-"?text="
-+
-encodeURIComponent(message);
-
-window.location.href=whatsappUrl;
-
-}
-
-
-/* =========================================================
-CART CHECKOUT
-========================================================= */
-
-function checkoutCart(){
-
-if(cart.length===0){
-
-alert(t("emptyCartAlert"));
-
-return;
-
-}
-
-let message=
-t("orderMessage")
-+
-"\n\n";
-
-let total=0;
-
-
-cart.forEach((item,index)=>{
-
-const price=
-Number(item.price || 0);
-
-message+=
-(index+1)
-+
-". "
-+
-item.name
-+
-" — "
-+
-price.toFixed(2)
-+
-" AZN\n";
-
-total+=price;
-
-});
-
-
-message+=
-"\n"
-+
-t("total")
-+
-" "
-+
-total.toFixed(2)
-+
-" AZN";
-
-
-const phone="994702883484";
-
-const whatsappUrl=
-"https://wa.me/"
-+
-phone
-+
-"?text="
-+
-encodeURIComponent(message);
-
-
-cart=[];
-
-saveCart();
-
-updateCartCount();
-
-updateCartUI();
-
-
-const modal=
-document.getElementById("cartModal");
-
-if(modal){
-
-modal.style.display="none";
-
-}
-
-window.location.href=whatsappUrl;
-
-}
-
-
-/* =========================================================
-HTML TƏHLÜKƏSİZLİYİ
-========================================================= */
-
-function escapeHtml(text){
-
-return String(text)
-
-.replace(/&/g,"&amp;")
-
-.replace(/</g,"&lt;")
-
-.replace(/>/g,"&gt;")
-
-.replace(/"/g,"&quot;")
-
-.replace(/'/g,"&#039;");
-
-}
-
-
-/* =========================================================
-LOGIN
-========================================================= */
-
-async function checkLogin(){
-
-const {
-
-data:{session},
-
-error
-
-}=
-await supabaseClient.auth.getSession();
-
-
-if(error){
-
-console.error(
-"Session xətası:",
-error
-);
-
-return;
-
-}
-
-
-const authArea=
-document.getElementById("authArea");
-
-if(!authArea)return;
-
-
-if(session){
-
-authArea.innerHTML="";
-
-
-const profileButton=
-document.createElement("a");
-
-profileButton.href=
-"profile.html";
-
-profileButton.className=
-"btn btn-primary";
-
-profileButton.textContent=
-t("profile");
-
-
-const email=
-document.createElement("span");
-
-email.className=
-"user-email";
-
-email.textContent=
-session.user.email || "";
-
-
-const logoutButton=
-document.createElement("button");
-
-logoutButton.className=
-"btn btn-dark";
-
-logoutButton.textContent=
-t("logout");
-
-logoutButton.onclick=
-logout;
-
-
-authArea.appendChild(profileButton);
-
-authArea.appendChild(email);
-
-authArea.appendChild(logoutButton);
-
-}else{
-
-authArea.innerHTML=`
-
-<a
-href="login.html"
-class="btn btn-dark">
-
-${t("login")}
-
-</a>
-
-<a
-href="login.html"
-class="btn btn-primary">
-
-${t("register")}
-
-</a>
-
-`;
-
-}
-
-}
-
-
-/* =========================================================
-ÇIXIŞ
-========================================================= */
-
-async function logout(){
-
-const {error}=
-await supabaseClient.auth.signOut();
-
-
-if(error){
-
-alert(
-getLanguage()==="ru"
-?
-"Ошибка при выходе."
-:
-getLanguage()==="en"
-?
-"An error occurred while logging out."
-:
-"Çıxış zamanı xəta baş verdi."
-);
-
-console.error(error);
-
-return;
-
-}
-
-window.location.reload();
-
-}
-
-
-/* =========================================================
-AUTH STATE
-========================================================= */
-
-supabaseClient.auth.onAuthStateChange(
-(event,session)=>{
-
-checkLogin();
-
-}
-);
-
-
-/* =========================================================
-SƏHİFƏ AÇILANDA
-========================================================= */
-
-document.addEventListener(
-"DOMContentLoaded",
-()=>{
-
-const lang=
-getLanguage();
-
-applyLanguage(lang);
-
-updateCartCount();
-
-updateCartUI();
-
-checkLogin();
-
-}
-);
-
+    const language = document.querySelector('.language');
+
+    language.addEventListener('change', function () {
+        const lang = this.value;
+
+        /*
+         * Burada mövcud AZ / EN / RU dil sisteminə
+         * uyğun yönləndirmə əlavə edilə bilər.
+         */
+        console.log('Selected language:', lang);
+    });
 </script>
 
 </body>
