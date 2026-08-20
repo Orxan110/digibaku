@@ -152,66 +152,32 @@ font-weight:bold;
 ========================= */
 
 .language-switcher{
-position:relative;
+display:flex;
+align-items:center;
+gap:5px;
 margin-left:4px;
 }
 
-.language-switcher .language-toggle{
-display:flex;
-align-items:center;
-justify-content:center;
-gap:6px;
-min-width:58px;
-background:#151515;
-border:1px solid #333;
-border-radius:9px;
-color:#fff;
-cursor:pointer;
-font-size:12px;
-font-weight:bold;
-padding:10px 12px;
-}
-
-.language-switcher .language-toggle:hover{
-background:#202020;
-}
-
-.language-switcher .language-menu{
-display:none;
-position:absolute;
-top:calc(100% + 6px);
-right:0;
-min-width:100%;
-background:#101010;
-border:1px solid #333;
-border-radius:9px;
-padding:5px;
-z-index:3000;
-box-shadow:0 10px 30px rgba(0,0,0,.45);
-}
-
-.language-switcher.open .language-menu{
-display:block;
-}
-
-.language-switcher .language-menu button{
-display:block;
-width:100%;
+.language-switcher button{
 background:none;
 border:0;
-border-radius:6px;
-color:#aaa;
+color:#777;
 cursor:pointer;
 font-size:12px;
 font-weight:bold;
-padding:9px 12px;
-text-align:left;
+padding:3px;
 }
 
-.language-switcher .language-menu button:hover,
-.language-switcher .language-menu button.active{
-background:#151515;
+.language-switcher button:hover{
+color:#fff;
+}
+
+.language-switcher button.active{
 color:#3b82f6;
+}
+
+.language-switcher span{
+color:#333;
 }
 
 /* =========================
@@ -1037,62 +1003,43 @@ display:none;
 @media(max-width:700px){
 
 .mobile-language{
-display:block;
-position:relative;
-padding:8px 0;
+display:flex;
+justify-content:center;
+align-items:center;
+gap:8px;
+padding:10px 0;
 border-top:1px solid #222;
 background:#080808;
 }
 
-.mobile-language .mobile-language-toggle{
-display:block;
-margin:0 auto;
-min-width:70px;
-background:#151515;
-border:1px solid #333;
-border-radius:9px;
-color:#fff;
-font-weight:bold;
-cursor:pointer;
-padding:9px 14px;
-}
-
-.mobile-language .mobile-language-menu{
-display:none;
-width:100%;
-max-width:160px;
-margin:6px auto 0;
-background:#101010;
-border:1px solid #333;
-border-radius:9px;
-padding:5px;
-}
-
-.mobile-language.open .mobile-language-menu{
-display:block;
-}
-
-.mobile-language .mobile-language-menu button{
-display:block;
-width:100%;
+.mobile-language button{
 background:none;
 border:0;
-border-radius:6px;
-color:#aaa;
+color:#777;
 font-weight:bold;
 cursor:pointer;
-padding:9px 12px;
-text-align:center;
 }
 
-.mobile-language .mobile-language-menu button:hover,
-.mobile-language .mobile-language-menu button.active{
-background:#151515;
+.mobile-language button.active{
 color:#3b82f6;
 }
 
+.mobile-language span{
+color:#333;
 }
 
+}
+
+</style>
+
+<style id="digibaku-about-dropdown-fix">
+.about-dropdown{position:relative;display:inline-block}
+.about-dropdown-toggle{cursor:pointer;background:none;border:0;font:inherit;color:inherit;padding:8px 0;margin:0}
+.about-dropdown-menu{display:none;position:absolute;left:0;top:100%;z-index:99999;min-width:230px;background:#fff;border:1px solid #e5e7eb;border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,.12);padding:6px 0}
+.about-dropdown.open .about-dropdown-menu{display:block}
+.about-dropdown-menu a{display:block!important;padding:10px 14px!important;white-space:nowrap;text-decoration:none}
+.about-dropdown-menu a:hover{background:#f5f5f5}
+@media(max-width:768px){.about-dropdown{display:block}.about-dropdown-menu{position:static;min-width:0;width:100%;box-shadow:none;border:0;border-radius:0}.about-dropdown-menu a{padding-left:20px!important}}
 </style>
 </head>
 
@@ -1114,7 +1061,18 @@ DigiBaku<span>.com</span>
 
 <a href="#compare" data-i18n="compareMenu">Müqayisə</a>
 
-<a href="#about" data-i18n="about">Haqqımızda</a>
+<div class="about-dropdown">
+<button type="button" class="about-dropdown-toggle" aria-haspopup="true" aria-expanded="false">Haqqımızda ▾</button>
+<div class="about-dropdown-menu">
+<a href="https://digibaku.com/az/about">Haqqımızda</a>
+<a href="https://digibaku.com/az/faq">FAQ</a>
+<a href="https://digibaku.com/az/how-it-works">Necə işləyir?</a>
+<a href="https://digibaku.com/az/trust">Etibar</a>
+<a href="https://digibaku.com/az/editorial-policy">Redaksiya siyasəti</a>
+<a href="https://digibaku.com/az/terms">Şərtlər</a>
+<a href="https://digibaku.com/az/reviews">Rəylər</a>
+</div>
+</div>
 
 <a href="#reviews" data-i18n="reviews">Rəylər</a>
 
@@ -1154,37 +1112,47 @@ Qeydiyyat
 
 </div>
 
-<div class="language-switcher" id="languageSwitcher">
+<div class="language-switcher">
 
-<button type="button" class="language-toggle" onclick="toggleLanguageMenu('desktop')">
-<span id="currentLanguage">AZ</span> ▾
+<button onclick="setLanguage('az')" id="langAZ">
+AZ
 </button>
 
-<div class="language-menu">
+<span>|</span>
 
-<button type="button" onclick="setLanguage('az'); closeLanguageMenus();" id="langAZ">AZ</button>
-<button type="button" onclick="setLanguage('ru'); closeLanguageMenus();" id="langRU">RU</button>
-<button type="button" onclick="setLanguage('en'); closeLanguageMenus();" id="langEN">EN</button>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="mobile-language" id="mobileLanguage">
-
-<button type="button" class="mobile-language-toggle" onclick="toggleLanguageMenu('mobile')">
-<span id="mobileCurrentLanguage">AZ</span> ▾
+<button onclick="setLanguage('ru')" id="langRU">
+RU
 </button>
 
-<div class="mobile-language-menu">
-<button type="button" onclick="setLanguage('az'); closeLanguageMenus();" id="mobileLangAZ">AZ</button>
-<button type="button" onclick="setLanguage('ru'); closeLanguageMenus();" id="mobileLangRU">RU</button>
-<button type="button" onclick="setLanguage('en'); closeLanguageMenus();" id="mobileLangEN">EN</button>
+<span>|</span>
+
+<button onclick="setLanguage('en')" id="langEN">
+EN
+</button>
+
 </div>
+
+</div>
+
+</div>
+
+<div class="mobile-language">
+
+<button onclick="setLanguage('az')" id="mobileLangAZ">
+AZ
+</button>
+
+<span>|</span>
+
+<button onclick="setLanguage('ru')" id="mobileLangRU">
+RU
+</button>
+
+<span>|</span>
+
+<button onclick="setLanguage('en')" id="mobileLangEN">
+EN
+</button>
 
 </div>
 
@@ -2948,13 +2916,35 @@ Netflix • YouTube Premium • ChatGPT Plus • Spotify Premium
 Faydalı linklər
 </h3>
 
-<a href="https://digibaku.com/az/about" data-i18n="about">Haqqımızda</a>
-<a href="https://digibaku.com/az/faq">FAQ</a>
-<a href="https://digibaku.com/az/how-it-works">Necə işləyir?</a>
-<a href="https://digibaku.com/az/trust">Etibar</a>
-<a href="https://digibaku.com/az/editorial-policy">Redaksiya siyasəti</a>
-<a href="https://digibaku.com/az/terms">Şərtlər</a>
-<a href="https://digibaku.com/az/reviews" data-i18n="reviews">Rəylər</a>
+<a
+href="#home"
+data-i18n="home">
+Ana səhifə
+</a>
+
+<a
+href="#products"
+data-i18n="products">
+Məhsullar
+</a>
+
+<a
+href="#compare"
+data-i18n="compareMenu">
+Müqayisə
+</a>
+
+<a
+href="#about"
+data-i18n="about">
+Haqqımızda
+</a>
+
+<a
+href="#reviews"
+data-i18n="reviews">
+Rəylər
+</a>
 
 </div>
 
@@ -3962,38 +3952,6 @@ return localStorage.getItem("digi_language") || "az";
 }
 
 
-function toggleLanguageMenu(type){
-
-const element=type==="mobile"
-?document.getElementById("mobileLanguage")
-:document.getElementById("languageSwitcher");
-
-if(!element)return;
-
-element.classList.toggle("open");
-
-}
-
-function closeLanguageMenus(){
-
-const desktop=document.getElementById("languageSwitcher");
-const mobile=document.getElementById("mobileLanguage");
-
-if(desktop) desktop.classList.remove("open");
-if(mobile) mobile.classList.remove("open");
-
-}
-
-document.addEventListener("click",function(event){
-
-const desktop=document.getElementById("languageSwitcher");
-const mobile=document.getElementById("mobileLanguage");
-
-if(desktop && !desktop.contains(event.target)) desktop.classList.remove("open");
-if(mobile && !mobile.contains(event.target)) mobile.classList.remove("open");
-
-});
-
 function setLanguage(lang){
 
 if(!translations[lang]){
@@ -4624,5 +4582,27 @@ checkLogin();
 
 </script>
 
+
+<script id="digibakuAboutDropdownHandler">
+(function(){
+function init(){
+document.querySelectorAll('.about-dropdown-toggle').forEach(function(btn){
+if(btn.dataset.bound==='1')return;
+btn.dataset.bound='1';
+btn.addEventListener('click',function(e){
+e.preventDefault();e.stopPropagation();
+var box=btn.closest('.about-dropdown');
+document.querySelectorAll('.about-dropdown.open').forEach(function(x){if(x!==box)x.classList.remove('open');});
+var open=box.classList.toggle('open');
+btn.setAttribute('aria-expanded',open?'true':'false');
+});
+});
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+document.addEventListener('click',function(e){
+if(!e.target.closest('.about-dropdown'))document.querySelectorAll('.about-dropdown.open').forEach(function(x){x.classList.remove('open');});
+});
+})();
+</script>
 </body>
 </html>
