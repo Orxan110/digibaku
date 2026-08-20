@@ -148,36 +148,38 @@ font-weight:bold;
 }
 
 /* =========================
-   DİL
+   DİL SEÇİMİ
 ========================= */
 
 .language-switcher{
 display:flex;
 align-items:center;
-gap:5px;
 margin-left:4px;
 }
 
-.language-switcher button{
-background:none;
-border:0;
-color:#777;
+.language-switcher select{
+appearance:auto;
+-webkit-appearance:auto;
+background:#151515;
+border:1px solid #333;
+color:#fff;
 cursor:pointer;
 font-size:12px;
 font-weight:bold;
-padding:3px;
+padding:8px 10px;
+border-radius:8px;
+outline:none;
+min-width:65px;
 }
 
-.language-switcher button:hover{
+.language-switcher select:hover,
+.language-switcher select:focus{
+border-color:#3b82f6;
+}
+
+.language-switcher select option{
+background:#151515;
 color:#fff;
-}
-
-.language-switcher button.active{
-color:#3b82f6;
-}
-
-.language-switcher span{
-color:#333;
 }
 
 /* =========================
@@ -835,6 +837,33 @@ display:block;
 color:#999;
 }
 
+.footer-link-buttons{
+display:flex;
+flex-direction:column;
+align-items:flex-start;
+gap:7px;
+}
+
+.footer-link-button{
+display:inline-block !important;
+width:auto !important;
+max-width:none !important;
+margin:0 !important;
+padding:7px 11px !important;
+background:#151515 !important;
+border:1px solid #333 !important;
+border-radius:8px;
+color:#aaa !important;
+font-size:13px !important;
+transition:.2s;
+}
+
+.footer-link-button:hover{
+color:#fff !important;
+border-color:#3b82f6 !important;
+background:#101827 !important;
+}
+
 /* =========================
    FOOTER
 ========================= */
@@ -942,7 +971,7 @@ padding:9px 8px;
 }
 
 .language-switcher{
-display:none;
+display:flex;
 }
 
 .cart-btn{
@@ -955,19 +984,39 @@ flex-direction:column;
 text-align:center;
 }
 
+.hero{
+padding:55px 0;
+}
+
 .hero h1{
-font-size:39px;
+font-size:38px;
+}
+
+.hero p{
+font-size:15px;
 }
 
 .hero-buttons{
 justify-content:center;
-flex-direction:column;
+flex-wrap:wrap;
 }
 
-.products,
-.compare-grid,
-.review-grid,
-.blog-grid,
+.products{
+grid-template-columns:1fr;
+}
+
+.review-grid{
+grid-template-columns:1fr;
+}
+
+.blog-grid{
+grid-template-columns:1fr;
+}
+
+.compare-grid{
+grid-template-columns:1fr;
+}
+
 .contact-grid{
 grid-template-columns:1fr;
 }
@@ -976,56 +1025,12 @@ grid-template-columns:1fr;
 grid-template-columns:1fr;
 }
 
-#cartModal{
-max-width:100%;
-}
-
-.about-content{
-text-align:left;
-}
-
 .about-content > h2{
-font-size:32px;
+font-size:30px;
 }
 
 .steps{
 grid-template-columns:1fr;
-}
-
-}
-
-/* MOBİL DİL */
-
-.mobile-language{
-display:none;
-}
-
-@media(max-width:700px){
-
-.mobile-language{
-display:flex;
-justify-content:center;
-align-items:center;
-gap:8px;
-padding:10px 0;
-border-top:1px solid #222;
-background:#080808;
-}
-
-.mobile-language button{
-background:none;
-border:0;
-color:#777;
-font-weight:bold;
-cursor:pointer;
-}
-
-.mobile-language button.active{
-color:#3b82f6;
-}
-
-.mobile-language span{
-color:#333;
 }
 
 }
@@ -1040,32 +1045,46 @@ color:#333;
 <div class="container nav">
 
 <a href="#home" class="logo">
-DigiBaku<span>.com</span>
+Digi<span>Baku</span>
 </a>
 
 <nav class="menu">
 
-<a href="#home" data-i18n="home">Ana səhifə</a>
+<a href="#home" data-i18n="home">
+Ana səhifə
+</a>
 
-<a href="#products" data-i18n="products">Məhsullar</a>
+<a href="#products" data-i18n="products">
+Məhsullar
+</a>
 
-<a href="#compare" data-i18n="compareMenu">Müqayisə</a>
+<a href="#compare" data-i18n="compareMenu">
+Müqayisə
+</a>
 
-<a href="#about" data-i18n="about">Haqqımızda</a>
+<a href="#about" data-i18n="about">
+Haqqımızda
+</a>
 
-<a href="#reviews" data-i18n="reviews">Rəylər</a>
+<a href="#reviews" data-i18n="reviews">
+Rəylər
+</a>
 
-<a href="#blog" data-i18n="blogMenu">Bloq</a>
+<a href="#blog" data-i18n="blogMenu">
+Bloq
+</a>
 
-<a href="#contact" data-i18n="contactTitle">Əlaqə</a>
+<a href="#contact" data-i18n="contactTitle">
+Əlaqə
+</a>
 
 </nav>
 
 <div class="header-right">
 
 <button
-onclick="toggleCart()"
-class="btn cart-btn">
+class="btn cart-btn"
+onclick="toggleCart()">
 
 🛒 <span data-i18n="cart">Səbət</span>
 
@@ -1093,21 +1112,21 @@ Qeydiyyat
 
 <div class="language-switcher">
 
-<button onclick="setLanguage('az')" id="langAZ">
+<select id="languageSelect" onchange="setLanguage(this.value)">
+
+<option value="az">
 AZ
-</button>
+</option>
 
-<span>|</span>
-
-<button onclick="setLanguage('ru')" id="langRU">
+<option value="ru">
 RU
-</button>
+</option>
 
-<span>|</span>
-
-<button onclick="setLanguage('en')" id="langEN">
+<option value="en">
 EN
-</button>
+</option>
+
+</select>
 
 </div>
 
@@ -1117,21 +1136,21 @@ EN
 
 <div class="mobile-language">
 
-<button onclick="setLanguage('az')" id="mobileLangAZ">
+<select onchange="setLanguage(this.value)">
+
+<option value="az">
 AZ
-</button>
+</option>
 
-<span>|</span>
-
-<button onclick="setLanguage('ru')" id="mobileLangRU">
+<option value="ru">
 RU
-</button>
+</option>
 
-<span>|</span>
-
-<button onclick="setLanguage('en')" id="mobileLangEN">
+<option value="en">
 EN
-</button>
+</option>
+
+</select>
 
 </div>
 
@@ -1157,11 +1176,6 @@ class="cart-close">
 </div>
 
 <div id="cartItemsList">
-
-<p class="cart-empty" data-i18n="cartEmpty">
-Səbətiniz boşdur
-</p>
-
 </div>
 
 <div class="cart-total">
@@ -1169,32 +1183,28 @@ Səbətiniz boşdur
 <div class="cart-total-row">
 
 <span data-i18n="total">
-Ümumi məbləğ:
+Cəmi
 </span>
 
-<span id="cartTotalPrice">
+<strong id="cartTotal">
 0.00 AZN
-</span>
+</strong>
 
 </div>
 
 <button
-onclick="checkoutCart()"
 class="btn btn-primary"
-style="width:100%;">
+style="width:100%"
+onclick="checkout()"
+data-i18n="checkout">
 
-<span data-i18n="confirmOrder">
-Sifarişi təsdiq et
-</span>
+Sifarişi tamamla
 
 </button>
 
 </div>
 
 </div>
-
-
-<main>
 
 
 <!-- HERO -->
@@ -1205,26 +1215,25 @@ Sifarişi təsdiq et
 
 <div class="hero-content">
 
-<div class="badge" data-i18n="premiumService">
+<div class="badge" data-i18n="heroBadge">
 Premium rəqəmsal xidmətlər
 </div>
 
-<h1 data-i18n="heroTitle">
+<h1>
 
-Premium rəqəmsal xidmətlər
+<span>DigiBaku.com</span>
 
-<span data-i18n="heroTitleSpan">
-bir platformada
+<span data-i18n="heroTitle">
+Rəqəmsal dünyada premium seçim
 </span>
 
 </h1>
 
 <p data-i18n="heroText">
 
-Dünyanın ən çox istifadə olunan premium platformalarını
-bir araya gətirərək rəqəmsal xidmətlərə çıxışı daha rahat edirik.
-İstədiyiniz xidməti seçin, sifarişinizi tamamlayın və qısa müddət
-ərzində istifadəyə başlayın.
+Netflix, YouTube Premium, ChatGPT Plus,
+Spotify Premium və digər rəqəmsal xidmətləri
+rahat və sürətli şəkildə əldə edin.
 
 </p>
 
@@ -1234,14 +1243,18 @@ bir araya gətirərək rəqəmsal xidmətlərə çıxışı daha rahat edirik.
 href="#products"
 class="btn btn-primary"
 data-i18n="viewProducts">
+
 Məhsullara bax
+
 </a>
 
 <a
 href="#about"
 class="btn btn-dark"
-data-i18n="about">
-Haqqımızda
+data-i18n="learnMore">
+
+Daha çox öyrən
+
 </a>
 
 </div>
@@ -1251,8 +1264,8 @@ Haqqımızda
 <div class="hero-image">
 
 <img
-src="homeheroimage-1784180505-800w.avif"
-alt="DigiBaku.com premium rəqəmsal xidmətlər">
+src="https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=900&q=80"
+alt="DigiBaku">
 
 </div>
 
@@ -1269,37 +1282,36 @@ alt="DigiBaku.com premium rəqəmsal xidmətlər">
 
 <div class="section-title">
 
-<h2 data-i18n="products">
-Məhsullar
+<h2 data-i18n="productsTitle">
+Premium məhsullar
 </h2>
 
 <p data-i18n="productsSubtitle">
-Premium rəqəmsal xidmətlərimizi kəşf edin.
+Sizə lazım olan rəqəmsal xidmətləri seçin.
 </p>
 
 </div>
 
 <div class="products">
 
-
 <div class="product">
 
 <img
 class="product-image"
-src="netflix.webp"
-alt="Netflix Premium">
+src="https://upload.wikimedia.org/wikipedia/commons/7/75/Netflix_icon.svg"
+alt="Netflix">
 
-<h3 data-i18n="netflixName">
-Netflix 4K Premium Abunəliyi
+<h3>
+Netflix Premium
 </h3>
 
 <p data-i18n="netflixDescription">
-Film və serialları yüksək keyfiyyətdə izləmək üçün Netflix Premium.
+Film və serialları yüksək keyfiyyətdə izləyin.
 </p>
 
 <div class="price">
-6.99 AZN
-<small data-i18n="month1">/ 1 ay</small>
+5.99 AZN
+<small>/ ay</small>
 </div>
 
 <div class="product-actions">
@@ -1308,21 +1320,18 @@ Film və serialları yüksək keyfiyyətdə izləmək üçün Netflix Premium.
 href="product.html?product=netflix"
 class="btn btn-primary"
 data-i18n="details">
-Ətraflı bax
+
+Ətraflı
+
 </a>
 
 <button
-onclick="orderNow('Netflix 4K Premium Abunəliyi (1 ay)',6.99)"
 class="btn btn-dark"
-data-i18n="order">
-Sifariş et
-</button>
-
-<button
-onclick="addToCart('Netflix 4K Premium Abunəliyi (1 ay)',6.99)"
-class="btn btn-dark"
+onclick="addToCart('Netflix Premium',5.99)"
 data-i18n="addCart">
-Səbətə at
+
+Səbətə əlavə et
+
 </button>
 
 </div>
@@ -1334,20 +1343,20 @@ Səbətə at
 
 <img
 class="product-image"
-src="youtube.webp"
-alt="YouTube Premium">
+src="https://upload.wikimedia.org/wikipedia/commons/4/4f/YouTube_icon.svg"
+alt="YouTube">
 
-<h3 data-i18n="youtubeName">
+<h3>
 YouTube Premium
 </h3>
 
 <p data-i18n="youtubeDescription">
-Reklamsız video, musiqi və premium YouTube təcrübəsi.
+Reklamsız video və musiqi təcrübəsi.
 </p>
 
 <div class="price">
-7.99 AZN
-<small data-i18n="month1">/ 1 ay</small>
+4.99 AZN
+<small>/ ay</small>
 </div>
 
 <div class="product-actions">
@@ -1356,21 +1365,18 @@ Reklamsız video, musiqi və premium YouTube təcrübəsi.
 href="product.html?product=youtube"
 class="btn btn-primary"
 data-i18n="details">
-Ətraflı bax
+
+Ətraflı
+
 </a>
 
 <button
-onclick="orderNow('YouTube Premium (1 ay)',7.99)"
 class="btn btn-dark"
-data-i18n="order">
-Sifariş et
-</button>
-
-<button
-onclick="addToCart('YouTube Premium (1 ay)',7.99)"
-class="btn btn-dark"
+onclick="addToCart('YouTube Premium',4.99)"
 data-i18n="addCart">
-Səbətə at
+
+Səbətə əlavə et
+
 </button>
 
 </div>
@@ -1382,20 +1388,20 @@ Səbətə at
 
 <img
 class="product-image"
-src="chatgpt.webp"
-alt="ChatGPT Plus">
+src="https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg"
+alt="ChatGPT">
 
-<h3 data-i18n="chatgptName">
+<h3>
 ChatGPT Plus
 </h3>
 
 <p data-i18n="chatgptDescription">
-Süni intellekt, yazı, kod və gündəlik işlər üçün premium xidmət.
+AI ilə daha güclü və sürətli işləyin.
 </p>
 
 <div class="price">
-11.99 AZN
-<small data-i18n="month1">/ 1 ay</small>
+19.99 AZN
+<small>/ ay</small>
 </div>
 
 <div class="product-actions">
@@ -1404,21 +1410,18 @@ Süni intellekt, yazı, kod və gündəlik işlər üçün premium xidmət.
 href="product.html?product=chatgpt"
 class="btn btn-primary"
 data-i18n="details">
-Ətraflı bax
+
+Ətraflı
+
 </a>
 
 <button
-onclick="orderNow('ChatGPT Plus (1 ay)',11.99)"
 class="btn btn-dark"
-data-i18n="order">
-Sifariş et
-</button>
-
-<button
-onclick="addToCart('ChatGPT Plus (1 ay)',11.99)"
-class="btn btn-dark"
+onclick="addToCart('ChatGPT Plus',19.99)"
 data-i18n="addCart">
-Səbətə at
+
+Səbətə əlavə et
+
 </button>
 
 </div>
@@ -1430,20 +1433,20 @@ Səbətə at
 
 <img
 class="product-image"
-src="spotfiy.webp"
-alt="Spotify Premium">
+src="https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo_without_text.svg"
+alt="Spotify">
 
-<h3 data-i18n="spotifyName">
+<h3>
 Spotify Premium
 </h3>
 
 <p data-i18n="spotifyDescription">
-Reklamsız musiqi, yüksək keyfiyyət və offline dinləmə.
+Reklamsız musiqi və offline dinləmə.
 </p>
 
 <div class="price">
-7.99 AZN
-<small data-i18n="month1">/ 1 ay</small>
+6.99 AZN
+<small>/ ay</small>
 </div>
 
 <div class="product-actions">
@@ -1452,21 +1455,18 @@ Reklamsız musiqi, yüksək keyfiyyət və offline dinləmə.
 href="product.html?product=spotify"
 class="btn btn-primary"
 data-i18n="details">
-Ətraflı bax
+
+Ətraflı
+
 </a>
 
 <button
-onclick="orderNow('Spotify Premium (1 ay)',7.99)"
 class="btn btn-dark"
-data-i18n="order">
-Sifariş et
-</button>
-
-<button
-onclick="addToCart('Spotify Premium (1 ay)',7.99)"
-class="btn btn-dark"
+onclick="addToCart('Spotify Premium',6.99)"
 data-i18n="addCart">
-Səbətə at
+
+Səbətə əlavə et
+
 </button>
 
 </div>
@@ -1478,690 +1478,45 @@ Səbətə at
 </div>
 
 </section>
-
-
-<!-- FEATURES -->
-
-<section>
-
-<div class="container">
-
-<div class="section-title">
-
-<h2 data-i18n="whyUs">
-Niyə məhz biz?
-</h2>
-
-<p data-i18n="whyUsText">
-Premium xidmətlərə çıxışı daha sürətli, rahat və təhlükəsiz etmək üçün prosesi sadələşdirdik.
-</p>
-
-</div>
-
-<div class="features">
-
-<div class="feature">
-
-<img
-src="destek.webp"
-alt="Dəstək">
-
-<h3 data-i18n="fastActivation">
-Sürətli aktivləşdirmə
-</h3>
-
-<p data-i18n="fastActivationText">
-Sifarişinizi tamamlayın, qalanını biz həll edək.
-Hesab məlumatlarınız hazırlanaraq sizə təqdim olunur.
-</p>
-
-<strong data-i18n="activationTime">
-5-30 dəq ərzində aktivləşdirmə
-</strong>
-
-</div>
-
-
-<div class="feature">
-
-<img
-src="odenis.webp"
-alt="Ödəniş">
-
-<h3 data-i18n="safeOrder">
-Təhlükəsiz ödəniş
-</h3>
-
-<p data-i18n="safeOrderText">
-Ödəniş prosesiniz qorunan sistem üzərindən aparılır
-və sifarişiniz təhlükəsiz şəkildə tamamlanır.
-</p>
-
-<strong data-i18n="protectedPayment">
-Qorunan ödəniş sistemi
-</strong>
-
-</div>
-
-
-<div class="feature">
-
-<img
-src="etibarli.webp"
-alt="Etibarlı dəstək">
-
-<h3 data-i18n="support">
-Etibarlı dəstək
-</h3>
-
-<p data-i18n="supportText">
-Sifariş və aktivləşdirmə ilə bağlı suallarınız yarandıqda
-dəstək komandamız sizə operativ şəkildə kömək edir.
-</p>
-
-<strong data-i18n="customerSupport">
-Operativ müştəri dəstəyi
-</strong>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- =========================
-     HAQQIMIZDA + ƏLAVƏ MƏZMUN
-========================= -->
-
-<section class="about" id="about">
-
-<div class="container about-content">
-
-<h2 data-i18n="aboutTitle">
-DigiBaku.com haqqında
-</h2>
-
-<div class="about-intro">
-
-<p data-i18n="aboutText1">
-DigiBaku.com premium rəqəmsal xidmətləri daha rahat əldə etmək
-istəyən istifadəçilər üçün yaradılmış platformadır.
-</p>
-
-<p data-i18n="aboutText2">
-Məqsədimiz istifadəçinin uyğun xidməti tez tapması,
-qiymət və müddəti aydın görməsi və sifariş prosesini
-mümkün qədər sadə şəkildə tamamlamasıdır.
-</p>
-
-<p data-i18n="aboutText3">
-Hazırda platformamızda Netflix Premium, YouTube Premium,
-ChatGPT Plus və Spotify Premium xidmətləri təqdim olunur.
-</p>
-
-</div>
-
-
-<div class="about-highlight">
-
-<div class="about-box">
-
-<strong data-i18n="fastActivationTitle">
-Sürətli aktivləşdirmə
-</strong>
-
-<p data-i18n="aboutFastActivation">
-Sifariş təsdiqləndikdən sonra hesab və ya abunəlik məlumatları mümkün qədər qısa müddətdə təqdim olunur.
-</p>
-
-</div>
-
-<div class="about-box">
-
-<strong data-i18n="clearPackages">
-Aydın paket seçimi
-</strong>
-
-<p data-i18n="aboutClearPackages">
-Müddət, qiymət və istifadə qaydaları məhsul səhifələrində əvvəlcədən göstərilir.
-</p>
-
-</div>
-
-<div class="about-box">
-
-<strong data-i18n="supportTeam">
-Dəstək komandası
-</strong>
-
-<p data-i18n="aboutSupportTeam">
-Aktivləşdirmə, giriş və istifadə zamanı yaranan suallarda komandamız operativ kömək edir.
-</p>
-
-</div>
-
-</div>
-
-
-<div class="about-subsection">
-
-<h3 data-i18n="whatWeMakeEasy">
-Biz nəyi asanlaşdırırıq?
-</h3>
-
-<p data-i18n="whatWeMakeEasyText">
-Rəqəmsal xidmətlərdə düzgün paket seçmək, hesabı aktivləşdirmək və qaydaları başa düşmək bəzən vaxt aparır. DigiBaku.com bu prosesi sadələşdirir: məhsulları kateqoriyalara ayırır, müqayisəni rahatlaşdırır və sifarişdən sonra istifadəçini tək qoymur.
-</p>
-
-<ul>
-
-<li data-i18n="easyList1">
-Film, musiqi, süni intellekt, dizayn, oyun və digər rəqəmsal xidmətlər bir platformada toplanır.
-</li>
-
-<li data-i18n="easyList2">
-Hər məhsul üzrə qiymət, müddət və əsas istifadə məlumatları ayrıca göstərilir.
-</li>
-
-<li data-i18n="easyList3">
-Sifariş prosesi qısa, sadə və mobil cihazlarda rahat istifadə ediləcək şəkildə qurulub.
-</li>
-
-</ul>
-
-</div>
-
-
-<div class="about-subsection">
-
-<h3 data-i18n="whyDigiBaku">
-Niyə DigiBaku.com?
-</h3>
-
-<p data-i18n="whyDigiBakuText">
-Bizim üçün əsas dəyər şəffaflıq və istifadəçi rahatlığıdır. Məhsul səhifələrində şərtləri mümkün qədər açıq göstərir, sifarişdən sonra isə aktivləşdirmə və istifadə ilə bağlı suallara dəstək veririk.
-</p>
-
-<p data-i18n="whyDigiBakuText2">
-DigiBaku.com premium rəqəmsal xidmətləri daha əlçatan, başadüşülən və rahat etmək üçün inkişaf etdirilir. Platformanı davamlı olaraq yeniləyir, yeni məhsullar əlavə edir və istifadəçi təcrübəsini yaxşılaşdırırıq.
-</p>
-
-</div>
-
-
-<div class="about-subsection">
-
-<h3 data-i18n="faqCenter">
-Tez-tez verilən suallar
-</h3>
-
-<div class="about-faq">
-
-<div class="about-faq-item">
-
-<strong data-i18n="orderPaymentTitle">
-Sifariş necə verilir?
-</strong>
-
-<p data-i18n="orderPaymentText">
-Məhsulu seçirsiniz, paket müddətini yoxlayırsınız, sifarişi tamamlayırsınız və aktivləşdirmə məlumatı dəstək prosesi ilə təqdim olunur.
-</p>
-
-</div>
-
-<div class="about-faq-item">
-
-<strong data-i18n="priceWhereTitle">
-Qiyməti harada görürəm?
-</strong>
-
-<p data-i18n="priceWhereText">
-Qiymət məhsul kartında və məhsul səhifəsində göstərilir. Müddətə görə qiymət dəyişə bilər.
-</p>
-
-</div>
-
-<div class="about-faq-item">
-
-<strong data-i18n="mobileOrderTitle">
-Telefondan sifariş verə bilərəm?
-</strong>
-
-<p data-i18n="mobileOrderText">
-Bəli. Məhsul kartları və sifariş funksiyaları mobil ekranlar üçün uyğunlaşdırılıb.
-</p>
-
-</div>
-
-<div class="about-faq-item">
-
-<strong data-i18n="activationHowLongTitle">
-Aktivləşdirmə nə qədər çəkir?
-</strong>
-
-<p data-i18n="activationHowLongText">
-Ödəniş təsdiqləndikdən sonra məlumatlar qısa müddətdə təqdim olunur. Məhsuldan asılı olaraq dəqiq proses fərqlənə bilər.
-</p>
-
-</div>
-
-<div class="about-faq-item">
-
-<strong data-i18n="changeAccountTitle">
-Hesab məlumatlarını dəyişə bilərəm?
-</strong>
-
-<p data-i18n="changeAccountText">
-Məhsul qaydalarında icazə verilmirsə e-poçt, şifrə və təhlükəsizlik məlumatlarını dəyişməyin.
-</p>
-
-</div>
-
-<div class="about-faq-item">
-
-<strong data-i18n="problemTitle">
-Problem yaranarsa nə etməliyəm?
-</strong>
-
-<p data-i18n="problemText">
-Əlaqə kanalları vasitəsilə sifariş məlumatı ilə müraciət edin. Dəstək komandası statusu yoxlayacaq.
-</p>
-
-</div>
-
-</div>
-
-</div>
-
-
-<div class="about-subsection">
-
-<h3 data-i18n="howItWorksTitle">
-Sifariş və aktivləşdirmə necə işləyir?
-</h3>
-
-<p data-i18n="howItWorksText">
-Prosesi sadə saxlayırıq: məhsulu seçin, qaydaları yoxlayın, sifarişi tamamlayın və dəstək komandası ilə aktivləşdirməni izləyin.
-</p>
-
-<h4 data-i18n="clearProcess">
-Aydın proses
-</h4>
-
-<p data-i18n="clearProcessText">
-Hər məhsulda qiymət, müddət və istifadə qeydləri əvvəlcədən göstərilir.
-</p>
-
-<h4 data-i18n="mobileComfort">
-Mobil rahatlıq
-</h4>
-
-<p data-i18n="mobileComfortText">
-Əsas seçim və sifariş addımları telefon ekranında rahat istifadə üçün qurulub.
-</p>
-
-<h4 data-i18n="supportProcess">
-Dəstək
-</h4>
-
-<p data-i18n="supportProcessText">
-Problem olduqda sifariş məlumatı əsasında yoxlama aparılır.
-</p>
-
-<div class="steps">
-
-<div class="step">
-
-<div class="step-number">1</div>
-
-<h4 data-i18n="step1Title">
-Məhsulu seçin
-</h4>
-
-<p data-i18n="step1Text">
-Kateqoriya, qiymət, müddət və istifadə məqsədinə görə məhsulu seçin.
-</p>
-
-</div>
-
-<div class="step">
-
-<div class="step-number">2</div>
-
-<h4 data-i18n="step2Title">
-Qaydaları oxuyun
-</h4>
-
-<p data-i18n="step2Text">
-Məhsul səhifəsində hesab tipi, müddət, istifadə qeydləri və təhlükəsizlik məsləhətləri göstərilir.
-</p>
-
-</div>
-
-<div class="step">
-
-<div class="step-number">3</div>
-
-<h4 data-i18n="step3Title">
-Sifarişi tamamlayın
-</h4>
-
-<p data-i18n="step3Text">
-Sifariş prosesi mobil və desktop üçün sadə saxlanılıb. Məlumatları diqqətlə daxil edin.
-</p>
-
-</div>
-
-<div class="step">
-
-<div class="step-number">4</div>
-
-<h4 data-i18n="step4Title">
-Aktivləşdirməni alın
-</h4>
-
-<p data-i18n="step4Text">
-Ödəniş təsdiqləndikdən sonra aktivləşdirmə məlumatı təqdim olunur.
-</p>
-
-</div>
-
-<div class="step">
-
-<div class="step-number">5</div>
-
-<h4 data-i18n="step5Title">
-Dəstəkdən istifadə edin
-</h4>
-
-<p data-i18n="step5Text">
-Sual və problem yaranarsa əlaqə kanalları vasitəsilə dəstək ala bilərsiniz.
-</p>
-
-</div>
-
-</div>
-
-<h4 data-i18n="processFaqTitle">
-Ən çox verilən suallar
-</h4>
-
-<div class="about-faq">
-
-<div class="about-faq-item">
-
-<strong data-i18n="beforeOrderTitle">
-Sifarişdən əvvəl nəyi yoxlamalıyam?
-</strong>
-
-<p data-i18n="beforeOrderText">
-Qiymət, müddət, hesab tipi, istifadə qaydaları və uyğun alternativləri yoxlayın.
-</p>
-
-</div>
-
-<div class="about-faq-item">
-
-<strong data-i18n="activationInfoTitle">
-Aktivləşdirmə məlumatı necə verilir?
-</strong>
-
-<p data-i18n="activationInfoText">
-Sifariş təsdiqləndikdən sonra məhsul qaydasına uyğun aktivləşdirmə məlumatı təqdim olunur.
-</p>
-
-</div>
-
-<div class="about-faq-item">
-
-<strong data-i18n="supportWhenTitle">
-Dəstəyə nə vaxt yazmalıyam?
-</strong>
-
-<p data-i18n="supportWhenText">
-Giriş, aktivlik, istifadə və paket məlumatı ilə bağlı problem yaranan kimi yazmaq daha yaxşıdır.
-</p>
-
-</div>
-
-</div>
-
-</div>
-
-
-<div class="about-subsection">
-
-<h3 data-i18n="securityTitle">
-Təhlükəsizlik, qaydalar və dəstək prinsipləri
-</h3>
-
-<p data-i18n="securityIntro">
-Premium abunəlik seçərkən qiymət qədər etibar da önəmlidir. Bu bölmə sifarişdən əvvəl hansı qaydalara əsaslandığımızı aydın göstərir.
-</p>
-
-<h4 data-i18n="transparentInfo">
-Şəffaf məlumat
-</h4>
-
-<p data-i18n="transparentInfoText">
-Məhsul səhifələrində qiymət, müddət və istifadə qaydaları əvvəlcədən göstərilir.
-</p>
-
-<h4 data-i18n="safeUse">
-Təhlükəsiz istifadə
-</h4>
-
-<p data-i18n="safeUseText">
-Hesab məlumatlarının qorunması və icazəsiz dəyişiklik etməmək əsas prinsipdir.
-</p>
-
-<h4 data-i18n="supportProcess2">
-Dəstək prosesi
-</h4>
-
-<p data-i18n="supportProcess2Text">
-Problem olduqda sifariş məlumatına əsasən yoxlama aparılır və istifadəçiyə yönləndirmə verilir.
-</p>
-
-<h4 data-i18n="trustSignals">
-Niyə etibar siqnalları vacibdir?
-</h4>
-
-<p data-i18n="trustSignalsText">
-Rəqəmsal abunəliklərdə istifadəçi əvvəlcədən nə aldığını, necə istifadə edəcəyini və problem yaranarsa hara müraciət edəcəyini bilməlidir.
-</p>
-
-<ul>
-
-<li data-i18n="trustList1">
-Məhsul səhifəsində əsas şərtlər oxunaqlı verilir.
-</li>
-
-<li data-i18n="trustList2">
-Sifarişdən sonra dəstək kanalları açıq saxlanılır.
-</li>
-
-<li data-i18n="trustList3">
-Təhlükəsizlik qaydaları istifadəçi təcrübəsini qoruyur.
-</li>
-
-</ul>
-
-</div>
-
-
-<div class="about-subsection">
-
 <h3 data-i18n="editorialTitle">
 Redaksiya siyasəti və məzmun standartları
 </h3>
 
 <p data-i18n="editorialIntro">
-Bu siyasət istifadəçinin gördüyü məlumatın necə hazırlandığını, nə vaxt yeniləndiyini və səhv aşkar ediləndə necə düzəldildiyini izah edir.
+DigiBaku.com üzərində təqdim olunan məlumatların aydın, faydalı və istifadəçi üçün başadüşülən olmasına çalışırıq.
 </p>
 
-<h4 data-i18n="accuracyTitle">
+<h4 data-i18n="editorialAccuracy">
 Dəqiqlik
 </h4>
 
-<p data-i18n="accuracyText">
-Qiymət, müddət və xüsusiyyət kimi qərara təsir edən məlumatlar məhsul qeydləri və mümkün olduqda rəsmi mənbələrlə yoxlanır.
+<p data-i18n="editorialAccuracyText">
+Məhsul, qiymət və müddət məlumatlarını mümkün qədər aktual saxlamağa çalışırıq.
 </p>
 
-<h4 data-i18n="independentTitle">
-Müstəqil izah
+<h4 data-i18n="editorialClarity">
+Aydınlıq
 </h4>
 
-<p data-i18n="independentText">
-Məhsul satılsa belə üstünlük və məhdudiyyətlər oxucunun qərarına uyğun, aydın və şişirtməsiz yazılır.
+<p data-i18n="editorialClarityText">
+Məhsullar və onların istifadə qaydaları sadə dildə izah edilir.
 </p>
 
-<h4 data-i18n="correctionTitle">
-Düzəliş
+<h4 data-i18n="editorialUpdates">
+Yenilənmələr
 </h4>
 
-<p data-i18n="correctionText">
-Səhv və ya köhnəlmiş məlumat aşkarlandıqda həmin hissə yenilənir və məzmun yenidən nəzərdən keçirilir.
+<p data-i18n="editorialUpdatesText">
+Xidmətlərdə, qiymətlərdə və paketlərdə dəyişiklik olduqda məlumatlar yenilənə bilər.
 </p>
 
-<h4 data-i18n="editorialStepsTitle">
-Prosesin qısa izahı
+<h4 data-i18n="editorialUserFirst">
+İstifadəçi yönümlülük
 </h4>
 
-<div class="steps">
-
-<div class="step">
-
-<div class="step-number">1</div>
-
-<h4 data-i18n="editorialStep1Title">
-Axtarış niyyətini müəyyən edirik
-</h4>
-
-<p data-i18n="editorialStep1Text">
-İstifadəçinin qiymət, müqayisə, problem həlli və ya seçim axtardığını müəyyənləşdiririk.
+<p data-i18n="editorialUserFirstText">
+Məqsədimiz istifadəçinin qərar verməsi üçün lazım olan əsas məlumatları bir yerdə təqdim etməkdir.
 </p>
-
-</div>
-
-<div class="step">
-
-<div class="step-number">2</div>
-
-<h4 data-i18n="editorialStep2Title">
-Faktları toplayırıq
-</h4>
-
-<p data-i18n="editorialStep2Text">
-Paket, qiymət, müddət, istifadə qaydası və uyğun alternativləri yoxlayırıq.
-</p>
-
-</div>
-
-<div class="step">
-
-<div class="step-number">3</div>
-
-<h4 data-i18n="editorialStep3Title">
-Oxunaqlı quruluş yaradırıq
-</h4>
-
-<p data-i18n="editorialStep3Text">
-Qısa giriş, aydın başlıqlar, addımlar və sual-cavablarla məzmunu rahat oxunan edirik.
-</p>
-
-</div>
-
-<div class="step">
-
-<div class="step-number">4</div>
-
-<h4 data-i18n="editorialStep4Title">
-Yeniləyirik
-</h4>
-
-<p data-i18n="editorialStep4Text">
-Məhsul və bazar məlumatı dəyişəndə prioritet səhifələr yenidən yoxlanır.
-</p>
-
-</div>
-
-</div>
-
-<h4 data-i18n="commercialTitle">
-Kommersiya şəffaflığı
-</h4>
-
-<p data-i18n="commercialText">
-DigiBaku.com rəqəmsal paketlər təqdim edir. Məqalədə məhsula keçid satışla nəticələnə bilər, lakin müqayisə meyarları qiymət, istifadə məqsədi və paket xüsusiyyətlərinə əsaslanır.
-</p>
-
-<ul>
-
-<li data-i18n="commercialList1">
-Uydurma müəllif və təcrübə iddiası istifadə edilmir.
-</li>
-
-<li data-i18n="commercialList2">
-Real olmayan rəy yaradılmır.
-</li>
-
-<li data-i18n="commercialList3">
-Məhsulun məhdudiyyəti qərar üçün vacibdirsə gizlədilmir.
-</li>
-
-</ul>
-
-<h4 data-i18n="priceReviewTitle">
-Qiymət və rəy yeniləmə prosesi
-</h4>
-
-<p data-i18n="priceReviewText">
-Qiymət, kampaniya və xidmət şərtləri dəyişə bildiyi üçün prioritet məhsul və qiymət səhifələri mütəmadi yoxlanır.
-</p>
-
-<ul>
-
-<li data-i18n="priceReviewList1">
-Sifariş anındakı məhsul səhifəsi əsas qiymət mənbəyidir.
-</li>
-
-<li data-i18n="priceReviewList2">
-Köhnəlmiş qiymət və paket qeydləri yenilənir.
-</li>
-
-<li data-i18n="priceReviewList3">
-Saxta və təsdiqlənməmiş rəy yaradılmır.
-</li>
-
-</ul>
-
-<h4 data-i18n="correctionContactTitle">
-Düzəliş və əlaqə
-</h4>
-
-<p data-i18n="correctionContactText">
-Səhv, köhnəlmiş qiymət və ya anlaşılmaz ifadə görsəniz əlaqə səhifəsindən səhifənin ünvanını və düzəliş təklifini göndərə bilərsiniz.
-</p>
-
-<ul>
-
-<li data-i18n="correctionList1">
-Fakt səhvləri prioritet yoxlanır.
-</li>
-
-<li data-i18n="correctionList2">
-Şəxsi məlumatlar dərc edilmir.
-</li>
-
-<li data-i18n="correctionList3">
-Məzmun dəyişiklik olduqda yenilənir.
-</li>
-
-</ul>
 
 </div>
 
@@ -2169,31 +1524,48 @@ Məzmun dəyişiklik olduqda yenilənir.
 <div class="about-subsection">
 
 <h3 data-i18n="termsTitle">
-Şərtlər və qaydalar
+İstifadə şərtləri
 </h3>
 
-<h4 data-i18n="generalTermsTitle">
-Ümumi şərtlər
-</h4>
-
-<p data-i18n="generalTermsText">
-Saytdan istifadə etməklə bu şərtləri qəbul etmiş olursunuz. Xidmətlər və məhsullar haqqında məlumat sifariş zamanı göstərilən xüsusiyyətlərə əsaslanır.
+<p data-i18n="termsIntro">
+DigiBaku.com xidmətlərindən istifadə etməklə aşağıdakı ümumi qaydaları qəbul etmiş olursunuz.
 </p>
 
-<h4 data-i18n="accountOrdersTitle">
-Hesab və sifarişlər
-</h4>
+<ul>
 
-<p data-i18n="accountOrdersText">
-İstifadəçi təqdim etdiyi məlumatların düzgünlüyünə cavabdehdir. Sifariş yalnız təsdiqləndikdən sonra icraya qəbul edilir. Hesab məlumatlarınızı üçüncü şəxslərlə paylaşmamağınız tövsiyə olunur.
-</p>
+<li data-i18n="termsList1">
+Məhsul və xidmət məlumatlarını sifarişdən əvvəl diqqətlə yoxlamaq istifadəçinin məsuliyyətidir.
+</li>
 
-<h4 data-i18n="paymentServiceTitle">
-Ödəniş və xidmət
-</h4>
+<li data-i18n="termsList2">
+Hesab məlumatları üçüncü şəxslərlə paylaşılmamalıdır.
+</li>
 
-<p data-i18n="paymentServiceText">
-Qiymət, xidmət müddəti və digər şərtlər məhsul səhifəsində göstərilir. Texniki və ya təhlükəsizlik səbəbilə xidmətin təqdim edilmə qaydası dəyişə bilər.
+<li data-i18n="termsList3">
+Məhsulun istifadə qaydalarına və xidmət şərtlərinə əməl edilməlidir.
+</li>
+
+<li data-i18n="termsList4">
+Sifarişlə bağlı problem yarandıqda dəstək komandası ilə əlaqə saxlanılmalıdır.
+</li>
+
+<li data-i18n="termsList5">
+Xidmətlərin qiyməti və mövcudluğu əvvəlcədən xəbərdarlıq edilmədən dəyişə bilər.
+</li>
+
+</ul>
+
+</div>
+
+
+<div class="about-subsection">
+
+<h3 data-i18n="reviewsTitle">
+İstifadəçi rəyləri
+</h3>
+
+<p data-i18n="reviewsIntro">
+DigiBaku.com üçün istifadəçi təcrübəsi vacibdir. Rəylər xidmətin inkişaf etdirilməsi və istifadəçilərin daha rahat alış təcrübəsi yaşaması üçün nəzərə alınır.
 </p>
 
 </div>
@@ -2212,11 +1584,11 @@ Qiymət, xidmət müddəti və digər şərtlər məhsul səhifəsində göstər
 <div class="section-title">
 
 <h2 data-i18n="compareTitle">
-Müqayisə bələdçiləri
+Xidmətləri müqayisə edin
 </h2>
 
 <p data-i18n="compareSubtitle">
-İstifadə məqsədinizə uyğun premium xidməti daha rahat seçin.
+Sizin üçün uyğun premium xidməti daha rahat seçin.
 </p>
 
 </div>
@@ -2225,19 +1597,19 @@ Müqayisə bələdçiləri
 
 <div class="compare-card">
 
-<h3 data-i18n="compareNetflixYoutube">
-Netflix vs YouTube Premium
+<h3>
+Netflix Premium
 </h3>
 
-<p data-i18n="compareNetflixYoutubeText">
-Netflix film və serial üçün, YouTube Premium isə
-reklamsız video və musiqi üçün daha uyğundur.
+<p data-i18n="compareNetflix">
+Film və serial izləmək üçün premium platforma.
 </p>
 
 <a
 href="product.html?product=netflix"
-data-i18n="netflixLook">
-Netflix Premium-a bax →
+data-i18n="viewProduct">
+
+Məhsula bax →
 </a>
 
 </div>
@@ -2245,19 +1617,19 @@ Netflix Premium-a bax →
 
 <div class="compare-card">
 
-<h3 data-i18n="compareSpotifyYoutube">
-Spotify vs YouTube Premium
+<h3>
+YouTube Premium
 </h3>
 
-<p data-i18n="compareSpotifyYoutubeText">
-Musiqi üçün Spotify, video və musiqini bir yerdə
-istifadə etmək üçün YouTube Premium.
+<p data-i18n="compareYoutube">
+Reklamsız video və musiqi təcrübəsi.
 </p>
 
 <a
-href="product.html?product=spotify"
-data-i18n="spotifyLook">
-Spotify Premium-a bax →
+href="product.html?product=youtube"
+data-i18n="viewProduct">
+
+Məhsula bax →
 </a>
 
 </div>
@@ -2265,19 +1637,19 @@ Spotify Premium-a bax →
 
 <div class="compare-card">
 
-<h3 data-i18n="compareChatGPT">
+<h3>
 ChatGPT Plus
 </h3>
 
-<p data-i18n="compareChatGPTText">
-Yazı, kod, araşdırma və süni intellekt əsaslı
-gündəlik işlər üçün premium AI xidməti.
+<p data-i18n="compareChatGPT">
+Süni intellekt və məhsuldarlıq üçün premium imkanlar.
 </p>
 
 <a
 href="product.html?product=chatgpt"
-data-i18n="chatgptLook">
-ChatGPT Plus-a bax →
+data-i18n="viewProduct">
+
+Məhsula bax →
 </a>
 
 </div>
@@ -2285,19 +1657,19 @@ ChatGPT Plus-a bax →
 
 <div class="compare-card">
 
-<h3 data-i18n="comparePackage">
-Premium paket seçimi
+<h3>
+Spotify Premium
 </h3>
 
-<p data-i18n="comparePackageText">
-Qiymət, müddət və istifadə məqsədinizə uyğun
-xidməti seçin.
+<p data-i18n="compareSpotify">
+Reklamsız musiqi və offline dinləmə.
 </p>
 
 <a
-href="#products"
-data-i18n="allProducts">
-Bütün məhsullara bax →
+href="product.html?product=spotify"
+data-i18n="viewProduct">
+
+Məhsula bax →
 </a>
 
 </div>
@@ -2318,11 +1690,11 @@ Bütün məhsullara bax →
 <div class="section-title">
 
 <h2 data-i18n="reviewsTitle">
-Müştəri rəyləri
+İstifadəçi rəyləri
 </h2>
 
 <p data-i18n="reviewsSubtitle">
-Müştərilərimizin təcrübəsi bizim üçün ən böyük motivasiyadır.
+DigiBaku.com istifadəçilərinin təcrübələri.
 </p>
 
 </div>
@@ -2332,21 +1704,33 @@ Müştərilərimizin təcrübəsi bizim üçün ən böyük motivasiyadır.
 
 <div class="review">
 
-<div class="stars">★★★★★</div>
+<div class="stars">
+★★★★★
+</div>
 
-<div class="review-text" data-i18n="review1">
-“Çox sağ olun. Sifariş sürətli və problemsiz oldu.”
+<div
+class="review-text"
+data-i18n="review1">
+
+Sifariş prosesi çox rahat oldu. Netflix məlumatları tez təqdim edildi və problemsiz istifadə edirəm.
+
 </div>
 
 <div class="reviewer">
 
-<div class="avatar">O</div>
+<div class="avatar">
+A
+</div>
 
 <div>
 
-<strong>Orxan Hacıyev</strong>
+<strong>
+Aysel
+</strong>
 
-<span>Netflix Premium</span>
+<span data-i18n="verifiedCustomer">
+Təsdiqlənmiş müştəri
+</span>
 
 </div>
 
@@ -2357,21 +1741,33 @@ Müştərilərimizin təcrübəsi bizim üçün ən böyük motivasiyadır.
 
 <div class="review">
 
-<div class="stars">★★★★★</div>
+<div class="stars">
+★★★★★
+</div>
 
-<div class="review-text" data-i18n="review2">
-“Əla, uyğun qiymətədir və sürətli bir şəkildə əldə etdim. Təşəkkür edirəm.”
+<div
+class="review-text"
+data-i18n="review2">
+
+YouTube Premium üçün sifariş verdim. Həm qiymət, həm də aktivləşdirmə prosesi məni qane etdi.
+
 </div>
 
 <div class="reviewer">
 
-<div class="avatar">S</div>
+<div class="avatar">
+M
+</div>
 
 <div>
 
-<strong>Shabnam Valizada</strong>
+<strong>
+Murad
+</strong>
 
-<span>YouTube Premium</span>
+<span data-i18n="verifiedCustomer">
+Təsdiqlənmiş müştəri
+</span>
 
 </div>
 
@@ -2382,21 +1778,33 @@ Müştərilərimizin təcrübəsi bizim üçün ən böyük motivasiyadır.
 
 <div class="review">
 
-<div class="stars">★★★★★</div>
+<div class="stars">
+★★★★★
+</div>
 
-<div class="review-text" data-i18n="review3">
-“Sərfəli qiymətdir və sifariş prosesi çox rahatdır.”
+<div
+class="review-text"
+data-i18n="review3">
+
+ChatGPT Plus üçün istifadə etdim. Sifarişdən sonra məlumatlar aydın şəkildə təqdim olundu.
+
 </div>
 
 <div class="reviewer">
 
-<div class="avatar">D</div>
+<div class="avatar">
+E
+</div>
 
 <div>
 
-<strong>Dergah Abdullayev</strong>
+<strong>
+Elvin
+</strong>
 
-<span>ChatGPT Plus</span>
+<span data-i18n="verifiedCustomer">
+Təsdiqlənmiş müştəri
+</span>
 
 </div>
 
@@ -2407,46 +1815,33 @@ Müştərilərimizin təcrübəsi bizim üçün ən böyük motivasiyadır.
 
 <div class="review">
 
-<div class="stars">★★★★★</div>
+<div class="stars">
+★★★★★
+</div>
 
-<div class="review-text" data-i18n="review4">
-“Etibarlı və sürətli xidmətdir. Dostlarıma da tövsiyə edirəm.”
+<div
+class="review-text"
+data-i18n="review4">
+
+Spotify Premium sifarişi çox rahat idi. Dəstək komandası da sualımı tez cavablandırdı.
+
 </div>
 
 <div class="reviewer">
 
-<div class="avatar">R</div>
+<div class="avatar">
+N
+</div>
 
 <div>
 
-<strong>Rəşad Məmmədli</strong>
+<strong>
+Nigar
+</strong>
 
-<span>Spotify Premium</span>
-
-</div>
-
-</div>
-
-</div>
-
-
-<div class="review">
-
-<div class="stars">★★★★★</div>
-
-<div class="review-text" data-i18n="review5">
-“Dəstək komandası suallarıma tez cavab verdi və mənə kömək etdi.”
-</div>
-
-<div class="reviewer">
-
-<div class="avatar">S</div>
-
-<div>
-
-<strong>Səbinə Əliyeva</strong>
-
-<span>Müştəri</span>
+<span data-i18n="verifiedCustomer">
+Təsdiqlənmiş müştəri
+</span>
 
 </div>
 
@@ -2454,80 +1849,6 @@ Müştərilərimizin təcrübəsi bizim üçün ən böyük motivasiyadır.
 
 </div>
 
-
-<div class="review">
-
-<div class="stars">★★★★★</div>
-
-<div class="review-text" data-i18n="review6">
-“Bir neçə dəfə sifariş vermişəm və hər dəfə xidmət problemsiz işləyib.”
-</div>
-
-<div class="reviewer">
-
-<div class="avatar">E</div>
-
-<div>
-
-<strong>Elvin Cəfərov</strong>
-
-<span>Müştəri</span>
-
-</div>
-
-</div>
-
-</div>
-
-
-<div class="review">
-
-<div class="stars">★★★★★</div>
-
-<div class="review-text" data-i18n="review7">
-“Saytın istifadəsi sadədir. İstədiyim məhsulu çox tez tapdım.”
-</div>
-
-<div class="reviewer">
-
-<div class="avatar">L</div>
-
-<div>
-
-<strong>Ləman Hüseynova</strong>
-
-<span>Müştəri</span>
-
-</div>
-
-</div>
-
-</div>
-
-
-<div class="review">
-
-<div class="stars">★★★★★</div>
-
-<div class="review-text" data-i18n="review8">
-“Qiymətlər münasibdir və aktivləşdirmə gözlədiyimdən daha sürətli oldu.”
-</div>
-
-<div class="reviewer">
-
-<div class="avatar">V</div>
-
-<div>
-
-<strong>Vahid Kərimov</strong>
-
-<span>Müştəri</span>
-
-</div>
-
-</div>
-
-</div>
 
 </div>
 
@@ -2545,26 +1866,26 @@ Müştərilərimizin təcrübəsi bizim üçün ən böyük motivasiyadır.
 <div class="section-title">
 
 <h2 data-i18n="blogTitle">
-Bloq
+DigiBaku.com Bloq
 </h2>
 
 <p data-i18n="blogSubtitle">
-Premium xidmətlər haqqında faydalı məlumatlar
+Rəqəmsal xidmətlər haqqında faydalı məlumatlar.
 </p>
 
 </div>
 
 <div class="blog-grid">
 
+
 <div class="blog-card">
 
 <h3 data-i18n="blog1Title">
-Netflix Premium nədir?
+Netflix seçərkən nələrə diqqət etməli?
 </h3>
 
 <p data-i18n="blog1Text">
-Netflix Premium film və serial izləmək üçün
-premium imkanlar təqdim edən abunə xidmətidir.
+Netflix paketini seçərkən istifadə müddəti, hesab tipi və istifadə qaydalarını əvvəlcədən yoxlamaq vacibdir.
 </p>
 
 </div>
@@ -2573,11 +1894,11 @@ premium imkanlar təqdim edən abunə xidmətidir.
 <div class="blog-card">
 
 <h3 data-i18n="blog2Title">
-YouTube Premium nə verir?
+Premium xidmətlərdən təhlükəsiz istifadə
 </h3>
 
 <p data-i18n="blog2Text">
-Reklamsız video, musiqi və digər premium istifadə imkanları.
+Hesab məlumatlarını qorumaq, şifrəni paylaşmamaq və xidmət qaydalarına əməl etmək təhlükəsiz istifadə üçün əsas addımlardır.
 </p>
 
 </div>
@@ -2586,53 +1907,15 @@ Reklamsız video, musiqi və digər premium istifadə imkanları.
 <div class="blog-card">
 
 <h3 data-i18n="blog3Title">
-ChatGPT Plus kimlər üçündür?
+ChatGPT Plus kimlər üçün faydalıdır?
 </h3>
 
 <p data-i18n="blog3Text">
-Yazı, kod, araşdırma və gündəlik AI işlərində istifadə üçün.
+ChatGPT Plus yazı, kodlaşdırma, araşdırma və gündəlik məhsuldarlıq işlərində istifadəçilərə əlavə imkanlar təqdim edir.
 </p>
 
 </div>
 
-
-<div class="blog-card">
-
-<h3 data-i18n="blog4Title">
-Spotify Premium üstünlükləri
-</h3>
-
-<p data-i18n="blog4Text">
-Reklamsız musiqi və offline dinləmə imkanları.
-</p>
-
-</div>
-
-
-<div class="blog-card">
-
-<h3 data-i18n="blog5Title">
-Premium xidmət necə seçilir?
-</h3>
-
-<p data-i18n="blog5Text">
-Qiymət, müddət və istifadə məqsədinə görə düzgün xidməti seçin.
-</p>
-
-</div>
-
-
-<div class="blog-card">
-
-<h3 data-i18n="blog6Title">
-Sifariş prosesi necə işləyir?
-</h3>
-
-<p data-i18n="blog6Text">
-Məhsulu seçin, paket müddətini müəyyən edin və sifarişinizi göndərin.
-</p>
-
-</div>
 
 </div>
 
@@ -2653,9 +1936,14 @@ Məhsulu seçin, paket müddətini müəyyən edin və sifarişinizi göndərin.
 Tez-tez verilən suallar
 </h2>
 
+<p data-i18n="faqSubtitle">
+Ən çox verilən suallara cavablar.
+</p>
+
 </div>
 
 <div class="faq">
+
 
 <div class="faq-item">
 
@@ -2667,7 +1955,9 @@ onclick="toggleFaq(this)">
 Sifariş necə verilir?
 </span>
 
-<span>+</span>
+<span>
++
+</span>
 
 </div>
 
@@ -2675,8 +1965,7 @@ Sifariş necə verilir?
 class="faq-answer"
 data-i18n="faq1Answer">
 
-Məhsulu seçin, “Sifariş et” düyməsinə klikləyin
-və WhatsApp üzərindən sifarişinizi göndərin.
+İstədiyiniz məhsulu seçin, məhsul səhifəsində məlumatları yoxlayın və sifariş düyməsindən istifadə edin.
 
 </div>
 
@@ -2690,10 +1979,12 @@ class="faq-question"
 onclick="toggleFaq(this)">
 
 <span data-i18n="faq2Question">
-Hansı məhsullar satılır?
+Ödənişdən sonra nə baş verir?
 </span>
 
-<span>+</span>
+<span>
++
+</span>
 
 </div>
 
@@ -2701,7 +1992,7 @@ Hansı məhsullar satılır?
 class="faq-answer"
 data-i18n="faq2Answer">
 
-Netflix Premium, YouTube Premium, ChatGPT Plus və Spotify Premium.
+Ödəniş təsdiqləndikdən sonra sifarişiniz yoxlanılır və məhsula uyğun aktivləşdirmə məlumatları təqdim edilir.
 
 </div>
 
@@ -2715,10 +2006,12 @@ class="faq-question"
 onclick="toggleFaq(this)">
 
 <span data-i18n="faq3Question">
-Dəstəklə necə əlaqə saxlayım?
+Aktivləşdirmə nə qədər vaxt aparır?
 </span>
 
-<span>+</span>
+<span>
++
+</span>
 
 </div>
 
@@ -2726,8 +2019,7 @@ Dəstəklə necə əlaqə saxlayım?
 class="faq-answer"
 data-i18n="faq3Answer">
 
-E-poçt vasitəsilə premium989b@gmail.com ünvanından
-əlaqə saxlaya bilərsiniz.
+Adətən aktivləşdirmə qısa müddət ərzində həyata keçirilir. Müddət məhsul və sifariş prosesindən asılı ola bilər.
 
 </div>
 
@@ -2741,10 +2033,12 @@ class="faq-question"
 onclick="toggleFaq(this)">
 
 <span data-i18n="faq4Question">
-Aktivləşdirmə nə qədər çəkir?
+Telefonla sifariş edə bilərəm?
 </span>
 
-<span>+</span>
+<span>
++
+</span>
 
 </div>
 
@@ -2752,12 +2046,39 @@ Aktivləşdirmə nə qədər çəkir?
 class="faq-answer"
 data-i18n="faq4Answer">
 
-Sifarişdən sonra aktivləşdirmə adətən 5-30 dəqiqə
-ərzində həyata keçirilir.
+Bəli. Sayt mobil cihazlar üçün uyğunlaşdırılıb və sifariş prosesini telefondan da tamamlamaq mümkündür.
 
 </div>
 
 </div>
+
+
+<div class="faq-item">
+
+<div
+class="faq-question"
+onclick="toggleFaq(this)">
+
+<span data-i18n="faq5Question">
+Problem yaranarsa nə etməliyəm?
+</span>
+
+<span>
++
+</span>
+
+</div>
+
+<div
+class="faq-answer"
+data-i18n="faq5Answer">
+
+Əlaqə bölməsində göstərilən kanallardan istifadə edərək sifariş məlumatlarınızla birlikdə dəstəyə müraciət edin.
+
+</div>
+
+</div>
+
 
 </div>
 
@@ -2779,87 +2100,79 @@ Sifarişdən sonra aktivləşdirmə adətən 5-30 dəqiqə
 </h2>
 
 <p data-i18n="contactSubtitle">
-DigiBaku.com dəstək
+Sualınız və ya sifarişinizlə bağlı köməyə ehtiyacınız varsa, bizimlə əlaqə saxlayın.
 </p>
 
 </div>
 
 <div class="contact-grid">
 
-<div class="contact-box">
-
-<h3>DigiBaku.com</h3>
-
-<div class="contact-item">
-
-<strong data-i18n="city">
-Şəhər
-</strong>
-
-<span>
-Bakı, Azərbaycan
-</span>
-
-</div>
-
-<div class="contact-item">
-
-<strong data-i18n="email">
-E-poçt
-</strong>
-
-<span>
-premium989b@gmail.com
-</span>
-
-</div>
-
-<div class="contact-item">
-
-<strong data-i18n="workingHours">
-İş saatları
-</strong>
-
-<span>
-10:00 — 22:00
-</span>
-
-</div>
-
-</div>
-
 
 <div class="contact-box">
 
-<h3 data-i18n="orderSupport">
-Sifariş və dəstək
+<h3 data-i18n="contactUs">
+Bizimlə əlaqə
 </h3>
 
-<p
-style="margin-bottom:20px"
-data-i18n="orderSupportText">
+<p data-i18n="contactText">
+Sifariş, aktivləşdirmə və digər suallarınız üçün dəstək komandamıza müraciət edə bilərsiniz.
+</p>
 
-Məhsulu seçin və “Sifariş et” düyməsi ilə
-WhatsApp üzərindən sifarişinizi göndərin.
+<div class="contact-item">
 
+<span data-i18n="email">
+E-poçt
+</span>
+
+<strong>
+support@digibaku.com
+</strong>
+
+</div>
+
+<div class="contact-item">
+
+<span data-i18n="workingHours">
+İş saatları
+</span>
+
+<strong data-i18n="workingHoursValue">
+Hər gün 09:00 - 23:00
+</strong>
+
+</div>
+
+</div>
+
+
+<div class="contact-box">
+
+<h3 data-i18n="quickSupport">
+Sürətli dəstək
+</h3>
+
+<p data-i18n="quickSupportText">
+Sifariş nömrənizi və problemin qısa təsvirini göndərsəniz, sorğunuz daha sürətli yoxlanıla bilər.
 </p>
 
 <a
-href="#products"
+href="mailto:support@digibaku.com"
 class="btn btn-primary"
-data-i18n="viewProducts">
+data-i18n="sendEmail">
 
-Məhsullara bax
+E-poçt göndər
 
 </a>
 
 </div>
+
 
 </div>
 
 </div>
 
 </section>
+
 
 </main>
 
@@ -2872,18 +2185,15 @@ Məhsullara bax
 
 <div class="footer-grid">
 
+
 <div class="footer-col">
 
-<h3 class="logo">
-DigiBaku<span>.com</span>
+<h3>
+DigiBaku.com
 </h3>
 
 <p data-i18n="footerText">
-Premium rəqəmsal xidmətlər bir platformada.
-</p>
-
-<p>
-Netflix • YouTube Premium • ChatGPT Plus • Spotify Premium
+Premium rəqəmsal xidmətləri rahat və təhlükəsiz şəkildə əldə etmək üçün platforma.
 </p>
 
 </div>
@@ -2891,46 +2201,69 @@ Netflix • YouTube Premium • ChatGPT Plus • Spotify Premium
 
 <div class="footer-col">
 
-<h3 data-i18n="usefulLinks">
-Faydalı linklər
+<h3 data-i18n="footerCompany">
+DigiBaku.com
 </h3>
 
-<a
-href="#home"
-data-i18n="home">
-Ana səhifə
-</a>
+<div class="footer-link-buttons">
 
 <a
-href="#products"
-data-i18n="products">
-Məhsullar
-</a>
-
-<a
-href="#compare"
-data-i18n="compareMenu">
-Müqayisə
-</a>
-
-<a
-href="#about"
-data-i18n="about">
+class="footer-link-button"
+href="https://digibaku.com/az/about"
+data-i18n="footerAbout">
 Haqqımızda
 </a>
 
 <a
-href="#reviews"
-data-i18n="reviews">
+class="footer-link-button"
+href="https://digibaku.com/az/faq"
+data-i18n="footerFaq">
+FAQ
+</a>
+
+<a
+class="footer-link-button"
+href="https://digibaku.com/az/how-it-works"
+data-i18n="footerHow">
+Necə işləyir?
+</a>
+
+<a
+class="footer-link-button"
+href="https://digibaku.com/az/trust"
+data-i18n="footerTrust">
+Etibar
+</a>
+
+<a
+class="footer-link-button"
+href="https://digibaku.com/az/editorial-policy"
+data-i18n="footerEditorial">
+Redaksiya siyasəti
+</a>
+
+<a
+class="footer-link-button"
+href="https://digibaku.com/az/terms"
+data-i18n="footerTerms">
+Şərtlər
+</a>
+
+<a
+class="footer-link-button"
+href="https://digibaku.com/az/reviews"
+data-i18n="footerReviews">
 Rəylər
 </a>
 
 </div>
 
+</div>
+
 
 <div class="footer-col">
 
-<h3 data-i18n="products">
+<h3 data-i18n="footerProducts">
 Məhsullar
 </h3>
 
@@ -2955,37 +2288,38 @@ Spotify Premium
 
 <div class="footer-col">
 
-<h3 data-i18n="support">
+<h3 data-i18n="footerSupport">
 Dəstək
 </h3>
 
 <a
+href="#faq"
+data-i18n="footerFaqLink">
+FAQ
+</a>
+
+<a
 href="#contact"
-data-i18n="contactTitle">
+data-i18n="footerContact">
 Əlaqə
 </a>
 
 <a
-href="#blog"
-data-i18n="blogMenu">
-Bloq
-</a>
-
-<a
-href="#products"
-data-i18n="order">
-Sifariş
+href="mailto:support@digibaku.com"
+data-i18n="footerEmail">
+E-poçt
 </a>
 
 </div>
+
 
 </div>
 
 
 <div class="copyright">
 
-© 2026 DigiBaku.com.
-<span data-i18n="copyright">
+© 2026 DigiBaku.com —
+<span data-i18n="allRights">
 Bütün hüquqlar qorunur.
 </span>
 
@@ -2998,12 +2332,1187 @@ Bütün hüquqlar qorunur.
 
 <script>
 
-const translations={
+/* =========================
+   SUPABASE
+========================= */
+
+const SUPABASE_URL =
+"https://YOUR-SUPABASE-URL.supabase.co";
+
+const SUPABASE_ANON_KEY =
+"YOUR-SUPABASE-ANON-KEY";
+
+let supabaseClient = null;
+
+try{
+
+if(
+SUPABASE_URL &&
+SUPABASE_ANON_KEY &&
+!SUPABASE_URL.includes("YOUR-")
+){
+
+supabaseClient =
+window.supabase.createClient(
+SUPABASE_URL,
+SUPABASE_ANON_KEY
+);
+
+}
+
+}catch(error){
+
+console.error(
+"Supabase initialization error:",
+error
+);
+
+}
+
+
+/* =========================
+   LANGUAGE
+========================= */
+
+const translations = {
 
 az:{
 
 home:"Ana səhifə",
 products:"Məhsullar",
+compareMenu:"Müqayisə",
+about:"Haqqımızda",
+reviews:"Rəylər",
+blogMenu:"Bloq",
+contactTitle:"Əlaqə",
+cart:"Səbət",
+login:"Daxil ol",
+register:"Qeydiyyat",
+
+yourCart:"Səbətiniz",
+cartEmpty:"Səbətiniz boşdur",
+total:"Ümumi məbləğ:",
+confirmOrder:"Sifarişi təsdiq et",
+
+premiumService:"Premium rəqəmsal xidmətlər",
+
+heroTitle:"Premium rəqəmsal xidmətlər",
+heroTitleSpan:"bir platformada",
+
+heroText:
+"Dünyanın ən çox istifadə olunan premium platformalarını bir araya gətirərək rəqəmsal xidmətlərə çıxışı daha rahat edirik. İstədiyiniz xidməti seçin, sifarişinizi tamamlayın və qısa müddət ərzində istifadəyə başlayın.",
+
+viewProducts:"Məhsullara bax",
+
+productsSubtitle:
+"Premium rəqəmsal xidmətlərimizi kəşf edin.",
+
+netflixName:"Netflix 4K Premium Abunəliyi",
+netflixDescription:
+"Film və serialları yüksək keyfiyyətdə izləmək üçün Netflix Premium.",
+
+youtubeName:"YouTube Premium",
+youtubeDescription:
+"Reklamsız video, musiqi və premium YouTube təcrübəsi.",
+
+chatgptName:"ChatGPT Plus",
+chatgptDescription:
+"Süni intellekt, yazı, kod və gündəlik işlər üçün premium xidmət.",
+
+spotifyName:"Spotify Premium",
+spotifyDescription:
+"Reklamsız musiqi, yüksək keyfiyyət və offline dinləmə.",
+
+month1:"/ 1 ay",
+details:"Ətraflı bax",
+order:"Sifariş et",
+addCart:"Səbətə at",
+
+whyUs:"Niyə məhz biz?",
+
+whyUsText:
+"Premium xidmətlərə çıxışı daha sürətli, rahat və təhlükəsiz etmək üçün prosesi sadələşdirdik.",
+
+fastActivation:"Sürətli aktivləşdirmə",
+fastActivationText:
+"Sifarişinizi tamamlayın, qalanını biz həll edək. Hesab məlumatlarınız hazırlanaraq sizə təqdim olunur.",
+
+activationTime:
+"5-30 dəq ərzində aktivləşdirmə",
+
+safeOrder:"Təhlükəsiz ödəniş",
+safeOrderText:
+"Ödəniş prosesiniz qorunan sistem üzərindən aparılır və sifarişiniz təhlükəsiz şəkildə tamamlanır.",
+
+protectedPayment:
+"Qorunan ödəniş sistemi",
+
+support:"Etibarlı dəstək",
+supportText:
+"Sifariş və aktivləşdirmə ilə bağlı suallarınız yarandıqda dəstək komandamız sizə operativ şəkildə kömək edir.",
+
+customerSupport:
+"Operativ müştəri dəstəyi",
+
+aboutTitle:"DigiBaku.com haqqında",
+
+aboutText1:
+"DigiBaku.com premium rəqəmsal xidmətləri daha rahat əldə etmək istəyən istifadəçilər üçün yaradılmış platformadır.",
+
+aboutText2:
+"Məqsədimiz istifadəçinin uyğun xidməti tez tapması, qiymət və müddəti aydın görməsi və sifariş prosesini mümkün qədər sadə şəkildə tamamlamasıdır.",
+
+aboutText3:
+"Hazırda platformamızda Netflix Premium, YouTube Premium, ChatGPT Plus və Spotify Premium xidmətləri təqdim olunur.",
+
+fastActivationTitle:"Sürətli aktivləşdirmə",
+
+aboutFastActivation:
+"Sifariş təsdiqləndikdən sonra hesab və ya abunəlik məlumatları mümkün qədər qısa müddətdə təqdim olunur.",
+
+clearPackages:"Aydın paket seçimi",
+
+aboutClearPackages:
+"Müddət, qiymət və istifadə qaydaları məhsul səhifələrində əvvəlcədən göstərilir.",
+
+supportTeam:"Dəstək komandası",
+
+aboutSupportTeam:
+"Aktivləşdirmə, giriş və istifadə zamanı yaranan suallarda komandamız operativ kömək edir.",
+
+whatWeMakeEasy:"Biz nəyi asanlaşdırırıq?",
+
+whatWeMakeEasyText:
+"Rəqəmsal xidmətlərdə düzgün paket seçmək, hesabı aktivləşdirmək və qaydaları başa düşmək bəzən vaxt aparır. DigiBaku.com bu prosesi sadələşdirir: məhsulları kateqoriyalara ayırır, müqayisəni rahatlaşdırır və sifarişdən sonra istifadəçini tək qoymur.",
+
+easyList1:
+"Film, musiqi, süni intellekt, dizayn, oyun və digər rəqəmsal xidmətlər bir platformada toplanır.",
+
+easyList2:
+"Hər məhsul üzrə qiymət, müddət və əsas istifadə məlumatları ayrıca göstərilir.",
+
+easyList3:
+"Sifariş prosesi qısa, sadə və mobil cihazlarda rahat istifadə ediləcək şəkildə qurulub.",
+
+whyDigiBaku:"Niyə DigiBaku.com?",
+
+whyDigiBakuText:
+"Bizim üçün əsas dəyər şəffaflıq və istifadəçi rahatlığıdır. Məhsul səhifələrində şərtləri mümkün qədər açıq göstərir, sifarişdən sonra isə aktivləşdirmə və istifadə ilə bağlı suallara dəstək veririk.",
+
+whyDigiBakuText2:
+"DigiBaku.com premium rəqəmsal xidmətləri daha əlçatan, başadüşülən və rahat etmək üçün inkişaf etdirilir. Platformanı davamlı olaraq yeniləyir, yeni məhsullar əlavə edir və istifadəçi təcrübəsini yaxşılaşdırırıq.",
+
+faqCenter:"Tez-tez verilən suallar",
+
+orderPaymentTitle:"Sifariş necə verilir?",
+
+orderPaymentText:
+"Məhsulu seçirsiniz, paket müddətini yoxlayırsınız, sifarişi tamamlayırsınız və aktivləşdirmə məlumatı dəstək prosesi ilə təqdim olunur.",
+
+priceWhereTitle:"Qiyməti harada görürəm?",
+
+priceWhereText:
+"Qiymət məhsul kartında və məhsul səhifəsində göstərilir. Müddətə görə qiymət dəyişə bilər.",
+
+mobileOrderTitle:"Telefondan sifariş verə bilərəm?",
+
+mobileOrderText:
+"Bəli. Məhsul kartları və sifariş funksiyaları mobil ekranlar üçün uyğunlaşdırılıb.",
+
+activationHowLongTitle:"Aktivləşdirmə nə qədər çəkir?",
+
+activationHowLongText:
+"Ödəniş təsdiqləndikdən sonra məlumatlar qısa müddətdə təqdim olunur. Məhsuldan asılı olaraq dəqiq proses fərqlənə bilər.",
+
+changeAccountTitle:"Hesab məlumatlarını dəyişə bilərəm?",
+
+changeAccountText:
+"Məhsul qaydalarında icazə verilmirsə e-poçt, şifrə və təhlükəsizlik məlumatlarını dəyişməyin.",
+
+problemTitle:"Problem yaranarsa nə etməliyəm?",
+
+problemText:
+"Əlaqə kanalları vasitəsilə sifariş məlumatı ilə müraciət edin. Dəstək komandası statusu yoxlayacaq.",
+
+howItWorksTitle:
+"Sifariş və aktivləşdirmə necə işləyir?",
+
+howItWorksText:
+"Prosesi sadə saxlayırıq: məhsulu seçin, qaydaları yoxlayın, sifarişi tamamlayın və dəstək komandası ilə aktivləşdirməni izləyin.",
+
+clearProcess:"Aydın proses",
+
+clearProcessText:
+"Hər məhsulda qiymət, müddət və istifadə qeydləri əvvəlcədən göstərilir.",
+
+mobileComfort:"Mobil rahatlıq",
+
+mobileComfortText:
+"Əsas seçim və sifariş addımları telefon ekranında rahat istifadə üçün qurulub.",
+
+supportProcess:"Dəstək",
+
+supportProcessText:
+"Problem olduqda sifariş məlumatı əsasında yoxlama aparılır.",
+
+step1Title:"Məhsulu seçin",
+
+step1Text:
+"Kateqoriya, qiymət, müddət və istifadə məqsədinə görə məhsulu seçin.",
+
+step2Title:"Qaydaları oxuyun",
+
+step2Text:
+"Məhsul səhifəsində hesab tipi, müddət, istifadə qeydləri və təhlükəsizlik məsləhətləri göstərilir.",
+
+step3Title:"Sifarişi tamamlayın",
+
+step3Text:
+"Sifariş prosesi mobil və desktop üçün sadə saxlanılıb. Məlumatları diqqətlə daxil edin.",
+
+step4Title:"Aktivləşdirməni alın",
+
+step4Text:
+"Ödəniş təsdiqləndikdən sonra aktivləşdirmə məlumatı təqdim olunur.",
+
+step5Title:"Dəstəkdən istifadə edin",
+
+step5Text:
+"Sual və problem yaranarsa əlaqə kanalları vasitəsilə dəstək ala bilərsiniz.",
+
+processFaqTitle:"Ən çox verilən suallar",
+
+beforeOrderTitle:"Sifarişdən əvvəl nəyi yoxlamalıyam?",
+
+beforeOrderText:
+"Qiymət, müddət, hesab tipi, istifadə qaydaları və uyğun alternativləri yoxlayın.",
+
+activationInfoTitle:
+"Aktivləşdirmə məlumatı necə verilir?",
+
+activationInfoText:
+"Sifariş təsdiqləndikdən sonra məhsul qaydasına uyğun aktivləşdirmə məlumatı təqdim olunur.",
+
+supportWhenTitle:
+"Dəstəyə nə vaxt yazmalıyam?",
+
+supportWhenText:
+"Giriş, aktivlik, istifadə və paket məlumatı ilə bağlı problem yaranan kimi yazmaq daha yaxşıdır.",
+
+securityTitle:
+"Təhlükəsizlik, qaydalar və dəstək prinsipləri",
+
+securityIntro:
+"Premium abunəlik seçərkən qiymət qədər etibar da önəmlidir. Bu bölmə sifarişdən əvvəl hansı qaydalara əsaslandığımızı aydın göstərir.",
+
+transparentInfo:"Şəffaf məlumat",
+
+transparentInfoText:
+"Məhsul səhifələrində qiymət, müddət və istifadə qaydaları əvvəlcədən göstərilir.",
+
+safeUse:"Təhlükəsiz istifadə",
+
+safeUseText:
+"Hesab məlumatlarının qorunması və icazəsiz dəyişiklik etməmək əsas prinsipdir.",
+
+supportProcess2:"Dəstək prosesi",
+
+supportProcess2Text:
+"Problem olduqda sifariş məlumatına əsasən yoxlama aparılır və istifadəçiyə yönləndirmə verilir.",
+
+trustSignals:"Niyə etibar siqnalları vacibdir?",
+
+trustSignalsText:
+"Rəqəmsal abunəliklərdə istifadəçi əvvəlcədən nə aldığını, necə istifadə edəcəyini və problem yaranarsa hara müraciət edəcəyini bilməlidir.",
+
+trustList1:
+"Məhsul səhifəsində əsas şərtlər oxunaqlı verilir.",
+
+trustList2:
+"Sifarişdən sonra dəstək kanalları açıq saxlanılır.",
+
+trustList3:
+"Təhlükəsizlik qaydaları istifadəçi təcrübəsini qoruyur.",
+
+editorialTitle:
+"Redaksiya siyasəti və məzmun standartları",
+
+editorialIntro:
+"DigiBaku.com üzərində təqdim olunan məlumatların aydın, faydalı və istifadəçi üçün başadüşülən olmasına çalışırıq.",
+
+editorialAccuracy:"Dəqiqlik",
+
+editorialAccuracyText:
+"Məhsul, qiymət və müddət məlumatlarını mümkün qədər aktual saxlamağa çalışır.",
+
+editorialClarity:"Aydınlıq",
+
+editorialClarityText:
+"Məhsullar və onların istifadə qaydaları sadə dildə izah edilir.",
+
+editorialUpdates:"Yenilənmələr",
+
+editorialUpdatesText:
+"Xidmətlərdə, qiymətlərdə və paketlərdə dəyişiklik olduqda məlumatlar yenilənə bilər.",
+
+editorialUserFirst:"İstifadəçi yönümlülük",
+
+editorialUserFirstText:
+"Məqsədimiz istifadəçinin qərar verməsi üçün lazım olan əsas məlumatları bir yerdə təqdim etməkdir.",
+
+termsTitle:"İstifadə şərtləri",
+
+termsIntro:
+"DigiBaku.com xidmətlərindən istifadə etməklə aşağıdakı ümumi qaydaları qəbul etmiş olursunuz.",
+
+termsList1:
+"Məhsul və xidmət məlumatlarını sifarişdən əvvəl diqqətlə yoxlamaq istifadəçinin məsuliyyətidir.",
+
+termsList2:
+"Hesab məlumatları üçüncü şəxslərlə paylaşılmamalıdır.",
+
+termsList3:
+"Məhsulun istifadə qaydalarına və xidmət şərtlərinə əməl edilməlidir.",
+
+termsList4:
+"Sifarişlə bağlı problem yarandıqda dəstək komandası ilə əlaqə saxlanılmalıdır.",
+
+termsList5:
+"Xidmətlərin qiyməti və mövcudluğu əvvəlcədən xəbərdarlıq edilmədən dəyişə bilər.",
+
+reviewsTitle:"İstifadəçi rəyləri",
+
+reviewsIntro:
+"DigiBaku.com üçün istifadəçi təcrübəsi vacibdir. Rəylər xidmətin inkişaf etdirilməsi və istifadəçilərin daha rahat alış təcrübəsi yaşaması üçün nəzərə alınır.",
+
+compareTitle:"Xidmətləri müqayisə edin",
+
+compareSubtitle:
+"Sizin üçün uyğun premium xidməti daha rahat seçin.",
+
+compareNetflix:
+"Film və serial izləmək üçün premium platforma.",
+
+compareYoutube:
+"Reklamsız video və musiqi təcrübəsi.",
+
+compareChatGPT:
+"Süni intellekt və məhsuldarlıq üçün premium imkanlar.",
+
+compareSpotify:
+"Reklamsız musiqi və offline dinləmə.",
+
+viewProduct:"Məhsula bax →",
+
+reviewsSubtitle:
+"DigiBaku.com istifadəçilərinin təcrübələri.",
+
+review1:
+"Sifariş prosesi çox rahat oldu. Netflix məlumatları tez təqdim edildi və problemsiz istifadə edirəm.",
+
+review2:
+"YouTube Premium üçün sifariş verdim. Həm qiymət, həm də aktivləşdirmə prosesi məni qane etdi.",
+
+review3:
+"ChatGPT Plus üçün istifadə etdim. Sifarişdən sonra məlumatlar aydın şəkildə təqdim olundu.",
+
+review4:
+"Spotify Premium sifarişi çox rahat idi. Dəstək komandası da sualımı tez cavablandırdı.",
+
+verifiedCustomer:"Təsdiqlənmiş müştəri",
+
+blogTitle:"DigiBaku.com Bloq",
+
+blogSubtitle:
+"Rəqəmsal xidmətlər haqqında faydalı məlumatlar.",
+
+blog1Title:
+"Netflix seçərkən nələrə diqqət etməli?",
+
+blog1Text:
+"Netflix paketini seçərkən istifadə müddəti, hesab tipi və istifadə qaydalarını əvvəlcədən yoxlamaq vacibdir.",
+
+blog2Title:
+"Premium xidmətlərdən təhlükəsiz istifadə",
+
+blog2Text:
+"Hesab məlumatlarını qorumaq, şifrəni paylaşmamaq və xidmət qaydalarına əməl etmək təhlükəsiz istifadə üçün əsas addımlardır.",
+
+blog3Title:
+"ChatGPT Plus kimlər üçün faydalıdır?",
+
+blog3Text:
+"ChatGPT Plus yazı, kodlaşdırma, araşdırma və gündəlik məhsuldarlıq işlərində istifadəçilərə əlavə imkanlar təqdim edir.",
+
+faqTitle:"Tez-tez verilən suallar",
+
+faqSubtitle:"Ən çox verilən suallara cavablar.",
+
+faq1Question:"Sifariş necə verilir?",
+
+faq1Answer:
+"İstədiyiniz məhsulu seçin, məhsul səhifəsində məlumatları yoxlayın və sifariş düyməsindən istifadə edin.",
+
+faq2Question:"Ödənişdən sonra nə baş verir?",
+
+faq2Answer:
+"Ödəniş təsdiqləndikdən sonra sifarişiniz yoxlanılır və məhsula uyğun aktivləşdirmə məlumatları təqdim edilir.",
+
+faq3Question:"Aktivləşdirmə nə qədər vaxt aparır?",
+
+faq3Answer:
+"Adətən aktivləşdirmə qısa müddət ərzində həyata keçirilir. Müddət məhsul və sifariş prosesindən asılı ola bilər.",
+
+faq4Question:"Telefonla sifariş edə bilərəm?",
+
+faq4Answer:
+"Bəli. Sayt mobil cihazlar üçün uyğunlaşdırılıb və sifariş prosesini telefondan da tamamlamaq mümkündür.",
+
+faq5Question:"Problem yaranarsa nə etməliyəm?",
+
+faq5Answer:
+"Əlaqə bölməsində göstərilən kanallardan istifadə edərək sifariş məlumatlarınızla birlikdə dəstəyə müraciət edin.",
+
+contactSubtitle:
+"Sualınız və ya sifarişinizlə bağlı köməyə ehtiyacınız varsa, bizimlə əlaqə saxlayın.",
+
+contactUs:"Bizimlə əlaqə",
+
+contactText:
+"Sifariş, aktivləşdirmə və digər suallarınız üçün dəstək komandamıza müraciət edə bilərsiniz.",
+
+email:"E-poçt",
+
+workingHours:"İş saatları",
+
+workingHoursValue:"Hər gün 09:00 - 23:00",
+
+quickSupport:"Sürətli dəstək",
+
+quickSupportText:
+"Sifariş nömrənizi və problemin qısa təsvirini göndərsəniz, sorğunuz daha sürətli yoxlanıla bilər.",
+
+sendEmail:"E-poçt göndər",
+
+footerText:
+"Premium rəqəmsal xidmətləri rahat və təhlükəsiz şəkildə əldə etmək üçün platforma.",
+
+footerCompany:"DigiBaku.com",
+
+footerAbout:"Haqqımızda",
+
+footerFaq:"FAQ",
+
+footerHow:"Necə işləyir?",
+
+footerTrust:"Etibar",
+
+footerEditorial:"Redaksiya siyasəti",
+
+footerTerms:"Şərtlər",
+
+footerReviews:"Rəylər",
+
+footerProducts:"Məhsullar",
+
+footerSupport:"Dəstək",
+
+footerFaqLink:"FAQ",
+
+footerContact:"Əlaqə",
+
+footerEmail:"E-poçt",
+
+allRights:"Bütün hüquqlar qorunur."
+
+}
+
+};
+
+function setLanguage(lang){
+
+if(!translations[lang]){
+lang="az";
+}
+
+localStorage.setItem(
+"digibaku_language",
+lang
+);
+
+const elements =
+document.querySelectorAll(
+"[data-i18n]"
+);
+
+elements.forEach(element=>{
+
+const key =
+element.getAttribute("data-i18n");
+
+if(
+translations[lang] &&
+translations[lang][key]
+){
+
+element.textContent =
+translations[lang][key];
+
+}
+
+});
+
+const select =
+document.getElementById(
+"languageSelect"
+);
+
+if(select){
+select.value=lang;
+}
+
+document
+.querySelectorAll(".mobile-language select")
+.forEach(select=>{
+select.value=lang;
+});
+
+document.documentElement.lang=lang;
+
+}
+
+const savedLanguage =
+localStorage.getItem(
+"digibaku_language"
+) || "az";
+
+setLanguage(savedLanguage);
+
+
+/* =========================
+   FAQ
+========================= */
+
+function toggleFaq(element){
+
+const item =
+element.parentElement;
+
+item.classList.toggle("open");
+
+}
+
+
+/* =========================
+   CART
+========================= */
+
+let cart =
+JSON.parse(
+localStorage.getItem(
+"digibaku_cart"
+) || "[]"
+);
+
+
+function saveCart(){
+
+localStorage.setItem(
+"digibaku_cart",
+JSON.stringify(cart)
+);
+
+renderCart();
+
+}
+
+
+function addToCart(name,price){
+
+cart.push({
+name:name,
+price:price
+});
+
+saveCart();
+
+toggleCart();
+
+}
+
+
+function removeFromCart(index){
+
+cart.splice(index,1);
+
+saveCart();
+
+}
+
+
+function renderCart(){
+
+const list =
+document.getElementById(
+"cartItemsList"
+);
+
+const count =
+document.getElementById(
+"cartCount"
+);
+
+const total =
+document.getElementById(
+"cartTotalPrice"
+);
+
+if(!list || !count || !total){
+return;
+}
+
+count.textContent =
+cart.length;
+
+if(cart.length===0){
+
+list.innerHTML =
+'<p class="cart-empty">Səbətiniz boşdur</p>';
+
+total.textContent =
+"0.00 AZN";
+
+return;
+
+}
+
+let sum=0;
+
+list.innerHTML="";
+
+cart.forEach((item,index)=>{
+
+sum += Number(item.price) || 0;
+
+const div =
+document.createElement("div");
+
+div.className="cart-item";
+
+div.innerHTML=`
+
+<div>
+
+<div class="cart-item-name">
+${escapeHtml(item.name)}
+</div>
+
+<div class="cart-item-price">
+${Number(item.price).toFixed(2)} AZN
+</div>
+
+</div>
+
+<button
+class="cart-remove"
+onclick="removeFromCart(${index})">
+
+Sil
+
+</button>
+
+`;
+
+list.appendChild(div);
+
+});
+
+total.textContent =
+sum.toFixed(2)+" AZN";
+
+}
+
+
+function escapeHtml(text){
+
+const div =
+document.createElement("div");
+
+div.textContent =
+text;
+
+return div.innerHTML;
+
+}
+
+
+function toggleCart(){
+
+const modal =
+document.getElementById(
+"cartModal"
+);
+
+if(!modal){
+return;
+}
+
+if(
+modal.style.display === "block"
+){
+
+modal.style.display="none";
+
+}else{
+
+renderCart();
+
+modal.style.display="block";
+
+}
+
+}
+
+
+function orderNow(name,price){
+
+cart=[
+{
+name:name,
+price:price
+}
+];
+
+saveCart();
+
+checkoutCart();
+
+}
+
+
+function checkoutCart(){
+
+if(cart.length===0){
+
+alert(
+"Səbətiniz boşdur."
+);
+
+return;
+
+}
+
+window.location.href =
+"checkout.html";
+
+}
+
+
+renderCart();
+
+
+/* =========================
+   AUTH
+========================= */
+
+async function checkUser(){
+
+if(!supabaseClient){
+return;
+}
+
+try{
+
+const {
+data:{
+session
+}
+} =
+await supabaseClient.auth.getSession();
+
+if(!session){
+return;
+}
+
+const user =
+session.user;
+
+const authArea =
+document.getElementById(
+"authArea"
+);
+
+if(!authArea){
+return;
+}
+
+authArea.innerHTML=`
+
+<div class="user-email">
+${escapeHtml(user.email || "")}
+</div>
+
+<button
+class="btn btn-dark"
+onclick="logoutUser()">
+
+Çıxış
+
+</button>
+
+`;
+
+}catch(error){
+
+console.error(
+"Auth error:",
+error
+);
+
+}
+
+}
+
+
+async function logoutUser(){
+
+if(!supabaseClient){
+return;
+}
+
+await supabaseClient.auth.signOut();
+
+location.reload();
+
+}
+
+
+checkUser();
+
+</script>
+
+</body>
+</html>
+<script>
+
+/* =========================
+   CART CHECKOUT
+========================= */
+
+function checkout(){
+
+if(cart.length===0){
+
+alert(
+"Səbətiniz boşdur."
+);
+
+return;
+
+}
+
+checkoutCart();
+
+}
+
+
+/* =========================
+   PRODUCT DATA
+========================= */
+
+const productsData={
+
+netflix:{
+name:"Netflix Premium",
+price:5.99,
+image:"https://upload.wikimedia.org/wikipedia/commons/7/75/Netflix_icon.svg"
+},
+
+youtube:{
+name:"YouTube Premium",
+price:4.99,
+image:"https://upload.wikimedia.org/wikipedia/commons/4/4f/YouTube_icon.svg"
+},
+
+chatgpt:{
+name:"ChatGPT Plus",
+price:19.99,
+image:"https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg"
+},
+
+spotify:{
+name:"Spotify Premium",
+price:6.99,
+image:"https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo_without_text.svg"
+}
+
+};
+
+
+/* =========================
+   PRODUCT QUERY
+========================= */
+
+function getProductFromUrl(){
+
+const params =
+new URLSearchParams(
+window.location.search
+);
+
+const product =
+params.get("product");
+
+if(!product){
+return null;
+}
+
+return productsData[product] || null;
+
+}
+
+
+/* =========================
+   PRODUCT BUTTONS
+========================= */
+
+document
+.querySelectorAll(
+"[data-product]"
+)
+.forEach(button=>{
+
+button.addEventListener(
+"click",
+function(){
+
+const key =
+this.getAttribute(
+"data-product"
+);
+
+const product =
+productsData[key];
+
+if(product){
+
+addToCart(
+product.name,
+product.price
+);
+
+}
+
+});
+
+});
+
+
+/* =========================
+   SCROLL
+========================= */
+
+document
+.querySelectorAll(
+'a[href^="#"]'
+)
+.forEach(link=>{
+
+link.addEventListener(
+"click",
+function(event){
+
+const target =
+this.getAttribute("href");
+
+if(
+!target ||
+target==="#"
+){
+return;
+}
+
+const element =
+document.querySelector(target);
+
+if(!element){
+return;
+}
+
+event.preventDefault();
+
+element.scrollIntoView({
+behavior:"smooth",
+block:"start"
+});
+
+});
+
+});
+
+
+/* =========================
+   LANGUAGE SELECT
+========================= */
+
+document
+.querySelectorAll(
+".language-switcher select, .mobile-language select"
+)
+.forEach(select=>{
+
+select.addEventListener(
+"change",
+function(){
+
+setLanguage(
+this.value
+);
+
+});
+
+});
+
+
+/* =========================
+   SUPABASE AUTH LISTENER
+========================= */
+
+if(supabaseClient){
+
+supabaseClient.auth.onAuthStateChange(
+(event,session)=>{
+
+if(session){
+
+checkUser();
+
+}else{
+
+const authArea =
+document.getElementById(
+"authArea"
+);
+
+if(authArea){
+
+authArea.innerHTML=`
+
+<a
+href="login.html"
+class="btn btn-dark">
+
+Daxil ol
+
+</a>
+
+<a
+href="login.html"
+class="btn btn-primary">
+
+Qeydiyyat
+
+</a>
+
+`;
+
+}
+
+}
+
+});
+
+}
+
+
+/* =========================
+   CLOSE CART OUTSIDE
+========================= */
+
+document.addEventListener(
+"click",
+function(event){
+
+const modal =
+document.getElementById(
+"cartModal"
+);
+
+const cartButton =
+document.querySelector(
+".cart-btn"
+);
+
+if(
+!modal ||
+!cartButton
+){
+return;
+}
+
+if(
+modal.style.display==="block" &&
+!modal.contains(event.target) &&
+!cartButton.contains(event.target)
+){
+
+modal.style.display="none";
+
+}
+
+});
+
+
+/* =========================
+   ESCAPE CART
+========================= */
+
+document.addEventListener(
+"keydown",
+function(event){
+
+if(event.key!=="Escape"){
+return;
+}
+
+const modal =
+document.getElementById(
+"cartModal"
+);
+
+if(modal){
+modal.style.display="none";
+}
+
+});
+
+
+/* =========================
+   INITIALIZATION
+========================= */
+
+document.addEventListener(
+"DOMContentLoaded",
+function(){
+
+const currentLanguage =
+localStorage.getItem(
+"digibaku_language"
+) || "az";
+
+setLanguage(
+currentLanguage
+);
+
+renderCart();
+
+});
+
+
+</script>
+
+</body>
+</html>
 about:"Haqqımızda",
 reviews:"Rəylər",
 compareMenu:"Müqayisə",
@@ -3923,15 +4432,17 @@ emptyCartAlert:"Your cart is empty!"
 
 };
 
-
 function getLanguage(){
 
 return localStorage.getItem("digi_language") || "az";
 
 }
 
-
 function setLanguage(lang){
+
+const languageSelect=document.getElementById("languageSelect");
+
+if(languageSelect) languageSelect.value=lang;
 
 if(!translations[lang]){
 
@@ -3945,7 +4456,6 @@ applyLanguage(lang);
 
 }
 
-
 function t(key){
 
 const lang=getLanguage();
@@ -3955,7 +4465,6 @@ return translations[lang]?.[key]
 || key;
 
 }
-
 
 function applyLanguage(lang){
 
@@ -3978,7 +4487,6 @@ element.textContent=dictionary[key];
 ["az","ru","en"].forEach(code=>{
 
 const desktop=document.getElementById("lang"+code.toUpperCase());
-
 const mobile=document.getElementById("mobileLang"+code.toUpperCase());
 
 if(desktop){
@@ -4009,19 +4517,323 @@ document.title="DigiBaku.com — Premium rəqəmsal xidmətlər";
 
 }
 
-updateCartUI();
-
-checkLogin();
-
 }
 
+const savedLanguage=
+localStorage.getItem("digi_language") || "az";
+
+applyLanguage(savedLanguage);
 
 function toggleFaq(element){
 
-element.parentElement.classList.toggle("open");
+const item=element.closest(".faq-item");
+
+if(!item)return;
+
+item.classList.toggle("open");
+
+const icon=item.querySelector(".faq-icon");
+
+if(icon){
+
+icon.textContent=
+item.classList.contains("open")
+? "−"
+: "+";
 
 }
 
+}
+
+function toggleCart(){
+
+const cartModal=
+document.getElementById("cartModal");
+
+if(!cartModal)return;
+
+if(cartModal.style.display==="block"){
+
+cartModal.style.display="none";
+
+}else{
+
+cartModal.style.display="block";
+
+renderCart();
+
+}
+
+}
+
+let cart=
+JSON.parse(
+localStorage.getItem("digibaku_cart") || "[]"
+);
+
+function saveCart(){
+
+localStorage.setItem(
+"digibaku_cart",
+JSON.stringify(cart)
+);
+
+}
+
+function updateCartCount(){
+
+const count=
+document.getElementById("cartCount");
+
+if(count){
+
+count.textContent=cart.length;
+
+}
+
+}
+
+function addToCart(name,price){
+
+cart.push({
+name:name,
+price:price
+});
+
+saveCart();
+
+updateCartCount();
+
+renderCart();
+
+alert(t("addedToCart"));
+
+}
+
+function removeFromCart(index){
+
+cart.splice(index,1);
+
+saveCart();
+
+updateCartCount();
+
+renderCart();
+
+}
+
+function renderCart(){
+
+const list=
+document.getElementById("cartItems");
+
+const totalElement=
+document.getElementById("cartTotal");
+
+if(!list)return;
+
+if(cart.length===0){
+
+list.innerHTML=
+`<div class="cart-empty">
+${t("cartEmpty")}
+</div>`;
+
+if(totalElement){
+
+totalElement.textContent="0.00 AZN";
+
+}
+
+updateCartCount();
+
+return;
+
+}
+
+let total=0;
+
+list.innerHTML="";
+
+cart.forEach((item,index)=>{
+
+const price=
+Number(item.price) || 0;
+
+total += price;
+
+const div=
+document.createElement("div");
+
+div.className="cart-item";
+
+div.innerHTML=`
+
+<div>
+
+<div class="cart-item-name">
+${escapeHtml(item.name)}
+</div>
+
+<div class="cart-item-price">
+${price.toFixed(2)} AZN
+</div>
+
+</div>
+
+<button
+class="cart-remove"
+onclick="removeFromCart(${index})">
+
+${t("remove")}
+
+</button>
+
+`;
+
+list.appendChild(div);
+
+});
+
+if(totalElement){
+
+totalElement.textContent=
+total.toFixed(2)+" AZN";
+
+}
+
+updateCartCount();
+
+}
+
+function escapeHtml(value){
+
+const div=
+document.createElement("div");
+
+div.textContent=value;
+
+return div.innerHTML;
+
+}
+
+function orderProduct(name){
+
+const phone="994000000000";
+
+const message=
+t("orderMessage")
++" "
++name;
+
+const url=
+"https://wa.me/"
++phone
++"?text="
++encodeURIComponent(message);
+
+window.open(
+url,
+"_blank"
+);
+
+}
+
+function checkout(){
+
+if(cart.length===0){
+
+alert(t("emptyCartAlert"));
+
+return;
+
+}
+
+const phone="994000000000";
+
+let message=
+t("orderMessage")
++"\n\n";
+
+cart.forEach((item,index)=>{
+
+message +=
+(index+1)
++". "
++item.name
++" — "
++Number(item.price).toFixed(2)
++" AZN\n";
+
+});
+
+const url=
+"https://wa.me/"
++phone
++"?text="
++encodeURIComponent(message);
+
+window.open(
+url,
+"_blank"
+);
+
+}
+
+document.addEventListener(
+"DOMContentLoaded",
+function(){
+
+renderCart();
+
+const lang=
+getLanguage();
+
+applyLanguage(lang);
+
+const languageSelect=
+document.getElementById(
+"languageSelect"
+);
+
+if(languageSelect){
+
+languageSelect.value=lang;
+
+}
+
+document
+.querySelectorAll(
+"[data-language]"
+)
+.forEach(button=>{
+
+button.addEventListener(
+"click",
+function(){
+
+setLanguage(
+this.getAttribute(
+"data-language"
+)
+);
+
+});
+
+});
+
+});
+
+</script>
+<script>
+document.title="DigiBaku.com — Premium digital services";
+
+updateCartUI();
+checkLogin();
+
+function toggleFaq(element){
+    element.parentElement.classList.toggle("open");
+}
 
 /* SUPABASE */
 
@@ -4033,8 +4845,8 @@ const SUPABASE_KEY=
 
 const supabaseClient=
 window.supabase.createClient(
-SUPABASE_URL,
-SUPABASE_KEY
+    SUPABASE_URL,
+    SUPABASE_KEY
 );
 
 
@@ -4042,207 +4854,220 @@ SUPABASE_KEY
 
 let cart=
 JSON.parse(
-localStorage.getItem("digi_cart")
+    localStorage.getItem("digi_cart")
 ) || [];
 
 
 function saveCart(){
 
-localStorage.setItem(
-"digi_cart",
-JSON.stringify(cart)
-);
+    localStorage.setItem(
+        "digi_cart",
+        JSON.stringify(cart)
+    );
 
 }
 
 
 function toggleCart(){
 
-const modal=
-document.getElementById("cartModal");
+    const modal=
+    document.getElementById("cartModal");
 
-if(!modal)return;
+    if(!modal)return;
 
-if(modal.style.display==="block"){
+    if(modal.style.display==="block"){
 
-modal.style.display="none";
+        modal.style.display="none";
 
-}else{
+    }else{
 
-modal.style.display="block";
+        modal.style.display="block";
 
-updateCartUI();
+        updateCartUI();
 
-}
+    }
 
 }
 
 
 function addToCart(productName,price){
 
-cart.push({
+    cart.push({
+        name:productName,
+        price:Number(price)
+    });
 
-name:productName,
+    saveCart();
 
-price:Number(price)
+    updateCartCount();
 
-});
+    updateCartUI();
 
-saveCart();
-
-updateCartCount();
-
-updateCartUI();
-
-alert(t("addedToCart"));
+    alert(t("addedToCart"));
 
 }
 
 
 function updateCartCount(){
 
-const countEl=
-document.getElementById("cartCount");
+    const countEl=
+    document.getElementById("cartCount");
 
-if(countEl){
+    if(countEl){
 
-countEl.textContent=cart.length;
+        countEl.textContent=
+        cart.length;
 
-}
+    }
 
 }
 
 
 function updateCartUI(){
 
-const list=
-document.getElementById("cartItemsList");
+    const list=
+    document.getElementById(
+        "cartItemsList"
+    );
 
-const totalPriceEl=
-document.getElementById("cartTotalPrice");
+    const totalPriceEl=
+    document.getElementById(
+        "cartTotalPrice"
+    );
 
-if(!list || !totalPriceEl)return;
-
-
-if(cart.length===0){
-
-list.innerHTML=`
-
-<p class="cart-empty">
-${t("cartEmpty")}
-</p>
-
-`;
-
-totalPriceEl.textContent="0.00 AZN";
-
-return;
-
-}
+    if(
+        !list ||
+        !totalPriceEl
+    )return;
 
 
-let html="";
+    if(cart.length===0){
 
-let total=0;
+        list.innerHTML=`
 
+            <p class="cart-empty">
+                ${t("cartEmpty")}
+            </p>
 
-cart.forEach((item,index)=>{
+        `;
 
-const price=
-Number(item.price || 0);
+        totalPriceEl.textContent=
+        "0.00 AZN";
 
-total+=price;
+        return;
 
-
-html+=`
-
-<div class="cart-item">
-
-<div>
-
-<div class="cart-item-name">
-
-${escapeHtml(item.name)}
-
-</div>
-
-<div class="cart-item-price">
-
-${price.toFixed(2)} AZN
-
-</div>
-
-</div>
-
-<button
-onclick="removeFromCart(${index})"
-class="cart-remove">
-
-${t("remove")}
-
-</button>
-
-</div>
-
-`;
-
-});
+    }
 
 
-list.innerHTML=html;
+    let html="";
 
-totalPriceEl.textContent=
-total.toFixed(2)+" AZN";
+    let total=0;
+
+
+    cart.forEach(
+        (item,index)=>{
+
+            const price=
+            Number(item.price || 0);
+
+            total+=price;
+
+
+            html+=`
+
+                <div class="cart-item">
+
+                    <div>
+
+                        <div class="cart-item-name">
+                            ${escapeHtml(item.name)}
+                        </div>
+
+                        <div class="cart-item-price">
+                            ${price.toFixed(2)} AZN
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        onclick="removeFromCart(${index})"
+                        class="cart-remove">
+
+                        ${t("remove")}
+
+                    </button>
+
+                </div>
+
+            `;
+
+        }
+    );
+
+
+    list.innerHTML=
+    html;
+
+
+    totalPriceEl.textContent=
+    total.toFixed(2)+" AZN";
 
 }
 
 
 function removeFromCart(index){
 
-cart.splice(index,1);
+    cart.splice(index,1);
 
-saveCart();
+    saveCart();
 
-updateCartCount();
+    updateCartCount();
 
-updateCartUI();
+    updateCartUI();
 
 }
 
 
 /* BİRBAŞA SİFARİŞ */
 
-function orderNow(productName,price){
+function orderNow(
+    productName,
+    price
+){
 
-const message=
-t("orderMessage")
-+
-"\n\n"
-+
-"1. "
-+
-productName
-+
-" — "
-+
-Number(price).toFixed(2)
-+
-" AZN";
-
-
-const phone="994702883484";
-
-const whatsappUrl=
-"https://wa.me/"
-+
-phone
-+
-"?text="
-+
-encodeURIComponent(message);
+    const message=
+    t("orderMessage")
+    +
+    "\n\n"
+    +
+    "1. "
+    +
+    productName
+    +
+    " — "
+    +
+    Number(price).toFixed(2)
+    +
+    " AZN";
 
 
-window.location.href=whatsappUrl;
+    const phone=
+    "994702883484";
+
+
+    const whatsappUrl=
+    "https://wa.me/"
+    +
+    phone
+    +
+    "?text="
+    +
+    encodeURIComponent(message);
+
+
+    window.location.href=
+    whatsappUrl;
 
 }
 
@@ -4251,94 +5076,104 @@ window.location.href=whatsappUrl;
 
 function checkoutCart(){
 
-if(cart.length===0){
+    if(cart.length===0){
 
-alert(t("emptyCartAlert"));
+        alert(
+            t("emptyCartAlert")
+        );
 
-return;
+        return;
 
-}
-
-
-let message=
-t("orderMessage")
-+
-"\n\n";
+    }
 
 
-let total=0;
+    let message=
+    t("orderMessage")
+    +
+    "\n\n";
 
 
-cart.forEach((item,index)=>{
-
-const price=
-Number(item.price || 0);
-
-message+=
-(index+1)
-+
-". "
-+
-item.name
-+
-" — "
-+
-price.toFixed(2)
-+
-" AZN\n";
-
-total+=price;
-
-});
+    let total=0;
 
 
-message+=
-"\n"
-+
-t("total")
-+
-" "
-+
-total.toFixed(2)
-+
-" AZN";
+    cart.forEach(
+        (item,index)=>{
+
+            const price=
+            Number(item.price || 0);
+
+            message+=
+            (index+1)
+            +
+            ". "
+            +
+            item.name
+            +
+            " — "
+            +
+            price.toFixed(2)
+            +
+            " AZN\n";
+
+            total+=price;
+
+        }
+    );
 
 
-const phone="994702883484";
+    message+=
+    "\n"
+    +
+    t("total")
+    +
+    " "
+    +
+    total.toFixed(2)
+    +
+    " AZN";
 
 
-const whatsappUrl=
-"https://wa.me/"
-+
-phone
-+
-"?text="
-+
-encodeURIComponent(message);
+    const phone=
+    "994702883484";
 
 
-/* SƏBƏTİ TƏMİZLƏ */
-
-cart=[];
-
-saveCart();
-
-updateCartCount();
-
-updateCartUI();
-
-
-const modal=
-document.getElementById("cartModal");
-
-if(modal){
-
-modal.style.display="none";
-
-}
+    const whatsappUrl=
+    "https://wa.me/"
+    +
+    phone
+    +
+    "?text="
+    +
+    encodeURIComponent(message);
 
 
-window.location.href=whatsappUrl;
+    /* SƏBƏTİ TƏMİZLƏ */
+
+    cart=[];
+
+    saveCart();
+
+    updateCartCount();
+
+    updateCartUI();
+
+
+    const modal=
+    document.getElementById(
+        "cartModal"
+    );
+
+
+    if(modal){
+
+        modal.style.display=
+        "none";
+
+    }
+
+
+    window.location.href=
+    whatsappUrl;
 
 }
 
@@ -4347,17 +5182,32 @@ window.location.href=whatsappUrl;
 
 function escapeHtml(text){
 
-return String(text)
+    return String(text)
 
-.replace(/&/g,"&amp;")
+    .replace(
+        /&/g,
+        "&amp;"
+    )
 
-.replace(/</g,"&lt;")
+    .replace(
+        /</g,
+        "&lt;"
+    )
 
-.replace(/>/g,"&gt;")
+    .replace(
+        />/g,
+        "&gt;"
+    )
 
-.replace(/"/g,"&quot;")
+    .replace(
+        /"/g,
+        "&quot;"
+    )
 
-.replace(/'/g,"&#039;");
+    .replace(
+        /'/g,
+        "&#039;"
+    );
 
 }
 
@@ -4366,120 +5216,138 @@ return String(text)
 
 async function checkLogin(){
 
-const {
-
-data:{session},
-
-error
-
-}=
-await supabaseClient.auth.getSession();
-
-
-if(error){
-
-console.error(
-"Session xətası:",
-error
-);
-
-return;
-
-}
+    const {
+        data:{session},
+        error
+    }=
+    await supabaseClient
+    .auth
+    .getSession();
 
 
-const authArea=
-document.getElementById("authArea");
+    if(error){
+
+        console.error(
+            "Session xətası:",
+            error
+        );
+
+        return;
+
+    }
 
 
-if(!authArea)return;
+    const authArea=
+    document.getElementById(
+        "authArea"
+    );
 
 
-/* LOGIN OLUBSA */
-
-if(session){
-
-authArea.innerHTML="";
+    if(!authArea)return;
 
 
-const profileButton=
-document.createElement("a");
+    /* LOGIN OLUBSA */
 
-profileButton.href=
-"profile.html";
+    if(session){
 
-profileButton.className=
-"btn btn-primary";
-
-profileButton.textContent=
-t("profile");
+        authArea.innerHTML="";
 
 
-const email=
-document.createElement("span");
-
-email.className=
-"user-email";
-
-email.textContent=
-session.user.email || "";
+        const profileButton=
+        document.createElement(
+            "a"
+        );
 
 
-const logoutButton=
-document.createElement("button");
-
-logoutButton.className=
-"btn btn-dark";
-
-logoutButton.textContent=
-t("logout");
-
-logoutButton.onclick=
-logout;
+        profileButton.href=
+        "profile.html";
 
 
-authArea.appendChild(
-profileButton
-);
-
-authArea.appendChild(
-email
-);
-
-authArea.appendChild(
-logoutButton
-);
-
-}
+        profileButton.className=
+        "btn btn-primary";
 
 
-/* LOGIN OLMAYIBSA */
+        profileButton.textContent=
+        t("profile");
 
-else{
 
-authArea.innerHTML=`
+        const email=
+        document.createElement(
+            "span"
+        );
 
-<a
-href="login.html"
-class="btn btn-dark"
-data-i18n="login">
 
-${t("login")}
+        email.className=
+        "user-email";
 
-</a>
 
-<a
-href="login.html"
-class="btn btn-primary"
-data-i18n="register">
+        email.textContent=
+        session.user.email || "";
 
-${t("register")}
 
-</a>
+        const logoutButton=
+        document.createElement(
+            "button"
+        );
 
-`;
 
-}
+        logoutButton.className=
+        "btn btn-dark";
+
+
+        logoutButton.textContent=
+        t("logout");
+
+
+        logoutButton.onclick=
+        logout;
+
+
+        authArea.appendChild(
+            profileButton
+        );
+
+
+        authArea.appendChild(
+            email
+        );
+
+
+        authArea.appendChild(
+            logoutButton
+        );
+
+    }
+
+
+    /* LOGIN OLMAYIBSA */
+
+    else{
+
+        authArea.innerHTML=`
+
+            <a
+                href="login.html"
+                class="btn btn-dark"
+                data-i18n="login">
+
+                ${t("login")}
+
+            </a>
+
+
+            <a
+                href="login.html"
+                class="btn btn-primary"
+                data-i18n="register">
+
+                ${t("register")}
+
+            </a>
+
+        `;
+
+    }
 
 }
 
@@ -4488,75 +5356,80 @@ ${t("register")}
 
 async function logout(){
 
-const {error}=
-await supabaseClient.auth.signOut();
+    const {error}=
+    await supabaseClient
+    .auth
+    .signOut();
 
 
-if(error){
+    if(error){
 
-alert(
+        alert(
 
-getLanguage()==="ru"
+            getLanguage()==="ru"
 
-?
+            ?
 
-"Ошибка при выходе."
+            "Ошибка при выходе."
 
-:
+            :
 
-getLanguage()==="en"
+            getLanguage()==="en"
 
-?
+            ?
 
-"An error occurred while logging out."
+            "An error occurred while logging out."
 
-:
+            :
 
-"Çıxış zamanı xəta baş verdi."
+            "Çıxış zamanı xəta baş verdi."
 
-);
-
-console.error(error);
-
-return;
-
-}
+        );
 
 
-window.location.reload();
+        console.error(error);
+
+        return;
+
+    }
+
+
+    window.location.reload();
 
 }
 
 
 /* LOGIN DƏYİŞƏNDƏ */
 
-supabaseClient.auth.onAuthStateChange(
-(event,session)=>{
+supabaseClient
+.auth
+.onAuthStateChange(
+    (event,session)=>{
 
-checkLogin();
+        checkLogin();
 
-}
+    }
 );
 
 
 /* SƏHİFƏ AÇILANDA */
 
 document.addEventListener(
-"DOMContentLoaded",
-()=>{
+    "DOMContentLoaded",
+    ()=>{
 
-const lang=
-getLanguage();
+        const lang=
+        getLanguage();
 
-applyLanguage(lang);
+        applyLanguage(lang);
 
-updateCartCount();
+        updateCartCount();
 
-updateCartUI();
+        updateCartUI();
 
-checkLogin();
+        checkLogin();
 
-}
+    }
 );
 
 </script>
