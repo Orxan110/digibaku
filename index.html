@@ -151,33 +151,35 @@ font-weight:bold;
    DİL
 ========================= */
 
-.language-switcher{
+ .language-switcher{
 display:flex;
 align-items:center;
-gap:5px;
 margin-left:4px;
 }
 
-.language-switcher button{
-background:none;
-border:0;
-color:#777;
+.language-switcher select{
+appearance:auto;
+-webkit-appearance:auto;
+background:#151515;
+border:1px solid #333;
+color:#fff;
 cursor:pointer;
 font-size:12px;
 font-weight:bold;
-padding:3px;
+padding:8px 10px;
+border-radius:8px;
+outline:none;
+min-width:65px;
 }
 
-.language-switcher button:hover{
+.language-switcher select:hover,
+.language-switcher select:focus{
+border-color:#3b82f6;
+}
+
+.language-switcher select option{
+background:#151515;
 color:#fff;
-}
-
-.language-switcher button.active{
-color:#3b82f6;
-}
-
-.language-switcher span{
-color:#333;
 }
 
 /* =========================
@@ -835,6 +837,33 @@ display:block;
 color:#999;
 }
 
+.footer-link-buttons{
+display:flex;
+flex-direction:column;
+align-items:flex-start;
+gap:7px;
+}
+
+.footer-link-button{
+display:inline-block !important;
+width:auto !important;
+max-width:none !important;
+margin:0 !important;
+padding:7px 11px !important;
+background:#151515 !important;
+border:1px solid #333 !important;
+border-radius:8px;
+color:#aaa !important;
+font-size:13px !important;
+transition:.2s;
+}
+
+.footer-link-button:hover{
+color:#fff !important;
+border-color:#3b82f6 !important;
+background:#101827 !important;
+}
+
 /* =========================
    FOOTER
 ========================= */
@@ -942,7 +971,7 @@ padding:9px 8px;
 }
 
 .language-switcher{
-display:none;
+display:flex;
 }
 
 .cart-btn{
@@ -1032,14 +1061,20 @@ color:#333;
 
 </style>
 
-<style id="digibaku-about-dropdown-fix">
+<style id="digibaku-dropdown-fix">
 .about-dropdown{position:relative;display:inline-block}
-.about-dropdown-toggle{cursor:pointer;background:none;border:0;font:inherit;color:inherit;padding:8px 0;margin:0}
-.about-dropdown-menu{display:none;position:absolute;left:0;top:100%;z-index:99999;min-width:230px;background:#fff;border:1px solid #e5e7eb;border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,.12);padding:6px 0}
+.about-dropdown-toggle{background:none;border:0;color:#aaa;font:inherit;font-size:14px;cursor:pointer;padding:0}
+.about-dropdown-toggle:hover{color:#3b82f6}
+.about-dropdown-menu{display:none;position:absolute;top:calc(100% + 10px);left:0;z-index:99999;min-width:230px;background:#101010;border:1px solid #333;border-radius:10px;box-shadow:0 12px 35px rgba(0,0,0,.45);padding:6px}
 .about-dropdown.open .about-dropdown-menu{display:block}
-.about-dropdown-menu a{display:block!important;padding:10px 14px!important;white-space:nowrap;text-decoration:none}
-.about-dropdown-menu a:hover{background:#f5f5f5}
-@media(max-width:768px){.about-dropdown{display:block}.about-dropdown-menu{position:static;min-width:0;width:100%;box-shadow:none;border:0;border-radius:0}.about-dropdown-menu a{padding-left:20px!important}}
+.about-dropdown-menu a{display:block!important;color:#aaa!important;padding:10px 12px!important;margin:0!important;white-space:nowrap;border-radius:7px}
+.about-dropdown-menu a:hover{background:#1b1b1b;color:#3b82f6!important}
+.language-dropdown{position:relative;display:inline-block}
+.language-dropdown-toggle{background:#151515;border:1px solid #333;border-radius:9px;color:#fff;padding:9px 12px;cursor:pointer;font-weight:700;font-size:12px}
+.language-dropdown-menu{display:none;position:absolute;right:0;top:calc(100% + 7px);z-index:99999;min-width:90px;background:#101010;border:1px solid #333;border-radius:9px;padding:5px;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+.language-dropdown.open .language-dropdown-menu{display:block}
+.language-dropdown-menu button{display:block;width:100%;background:none;border:0;color:#aaa;padding:9px;cursor:pointer;text-align:left;font-weight:700;border-radius:6px}
+.language-dropdown-menu button:hover,.language-dropdown-menu button.active{background:#1b1b1b;color:#3b82f6}
 </style>
 </head>
 
@@ -1064,13 +1099,1169 @@ DigiBaku<span>.com</span>
 <div class="about-dropdown">
 <button type="button" class="about-dropdown-toggle" aria-haspopup="true" aria-expanded="false">Haqqımızda ▾</button>
 <div class="about-dropdown-menu">
-<a href="https://digibaku.com/az/about">Haqqımızda</a>
-<a href="https://digibaku.com/az/faq">FAQ</a>
-<a href="https://digibaku.com/az/how-it-works">Necə işləyir?</a>
-<a href="https://digibaku.com/az/trust">Etibar</a>
-<a href="https://digibaku.com/az/editorial-policy">Redaksiya siyasəti</a>
-<a href="https://digibaku.com/az/terms">Şərtlər</a>
-<a href="https://digibaku.com/az/reviews">Rəylər</a>
+<a href="#about" data-i18n="about">Haqqımızda</a>
+<a href="#faq" data-i18n="faqTitle">FAQ</a>
+<a href="#how-it-works" data-i18n="howItWorksTitle">Necə işləyir?</a>
+<a href="#trust" data-i18n="securityTitle">Etibar</a>
+<a href="#editorial-policy" data-i18n="editorialTitle">Redaksiya siyasəti</a>
+<a href="#terms" data-i18n="termsTitle">Şərtlər</a>
+<a href="#reviews" data-i18n="reviews">Rəylər</a>
+</div>
+</div>
+
+<a href="#reviews" data-i18n="reviews">Rəylər</a>
+
+<a href="#blog" data-i18n="blogMenu">Bloq</a>
+
+<a href="#contact" data-i18n="contactTitle">Əlaqə</a>
+
+</nav>
+
+<div class="header-right">
+
+<button
+onclick="toggleCart()"
+class="btn cart-btn">
+
+🛒 <span data-i18n="cart">Səbət</span>
+
+<span id="cartCount" class="cart-count">0</span>
+
+</button>
+
+<div class="auth" id="authArea">
+
+<a
+href="login.html"
+class="btn btn-dark"
+data-i18n="login">
+Daxil ol
+</a>
+
+<a
+href="login.html"
+class="btn btn-primary"
+data-i18n="register">
+Qeydiyyat
+</a>
+
+</div>
+
+<div class="language-dropdown">
+<button type="button" class="language-dropdown-toggle" aria-haspopup="true" aria-expanded="false">AZ ▾</button>
+<div class="language-dropdown-menu">
+<button onclick="setLanguage('az')" id="langAZ">AZ</button>
+<button onclick="setLanguage('ru')" id="langRU">RU</button>
+<button onclick="setLanguage('en')" id="langEN">EN</button>
+</div>
+</div>YPE html>
+<html lang="az">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>DigiBaku.com — Premium rəqəmsal xidmətlər</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+
+*{
+box-sizing:border-box;
+margin:0;
+padding:0;
+}
+
+html{
+scroll-behavior:smooth;
+}
+
+body{
+font-family:Arial,Helvetica,sans-serif;
+background:#050505;
+color:#fff;
+line-height:1.6;
+}
+
+a{
+text-decoration:none;
+color:inherit;
+}
+
+button{
+font-family:inherit;
+}
+
+.container{
+width:92%;
+max-width:1200px;
+margin:auto;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+header{
+position:sticky;
+top:0;
+z-index:1000;
+background:rgba(5,5,5,.94);
+border-bottom:1px solid #222;
+backdrop-filter:blur(12px);
+}
+
+.nav{
+min-height:72px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:20px;
+}
+
+.logo{
+font-size:26px;
+font-weight:900;
+color:#3b82f6;
+}
+
+.logo span{
+color:#fff;
+}
+
+.menu{
+display:flex;
+gap:22px;
+}
+
+.menu a{
+color:#aaa;
+font-size:14px;
+transition:.2s;
+}
+
+.menu a:hover{
+color:#3b82f6;
+}
+
+.header-right{
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+.auth{
+display:flex;
+gap:8px;
+align-items:center;
+}
+
+.btn{
+display:inline-block;
+border:0;
+border-radius:9px;
+padding:11px 17px;
+font-weight:700;
+cursor:pointer;
+font-size:14px;
+transition:.2s;
+}
+
+.btn-primary{
+background:#2563eb;
+color:#fff;
+}
+
+.btn-primary:hover{
+background:#1d4ed8;
+}
+
+.btn-dark{
+background:#151515;
+color:#fff;
+border:1px solid #333;
+}
+
+.btn-dark:hover{
+background:#202020;
+}
+
+.user-email{
+display:flex;
+align-items:center;
+max-width:180px;
+overflow:hidden;
+text-overflow:ellipsis;
+white-space:nowrap;
+background:#151515;
+border:1px solid #333;
+border-radius:9px;
+padding:10px 13px;
+color:#60a5fa;
+font-size:13px;
+font-weight:bold;
+}
+
+/* =========================
+   DİL
+========================= */
+
+ .language-switcher{
+display:flex;
+align-items:center;
+margin-left:4px;
+}
+
+.language-switcher select{
+appearance:auto;
+-webkit-appearance:auto;
+background:#151515;
+border:1px solid #333;
+color:#fff;
+cursor:pointer;
+font-size:12px;
+font-weight:bold;
+padding:8px 10px;
+border-radius:8px;
+outline:none;
+min-width:65px;
+}
+
+.language-switcher select:hover,
+.language-switcher select:focus{
+border-color:#3b82f6;
+}
+
+.language-switcher select option{
+background:#151515;
+color:#fff;
+}
+
+/* =========================
+   CART
+========================= */
+
+.cart-btn{
+display:flex;
+align-items:center;
+gap:6px;
+background:#151515;
+border:1px solid #333;
+color:#fff;
+}
+
+.cart-count{
+background:#ef4444;
+color:#fff;
+border-radius:50%;
+min-width:20px;
+height:20px;
+display:inline-flex;
+align-items:center;
+justify-content:center;
+font-size:11px;
+font-weight:bold;
+padding:0 5px;
+}
+
+#cartModal{
+display:none;
+position:fixed;
+top:0;
+right:0;
+width:100%;
+max-width:420px;
+height:100vh;
+background:#101010;
+border-left:1px solid #262626;
+z-index:2000;
+padding:25px;
+overflow-y:auto;
+box-shadow:-10px 0 40px rgba(0,0,0,.4);
+}
+
+.cart-header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:20px;
+}
+
+.cart-header h2{
+font-size:22px;
+}
+
+.cart-close{
+background:none;
+border:0;
+color:#aaa;
+font-size:23px;
+cursor:pointer;
+}
+
+.cart-close:hover{
+color:#fff;
+}
+
+.cart-item{
+background:#080808;
+border:1px solid #222;
+border-radius:10px;
+padding:13px;
+margin-bottom:10px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:10px;
+}
+
+.cart-item-name{
+font-weight:bold;
+color:#60a5fa;
+font-size:14px;
+}
+
+.cart-item-price{
+color:#888;
+font-size:12px;
+margin-top:4px;
+}
+
+.cart-remove{
+background:none;
+border:0;
+color:#ef4444;
+cursor:pointer;
+font-size:13px;
+}
+
+.cart-total{
+border-top:1px solid #222;
+padding-top:15px;
+margin-top:15px;
+}
+
+.cart-total-row{
+display:flex;
+justify-content:space-between;
+margin-bottom:15px;
+font-weight:bold;
+}
+
+.cart-empty{
+color:#777;
+text-align:center;
+padding:25px 10px;
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+padding:90px 0;
+background:
+radial-gradient(circle at 20% 10%,#172554 0,transparent 35%),
+radial-gradient(circle at 90% 20%,#111827 0,transparent 35%),
+#050505;
+}
+
+.hero-inner{
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:55px;
+}
+
+.hero-content{
+flex:1;
+max-width:620px;
+}
+
+.badge{
+display:inline-block;
+padding:7px 14px;
+border:1px solid #294b87;
+background:#0b1428;
+border-radius:30px;
+color:#60a5fa;
+font-size:13px;
+margin-bottom:20px;
+}
+
+.hero h1{
+font-size:55px;
+line-height:1.08;
+margin-bottom:20px;
+}
+
+.hero h1 span{
+color:#3b82f6;
+display:block;
+}
+
+.hero p{
+color:#aaa;
+font-size:17px;
+margin-bottom:28px;
+}
+
+.hero-buttons{
+display:flex;
+gap:10px;
+}
+
+.hero-image{
+flex:1;
+display:flex;
+justify-content:center;
+}
+
+.hero-image img{
+width:100%;
+max-width:550px;
+height:auto;
+object-fit:contain;
+border-radius:20px;
+}
+
+/* =========================
+   SECTIONS
+========================= */
+
+section{
+padding:75px 0;
+}
+
+.section-title{
+text-align:center;
+margin-bottom:40px;
+}
+
+.section-title h2{
+font-size:36px;
+margin-bottom:8px;
+}
+
+.section-title p{
+color:#999;
+}
+
+/* =========================
+   PRODUCTS
+========================= */
+
+.products{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:20px;
+}
+
+.product{
+background:#101010;
+border:1px solid #242424;
+border-radius:16px;
+padding:20px;
+transition:.25s;
+}
+
+.product:hover{
+transform:translateY(-5px);
+border-color:#2563eb;
+}
+
+.product-image{
+width:100%;
+height:145px;
+object-fit:contain;
+padding:15px;
+background:#080808;
+border-radius:12px;
+margin-bottom:15px;
+}
+
+.product h3{
+font-size:20px;
+margin-bottom:8px;
+}
+
+.product p{
+color:#888;
+font-size:14px;
+min-height:48px;
+}
+
+.price{
+font-size:23px;
+font-weight:900;
+margin:15px 0;
+}
+
+.price small{
+color:#777;
+font-size:13px;
+font-weight:400;
+}
+
+.product-actions{
+display:flex;
+gap:8px;
+flex-direction:column;
+}
+
+.product-actions a,
+.product-actions button{
+text-align:center;
+width:100%;
+}
+
+/* =========================
+   FEATURES
+========================= */
+
+.features{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:20px;
+}
+
+.feature{
+background:#101010;
+border:1px solid #222;
+border-radius:15px;
+padding:28px;
+}
+
+.feature img{
+width:60px;
+height:60px;
+object-fit:contain;
+margin-bottom:12px;
+}
+
+.feature h3{
+margin-bottom:8px;
+}
+
+.feature p{
+color:#999;
+}
+
+.feature strong{
+display:block;
+margin-top:14px;
+color:#60a5fa;
+}
+
+/* =========================
+   ABOUT
+========================= */
+
+.about{
+background:#090909;
+}
+
+.about-content{
+max-width:1000px;
+margin:auto;
+text-align:left;
+}
+
+.about-content > h2{
+font-size:38px;
+margin-bottom:18px;
+text-align:center;
+}
+
+.about-intro{
+text-align:center;
+}
+
+.about-content p{
+color:#aaa;
+margin-bottom:14px;
+}
+
+.about-subsection{
+margin-top:35px;
+background:#101010;
+border:1px solid #222;
+border-radius:15px;
+padding:25px;
+}
+
+.about-subsection h3{
+font-size:24px;
+margin-bottom:12px;
+color:#fff;
+}
+
+.about-subsection h4{
+font-size:18px;
+margin-top:22px;
+margin-bottom:8px;
+color:#60a5fa;
+}
+
+.about-subsection p{
+color:#aaa;
+margin-bottom:12px;
+}
+
+.about-subsection ul{
+padding-left:20px;
+color:#aaa;
+}
+
+.about-subsection li{
+margin-bottom:8px;
+}
+
+.about-highlight{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:15px;
+margin-top:25px;
+}
+
+.about-box{
+background:#080808;
+border:1px solid #222;
+border-radius:12px;
+padding:20px;
+}
+
+.about-box strong{
+display:block;
+color:#60a5fa;
+margin-bottom:8px;
+font-size:17px;
+}
+
+.about-box p{
+margin:0;
+font-size:14px;
+}
+
+.steps{
+display:grid;
+grid-template-columns:repeat(5,1fr);
+gap:12px;
+margin-top:20px;
+}
+
+.step{
+background:#080808;
+border:1px solid #222;
+border-radius:12px;
+padding:18px;
+}
+
+.step-number{
+width:36px;
+height:36px;
+display:flex;
+align-items:center;
+justify-content:center;
+border-radius:50%;
+background:#2563eb;
+font-weight:900;
+margin-bottom:12px;
+}
+
+.step h4{
+margin:0 0 7px;
+color:#fff;
+}
+
+.step p{
+font-size:13px;
+margin:0;
+}
+
+.about-faq{
+margin-top:20px;
+}
+
+.about-faq-item{
+border-bottom:1px solid #222;
+padding:15px 0;
+}
+
+.about-faq-item:last-child{
+border-bottom:0;
+}
+
+.about-faq-item strong{
+display:block;
+color:#fff;
+margin-bottom:6px;
+}
+
+.about-faq-item p{
+margin:0;
+font-size:14px;
+}
+
+/* =========================
+   COMPARE
+========================= */
+
+.compare-grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:18px;
+}
+
+.compare-card{
+background:#101010;
+border:1px solid #242424;
+padding:24px;
+border-radius:15px;
+}
+
+.compare-card:hover{
+border-color:#2563eb;
+}
+
+.compare-card h3{
+margin-bottom:10px;
+}
+
+.compare-card p{
+color:#999;
+margin-bottom:15px;
+}
+
+.compare-card a{
+color:#60a5fa;
+font-weight:bold;
+}
+
+/* =========================
+   REVIEWS
+========================= */
+
+.reviews{
+background:#090909;
+}
+
+.review-grid{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:18px;
+}
+
+.review{
+background:#101010;
+border:1px solid #242424;
+border-radius:15px;
+padding:23px;
+}
+
+.stars{
+color:#facc15;
+font-size:18px;
+margin-bottom:12px;
+}
+
+.review-text{
+color:#ddd;
+min-height:75px;
+margin-bottom:18px;
+}
+
+.reviewer{
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+.avatar{
+width:42px;
+height:42px;
+border-radius:50%;
+background:#2563eb;
+display:flex;
+align-items:center;
+justify-content:center;
+font-weight:bold;
+}
+
+.reviewer strong{
+display:block;
+}
+
+.reviewer span{
+color:#777;
+font-size:12px;
+}
+
+/* =========================
+   BLOG
+========================= */
+
+.blog-grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:20px;
+}
+
+.blog-card{
+background:#101010;
+border:1px solid #222;
+border-radius:15px;
+padding:24px;
+}
+
+.blog-card h3{
+margin-bottom:9px;
+}
+
+.blog-card p{
+color:#999;
+font-size:14px;
+}
+
+/* =========================
+   FAQ
+========================= */
+
+.faq{
+max-width:850px;
+margin:auto;
+}
+
+.faq-item{
+background:#101010;
+border:1px solid #252525;
+border-radius:10px;
+margin-bottom:10px;
+overflow:hidden;
+}
+
+.faq-question{
+padding:17px;
+font-weight:bold;
+display:flex;
+justify-content:space-between;
+cursor:pointer;
+}
+
+.faq-answer{
+display:none;
+padding:0 17px 17px;
+color:#999;
+}
+
+.faq-item.open .faq-answer{
+display:block;
+}
+
+/* =========================
+   CONTACT
+========================= */
+
+.contact{
+background:#090909;
+}
+
+.contact-grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:25px;
+}
+
+.contact-box{
+background:#101010;
+border:1px solid #222;
+border-radius:15px;
+padding:28px;
+}
+
+.contact-box p{
+color:#999;
+}
+
+.contact-item{
+margin-top:15px;
+}
+
+.contact-item span{
+display:block;
+color:#999;
+}
+
+.footer-link-buttons{
+display:flex;
+flex-direction:column;
+align-items:flex-start;
+gap:7px;
+}
+
+.footer-link-button{
+display:inline-block !important;
+width:auto !important;
+max-width:none !important;
+margin:0 !important;
+padding:7px 11px !important;
+background:#151515 !important;
+border:1px solid #333 !important;
+border-radius:8px;
+color:#aaa !important;
+font-size:13px !important;
+transition:.2s;
+}
+
+.footer-link-button:hover{
+color:#fff !important;
+border-color:#3b82f6 !important;
+background:#101827 !important;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+background:#030303;
+border-top:1px solid #222;
+padding:45px 0 20px;
+}
+
+.footer-grid{
+display:grid;
+grid-template-columns:2fr 1fr 1fr 1fr;
+gap:30px;
+}
+
+.footer-col h3{
+margin-bottom:13px;
+}
+
+.footer-col p,
+.footer-col a{
+display:block;
+color:#888;
+font-size:14px;
+margin-bottom:7px;
+}
+
+.footer-col a:hover{
+color:#3b82f6;
+}
+
+.copyright{
+border-top:1px solid #222;
+margin-top:30px;
+padding-top:18px;
+text-align:center;
+color:#666;
+font-size:13px;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:1000px){
+
+.products{
+grid-template-columns:repeat(2,1fr);
+}
+
+.review-grid{
+grid-template-columns:repeat(2,1fr);
+}
+
+.features{
+grid-template-columns:1fr;
+}
+
+.footer-grid{
+grid-template-columns:1fr 1fr;
+}
+
+.menu{
+display:none;
+}
+
+.about-highlight{
+grid-template-columns:1fr;
+}
+
+.steps{
+grid-template-columns:repeat(2,1fr);
+}
+
+}
+
+@media(max-width:700px){
+
+.nav{
+min-height:65px;
+}
+
+.logo{
+font-size:22px;
+}
+
+.header-right{
+gap:5px;
+}
+
+.auth{
+gap:5px;
+}
+
+.auth .btn{
+padding:9px 10px;
+font-size:12px;
+}
+
+.user-email{
+max-width:120px;
+font-size:11px;
+padding:9px 8px;
+}
+
+.language-switcher{
+display:flex;
+}
+
+.cart-btn{
+padding:9px 10px;
+font-size:12px;
+}
+
+.hero-inner{
+flex-direction:column;
+text-align:center;
+}
+
+.hero h1{
+font-size:39px;
+}
+
+.hero-buttons{
+justify-content:center;
+flex-direction:column;
+}
+
+.products,
+.compare-grid,
+.review-grid,
+.blog-grid,
+.contact-grid{
+grid-template-columns:1fr;
+}
+
+.footer-grid{
+grid-template-columns:1fr;
+}
+
+#cartModal{
+max-width:100%;
+}
+
+.about-content{
+text-align:left;
+}
+
+.about-content > h2{
+font-size:32px;
+}
+
+.steps{
+grid-template-columns:1fr;
+}
+
+}
+
+/* MOBİL DİL */
+
+.mobile-language{
+display:none;
+}
+
+@media(max-width:700px){
+
+.mobile-language{
+display:flex;
+justify-content:center;
+align-items:center;
+gap:8px;
+padding:10px 0;
+border-top:1px solid #222;
+background:#080808;
+}
+
+.mobile-language button{
+background:none;
+border:0;
+color:#777;
+font-weight:bold;
+cursor:pointer;
+}
+
+.mobile-language button.active{
+color:#3b82f6;
+}
+
+.mobile-language span{
+color:#333;
+}
+
+}
+
+</style>
+
+<style id="digibaku-dropdown-fix">
+.about-dropdown{position:relative;display:inline-block}
+.about-dropdown-toggle{background:none;border:0;color:#aaa;font:inherit;font-size:14px;cursor:pointer;padding:0}
+.about-dropdown-toggle:hover{color:#3b82f6}
+.about-dropdown-menu{display:none;position:absolute;top:calc(100% + 10px);left:0;z-index:99999;min-width:230px;background:#101010;border:1px solid #333;border-radius:10px;box-shadow:0 12px 35px rgba(0,0,0,.45);padding:6px}
+.about-dropdown.open .about-dropdown-menu{display:block}
+.about-dropdown-menu a{display:block!important;color:#aaa!important;padding:10px 12px!important;margin:0!important;white-space:nowrap;border-radius:7px}
+.about-dropdown-menu a:hover{background:#1b1b1b;color:#3b82f6!important}
+.language-dropdown{position:relative;display:inline-block}
+.language-dropdown-toggle{background:#151515;border:1px solid #333;border-radius:9px;color:#fff;padding:9px 12px;cursor:pointer;font-weight:700;font-size:12px}
+.language-dropdown-menu{display:none;position:absolute;right:0;top:calc(100% + 7px);z-index:99999;min-width:90px;background:#101010;border:1px solid #333;border-radius:9px;padding:5px;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+.language-dropdown.open .language-dropdown-menu{display:block}
+.language-dropdown-menu button{display:block;width:100%;background:none;border:0;color:#aaa;padding:9px;cursor:pointer;text-align:left;font-weight:700;border-radius:6px}
+.language-dropdown-menu button:hover,.language-dropdown-menu button.active{background:#1b1b1b;color:#3b82f6}
+</style>
+</head>
+
+<body>
+
+<header>
+
+<div class="container nav">
+
+<a href="#home" class="logo">
+DigiBaku<span>.com</span>
+</a>
+
+<nav class="menu">
+
+<a href="#home" data-i18n="home">Ana səhifə</a>
+
+<a href="#products" data-i18n="products">Məhsullar</a>
+
+<a href="#compare" data-i18n="compareMenu">Müqayisə</a>
+
+<div class="about-dropdown">
+<button type="button" class="about-dropdown-toggle" aria-haspopup="true" aria-expanded="false">Haqqımızda ▾</button>
+<div class="about-dropdown-menu">
+<a href="#about" data-i18n="about">Haqqımızda</a>
+<a href="#faq" data-i18n="faqTitle">FAQ</a>
+<a href="#how-it-works" data-i18n="howItWorksTitle">Necə işləyir?</a>
+<a href="#trust" data-i18n="securityTitle">Etibar</a>
+<a href="#editorial-policy" data-i18n="editorialTitle">Redaksiya siyasəti</a>
+<a href="#terms" data-i18n="termsTitle">Şərtlər</a>
+<a href="#reviews" data-i18n="reviews">Rəylər</a>
 </div>
 </div>
 
@@ -1113,23 +2304,11 @@ Qeydiyyat
 </div>
 
 <div class="language-switcher">
-
-<button onclick="setLanguage('az')" id="langAZ">
-AZ
-</button>
-
-<span>|</span>
-
-<button onclick="setLanguage('ru')" id="langRU">
-RU
-</button>
-
-<span>|</span>
-
-<button onclick="setLanguage('en')" id="langEN">
-EN
-</button>
-
+<select id="languageSelect" onchange="setLanguage(this.value)" aria-label="Dil seçimi">
+<option value="az">AZ</option>
+<option value="ru">RU</option>
+<option value="en">EN</option>
+</select>
 </div>
 
 </div>
@@ -1713,7 +2892,7 @@ DigiBaku.com premium rəqəmsal xidmətləri daha əlçatan, başadüşülən v�
 </div>
 
 
-<div class="about-subsection">
+<div class="about-subsection" id="faq">
 
 <h3 data-i18n="faqCenter">
 Tez-tez verilən suallar
@@ -1798,7 +2977,7 @@ Problem yaranarsa nə etməliyəm?
 </div>
 
 
-<div class="about-subsection">
+<div class="about-subsection" id="how-it-works">
 
 <h3 data-i18n="howItWorksTitle">
 Sifariş və aktivləşdirmə necə işləyir?
@@ -1953,7 +3132,7 @@ Giriş, aktivlik, istifadə və paket məlumatı ilə bağlı problem yaranan ki
 </div>
 
 
-<div class="about-subsection">
+<div class="about-subsection" id="trust">
 
 <h3 data-i18n="securityTitle">
 Təhlükəsizlik, qaydalar və dəstək prinsipləri
@@ -2014,7 +3193,7 @@ Təhlükəsizlik qaydaları istifadəçi təcrübəsini qoruyur.
 </div>
 
 
-<div class="about-subsection">
+<div class="about-subsection" id="editorial-policy">
 
 <h3 data-i18n="editorialTitle">
 Redaksiya siyasəti və məzmun standartları
@@ -2187,7 +3366,7 @@ Məzmun dəyişiklik olduqda yenilənir.
 </div>
 
 
-<div class="about-subsection">
+<div class="about-subsection" id="terms">
 
 <h3 data-i18n="termsTitle">
 Şərtlər və qaydalar
@@ -2911,40 +4090,17 @@ Netflix • YouTube Premium • ChatGPT Plus • Spotify Premium
 
 
 <div class="footer-col">
+<h3>Digibaku.com</h3>
 
-<h3 data-i18n="usefulLinks">
-Faydalı linklər
-</h3>
-
-<a
-href="#home"
-data-i18n="home">
-Ana səhifə
-</a>
-
-<a
-href="#products"
-data-i18n="products">
-Məhsullar
-</a>
-
-<a
-href="#compare"
-data-i18n="compareMenu">
-Müqayisə
-</a>
-
-<a
-href="#about"
-data-i18n="about">
-Haqqımızda
-</a>
-
-<a
-href="#reviews"
-data-i18n="reviews">
-Rəylər
-</a>
+<div class="footer-link-buttons">
+<a class="footer-link-button" href="#about">Haqqımızda</a>
+<a class="footer-link-button" href="#faq">FAQ</a>
+<a class="footer-link-button" href="#how-it-works">Necə işləyir?</a>
+<a class="footer-link-button" href="#trust">Etibar</a>
+<a class="footer-link-button" href="#editorial-policy">Redaksiya siyasəti</a>
+<a class="footer-link-button" href="#terms">Şərtlər</a>
+<a class="footer-link-button" href="#reviews">Rəylər</a>
+</div>
 
 </div>
 
@@ -3954,6 +5110,9 @@ return localStorage.getItem("digi_language") || "az";
 
 function setLanguage(lang){
 
+
+const languageSelect=document.getElementById("languageSelect");
+if(languageSelect) languageSelect.value=lang;
 if(!translations[lang]){
 
 lang="az";
@@ -4583,25 +5742,24 @@ checkLogin();
 </script>
 
 
-<script id="digibakuAboutDropdownHandler">
+<script id="digibaku-dropdown-handler">
 (function(){
 function init(){
-document.querySelectorAll('.about-dropdown-toggle').forEach(function(btn){
-if(btn.dataset.bound==='1')return;
-btn.dataset.bound='1';
-btn.addEventListener('click',function(e){
-e.preventDefault();e.stopPropagation();
-var box=btn.closest('.about-dropdown');
-document.querySelectorAll('.about-dropdown.open').forEach(function(x){if(x!==box)x.classList.remove('open');});
-var open=box.classList.toggle('open');
-btn.setAttribute('aria-expanded',open?'true':'false');
-});
-});
+ document.querySelectorAll('.about-dropdown-toggle,.language-dropdown-toggle').forEach(function(btn){
+  if(btn.dataset.bound==='1') return;
+  btn.dataset.bound='1';
+  btn.addEventListener('click',function(e){
+   e.preventDefault(); e.stopPropagation();
+   var box=btn.parentElement;
+   document.querySelectorAll('.about-dropdown.open,.language-dropdown.open').forEach(function(x){if(x!==box)x.classList.remove('open');});
+   box.classList.toggle('open');
+   btn.setAttribute('aria-expanded',box.classList.contains('open')?'true':'false');
+  });
+ });
+ document.querySelectorAll('.about-dropdown-menu a').forEach(function(a){a.addEventListener('click',function(){document.querySelector('.about-dropdown')?.classList.remove('open');});});
+ document.addEventListener('click',function(e){if(!e.target.closest('.about-dropdown')&&!e.target.closest('.language-dropdown')){document.querySelectorAll('.about-dropdown.open,.language-dropdown.open').forEach(function(x){x.classList.remove('open');});}});
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
-document.addEventListener('click',function(e){
-if(!e.target.closest('.about-dropdown'))document.querySelectorAll('.about-dropdown.open').forEach(function(x){x.classList.remove('open');});
-});
 })();
 </script>
 </body>
