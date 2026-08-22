@@ -20,7 +20,7 @@ h2{font-size:28px;margin:0 0 12px}.section-intro{color:var(--muted);max-width:85
 .products{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:24px}
 .product{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;scroll-margin-top:100px}.product-img{width:64px;height:64px;object-fit:contain;background:#161616;display:block;border-radius:12px;margin:18px 21px 0;padding:8px}.product-body{padding:21px}.product h3{margin:0 0 6px;font-size:22px}.desc{color:var(--muted);margin:0 0 18px}
 .duration-title{font-weight:700;margin:18px 0 9px}.duration-options{display:flex;gap:8px;flex-wrap:wrap}.duration-option{border:1px solid var(--border);background:var(--card2);color:#ddd;border-radius:8px;padding:9px 12px;cursor:pointer}.duration-option.active{border-color:var(--accent);background:#18243a;color:#fff}.duration-option strong{display:block;font-size:14px}.duration-option small{color:#999}.price-line{margin-top:17px;font-size:22px;font-weight:800}.price-line span{font-size:14px;color:#999;font-weight:400;margin-left:7px}.info-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}.info{background:var(--card2);border-radius:9px;padding:11px 13px}.info small{display:block;color:#777;font-size:11px}.info strong{display:block;margin-top:2px}
-.btn{display:inline-flex;margin-top:17px;background:var(--accent);padding:10px 15px;border-radius:9px;font-weight:700;font-size:14px}.btn.secondary{background:transparent;border:1px solid var(--border)}
+.btn{display:inline-flex;margin-top:17px;background:var(--accent);padding:10px 15px;border-radius:9px;font-weight:700;font-size:14px}.btn.secondary{background:transparent;border:1px solid var(--border)}.cart-btn{margin-left:8px;background:transparent;border:1px solid var(--border);color:#fff;cursor:pointer}.cart-count{display:inline-flex;min-width:20px;height:20px;align-items:center;justify-content:center;border-radius:10px;background:var(--accent);font-size:11px;margin-left:5px}
 .guide,.faq,.note{margin-top:30px;background:var(--card);border:1px solid var(--border);border-radius:16px;padding:25px}
 .guide p,.faq p,.note{color:var(--muted)}.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin-top:20px}.step{background:var(--card2);padding:15px;border-radius:10px}.step b{color:var(--accent);display:block;font-size:12px;margin-bottom:5px}
 .faq-item{border-top:1px solid var(--border);padding:17px 0}.faq-item:first-child{border-top:0}.faq-item h3{font-size:17px;margin:0 0 6px}.faq-item p{margin:0}
@@ -28,7 +28,7 @@ h2{font-size:28px;margin:0 0 12px}.section-intro{color:var(--muted);max-width:85
 footer{border-top:1px solid var(--border);padding:28px 0;color:#777;font-size:13px}
 @media(max-width:760px){.nav{padding:13px 0;flex-wrap:wrap}.nav-links{order:3;width:100%;overflow:auto;flex-wrap:nowrap}.products{grid-template-columns:1fr}.steps{grid-template-columns:1fr 1fr}.related{grid-template-columns:1fr}}
 @media(max-width:430px){.steps{grid-template-columns:1fr}.info-row{grid-template-columns:1fr}}
-</style>
+.cart-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:100;display:none;align-items:flex-start;justify-content:flex-end}.cart-overlay.open{display:flex}.cart-panel{width:min(420px,100%);height:100%;background:#0d0d0d;border-left:1px solid var(--border);padding:22px;overflow:auto}.cart-head{display:flex;align-items:center;justify-content:space-between}.cart-head h2{margin:0}.cart-close{background:none;border:0;color:#aaa;font-size:30px;cursor:pointer}.cart-item{border:1px solid var(--border);border-radius:10px;padding:13px;margin:10px 0}.cart-item-top{display:flex;justify-content:space-between;gap:10px}.cart-remove{border:0;background:none;color:#999;cursor:pointer}.cart-total{display:flex;justify-content:space-between;border-top:1px solid var(--border);padding:18px 0;margin-top:18px;font-size:18px}.cart-empty{color:var(--muted);padding:20px 0}.cart-add{cursor:pointer}.cart-panel .btn{border:0}.nav-cart{margin-left:4px}.</style>
 </head>
 <body>
 <header>
@@ -70,61 +70,61 @@ footer{border-top:1px solid var(--border);padding:28px 0;color:#777;font-size:13
 <article class="product" id="netflix">
 <img class="product-img" src="netflix.webp" alt="Netflix 4K Premium Abunəliyi" onerror="this.style.display='none'">
 <div class="product-body">
-<h3>Netflix 4K Premium Abunəliyi</h3>
-<p class="desc">Netflix Premium abunəliyi ilə film və serialları Ultra HD keyfiyyətdə izləyin. Premium məzmunlara rahat şəkildə çıxış əldə edin.</p>
-<div class="duration-title">Müddət seçin</div>
+<h3 data-i18n="netflixTitle">Netflix 4K Premium Abunəliyi</h3>
+<p class="desc" data-i18n="netflixDesc">Netflix Premium abunəliyi ilə film və serialları Ultra HD keyfiyyətdə izləyin. Premium məzmunlara rahat şəkildə çıxış əldə edin.</p>
+<div class="duration-title" data-i18n="chooseDuration">Müddət seçin</div>
 <div class="duration-options">
 <button class="duration-option active" type="button" data-product="netflix" data-duration="1 ay" data-price="6.99 AZN"><strong>1 ay</strong><small>6.99 AZN</small></button>
 <button class="duration-option" type="button" data-product="netflix" data-duration="2 ay" data-price="12.99 AZN"><strong>2 ay</strong><small>12.99 AZN</small></button>
 <button class="duration-option" type="button" data-product="netflix" data-duration="3 ay" data-price="20.99 AZN"><strong>3 ay</strong><small>20.99 AZN</small></button>
 </div>
 <div class="price-line"><span class="selected-price">6.99 AZN</span><span class="selected-duration">1 ay</span></div>
-<a class="btn order-btn" href="https://wa.me/994702883484?text=Salam%20DigiBaku%2C%20netflix%20sifari%C5%9Fi%20verm%C9%99k%20ist%C9%99yir%C9%99m." target="_blank" rel="noopener">Sifariş</a>
+<button class="btn cart-add" type="button" data-i18n="addCart">Səbətə at</button><a class="btn order-btn" href="https://wa.me/994702883484?text=Salam%20DigiBaku%2C%20netflix%20sifari%C5%9Fi%20verm%C9%99k%20ist%C9%99yir%C9%99m." target="_blank" rel="noopener">Sifariş</a>
 </div></article>
 
 <article class="product" id="youtube">
 <img class="product-img" src="youtube.webp" alt="YouTube Premium" onerror="this.style.display='none'">
 <div class="product-body">
-<h3>YouTube Premium</h3>
-<p class="desc">YouTube Premium ilə videolara reklamsız baxın, musiqidən rahat istifadə edin.</p>
-<div class="duration-title">Müddət seçin</div>
+<h3 data-i18n="youtubeTitle">YouTube Premium</h3>
+<p class="desc" data-i18n="youtubeDesc">YouTube Premium ilə videolara reklamsız baxın, musiqidən rahat istifadə edin.</p>
+<div class="duration-title" data-i18n="chooseDuration">Müddət seçin</div>
 <div class="duration-options">
 <button class="duration-option active" type="button" data-product="youtube" data-duration="1 ay" data-price="7.99 AZN"><strong>1 ay</strong><small>7.99 AZN</small></button>
 <button class="duration-option" type="button" data-product="youtube" data-duration="2 ay" data-price="14.99 AZN"><strong>2 ay</strong><small>14.99 AZN</small></button>
 <button class="duration-option" type="button" data-product="youtube" data-duration="3 ay" data-price="21.99 AZN"><strong>3 ay</strong><small>21.99 AZN</small></button>
 </div>
 <div class="price-line"><span class="selected-price">7.99 AZN</span><span class="selected-duration">1 ay</span></div>
-<a class="btn order-btn" href="https://wa.me/994702883484?text=Salam%20DigiBaku%2C%20youtube%20sifari%C5%9Fi%20verm%C9%99k%20ist%C9%99yir%C9%99m." target="_blank" rel="noopener">Sifariş</a>
+<button class="btn cart-add" type="button" data-i18n="addCart">Səbətə at</button><a class="btn order-btn" href="https://wa.me/994702883484?text=Salam%20DigiBaku%2C%20youtube%20sifari%C5%9Fi%20verm%C9%99k%20ist%C9%99yir%C9%99m." target="_blank" rel="noopener">Sifariş</a>
 </div></article>
 
 <article class="product" id="spotify">
 <img class="product-img" src="spotfiy.webp" alt="Spotify Premium" onerror="this.style.display='none'">
 <div class="product-body">
-<h3>Spotify Premium</h3>
-<p class="desc">Spotify Premium ilə musiqiləri reklamsız dinləyin.</p>
-<div class="duration-title">Müddət seçin</div>
+<h3 data-i18n="spotifyTitle">Spotify Premium</h3>
+<p class="desc" data-i18n="spotifyDesc">Spotify Premium ilə musiqiləri reklamsız dinləyin.</p>
+<div class="duration-title" data-i18n="chooseDuration">Müddət seçin</div>
 <div class="duration-options">
 <button class="duration-option active" type="button" data-product="spotify" data-duration="1 ay" data-price="7.99 AZN"><strong>1 ay</strong><small>7.99 AZN</small></button>
 <button class="duration-option" type="button" data-product="spotify" data-duration="2 ay" data-price="14.99 AZN"><strong>2 ay</strong><small>14.99 AZN</small></button>
 <button class="duration-option" type="button" data-product="spotify" data-duration="3 ay" data-price="21.99 AZN"><strong>3 ay</strong><small>21.99 AZN</small></button>
 </div>
 <div class="price-line"><span class="selected-price">7.99 AZN</span><span class="selected-duration">1 ay</span></div>
-<a class="btn order-btn" href="https://wa.me/994702883484?text=Salam%20DigiBaku%2C%20spotify%20sifari%C5%9Fi%20verm%C9%99k%20ist%C9%99yir%C9%99m." target="_blank" rel="noopener">Sifariş</a>
+<button class="btn cart-add" type="button" data-i18n="addCart">Səbətə at</button><a class="btn order-btn" href="https://wa.me/994702883484?text=Salam%20DigiBaku%2C%20spotify%20sifari%C5%9Fi%20verm%C9%99k%20ist%C9%99yir%C9%99m." target="_blank" rel="noopener">Sifariş</a>
 </div></article>
 
 <article class="product" id="chatgpt">
 <img class="product-img" src="chatgpt.webp" alt="ChatGPT Plus" onerror="this.style.display='none'">
 <div class="product-body">
-<h3>ChatGPT Plus</h3>
-<p class="desc">ChatGPT Plus yazı, kod, araşdırma və gündəlik işlərdə süni intellekt imkanları.</p>
-<div class="duration-title">Müddət seçin</div>
+<h3 data-i18n="chatgptTitle">ChatGPT Plus</h3>
+<p class="desc" data-i18n="chatgptDesc">ChatGPT Plus yazı, kod, araşdırma və gündəlik işlərdə süni intellekt imkanları.</p>
+<div class="duration-title" data-i18n="chooseDuration">Müddət seçin</div>
 <div class="duration-options">
 <button class="duration-option active" type="button" data-product="chatgpt" data-duration="1 ay" data-price="11.99 AZN"><strong>1 ay</strong><small>11.99 AZN</small></button>
 <button class="duration-option" type="button" data-product="chatgpt" data-duration="2 ay" data-price="22.99 AZN"><strong>2 ay</strong><small>22.99 AZN</small></button>
 <button class="duration-option" type="button" data-product="chatgpt" data-duration="3 ay" data-price="33.99 AZN"><strong>3 ay</strong><small>33.99 AZN</small></button>
 </div>
 <div class="price-line"><span class="selected-price">11.99 AZN</span><span class="selected-duration">1 ay</span></div>
-<a class="btn order-btn" href="https://wa.me/994702883484?text=Salam%20DigiBaku%2C%20chatgpt%20sifari%C5%9Fi%20verm%C9%99k%20ist%C9%99yir%C9%99m." target="_blank" rel="noopener">Sifariş</a>
+<button class="btn cart-add" type="button" data-i18n="addCart">Səbətə at</button><a class="btn order-btn" href="https://wa.me/994702883484?text=Salam%20DigiBaku%2C%20chatgpt%20sifari%C5%9Fi%20verm%C9%99k%20ist%C9%99yir%C9%99m." target="_blank" rel="noopener">Sifariş</a>
 </div></article>
 </div>
 </section>
@@ -162,45 +162,91 @@ footer{border-top:1px solid var(--border);padding:28px 0;color:#777;font-size:13
 </div>
 </main>
 
+
+<div class="cart-overlay" id="cartOverlay">
+  <div class="cart-panel">
+    <div class="cart-head">
+      <h2 data-i18n="cartTitle">Səbət</h2>
+      <button class="cart-close" id="cartClose" type="button">×</button>
+    </div>
+    <div id="cartItems" class="cart-items"></div>
+    <div class="cart-total"><span data-i18n="cartTotal">Cəmi</span><strong id="cartTotal">0.00 AZN</strong></div>
+    <a id="cartOrder" class="btn" href="https://wa.me/994702883484" target="_blank" rel="noopener" data-i18n="cartOrder">Sifariş et</a>
+  </div>
+</div>
 <footer><div class="container">© DigiBaku — <span data-i18n="footer">Premium rəqəmsal xidmətlər</span></div></footer>
 
 <script>
 const t={
 az:{
 home:"Ana səhifə",products:"Məhsullar",compare:"Müqayisə",about:"Haqqımızda",prices:"Qiymətlər",blog:"Bloq",contact:"Əlaqə",
-title:"Premium abunəlik qiymətləri Azərbaycanda",
-intro:"Sifarişdən əvvəl cari başlanğıc qiymətini, paket müddətini və istifadə qaydasını müqayisə etmək üçün DigiBaku qiymət bələdçisinə baxın.",
+title:"Premium abunəlik qiymətləri Azərbaycanda",intro:"Sifarişdən əvvəl cari başlanğıc qiymətini, paket müddətini və istifadə qaydasını müqayisə etmək üçün DigiBaku qiymət bələdçisinə baxın.",
 currentPrices:"Cari başlanğıc qiymətləri",faq:"FAQ",packages:"Cari paketlər",packagesIntro:"DigiBaku-da hazırda satışda olan xidmətlər və onların qiymətləri.",
-netflixTitle:"Netflix Premium",netflixDesc:"Netflix üçün DigiBaku-da mövcud paketlər.",youtubeDesc:"Reklamsız YouTube Premium xidməti.",spotifyDesc:"Spotify Premium üçün DigiBaku paketi.",chatgptDesc:"ChatGPT Plus üçün DigiBaku premium paketi.",
-duration:"Müddət",startPrice:"Başlanğıc qiymət",order:"Sifariş",guideTitle:"DigiBaku-da necə sifariş vermək olar?",guideIntro:"Xidməti seçin, müddəti və qiyməti yoxlayın, sonra WhatsApp vasitəsilə sifarişinizi göndərin.",
+netflixTitle:"Netflix 4K Premium Abunəliyi",netflixDesc:"Netflix Premium abunəliyi ilə film və serialları Ultra HD keyfiyyətdə izləyin. Premium məzmunlara rahat şəkildə çıxış əldə edin.",
+youtubeTitle:"YouTube Premium",youtubeDesc:"YouTube Premium ilə videolara reklamsız baxın, musiqidən rahat istifadə edin.",
+spotifyTitle:"Spotify Premium",spotifyDesc:"Spotify Premium ilə musiqiləri reklamsız dinləyin.",
+chatgptTitle:"ChatGPT Plus",chatgptDesc:"ChatGPT Plus yazı, kod, araşdırma və gündəlik işlərdə süni intellekt imkanları.",
+chooseDuration:"Müddət seçin",addCart:"Səbətə at",cartTitle:"Səbət",cartTotal:"Cəmi",cartOrder:"Sifariş et",duration:"Müddət",startPrice:"Başlanğıc qiymət",order:"Sifariş",
+guideTitle:"DigiBaku-da necə sifariş vermək olar?",guideIntro:"Xidməti seçin, müddəti və qiyməti yoxlayın, sonra sifarişinizi göndərin.",
 step1:"Xidməti seçin",step2:"Paket müddətini yoxlayın",step3:"Qiyməti yoxlayın",step4:"Sifariş verin",
-faqTitle:"Ən çox verilən suallar",q1:"DigiBaku-da hansı xidmətlər satılır?",a1:"Hazırda Netflix, YouTube Premium, Spotify və ChatGPT xidmətləri satışdadır.",q2:"Sifarişi necə verə bilərəm?",a2:"İstədiyiniz xidmətin “Sifariş” düyməsinə basın. Sifarişiniz birbaşa DigiBaku WhatsApp nömrəsinə göndəriləcək.",q3:"Qiymətlər dəyişə bilər?",a3:"Bəli. Paket və kampaniyalara görə qiymətlər dəyişə bilər. Sifariş zamanı səhifədə göstərilən cari qiyməti əsas götürün.",q4:"Alternativ xidmətlər də satılır?",a4:"Bu qiymət bələdçisində yalnız DigiBaku-da hazırda satışda olan xidmətlər göstərilir.",
-note:"Qiymətlər DigiBaku-da hazırda satışda olan paketlərə əsaslanır. Sifarişdən əvvəl xidmət, müddət və qiyməti yoxlayın.",relatedTitle:"DigiBaku üzrə keçidlər",footer:"Premium rəqəmsal xidmətlər"
+faqTitle:"Ən çox verilən suallar",q1:"DigiBaku-da hansı xidmətlər satılır?",a1:"Hazırda Netflix, YouTube Premium, Spotify və ChatGPT xidmətləri satışdadır.",
+q2:"Sifarişi necə verə bilərəm?",a2:"İstədiyiniz xidmətin “Sifariş” düyməsinə basın. Sifarişiniz birbaşa DigiBaku WhatsApp nömrəsinə göndəriləcək.",
+q3:"Qiymətlər dəyişə bilər?",a3:"Bəli. Paket və kampaniyalara görə qiymətlər dəyişə bilər. Sifariş zamanı səhifədə göstərilən cari qiyməti əsas götürün.",
+q4:"Alternativ xidmətlər də satılır?",a4:"Bu qiymət bələdçisində yalnız DigiBaku-da hazırda satışda olan xidmətlər göstərilir.",
+note:"Qiymətlər DigiBaku-da hazırda satışda olan paketlərə əsaslanır. Sifarişdən əvvəl xidmət, müddət və qiyməti yoxlayın.",
+relatedTitle:"DigiBaku üzrə keçidlər",footer:"Premium rəqəmsal xidmətlər"
 },
 en:{
 home:"Home",products:"Products",compare:"Compare",about:"About",prices:"Prices",blog:"Blog",contact:"Contact",
-title:"Premium subscription prices in Azerbaijan",intro:"Check DigiBaku's price guide before ordering to compare current starting prices, package durations and ordering information.",
-currentPrices:"Current starting prices",faq:"FAQ",packages:"Current packages",packagesIntro:"Services currently sold by DigiBaku and their prices.",
-netflixTitle:"Netflix Premium",netflixDesc:"Netflix packages currently available at DigiBaku.",youtubeDesc:"YouTube Premium without ads.",spotifyDesc:"Spotify Premium package from DigiBaku.",chatgptDesc:"DigiBaku premium package for ChatGPT Plus.",
-duration:"Duration",startPrice:"Starting price",order:"Order via WhatsApp",guideTitle:"How to order from DigiBaku?",guideIntro:"Choose a service, check the duration and price, then send your order through WhatsApp.",
-step1:"Choose a service",step2:"Check the package duration",step3:"Check the price",step4:"Order via WhatsApp",
-faqTitle:"Frequently asked questions",q1:"Which services are sold by DigiBaku?",a1:"Netflix, YouTube Premium, Spotify and ChatGPT are currently available.",q2:"How can I order?",a2:"Click the “Order via WhatsApp” button for the service you want. Your order will be sent directly to DigiBaku's WhatsApp number.",q3:"Can prices change?",a3:"Yes. Prices may change according to packages and promotions. Use the current price shown on the page when ordering.",q4:"Are other services sold?",a4:"This price guide lists only services currently sold by DigiBaku.",
-note:"Prices are based on packages currently sold by DigiBaku. Check the service, duration and price before ordering.",relatedTitle:"DigiBaku links",footer:"Premium digital services"
+title:"Premium Subscription Prices in Azerbaijan",intro:"Check DigiBaku's price guide before ordering to compare current starting prices, package durations and ordering information.",
+currentPrices:"Current Starting Prices",faq:"FAQ",packages:"Current Packages",packagesIntro:"Services currently available for purchase from DigiBaku and their prices.",
+netflixTitle:"Netflix 4K Premium Subscription",netflixDesc:"Watch movies and series in Ultra HD with a Netflix Premium subscription and enjoy access to premium content.",
+youtubeTitle:"YouTube Premium",youtubeDesc:"Watch videos without ads and enjoy music comfortably with YouTube Premium.",
+spotifyTitle:"Spotify Premium",spotifyDesc:"Listen to music without ads with Spotify Premium.",
+chatgptTitle:"ChatGPT Plus",chatgptDesc:"ChatGPT Plus provides AI capabilities for writing, coding, research and everyday tasks.",
+chooseDuration:"Choose a duration",addCart:"Add to cart",cartTitle:"Cart",cartTotal:"Total",cartOrder:"Place order",duration:"Duration",startPrice:"Starting price",order:"Order",
+guideTitle:"How to order from DigiBaku?",guideIntro:"Choose a service, check the duration and price, then place your order.",
+step1:"Choose a service",step2:"Check the package duration",step3:"Check the price",step4:"Place your order",
+faqTitle:"Frequently Asked Questions",q1:"Which services are sold by DigiBaku?",a1:"Netflix, YouTube Premium, Spotify and ChatGPT are currently available for purchase.",
+q2:"How can I place an order?",a2:"Click the “Order” button for the service you want. Your order will be sent directly to DigiBaku's WhatsApp number.",
+q3:"Can prices change?",a3:"Yes. Prices may change depending on packages and promotions. Use the current price shown on the page when ordering.",
+q4:"Are other services sold?",a4:"This price guide lists only the services currently available for purchase from DigiBaku.",
+note:"Prices are based on packages currently sold by DigiBaku. Check the service, duration and price before ordering.",
+relatedTitle:"DigiBaku Links",footer:"Premium Digital Services"
 },
 ru:{
-home:"Главная",products:"Продукты",compare:"Сравнение",about:"О нас",prices:"Цены",blog:"Блог",contact:"Контакты",
+home:"Главная",products:"Товары",compare:"Сравнение",about:"О нас",prices:"Цены",blog:"Блог",contact:"Контакты",
 title:"Цены на премиум-подписки в Азербайджане",intro:"Перед заказом ознакомьтесь с ценами DigiBaku, сроками пакетов и информацией о заказе.",
-currentPrices:"Текущие цены",faq:"FAQ",packages:"Текущие пакеты",packagesIntro:"Услуги, которые сейчас продаёт DigiBaku, и их цены.",
-netflixTitle:"Netflix Premium",netflixDesc:"Пакеты Netflix, доступные в DigiBaku.",youtubeDesc:"YouTube Premium без рекламы.",spotifyDesc:"Пакет Spotify Premium от DigiBaku.",chatgptDesc:"Премиум-пакет DigiBaku для ChatGPT Plus.",
-duration:"Срок",startPrice:"Цена от",order:"Заказать через WhatsApp",guideTitle:"Как заказать в DigiBaku?",guideIntro:"Выберите услугу, проверьте срок и цену, затем отправьте заказ через WhatsApp.",
-step1:"Выберите услугу",step2:"Проверьте срок пакета",step3:"Проверьте цену",step4:"Закажите через WhatsApp",
-faqTitle:"Частые вопросы",q1:"Какие услуги продаёт DigiBaku?",a1:"Сейчас доступны Netflix, YouTube Premium, Spotify и ChatGPT.",q2:"Как сделать заказ?",a2:"Нажмите кнопку “Заказать через WhatsApp” у нужной услуги. Заказ будет отправлен напрямую на WhatsApp DigiBaku.",q3:"Могут ли цены измениться?",a3:"Да. Цены могут меняться в зависимости от пакета и акций. При заказе ориентируйтесь на текущую цену на странице.",q4:"Продаются ли другие услуги?",a4:"В этом ценовом гиде указаны только услуги, которые сейчас продаёт DigiBaku.",
-note:"Цены основаны на пакетах, которые сейчас продаёт DigiBaku. Перед заказом проверьте услугу, срок и цену.",relatedTitle:"Ссылки DigiBaku",footer:"Премиум цифровые услуги"
+currentPrices:"Текущие цены",faq:"FAQ",packages:"Текущие пакеты",packagesIntro:"Услуги, доступные для покупки в DigiBaku, и их цены.",
+netflixTitle:"Премиум-подписка Netflix 4K",netflixDesc:"Смотрите фильмы и сериалы в Ultra HD с подпиской Netflix Premium и получайте доступ к премиум-контенту.",
+youtubeTitle:"YouTube Premium",youtubeDesc:"Смотрите видео без рекламы и удобно слушайте музыку с YouTube Premium.",
+spotifyTitle:"Spotify Premium",spotifyDesc:"Слушайте музыку без рекламы с Spotify Premium.",
+chatgptTitle:"ChatGPT Plus",chatgptDesc:"ChatGPT Plus предоставляет возможности ИИ для написания текстов, программирования, исследований и повседневных задач.",
+chooseDuration:"Выберите срок",addCart:"В корзину",cartTitle:"Корзина",cartTotal:"Итого",cartOrder:"Оформить заказ",duration:"Срок",startPrice:"Цена от",order:"Заказать",
+guideTitle:"Как заказать в DigiBaku?",guideIntro:"Выберите услугу, проверьте срок и цену, затем оформите заказ.",
+step1:"Выберите услугу",step2:"Проверьте срок пакета",step3:"Проверьте цену",step4:"Оформите заказ",
+faqTitle:"Часто задаваемые вопросы",q1:"Какие услуги продаёт DigiBaku?",a1:"Сейчас в продаже доступны Netflix, YouTube Premium, Spotify и ChatGPT.",
+q2:"Как оформить заказ?",a2:"Нажмите кнопку «Заказать» у нужной услуги. Ваш заказ будет отправлен напрямую на WhatsApp DigiBaku.",
+q3:"Могут ли цены измениться?",a3:"Да. Цены могут меняться в зависимости от пакета и акций. При заказе ориентируйтесь на текущую цену на странице.",
+q4:"Продаются ли другие услуги?",a4:"В этом ценовом гиде указаны только услуги, доступные для покупки в DigiBaku.",
+note:"Цены основаны на пакетах, которые сейчас продаёт DigiBaku. Перед заказом проверьте услугу, срок и цену.",
+relatedTitle:"Ссылки DigiBaku",footer:"Премиум цифровые услуги"
+},
+durationNames:{
+az:["1 ay","2 ay","3 ay"],en:["1 month","2 months","3 months"],ru:["1 месяц","2 месяца","3 месяца"]
 }};
 function setLang(lang){
 document.documentElement.lang=lang;
 document.querySelectorAll("[data-i18n]").forEach(e=>{let k=e.dataset.i18n;if(t[lang][k])e.textContent=t[lang][k]});
 document.querySelectorAll("[data-lang]").forEach(b=>b.classList.toggle("active",b.dataset.lang===lang));
+document.querySelectorAll(".duration-option").forEach((b,i)=>{
+  const n=i%3, names=t.durationNames[lang];
+  const strong=b.querySelector("strong");
+  if(strong) strong.textContent=names[n];
+});
+document.querySelectorAll(".selected-duration").forEach((e,i)=>{
+  const n=i%3; e.textContent=t.durationNames[lang][n] || e.textContent;
+});
 localStorage.setItem("digibaku_lang",lang);
 }
 document.querySelectorAll("[data-lang]").forEach(b=>b.onclick=()=>setLang(b.dataset.lang));
@@ -213,23 +259,150 @@ document.querySelectorAll(".product").forEach(card => {
   const price = card.querySelector(".selected-price");
   const duration = card.querySelector(".selected-duration");
   const order = card.querySelector(".order-btn");
-  const productName = card.querySelector("h3").textContent.trim();
+  const productName = card.querySelector("h3");
+
+  function updateOrder(){
+    const selected = card.querySelector(".duration-option.active");
+    const idx = [...options].indexOf(selected);
+    const lang = localStorage.getItem("digibaku_lang") || "az";
+    const durationName = t.durationNames[lang][idx] || selected.dataset.duration;
+    const selectedPrice = selected.dataset.price;
+    duration.textContent = durationName;
+    price.textContent = selectedPrice;
+
+    const names = {
+      az:`Salam DigiBaku, ${productName.textContent.trim()} sifarişi vermək istəyirəm. Müddət: ${durationName}. Qiymət: ${selectedPrice}.`,
+      en:`Hello DigiBaku, I would like to order ${productName.textContent.trim()}. Duration: ${durationName}. Price: ${selectedPrice}.`,
+      ru:`Здравствуйте, DigiBaku. Я хочу заказать ${productName.textContent.trim()}. Срок: ${durationName}. Цена: ${selectedPrice}.`
+    };
+    order.href = "https://wa.me/994702883484?text=" + encodeURIComponent(names[lang]);
+  }
 
   options.forEach(option => {
     option.addEventListener("click", () => {
       options.forEach(x => x.classList.remove("active"));
       option.classList.add("active");
-
-      const selectedDuration = option.dataset.duration;
-      const selectedPrice = option.dataset.price;
-      price.textContent = selectedPrice;
-      duration.textContent = selectedDuration;
-
-      const message = `Salam DigiBaku, ${productName} sifarişi vermək istəyirəm. Müddət: ${selectedDuration}. Qiymət: ${selectedPrice}.`;
-      order.href = "https://wa.me/994702883484?text=" + encodeURIComponent(message);
+      updateOrder();
     });
   });
+  updateOrder();
 });
+
+const oldSetLang = setLang;
+setLang = function(lang){
+  oldSetLang(lang);
+  document.querySelectorAll(".product").forEach(card=>{
+    const options=card.querySelectorAll(".duration-option");
+    const selected=card.querySelector(".duration-option.active");
+    if(!selected) return;
+    const idx=[...options].indexOf(selected);
+    const duration=card.querySelector(".selected-duration");
+    if(duration) duration.textContent=t.durationNames[lang][idx];
+    const order=card.querySelector(".order-btn");
+    const productName=card.querySelector("h3").textContent.trim();
+    const price=selected.dataset.price;
+    const d=t.durationNames[lang][idx];
+    const msg={
+      az:`Salam DigiBaku, ${productName} sifarişi vermək istəyirəm. Müddət: ${d}. Qiymət: ${price}.`,
+      en:`Hello DigiBaku, I would like to order ${productName}. Duration: ${d}. Price: ${price}.`,
+      ru:`Здравствуйте, DigiBaku. Я хочу заказать ${productName}. Срок: ${d}. Цена: ${price}.`
+    };
+    order.href="https://wa.me/994702883484?text="+encodeURIComponent(msg[lang]);
+  });
+};
+setLang(localStorage.getItem("digibaku_lang")||"az");
+</script>
+
+
+<script>
+(function(){
+  const KEY="digibaku_cart";
+  let cart=JSON.parse(localStorage.getItem(KEY)||"[]");
+  const overlay=document.getElementById("cartOverlay");
+  const itemsEl=document.getElementById("cartItems");
+  const totalEl=document.getElementById("cartTotal");
+  const orderEl=document.getElementById("cartOrder");
+
+  function lang(){return localStorage.getItem("digibaku_lang")||"az";}
+  function money(v){return Number(v).toFixed(2)+" AZN";}
+
+  function render(){
+    itemsEl.innerHTML="";
+    if(!cart.length){
+      itemsEl.innerHTML='<div class="cart-empty">'+({az:"Səbət boşdur.",en:"Your cart is empty.",ru:"Корзина пуста."}[lang()])+"</div>";
+      totalEl.textContent="0.00 AZN";
+      orderEl.href="https://wa.me/994702883484";
+      return;
+    }
+    let total=0;
+    cart.forEach((item,i)=>{
+      total+=Number(item.price);
+      const div=document.createElement("div");
+      div.className="cart-item";
+      div.innerHTML=`<div class="cart-item-top"><strong>${item.name}</strong><button class="cart-remove" data-i="${i}" type="button">×</button></div>
+      <div style="color:#999;margin-top:4px">${item.duration} · ${money(item.price)}</div>`;
+      itemsEl.appendChild(div);
+    });
+    totalEl.textContent=money(total);
+    const l=lang();
+    const lines={
+      az:"Salam DigiBaku, səbətimlə sifariş vermək istəyirəm:",
+      en:"Hello DigiBaku, I would like to place an order for my cart:",
+      ru:"Здравствуйте, DigiBaku. Я хочу оформить заказ из корзины:"
+    };
+    const msg=lines[l]+"\n"+cart.map(x=>`- ${x.name} | ${x.duration} | ${money(x.price)}`).join("\n")+"\n"+({az:"Cəmi",en:"Total",ru:"Итого"}[l])+": "+money(total);
+    orderEl.href="https://wa.me/994702883484?text="+encodeURIComponent(msg);
+    itemsEl.querySelectorAll(".cart-remove").forEach(b=>b.onclick=()=>{
+      cart.splice(Number(b.dataset.i),1);save();
+    });
+  }
+
+  function save(){localStorage.setItem(KEY,JSON.stringify(cart));render();}
+
+  document.querySelectorAll(".product").forEach(card=>{
+    const add=card.querySelector(".cart-add");
+    if(!add)return;
+    add.addEventListener("click",()=>{
+      const active=card.querySelector(".duration-option.active");
+      const idx=[...card.querySelectorAll(".duration-option")].indexOf(active);
+      const l=lang();
+      const durations=t.durationNames[l];
+      cart.push({
+        id:card.id+"-"+Date.now(),
+        name:card.querySelector("h3").textContent.trim(),
+        duration:durations[idx],
+        price:parseFloat(active.dataset.price)
+      });
+      save();
+      overlay.classList.add("open");
+    });
+  });
+
+  document.getElementById("cartClose").onclick=()=>overlay.classList.remove("open");
+  overlay.addEventListener("click",e=>{if(e.target===overlay)overlay.classList.remove("open")});
+
+  const nav=document.querySelector(".nav");
+  if(nav){
+    const b=document.createElement("button");
+    b.type="button"; b.className="cart-btn nav-cart";
+    b.innerHTML=({az:"Səbət",en:"Cart",ru:"Корзина"}[lang()])+' <span class="cart-count">0</span>';
+    b.onclick=()=>overlay.classList.add("open");
+    nav.appendChild(b);
+    window.digibakuCartButton=b;
+  }
+
+  const oldSetLang=window.setLang;
+  if(typeof oldSetLang==="function"){
+    window.setLang=function(l){
+      oldSetLang(l);
+      if(window.digibakuCartButton){
+        window.digibakuCartButton.firstChild.textContent=({az:"Səbət",en:"Cart",ru:"Корзина"}[l])+" ";
+      }
+      render();
+    };
+  }
+  render();
+})();
 </script>
 
 </body>
