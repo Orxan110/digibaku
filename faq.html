@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>DigiBaku — FAQ</title>
+<style>
+:root{--bg:#070707;--card:#111;--text:#f5f5f5;--muted:#aaa;--border:#252525;--accent:#fff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif;line-height:1.6}
+a{color:inherit;text-decoration:none}.container{width:min(1100px,92%);margin:auto}
+header{border-bottom:1px solid var(--border);background:#080808;position:sticky;top:0;z-index:10}
+.nav{min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.logo{font-size:23px;font-weight:800}.logo span{color:#888}
+.back{color:#bbb;font-size:14px}.back:hover{color:#fff}
+.langs{display:flex;gap:6px}.langs button{background:#111;border:1px solid var(--border);color:#aaa;padding:7px 10px;border-radius:7px;cursor:pointer}.langs button.active{color:#fff;border-color:#555}
+.hero{padding:75px 0 45px;text-align:center}.eyebrow{color:#888;text-transform:uppercase;letter-spacing:2px;font-size:12px}
+h1{font-size:clamp(35px,6vw,58px);margin:10px 0}.hero p{max-width:700px;margin:auto;color:var(--muted)}
+.faq{padding:20px 0 90px;max-width:850px;margin:auto}.faq-item{border:1px solid var(--border);border-radius:12px;background:var(--card);margin:12px 0;overflow:hidden}
+.question{width:100%;display:flex;align-items:center;justify-content:space-between;gap:20px;background:none;border:0;color:#fff;padding:20px;text-align:left;font-size:17px;font-weight:700;cursor:pointer}
+.question span:last-child{color:#888;font-size:25px;font-weight:400}.answer{display:none;padding:0 20px 20px;color:var(--muted)}.faq-item.open .answer{display:block}.faq-item.open .question span:last-child{transform:rotate(45deg)}
+footer{border-top:1px solid var(--border);padding:30px 0;color:#777;text-align:center;font-size:13px}
+@media(max-width:600px){.nav{min-height:64px}.hero{padding:55px 0 30px}.question{font-size:15px}}
+</style>
+<style>.main-nav{display:flex;align-items:center;gap:18px;flex-wrap:wrap}.main-nav a{color:#f5f5f5;text-decoration:none}.main-nav a:hover{color:#aaa}.about-wrap{position:relative}.about-wrap>button{background:none;border:0;color:#f5f5f5;font:inherit;cursor:pointer;padding:8px 0}.about-menu{display:none;position:absolute;top:calc(100% + 8px);left:0;min-width:210px;background:#111;border:1px solid #252525;border-radius:10px;padding:7px;box-shadow:0 15px 35px rgba(0,0,0,.45);z-index:50}.about-menu.open{display:flex;flex-direction:column}.about-menu a{padding:10px 12px;border-radius:7px;white-space:nowrap}.about-menu a:hover{background:#1b1b1b}.header-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.cart-top-btn,.login-btn,.register-btn{display:inline-flex;align-items:center;gap:5px;padding:8px 11px;border-radius:8px;text-decoration:none;cursor:pointer;font:inherit}.cart-top-btn{background:transparent;border:1px solid #252525;color:#fff}.login-btn{background:#fff;color:#000}.register-btn{background:#171717;color:#fff;border:1px solid #252525}#cartCount{font-size:12px;min-width:18px;height:18px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:#fff;color:#000}@media(max-width:900px){.nav{align-items:flex-start;flex-direction:column;padding:14px 0}.main-nav{gap:12px!important}.about-menu{position:fixed;top:120px;left:4%;right:4%;min-width:0}}</style></head>
+<body>
+<header><div class="container nav">
+<a class="logo" href="index.html#home">DigiBaku<span>.com</span></a>
+<nav class="main-nav">
+<a href="index.html#home" data-nav="home">Ana səhifə</a><a href="index.html#products" data-nav="products">Məhsullar</a><a href="index.html#compare" data-nav="compare">Müqayisə</a>
+<div class="about-wrap"><button id="aboutBtn" type="button"><span data-nav="about">Haqqımızda</span> ▾</button><div id="aboutMenu" class="about-menu">
+<a href="faq.html" data-menu="faq">FAQ</a><a href="index.html#how-it-works" data-menu="how">Necə işləyir?</a><a href="index.html#trust" data-menu="trust">Etibar</a><a href="index.html#editorial-policy" data-menu="editorial">Redaksiya siyasəti</a><a href="index.html#terms" data-menu="terms">Şərtlər</a><a href="index.html#reviews" data-menu="reviews">Rəylər</a>
+</div></div>
+<a href="qiymetler.html" data-nav="prices">Qiymətlər</a><a href="index.html#blog" data-nav="blog">Bloq</a><a href="index.html#contact" data-nav="contact">Əlaqə</a>
+</nav><div class="header-actions"><button id="topCartBtn" class="cart-top-btn" type="button">🛒 <span data-nav="cart">Səbət</span> <span id="cartCount">0</span></button><a class="login-btn" href="login.html" data-nav="login">Daxil ol</a><a class="register-btn" href="login.html" data-nav="register">Qeydiyyat</a><div class="langs"><button data-lang="az" class="active">AZ</button><button data-lang="ru">RU</button><button data-lang="en">EN</button></div></div>
+</div></header>
+
+<main>
+<section class="hero"><div class="container">
+<div class="eyebrow" data-i18n="eyebrow">DigiBaku dəstək</div>
+<h1 data-i18n="title">Tez-tez verilən suallar</h1>
+<p data-i18n="intro">Sifariş, məhsullar, ödəniş və aktivləşdirmə ilə bağlı ən çox verilən sualların cavablarını burada tapa bilərsiniz.</p>
+</div></section>
+
+<section class="faq"><div class="container">
+<div class="faq-item"><button class="question"><span data-i18n="q1">Sifariş necə verilir?</span><span>+</span></button><div class="answer" data-i18n="a1">İstədiyiniz məhsulu seçin, müddəti müəyyən edin və “Sifariş” düyməsinə klikləyin. Sifariş məlumatları WhatsApp vasitəsilə göndərilir.</div></div>
+<div class="faq-item"><button class="question"><span data-i18n="q2">Hansı məhsullar satılır?</span><span>+</span></button><div class="answer" data-i18n="a2">Hazırda DigiBaku-da Netflix Premium, YouTube Premium, Spotify Premium və ChatGPT Plus satışdadır.</div></div>
+<div class="faq-item"><button class="question"><span data-i18n="q3">Müddəti özüm seçə bilərəm?</span><span>+</span></button><div class="answer" data-i18n="a3">Bəli. Məhsul səhifəsində mövcud müddətlərdən birini seçə və seçdiyiniz müddətə uyğun qiyməti görə bilərsiniz.</div></div>
+<div class="faq-item"><button class="question"><span data-i18n="q4">Sifarişdən sonra nə baş verir?</span><span>+</span></button><div class="answer" data-i18n="a4">Sifariş məlumatınız WhatsApp-a göndərilir və sifarişin detalları dəqiqləşdirildikdən sonra aktivləşdirmə prosesi həyata keçirilir.</div></div>
+<div class="faq-item"><button class="question"><span data-i18n="q5">Qiymətlərə haradan baxa bilərəm?</span><span>+</span></button><div class="answer" data-i18n="a5">Saytdakı “Qiymətlər” bölməsində DigiBaku-da hazırda satışda olan xidmətlərin müddət və qiymətlərinə baxa bilərsiniz.</div></div>
+<div class="faq-item"><button class="question"><span data-i18n="q6">Dəstəklə necə əlaqə saxlaya bilərəm?</span><span>+</span></button><div class="answer" data-i18n="a6">Sifarişlə bağlı dəstək üçün sifariş zamanı istifadə olunan WhatsApp əlaqəsindən müraciət edə bilərsiniz.</div></div>
+<div class="faq-item"><button class="question"><span data-i18n="q7">Qiymətlər dəyişə bilər?</span><span>+</span></button><div class="answer" data-i18n="a7">Bəli. Paketlərə və kampaniyalara görə qiymətlər dəyişə bilər. Sifariş zamanı saytda göstərilən cari qiymət əsas götürülür.</div></div>
+<div class="faq-item"><button class="question"><span data-i18n="q8">Başqa sualım varsa nə edə bilərəm?</span><span>+</span></button><div class="answer" data-i18n="a8">Əlavə sualınız varsa DigiBaku ilə əlaqə saxlayın. Sifarişinizlə bağlı məlumatı mümkün qədər ətraflı qeyd etməyiniz cavab prosesini sürətləndirir.</div></div>
+</div></section>
+</main>
+
+<footer>© 2026 DigiBaku.com. <span data-i18n="rights">Bütün hüquqlar qorunur.</span></footer>
+
+<script>
+const translations={
+az:{home:"Ana səhifə",eyebrow:"DigiBaku dəstək",title:"Tez-tez verilən suallar",intro:"Sifariş, məhsullar, ödəniş və aktivləşdirmə ilə bağlı ən çox verilən sualların cavablarını burada tapa bilərsiniz.",
+q1:"Sifariş necə verilir?",a1:"İstədiyiniz məhsulu seçin, müddəti müəyyən edin və “Sifariş” düyməsinə klikləyin. Sifariş məlumatları WhatsApp vasitəsilə göndərilir.",
+q2:"Hansı məhsullar satılır?",a2:"Hazırda DigiBaku-da Netflix Premium, YouTube Premium, Spotify Premium və ChatGPT Plus satışdadır.",
+q3:"Müddəti özüm seçə bilərəm?",a3:"Bəli. Məhsul səhifəsində mövcud müddətlərdən birini seçə və seçdiyiniz müddətə uyğun qiyməti görə bilərsiniz.",
+q4:"Sifarişdən sonra nə baş verir?",a4:"Sifariş məlumatınız WhatsApp-a göndərilir və sifarişin detalları dəqiqləşdirildikdən sonra aktivləşdirmə prosesi həyata keçirilir.",
+q5:"Qiymətlərə haradan baxa bilərəm?",a5:"Saytdakı “Qiymətlər” bölməsində DigiBaku-da hazırda satışda olan xidmətlərin müddət və qiymətlərinə baxa bilərsiniz.",
+q6:"Dəstəklə necə əlaqə saxlaya bilərəm?",a6:"Sifarişlə bağlı dəstək üçün sifariş zamanı istifadə olunan WhatsApp əlaqəsindən müraciət edə bilərsiniz.",
+q7:"Qiymətlər dəyişə bilər?",a7:"Bəli. Paketlərə və kampaniyalara görə qiymətlər dəyişə bilər. Sifariş zamanı saytda göstərilən cari qiymət əsas götürülür.",
+q8:"Başqa sualım varsa nə edə bilərəm?",a8:"Əlavə sualınız varsa DigiBaku ilə əlaqə saxlayın. Sifarişinizlə bağlı məlumatı mümkün qədər ətraflı qeyd etməyiniz cavab prosesini sürətləndirir.",rights:"Bütün hüquqlar qorunur."},
+en:{home:"Home",eyebrow:"DigiBaku Support",title:"Frequently Asked Questions",intro:"Find answers to the most common questions about orders, products, payments and activation.",
+q1:"How do I place an order?",a1:"Choose the product you want, select the duration and click the “Order” button. Your order details are sent via WhatsApp.",
+q2:"Which products are available?",a2:"DigiBaku currently offers Netflix Premium, YouTube Premium, Spotify Premium and ChatGPT Plus.",
+q3:"Can I choose the duration?",a3:"Yes. On the product page, you can choose one of the available durations and see the price for your selection.",
+q4:"What happens after I place an order?",a4:"Your order information is sent to WhatsApp. After the details are confirmed, the activation process is completed.",
+q5:"Where can I see the prices?",a5:"You can see the durations and prices of services currently sold by DigiBaku in the “Prices” section.",
+q6:"How can I contact support?",a6:"For order support, contact DigiBaku through the WhatsApp contact used during the ordering process.",
+q7:"Can prices change?",a7:"Yes. Prices may change depending on packages and promotions. The current price shown on the website applies when ordering.",
+q8:"What if I have another question?",a8:"If you have another question, contact DigiBaku. Providing your order details clearly can help speed up the response.",rights:"All rights reserved."},
+ru:{home:"Главная",eyebrow:"Поддержка DigiBaku",title:"Часто задаваемые вопросы",intro:"Здесь вы найдёте ответы на самые частые вопросы о заказах, товарах, оплате и активации.",
+q1:"Как оформить заказ?",a1:"Выберите нужный товар, укажите срок и нажмите кнопку «Заказать». Данные заказа отправляются через WhatsApp.",
+q2:"Какие товары доступны?",a2:"Сейчас в DigiBaku доступны Netflix Premium, YouTube Premium, Spotify Premium и ChatGPT Plus.",
+q3:"Можно ли выбрать срок?",a3:"Да. На странице товара можно выбрать один из доступных сроков и увидеть соответствующую цену.",
+q4:"Что происходит после заказа?",a4:"Информация о заказе отправляется в WhatsApp. После подтверждения деталей выполняется активация.",
+q5:"Где посмотреть цены?",a5:"В разделе «Цены» можно посмотреть сроки и цены услуг, которые сейчас продаёт DigiBaku.",
+q6:"Как связаться с поддержкой?",a6:"По вопросам заказа свяжитесь с DigiBaku через WhatsApp, который используется при оформлении заказа.",
+q7:"Могут ли цены измениться?",a7:"Да. Цены могут меняться в зависимости от пакета и акций. При заказе действует текущая цена на сайте.",
+q8:"Что делать, если у меня другой вопрос?",a8:"Если у вас есть другой вопрос, свяжитесь с DigiBaku. Подробная информация о заказе поможет быстрее получить ответ.",rights:"Все права защищены."}
+};
+function setLang(lang){
+document.documentElement.lang=lang;
+document.querySelectorAll("[data-i18n]").forEach(el=>{const k=el.dataset.i18n;if(translations[lang][k])el.textContent=translations[lang][k]});
+document.querySelectorAll("[data-lang]").forEach(b=>b.classList.toggle("active",b.dataset.lang===lang));
+localStorage.setItem("digibaku_lang",lang);
+}
+document.querySelectorAll(".question").forEach(btn=>btn.addEventListener("click",()=>btn.parentElement.classList.toggle("open")));
+document.querySelectorAll("[data-lang]").forEach(b=>b.addEventListener("click",()=>setLang(b.dataset.lang)));
+setLang(localStorage.getItem("digibaku_lang")||"az");
+</script>
+<script>
+const navTranslations={az:{home:'Ana səhifə',products:'Məhsullar',compare:'Müqayisə',about:'Haqqımızda',prices:'Qiymətlər',blog:'Bloq',contact:'Əlaqə',cart:'Səbət',login:'Daxil ol',register:'Qeydiyyat',faq:'FAQ',how:'Necə işləyir?',trust:'Etibar',editorial:'Redaksiya siyasəti',terms:'Şərtlər',reviews:'Rəylər'},en:{home:'Home',products:'Products',compare:'Compare',about:'About us',prices:'Prices',blog:'Blog',contact:'Contact',cart:'Cart',login:'Log in',register:'Sign up',faq:'FAQ',how:'How it works?',trust:'Trust',editorial:'Editorial policy',terms:'Terms',reviews:'Reviews'},ru:{home:'Главная',products:'Товары',compare:'Сравнение',about:'О нас',prices:'Цены',blog:'Блог',contact:'Контакты',cart:'Корзина',login:'Войти',register:'Регистрация',faq:'FAQ',how:'Как это работает?',trust:'Надёжность',editorial:'Редакционная политика',terms:'Условия',reviews:'Отзывы'}};
+function updateNav(l){let t=navTranslations[l]||navTranslations.az;document.querySelectorAll('[data-nav]').forEach(x=>x.textContent=t[x.dataset.nav]);document.querySelectorAll('[data-menu]').forEach(x=>x.textContent=t[x.dataset.menu]);}
+const oldSetLang=window.setLang;if(typeof oldSetLang==='function'){window.setLang=function(l){oldSetLang(l);updateNav(l)}}updateNav(localStorage.getItem('digibaku_lang')||'az');
+const b=document.getElementById('aboutBtn'),m=document.getElementById('aboutMenu');if(b&&m){b.onclick=e=>{e.stopPropagation();m.classList.toggle('open')};document.addEventListener('click',()=>m.classList.remove('open'));m.onclick=e=>e.stopPropagation();}
+</script></body>
+</html>
