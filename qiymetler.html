@@ -27,7 +27,21 @@ h2{font-size:28px;margin:0 0 12px}.section-intro{color:var(--muted);max-width:85
 footer{border-top:1px solid var(--border);padding:28px 0;color:#777;font-size:13px}
 @media(max-width:760px){.nav{padding:13px 0;flex-wrap:wrap}.nav-links{order:3;width:100%;overflow:auto;flex-wrap:nowrap}.products{grid-template-columns:1fr}.steps{grid-template-columns:1fr 1fr}.related{grid-template-columns:1fr}}
 @media(max-width:430px){.steps{grid-template-columns:1fr}.info-row{grid-template-columns:1fr}}
-.cart-overlay.open{display:flex}.cart-add{cursor:pointer}.cart-panel .btn{border:0}.</style>
+.cart-overlay.open{display:flex}.cart-add{cursor:pointer}.cart-panel .btn{border:0}.
+.cart-top-btn{display:inline-flex;align-items:center;gap:6px;margin-left:8px;padding:8px 12px;border:1px solid var(--border);border-radius:8px;background:transparent;color:#fff;cursor:pointer;font-weight:600}
+.cart-top-btn:hover{background:#171717}
+.cart-count{display:inline-flex;align-items:center;justify-content:center;min-width:19px;height:19px;border-radius:50%;background:var(--accent);font-size:11px}
+.cart-overlay{position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:9999;display:none;justify-content:flex-end}
+.cart-overlay.open{display:flex}
+.cart-panel{width:min(420px,100%);height:100%;background:#0d0d0d;border-left:1px solid var(--border);padding:22px;overflow:auto}
+.cart-head{display:flex;align-items:center;justify-content:space-between}
+.cart-head h2{margin:0}
+.cart-close{border:0;background:transparent;color:#aaa;font-size:30px;cursor:pointer}
+.cart-item{border:1px solid var(--border);border-radius:10px;padding:12px;margin:10px 0}
+.cart-total{display:flex;justify-content:space-between;border-top:1px solid var(--border);padding:16px 0;margin-top:16px}
+.cart-empty{color:#999;padding:20px 0}
+
+</style>
 </head>
 <body>
 <header>
@@ -43,6 +57,7 @@ footer{border-top:1px solid var(--border);padding:28px 0;color:#777;font-size:13
 <a href="index.html#contact" data-i18n="contact">Əlaqə</a>
 </nav>
 <div class="lang"><button class="active" data-lang="az">AZ</button><button data-lang="en">EN</button><button data-lang="ru">RU</button></div>
+<button id="topCartBtn" class="cart-top-btn" type="button">Səbət <span id="cartCount" class="cart-count">0</span></button>
 </div>
 </header>
 
@@ -315,5 +330,27 @@ setLang(localStorage.getItem("digibaku_lang")||"az");
 
 
 
+
+<div id="cartOverlay" class="cart-overlay">
+  <div class="cart-panel">
+    <div class="cart-head">
+      <h2>Səbət</h2>
+      <button id="cartClose" class="cart-close" type="button">×</button>
+    </div>
+    <div id="cartItems" class="cart-empty">Səbət boşdur.</div>
+    <div class="cart-total"><span>Cəmi</span><strong id="cartTotal">0.00 AZN</strong></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const btn=document.getElementById("topCartBtn");
+  const overlay=document.getElementById("cartOverlay");
+  const close=document.getElementById("cartClose");
+  if(btn && overlay) btn.addEventListener("click",()=>overlay.classList.add("open"));
+  if(close) close.addEventListener("click",()=>overlay.classList.remove("open"));
+  if(overlay) overlay.addEventListener("click",e=>{if(e.target===overlay) overlay.classList.remove("open")});
+})();
+</script>
 </body>
 </html>
