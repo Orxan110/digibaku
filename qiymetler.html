@@ -100,6 +100,7 @@ h1{font-size:clamp(34px,6vw,56px);line-height:1.08;margin:0 0 18px}
 }
 footer{border-top:1px solid var(--border);padding:28px 0;color:#777;font-size:13px}
 @media(max-width:760px){
+  .guide-links{grid-template-columns:1fr}
   .nav{align-items:flex-start;padding:14px 0;flex-wrap:wrap}
   .nav-links{order:3;width:100%;overflow:auto;flex-wrap:nowrap}
   .services{grid-template-columns:1fr}
@@ -109,6 +110,19 @@ footer{border-top:1px solid var(--border);padding:28px 0;color:#777;font-size:13
 @media(max-width:430px){
   .steps{grid-template-columns:1fr}
 }
+
+.service-image{width:100%;height:190px;object-fit:cover;border-radius:12px;margin-bottom:4px;background:#171717}
+.current-packages{margin-top:34px}
+.section-label{color:var(--accent);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px}
+.current-packages>h2{font-size:clamp(27px,4vw,38px);margin:0 0 10px}
+.current-packages>p{color:var(--muted);max-width:850px;margin:0 0 22px}
+.guide-links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.guide-links article{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px}
+.guide-links h3{font-size:18px;line-height:1.35;margin:0 0 10px}
+.guide-links h3 a:hover{color:var(--accent)}
+.guide-links p{color:var(--muted);font-size:14px;margin:0 0 15px}
+.guide-link{font-size:14px;font-weight:700;color:var(--accent)}
+
 </style>
 </head>
 <body>
@@ -143,36 +157,73 @@ footer{border-top:1px solid var(--border);padding:28px 0;color:#777;font-size:13
 
     <section class="services">
       <article class="service">
+        <img class="service-image" src="netflix.webp" alt="Netflix">
         <h2>Netflix</h2>
         <p class="desc" data-i18n="netflixDesc">Netflix Premium üçün mövcud paketlər.</p>
         <div class="price-row"><span data-i18n="oneMonth">1 ay</span><span class="price">6.99 AZN</span></div>
         <div class="price-row"><span data-i18n="twoMonths">2 ay</span><span class="price">12.99 AZN</span></div>
-        <a class="btn" href="index.html#products" data-i18n="order">Sifariş vermək</a>
+        <a class="btn" target="_blank" rel="noopener" href="https://wa.me/994702883484?text=Salam%2C%20Netflix%20sifari%C5%9Fi%20verm%C9%99k%20ist%C9%99yir%C9%99m." data-i18n="order">WhatsApp-dan sifariş ver</a>
       </article>
 
       <article class="service">
+        <img class="service-image" src="youtube.webp" alt="YouTube Premium">
         <h2>YouTube Premium</h2>
         <p class="desc" data-i18n="youtubeDesc">YouTube Premium üçün mövcud paket.</p>
         <div class="price-row"><span data-i18n="oneMonth">1 ay</span><span class="price">7.99 AZN</span></div>
-        <a class="btn" href="index.html#products" data-i18n="order">Sifariş vermək</a>
+        <a class="btn" target="_blank" rel="noopener" href="https://wa.me/994702883484?text=Salam%2C%20YouTube%20Premium%20sifari%C5%9Fi%20verm%C9%99k%20ist%C9%99yir%C9%99m." data-i18n="order">WhatsApp-dan sifariş ver</a>
       </article>
 
       <article class="service">
+        <img class="service-image" src="spotfiy.webp" alt="Spotify">
         <h2>Spotify</h2>
         <p class="desc" data-i18n="spotifyDesc">Spotify Premium üçün mövcud paket.</p>
         <div class="price-row"><span data-i18n="oneMonth">1 ay</span><span class="price">7.99 AZN</span></div>
-        <a class="btn" href="index.html#products" data-i18n="order">Sifariş vermək</a>
+        <a class="btn" target="_blank" rel="noopener" href="https://wa.me/994702883484?text=Salam%2C%20Spotify%20sifari%C5%9Fi%20verm%C9%99k%20ist%C9%99yir%C9%99m." data-i18n="order">WhatsApp-dan sifariş ver</a>
       </article>
 
       <article class="service">
+        <img class="service-image" src="chatgpt.webp" alt="ChatGPT">
         <h2>ChatGPT</h2>
-        <p class="desc" data-i18n="chatgptDesc">ChatGPT üçün mövcud premium paket.</p>
+        <p class="desc" data-i18n="chatgptDesc">ChatGPT Plus üçün mövcud paket.</p>
         <div class="price-row"><span data-i18n="oneMonth">1 ay</span><span class="price">11.99 AZN</span></div>
-        <a class="btn" href="index.html#products" data-i18n="order">Sifariş vermək</a>
+        <a class="btn" target="_blank" rel="noopener" href="https://wa.me/994702883484?text=Salam%2C%20ChatGPT%20sifari%C5%9Fi%20verm%C9%99k%20ist%C9%99yir%C9%99m." data-i18n="order">WhatsApp-dan sifariş ver</a>
       </article>
     </section>
 
-    <section class="guide">
+    
+<section class="current-packages">
+  <div class="section-label" data-i18n="currentPackages">Cari paketlər</div>
+  <h2 data-i18n="guideHeading">Premium abunəlik qiymətləri Azərbaycanda</h2>
+  <p data-i18n="guideText">Sifarişdən əvvəl cari başlanğıc qiymətini, paket müddətini, alternativləri və istifadə qaydalarını müqayisə etmək üçün uyğun qiymət bələdçisini açın.</p>
+
+  <div class="guide-links">
+    <article>
+      <h3><a href="https://hesablar.az/az/prices/netflix-qiymeti" target="_blank" rel="noopener" data-i18n="netflixGuideTitle">Netflix qiyməti və Azərbaycanda premium paketlər</a></h3>
+      <p data-i18n="netflixGuideText">Netflix Premium qiyməti Azərbaycanda 6.99 AZN-dən başlayır. 1, 2 və 3 aylıq paketləri HBO Max, Prime Video və Disney+ ilə müqayisə edin.</p>
+      <a href="https://hesablar.az/az/prices/netflix-qiymeti" target="_blank" rel="noopener" class="guide-link" data-i18n="viewPrices">Qiymətlərə bax</a>
+    </article>
+
+    <article>
+      <h3><a href="https://hesablar.az/az/prices/youtube-premium-qiymeti" target="_blank" rel="noopener" data-i18n="youtubeGuideTitle">YouTube Premium qiyməti və reklamsız abunəlik</a></h3>
+      <p data-i18n="youtubeGuideText">YouTube Premium qiyməti 7.99 AZN-dən başlayır. Reklamsız video, arxa fonda dinləmə, offline yükləmə və YouTube Music imkanlarını müqayisə edin.</p>
+      <a href="https://hesablar.az/az/prices/youtube-premium-qiymeti" target="_blank" rel="noopener" class="guide-link" data-i18n="viewPrices">Qiymətlərə bax</a>
+    </article>
+
+    <article>
+      <h3><a href="https://hesablar.az/az/prices/spotify-premium-qiymeti" target="_blank" rel="noopener" data-i18n="spotifyGuideTitle">Spotify Premium qiyməti və musiqi paketləri</a></h3>
+      <p data-i18n="spotifyGuideText">Spotify Premium qiyməti 7.99 AZN-dən başlayır. 1, 2 və 3 aylıq paketləri Deezer, Apple Music və YouTube Premium ilə müqayisə edin.</p>
+      <a href="https://hesablar.az/az/prices/spotify-premium-qiymeti" target="_blank" rel="noopener" class="guide-link" data-i18n="viewPrices">Qiymətlərə bax</a>
+    </article>
+
+    <article>
+      <h3><a href="https://hesablar.az/az/prices/chatgpt-plus-qiymeti" target="_blank" rel="noopener" data-i18n="chatgptGuideTitle">ChatGPT Plus qiyməti və AI abunəlikləri</a></h3>
+      <p data-i18n="chatgptGuideText">ChatGPT Plus qiyməti və paket müddəti haqqında məlumat əldə edin. AI abunəliyini sifarişdən əvvəl qaydalarla yoxlayın.</p>
+      <a href="https://hesablar.az/az/prices/chatgpt-plus-qiymeti" target="_blank" rel="noopener" class="guide-link" data-i18n="viewPrices">Qiymətlərə bax</a>
+    </article>
+  </div>
+</section>
+
+<section class="guide">
       <h2 data-i18n="guideTitle">DigiBaku-da necə sifariş vermək olar?</h2>
       <p data-i18n="guideIntro">İstədiyiniz xidməti seçin, müddəti müəyyənləşdirin və sifarişinizi tamamlayın.</p>
       <div class="steps">
@@ -208,7 +259,7 @@ const translations = {
     guideIntro:"İstədiyiniz xidməti seçin, müddəti müəyyənləşdirin və sifarişinizi tamamlayın.",
     step1:"Xidməti seçin",step2:"Müddəti seçin",step3:"Qiyməti yoxlayın",step4:"Sifariş verin",
     note:"Qiymətlər DigiBaku-da hazırda satışda olan xidmətlərə uyğun göstərilir. Sifarişdən əvvəl xidmət və müddəti yoxlayın.",
-    footer:"Premium rəqəmsal xidmətlər"
+    currentPackages:"Cari paketlər",guideHeading:"Premium abunəlik qiymətləri Azərbaycanda",guideText:"Sifarişdən əvvəl cari başlanğıc qiymətini, paket müddətini, alternativləri və istifadə qaydalarını müqayisə etmək üçün uyğun qiymət bələdçisini açın.",netflixGuideTitle:"Netflix qiyməti və Azərbaycanda premium paketlər",netflixGuideText:"Netflix Premium qiyməti Azərbaycanda 6.99 AZN-dən başlayır. 1, 2 və 3 aylıq paketləri HBO Max, Prime Video və Disney+ ilə müqayisə edin.",youtubeGuideTitle:"YouTube Premium qiyməti və reklamsız abunəlik",youtubeGuideText:"YouTube Premium qiyməti 7.99 AZN-dən başlayır. Reklamsız video, arxa fonda dinləmə, offline yükləmə və YouTube Music imkanlarını müqayisə edin.",spotifyGuideTitle:"Spotify Premium qiyməti və musiqi paketləri",spotifyGuideText:"Spotify Premium qiyməti 7.99 AZN-dən başlayır. 1, 2 və 3 aylıq paketləri Deezer, Apple Music və YouTube Premium ilə müqayisə edin.",chatgptGuideTitle:"ChatGPT Plus qiyməti və AI abunəlikləri",chatgptGuideText:"ChatGPT Plus qiyməti və paket müddəti haqqında məlumat əldə edin. AI abunəliyini sifarişdən əvvəl qaydalarla yoxlayın.",viewPrices:"Qiymətlərə bax",footer:"Premium rəqəmsal xidmətlər"
   },
   en:{
     home:"Home",products:"Products",compare:"Compare",about:"About",prices:"Prices",blog:"Blog",contact:"Contact",
@@ -218,12 +269,12 @@ const translations = {
     youtubeDesc:"Available YouTube Premium package.",
     spotifyDesc:"Available Spotify Premium package.",
     chatgptDesc:"Available premium ChatGPT package.",
-    oneMonth:"1 month",twoMonths:"2 months",order:"Order now",
+    oneMonth:"1 month",twoMonths:"2 months",order:"Order via WhatsApp",
     guideTitle:"How to order from DigiBaku?",
     guideIntro:"Choose a service, select the duration and complete your order.",
     step1:"Choose a service",step2:"Choose a duration",step3:"Check the price",step4:"Place your order",
     note:"Prices are shown for services currently sold by DigiBaku. Check the service and duration before ordering.",
-    footer:"Premium digital services"
+    currentPackages:"Current packages",guideHeading:"Premium subscription prices in Azerbaijan",guideText:"Before ordering, open the relevant price guide to compare the current starting price, package duration, alternatives and usage information.",netflixGuideTitle:"Netflix price and premium packages in Azerbaijan",netflixGuideText:"Netflix Premium starts at 6.99 AZN in Azerbaijan. Compare 1, 2 and 3-month packages with HBO Max, Prime Video and Disney+.",youtubeGuideTitle:"YouTube Premium price and ad-free subscription",youtubeGuideText:"YouTube Premium starts at 7.99 AZN. Compare ad-free video, background playback, offline downloads and YouTube Music features.",spotifyGuideTitle:"Spotify Premium price and music packages",spotifyGuideText:"Spotify Premium starts at 7.99 AZN. Compare 1, 2 and 3-month packages with Deezer, Apple Music and YouTube Premium.",chatgptGuideTitle:"ChatGPT Plus price and AI subscriptions",chatgptGuideText:"Learn about the ChatGPT Plus price and package duration. Check the terms before ordering an AI subscription.",viewPrices:"View prices",footer:"Premium digital services"
   },
   ru:{
     home:"Главная",products:"Продукты",compare:"Сравнение",about:"О нас",prices:"Цены",blog:"Блог",contact:"Контакты",
@@ -233,12 +284,12 @@ const translations = {
     youtubeDesc:"Доступный пакет YouTube Premium.",
     spotifyDesc:"Доступный пакет Spotify Premium.",
     chatgptDesc:"Доступный премиум-пакет ChatGPT.",
-    oneMonth:"1 месяц",twoMonths:"2 месяца",order:"Заказать",
+    oneMonth:"1 месяц",twoMonths:"2 месяца",order:"Заказать через WhatsApp",
     guideTitle:"Как заказать в DigiBaku?",
     guideIntro:"Выберите услугу, срок и оформите заказ.",
     step1:"Выберите услугу",step2:"Выберите срок",step3:"Проверьте цену",step4:"Оформите заказ",
     note:"Цены указаны для услуг, которые сейчас продаются в DigiBaku. Перед заказом проверьте услугу и срок.",
-    footer:"Премиум цифровые услуги"
+    currentPackages:"Текущие пакеты",guideHeading:"Цены на премиум-подписки в Азербайджане",guideText:"Перед заказом откройте соответствующий ценовой гид, чтобы сравнить текущую начальную цену, срок пакета, альтернативы и условия использования.",netflixGuideTitle:"Цена Netflix и премиум-пакеты в Азербайджане",netflixGuideText:"Netflix Premium в Азербайджане начинается от 6.99 AZN. Сравните пакеты на 1, 2 и 3 месяца с HBO Max, Prime Video и Disney+.",youtubeGuideTitle:"Цена YouTube Premium и подписка без рекламы",youtubeGuideText:"YouTube Premium начинается от 7.99 AZN. Сравните просмотр без рекламы, фоновое воспроизведение, офлайн-загрузки и YouTube Music.",spotifyGuideTitle:"Цена Spotify Premium и музыкальные пакеты",spotifyGuideText:"Spotify Premium начинается от 7.99 AZN. Сравните пакеты на 1, 2 и 3 месяца с Deezer, Apple Music и YouTube Premium.",chatgptGuideTitle:"Цена ChatGPT Plus и AI-подписки",chatgptGuideText:"Узнайте цену ChatGPT Plus и срок пакета. Перед заказом проверьте условия AI-подписки.",viewPrices:"Посмотреть цены",footer:"Премиум цифровые услуги"
   }
 };
 
