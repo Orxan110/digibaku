@@ -96,15 +96,80 @@ section{padding:75px 0;}
 .product-actions a,.product-actions button{text-align:center;width:100%;}
 
 /* =========================
-   FEATURES (YENİLƏNMİŞ BÖYÜK DİZAYN)
+   FEATURES (BÖYÜK ŞƏKİL & FONLU YAZI DİZAYNI)
 ========================= */
-.features{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
-.feature{background:#101010;border:1px solid #222;border-radius:18px;padding:35px 28px;display:flex;flex-direction:column;align-items:flex-start;transition:.25s;}
-.feature:hover{border-color:#2563eb;transform:translateY(-4px);}
-.feature img{width:82px;height:82px;object-fit:contain;margin-bottom:18px;}
-.feature h3{font-size:22px;margin-bottom:12px;color:#fff;font-weight:700;}
-.feature p{color:#aaa;font-size:15px;line-height:1.7;margin-bottom:18px;flex-grow:1;}
-.feature strong{display:inline-block;color:#60a5fa;font-size:14px;font-weight:700;background:#0b1428;border:1px solid #1e3a8a;padding:7px 14px;border-radius:8px;}
+.features{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:24px;
+}
+.feature{
+  position:relative;
+  height:360px;
+  border-radius:20px;
+  overflow:hidden;
+  border:1px solid #242424;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+  padding:24px;
+  box-shadow:0 12px 35px rgba(0,0,0,0.5);
+  transition:transform .3s ease, border-color .3s ease;
+}
+.feature:hover{
+  transform:translateY(-6px);
+  border-color:#2563eb;
+}
+.feature-bg{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  z-index:1;
+  transition:transform .5s ease;
+}
+.feature:hover .feature-bg{
+  transform:scale(1.08);
+}
+.feature-overlay{
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg, rgba(5,5,5,0.2) 0%, rgba(5,5,5,0.75) 55%, #050505 100%);
+  z-index:2;
+}
+.feature-content{
+  position:relative;
+  z-index:3;
+  background:rgba(12, 12, 12, 0.78);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  border:1px solid rgba(255,255,255,0.1);
+  padding:20px;
+  border-radius:14px;
+}
+.feature-content h3{
+  font-size:20px;
+  font-weight:800;
+  color:#fff;
+  margin-bottom:8px;
+}
+.feature-content p{
+  color:#ccc;
+  font-size:13.5px;
+  line-height:1.55;
+  margin-bottom:12px;
+}
+.feature-content strong{
+  display:inline-block;
+  color:#60a5fa;
+  font-size:12px;
+  font-weight:700;
+  background:rgba(37, 99, 235, 0.2);
+  border:1px solid rgba(59, 130, 246, 0.4);
+  padding:5px 10px;
+  border-radius:6px;
+}
 
 /* =========================
    COMPARE
@@ -181,7 +246,6 @@ footer{background:#030303;border-top:1px solid #222;padding:45px 0 20px;}
 /* =========================
    MOBILE
 ========================= */
-.mobile-language{display:none;}
 @media(max-width:1000px){
 .products{grid-template-columns:repeat(2,1fr);}
 .review-grid{grid-template-columns:repeat(2,1fr);}
@@ -358,7 +422,7 @@ footer{background:#030303;border-top:1px solid #222;padding:45px 0 20px;}
 </div>
 </section>
 
-<!-- FEATURES -->
+<!-- FEATURES (YENİLƏNMİŞ BÖYÜK DİZAYN) -->
 <section>
 <div class="container">
 <div class="section-title">
@@ -367,22 +431,31 @@ footer{background:#030303;border-top:1px solid #222;padding:45px 0 20px;}
 </div>
 <div class="features">
 <div class="feature">
-<img src="destek.webp" alt="Dəstək">
+<img class="feature-bg" src="destek.webp" alt="Dəstək">
+<div class="feature-overlay"></div>
+<div class="feature-content">
 <h3 data-i18n="fastActivation">Sürətli aktivləşdirmə</h3>
 <p data-i18n="fastActivationText">Sifarişinizi tamamlayın, qalanını biz həll edək. Hesab məlumatlarınız hazırlanaraq sizə təqdim olunur.</p>
 <strong data-i18n="activationTime">5-30 dəq ərzində aktivləşdirmə</strong>
 </div>
+</div>
 <div class="feature">
-<img src="odenis.webp" alt="Ödəniş">
+<img class="feature-bg" src="odenis.webp" alt="Ödəniş">
+<div class="feature-overlay"></div>
+<div class="feature-content">
 <h3 data-i18n="safeOrder">Təhlükəsiz ödəniş</h3>
 <p data-i18n="safeOrderText">Ödəniş prosesiniz qorunan sistem üzərindən aparılır və sifarişiniz təhlükəsiz şəkildə tamamlanır.</p>
 <strong data-i18n="protectedPayment">Qorunan ödəniş sistemi</strong>
 </div>
+</div>
 <div class="feature">
-<img src="etibarli.webp" alt="Etibarlı dəstək">
+<img class="feature-bg" src="etibarli.webp" alt="Etibarlı dəstək">
+<div class="feature-overlay"></div>
+<div class="feature-content">
 <h3 data-i18n="support">Etibarlı dəstək</h3>
 <p data-i18n="supportText">Sifariş və aktivləşdirmə ilə bağlı suallarınız yarandıqda dəstək komandamız sizə operativ şəkildə kömək edir.</p>
 <strong data-i18n="customerSupport">Operativ müştəri dəstəyi</strong>
+</div>
 </div>
 </div>
 </div>
