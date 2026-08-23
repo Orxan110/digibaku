@@ -9,7 +9,7 @@
 :root{--bg:#070707;--card:#101010;--card2:#151515;--border:#242424;--text:#f5f5f5;--muted:#9b9b9b;--accent:#3b82f6}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif;line-height:1.65}a{color:inherit;text-decoration:none}
 .container{width:min(1120px,calc(100% - 32px));margin:auto}
-header{position:sticky;top:0;z-index:30;background:rgba(7,7,7,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+header{position:sticky;top:0;z-index:1000;background:rgba(7,7,7,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
 .nav{min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:18px}.logo{font-size:22px;font-weight:800}.logo span{color:var(--accent)}
 .nav-links{display:flex;gap:5px;align-items:center;flex-wrap:wrap}.nav-links a{font-size:14px;color:#aaa;padding:9px 11px;border-radius:8px}.nav-links a:hover,.nav-links .active{background:#151515;color:#fff}
 .lang{display:flex;border:1px solid var(--border);padding:3px;border-radius:9px}.lang button{border:0;background:transparent;color:#999;padding:6px 8px;border-radius:6px;cursor:pointer}.lang button.active,.lang button:hover{background:#202020;color:#fff}
@@ -27,7 +27,7 @@ h2{font-size:28px;margin:0 0 12px}.section-intro{color:var(--muted);max-width:85
 footer{border-top:1px solid var(--border);padding:28px 0;color:#777;font-size:13px}
 @media(max-width:760px){.nav{padding:13px 0;flex-wrap:wrap}.nav-links{order:3;width:100%;overflow:auto;flex-wrap:nowrap}.products{grid-template-columns:1fr}.steps{grid-template-columns:1fr 1fr}.related{grid-template-columns:1fr}}
 @media(max-width:430px){.steps{grid-template-columns:1fr}.info-row{grid-template-columns:1fr}}
-.cart-overlay.open{display:flex}.cart-add{cursor:pointer}.cart-panel .btn{border:0}.
+.cart-overlay.open{display:flex}.cart-add{cursor:pointer}.cart-panel .btn{border:0}
 .cart-top-btn{display:inline-flex;align-items:center;gap:6px;margin-left:8px;padding:8px 12px;border:1px solid var(--border);border-radius:8px;background:transparent;color:#fff;cursor:pointer;font-weight:600}
 .cart-top-btn:hover{background:#171717}
 .cart-count{display:inline-flex;align-items:center;justify-content:center;min-width:19px;height:19px;border-radius:50%;background:var(--accent);font-size:11px}
@@ -41,6 +41,20 @@ footer{border-top:1px solid var(--border);padding:28px 0;color:#777;font-size:13
 .cart-total{display:flex;justify-content:space-between;border-top:1px solid var(--border);padding:16px 0;margin-top:16px}
 .cart-empty{color:#999;padding:20px 0}
 
+/* =========================
+   HAQQIMIZDA DROPDOWN
+========================= */
+.about-dropdown{position:relative;}
+.about-dropdown > a{display:inline-flex;align-items:center;gap:5px;}
+.about-dropdown-arrow{font-size:12px;color:#777;transition:.2s;}
+.about-dropdown-menu{position:absolute;top:calc(100% + 8px);left:0;min-width:200px;background:#101010;border:1px solid var(--border);border-radius:10px;padding:8px;box-shadow:0 12px 35px rgba(0,0,0,.6);opacity:0;visibility:hidden;transform:translateY(-8px);transition:.2s ease;z-index:3000;display:flex;flex-direction:column;gap:4px;}
+.about-dropdown:hover .about-dropdown-menu,.about-dropdown:focus-within .about-dropdown-menu{opacity:1;visibility:visible;transform:translateY(0);}
+.about-dropdown:hover .about-dropdown-arrow{color:var(--accent);}
+.about-dropdown-menu a{display:block;padding:9px 12px;color:#aaa;font-size:13px;border-radius:7px;transition:.2s;white-space:nowrap;}
+.about-dropdown-menu a:hover{background:#181818;color:var(--accent);}
+@media(max-width:760px){
+  .about-dropdown-menu{position:fixed;top:65px;left:16px;right:16px;min-width:auto;}
+}
 </style>
 </head>
 <body>
@@ -48,16 +62,29 @@ footer{border-top:1px solid var(--border);padding:28px 0;color:#777;font-size:13
 <div class="container nav">
 <a class="logo" href="index.html">Digi<span>Baku</span></a>
 <nav class="nav-links">
-<a href="index.html" data-i18n="home">Ana səhifə</a>
+<a href="index.html#home" data-i18n="home">Ana səhifə</a>
 <a href="index.html#products" data-i18n="products">Məhsullar</a>
 <a href="index.html#compare" data-i18n="compare">Müqayisə</a>
-<a href="index.html#about" data-i18n="about">Haqqımızda</a>
+
+<!-- HAQQIMIZDA DROPDOWN -->
+<div class="about-dropdown">
+<a href="faq.html#about" data-i18n="about">Haqqımızda <span class="about-dropdown-arrow">⌄</span></a>
+<div class="about-dropdown-menu">
+<a href="faq.html#faq" data-i18n="faq">FAQ</a>
+<a href="faq.html#how-it-works" data-i18n="howItWorks">Necə işləyir?</a>
+<a href="faq.html#trust" data-i18n="trust">Etibar</a>
+<a href="faq.html#editorial-policy" data-i18n="editorialPolicy">Redaksiya siyasəti</a>
+<a href="faq.html#terms" data-i18n="terms">Şərtlər</a>
+<a href="faq.html#reviews" data-i18n="reviews">Rəylər</a>
+</div>
+</div>
+
 <a href="qiymetler.html" class="active" data-i18n="prices">Qiymətlər</a>
 <a href="index.html#blog" data-i18n="blog">Bloq</a>
 <a href="index.html#contact" data-i18n="contact">Əlaqə</a>
 </nav>
 <div class="lang"><button class="active" data-lang="az">AZ</button><button data-lang="en">EN</button><button data-lang="ru">RU</button></div>
-<button id="topCartBtn" class="cart-top-btn" type="button">Səbət <span id="cartCount" class="cart-count">0</span></button>
+<button id="topCartBtn" class="cart-top-btn" type="button"><span data-i18n="cart">Səbət</span> <span id="cartCount" class="cart-count">0</span></button>
 </div>
 </header>
 
@@ -93,7 +120,7 @@ footer{border-top:1px solid var(--border);padding:28px 0;color:#777;font-size:13
 <button class="duration-option" type="button" data-product="netflix" data-duration="3 ay" data-price="20.99 AZN"><strong>3 ay</strong><small>20.99 AZN</small></button>
 </div>
 <div class="price-line"><span class="selected-price">6.99 AZN</span><span class="selected-duration">1 ay</span></div>
-<a class="btn order-btn" href="https://wa.me/994702883484?text=Salam%20DigiBaku%2C%20netflix%20sifari%C5%9Fi%20verm%C9%99k%20ist%C9%99yir%C9%99m." target="_blank" rel="noopener">Sifariş</a>
+<a class="btn order-btn" href="https://wa.me/994702883484?text=Salam%20DigiBaku%2C%20netflix%20sifari%C5%9Fi%20verm%C9%99k%20ist%C9%99yir%C9%99m." target="_blank" rel="noopener" data-i18n="order">Sifariş</a>
 </div></article>
 
 <article class="product" id="youtube">
@@ -108,7 +135,7 @@ footer{border-top:1px solid var(--border);padding:28px 0;color:#777;font-size:13
 <button class="duration-option" type="button" data-product="youtube" data-duration="3 ay" data-price="21.99 AZN"><strong>3 ay</strong><small>21.99 AZN</small></button>
 </div>
 <div class="price-line"><span class="selected-price">7.99 AZN</span><span class="selected-duration">1 ay</span></div>
-<a class="btn order-btn" href="https://wa.me/994702883484?text=Salam%20DigiBaku%2C%20youtube%20sifari%C5%9Fi%20verm%C9%99k%20ist%C9%99yir%C9%99m." target="_blank" rel="noopener">Sifariş</a>
+<a class="btn order-btn" href="https://wa.me/994702883484?text=Salam%20DigiBaku%2C%20youtube%20sifari%C5%9Fi%20verm%C9%99k%20ist%C9%99yir%C9%99m." target="_blank" rel="noopener" data-i18n="order">Sifariş</a>
 </div></article>
 
 <article class="product" id="spotify">
@@ -123,7 +150,7 @@ footer{border-top:1px solid var(--border);padding:28px 0;color:#777;font-size:13
 <button class="duration-option" type="button" data-product="spotify" data-duration="3 ay" data-price="21.99 AZN"><strong>3 ay</strong><small>21.99 AZN</small></button>
 </div>
 <div class="price-line"><span class="selected-price">7.99 AZN</span><span class="selected-duration">1 ay</span></div>
-<a class="btn order-btn" href="https://wa.me/994702883484?text=Salam%20DigiBaku%2C%20spotify%20sifari%C5%9Fi%20verm%C9%99k%20ist%C9%99yir%C9%99m." target="_blank" rel="noopener">Sifariş</a>
+<a class="btn order-btn" href="https://wa.me/994702883484?text=Salam%20DigiBaku%2C%20spotify%20sifari%C5%9Fi%20verm%C9%99k%20ist%C9%99yir%C9%99m." target="_blank" rel="noopener" data-i18n="order">Sifariş</a>
 </div></article>
 
 <article class="product" id="chatgpt">
@@ -138,7 +165,7 @@ footer{border-top:1px solid var(--border);padding:28px 0;color:#777;font-size:13
 <button class="duration-option" type="button" data-product="chatgpt" data-duration="3 ay" data-price="33.99 AZN"><strong>3 ay</strong><small>33.99 AZN</small></button>
 </div>
 <div class="price-line"><span class="selected-price">11.99 AZN</span><span class="selected-duration">1 ay</span></div>
-<a class="btn order-btn" href="https://wa.me/994702883484?text=Salam%20DigiBaku%2C%20chatgpt%20sifari%C5%9Fi%20verm%C9%99k%20ist%C9%99yir%C9%99m." target="_blank" rel="noopener">Sifariş</a>
+<a class="btn order-btn" href="https://wa.me/994702883484?text=Salam%20DigiBaku%2C%20chatgpt%20sifari%C5%9Fi%20verm%C9%99k%20ist%C9%99yir%C9%99m." target="_blank" rel="noopener" data-i18n="order">Sifariş</a>
 </div></article>
 </div>
 </section>
@@ -176,24 +203,24 @@ footer{border-top:1px solid var(--border);padding:28px 0;color:#777;font-size:13
 </div>
 </main>
 
-
 <div class="cart-overlay" id="cartOverlay">
   <div class="cart-panel">
     <div class="cart-head">
       <h2 data-i18n="cartTitle">Səbət</h2>
       <button class="cart-close" id="cartClose" type="button">×</button>
     </div>
-    <div id="cartItems" class="cart-items"></div>
+    <div id="cartItems" class="cart-empty">Səbət boşdur.</div>
     <div class="cart-total"><span data-i18n="cartTotal">Cəmi</span><strong id="cartTotal">0.00 AZN</strong></div>
     <a id="cartOrder" class="btn" href="https://wa.me/994702883484" target="_blank" rel="noopener" data-i18n="cartOrder">Sifariş et</a>
   </div>
 </div>
+
 <footer><div class="container">© DigiBaku — <span data-i18n="footer">Premium rəqəmsal xidmətlər</span></div></footer>
 
 <script>
 const t={
 az:{
-home:"Ana səhifə",products:"Məhsullar",compare:"Müqayisə",about:"Haqqımızda",prices:"Qiymətlər",blog:"Bloq",contact:"Əlaqə",
+home:"Ana səhifə",products:"Məhsullar",compare:"Müqayisə",about:"Haqqımızda",howItWorks:"Necə işləyir?",trust:"Etibar",editorialPolicy:"Redaksiya siyasəti",terms:"Şərtlər",reviews:"Rəylər",prices:"Qiymətlər",blog:"Bloq",contact:"Əlaqə",cart:"Səbət",cartTitle:"Səbət",cartTotal:"Cəmi",cartOrder:"Sifariş et",
 title:"Premium abunəlik qiymətləri Azərbaycanda",intro:"Sifarişdən əvvəl cari başlanğıc qiymətini, paket müddətini və istifadə qaydasını müqayisə etmək üçün DigiBaku qiymət bələdçisinə baxın.",
 currentPrices:"Cari başlanğıc qiymətləri",faq:"FAQ",packages:"Cari paketlər",packagesIntro:"DigiBaku-da hazırda satışda olan xidmətlər və onların qiymətləri.",
 netflixTitle:"Netflix 4K Premium Abunəliyi",netflixDesc:"Netflix Premium abunəliyi ilə film və serialları Ultra HD keyfiyyətdə izləyin. Premium məzmunlara rahat şəkildə çıxış əldə edin.",
@@ -211,7 +238,7 @@ note:"Qiymətlər DigiBaku-da hazırda satışda olan paketlərə əsaslanır. S
 relatedTitle:"DigiBaku üzrə keçidlər",footer:"Premium rəqəmsal xidmətlər"
 },
 en:{
-home:"Home",products:"Products",compare:"Compare",about:"About",prices:"Prices",blog:"Blog",contact:"Contact",
+home:"Home",products:"Products",compare:"Compare",about:"About us",howItWorks:"How it works?",trust:"Trust",editorialPolicy:"Editorial policy",terms:"Terms",reviews:"Reviews",prices:"Prices",blog:"Blog",contact:"Contact",cart:"Cart",cartTitle:"Cart",cartTotal:"Total",cartOrder:"Order now",
 title:"Premium Subscription Prices in Azerbaijan",intro:"Check DigiBaku's price guide before ordering to compare current starting prices, package durations and ordering information.",
 currentPrices:"Current Starting Prices",faq:"FAQ",packages:"Current Packages",packagesIntro:"Services currently available for purchase from DigiBaku and their prices.",
 netflixTitle:"Netflix 4K Premium Subscription",netflixDesc:"Watch movies and series in Ultra HD with a Netflix Premium subscription and enjoy access to premium content.",
@@ -229,7 +256,7 @@ note:"Prices are based on packages currently sold by DigiBaku. Check the service
 relatedTitle:"DigiBaku Links",footer:"Premium Digital Services"
 },
 ru:{
-home:"Главная",products:"Товары",compare:"Сравнение",about:"О нас",prices:"Цены",blog:"Блог",contact:"Контакты",
+home:"Главная",products:"Товары",compare:"Сравнение",about:"О нас",howItWorks:"Как это работает?",trust:"Надёжность",editorialPolicy:"Редакционная политика",terms:"Условия",reviews:"Отзывы",prices:"Цены",blog:"Блог",contact:"Контакты",cart:"Корзина",cartTitle:"Корзина",cartTotal:"Итого",cartOrder:"Заказать",
 title:"Цены на премиум-подписки в Азербайджане",intro:"Перед заказом ознакомьтесь с ценами DigiBaku, сроками пакетов и информацией о заказе.",
 currentPrices:"Текущие цены",faq:"FAQ",packages:"Текущие пакеты",packagesIntro:"Услуги, доступные для покупки в DigiBaku, и их цены.",
 netflixTitle:"Премиум-подписка Netflix 4K",netflixDesc:"Смотрите фильмы и сериалы в Ultra HD с подпиской Netflix Premium и получайте доступ к премиум-контенту.",
@@ -249,9 +276,10 @@ relatedTitle:"Ссылки DigiBaku",footer:"Премиум цифровые у�
 durationNames:{
 az:["1 ay","2 ay","3 ay"],en:["1 month","2 months","3 months"],ru:["1 месяц","2 месяца","3 месяца"]
 }};
+
 function setLang(lang){
 document.documentElement.lang=lang;
-document.querySelectorAll("[data-i18n]").forEach(e=>{let k=e.dataset.i18n;if(t[lang][k])e.textContent=t[lang][k]});
+document.querySelectorAll("[data-i18n]").forEach(e=>{let k=e.dataset.i18n;if(t[lang] && t[lang][k])e.textContent=t[lang][k]});
 document.querySelectorAll("[data-lang]").forEach(b=>b.classList.toggle("active",b.dataset.lang===lang));
 document.querySelectorAll(".duration-option").forEach((b,i)=>{
   const n=i%3, names=t.durationNames[lang];
@@ -261,10 +289,10 @@ document.querySelectorAll(".duration-option").forEach((b,i)=>{
 document.querySelectorAll(".selected-duration").forEach((e,i)=>{
   const n=i%3; e.textContent=t.durationNames[lang][n] || e.textContent;
 });
-localStorage.setItem("digibaku_lang",lang);
+localStorage.setItem("digi_language",lang);
 }
 document.querySelectorAll("[data-lang]").forEach(b=>b.onclick=()=>setLang(b.dataset.lang));
-setLang(localStorage.getItem("digibaku_lang")||"az");
+setLang(localStorage.getItem("digi_language")||"az");
 </script>
 
 <script>
@@ -277,19 +305,20 @@ document.querySelectorAll(".product").forEach(card => {
 
   function updateOrder(){
     const selected = card.querySelector(".duration-option.active");
+    if(!selected) return;
     const idx = [...options].indexOf(selected);
-    const lang = localStorage.getItem("digibaku_lang") || "az";
+    const lang = localStorage.getItem("digi_language") || "az";
     const durationName = t.durationNames[lang][idx] || selected.dataset.duration;
     const selectedPrice = selected.dataset.price;
-    duration.textContent = durationName;
-    price.textContent = selectedPrice;
+    if(duration) duration.textContent = durationName;
+    if(price) price.textContent = selectedPrice;
 
     const names = {
       az:`Salam DigiBaku, ${productName.textContent.trim()} sifarişi vermək istəyirəm. Müddət: ${durationName}. Qiymət: ${selectedPrice}.`,
       en:`Hello DigiBaku, I would like to order ${productName.textContent.trim()}. Duration: ${durationName}. Price: ${selectedPrice}.`,
       ru:`Здравствуйте, DigiBaku. Я хочу заказать ${productName.textContent.trim()}. Срок: ${durationName}. Цена: ${selectedPrice}.`
     };
-    order.href = "https://wa.me/994702883484?text=" + encodeURIComponent(names[lang]);
+    if(order) order.href = "https://wa.me/994702883484?text=" + encodeURIComponent(names[lang] || names.az);
   }
 
   options.forEach(option => {
@@ -321,26 +350,11 @@ setLang = function(lang){
       en:`Hello DigiBaku, I would like to order ${productName}. Duration: ${d}. Price: ${price}.`,
       ru:`Здравствуйте, DigiBaku. Я хочу заказать ${productName}. Срок: ${d}. Цена: ${price}.`
     };
-    order.href="https://wa.me/994702883484?text="+encodeURIComponent(msg[lang]);
+    if(order) order.href="https://wa.me/994702883484?text="+encodeURIComponent(msg[lang] || msg.az);
   });
 };
-setLang(localStorage.getItem("digibaku_lang")||"az");
+setLang(localStorage.getItem("digi_language")||"az");
 </script>
-
-
-
-
-
-<div id="cartOverlay" class="cart-overlay">
-  <div class="cart-panel">
-    <div class="cart-head">
-      <h2>Səbət</h2>
-      <button id="cartClose" class="cart-close" type="button">×</button>
-    </div>
-    <div id="cartItems" class="cart-empty">Səbət boşdur.</div>
-    <div class="cart-total"><span>Cəmi</span><strong id="cartTotal">0.00 AZN</strong></div>
-  </div>
-</div>
 
 <script>
 (function(){
