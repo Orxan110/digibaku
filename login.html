@@ -24,9 +24,111 @@ body{
         #050505;
     color:#fff;
     display:flex;
+    flex-direction:column;
+}
+
+/* NAVBAR */
+.navbar{
+    width:100%;
+    background:rgba(17, 17, 17, 0.85);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid #262626;
+    padding:14px 24px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    position:sticky;
+    top:0;
+    z-index:100;
+}
+
+.nav-brand{
+    font-size:20px;
+    font-weight:900;
+    color:#fff;
+    text-decoration:none;
+}
+
+.nav-brand span{
+    color:#3b82f6;
+}
+
+.nav-links{
+    display:flex;
+    align-items:center;
+    gap:18px;
+    list-style:none;
+}
+
+.nav-links a{
+    color:#aaa;
+    text-decoration:none;
+    font-size:14px;
+    font-weight:500;
+    transition:color 0.2s;
+}
+
+.nav-links a:hover{
+    color:#fff;
+}
+
+.nav-right{
+    display:flex;
+    align-items:center;
+    gap:16px;
+}
+
+.cart-btn{
+    color:#fff;
+    text-decoration:none;
+    font-size:14px;
+    font-weight:bold;
+    display:flex;
+    align-items:center;
+    gap:6px;
+    background:#1f1f1f;
+    padding:6px 12px;
+    border-radius:8px;
+    border:1px solid #333;
+}
+
+.cart-count{
+    background:#2563eb;
+    color:#fff;
+    font-size:11px;
+    padding:2px 6px;
+    border-radius:10px;
+}
+
+.nav-lang{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    font-size:13px;
+    color:#666;
+}
+
+.nav-lang button{
+    background:transparent;
+    border:0;
+    color:#888;
+    cursor:pointer;
+    font-weight:bold;
+    font-size:13px;
+    padding:2px 4px;
+}
+
+.nav-lang button.active{
+    color:#3b82f6;
+}
+
+/* MAIN CONTAINER */
+.container{
+    flex:1;
+    display:flex;
     align-items:center;
     justify-content:center;
-    padding:20px;
+    padding:40px 20px;
 }
 
 .box{
@@ -55,29 +157,6 @@ body{
     color:#888;
     font-size:14px;
     margin-bottom:25px;
-}
-
-.language{
-    display:flex;
-    justify-content:center;
-    gap:6px;
-    margin-bottom:22px;
-}
-
-.language button{
-    background:#181818;
-    border:1px solid #333;
-    color:#aaa;
-    padding:7px 11px;
-    border-radius:7px;
-    cursor:pointer;
-    font-weight:bold;
-}
-
-.language button.active{
-    background:#2563eb;
-    border-color:#2563eb;
-    color:#fff;
 }
 
 .tabs{
@@ -183,6 +262,7 @@ body{
     color:#60a5fa;
     font-size:13px;
     font-weight:bold;
+    text-decoration:none;
 }
 
 .hint{
@@ -190,6 +270,12 @@ body{
     color:#666;
     font-size:12px;
     margin-top:18px;
+}
+
+@media(max-width:850px){
+    .nav-links{
+        display:none;
+    }
 }
 
 @media(max-width:480px){
@@ -202,541 +288,373 @@ body{
 
 <body>
 
-<div class="box">
+<!-- NAVBAR -->
+<nav class="navbar">
+    <a href="index.html" class="nav-brand">DigiBaku<span>.com</span></a>
 
-<div class="logo">
-    DigiBaku<span>.com</span>
-</div>
+    <ul class="nav-links">
+        <li><a href="index.html" id="navHome">Ana səhifə</a></li>
+        <li><a href="products.html" id="navProducts">Məhsullar</a></li>
+        <li><a href="compare.html" id="navCompare">Müqayisə</a></li>
+        <li><a href="about.html" id="navAbout">Haqqımızda</a></li>
+        <li><a href="pricing.html" id="navPricing">Qiymətlər</a></li>
+        <li><a href="blog.html" id="navBlog">Bloq</a></li>
+        <li><a href="contact.html" id="navContact">Əlaqə</a></li>
+    </ul>
 
-<div class="subtitle" id="subtitle">
-    Premium rəqəmsal xidmətlər platforması
-</div>
+    <div class="nav-right">
+        <a href="cart.html" class="cart-btn">
+            <span id="navCart">🛒 Səbət</span>
+            <span class="cart-count">0</span>
+        </a>
 
-<!-- DİL -->
-<div class="language">
-    <button id="azBtn" onclick="setLanguage('az')">AZ</button>
-    <button id="ruBtn" onclick="setLanguage('ru')">RU</button>
-    <button id="enBtn" onclick="setLanguage('en')">EN</button>
-</div>
+        <div class="nav-lang">
+            <button id="azBtn" onclick="setLanguage('az')">AZ</button>
+            |
+            <button id="ruBtn" onclick="setLanguage('ru')">RU</button>
+            |
+            <button id="enBtn" onclick="setLanguage('en')">EN</button>
+        </div>
+    </div>
+</nav>
 
-<!-- TABLAR -->
-<div class="tabs">
+<!-- MAIN CONTENT -->
+<div class="container">
+    <div class="box">
 
-<button
-id="loginTab"
-class="active"
-type="button"
-onclick="showLogin()">
-Giriş
-</button>
+        <div class="logo">
+            DigiBaku<span>.com</span>
+        </div>
 
-<button
-id="registerTab"
-type="button"
-onclick="showRegister()">
-Qeydiyyat
-</button>
+        <div class="subtitle" id="subtitle">
+            Premium rəqəmsal xidmətlər platforması
+        </div>
 
-</div>
+        <!-- TABLAR -->
+        <div class="tabs">
+            <button id="loginTab" class="active" type="button" onclick="showLogin()">
+                Daxil ol
+            </button>
+            <button id="registerTab" type="button" onclick="showRegister()">
+                Qeydiyyat
+            </button>
+        </div>
 
-<!-- GİRİŞ -->
-<form id="loginForm" onsubmit="login(event)">
+        <!-- GİRİŞ -->
+        <form id="loginForm" onsubmit="login(event)">
+            <div class="group">
+                <label id="loginEmailLabel">Email</label>
+                <input id="loginEmail" type="email" required autocomplete="email" placeholder="email@example.com">
+            </div>
 
-<div class="group">
+            <div class="group">
+                <label id="loginPasswordLabel">Şifrə</label>
+                <input id="loginPassword" type="password" required autocomplete="current-password" placeholder="••••••••">
+            </div>
 
-<label id="loginEmailLabel">Email</label>
+            <button id="loginButton" class="submit" type="submit">
+                Daxil ol
+            </button>
+        </form>
 
-<input
-id="loginEmail"
-type="email"
-required
-autocomplete="email"
-placeholder="email@example.com">
+        <!-- QEYDİYYAT -->
+        <form id="registerForm" onsubmit="register(event)" style="display:none">
+            <div class="group">
+                <label id="registerEmailLabel">Email</label>
+                <input id="registerEmail" type="email" required autocomplete="email" placeholder="email@example.com">
+            </div>
 
-</div>
+            <div class="group">
+                <label id="registerPasswordLabel">Şifrə</label>
+                <input id="registerPassword" type="password" required minlength="6" autocomplete="new-password" placeholder="Minimum 6 simvol">
+            </div>
 
-<div class="group">
+            <button id="registerButton" class="submit" type="submit">
+                Qeydiyyatdan keç
+            </button>
+        </form>
 
-<label id="loginPasswordLabel">Şifrə</label>
+        <div id="message" class="message"></div>
 
-<input
-id="loginPassword"
-type="password"
-required
-autocomplete="current-password"
-placeholder="••••••••">
+        <div class="hint" id="hint">
+            Qeydiyyat üçün email təsdiqi tələb olunmur.
+        </div>
 
-</div>
+        <a href="index.html" class="back" id="back">
+            ← DigiBaku.com-a qayıt
+        </a>
 
-<button
-id="loginButton"
-class="submit"
-type="submit">
-Giriş et
-</button>
-
-</form>
-
-<!-- QEYDİYYAT -->
-<form
-id="registerForm"
-onsubmit="register(event)"
-style="display:none">
-
-<div class="group">
-
-<label id="registerEmailLabel">Email</label>
-
-<input
-id="registerEmail"
-type="email"
-required
-autocomplete="email"
-placeholder="email@example.com">
-
-</div>
-
-<div class="group">
-
-<label id="registerPasswordLabel">Şifrə</label>
-
-<input
-id="registerPassword"
-type="password"
-required
-minlength="6"
-autocomplete="new-password"
-placeholder="Minimum 6 simvol">
-
-</div>
-
-<button
-id="registerButton"
-class="submit"
-type="submit">
-Hesab yarat
-</button>
-
-</form>
-
-<div id="message" class="message"></div>
-
-<div class="hint" id="hint">
-Qeydiyyat üçün email təsdiqi tələb olunmur.
-</div>
-
-<a href="index.html" class="back" id="back">
-← DigiBaku.com-a qayıt
-</a>
-
+    </div>
 </div>
 
 <script>
-
 /* =========================
    DİLLƏR
 ========================= */
-
 const translations = {
-
-az:{
-subtitle:"Premium rəqəmsal xidmətlər platforması",
-login:"Giriş",
-register:"Qeydiyyat",
-email:"Email",
-password:"Şifrə",
-createAccount:"Hesab yarat",
-loginButton:"Giriş et",
-passwordPlaceholder:"Minimum 6 simvol",
-hint:"Qeydiyyat üçün email təsdiqi tələb olunmur.",
-back:"← DigiBaku.com-a qayıt",
-loggingIn:"Giriş edilir...",
-creating:"Hesab yaradılır...",
-loginSuccess:"Giriş uğurludur! Ana səhifəyə keçirsiniz...",
-registerSuccess:"Qeydiyyat uğurludur! Sayta daxil olursunuz...",
-loginError:"Giriş mümkün olmadı.",
-error:"Xəta baş verdi.",
-emailConfirm:"Hesab yaradıldı, lakin email təsdiqi tələb olunur."
-},
-
-ru:{
-subtitle:"Платформа премиум цифровых услуг",
-login:"Вход",
-register:"Регистрация",
-email:"Email",
-password:"Пароль",
-createAccount:"Создать аккаунт",
-loginButton:"Войти",
-passwordPlaceholder:"Минимум 6 символов",
-hint:"Подтверждение email не требуется.",
-back:"← Вернуться на DigiBaku.com",
-loggingIn:"Выполняется вход...",
-creating:"Создание аккаунта...",
-loginSuccess:"Вход выполнен! Переходим на главную...",
-registerSuccess:"Регистрация успешна! Переходим на сайт...",
-loginError:"Не удалось войти.",
-error:"Произошла ошибка.",
-emailConfirm:"Аккаунт создан, но требуется подтверждение email."
-},
-
-en:{
-subtitle:"Premium digital services platform",
-login:"Login",
-register:"Register",
-email:"Email",
-password:"Password",
-createAccount:"Create account",
-loginButton:"Login",
-passwordPlaceholder:"Minimum 6 characters",
-hint:"Email confirmation is not required.",
-back:"← Back to DigiBaku.com",
-loggingIn:"Signing in...",
-creating:"Creating account...",
-loginSuccess:"Login successful! Redirecting...",
-registerSuccess:"Registration successful! Redirecting...",
-loginError:"Login failed.",
-error:"An error occurred.",
-emailConfirm:"Account created, but email confirmation is required."
-}
-
+    az:{
+        navHome:"Ana səhifə",
+        navProducts:"Məhsullar",
+        navCompare:"Müqayisə",
+        navAbout:"Haqqımızda",
+        navPricing:"Qiymətlər",
+        navBlog:"Bloq",
+        navContact:"Əlaqə",
+        navCart:"🛒 Səbət",
+        subtitle:"Premium rəqəmsal xidmətlər platforması",
+        login:"Daxil ol",
+        register:"Qeydiyyat",
+        email:"Email",
+        password:"Şifrə",
+        createAccount:"Qeydiyyatdan keç",
+        loginButton:"Daxil ol",
+        passwordPlaceholder:"Minimum 6 simvol",
+        hint:"Qeydiyyat üçün email təsdiqi tələb olunmur.",
+        back:"← DigiBaku.com-a qayıt",
+        loggingIn:"Giriş edilir...",
+        creating:"Hesab yaradılır...",
+        loginSuccess:"Giriş uğurludur! Ana səhifəyə keçirsiniz...",
+        registerSuccess:"Qeydiyyat uğurludur! Sayta daxil olursunuz...",
+        loginError:"Giriş mümkün olmadı.",
+        error:"Xəta baş verdi.",
+        emailConfirm:"Hesab yaradıldı, lakin email təsdiqi tələb olunur."
+    },
+    ru:{
+        navHome:"Главная",
+        navProducts:"Товары",
+        navCompare:"Сравнение",
+        navAbout:"О нас",
+        navPricing:"Цены",
+        navBlog:"Блог",
+        navContact:"Контакты",
+        navCart:"🛒 Корзина",
+        subtitle:"Платформа премиум цифровых услуг",
+        login:"Войти",
+        register:"Регистрация",
+        email:"Email",
+        password:"Пароль",
+        createAccount:"Зарегистрироваться",
+        loginButton:"Войти",
+        passwordPlaceholder:"Минимум 6 символов",
+        hint:"Подтверждение email не требуется.",
+        back:"← Вернуться на DigiBaku.com",
+        loggingIn:"Выполняется вход...",
+        creating:"Создание аккаунта...",
+        loginSuccess:"Вход выполнен! Переходим на главную...",
+        registerSuccess:"Регистрация успешна! Переходим на сайт...",
+        loginError:"Не удалось войти.",
+        error:"Произошла ошибка.",
+        emailConfirm:"Аккаунт создан, но требуется подтверждение email."
+    },
+    en:{
+        navHome:"Home",
+        navProducts:"Products",
+        navCompare:"Compare",
+        navAbout:"About Us",
+        navPricing:"Pricing",
+        navBlog:"Blog",
+        navContact:"Contact",
+        navCart:"🛒 Cart",
+        subtitle:"Premium digital services platform",
+        login:"Log In",
+        register:"Register",
+        email:"Email",
+        password:"Password",
+        createAccount:"Register",
+        loginButton:"Log In",
+        passwordPlaceholder:"Minimum 6 characters",
+        hint:"Email confirmation is not required.",
+        back:"← Back to DigiBaku.com",
+        loggingIn:"Signing in...",
+        creating:"Creating account...",
+        loginSuccess:"Login successful! Redirecting...",
+        registerSuccess:"Registration successful! Redirecting...",
+        loginError:"Login failed.",
+        error:"An error occurred.",
+        emailConfirm:"Account created, but email confirmation is required."
+    }
 };
 
-
 /* =========================
-   DİL
+   DİL FUNKSİYALARI
 ========================= */
-
 function getLanguage(){
-
-return localStorage.getItem("digi_language") || "az";
-
+    return localStorage.getItem("digi_language") || "az";
 }
-
 
 function setLanguage(lang){
-
-if(!translations[lang]){
-lang="az";
+    if(!translations[lang]) lang="az";
+    localStorage.setItem("digi_language", lang);
+    applyLanguage();
 }
-
-localStorage.setItem(
-"digi_language",
-lang
-);
-
-applyLanguage();
-
-}
-
 
 function t(key){
-
-const lang=getLanguage();
-
-return translations[lang][key]
-|| translations.az[key]
-|| key;
-
+    const lang=getLanguage();
+    return translations[lang][key] || translations.az[key] || key;
 }
-
 
 function applyLanguage(){
+    const lang=getLanguage();
+    document.documentElement.lang=lang;
 
-const lang=getLanguage();
+    document.getElementById("navHome").textContent=t("navHome");
+    document.getElementById("navProducts").textContent=t("navProducts");
+    document.getElementById("navCompare").textContent=t("navCompare");
+    document.getElementById("navAbout").textContent=t("navAbout");
+    document.getElementById("navPricing").textContent=t("navPricing");
+    document.getElementById("navBlog").textContent=t("navBlog");
+    document.getElementById("navContact").textContent=t("navContact");
+    document.getElementById("navCart").textContent=t("navCart");
 
-document.documentElement.lang=lang;
+    document.getElementById("subtitle").textContent=t("subtitle");
+    document.getElementById("loginTab").textContent=t("login");
+    document.getElementById("registerTab").textContent=t("register");
+    document.getElementById("loginEmailLabel").textContent=t("email");
+    document.getElementById("loginPasswordLabel").textContent=t("password");
+    document.getElementById("registerEmailLabel").textContent=t("email");
+    document.getElementById("registerPasswordLabel").textContent=t("password");
+    document.getElementById("loginButton").textContent=t("loginButton");
+    document.getElementById("registerButton").textContent=t("createAccount");
+    document.getElementById("registerPassword").placeholder=t("passwordPlaceholder");
+    document.getElementById("hint").textContent=t("hint");
+    document.getElementById("back").textContent=t("back");
 
-document.getElementById("subtitle").textContent=t("subtitle");
-
-document.getElementById("loginTab").textContent=t("login");
-
-document.getElementById("registerTab").textContent=t("register");
-
-document.getElementById("loginEmailLabel").textContent=t("email");
-
-document.getElementById("loginPasswordLabel").textContent=t("password");
-
-document.getElementById("registerEmailLabel").textContent=t("email");
-
-document.getElementById("registerPasswordLabel").textContent=t("password");
-
-document.getElementById("loginButton").textContent=t("loginButton");
-
-document.getElementById("registerButton").textContent=t("createAccount");
-
-document.getElementById("registerPassword").placeholder=t("passwordPlaceholder");
-
-document.getElementById("hint").textContent=t("hint");
-
-document.getElementById("back").textContent=t("back");
-
-document.getElementById("azBtn").classList.toggle("active",lang==="az");
-
-document.getElementById("ruBtn").classList.toggle("active",lang==="ru");
-
-document.getElementById("enBtn").classList.toggle("active",lang==="en");
-
+    document.getElementById("azBtn").classList.toggle("active",lang==="az");
+    document.getElementById("ruBtn").classList.toggle("active",lang==="ru");
+    document.getElementById("enBtn").classList.toggle("active",lang==="en");
 }
-
 
 /* =========================
    SUPABASE
 ========================= */
+const SUPABASE_URL = "https://zeknhnkaicqkfzgnvycq.supabase.co";
+const SUPABASE_KEY = "sb_publishable_jHvCp9fXBA_BwFqrXYpwlw_VC6C1OQk";
 
-const SUPABASE_URL =
-"https://zeknhnkaicqkfzgnvycq.supabase.co";
-
-const SUPABASE_KEY =
-"sb_publishable_jHvCp9fXBA_BwFqrXYpwlw_VC6C1OQk";
-
-const supabaseClient =
-window.supabase.createClient(
-SUPABASE_URL,
-SUPABASE_KEY
-);
-
+const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 /* =========================
    TABLAR
 ========================= */
-
 function showLogin(){
-
-document.getElementById("loginForm").style.display="block";
-
-document.getElementById("registerForm").style.display="none";
-
-document.getElementById("loginTab").classList.add("active");
-
-document.getElementById("registerTab").classList.remove("active");
-
-clearMessage();
-
+    document.getElementById("loginForm").style.display="block";
+    document.getElementById("registerForm").style.display="none";
+    document.getElementById("loginTab").classList.add("active");
+    document.getElementById("registerTab").classList.remove("active");
+    clearMessage();
 }
-
 
 function showRegister(){
-
-document.getElementById("loginForm").style.display="none";
-
-document.getElementById("registerForm").style.display="block";
-
-document.getElementById("loginTab").classList.remove("active");
-
-document.getElementById("registerTab").classList.add("active");
-
-clearMessage();
-
+    document.getElementById("loginForm").style.display="none";
+    document.getElementById("registerForm").style.display="block";
+    document.getElementById("loginTab").classList.remove("active");
+    document.getElementById("registerTab").classList.add("active");
+    clearMessage();
 }
-
 
 /* =========================
    MESAJ
 ========================= */
-
 function showMessage(text,type){
-
-const box=document.getElementById("message");
-
-box.textContent=text;
-
-box.className="message "+type;
-
+    const box=document.getElementById("message");
+    box.textContent=text;
+    box.className="message "+type;
 }
-
 
 function clearMessage(){
-
-const box=document.getElementById("message");
-
-box.textContent="";
-
-box.className="message";
-
+    const box=document.getElementById("message");
+    box.textContent="";
+    box.className="message";
 }
-
 
 /* =========================
    QEYDİYYAT
 ========================= */
-
 async function register(event){
+    event.preventDefault();
+    clearMessage();
 
-event.preventDefault();
+    const email=document.getElementById("registerEmail").value.trim();
+    const password=document.getElementById("registerPassword").value;
+    const button=document.getElementById("registerButton");
 
-clearMessage();
+    button.disabled=true;
+    button.textContent=t("creating");
 
-const email=
-document.getElementById("registerEmail").value.trim();
+    try{
+        const {data,error}=await supabaseClient.auth.signUp({
+            email:email,
+            password:password
+        });
 
-const password=
-document.getElementById("registerPassword").value;
+        if(error){
+            showMessage(error.message,"error");
+            return;
+        }
 
-const button=
-document.getElementById("registerButton");
+        if(data.session){
+            showMessage(t("registerSuccess"),"success");
+            setTimeout(()=>{ window.location.href="index.html"; },800);
+            return;
+        }
 
-button.disabled=true;
+        if(data.user && !data.session){
+            showMessage(t("emailConfirm"),"error");
+            return;
+        }
 
-button.textContent=t("creating");
-
-try{
-
-const {data,error}=
-await supabaseClient.auth.signUp({
-email:email,
-password:password
-});
-
-if(error){
-
-showMessage(error.message,"error");
-
-return;
-
+        showMessage(t("error"),"error");
+    }catch(error){
+        showMessage(error.message || t("error"),"error");
+    }finally{
+        button.disabled=false;
+        button.textContent=t("createAccount");
+    }
 }
-
-if(data.session){
-
-showMessage(
-t("registerSuccess"),
-"success"
-);
-
-setTimeout(()=>{
-
-window.location.href="index.html";
-
-},800);
-
-return;
-
-}
-
-if(data.user && !data.session){
-
-showMessage(
-t("emailConfirm"),
-"error"
-);
-
-return;
-
-}
-
-showMessage(
-t("error"),
-"error"
-);
-
-}catch(error){
-
-showMessage(
-error.message || t("error"),
-"error"
-);
-
-}finally{
-
-button.disabled=false;
-
-button.textContent=t("createAccount");
-
-}
-
-}
-
 
 /* =========================
    GİRİŞ
 ========================= */
-
 async function login(event){
+    event.preventDefault();
+    clearMessage();
 
-event.preventDefault();
+    const email=document.getElementById("loginEmail").value.trim();
+    const password=document.getElementById("loginPassword").value;
+    const button=document.getElementById("loginButton");
 
-clearMessage();
+    button.disabled=true;
+    button.textContent=t("loggingIn");
 
-const email=
-document.getElementById("loginEmail").value.trim();
+    try{
+        const {data,error}=await supabaseClient.auth.signInWithPassword({
+            email:email,
+            password:password
+        });
 
-const password=
-document.getElementById("loginPassword").value;
+        if(error){
+            showMessage(error.message || t("loginError"),"error");
+            return;
+        }
 
-const button=
-document.getElementById("loginButton");
+        if(data.session){
+            showMessage(t("loginSuccess"),"success");
+            setTimeout(()=>{ window.location.href="index.html"; },700);
+            return;
+        }
 
-button.disabled=true;
-
-button.textContent=t("loggingIn");
-
-try{
-
-const {data,error}=
-await supabaseClient.auth.signInWithPassword({
-
-email:email,
-
-password:password
-
-});
-
-if(error){
-
-showMessage(
-error.message || t("loginError"),
-"error"
-);
-
-return;
-
+        showMessage(t("loginError"),"error");
+    }catch(error){
+        showMessage(error.message || t("error"),"error");
+    }finally{
+        button.disabled=false;
+        button.textContent=t("loginButton");
+    }
 }
-
-if(data.session){
-
-showMessage(
-t("loginSuccess"),
-"success"
-);
-
-setTimeout(()=>{
-
-window.location.href="index.html";
-
-},700);
-
-return;
-
-}
-
-showMessage(
-t("loginError"),
-"error"
-);
-
-}catch(error){
-
-showMessage(
-error.message || t("error"),
-"error"
-);
-
-}finally{
-
-button.disabled=false;
-
-button.textContent=t("loginButton");
-
-}
-
-}
-
 
 /* =========================
    BAŞLAT
 ========================= */
-
 applyLanguage();
-
 </script>
 
 </body>
