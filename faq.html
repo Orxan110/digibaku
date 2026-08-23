@@ -1,48 +1,1708 @@
 <!DOCTYPE html>
 <html lang="az">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
 <title>DigiBaku — Haqqımızda</title>
+
 <style>
-:root{--bg:#070707;--card:#111;--text:#f5f5f5;--muted:#aaa;--border:#252525}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif;line-height:1.6}a{color:inherit;text-decoration:none}.container{width:min(1100px,92%);margin:auto}header{border-bottom:1px solid var(--border);background:#080808;position:sticky;top:0;z-index:100}.nav{min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:18px}.logo{font-size:23px;font-weight:800}.logo span{color:#888}.main-nav{display:flex;align-items:center;gap:18px;flex-wrap:wrap}.main-nav>a,.about-wrap>button{color:#f5f5f5;text-decoration:none;font:inherit}.main-nav>a:hover,.about-wrap>button:hover{color:#aaa}.about-wrap{position:relative}.about-wrap>button{background:none;border:0;cursor:pointer;padding:8px 0}.about-menu{display:none;position:absolute;top:calc(100% + 8px);left:0;min-width:230px;background:#111;border:1px solid var(--border);border-radius:10px;padding:7px;box-shadow:0 15px 35px #0009}.about-menu.open{display:flex;flex-direction:column}.about-menu a{padding:10px 12px;border-radius:7px;white-space:nowrap}.about-menu a:hover{background:#1b1b1b}.header-actions{display:flex;align-items:center;gap:7px;flex-wrap:wrap}.cart-top-btn,.login-btn,.register-btn{display:inline-flex;align-items:center;gap:5px;padding:8px 11px;border-radius:8px;font:inherit}.cart-top-btn{background:transparent;border:1px solid var(--border);color:#fff}.login-btn{background:#fff;color:#000}.register-btn{background:#171717;color:#fff;border:1px solid var(--border)}.langs{display:flex;gap:5px}.langs button{background:#111;border:1px solid var(--border);color:#aaa;padding:7px 9px;border-radius:7px;cursor:pointer}.langs button.active{color:#fff;border-color:#555}.hero{padding:75px 0 45px;text-align:center}.eyebrow{color:#888;text-transform:uppercase;letter-spacing:2px;font-size:12px}h1{font-size:clamp(35px,6vw,58px);margin:10px 0}.hero p{max-width:720px;margin:auto;color:var(--muted)}.info-section{padding:55px 0;border-top:1px solid var(--border);scroll-margin-top:90px}.info-card{max-width:900px;margin:auto;background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px}.info-card h2{font-size:30px;margin:0 0 12px}.info-card h3{font-size:19px;margin:26px 0 7px}.info-card p,.info-card li{color:var(--muted)}.faq-item{border:1px solid var(--border);border-radius:12px;margin:12px 0;overflow:hidden}.question{width:100%;display:flex;align-items:center;justify-content:space-between;gap:20px;background:none;border:0;color:#fff;padding:18px;text-align:left;font-size:17px;font-weight:700;cursor:pointer}.question span:last-child{color:#888;font-size:25px}.answer{display:none;padding:0 18px 18px;color:var(--muted)}.faq-item.open .answer{display:block}.faq-item.open .question span:last-child{transform:rotate(45deg)}.steps{display:grid;grid-template-columns:repeat(2,1fr);gap:15px;margin-top:20px}.step{border:1px solid var(--border);border-radius:12px;padding:18px}.step-num{color:#888;font-size:12px;font-weight:700}.review{border-top:1px solid var(--border);padding:20px 0}.review:first-of-type{border-top:0}.stars{letter-spacing:2px}.review-name{font-weight:700}.review-product{color:#888;font-size:14px}footer{border-top:1px solid var(--border);padding:28px 0;color:#777;text-align:center;font-size:13px}@media(max-width:900px){.nav{align-items:flex-start;flex-direction:column;padding:13px 0}.main-nav{gap:12px}.about-menu{position:fixed;top:125px;left:4%;right:4%;min-width:0}}@media(max-width:600px){.steps{grid-template-columns:1fr}.info-card{padding:20px}.hero{padding:55px 0 30px}}
-</style></head>
+:root{
+    --bg:#050505;
+    --bg2:#080808;
+    --card:#0d0d0d;
+    --card2:#111;
+    --text:#fff;
+    --muted:#9b9b9b;
+    --muted2:#707070;
+    --border:#222;
+    --border2:#292929;
+    --hover:#171717;
+}
+
+*{
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:Arial,Helvetica,sans-serif;
+    line-height:1.6;
+}
+
+a{
+    color:inherit;
+    text-decoration:none;
+}
+
+button{
+    font-family:inherit;
+}
+
+.container{
+    width:min(1180px,92%);
+    margin:auto;
+}
+
+/* ================= HEADER ================= */
+
+header{
+    position:sticky;
+    top:0;
+    z-index:1000;
+    background:rgba(5,5,5,.94);
+    backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--border);
+}
+
+.nav{
+    min-height:76px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:24px;
+}
+
+.logo{
+    font-size:24px;
+    font-weight:900;
+    letter-spacing:-.7px;
+    white-space:nowrap;
+}
+
+.logo span{
+    color:#777;
+}
+
+.main-nav{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:20px;
+    flex:1;
+}
+
+.main-nav>a,
+.about-wrap>button{
+    color:#cfcfcf;
+    font-size:14px;
+    font-weight:600;
+    background:none;
+    border:0;
+    cursor:pointer;
+    padding:8px 0;
+    transition:.2s;
+}
+
+.main-nav>a:hover,
+.about-wrap>button:hover{
+    color:#fff;
+}
+
+/* ABOUT DROPDOWN */
+
+.about-wrap{
+    position:relative;
+}
+
+.about-wrap>button{
+    display:flex;
+    align-items:center;
+    gap:5px;
+}
+
+.about-arrow{
+    font-size:11px;
+    color:#777;
+}
+
+.about-menu{
+    display:none;
+    position:absolute;
+    top:calc(100% + 12px);
+    left:50%;
+    transform:translateX(-50%);
+    width:245px;
+    background:#0c0c0c;
+    border:1px solid var(--border2);
+    border-radius:14px;
+    padding:7px;
+    box-shadow:0 20px 60px rgba(0,0,0,.7);
+}
+
+.about-menu.open{
+    display:flex;
+    flex-direction:column;
+}
+
+.about-menu a{
+    padding:11px 13px;
+    color:#aaa;
+    border-radius:9px;
+    font-size:14px;
+    transition:.2s;
+}
+
+.about-menu a:hover{
+    background:#181818;
+    color:#fff;
+}
+
+/* HEADER ACTIONS */
+
+.header-actions{
+    display:flex;
+    align-items:center;
+    gap:7px;
+}
+
+.cart-top-btn,
+.login-btn,
+.register-btn{
+    height:38px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:5px;
+    padding:0 12px;
+    border-radius:9px;
+    font-size:13px;
+    font-weight:700;
+    white-space:nowrap;
+}
+
+.cart-top-btn{
+    background:#0c0c0c;
+    border:1px solid var(--border2);
+    color:#fff;
+    cursor:pointer;
+}
+
+.login-btn{
+    background:#fff;
+    color:#000;
+}
+
+.register-btn{
+    background:#151515;
+    color:#fff;
+    border:1px solid var(--border2);
+}
+
+.langs{
+    display:flex;
+    gap:4px;
+    margin-left:3px;
+}
+
+.langs button{
+    height:34px;
+    min-width:35px;
+    background:#0d0d0d;
+    border:1px solid var(--border);
+    border-radius:8px;
+    color:#777;
+    cursor:pointer;
+    font-size:11px;
+    font-weight:700;
+    transition:.2s;
+}
+
+.langs button:hover{
+    color:#fff;
+    border-color:#444;
+}
+
+.langs button.active{
+    color:#fff;
+    border-color:#555;
+    background:#171717;
+}
+
+/* ================= HERO ================= */
+
+.hero{
+    padding:88px 0 72px;
+    text-align:center;
+    border-bottom:1px solid var(--border);
+    background:
+        radial-gradient(circle at 50% 0%,rgba(255,255,255,.055),transparent 35%),
+        var(--bg);
+}
+
+.eyebrow{
+    display:inline-block;
+    margin-bottom:12px;
+    color:#777;
+    font-size:11px;
+    font-weight:800;
+    letter-spacing:2.5px;
+    text-transform:uppercase;
+}
+
+.hero h1{
+    margin:0;
+    font-size:clamp(40px,6vw,68px);
+    line-height:1.04;
+    letter-spacing:-2.5px;
+    font-weight:900;
+}
+
+.hero p{
+    max-width:720px;
+    margin:22px auto 0;
+    color:#898989;
+    font-size:16px;
+    line-height:1.8;
+}
+
+/* ================= CONTENT ================= */
+
+.info-section{
+    padding:70px 0;
+    scroll-margin-top:90px;
+}
+
+.info-section:nth-child(even){
+    background:#070707;
+}
+
+.info-card{
+    max-width:1000px;
+    margin:auto;
+    background:
+        linear-gradient(180deg,#101010,#0b0b0b);
+    border:1px solid var(--border2);
+    border-radius:20px;
+    padding:38px;
+    box-shadow:
+        0 20px 70px rgba(0,0,0,.18),
+        inset 0 1px rgba(255,255,255,.015);
+}
+
+.info-card h2{
+    margin:0 0 14px;
+    font-size:32px;
+    line-height:1.2;
+    letter-spacing:-.8px;
+}
+
+.info-card>p{
+    color:var(--muted);
+    margin-top:0;
+}
+
+.info-card h3{
+    margin:30px 0 8px;
+    font-size:18px;
+    color:#f4f4f4;
+}
+
+.info-card p,
+.info-card li{
+    color:var(--muted);
+    font-size:15px;
+}
+
+.info-card ul{
+    padding-left:22px;
+}
+
+.info-card li{
+    margin:8px 0;
+}
+
+/* ================= FAQ ================= */
+
+.faq-list{
+    margin-top:25px;
+}
+
+.faq-item{
+    background:#0b0b0b;
+    border:1px solid #242424;
+    border-radius:13px;
+    margin:11px 0;
+    overflow:hidden;
+    transition:border-color .2s,background .2s;
+}
+
+.faq-item:hover{
+    border-color:#333;
+}
+
+.question{
+    width:100%;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+    background:none;
+    border:0;
+    color:#fff;
+    padding:20px 21px;
+    text-align:left;
+    cursor:pointer;
+    font-size:16px;
+    font-weight:700;
+}
+
+.question span:first-child{
+    flex:1;
+}
+
+.question span:last-child{
+    width:28px;
+    height:28px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#888;
+    font-size:23px;
+    font-weight:400;
+    transition:.25s;
+}
+
+.answer{
+    display:none;
+    padding:0 21px 20px;
+    color:#8e8e8e;
+    font-size:15px;
+    line-height:1.75;
+}
+
+.faq-item.open{
+    background:#101010;
+    border-color:#333;
+}
+
+.faq-item.open .answer{
+    display:block;
+}
+
+.faq-item.open .question span:last-child{
+    transform:rotate(45deg);
+    color:#fff;
+}
+
+/* ================= STEPS ================= */
+
+.steps{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:14px;
+    margin-top:25px;
+}
+
+.step{
+    position:relative;
+    min-height:170px;
+    background:#0b0b0b;
+    border:1px solid #242424;
+    border-radius:14px;
+    padding:22px;
+    transition:.25s;
+}
+
+.step:hover{
+    border-color:#383838;
+    transform:translateY(-2px);
+}
+
+.step-num{
+    width:32px;
+    height:32px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border:1px solid #333;
+    border-radius:9px;
+    color:#aaa;
+    font-size:11px;
+    font-weight:800;
+    margin-bottom:17px;
+}
+
+.step h3{
+    margin:0 0 8px;
+    font-size:17px;
+}
+
+.step p{
+    margin:0;
+    font-size:14px;
+}
+
+/* ================= REVIEWS ================= */
+
+.review{
+    padding:22px 0;
+    border-top:1px solid var(--border);
+}
+
+.review:first-of-type{
+    margin-top:20px;
+}
+
+.stars{
+    color:#fff;
+    letter-spacing:3px;
+    font-size:14px;
+    margin-bottom:9px;
+}
+
+.review p{
+    color:#b2b2b2;
+    font-size:15px;
+    margin:0 0 12px;
+}
+
+.review-name{
+    font-weight:800;
+    color:#fff;
+    font-size:14px;
+}
+
+.review-product{
+    color:#666;
+    font-size:13px;
+    margin-top:2px;
+}
+
+/* ================= FOOTER ================= */
+
+footer{
+    border-top:1px solid var(--border);
+    padding:32px 0;
+    color:#666;
+    text-align:center;
+    font-size:13px;
+    background:#050505;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:1100px){
+
+    .main-nav{
+        gap:13px;
+    }
+
+    .main-nav>a,
+    .about-wrap>button{
+        font-size:13px;
+    }
+
+    .header-actions{
+        gap:4px;
+    }
+
+    .cart-top-btn,
+    .login-btn,
+    .register-btn{
+        padding:0 9px;
+    }
+}
+
+@media(max-width:900px){
+
+    .nav{
+        min-height:auto;
+        padding:14px 0;
+        flex-wrap:wrap;
+    }
+
+    .logo{
+        order:1;
+    }
+
+    .header-actions{
+        order:2;
+        margin-left:auto;
+    }
+
+    .main-nav{
+        order:3;
+        width:100%;
+        overflow-x:auto;
+        justify-content:flex-start;
+        padding:4px 0 2px;
+        scrollbar-width:none;
+    }
+
+    .main-nav::-webkit-scrollbar{
+        display:none;
+    }
+
+    .about-menu{
+        position:fixed;
+        top:125px;
+        left:4%;
+        right:4%;
+        width:auto;
+        transform:none;
+    }
+
+    .hero{
+        padding:65px 0 55px;
+    }
+
+    .info-section{
+        padding:50px 0;
+    }
+
+    .info-card{
+        padding:28px;
+    }
+}
+
+@media(max-width:650px){
+
+    .container{
+        width:min(94%,1180px);
+    }
+
+    .logo{
+        font-size:21px;
+    }
+
+    .header-actions{
+        flex-wrap:wrap;
+        justify-content:flex-end;
+    }
+
+    .register-btn{
+        display:none;
+    }
+
+    .cart-top-btn{
+        padding:0 9px;
+    }
+
+    .login-btn{
+        padding:0 10px;
+    }
+
+    .hero{
+        padding:55px 0 42px;
+    }
+
+    .hero h1{
+        font-size:42px;
+        letter-spacing:-1.7px;
+    }
+
+    .hero p{
+        font-size:14px;
+        line-height:1.7;
+    }
+
+    .info-section{
+        padding:38px 0;
+    }
+
+    .info-card{
+        padding:21px;
+        border-radius:16px;
+    }
+
+    .info-card h2{
+        font-size:27px;
+    }
+
+    .steps{
+        grid-template-columns:1fr;
+    }
+
+    .step{
+        min-height:auto;
+    }
+
+    .question{
+        padding:17px;
+        font-size:15px;
+    }
+
+    .answer{
+        padding:0 17px 17px;
+        font-size:14px;
+    }
+}
+
+@media(max-width:420px){
+
+    .langs{
+        display:none;
+    }
+
+    .hero h1{
+        font-size:36px;
+    }
+
+    .main-nav{
+        gap:16px;
+    }
+
+    .main-nav>a,
+    .about-wrap>button{
+        font-size:12px;
+    }
+}
+</style>
+</head>
+
 <body>
-<header><div class="container nav">
-<a class="logo" href="index.html">Digi<span>Baku</span></a>
+
+<header>
+<div class="container nav">
+
+<a class="logo" href="index.html">
+    Digi<span>Baku</span>
+</a>
+
 <nav class="main-nav">
-<a href="index.html#home" data-nav="home">Ana səhifə</a><a href="index.html#products" data-nav="products">Məhsullar</a><a href="index.html#compare" data-nav="compare">Müqayisə</a>
-<div class="about-wrap"><button id="aboutBtn"><span data-nav="about">Haqqımızda</span> ▾</button><div id="aboutMenu" class="about-menu">
-<a href="faq.html#faq" data-menu="faq">FAQ</a><a href="faq.html#how-it-works" data-menu="how">Necə işləyir?</a><a href="faq.html#trust" data-menu="trust">Etibar</a><a href="faq.html#editorial-policy" data-menu="editorial">Redaksiya siyasəti</a><a href="faq.html#terms" data-menu="terms">Şərtlər</a><a href="faq.html#reviews" data-menu="reviews">Rəylər</a>
-</div></div>
-<a href="qiymetler.html" data-nav="prices">Qiymətlər</a><a href="index.html#blog" data-nav="blog">Bloq</a><a href="index.html#contact" data-nav="contact">Əlaqə</a>
+
+<a href="index.html#home" data-nav="home">Ana səhifə</a>
+
+<a href="index.html#products" data-nav="products">Məhsullar</a>
+
+<a href="index.html#compare" data-nav="compare">Müqayisə</a>
+
+<div class="about-wrap">
+
+<button id="aboutBtn">
+    <span data-nav="about">Haqqımızda</span>
+    <span class="about-arrow">▾</span>
+</button>
+
+<div id="aboutMenu" class="about-menu">
+
+<a href="faq.html#faq" data-menu="faq">
+    FAQ
+</a>
+
+<a href="faq.html#how-it-works" data-menu="how">
+    Necə işləyir?
+</a>
+
+<a href="faq.html#trust" data-menu="trust">
+    Etibar
+</a>
+
+<a href="faq.html#editorial-policy" data-menu="editorial">
+    Redaksiya siyasəti
+</a>
+
+<a href="faq.html#terms" data-menu="terms">
+    Şərtlər
+</a>
+
+<a href="faq.html#reviews" data-menu="reviews">
+    Rəylər
+</a>
+
+</div>
+</div>
+
+<a href="qiymetler.html" data-nav="prices">
+    Qiymətlər
+</a>
+
+<a href="index.html#blog" data-nav="blog">
+    Bloq
+</a>
+
+<a href="index.html#contact" data-nav="contact">
+    Əlaqə
+</a>
+
 </nav>
-<div class="header-actions"><button class="cart-top-btn" type="button">🛒 <span data-nav="cart">Səbət</span> 0</button><a class="login-btn" href="login.html" data-nav="login">Daxil ol</a><a class="register-btn" href="login.html" data-nav="register">Qeydiyyat</a><div class="langs"><button data-lang="az" class="active">AZ</button><button data-lang="ru">RU</button><button data-lang="en">EN</button></div></div>
-</div></header>
+
+<div class="header-actions">
+
+<button class="cart-top-btn" type="button">
+    🛒 <span data-nav="cart">Səbət</span> 0
+</button>
+
+<a class="login-btn" href="login.html" data-nav="login">
+    Daxil ol
+</a>
+
+<a class="register-btn" href="login.html" data-nav="register">
+    Qeydiyyat
+</a>
+
+<div class="langs">
+<button data-lang="az" class="active">AZ</button>
+<button data-lang="ru">RU</button>
+<button data-lang="en">EN</button>
+</div>
+
+</div>
+
+</div>
+</header>
+
+
 <main>
-<section class="hero"><div class="container"><div class="eyebrow" data-i18n="eyebrow">DigiBaku dəstək</div><h1 data-i18n="title">Tez-tez verilən suallar</h1><p data-i18n="intro">Sifariş, məhsullar, ödəniş və aktivləşdirmə ilə bağlı ən çox verilən sualların cavablarını burada tapa bilərsiniz.</p></div></section>
-<section class="info-section" id="faq"><div class="container"><div class="info-card"><h2 data-i18n="faqTitle">Tez-tez verilən suallar</h2>
-<div class="faq-item"><button class="question"><span data-i18n="q1">Sifariş necə verilir?</span><span>+</span></button><div class="answer" data-i18n="a1">Məhsulu seçirsiniz, paket müddətini yoxlayırsınız, sifarişi tamamlayırsınız və aktivləşdirmə məlumatı dəstək prosesi ilə təqdim olunur.</div></div>
-<div class="faq-item"><button class="question"><span data-i18n="q2">Qiyməti harada görürəm?</span><span>+</span></button><div class="answer" data-i18n="a2">Qiymət məhsul kartında və məhsul səhifəsində göstərilir. Müddətə görə qiymət dəyişə bilər.</div></div>
-<div class="faq-item"><button class="question"><span data-i18n="q3">Telefondan sifariş verə bilərəm?</span><span>+</span></button><div class="answer" data-i18n="a3">Bəli. Məhsul kartları və sifariş funksiyaları mobil ekranlar üçün uyğunlaşdırılıb.</div></div>
-<div class="faq-item"><button class="question"><span data-i18n="q4">Aktivləşdirmə nə qədər çəkir?</span><span>+</span></button><div class="answer" data-i18n="a4">Ödəniş təsdiqləndikdən sonra məlumatlar qısa müddətdə təqdim olunur. Məhsuldan asılı olaraq dəqiq proses fərqlənə bilər.</div></div>
-<div class="faq-item"><button class="question"><span data-i18n="q5">Hesab məlumatlarını dəyişə bilərəm?</span><span>+</span></button><div class="answer" data-i18n="a5">Məhsul qaydalarında icazə verilmirsə e-poçt, şifrə və təhlükəsizlik məlumatlarını dəyişməyin.</div></div>
-<div class="faq-item"><button class="question"><span data-i18n="q6">Problem yaranarsa nə etməliyəm?</span><span>+</span></button><div class="answer" data-i18n="a6">Əlaqə kanalları vasitəsilə sifariş məlumatı ilə müraciət edin. Dəstək komandası statusu yoxlayacaq.</div></div>
-</div></div></section>
-<section class="info-section" id="how-it-works"><div class="container"><div class="info-card"><h2 data-i18n="howTitle">Sifariş və aktivləşdirmə necə işləyir?</h2><p data-i18n="howIntro">Prosesi sadə saxlayırıq: məhsulu seçin, qaydaları yoxlayın, sifarişi tamamlayın və dəstək komandası ilə aktivləşdirməni izləyin.</p><h3 data-i18n="clearTitle">Aydın proses</h3><p data-i18n="clearText">Hər məhsulda qiymət, müddət və istifadə qeydləri əvvəlcədən göstərilir.</p><h3 data-i18n="mobileTitle">Mobil rahatlıq</h3><p data-i18n="mobileText">Əsas seçim və sifariş addımları telefon ekranında rahat istifadə üçün qurulub.</p><h3 data-i18n="supportTitle">Dəstək</h3><p data-i18n="supportText">Problem olduqda sifariş məlumatı əsasında yoxlama aparılır.</p>
-<div class="steps"><div class="step"><div class="step-num">01</div><h3 data-i18n="step1Title">Məhsulu seçin</h3><p data-i18n="step1Text">Kateqoriya, qiymət, müddət və istifadə məqsədinə görə məhsulu seçin.</p></div><div class="step"><div class="step-num">02</div><h3 data-i18n="step2Title">Qaydaları oxuyun</h3><p data-i18n="step2Text">Məhsul səhifəsində hesab tipi, müddət, istifadə qeydləri və təhlükəsizlik məsləhətləri göstərilir.</p></div><div class="step"><div class="step-num">03</div><h3 data-i18n="step3Title">Sifarişi tamamlayın</h3><p data-i18n="step3Text">Sifariş prosesi mobil və desktop üçün sadə saxlanılıb. Məlumatları diqqətlə daxil edin.</p></div><div class="step"><div class="step-num">04</div><h3 data-i18n="step4Title">Aktivləşdirməni alın</h3><p data-i18n="step4Text">Ödəniş təsdiqləndikdən sonra aktivləşdirmə məlumatı təqdim olunur.</p></div><div class="step"><div class="step-num">05</div><h3 data-i18n="step5Title">Dəstəkdən istifadə edin</h3><p data-i18n="step5Text">Sual və problem yaranarsa əlaqə kanalları vasitəsilə dəstək ala bilərsiniz.</p></div></div><h3 data-i18n="howFaqTitle">Ən çox verilən suallar</h3><h3 data-i18n="beforeOrderQ">Sifarişdən əvvəl nəyi yoxlamalıyam?</h3><p data-i18n="beforeOrderA">Qiymət, müddət, hesab tipi, istifadə qaydaları və uyğun alternativləri yoxlayın.</p><h3 data-i18n="activationQ">Aktivləşdirmə məlumatı necə verilir?</h3><p data-i18n="activationA">Sifariş təsdiqləndikdən sonra məhsul qaydasına uyğun aktivləşdirmə məlumatı təqdim olunur.</p><h3 data-i18n="supportWhenQ">Dəstəyə nə vaxt yazmalıyam?</h3><p data-i18n="supportWhenA">Giriş, aktivlik, istifadə və paket məlumatı ilə bağlı problem yaranan kimi yazmaq daha yaxşıdır.</p></div></div></section>
-<section class="info-section" id="trust"><div class="container"><div class="info-card"><h2 data-i18n="trustTitle">Təhlükəsizlik, qaydalar və dəstək prinsipləri</h2><p data-i18n="trustIntro">Premium abunəlik seçərkən qiymət qədər etibar da önəmlidir. Bu bölmə sifarişdən əvvəl hansı qaydalara əsaslandığımızı aydın göstərir.</p><h3 data-i18n="transparencyTitle">Şəffaf məlumat</h3><p data-i18n="transparencyText">Məhsul səhifələrində qiymət, müddət və istifadə qaydaları əvvəlcədən göstərilir.</p><h3 data-i18n="safeTitle">Təhlükəsiz istifadə</h3><p data-i18n="safeText">Hesab məlumatlarının qorunması və icazəsiz dəyişiklik etməmək əsas prinsipdir.</p><h3 data-i18n="supportProcessTitle">Dəstək prosesi</h3><p data-i18n="supportProcessText">Problem olduqda sifariş məlumatına əsasən yoxlama aparılır və istifadəçiyə yönləndirmə verilir.</p><h3 data-i18n="whyTrustTitle">Niyə etibar siqnalları vacibdir?</h3><p data-i18n="whyTrustText">Rəqəmsal abunəliklərdə istifadəçi əvvəlcədən nə aldığını, necə istifadə edəcəyini və problem yaranarsa hara müraciət edəcəyini bilməlidir.</p><ul><li data-i18n="trustBullet1">Məhsul səhifəsində əsas şərtlər oxunaqlı verilir.</li><li data-i18n="trustBullet2">Sifarişdən sonra dəstək kanalları açıq saxlanılır.</li><li data-i18n="trustBullet3">Təhlükəsizlik qaydaları istifadəçi təcrübəsini qoruyur.</li></ul></div></div></section>
-<section class="info-section" id="editorial-policy"><div class="container"><div class="info-card"><h2 data-i18n="editorialTitle">Redaksiya siyasəti və məzmun standartları</h2><p data-i18n="editorialIntro">Bu siyasət istifadəçinin gördüyü məlumatın necə hazırlandığını, nə vaxt yeniləndiyini və səhv aşkar ediləndə necə düzəldildiyini izah edir.</p><h3 data-i18n="accuracyTitle">Dəqiqlik</h3><p data-i18n="accuracyText">Qiymət, müddət və xüsusiyyət kimi qərara təsir edən məlumatlar məhsul qeydləri və mümkün olduqda rəsmi mənbələrlə yoxlanır.</p><h3 data-i18n="independentTitle">Müstəqil izah</h3><p data-i18n="independentText">Məhsul satılsa belə üstünlük və məhdudiyyətlər oxucunun qərarına uyğun, aydın və şişirtməsiz yazılır.</p><h3 data-i18n="correctionTitle">Düzəliş</h3><p data-i18n="correctionText">Səhv və ya köhnəlmiş məlumat aşkarlandıqda həmin hissə yenilənir və məzmun yenidən nəzərdən keçirilir.</p><h3 data-i18n="processTitle">Prosesin qısa izahı</h3><div class="steps"><div class="step"><div class="step-num">01</div><h3 data-i18n="p1Title">Axtarış niyyətini müəyyən edirik</h3><p data-i18n="p1Text">İstifadəçinin qiymət, müqayisə, problem həlli və ya seçim axtardığını müəyyənləşdiririk.</p></div><div class="step"><div class="step-num">02</div><h3 data-i18n="p2Title">Faktları toplayırıq</h3><p data-i18n="p2Text">Paket, qiymət, müddət, istifadə qaydası və uyğun alternativləri yoxlayırıq.</p></div><div class="step"><div class="step-num">03</div><h3 data-i18n="p3Title">Oxunaqlı quruluş yaradırıq</h3><p data-i18n="p3Text">Qısa giriş, aydın başlıqlar, addımlar və sual-cavablarla məzmunu rahat oxunan edirik.</p></div><div class="step"><div class="step-num">04</div><h3 data-i18n="p4Title">Yeniləyirik</h3><p data-i18n="p4Text">Məhsul və bazar məlumatı dəyişəndə prioritet səhifələr yenidən yoxlanır.</p></div></div><h3 data-i18n="commercialTitle">Kommersiya şəffaflığı</h3><p data-i18n="commercialText">DigiBaku.com rəqəmsal paketlər təqdim edir. Məqalədə məhsula keçid satışla nəticələnə bilər, lakin müqayisə meyarları qiymət, istifadə məqsədi və paket xüsusiyyətlərinə əsaslanır.</p><ul><li data-i18n="commercial1">Uydurma müəllif və təcrübə iddiası istifadə edilmir.</li><li data-i18n="commercial2">Real olmayan rəy yaradılmır.</li><li data-i18n="commercial3">Məhsulun məhdudiyyəti qərar üçün vacibdirsə gizlədilmir.</li></ul><h3 data-i18n="priceReviewTitle">Qiymət və rəy yeniləmə prosesi</h3><p data-i18n="priceReviewText">Qiymət, kampaniya və xidmət şərtləri dəyişə bildiyi üçün prioritet məhsul və qiymət səhifələri mütəmadi yoxlanır.</p><ul><li data-i18n="priceReview1">Sifariş anındakı məhsul səhifəsi əsas qiymət mənbəyidir.</li><li data-i18n="priceReview2">Köhnəlmiş qiymət və paket qeydləri yenilənir.</li><li data-i18n="priceReview3">Saxta və təsdiqlənməmiş rəy yaradılmır.</li></ul><h3 data-i18n="contactCorrectionTitle">Düzəliş və əlaqə</h3><p data-i18n="contactCorrectionText">Səhv, köhnəlmiş qiymət və ya anlaşılmaz ifadə görsəniz əlaqə səhifəsindən səhifənin ünvanını və düzəliş təklifini göndərə bilərsiniz.</p><ul><li data-i18n="contactCorrection1">Fakt səhvləri prioritet yoxlanır.</li><li data-i18n="contactCorrection2">Şəxsi məlumatlar dərc edilmir.</li><li data-i18n="contactCorrection3">Məzmun dəyişiklik olduqda yenilənir.</li></ul></div></div></section>
-<section class="info-section" id="terms"><div class="container"><div class="info-card"><h2 data-i18n="termsTitle">Şərtlər və qaydalar</h2><h3 data-i18n="generalTermsTitle">Ümumi şərtlər</h3><p data-i18n="generalTermsText">Saytdan istifadə etməklə bu şərtləri qəbul etmiş olursunuz. Xidmətlər və məhsullar haqqında məlumat sifariş zamanı göstərilən xüsusiyyətlərə əsaslanır.</p><h3 data-i18n="accountOrdersTitle">Hesab və sifarişlər</h3><p data-i18n="accountOrdersText">İstifadəçi təqdim etdiyi məlumatların düzgünlüyünə cavabdehdir. Sifariş yalnız təsdiqləndikdən sonra icraya qəbul edilir. Hesab məlumatlarınızı üçüncü şəxslərlə paylaşmamağınız tövsiyə olunur.</p><h3 data-i18n="paymentServiceTitle">Ödəniş və xidmət</h3><p data-i18n="paymentServiceText">Qiymət, xidmət müddəti və digər şərtlər məhsul səhifəsində göstərilir. Texniki və ya təhlükəsizlik səbəbilə xidmətin təqdim edilmə qaydası dəyişə bilər.</p></div></div></section>
-<section class="info-section" id="reviews"><div class="container"><div class="info-card"><h2 data-i18n="reviewsTitle">Müştəri rəyləri</h2><p data-i18n="reviewsIntro">Müştərilərimizin təcrübəsi bizim üçün ən böyük motivasiyadır.</p>
-<div class="review"><div class="stars">★★★★★</div><p data-i18n="review1">“Çox sağ olun. Sifariş sürətli və problemsiz oldu.”</p><div class="review-name">Orxan Hacıyev</div><div class="review-product">Netflix Premium</div></div><div class="review"><div class="stars">★★★★★</div><p data-i18n="review2">“Əla, uyğun qiymətədir və sürətli bir şəkildə əldə etdim. Təşəkkür edirəm.”</p><div class="review-name">Shabnam Valizada</div><div class="review-product">YouTube Premium</div></div><div class="review"><div class="stars">★★★★★</div><p data-i18n="review3">“Sərfəli qiymətdir və sifariş prosesi çox rahatdır.”</p><div class="review-name">Dergah Abdullayev</div><div class="review-product">ChatGPT Plus</div></div><div class="review"><div class="stars">★★★★★</div><p data-i18n="review4">“Etibarlı və sürətli xidmətdir. Dostlarıma da tövsiyə edirəm.”</p><div class="review-name">Rəşad Məmmədli</div><div class="review-product">Spotify Premium</div></div><div class="review"><div class="stars">★★★★★</div><p data-i18n="review5">“Dəstək komandası suallarıma tez cavab verdi və mənə kömək etdi.”</p><div class="review-name">Səbinə Əliyeva</div><div class="review-product">Müştəri</div></div><div class="review"><div class="stars">★★★★★</div><p data-i18n="review6">“Bir neçə dəfə sifariş vermişəm və hər dəfə xidmət problemsiz işləyib.”</p><div class="review-name">Elvin Cəfərov</div><div class="review-product">Müştəri</div></div><div class="review"><div class="stars">★★★★★</div><p data-i18n="review7">“Saytın istifadəsi sadədir. İstədiyim məhsulu çox tez tapdım.”</p><div class="review-name">Ləman Hüseynova</div><div class="review-product">Müştəri</div></div><div class="review"><div class="stars">★★★★★</div><p data-i18n="review8">“Qiymətlər münasibdir və aktivləşdirmə gözlədiyimdən daha sürətli oldu.”</p><div class="review-name">Vahid Kərimov</div><div class="review-product">Müştəri</div></div>
-</div></div></section>
-</main><footer>© 2026 DigiBaku.com. <span data-i18n="rights">Bütün hüquqlar qorunur.</span></footer>
+
+<!-- ================= HERO ================= -->
+
+<section class="hero">
+
+<div class="container">
+
+<div class="eyebrow">
+    DigiBaku
+</div>
+
+<h1 data-i18n="title">
+    Tez-tez verilən suallar
+</h1>
+
+<p data-i18n="intro">
+    Sifariş, məhsullar, ödəniş və aktivləşdirmə ilə bağlı ən çox verilən sualların cavablarını burada tapa bilərsiniz.
+</p>
+
+</div>
+
+</section>
+
+
+<!-- ================= FAQ ================= -->
+
+<section class="info-section" id="faq">
+
+<div class="container">
+
+<div class="info-card">
+
+<h2>
+    Tez-tez verilən suallar
+</h2>
+
+<div class="faq-list">
+
+<div class="faq-item">
+
+<button class="question">
+<span>Sifariş necə verilir?</span>
+<span>+</span>
+</button>
+
+<div class="answer">
+Məhsulu seçirsiniz, paket müddətini yoxlayırsınız, sifarişi tamamlayırsınız və aktivləşdirmə məlumatı dəstək prosesi ilə təqdim olunur.
+</div>
+
+</div>
+
+
+<div class="faq-item">
+
+<button class="question">
+<span>Qiyməti harada görürəm?</span>
+<span>+</span>
+</button>
+
+<div class="answer">
+Qiymət məhsul kartında və məhsul səhifəsində göstərilir. Müddətə görə qiymət dəyişə bilər.
+</div>
+
+</div>
+
+
+<div class="faq-item">
+
+<button class="question">
+<span>Telefondan sifariş verə bilərəm?</span>
+<span>+</span>
+</button>
+
+<div class="answer">
+Bəli. Məhsul kartları və sifariş funksiyaları mobil ekranlar üçün uyğunlaşdırılıb.
+</div>
+
+</div>
+
+
+<div class="faq-item">
+
+<button class="question">
+<span>Aktivləşdirmə nə qədər çəkir?</span>
+<span>+</span>
+</button>
+
+<div class="answer">
+Ödəniş təsdiqləndikdən sonra məlumatlar qısa müddətdə təqdim olunur. Məhsuldan asılı olaraq dəqiq proses fərqlənə bilər.
+</div>
+
+</div>
+
+
+<div class="faq-item">
+
+<button class="question">
+<span>Hesab məlumatlarını dəyişə bilərəm?</span>
+<span>+</span>
+</button>
+
+<div class="answer">
+Məhsul qaydalarında icazə verilmirsə e-poçt, şifrə və təhlükəsizlik məlumatlarını dəyişməyin.
+</div>
+
+</div>
+
+
+<div class="faq-item">
+
+<button class="question">
+<span>Problem yaranarsa nə etməliyəm?</span>
+<span>+</span>
+</button>
+
+<div class="answer">
+Əlaqə kanalları vasitəsilə sifariş məlumatı ilə müraciət edin. Dəstək komandası statusu yoxlayacaq.
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= HOW IT WORKS ================= -->
+
+<section class="info-section" id="how-it-works">
+
+<div class="container">
+
+<div class="info-card">
+
+<h2>
+    Sifariş və aktivləşdirmə necə işləyir?
+</h2>
+
+<p>
+    Prosesi sadə saxlayırıq: məhsulu seçin, qaydaları yoxlayın, sifarişi tamamlayın və dəstək komandası ilə aktivləşdirməni izləyin.
+</p>
+
+
+<h3>
+    Aydın proses
+</h3>
+
+<p>
+    Hər məhsulda qiymət, müddət və istifadə qeydləri əvvəlcədən göstərilir.
+</p>
+
+
+<h3>
+    Mobil rahatlıq
+</h3>
+
+<p>
+    Əsas seçim və sifariş addımları telefon ekranında rahat istifadə üçün qurulub.
+</p>
+
+
+<h3>
+    Dəstək
+</h3>
+
+<p>
+    Problem olduqda sifariş məlumatı əsasında yoxlama aparılır.
+</p>
+
+
+<div class="steps">
+
+<div class="step">
+
+<div class="step-num">01</div>
+
+<h3>
+    Məhsulu seçin
+</h3>
+
+<p>
+    Kateqoriya, qiymət, müddət və istifadə məqsədinə görə məhsulu seçin.
+</p>
+
+</div>
+
+
+<div class="step">
+
+<div class="step-num">02</div>
+
+<h3>
+    Qaydaları oxuyun
+</h3>
+
+<p>
+    Məhsul səhifəsində hesab tipi, müddət, istifadə qeydləri və təhlükəsizlik məsləhətləri göstərilir.
+</p>
+
+</div>
+
+
+<div class="step">
+
+<div class="step-num">03</div>
+
+<h3>
+    Sifarişi tamamlayın
+</h3>
+
+<p>
+    Sifariş prosesi mobil və desktop üçün sadə saxlanılıb. Məlumatları diqqətlə daxil edin.
+</p>
+
+</div>
+
+
+<div class="step">
+
+<div class="step-num">04</div>
+
+<h3>
+    Aktivləşdirməni alın
+</h3>
+
+<p>
+    Ödəniş təsdiqləndikdən sonra aktivləşdirmə məlumatı təqdim olunur.
+</p>
+
+</div>
+
+
+<div class="step">
+
+<div class="step-num">05</div>
+
+<h3>
+    Dəstəkdən istifadə edin
+</h3>
+
+<p>
+    Sual və problem yaranarsa əlaqə kanalları vasitəsilə dəstək ala bilərsiniz.
+</p>
+
+</div>
+
+</div>
+
+
+<h3>
+    Ən çox verilən suallar
+</h3>
+
+<h3>
+    Sifarişdən əvvəl nəyi yoxlamalıyam?
+</h3>
+
+<p>
+    Qiymət, müddət, hesab tipi, istifadə qaydaları və uyğun alternativləri yoxlayın.
+</p>
+
+
+<h3>
+    Aktivləşdirmə məlumatı necə verilir?
+</h3>
+
+<p>
+    Sifariş təsdiqləndikdən sonra məhsul qaydasına uyğun aktivləşdirmə məlumatı təqdim olunur.
+</p>
+
+
+<h3>
+    Dəstəyə nə vaxt yazmalıyam?
+</h3>
+
+<p>
+    Giriş, aktivlik, istifadə və paket məlumatı ilə bağlı problem yaranan kimi yazmaq daha yaxşıdır.
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= TRUST ================= -->
+
+<section class="info-section" id="trust">
+
+<div class="container">
+
+<div class="info-card">
+
+<h2>
+    Təhlükəsizlik, qaydalar və dəstək prinsipləri
+</h2>
+
+<p>
+    Premium abunəlik seçərkən qiymət qədər etibar da önəmlidir. Bu bölmə sifarişdən əvvəl hansı qaydalara əsaslandığımızı aydın göstərir.
+</p>
+
+
+<h3>
+    Şəffaf məlumat
+</h3>
+
+<p>
+    Məhsul səhifələrində qiymət, müddət və istifadə qaydaları əvvəlcədən göstərilir.
+</p>
+
+
+<h3>
+    Təhlükəsiz istifadə
+</h3>
+
+<p>
+    Hesab məlumatlarının qorunması və icazəsiz dəyişiklik etməmək əsas prinsipdir.
+</p>
+
+
+<h3>
+    Dəstək prosesi
+</h3>
+
+<p>
+    Problem olduqda sifariş məlumatına əsasən yoxlama aparılır və istifadəçiyə yönləndirmə verilir.
+</p>
+
+
+<h3>
+    Niyə etibar siqnalları vacibdir?
+</h3>
+
+<p>
+    Rəqəmsal abunəliklərdə istifadəçi əvvəlcədən nə aldığını, necə istifadə edəcəyini və problem yaranarsa hara müraciət edəcəyini bilməlidir.
+</p>
+
+<ul>
+<li>Məhsul səhifəsində əsas şərtlər oxunaqlı verilir.</li>
+<li>Sifarişdən sonra dəstək kanalları açıq saxlanılır.</li>
+<li>Təhlükəsizlik qaydaları istifadəçi təcrübəsini qoruyur.</li>
+</ul>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= EDITORIAL ================= -->
+
+<section class="info-section" id="editorial-policy">
+
+<div class="container">
+
+<div class="info-card">
+
+<h2>
+    Redaksiya siyasəti və məzmun standartları
+</h2>
+
+<p>
+    Bu siyasət istifadəçinin gördüyü məlumatın necə hazırlandığını, nə vaxt yeniləndiyini və səhv aşkar ediləndə necə düzəldildiyini izah edir.
+</p>
+
+
+<h3>
+    Dəqiqlik
+</h3>
+
+<p>
+    Qiymət, müddət və xüsusiyyət kimi qərara təsir edən məlumatlar məhsul qeydləri və mümkün olduqda rəsmi mənbələrlə yoxlanır.
+</p>
+
+
+<h3>
+    Müstəqil izah
+</h3>
+
+<p>
+    Məhsul satılsa belə üstünlük və məhdudiyyətlər oxucunun qərarına uyğun, aydın və şişirtməsiz yazılır.
+</p>
+
+
+<h3>
+    Düzəliş
+</h3>
+
+<p>
+    Səhv və ya köhnəlmiş məlumat aşkarlandıqda həmin hissə yenilənir və məzmun yenidən nəzərdən keçirilir.
+</p>
+
+
+<h3>
+    Prosesin qısa izahı
+</h3>
+
+
+<div class="steps">
+
+<div class="step">
+<div class="step-num">01</div>
+<h3>Axtarış niyyətini müəyyən edirik</h3>
+<p>
+İstifadəçinin qiymət, müqayisə, problem həlli və ya seçim axtardığını müəyyənləşdiririk.
+</p>
+</div>
+
+
+<div class="step">
+<div class="step-num">02</div>
+<h3>Faktları toplayırıq</h3>
+<p>
+Paket, qiymət, müddət, istifadə qaydası və uyğun alternativləri yoxlayırıq.
+</p>
+</div>
+
+
+<div class="step">
+<div class="step-num">03</div>
+<h3>Oxunaqlı quruluş yaradırıq</h3>
+<p>
+Qısa giriş, aydın başlıqlar, addımlar və sual-cavablarla məzmunu rahat oxunan edirik.
+</p>
+</div>
+
+
+<div class="step">
+<div class="step-num">04</div>
+<h3>Yeniləyirik</h3>
+<p>
+Məhsul və bazar məlumatı dəyişəndə prioritet səhifələr yenidən yoxlanır.
+</p>
+</div>
+
+</div>
+
+
+<h3>
+    Kommersiya şəffaflığı
+</h3>
+
+<p>
+    DigiBaku.com rəqəmsal paketlər təqdim edir. Məqalədə məhsula keçid satışla nəticələnə bilər, lakin müqayisə meyarları qiymət, istifadə məqsədi və paket xüsusiyyətlərinə əsaslanır.
+</p>
+
+<ul>
+<li>Uydurma müəllif və təcrübə iddiası istifadə edilmir.</li>
+<li>Real olmayan rəy yaradılmır.</li>
+<li>Məhsulun məhdudiyyəti qərar üçün vacibdirsə gizlədilmir.</li>
+</ul>
+
+
+<h3>
+    Qiymət və rəy yeniləmə prosesi
+</h3>
+
+<p>
+    Qiymət, kampaniya və xidmət şərtləri dəyişə bildiyi üçün prioritet məhsul və qiymət səhifələri mütəmadi yoxlanır.
+</p>
+
+<ul>
+<li>Sifariş anındakı məhsul səhifəsi əsas qiymət mənbəyidir.</li>
+<li>Köhnəlmiş qiymət və paket qeydləri yenilənir.</li>
+<li>Saxta və təsdiqlənməmiş rəy yaradılmır.</li>
+</ul>
+
+
+<h3>
+    Düzəliş və əlaqə
+</h3>
+
+<p>
+    Səhv, köhnəlmiş qiymət və ya anlaşılmaz ifadə görsəniz əlaqə səhifəsindən səhifənin ünvanını və düzəliş təklifini göndərə bilərsiniz.
+</p>
+
+<ul>
+<li>Fakt səhvləri prioritet yoxlanır.</li>
+<li>Şəxsi məlumatlar dərc edilmir.</li>
+<li>Məzmun dəyişiklik olduqda yenilənir.</li>
+</ul>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= TERMS ================= -->
+
+<section class="info-section" id="terms">
+
+<div class="container">
+
+<div class="info-card">
+
+<h2>
+    Şərtlər və qaydalar
+</h2>
+
+
+<h3>
+    Ümumi şərtlər
+</h3>
+
+<p>
+    Saytdan istifadə etməklə bu şərtləri qəbul etmiş olursunuz. Xidmətlər və məhsullar haqqında məlumat sifariş zamanı göstərilən xüsusiyyətlərə əsaslanır.
+</p>
+
+
+<h3>
+    Hesab və sifarişlər
+</h3>
+
+<p>
+    İstifadəçi təqdim etdiyi məlumatların düzgünlüyünə cavabdehdir. Sifariş yalnız təsdiqləndikdən sonra icraya qəbul edilir. Hesab məlumatlarınızı üçüncü şəxslərlə paylaşmamağınız tövsiyə olunur.
+</p>
+
+
+<h3>
+    Ödəniş və xidmət
+</h3>
+
+<p>
+    Qiymət, xidmət müddəti və digər şərtlər məhsul səhifəsində göstərilir. Texniki və ya təhlükəsizlik səbəbilə xidmətin təqdim edilmə qaydası dəyişə bilər.
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= REVIEWS ================= -->
+
+<section class="info-section" id="reviews">
+
+<div class="container">
+
+<div class="info-card">
+
+<h2>
+    Müştəri rəyləri
+</h2>
+
+<p>
+    Müştərilərimizin təcrübəsi bizim üçün ən böyük motivasiyadır.
+</p>
+
+
+<div class="review">
+
+<div class="stars">★★★★★</div>
+
+<p>
+“Çox sağ olun. Sifariş sürətli və problemsiz oldu.”
+</p>
+
+<div class="review-name">
+Orxan Hacıyev
+</div>
+
+<div class="review-product">
+Netflix Premium
+</div>
+
+</div>
+
+
+<div class="review">
+
+<div class="stars">★★★★★</div>
+
+<p>
+“Əla, uyğun qiymətədir və sürətli bir şəkildə əldə etdim. Təşəkkür edirəm.”
+</p>
+
+<div class="review-name">
+Shabnam Valizada
+</div>
+
+<div class="review-product">
+YouTube Premium
+</div>
+
+</div>
+
+
+<div class="review">
+
+<div class="stars">★★★★★</div>
+
+<p>
+“Sərfəli qiymətdir və sifariş prosesi çox rahatdır.”
+</p>
+
+<div class="review-name">
+Dergah Abdullayev
+</div>
+
+<div class="review-product">
+ChatGPT Plus
+</div>
+
+</div>
+
+
+<div class="review">
+
+<div class="stars">★★★★★</div>
+
+<p>
+“Etibarlı və sürətli xidmətdir. Dostlarıma da tövsiyə edirəm.”
+</p>
+
+<div class="review-name">
+Rəşad Məmmədli
+</div>
+
+<div class="review-product">
+Spotify Premium
+</div>
+
+</div>
+
+
+<div class="review">
+
+<div class="stars">★★★★★</div>
+
+<p>
+“Dəstək komandası suallarıma tez cavab verdi və mənə kömək etdi.”
+</p>
+
+<div class="review-name">
+Səbinə Əliyeva
+</div>
+
+<div class="review-product">
+Müştəri
+</div>
+
+</div>
+
+
+<div class="review">
+
+<div class="stars">★★★★★</div>
+
+<p>
+“Bir neçə dəfə sifariş vermişəm və hər dəfə xidmət problemsiz işləyib.”
+</p>
+
+<div class="review-name">
+Elvin Cəfərov
+</div>
+
+<div class="review-product">
+Müştəri
+</div>
+
+</div>
+
+
+<div class="review">
+
+<div class="stars">★★★★★</div>
+
+<p>
+“Saytın istifadəsi sadədir. İstədiyim məhsulu çox tez tapdım.”
+</p>
+
+<div class="review-name">
+Ləman Hüseynova
+</div>
+
+<div class="review-product">
+Müştəri
+</div>
+
+</div>
+
+
+<div class="review">
+
+<div class="stars">★★★★★</div>
+
+<p>
+“Qiymətlər münasibdir və aktivləşdirmə gözlədiyimdən daha sürətli oldu.”
+</p>
+
+<div class="review-name">
+Vahid Kərimov
+</div>
+
+<div class="review-product">
+Müştəri
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+</main>
+
+
+<footer>
+© 2026 DigiBaku.com. Bütün hüquqlar qorunur.
+</footer>
+
+
 <script>
-const A={eyebrow:'DigiBaku dəstək',title:'Tez-tez verilən suallar',intro:'Sifariş, məhsullar, ödəniş və aktivləşdirmə ilə bağlı ən çox verilən sualların cavablarını burada tapa bilərsiniz.',faqTitle:'Tez-tez verilən suallar',q1:'Sifariş necə verilir?',a1:'Məhsulu seçirsiniz, paket müddətini yoxlayırsınız, sifarişi tamamlayırsınız və aktivləşdirmə məlumatı dəstək prosesi ilə təqdim olunur.',q2:'Qiyməti harada görürəm?',a2:'Qiymət məhsul kartında və məhsul səhifəsində göstərilir. Müddətə görə qiymət dəyişə bilər.',q3:'Telefondan sifariş verə bilərəm?',a3:'Bəli. Məhsul kartları və sifariş funksiyaları mobil ekranlar üçün uyğunlaşdırılıb.',q4:'Aktivləşdirmə nə qədər çəkir?',a4:'Ödəniş təsdiqləndikdən sonra məlumatlar qısa müddətdə təqdim olunur. Məhsuldan asılı olaraq dəqiq proses fərqlənə bilər.',q5:'Hesab məlumatlarını dəyişə bilərəm?',a5:'Məhsul qaydalarında icazə verilmirsə e-poçt, şifrə və təhlükəsizlik məlumatlarını dəyişməyin.',q6:'Problem yaranarsa nə etməliyəm?',a6:'Əlaqə kanalları vasitəsilə sifariş məlumatı ilə müraciət edin. Dəstək komandası statusu yoxlayacaq.',howTitle:'Sifariş və aktivləşdirmə necə işləyir?',howIntro:'Prosesi sadə saxlayırıq: məhsulu seçin, qaydaları yoxlayın, sifarişi tamamlayın və dəstək komandası ilə aktivləşdirməni izləyin.',clearTitle:'Aydın proses',clearText:'Hər məhsulda qiymət, müddət və istifadə qeydləri əvvəlcədən göstərilir.',mobileTitle:'Mobil rahatlıq',mobileText:'Əsas seçim və sifariş addımları telefon ekranında rahat istifadə üçün qurulub.',supportTitle:'Dəstək',supportText:'Problem olduqda sifariş məlumatı əsasında yoxlama aparılır.',step1Title:'Məhsulu seçin',step1Text:'Kateqoriya, qiymət, müddət və istifadə məqsədinə görə məhsulu seçin.',step2Title:'Qaydaları oxuyun',step2Text:'Məhsul səhifəsində hesab tipi, müddət, istifadə qeydləri və təhlükəsizlik məsləhətləri göstərilir.',step3Title:'Sifarişi tamamlayın',step3Text:'Sifariş prosesi mobil və desktop üçün sadə saxlanılıb. Məlumatları diqqətlə daxil edin.',step4Title:'Aktivləşdirməni alın',step4Text:'Ödəniş təsdiqləndikdən sonra aktivləşdirmə məlumatı təqdim olunur.',step5Title:'Dəstəkdən istifadə edin',step5Text:'Sual və problem yaranarsa əlaqə kanalları vasitəsilə dəstək ala bilərsiniz.',howFaqTitle:'Ən çox verilən suallar',beforeOrderQ:'Sifarişdən əvvəl nəyi yoxlamalıyam?',beforeOrderA:'Qiymət, müddət, hesab tipi, istifadə qaydaları və uyğun alternativləri yoxlayın.',activationQ:'Aktivləşdirmə məlumatı necə verilir?',activationA:'Sifariş təsdiqləndikdən sonra məhsul qaydasına uyğun aktivləşdirmə məlumatı təqdim olunur.',supportWhenQ:'Dəstəyə nə vaxt yazmalıyam?',supportWhenA:'Giriş, aktivlik, istifadə və paket məlumatı ilə bağlı problem yaranan kimi yazmaq daha yaxşıdır.',trustTitle:'Təhlükəsizlik, qaydalar və dəstək prinsipləri',trustIntro:'Premium abunəlik seçərkən qiymət qədər etibar da önəmlidir. Bu bölmə sifarişdən əvvəl hansı qaydalara əsaslandığımızı aydın göstərir.',transparencyTitle:'Şəffaf məlumat',transparencyText:'Məhsul səhifələrində qiymət, müddət və istifadə qaydaları əvvəlcədən göstərilir.',safeTitle:'Təhlükəsiz istifadə',safeText:'Hesab məlumatlarının qorunması və icazəsiz dəyişiklik etməmək əsas prinsipdir.',supportProcessTitle:'Dəstək prosesi',supportProcessText:'Problem olduqda sifariş məlumatına əsasən yoxlama aparılır və istifadəçiyə yönləndirmə verilir.',whyTrustTitle:'Niyə etibar siqnalları vacibdir?',whyTrustText:'Rəqəmsal abunəliklərdə istifadəçi əvvəlcədən nə aldığını, necə istifadə edəcəyini və problem yaranarsa hara müraciət edəcəyini bilməlidir.',trustBullet1:'Məhsul səhifəsində əsas şərtlər oxunaqlı verilir.',trustBullet2:'Sifarişdən sonra dəstək kanalları açıq saxlanılır.',trustBullet3:'Təhlükəsizlik qaydaları istifadəçi təcrübəsini qoruyur.',editorialTitle:'Redaksiya siyasəti və məzmun standartları',editorialIntro:'Bu siyasət istifadəçinin gördüyü məlumatın necə hazırlandığını, nə vaxt yeniləndiyini və səhv aşkar ediləndə necə düzəldildiyini izah edir.',accuracyTitle:'Dəqiqlik',accuracyText:'Qiymət, müddət və xüsusiyyət kimi qərara təsir edən məlumatlar məhsul qeydləri və mümkün olduqda rəsmi mənbələrlə yoxlanır.',independentTitle:'Müstəqil izah',independentText:'Məhsul satılsa belə üstünlük və məhdudiyyətlər oxucunun qərarına uyğun, aydın və şişirtməsiz yazılır.',correctionTitle:'Düzəliş',correctionText:'Səhv və ya köhnəlmiş məlumat aşkarlandıqda həmin hissə yenilənir və məzmun yenidən nəzərdən keçirilir.',processTitle:'Prosesin qısa izahı',p1Title:'Axtarış niyyətini müəyyən edirik',p1Text:'İstifadəçinin qiymət, müqayisə, problem həlli və ya seçim axtardığını müəyyənləşdiririk.',p2Title:'Faktları toplayırıq',p2Text:'Paket, qiymət, müddət, istifadə qaydası və uyğun alternativləri yoxlayırıq.',p3Title:'Oxunaqlı quruluş yaradırıq',p3Text:'Qısa giriş, aydın başlıqlar, addımlar və sual-cavablarla məzmunu rahat oxunan edirik.',p4Title:'Yeniləyirik',p4Text:'Məhsul və bazar məlumatı dəyişəndə prioritet səhifələr yenidən yoxlanır.',commercialTitle:'Kommersiya şəffaflığı',commercialText:'DigiBaku.com rəqəmsal paketlər təqdim edir. Məqalədə məhsula keçid satışla nəticələnə bilər, lakin müqayisə meyarları qiymət, istifadə məqsədi və paket xüsusiyyətlərinə əsaslanır.',commercial1:'Uydurma müəllif və təcrübə iddiası istifadə edilmir.',commercial2:'Real olmayan rəy yaradılmır.',commercial3:'Məhsulun məhdudiyyəti qərar üçün vacibdirsə gizlədilmir.',priceReviewTitle:'Qiymət və rəy yeniləmə prosesi',priceReviewText:'Qiymət, kampaniya və xidmət şərtləri dəyişə bildiyi üçün prioritet məhsul və qiymət səhifələri mütəmadi yoxlanır.',priceReview1:'Sifariş anındakı məhsul səhifəsi əsas qiymət mənbəyidir.',priceReview2:'Köhnəlmiş qiymət və paket qeydləri yenilənir.',priceReview3:'Saxta və təsdiqlənməmiş rəy yaradılmır.',contactCorrectionTitle:'Düzəliş və əlaqə',contactCorrectionText:'Səhv, köhnəlmiş qiymət və ya anlaşılmaz ifadə görsəniz əlaqə səhifəsindən səhifənin ünvanını və düzəliş təklifini göndərə bilərsiniz.',contactCorrection1:'Fakt səhvləri prioritet yoxlanır.',contactCorrection2:'Şəxsi məlumatlar dərc edilmir.',contactCorrection3:'Məzmun dəyişiklik olduqda yenilənir.',termsTitle:'Şərtlər və qaydalar',generalTermsTitle:'Ümumi şərtlər',generalTermsText:'Saytdan istifadə etməklə bu şərtləri qəbul etmiş olursunuz. Xidmətlər və məhsullar haqqında məlumat sifariş zamanı göstərilən xüsusiyyətlərə əsaslanır.',accountOrdersTitle:'Hesab və sifarişlər',accountOrdersText:'İstifadəçi təqdim etdiyi məlumatların düzgünlüyünə cavabdehdir. Sifariş yalnız təsdiqləndikdən sonra icraya qəbul edilir. Hesab məlumatlarınızı üçüncü şəxslərlə paylaşmamağınız tövsiyə olunur.',paymentServiceTitle:'Ödəniş və xidmət',paymentServiceText:'Qiymət, xidmət müddəti və digər şərtlər məhsul səhifəsində göstərilir. Texniki və ya təhlükəsizlik səbəbilə xidmətin təqdim edilmə qaydası dəyişə bilər.',reviewsTitle:'Müştəri rəyləri',reviewsIntro:'Müştərilərimizin təcrübəsi bizim üçün ən böyük motivasiyadır.',review1:'“Çox sağ olun. Sifariş sürətli və problemsiz oldu.”',review2:'“Əla, uyğun qiymətədir və sürətli bir şəkildə əldə etdim. Təşəkkür edirəm.”',review3:'“Sərfəli qiymətdir və sifariş prosesi çox rahatdır.”',review4:'“Etibarlı və sürətli xidmətdir. Dostlarıma da tövsiyə edirəm.”',review5:'“Dəstək komandası suallarıma tez cavab verdi və mənə kömək etdi.”',review6:'“Bir neçə dəfə sifariş vermişəm və hər dəfə xidmət problemsiz işləyib.”',review7:'“Saytın istifadəsi sadədir. İstədiyim məhsulu çox tez tapdım.”',review8:'“Qiymətlər münasibdir və aktivləşdirmə gözlədiyimdən daha sürətli oldu.”',rights:'Bütün hüquqlar qorunur.'};
-const EN={...A,eyebrow:'DigiBaku Support',title:'Frequently Asked Questions',intro:'Find answers to the most common questions about orders, products, payments and activation.',faqTitle:'Frequently Asked Questions',q1:'How do I place an order?',a1:'Choose the product, check the package duration, complete the order, and activation information is provided through the support process.',q2:'Where can I see the price?',a2:'The price is shown on the product card and product page. The price may vary by duration.',q3:'Can I order from my phone?',a3:'Yes. Product cards and ordering functions are adapted for mobile screens.',q4:'How long does activation take?',a4:'After payment is confirmed, the information is provided shortly. The exact process may vary by product.',q5:'Can I change account information?',a5:'If the product rules do not allow it, do not change email, password or security information.',q6:'What should I do if there is a problem?',a6:'Contact support with your order information through the available contact channels. The support team will check the status.',howTitle:'How do ordering and activation work?',howIntro:'We keep the process simple: choose a product, check the rules, complete the order and follow activation with the support team.',clearTitle:'Clear process',clearText:'Price, duration and usage notes are shown in advance for every product.',mobileTitle:'Mobile convenience',mobileText:'The main selection and ordering steps are designed for comfortable use on phone screens.',supportTitle:'Support',supportText:'If a problem occurs, we check it based on the order information.',step1Title:'Choose a product',step1Text:'Choose a product by category, price, duration and intended use.',step2Title:'Read the rules',step2Text:'The product page shows account type, duration, usage notes and security advice.',step3Title:'Complete the order',step3Text:'The ordering process is kept simple for mobile and desktop. Enter the information carefully.',step4Title:'Receive activation',step4Text:'After payment is confirmed, activation information is provided.',step5Title:'Use support',step5Text:'If you have a question or problem, you can get support through the contact channels.',howFaqTitle:'Frequently asked questions',beforeOrderQ:'What should I check before ordering?',beforeOrderA:'Check the price, duration, account type, usage rules and suitable alternatives.',activationQ:'How is activation information provided?',activationA:'After the order is confirmed, activation information is provided according to the product rules.',supportWhenQ:'When should I contact support?',supportWhenA:'It is better to contact support as soon as a problem occurs with login, activity, usage or package information.',trustTitle:'Security, rules and support principles',trustIntro:'Trust is as important as price when choosing a premium subscription. This section clearly shows the rules we follow before an order.',transparencyTitle:'Transparent information',transparencyText:'Price, duration and usage rules are shown in advance on product pages.',safeTitle:'Safe use',safeText:'Protecting account information and avoiding unauthorized changes are key principles.',supportProcessTitle:'Support process',supportProcessText:'When a problem occurs, we check it based on the order information and provide guidance.',whyTrustTitle:'Why are trust signals important?',whyTrustText:'With digital subscriptions, users should know what they are buying, how to use it and where to contact us if a problem occurs.',trustBullet1:'Key terms are clearly presented on the product page.',trustBullet2:'Support channels remain available after the order.',trustBullet3:'Security rules help protect the user experience.',editorialTitle:'Editorial policy and content standards',editorialIntro:'This policy explains how the information users see is prepared, when it is updated and how errors are corrected.',accuracyTitle:'Accuracy',accuracyText:'Information that affects decisions, such as price, duration and features, is checked against product records and, where possible, official sources.',independentTitle:'Independent explanation',independentText:'Even when a product is sold, its benefits and limitations are explained clearly and without exaggeration to support the reader’s decision.',correctionTitle:'Corrections',correctionText:'When incorrect or outdated information is found, the relevant section is updated and reviewed again.',processTitle:'Brief process overview',p1Title:'Identify search intent',p1Text:'We identify whether the user is looking for a price, comparison, problem solution or choice.',p2Title:'Collect facts',p2Text:'We check package, price, duration, usage rules and suitable alternatives.',p3Title:'Create a readable structure',p3Text:'We make content easy to read with a short introduction, clear headings, steps and Q&A.',p4Title:'Update',p4Text:'When product and market information changes, priority pages are reviewed again.',commercialTitle:'Commercial transparency',commercialText:'DigiBaku.com provides digital packages. A product link in an article may result in a sale, but comparison criteria are based on price, intended use and package features.',commercial1:'No fabricated author or experience claims are used.',commercial2:'No fake reviews are created.',commercial3:'Product limitations are not hidden when they are important to a decision.',priceReviewTitle:'Price and review update process',priceReviewText:'Because prices, promotions and service terms can change, priority product and price pages are reviewed regularly.',priceReview1:'The product page at the time of ordering is the primary price source.',priceReview2:'Outdated price and package information is updated.',priceReview3:'Fake or unverified reviews are not created.',contactCorrectionTitle:'Corrections and contact',contactCorrectionText:'If you find an error, outdated price or unclear wording, send the page address and correction suggestion through the contact page.',contactCorrection1:'Factual errors are checked as a priority.',contactCorrection2:'Personal information is not published.',contactCorrection3:'Content is updated when changes occur.',termsTitle:'Terms and rules',generalTermsTitle:'General terms',generalTermsText:'By using the site, you accept these terms. Information about services and products is based on the features shown at the time of ordering.',accountOrdersTitle:'Accounts and orders',accountOrdersText:'Users are responsible for the accuracy of the information they provide. An order is accepted for processing only after confirmation. We recommend not sharing account information with third parties.',paymentServiceTitle:'Payment and service',paymentServiceText:'Price, service duration and other terms are shown on the product page. The service delivery method may change for technical or security reasons.',reviewsTitle:'Customer reviews',reviewsIntro:'Our customers’ experience is our greatest motivation.',review1:'“Thank you very much. The order was fast and problem-free.”',review2:'“Great, reasonably priced and I received it quickly. Thank you.”',review3:'“Good value and the ordering process is very easy.”',review4:'“Reliable and fast service. I recommend it to my friends.”',review5:'“The support team answered my questions quickly and helped me.”',review6:'“I have ordered several times and the service has worked without problems every time.”',review7:'“The site is easy to use. I found the product I wanted very quickly.”',review8:'“The prices are reasonable and activation was faster than I expected.”',rights:'All rights reserved.'};
-const RU={...A,eyebrow:'Поддержка DigiBaku',title:'Часто задаваемые вопросы',intro:'Здесь вы найдёте ответы на самые частые вопросы о заказах, товарах, оплате и активации.',faqTitle:'Часто задаваемые вопросы',q1:'Как оформить заказ?',a1:'Выберите товар, проверьте срок пакета, оформите заказ, после чего данные для активации предоставляются через поддержку.',q2:'Где посмотреть цену?',a2:'Цена указана на карточке товара и странице товара. Цена может меняться в зависимости от срока.',q3:'Можно ли заказать с телефона?',a3:'Да. Карточки товаров и функции заказа адаптированы для мобильных экранов.',q4:'Сколько занимает активация?',a4:'После подтверждения оплаты данные предоставляются в короткий срок. Точный процесс зависит от товара.',q5:'Можно ли изменить данные аккаунта?',a5:'Если правила товара этого не разрешают, не изменяйте электронную почту, пароль и данные безопасности.',q6:'Что делать при возникновении проблемы?',a6:'Обратитесь через доступные каналы связи, указав данные заказа. Команда поддержки проверит статус.',howTitle:'Как работает заказ и активация?',howIntro:'Мы делаем процесс простым: выберите товар, проверьте правила, оформите заказ и отслеживайте активацию с командой поддержки.',clearTitle:'Понятный процесс',clearText:'Цена, срок и правила использования заранее указаны для каждого товара.',mobileTitle:'Удобство на телефоне',mobileText:'Основные шаги выбора и заказа рассчитаны на удобное использование с телефона.',supportTitle:'Поддержка',supportText:'При возникновении проблемы проверка проводится по данным заказа.',step1Title:'Выберите товар',step1Text:'Выберите товар по категории, цене, сроку и цели использования.',step2Title:'Прочитайте правила',step2Text:'На странице товара указаны тип аккаунта, срок, правила использования и советы по безопасности.',step3Title:'Оформите заказ',step3Text:'Процесс заказа прост для телефона и компьютера. Внимательно вводите данные.',step4Title:'Получите активацию',step4Text:'После подтверждения оплаты предоставляются данные для активации.',step5Title:'Используйте поддержку',step5Text:'При вопросе или проблеме можно получить поддержку через каналы связи.',howFaqTitle:'Часто задаваемые вопросы',beforeOrderQ:'Что проверить перед заказом?',beforeOrderA:'Проверьте цену, срок, тип аккаунта, правила использования и подходящие альтернативы.',activationQ:'Как предоставляются данные для активации?',activationA:'После подтверждения заказа данные для активации предоставляются согласно правилам товара.',supportWhenQ:'Когда обращаться в поддержку?',supportWhenA:'Лучше обратиться сразу при проблеме со входом, активностью, использованием или данными пакета.',trustTitle:'Безопасность, правила и принципы поддержки',trustIntro:'При выборе премиум-подписки доверие так же важно, как и цена. Здесь мы ясно показываем правила, на которых основываемся до заказа.',transparencyTitle:'Прозрачная информация',transparencyText:'Цена, срок и правила использования заранее указаны на страницах товаров.',safeTitle:'Безопасное использование',safeText:'Защита данных аккаунта и недопущение несанкционированных изменений — основные принципы.',supportProcessTitle:'Процесс поддержки',supportProcessText:'При проблеме проводится проверка по данным заказа и предоставляются рекомендации.',whyTrustTitle:'Почему важны сигналы доверия?',whyTrustText:'При цифровых подписках пользователь должен заранее знать, что он покупает, как этим пользоваться и куда обратиться при проблеме.',trustBullet1:'Основные условия ясно указаны на странице товара.',trustBullet2:'Каналы поддержки доступны после заказа.',trustBullet3:'Правила безопасности помогают сохранить удобство пользователя.',editorialTitle:'Редакционная политика и стандарты контента',editorialIntro:'Эта политика объясняет, как готовится информация для пользователей, когда она обновляется и как исправляются ошибки.',accuracyTitle:'Точность',accuracyText:'Информация, влияющая на решение, например цена, срок и характеристики, проверяется по данным товара и, когда возможно, официальным источникам.',independentTitle:'Независимое объяснение',independentText:'Даже если товар продаётся, его преимущества и ограничения описываются ясно и без преувеличений для принятия решения.',correctionTitle:'Исправления',correctionText:'Если обнаружена ошибочная или устаревшая информация, соответствующий раздел обновляется и пересматривается.',processTitle:'Краткое описание процесса',p1Title:'Определяем поисковый запрос',p1Text:'Определяем, ищет ли пользователь цену, сравнение, решение проблемы или подходящий вариант.',p2Title:'Собираем факты',p2Text:'Проверяем пакет, цену, срок, правила использования и подходящие альтернативы.',p3Title:'Создаём понятную структуру',p3Text:'Делаем текст удобным для чтения с кратким вступлением, понятными заголовками, шагами и вопросами-ответами.',p4Title:'Обновляем',p4Text:'При изменении информации о товарах и рынке приоритетные страницы проверяются снова.',commercialTitle:'Коммерческая прозрачность',commercialText:'DigiBaku.com предоставляет цифровые пакеты. Переход на товар в статье может привести к продаже, но критерии сравнения основаны на цене, цели использования и характеристиках пакета.',commercial1:'Вымышленные заявления об авторе или опыте не используются.',commercial2:'Фальшивые отзывы не создаются.',commercial3:'Ограничения товара не скрываются, если они важны для решения.',priceReviewTitle:'Процесс обновления цен и отзывов',priceReviewText:'Поскольку цены, акции и условия услуг могут меняться, приоритетные страницы товаров и цен регулярно проверяются.',priceReview1:'Страница товара на момент заказа является основным источником цены.',priceReview2:'Устаревшие цены и сведения о пакетах обновляются.',priceReview3:'Фальшивые или неподтверждённые отзывы не создаются.',contactCorrectionTitle:'Исправления и связь',contactCorrectionText:'Если вы заметили ошибку, устаревшую цену или непонятную формулировку, отправьте адрес страницы и предложение по исправлению через страницу контактов.',contactCorrection1:'Фактические ошибки проверяются в первую очередь.',contactCorrection2:'Персональные данные не публикуются.',contactCorrection3:'Контент обновляется при изменениях.',termsTitle:'Условия и правила',generalTermsTitle:'Общие условия',generalTermsText:'Используя сайт, вы принимаете эти условия. Информация о сервисах и товарах основывается на характеристиках, указанных при заказе.',accountOrdersTitle:'Аккаунты и заказы',accountOrdersText:'Пользователь отвечает за достоверность предоставленной информации. Заказ принимается в работу только после подтверждения. Рекомендуется не передавать данные аккаунта третьим лицам.',paymentServiceTitle:'Оплата и услуга',paymentServiceText:'Цена, срок услуги и другие условия указаны на странице товара. Способ предоставления услуги может измениться по техническим или причинам безопасности.',reviewsTitle:'Отзывы клиентов',reviewsIntro:'Опыт наших клиентов — наша главная мотивация.',review1:'“Большое спасибо. Заказ был быстрым и без проблем.”',review2:'“Отлично, цена подходящая, получил быстро. Спасибо.”',review3:'“Выгодная цена и очень удобный процесс заказа.”',review4:'“Надёжный и быстрый сервис. Рекомендую друзьям.”',review5:'“Команда поддержки быстро ответила на мои вопросы и помогла.”',review6:'“Заказывал несколько раз, и каждый раз сервис работал без проблем.”',review7:'“Сайт простой в использовании. Нужный товар нашёл очень быстро.”',review8:'“Цены хорошие, а активация прошла быстрее, чем я ожидал.”',rights:'Все права защищены.'};
-const nav={az:{home:'Ana səhifə',products:'Məhsullar',compare:'Müqayisə',about:'Haqqımızda',prices:'Qiymətlər',blog:'Bloq',contact:'Əlaqə',cart:'Səbət',login:'Daxil ol',register:'Qeydiyyat',faq:'FAQ',how:'Necə işləyir?',trust:'Etibar',editorial:'Redaksiya siyasəti',terms:'Şərtlər',reviews:'Rəylər'},ru:{home:'Главная',products:'Товары',compare:'Сравнение',about:'О нас',prices:'Цены',blog:'Блог',contact:'Контакты',cart:'Корзина',login:'Войти',register:'Регистрация',faq:'FAQ',how:'Как это работает?',trust:'Надёжность',editorial:'Редакционная политика',terms:'Условия',reviews:'Отзывы'},en:{home:'Home',products:'Products',compare:'Compare',about:'About us',prices:'Prices',blog:'Blog',contact:'Contact',cart:'Cart',login:'Log in',register:'Sign up',faq:'FAQ',how:'How it works?',trust:'Trust',editorial:'Editorial policy',terms:'Terms',reviews:'Reviews'}};
-const T={az:A,ru:RU,en:EN};
-function setLang(l){const t=T[l]||A;document.documentElement.lang=l;document.querySelectorAll('[data-i18n]').forEach(e=>{if(t[e.dataset.i18n]!=null)e.textContent=t[e.dataset.i18n]});const n=nav[l]||nav.az;document.querySelectorAll('[data-nav]').forEach(e=>e.textContent=n[e.dataset.nav]);document.querySelectorAll('[data-menu]').forEach(e=>e.textContent=n[e.dataset.menu]);document.querySelectorAll('[data-lang]').forEach(e=>e.classList.toggle('active',e.dataset.lang===l));localStorage.setItem('digibaku_lang',l)}
-document.querySelectorAll('.question').forEach(b=>b.addEventListener('click',()=>b.parentElement.classList.toggle('open')));document.querySelectorAll('[data-lang]').forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.lang)));const ab=document.getElementById('aboutBtn'),am=document.getElementById('aboutMenu');ab.addEventListener('click',e=>{e.stopPropagation();am.classList.toggle('open')});document.addEventListener('click',()=>am.classList.remove('open'));am.addEventListener('click',e=>e.stopPropagation());setLang(localStorage.getItem('digibaku_lang')||'az');
-</script></body></html>
+
+/* ================= FAQ ================= */
+
+document.querySelectorAll(".question").forEach(button=>{
+
+    button.addEventListener("click",()=>{
+
+        const item=button.parentElement;
+
+        document.querySelectorAll(".faq-item").forEach(other=>{
+
+            if(other!==item){
+                other.classList.remove("open");
+            }
+
+        });
+
+        item.classList.toggle("open");
+
+    });
+
+});
+
+
+/* ================= ABOUT MENU ================= */
+
+const aboutBtn=document.getElementById("aboutBtn");
+const aboutMenu=document.getElementById("aboutMenu");
+
+aboutBtn.addEventListener("click",function(e){
+
+    e.stopPropagation();
+
+    aboutMenu.classList.toggle("open");
+
+});
+
+aboutMenu.addEventListener("click",function(e){
+    e.stopPropagation();
+});
+
+document.addEventListener("click",function(){
+
+    aboutMenu.classList.remove("open");
+
+});
+
+
+/* ================= LANGUAGE ================= */
+
+const translations={
+
+az:{
+    title:"Tez-tez verilən suallar",
+    intro:"Sifariş, məhsullar, ödəniş və aktivləşdirmə ilə bağlı ən çox verilən sualların cavablarını burada tapa bilərsiniz."
+},
+
+en:{
+    title:"Frequently Asked Questions",
+    intro:"Find answers to the most common questions about orders, products, payments and activation."
+},
+
+ru:{
+    title:"Часто задаваемые вопросы",
+    intro:"Здесь вы найдёте ответы на самые частые вопросы о заказах, товарах, оплате и активации."
+}
+
+};
+
+
+const nav={
+
+az:{
+    home:"Ana səhifə",
+    products:"Məhsullar",
+    compare:"Müqayisə",
+    about:"Haqqımızda",
+    prices:"Qiymətlər",
+    blog:"Bloq",
+    contact:"Əlaqə",
+    cart:"Səbət",
+    login:"Daxil ol",
+    register:"Qeydiyyat",
+    faq:"FAQ",
+    how:"Necə işləyir?",
+    trust:"Etibar",
+    editorial:"Redaksiya siyasəti",
+    terms:"Şərtlər",
+    reviews:"Rəylər"
+},
+
+en:{
+    home:"Home",
+    products:"Products",
+    compare:"Compare",
+    about:"About us",
+    prices:"Prices",
+    blog:"Blog",
+    contact:"Contact",
+    cart:"Cart",
+    login:"Log in",
+    register:"Sign up",
+    faq:"FAQ",
+    how:"How it works?",
+    trust:"Trust",
+    editorial:"Editorial policy",
+    terms:"Terms",
+    reviews:"Reviews"
+},
+
+ru:{
+    home:"Главная",
+    products:"Товары",
+    compare:"Сравнение",
+    about:"О нас",
+    prices:"Цены",
+    blog:"Блог",
+    contact:"Контакты",
+    cart:"Корзина",
+    login:"Войти",
+    register:"Регистрация",
+    faq:"FAQ",
+    how:"Как это работает?",
+    trust:"Надёжность",
+    editorial:"Редакционная политика",
+    terms:"Условия",
+    reviews:"Отзывы"
+}
+
+};
+
+
+function setLanguage(lang){
+
+    localStorage.setItem("digibaku_lang",lang);
+
+    document.documentElement.lang=lang;
+
+    const t=translations[lang]||translations.az;
+
+    document.querySelectorAll("[data-i18n]").forEach(el=>{
+
+        const key=el.dataset.i18n;
+
+        if(t[key]){
+            el.textContent=t[key];
+        }
+
+    });
+
+    const n=nav[lang]||nav.az;
+
+    document.querySelectorAll("[data-nav]").forEach(el=>{
+
+        const key=el.dataset.nav;
+
+        if(n[key]){
+            el.textContent=n[key];
+        }
+
+    });
+
+    document.querySelectorAll("[data-menu]").forEach(el=>{
+
+        const key=el.dataset.menu;
+
+        if(n[key]){
+            el.textContent=n[key];
+        }
+
+    });
+
+    document.querySelectorAll("[data-lang]").forEach(button=>{
+
+        button.classList.toggle(
+            "active",
+            button.dataset.lang===lang
+        );
+
+    });
+
+}
+
+
+document.querySelectorAll("[data-lang]").forEach(button=>{
+
+    button.addEventListener("click",()=>{
+
+        setLanguage(button.dataset.lang);
+
+    });
+
+});
+
+
+setLanguage(
+    localStorage.getItem("digibaku_lang")||"az"
+);
+
+
+/* ================= OPEN HASH SECTION ================= */
+
+window.addEventListener("load",()=>{
+
+    const hash=window.location.hash;
+
+    if(hash){
+
+        setTimeout(()=>{
+
+            const target=document.querySelector(hash);
+
+            if(target){
+
+                target.scrollIntoView({
+                    behavior:"smooth",
+                    block:"start"
+                });
+
+            }
+
+        },150);
+
+    }
+
+});
+
+</script>
+
+</body>
+</html>
