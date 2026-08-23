@@ -2,1707 +2,280 @@
 <html lang="az">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-
-<title>DigiBaku — Haqqımızda</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FAQ və Məlumat — DigiBaku.com</title>
 <style>
-:root{
-    --bg:#050505;
-    --bg2:#080808;
-    --card:#0d0d0d;
-    --card2:#111;
-    --text:#fff;
-    --muted:#9b9b9b;
-    --muted2:#707070;
-    --border:#222;
-    --border2:#292929;
-    --hover:#171717;
-}
-
-*{
-    box-sizing:border-box;
-}
-
-html{
-    scroll-behavior:smooth;
-}
-
-body{
-    margin:0;
-    background:var(--bg);
-    color:var(--text);
-    font-family:Arial,Helvetica,sans-serif;
-    line-height:1.6;
-}
-
-a{
-    color:inherit;
-    text-decoration:none;
-}
-
-button{
-    font-family:inherit;
-}
-
-.container{
-    width:min(1180px,92%);
-    margin:auto;
-}
-
-/* ================= HEADER ================= */
-
-header{
-    position:sticky;
-    top:0;
-    z-index:1000;
-    background:rgba(5,5,5,.94);
-    backdrop-filter:blur(14px);
-    border-bottom:1px solid var(--border);
-}
-
-.nav{
-    min-height:76px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:24px;
-}
-
-.logo{
-    font-size:24px;
-    font-weight:900;
-    letter-spacing:-.7px;
-    white-space:nowrap;
-}
-
-.logo span{
-    color:#777;
-}
-
-.main-nav{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:20px;
-    flex:1;
-}
-
-.main-nav>a,
-.about-wrap>button{
-    color:#cfcfcf;
-    font-size:14px;
-    font-weight:600;
-    background:none;
-    border:0;
-    cursor:pointer;
-    padding:8px 0;
-    transition:.2s;
-}
-
-.main-nav>a:hover,
-.about-wrap>button:hover{
-    color:#fff;
-}
-
-/* ABOUT DROPDOWN */
-
-.about-wrap{
-    position:relative;
-}
-
-.about-wrap>button{
-    display:flex;
-    align-items:center;
-    gap:5px;
-}
-
-.about-arrow{
-    font-size:11px;
-    color:#777;
-}
-
-.about-menu{
-    display:none;
-    position:absolute;
-    top:calc(100% + 12px);
-    left:50%;
-    transform:translateX(-50%);
-    width:245px;
-    background:#0c0c0c;
-    border:1px solid var(--border2);
-    border-radius:14px;
-    padding:7px;
-    box-shadow:0 20px 60px rgba(0,0,0,.7);
-}
-
-.about-menu.open{
-    display:flex;
-    flex-direction:column;
-}
-
-.about-menu a{
-    padding:11px 13px;
-    color:#aaa;
-    border-radius:9px;
-    font-size:14px;
-    transition:.2s;
-}
-
-.about-menu a:hover{
-    background:#181818;
-    color:#fff;
-}
-
-/* HEADER ACTIONS */
-
-.header-actions{
-    display:flex;
-    align-items:center;
-    gap:7px;
-}
-
-.cart-top-btn,
-.login-btn,
-.register-btn{
-    height:38px;
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    gap:5px;
-    padding:0 12px;
-    border-radius:9px;
-    font-size:13px;
-    font-weight:700;
-    white-space:nowrap;
-}
-
-.cart-top-btn{
-    background:#0c0c0c;
-    border:1px solid var(--border2);
-    color:#fff;
-    cursor:pointer;
-}
-
-.login-btn{
-    background:#fff;
-    color:#000;
-}
-
-.register-btn{
-    background:#151515;
-    color:#fff;
-    border:1px solid var(--border2);
-}
-
-.langs{
-    display:flex;
-    gap:4px;
-    margin-left:3px;
-}
-
-.langs button{
-    height:34px;
-    min-width:35px;
-    background:#0d0d0d;
-    border:1px solid var(--border);
-    border-radius:8px;
-    color:#777;
-    cursor:pointer;
-    font-size:11px;
-    font-weight:700;
-    transition:.2s;
-}
-
-.langs button:hover{
-    color:#fff;
-    border-color:#444;
-}
-
-.langs button.active{
-    color:#fff;
-    border-color:#555;
-    background:#171717;
-}
-
-/* ================= HERO ================= */
-
-.hero{
-    padding:88px 0 72px;
-    text-align:center;
-    border-bottom:1px solid var(--border);
-    background:
-        radial-gradient(circle at 50% 0%,rgba(255,255,255,.055),transparent 35%),
-        var(--bg);
-}
-
-.eyebrow{
-    display:inline-block;
-    margin-bottom:12px;
-    color:#777;
-    font-size:11px;
-    font-weight:800;
-    letter-spacing:2.5px;
-    text-transform:uppercase;
-}
-
-.hero h1{
-    margin:0;
-    font-size:clamp(40px,6vw,68px);
-    line-height:1.04;
-    letter-spacing:-2.5px;
-    font-weight:900;
-}
-
-.hero p{
-    max-width:720px;
-    margin:22px auto 0;
-    color:#898989;
-    font-size:16px;
-    line-height:1.8;
-}
-
-/* ================= CONTENT ================= */
-
-.info-section{
-    padding:70px 0;
-    scroll-margin-top:90px;
-}
-
-.info-section:nth-child(even){
-    background:#070707;
-}
-
-.info-card{
-    max-width:1000px;
-    margin:auto;
-    background:
-        linear-gradient(180deg,#101010,#0b0b0b);
-    border:1px solid var(--border2);
-    border-radius:20px;
-    padding:38px;
-    box-shadow:
-        0 20px 70px rgba(0,0,0,.18),
-        inset 0 1px rgba(255,255,255,.015);
-}
-
-.info-card h2{
-    margin:0 0 14px;
-    font-size:32px;
-    line-height:1.2;
-    letter-spacing:-.8px;
-}
-
-.info-card>p{
-    color:var(--muted);
-    margin-top:0;
-}
-
-.info-card h3{
-    margin:30px 0 8px;
-    font-size:18px;
-    color:#f4f4f4;
-}
-
-.info-card p,
-.info-card li{
-    color:var(--muted);
-    font-size:15px;
-}
-
-.info-card ul{
-    padding-left:22px;
-}
-
-.info-card li{
-    margin:8px 0;
-}
-
-/* ================= FAQ ================= */
-
-.faq-list{
-    margin-top:25px;
-}
-
-.faq-item{
-    background:#0b0b0b;
-    border:1px solid #242424;
-    border-radius:13px;
-    margin:11px 0;
-    overflow:hidden;
-    transition:border-color .2s,background .2s;
-}
-
-.faq-item:hover{
-    border-color:#333;
-}
-
-.question{
-    width:100%;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:20px;
-    background:none;
-    border:0;
-    color:#fff;
-    padding:20px 21px;
-    text-align:left;
-    cursor:pointer;
-    font-size:16px;
-    font-weight:700;
-}
-
-.question span:first-child{
-    flex:1;
-}
-
-.question span:last-child{
-    width:28px;
-    height:28px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    color:#888;
-    font-size:23px;
-    font-weight:400;
-    transition:.25s;
-}
-
-.answer{
-    display:none;
-    padding:0 21px 20px;
-    color:#8e8e8e;
-    font-size:15px;
-    line-height:1.75;
-}
-
-.faq-item.open{
-    background:#101010;
-    border-color:#333;
-}
-
-.faq-item.open .answer{
-    display:block;
-}
-
-.faq-item.open .question span:last-child{
-    transform:rotate(45deg);
-    color:#fff;
-}
-
-/* ================= STEPS ================= */
-
-.steps{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:14px;
-    margin-top:25px;
-}
-
-.step{
-    position:relative;
-    min-height:170px;
-    background:#0b0b0b;
-    border:1px solid #242424;
-    border-radius:14px;
-    padding:22px;
-    transition:.25s;
-}
-
-.step:hover{
-    border-color:#383838;
-    transform:translateY(-2px);
-}
-
-.step-num{
-    width:32px;
-    height:32px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    border:1px solid #333;
-    border-radius:9px;
-    color:#aaa;
-    font-size:11px;
-    font-weight:800;
-    margin-bottom:17px;
-}
-
-.step h3{
-    margin:0 0 8px;
-    font-size:17px;
-}
-
-.step p{
-    margin:0;
-    font-size:14px;
-}
-
-/* ================= REVIEWS ================= */
-
-.review{
-    padding:22px 0;
-    border-top:1px solid var(--border);
-}
-
-.review:first-of-type{
-    margin-top:20px;
-}
-
-.stars{
-    color:#fff;
-    letter-spacing:3px;
-    font-size:14px;
-    margin-bottom:9px;
-}
-
-.review p{
-    color:#b2b2b2;
-    font-size:15px;
-    margin:0 0 12px;
-}
-
-.review-name{
-    font-weight:800;
-    color:#fff;
-    font-size:14px;
-}
-
-.review-product{
-    color:#666;
-    font-size:13px;
-    margin-top:2px;
-}
-
-/* ================= FOOTER ================= */
-
-footer{
-    border-top:1px solid var(--border);
-    padding:32px 0;
-    color:#666;
-    text-align:center;
-    font-size:13px;
-    background:#050505;
-}
-
-/* ================= RESPONSIVE ================= */
-
-@media(max-width:1100px){
-
-    .main-nav{
-        gap:13px;
-    }
-
-    .main-nav>a,
-    .about-wrap>button{
-        font-size:13px;
-    }
-
-    .header-actions{
-        gap:4px;
-    }
-
-    .cart-top-btn,
-    .login-btn,
-    .register-btn{
-        padding:0 9px;
-    }
-}
-
-@media(max-width:900px){
-
-    .nav{
-        min-height:auto;
-        padding:14px 0;
-        flex-wrap:wrap;
-    }
-
-    .logo{
-        order:1;
-    }
-
-    .header-actions{
-        order:2;
-        margin-left:auto;
-    }
-
-    .main-nav{
-        order:3;
-        width:100%;
-        overflow-x:auto;
-        justify-content:flex-start;
-        padding:4px 0 2px;
-        scrollbar-width:none;
-    }
-
-    .main-nav::-webkit-scrollbar{
-        display:none;
-    }
-
-    .about-menu{
-        position:fixed;
-        top:125px;
-        left:4%;
-        right:4%;
-        width:auto;
-        transform:none;
-    }
-
-    .hero{
-        padding:65px 0 55px;
-    }
-
-    .info-section{
-        padding:50px 0;
-    }
-
-    .info-card{
-        padding:28px;
-    }
-}
-
-@media(max-width:650px){
-
-    .container{
-        width:min(94%,1180px);
-    }
-
-    .logo{
-        font-size:21px;
-    }
-
-    .header-actions{
-        flex-wrap:wrap;
-        justify-content:flex-end;
-    }
-
-    .register-btn{
-        display:none;
-    }
-
-    .cart-top-btn{
-        padding:0 9px;
-    }
-
-    .login-btn{
-        padding:0 10px;
-    }
-
-    .hero{
-        padding:55px 0 42px;
-    }
-
-    .hero h1{
-        font-size:42px;
-        letter-spacing:-1.7px;
-    }
-
-    .hero p{
-        font-size:14px;
-        line-height:1.7;
-    }
-
-    .info-section{
-        padding:38px 0;
-    }
-
-    .info-card{
-        padding:21px;
-        border-radius:16px;
-    }
-
-    .info-card h2{
-        font-size:27px;
-    }
-
-    .steps{
-        grid-template-columns:1fr;
-    }
-
-    .step{
-        min-height:auto;
-    }
-
-    .question{
-        padding:17px;
-        font-size:15px;
-    }
-
-    .answer{
-        padding:0 17px 17px;
-        font-size:14px;
-    }
-}
-
-@media(max-width:420px){
-
-    .langs{
-        display:none;
-    }
-
-    .hero h1{
-        font-size:36px;
-    }
-
-    .main-nav{
-        gap:16px;
-    }
-
-    .main-nav>a,
-    .about-wrap>button{
-        font-size:12px;
-    }
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:Arial,Helvetica,sans-serif;background:#050505;color:#fff;line-height:1.6;}
+a{text-decoration:none;color:inherit;}
+button{font-family:inherit;}
+.container{width:92%;max-width:1200px;margin:auto;}
+
+/* HEADER */
+header{position:sticky;top:0;z-index:1000;background:rgba(5,5,5,.94);border-bottom:1px solid #222;backdrop-filter:blur(12px);}
+.nav{min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:20px;}
+.logo{font-size:26px;font-weight:900;color:#3b82f6;}
+.logo span{color:#fff;}
+.menu{display:flex;gap:22px;}
+.menu a{color:#aaa;font-size:14px;transition:.2s;}
+.menu a:hover,.menu a.active{color:#3b82f6;}
+.header-right{display:flex;align-items:center;gap:10px;}
+.auth{display:flex;gap:8px;align-items:center;}
+.btn{display:inline-block;border:0;border-radius:9px;padding:11px 17px;font-weight:700;cursor:pointer;font-size:14px;transition:.2s;}
+.btn-primary{background:#2563eb;color:#fff;}
+.btn-primary:hover{background:#1d4ed8;}
+.btn-dark{background:#151515;color:#fff;border:1px solid #333;}
+.btn-dark:hover{background:#202020;}
+
+/* FAQ & ABOUT SECTIONS STYLING */
+.about{background:#090909;padding:75px 0;}
+.about-content{max-width:1000px;margin:auto;text-align:left;}
+.about-content > h2{font-size:38px;margin-bottom:18px;text-align:center;}
+.about-subsection{margin-top:35px;background:#101010;border:1px solid #222;border-radius:15px;padding:25px;}
+.about-subsection h3{font-size:24px;margin-bottom:12px;color:#fff;}
+.about-subsection h4{font-size:18px;margin-top:22px;margin-bottom:8px;color:#60a5fa;}
+.about-subsection p{color:#aaa;margin-bottom:12px;}
+.about-subsection ul{padding-left:20px;color:#aaa;}
+.about-subsection li{margin-bottom:8px;}
+
+.steps{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:20px;}
+.step{background:#080808;border:1px solid #222;border-radius:12px;padding:18px;}
+.step-number{width:36px;height:36px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:#2563eb;font-weight:900;margin-bottom:12px;}
+.step h4{margin:0 0 7px;color:#fff;}
+.step p{font-size:13px;margin:0;}
+
+.about-faq{margin-top:20px;}
+.about-faq-item{border-bottom:1px solid #222;padding:15px 0;}
+.about-faq-item:last-child{border-bottom:0;}
+.about-faq-item strong{display:block;color:#fff;margin-bottom:6px;}
+.about-faq-item p{margin:0;font-size:14px;}
+
+/* REVIEWS SECTION */
+.reviews{background:#090909;padding:75px 0;}
+.review-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:30px;}
+.review{background:#101010;border:1px solid #242424;border-radius:15px;padding:23px;}
+.stars{color:#facc15;font-size:18px;margin-bottom:12px;}
+.review-text{color:#ddd;min-height:75px;margin-bottom:18px;}
+.reviewer{display:flex;align-items:center;gap:10px;}
+.avatar{width:42px;height:42px;border-radius:50%;background:#2563eb;display:flex;align-items:center;justify-content:center;font-weight:bold;}
+.reviewer strong{display:block;}
+.reviewer span{color:#777;font-size:12px;}
+
+/* FOOTER */
+footer{background:#030303;border-top:1px solid #222;padding:45px 0 20px;}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:30px;}
+.footer-col h3{margin-bottom:13px;}
+.footer-col p,.footer-col a{display:block;color:#888;font-size:14px;margin-bottom:7px;}
+.footer-col a:hover{color:#3b82f6;}
+.copyright{border-top:1px solid #222;margin-top:30px;padding-top:18px;text-align:center;color:#666;font-size:13px;}
+
+@media(max-width:1000px){
+.review-grid{grid-template-columns:repeat(2,1fr);}
+.steps{grid-template-columns:repeat(2,1fr);}
+.footer-grid{grid-template-columns:1fr 1fr;}
+.menu{display:none;}
+}
+@media(max-width:700px){
+.steps{grid-template-columns:1fr;}
+.review-grid{grid-template-columns:1fr;}
+.footer-grid{grid-template-columns:1fr;}
 }
 </style>
 </head>
-
 <body>
 
 <header>
 <div class="container nav">
-
-<a class="logo" href="index.html">
-    Digi<span>Baku</span>
-</a>
-
-<nav class="main-nav">
-
-<a href="index.html#home" data-nav="home">Ana səhifə</a>
-
-<a href="index.html#products" data-nav="products">Məhsullar</a>
-
-<a href="index.html#compare" data-nav="compare">Müqayisə</a>
-
-<div class="about-wrap">
-
-<button id="aboutBtn">
-    <span data-nav="about">Haqqımızda</span>
-    <span class="about-arrow">▾</span>
-</button>
-
-<div id="aboutMenu" class="about-menu">
-
-<a href="faq.html#faq" data-menu="faq">
-    FAQ
-</a>
-
-<a href="faq.html#how-it-works" data-menu="how">
-    Necə işləyir?
-</a>
-
-<a href="faq.html#trust" data-menu="trust">
-    Etibar
-</a>
-
-<a href="faq.html#editorial-policy" data-menu="editorial">
-    Redaksiya siyasəti
-</a>
-
-<a href="faq.html#terms" data-menu="terms">
-    Şərtlər
-</a>
-
-<a href="faq.html#reviews" data-menu="reviews">
-    Rəylər
-</a>
-
-</div>
-</div>
-
-<a href="qiymetler.html" data-nav="prices">
-    Qiymətlər
-</a>
-
-<a href="index.html#blog" data-nav="blog">
-    Bloq
-</a>
-
-<a href="index.html#contact" data-nav="contact">
-    Əlaqə
-</a>
-
+<a href="index.html" class="logo">DigiBaku<span>.com</span></a>
+<nav class="menu">
+<a href="index.html">Ana səhifə</a>
+<a href="index.html#products">Məhsullar</a>
+<a href="faq.html" class="active">FAQ və Məlumat</a>
+<a href="qiymetler.html">Qiymətlər</a>
+<a href="index.html#contact">Əlaqə</a>
 </nav>
-
-<div class="header-actions">
-
-<button class="cart-top-btn" type="button">
-    🛒 <span data-nav="cart">Səbət</span> 0
-</button>
-
-<a class="login-btn" href="login.html" data-nav="login">
-    Daxil ol
-</a>
-
-<a class="register-btn" href="login.html" data-nav="register">
-    Qeydiyyat
-</a>
-
-<div class="langs">
-<button data-lang="az" class="active">AZ</button>
-<button data-lang="ru">RU</button>
-<button data-lang="en">EN</button>
+<div class="header-right">
+<div class="auth" id="authArea">
+<a href="login.html" class="btn btn-dark">Daxil ol</a>
+<a href="login.html" class="btn btn-primary">Qeydiyyat</a>
 </div>
-
 </div>
-
 </div>
 </header>
 
-
 <main>
+<section class="about">
+<div class="container about-content">
 
-<!-- ================= HERO ================= -->
+<h2>Yardım və Məlumat Mərkəzi</h2>
 
-<section class="hero">
-
-<div class="container">
-
-<div class="eyebrow">
-    DigiBaku
+<!-- 1. FAQ -->
+<div class="about-subsection" id="faq">
+<h3>Tez-tez verilən suallar (FAQ)</h3>
+<div class="about-faq">
+<div class="about-faq-item">
+<strong>Sifariş necə verilir?</strong>
+<p>Məhsulu seçirsiniz, paket müddətini yoxlayırsınız, sifarişi tamamlayırsınız və aktivləşdirmə məlumatı dəstək prosesi ilə təqdim olunur.</p>
+</div>
+<div class="about-faq-item">
+<strong>Qiyməti harada görürəm?</strong>
+<p>Qiymət məhsul kartında və məhsul səhifəsində göstərilir. Müddətə görə qiymət dəyişə bilər.</p>
+</div>
+<div class="about-faq-item">
+<strong>Telefondan sifariş verə bilərəm?</strong>
+<p>Bəli. Məhsul kartları və sifariş funksiyaları mobil ekranlar üçün uyğunlaşdırılıb.</p>
+</div>
+<div class="about-faq-item">
+<strong>Aktivləşdirmə nə qədər çəkir?</strong>
+<p>Ödəniş təsdiqləndikdən sonra məlumatlar qısa müddətdə təqdim olunur.</p>
+</div>
+</div>
 </div>
 
-<h1 data-i18n="title">
-    Tez-tez verilən suallar
-</h1>
-
-<p data-i18n="intro">
-    Sifariş, məhsullar, ödəniş və aktivləşdirmə ilə bağlı ən çox verilən sualların cavablarını burada tapa bilərsiniz.
-</p>
-
-</div>
-
-</section>
-
-
-<!-- ================= FAQ ================= -->
-
-<section class="info-section" id="faq">
-
-<div class="container">
-
-<div class="info-card">
-
-<h2>
-    Tez-tez verilən suallar
-</h2>
-
-<div class="faq-list">
-
-<div class="faq-item">
-
-<button class="question">
-<span>Sifariş necə verilir?</span>
-<span>+</span>
-</button>
-
-<div class="answer">
-Məhsulu seçirsiniz, paket müddətini yoxlayırsınız, sifarişi tamamlayırsınız və aktivləşdirmə məlumatı dəstək prosesi ilə təqdim olunur.
-</div>
-
-</div>
-
-
-<div class="faq-item">
-
-<button class="question">
-<span>Qiyməti harada görürəm?</span>
-<span>+</span>
-</button>
-
-<div class="answer">
-Qiymət məhsul kartında və məhsul səhifəsində göstərilir. Müddətə görə qiymət dəyişə bilər.
-</div>
-
-</div>
-
-
-<div class="faq-item">
-
-<button class="question">
-<span>Telefondan sifariş verə bilərəm?</span>
-<span>+</span>
-</button>
-
-<div class="answer">
-Bəli. Məhsul kartları və sifariş funksiyaları mobil ekranlar üçün uyğunlaşdırılıb.
-</div>
-
-</div>
-
-
-<div class="faq-item">
-
-<button class="question">
-<span>Aktivləşdirmə nə qədər çəkir?</span>
-<span>+</span>
-</button>
-
-<div class="answer">
-Ödəniş təsdiqləndikdən sonra məlumatlar qısa müddətdə təqdim olunur. Məhsuldan asılı olaraq dəqiq proses fərqlənə bilər.
-</div>
-
-</div>
-
-
-<div class="faq-item">
-
-<button class="question">
-<span>Hesab məlumatlarını dəyişə bilərəm?</span>
-<span>+</span>
-</button>
-
-<div class="answer">
-Məhsul qaydalarında icazə verilmirsə e-poçt, şifrə və təhlükəsizlik məlumatlarını dəyişməyin.
-</div>
-
-</div>
-
-
-<div class="faq-item">
-
-<button class="question">
-<span>Problem yaranarsa nə etməliyəm?</span>
-<span>+</span>
-</button>
-
-<div class="answer">
-Əlaqə kanalları vasitəsilə sifariş məlumatı ilə müraciət edin. Dəstək komandası statusu yoxlayacaq.
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- ================= HOW IT WORKS ================= -->
-
-<section class="info-section" id="how-it-works">
-
-<div class="container">
-
-<div class="info-card">
-
-<h2>
-    Sifariş və aktivləşdirmə necə işləyir?
-</h2>
-
-<p>
-    Prosesi sadə saxlayırıq: məhsulu seçin, qaydaları yoxlayın, sifarişi tamamlayın və dəstək komandası ilə aktivləşdirməni izləyin.
-</p>
-
-
-<h3>
-    Aydın proses
-</h3>
-
-<p>
-    Hər məhsulda qiymət, müddət və istifadə qeydləri əvvəlcədən göstərilir.
-</p>
-
-
-<h3>
-    Mobil rahatlıq
-</h3>
-
-<p>
-    Əsas seçim və sifariş addımları telefon ekranında rahat istifadə üçün qurulub.
-</p>
-
-
-<h3>
-    Dəstək
-</h3>
-
-<p>
-    Problem olduqda sifariş məlumatı əsasında yoxlama aparılır.
-</p>
-
-
+<!-- 2. Necə işləyir? -->
+<div class="about-subsection" id="nəcə-işləyir">
+<h3>Necə işləyir?</h3>
+<p>Prosesi sadə saxlayırıq: məhsulu seçin, qaydaları yoxlayın, sifarişi tamamlayın və dəstək komandası ilə aktivləşdirməni izləyin.</p>
 <div class="steps">
-
 <div class="step">
-
-<div class="step-num">01</div>
-
-<h3>
-    Məhsulu seçin
-</h3>
-
-<p>
-    Kateqoriya, qiymət, müddət və istifadə məqsədinə görə məhsulu seçin.
-</p>
-
+<div class="step-number">1</div>
+<h4>Məhsulu seçin</h4>
+<p>Kateqoriya, qiymət və müddətə görə məhsulu seçin.</p>
 </div>
-
-
 <div class="step">
-
-<div class="step-num">02</div>
-
-<h3>
-    Qaydaları oxuyun
-</h3>
-
-<p>
-    Məhsul səhifəsində hesab tipi, müddət, istifadə qeydləri və təhlükəsizlik məsləhətləri göstərilir.
-</p>
-
+<div class="step-number">2</div>
+<h4>Qaydaları oxuyun</h4>
+<p>Məhsul səhifəsində hesab tipi və istifadə qeydləri göstərilir.</p>
 </div>
-
-
 <div class="step">
-
-<div class="step-num">03</div>
-
-<h3>
-    Sifarişi tamamlayın
-</h3>
-
-<p>
-    Sifariş prosesi mobil və desktop üçün sadə saxlanılıb. Məlumatları diqqətlə daxil edin.
-</p>
-
+<div class="step-number">3</div>
+<h4>Sifarişi tamamlayın</h4>
+<p>Sifariş prosesi mobil və desktop üçün sadə saxlanılıb.</p>
 </div>
-
-
 <div class="step">
-
-<div class="step-num">04</div>
-
-<h3>
-    Aktivləşdirməni alın
-</h3>
-
-<p>
-    Ödəniş təsdiqləndikdən sonra aktivləşdirmə məlumatı təqdim olunur.
-</p>
-
+<div class="step-number">4</div>
+<h4>Aktivləşdirməni alın</h4>
+<p>Ödəniş təsdiqləndikdən sonra məlumat təqdim olunur.</p>
 </div>
-
-
 <div class="step">
-
-<div class="step-num">05</div>
-
-<h3>
-    Dəstəkdən istifadə edin
-</h3>
-
-<p>
-    Sual və problem yaranarsa əlaqə kanalları vasitəsilə dəstək ala bilərsiniz.
-</p>
-
+<div class="step-number">5</div>
+<h4>Dəstəkdən istifadə edin</h4>
+<p>Sual yaranarsa əlaqə kanalları ilə dəstək ala bilərsiniz.</p>
+</div>
+</div>
 </div>
 
-</div>
-
-
-<h3>
-    Ən çox verilən suallar
-</h3>
-
-<h3>
-    Sifarişdən əvvəl nəyi yoxlamalıyam?
-</h3>
-
-<p>
-    Qiymət, müddət, hesab tipi, istifadə qaydaları və uyğun alternativləri yoxlayın.
-</p>
-
-
-<h3>
-    Aktivləşdirmə məlumatı necə verilir?
-</h3>
-
-<p>
-    Sifariş təsdiqləndikdən sonra məhsul qaydasına uyğun aktivləşdirmə məlumatı təqdim olunur.
-</p>
-
-
-<h3>
-    Dəstəyə nə vaxt yazmalıyam?
-</h3>
-
-<p>
-    Giriş, aktivlik, istifadə və paket məlumatı ilə bağlı problem yaranan kimi yazmaq daha yaxşıdır.
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- ================= TRUST ================= -->
-
-<section class="info-section" id="trust">
-
-<div class="container">
-
-<div class="info-card">
-
-<h2>
-    Təhlükəsizlik, qaydalar və dəstək prinsipləri
-</h2>
-
-<p>
-    Premium abunəlik seçərkən qiymət qədər etibar da önəmlidir. Bu bölmə sifarişdən əvvəl hansı qaydalara əsaslandığımızı aydın göstərir.
-</p>
-
-
-<h3>
-    Şəffaf məlumat
-</h3>
-
-<p>
-    Məhsul səhifələrində qiymət, müddət və istifadə qaydaları əvvəlcədən göstərilir.
-</p>
-
-
-<h3>
-    Təhlükəsiz istifadə
-</h3>
-
-<p>
-    Hesab məlumatlarının qorunması və icazəsiz dəyişiklik etməmək əsas prinsipdir.
-</p>
-
-
-<h3>
-    Dəstək prosesi
-</h3>
-
-<p>
-    Problem olduqda sifariş məlumatına əsasən yoxlama aparılır və istifadəçiyə yönləndirmə verilir.
-</p>
-
-
-<h3>
-    Niyə etibar siqnalları vacibdir?
-</h3>
-
-<p>
-    Rəqəmsal abunəliklərdə istifadəçi əvvəlcədən nə aldığını, necə istifadə edəcəyini və problem yaranarsa hara müraciət edəcəyini bilməlidir.
-</p>
-
+<!-- 3. Etibar -->
+<div class="about-subsection" id="etibar">
+<h3>Etibar və Təhlükəsizlik</h3>
+<p>Premium abunəlik seçərkən qiymət qədər etibar da önəmlidir. Bu bölmə sifarişdən əvvəl hansı qaydalara əsaslandığımızı aydın göstərir.</p>
+<h4>Şəffaf məlumat</h4>
+<p>Məhsul səhifələrində qiymət, müddət və istifadə qaydaları əvvəlcədən göstərilir.</p>
+<h4>Təhlükəsiz istifadə</h4>
+<p>Hesab məlumatlarının qorunması və icazəsiz dəyişiklik etməmək əsas prinsipdir.</p>
 <ul>
 <li>Məhsul səhifəsində əsas şərtlər oxunaqlı verilir.</li>
 <li>Sifarişdən sonra dəstək kanalları açıq saxlanılır.</li>
-<li>Təhlükəsizlik qaydaları istifadəçi təcrübəsini qoruyur.</li>
 </ul>
-
 </div>
 
+<!-- 4. Redaksiya siyasəti -->
+<div class="about-subsection" id="redaksiya">
+<h3>Redaksiya siyasəti</h3>
+<p>Bu siyasət istifadəçinin gördüyü məlumatın necə hazırlandığını və yeniləndiyini izah edir.</p>
+<h4>Dəqiqlik</h4>
+<p>Qiymət, müddət və xüsusiyyət kimi qərara təsir edən məlumatlar rəsmi mənbələrlə yoxlanır.</p>
+<h4>Müstəqil izah</h4>
+<p>Məhsul satılsa belə üstünlük və məhdudiyyətlər oxucunun qərarına uyğun, aydın yazılır.</p>
 </div>
 
-</section>
-
-
-<!-- ================= EDITORIAL ================= -->
-
-<section class="info-section" id="editorial-policy">
-
-<div class="container">
-
-<div class="info-card">
-
-<h2>
-    Redaksiya siyasəti və məzmun standartları
-</h2>
-
-<p>
-    Bu siyasət istifadəçinin gördüyü məlumatın necə hazırlandığını, nə vaxt yeniləndiyini və səhv aşkar ediləndə necə düzəldildiyini izah edir.
-</p>
-
-
-<h3>
-    Dəqiqlik
-</h3>
-
-<p>
-    Qiymət, müddət və xüsusiyyət kimi qərara təsir edən məlumatlar məhsul qeydləri və mümkün olduqda rəsmi mənbələrlə yoxlanır.
-</p>
-
-
-<h3>
-    Müstəqil izah
-</h3>
-
-<p>
-    Məhsul satılsa belə üstünlük və məhdudiyyətlər oxucunun qərarına uyğun, aydın və şişirtməsiz yazılır.
-</p>
-
-
-<h3>
-    Düzəliş
-</h3>
-
-<p>
-    Səhv və ya köhnəlmiş məlumat aşkarlandıqda həmin hissə yenilənir və məzmun yenidən nəzərdən keçirilir.
-</p>
-
-
-<h3>
-    Prosesin qısa izahı
-</h3>
-
-
-<div class="steps">
-
-<div class="step">
-<div class="step-num">01</div>
-<h3>Axtarış niyyətini müəyyən edirik</h3>
-<p>
-İstifadəçinin qiymət, müqayisə, problem həlli və ya seçim axtardığını müəyyənləşdiririk.
-</p>
-</div>
-
-
-<div class="step">
-<div class="step-num">02</div>
-<h3>Faktları toplayırıq</h3>
-<p>
-Paket, qiymət, müddət, istifadə qaydası və uyğun alternativləri yoxlayırıq.
-</p>
-</div>
-
-
-<div class="step">
-<div class="step-num">03</div>
-<h3>Oxunaqlı quruluş yaradırıq</h3>
-<p>
-Qısa giriş, aydın başlıqlar, addımlar və sual-cavablarla məzmunu rahat oxunan edirik.
-</p>
-</div>
-
-
-<div class="step">
-<div class="step-num">04</div>
-<h3>Yeniləyirik</h3>
-<p>
-Məhsul və bazar məlumatı dəyişəndə prioritet səhifələr yenidən yoxlanır.
-</p>
-</div>
-
-</div>
-
-
-<h3>
-    Kommersiya şəffaflığı
-</h3>
-
-<p>
-    DigiBaku.com rəqəmsal paketlər təqdim edir. Məqalədə məhsula keçid satışla nəticələnə bilər, lakin müqayisə meyarları qiymət, istifadə məqsədi və paket xüsusiyyətlərinə əsaslanır.
-</p>
-
+<!-- 5. Şərtlər -->
+<div class="about-subsection" id="şərtlər">
+<h3>Şərtlər və Qaydalar</h3>
+<p>Platformamızdan istifadə edərkən müəyyən qaydalara əməl etmək vacibdir:</p>
 <ul>
-<li>Uydurma müəllif və təcrübə iddiası istifadə edilmir.</li>
-<li>Real olmayan rəy yaradılmır.</li>
-<li>Məhsulun məhdudiyyəti qərar üçün vacibdirsə gizlədilmir.</li>
+<li>Paylaşılan hesab məlumatlarının başqalarına ötürülməsi qadağandır.</li>
+<li>Hər bir məhsulun özünəməxsus istifadə müddəti və limiti mövcuddur.</li>
+<li>Yaranan hər hansı texniki problemlə bağlı birbaşa dəstək xidmətinə müraciət edilməlidir.</li>
 </ul>
-
-
-<h3>
-    Qiymət və rəy yeniləmə prosesi
-</h3>
-
-<p>
-    Qiymət, kampaniya və xidmət şərtləri dəyişə bildiyi üçün prioritet məhsul və qiymət səhifələri mütəmadi yoxlanır.
-</p>
-
-<ul>
-<li>Sifariş anındakı məhsul səhifəsi əsas qiymət mənbəyidir.</li>
-<li>Köhnəlmiş qiymət və paket qeydləri yenilənir.</li>
-<li>Saxta və təsdiqlənməmiş rəy yaradılmır.</li>
-</ul>
-
-
-<h3>
-    Düzəliş və əlaqə
-</h3>
-
-<p>
-    Səhv, köhnəlmiş qiymət və ya anlaşılmaz ifadə görsəniz əlaqə səhifəsindən səhifənin ünvanını və düzəliş təklifini göndərə bilərsiniz.
-</p>
-
-<ul>
-<li>Fakt səhvləri prioritet yoxlanır.</li>
-<li>Şəxsi məlumatlar dərc edilmir.</li>
-<li>Məzmun dəyişiklik olduqda yenilənir.</li>
-</ul>
-
 </div>
 
 </div>
-
 </section>
 
-
-<!-- ================= TERMS ================= -->
-
-<section class="info-section" id="terms">
-
+<!-- 6. Rəylər bölməsi (Index dizaynına uyğun) -->
+<section class="reviews" id="rəylər">
 <div class="container">
-
-<div class="info-card">
-
-<h2>
-    Şərtlər və qaydalar
-</h2>
-
-
-<h3>
-    Ümumi şərtlər
-</h3>
-
-<p>
-    Saytdan istifadə etməklə bu şərtləri qəbul etmiş olursunuz. Xidmətlər və məhsullar haqqında məlumat sifariş zamanı göstərilən xüsusiyyətlərə əsaslanır.
-</p>
-
-
-<h3>
-    Hesab və sifarişlər
-</h3>
-
-<p>
-    İstifadəçi təqdim etdiyi məlumatların düzgünlüyünə cavabdehdir. Sifariş yalnız təsdiqləndikdən sonra icraya qəbul edilir. Hesab məlumatlarınızı üçüncü şəxslərlə paylaşmamağınız tövsiyə olunur.
-</p>
-
-
-<h3>
-    Ödəniş və xidmət
-</h3>
-
-<p>
-    Qiymət, xidmət müddəti və digər şərtlər məhsul səhifəsində göstərilir. Texniki və ya təhlükəsizlik səbəbilə xidmətin təqdim edilmə qaydası dəyişə bilər.
-</p>
-
+<div class="section-title" style="text-align:center; margin-bottom:30px;">
+<h2>Müştəri Rəyləri</h2>
+<p style="color:#999;">İstifadəçilərimizin təcrübələri ilə tanış olun.</p>
 </div>
-
+<div class="review-grid">
+<div class="review">
+<div class="stars">★★★★★</div>
+<p class="review-text">"Çox sürətli aktivləşdirdilər, heç bir problem yaşamadım. Təşəkkürlər!"</p>
+<div class="reviewer">
+<div class="avatar">E</div>
+<div><strong>Elmir M.</strong><span>Netflix abunəliyi</span></div>
 </div>
-
+</div>
+<div class="review">
+<div class="stars">★★★★★</div>
+<p class="review-text">"ChatGPT Plus aldım, 10 dəqiqə ərzində məlumatları göndərdilər. Super xidmət."</p>
+<div class="reviewer">
+<div class="avatar">L</div>
+<div><strong>Leyla H.</strong><span>ChatGPT Plus</span></div>
+</div>
+</div>
+<div class="review">
+<div class="stars">★★★★★</div>
+<p class="review-text">"Qiymətlər digər yerlərə nisbətən çox sərfəlidir, dəstək də dərhal cavab verir."</p>
+<div class="reviewer">
+<div class="avatar">R</div>
+<div><strong>Rəşad K.</strong><span>YouTube Premium</span></div>
+</div>
+</div>
+<div class="review">
+<div class="stars">★★★★★</div>
+<p class="review-text">"Etibarlı platformadır, artıq 2-ci dəfədir sifariş verirəm."</p>
+<div class="reviewer">
+<div class="avatar">N</div>
+<div><strong>Nigar Ə.</strong><span>Spotify Premium</span></div>
+</div>
+</div>
+</div>
+</div>
 </section>
-
-
-<!-- ================= REVIEWS ================= -->
-
-<section class="info-section" id="reviews">
-
-<div class="container">
-
-<div class="info-card">
-
-<h2>
-    Müştəri rəyləri
-</h2>
-
-<p>
-    Müştərilərimizin təcrübəsi bizim üçün ən böyük motivasiyadır.
-</p>
-
-
-<div class="review">
-
-<div class="stars">★★★★★</div>
-
-<p>
-“Çox sağ olun. Sifariş sürətli və problemsiz oldu.”
-</p>
-
-<div class="review-name">
-Orxan Hacıyev
-</div>
-
-<div class="review-product">
-Netflix Premium
-</div>
-
-</div>
-
-
-<div class="review">
-
-<div class="stars">★★★★★</div>
-
-<p>
-“Əla, uyğun qiymətədir və sürətli bir şəkildə əldə etdim. Təşəkkür edirəm.”
-</p>
-
-<div class="review-name">
-Shabnam Valizada
-</div>
-
-<div class="review-product">
-YouTube Premium
-</div>
-
-</div>
-
-
-<div class="review">
-
-<div class="stars">★★★★★</div>
-
-<p>
-“Sərfəli qiymətdir və sifariş prosesi çox rahatdır.”
-</p>
-
-<div class="review-name">
-Dergah Abdullayev
-</div>
-
-<div class="review-product">
-ChatGPT Plus
-</div>
-
-</div>
-
-
-<div class="review">
-
-<div class="stars">★★★★★</div>
-
-<p>
-“Etibarlı və sürətli xidmətdir. Dostlarıma da tövsiyə edirəm.”
-</p>
-
-<div class="review-name">
-Rəşad Məmmədli
-</div>
-
-<div class="review-product">
-Spotify Premium
-</div>
-
-</div>
-
-
-<div class="review">
-
-<div class="stars">★★★★★</div>
-
-<p>
-“Dəstək komandası suallarıma tez cavab verdi və mənə kömək etdi.”
-</p>
-
-<div class="review-name">
-Səbinə Əliyeva
-</div>
-
-<div class="review-product">
-Müştəri
-</div>
-
-</div>
-
-
-<div class="review">
-
-<div class="stars">★★★★★</div>
-
-<p>
-“Bir neçə dəfə sifariş vermişəm və hər dəfə xidmət problemsiz işləyib.”
-</p>
-
-<div class="review-name">
-Elvin Cəfərov
-</div>
-
-<div class="review-product">
-Müştəri
-</div>
-
-</div>
-
-
-<div class="review">
-
-<div class="stars">★★★★★</div>
-
-<p>
-“Saytın istifadəsi sadədir. İstədiyim məhsulu çox tez tapdım.”
-</p>
-
-<div class="review-name">
-Ləman Hüseynova
-</div>
-
-<div class="review-product">
-Müştəri
-</div>
-
-</div>
-
-
-<div class="review">
-
-<div class="stars">★★★★★</div>
-
-<p>
-“Qiymətlər münasibdir və aktivləşdirmə gözlədiyimdən daha sürətli oldu.”
-</p>
-
-<div class="review-name">
-Vahid Kərimov
-</div>
-
-<div class="review-product">
-Müştəri
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
 </main>
 
-
 <footer>
-© 2026 DigiBaku.com. Bütün hüquqlar qorunur.
+<div class="container footer-grid">
+<div class="footer-col">
+<h3 class="logo" style="font-size:20px;">DigiBaku<span>.com</span></h3>
+<p>Premium rəqəmsal xidmətləri ən sərfəli qiymətlərlə əldə edin.</p>
+</div>
+<div class="footer-col">
+<h3>Keçidlər</h3>
+<a href="index.html">Ana səhifə</a>
+<a href="faq.html">FAQ</a>
+<a href="qiymetler.html">Qiymətlər</a>
+</div>
+<div class="footer-col">
+<h3>Kömək</h3>
+<a href="faq.html#nəcə-işləyir">Necə işləyir?</a>
+<a href="faq.html#etibar">Etibar</a>
+<a href="faq.html#şərtlər">Şərtlər</a>
+</div>
+<div class="footer-col">
+<h3>Əlaqə</h3>
+<p>support@digibaku.com</p>
+</div>
+</div>
+<div class="copyright">
+<p>&copy; 2026 DigiBaku.com. Bütün hüquqlar qorunur.</p>
+</div>
 </footer>
-
-
-<script>
-
-/* ================= FAQ ================= */
-
-document.querySelectorAll(".question").forEach(button=>{
-
-    button.addEventListener("click",()=>{
-
-        const item=button.parentElement;
-
-        document.querySelectorAll(".faq-item").forEach(other=>{
-
-            if(other!==item){
-                other.classList.remove("open");
-            }
-
-        });
-
-        item.classList.toggle("open");
-
-    });
-
-});
-
-
-/* ================= ABOUT MENU ================= */
-
-const aboutBtn=document.getElementById("aboutBtn");
-const aboutMenu=document.getElementById("aboutMenu");
-
-aboutBtn.addEventListener("click",function(e){
-
-    e.stopPropagation();
-
-    aboutMenu.classList.toggle("open");
-
-});
-
-aboutMenu.addEventListener("click",function(e){
-    e.stopPropagation();
-});
-
-document.addEventListener("click",function(){
-
-    aboutMenu.classList.remove("open");
-
-});
-
-
-/* ================= LANGUAGE ================= */
-
-const translations={
-
-az:{
-    title:"Tez-tez verilən suallar",
-    intro:"Sifariş, məhsullar, ödəniş və aktivləşdirmə ilə bağlı ən çox verilən sualların cavablarını burada tapa bilərsiniz."
-},
-
-en:{
-    title:"Frequently Asked Questions",
-    intro:"Find answers to the most common questions about orders, products, payments and activation."
-},
-
-ru:{
-    title:"Часто задаваемые вопросы",
-    intro:"Здесь вы найдёте ответы на самые частые вопросы о заказах, товарах, оплате и активации."
-}
-
-};
-
-
-const nav={
-
-az:{
-    home:"Ana səhifə",
-    products:"Məhsullar",
-    compare:"Müqayisə",
-    about:"Haqqımızda",
-    prices:"Qiymətlər",
-    blog:"Bloq",
-    contact:"Əlaqə",
-    cart:"Səbət",
-    login:"Daxil ol",
-    register:"Qeydiyyat",
-    faq:"FAQ",
-    how:"Necə işləyir?",
-    trust:"Etibar",
-    editorial:"Redaksiya siyasəti",
-    terms:"Şərtlər",
-    reviews:"Rəylər"
-},
-
-en:{
-    home:"Home",
-    products:"Products",
-    compare:"Compare",
-    about:"About us",
-    prices:"Prices",
-    blog:"Blog",
-    contact:"Contact",
-    cart:"Cart",
-    login:"Log in",
-    register:"Sign up",
-    faq:"FAQ",
-    how:"How it works?",
-    trust:"Trust",
-    editorial:"Editorial policy",
-    terms:"Terms",
-    reviews:"Reviews"
-},
-
-ru:{
-    home:"Главная",
-    products:"Товары",
-    compare:"Сравнение",
-    about:"О нас",
-    prices:"Цены",
-    blog:"Блог",
-    contact:"Контакты",
-    cart:"Корзина",
-    login:"Войти",
-    register:"Регистрация",
-    faq:"FAQ",
-    how:"Как это работает?",
-    trust:"Надёжность",
-    editorial:"Редакционная политика",
-    terms:"Условия",
-    reviews:"Отзывы"
-}
-
-};
-
-
-function setLanguage(lang){
-
-    localStorage.setItem("digibaku_lang",lang);
-
-    document.documentElement.lang=lang;
-
-    const t=translations[lang]||translations.az;
-
-    document.querySelectorAll("[data-i18n]").forEach(el=>{
-
-        const key=el.dataset.i18n;
-
-        if(t[key]){
-            el.textContent=t[key];
-        }
-
-    });
-
-    const n=nav[lang]||nav.az;
-
-    document.querySelectorAll("[data-nav]").forEach(el=>{
-
-        const key=el.dataset.nav;
-
-        if(n[key]){
-            el.textContent=n[key];
-        }
-
-    });
-
-    document.querySelectorAll("[data-menu]").forEach(el=>{
-
-        const key=el.dataset.menu;
-
-        if(n[key]){
-            el.textContent=n[key];
-        }
-
-    });
-
-    document.querySelectorAll("[data-lang]").forEach(button=>{
-
-        button.classList.toggle(
-            "active",
-            button.dataset.lang===lang
-        );
-
-    });
-
-}
-
-
-document.querySelectorAll("[data-lang]").forEach(button=>{
-
-    button.addEventListener("click",()=>{
-
-        setLanguage(button.dataset.lang);
-
-    });
-
-});
-
-
-setLanguage(
-    localStorage.getItem("digibaku_lang")||"az"
-);
-
-
-/* ================= OPEN HASH SECTION ================= */
-
-window.addEventListener("load",()=>{
-
-    const hash=window.location.hash;
-
-    if(hash){
-
-        setTimeout(()=>{
-
-            const target=document.querySelector(hash);
-
-            if(target){
-
-                target.scrollIntoView({
-                    behavior:"smooth",
-                    block:"start"
-                });
-
-            }
-
-        },150);
-
-    }
-
-});
-
-</script>
 
 </body>
 </html>
