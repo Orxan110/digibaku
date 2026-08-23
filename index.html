@@ -256,11 +256,11 @@ footer{background:#030303;border-top:1px solid #222;padding:45px 0 20px;}
 @media(max-width:700px){
 .nav{min-height:65px;}
 .logo{font-size:22px;}
-.header-right{gap:5px;}
+.header-right{gap:8px;}
 .auth{gap:5px;}
 .auth .btn{padding:9px 10px;font-size:12px;}
 .user-email{max-width:120px;font-size:11px;padding:9px 8px;}
-.language-switcher{display:none;}
+.language-switcher button{font-size:11px;padding:2px;}
 .cart-btn{padding:9px 10px;font-size:12px;}
 .hero-inner{flex-direction:column;text-align:center;}
 .hero h1{font-size:39px;}
@@ -269,10 +269,6 @@ footer{background:#030303;border-top:1px solid #222;padding:45px 0 20px;}
 .footer-grid{grid-template-columns:1fr;}
 #cartModal{max-width:100%;}
 .about-dropdown-menu{position:static;margin-top:8px;box-shadow:none;}
-.mobile-language{display:flex;justify-content:center;align-items:center;gap:8px;padding:10px 0;border-top:1px solid #222;background:#080808;}
-.mobile-language button{background:none;border:0;color:#777;font-weight:bold;cursor:pointer;}
-.mobile-language button.active{color:#3b82f6;}
-.mobile-language span{color:#333;}
 }
 </style>
 </head>
@@ -317,13 +313,6 @@ footer{background:#030303;border-top:1px solid #222;padding:45px 0 20px;}
 <button onclick="setLanguage('en')" id="langEN">EN</button>
 </div>
 </div>
-</div>
-<div class="mobile-language">
-<button onclick="setLanguage('az')" id="mobileLangAZ">AZ</button>
-<span>|</span>
-<button onclick="setLanguage('ru')" id="mobileLangRU">RU</button>
-<span>|</span>
-<button onclick="setLanguage('en')" id="mobileLangEN">EN</button>
 </div>
 </header>
 
@@ -422,7 +411,7 @@ footer{background:#030303;border-top:1px solid #222;padding:45px 0 20px;}
 </div>
 </section>
 
-<!-- FEATURES (YENİLƏNMİŞ BÖYÜK DİZAYN) -->
+<!-- FEATURES -->
 <section>
 <div class="container">
 <div class="section-title">
@@ -846,12 +835,8 @@ element.textContent=dictionary[key];
 });
 ["az","ru","en"].forEach(code=>{
 const desktop=document.getElementById("lang"+code.toUpperCase());
-const mobile=document.getElementById("mobileLang"+code.toUpperCase());
 if(desktop){
 desktop.classList.toggle("active",code===lang);
-}
-if(mobile){
-mobile.classList.toggle("active",code===lang);
 }
 });
 if(lang==="ru"){
