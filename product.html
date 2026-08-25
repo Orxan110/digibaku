@@ -750,6 +750,13 @@ footer {
         padding: 9px 10px;
     }
 }
+
+/* Haqqımızda dropdown */
+.about-dropdown{position:relative;display:inline-block}
+.about-dropdown-menu{display:none;position:absolute;top:100%;left:0;min-width:190px;background:#111;border:1px solid #2a2a2a;border-radius:10px;padding:8px 0;z-index:9999;box-shadow:0 10px 25px rgba(0,0,0,.35)}
+.about-dropdown-menu a{display:block;padding:10px 15px;color:#fff;text-decoration:none;white-space:nowrap}
+.about-dropdown-menu a:hover{background:#1d1d1d}
+.about-dropdown:hover .about-dropdown-menu{display:block}
 </style>
 </head>
 
@@ -766,7 +773,17 @@ DigiBaku<span>.com</span>
 <a href="index.html" data-i18n="home">Ana səhifə</a>
 <a href="index.html#products" data-i18n="products">Məhsullar</a>
 <a href="index.html#compare" data-i18n="compare">Müqayisə</a>
-<a href="faq.html#about" data-i18n="about">Haqqımızda</a>
+<div class="about-dropdown">
+    <a href="https://hesablar.az/az/about" data-i18n="about">Haqqımızda</a>
+    <div class="about-dropdown-menu">
+        <a href="https://hesablar.az/az/faq">FAQ</a>
+        <a href="https://hesablar.az/az/how-it-works">Necə işləyir?</a>
+        <a href="https://hesablar.az/az/trust">Etibar</a>
+        <a href="https://hesablar.az/az/editorial-policy">Redaksiya siyasəti</a>
+        <a href="https://hesablar.az/az/terms">Şərtlər</a>
+        <a href="https://hesablar.az/az/reviews">Rəylər</a>
+    </div>
+</div>
 <a href="qiymetler.html" data-i18n="prices">Qiymətlər</a>
 <a href="index.html#blog" data-i18n="blog">Bloq</a>
 <a href="index.html#contact" data-i18n="contact">Əlaqə</a>
@@ -796,7 +813,7 @@ DigiBaku<span>.com</span>
 
     <div class="auth-links">
         <a href="login.html" data-i18n="login">Daxil ol</a>
-        <a href="register.html" data-i18n="register">Qeydiyyat</a>
+        <a href="login.html" data-i18n="register">Qeydiyyat</a>
     </div>
 
     <!-- Səbət düyməsi və sayğac -->
@@ -1463,6 +1480,12 @@ const translations = {
         home: "Home",
         products: "Products",
         about: "About us",
+        compare: "Compare",
+        prices: "Prices",
+        blog: "Blog",
+        contact: "Contact",
+        login: "Log in",
+        register: "Register",
         reviews: "Reviews",
 
         cart: "Cart",
