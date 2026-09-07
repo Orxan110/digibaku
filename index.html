@@ -60,6 +60,13 @@ header{position:sticky;top:0;z-index:1000;background:rgba(5,5,5,.94);border-bott
 .cart-empty{color:#777;text-align:center;padding:25px 10px;}
 
 /* =========================
+   WHATSAPP FLOATING BUTTON
+========================= */
+.whatsapp-float{position:fixed;bottom:25px;right:25px;width:60px;height:60px;background:#25d366;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 15px rgba(37,211,102,.4);z-index:9999;transition:.3s;}
+.whatsapp-float:hover{transform:scale(1.1);background:#20ba5a;}
+.whatsapp-float svg{width:34px;height:34px;fill:#fff;}
+
+/* =========================
    HERO
 ========================= */
 .hero{padding:90px 0;background:radial-gradient(circle at 20% 10%,#172554 0,transparent 35%),radial-gradient(circle at 90% 20%,#111827 0,transparent 35%),#050505;}
@@ -96,81 +103,18 @@ section{padding:75px 0;}
 .product-actions a,.product-actions button{text-align:center;width:100%;}
 
 /* =========================
-   FEATURES (DAHA DA BÖYÜK VƏ GENİŞ KARTLAR)
+   FEATURES
 ========================= */
-.features{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:26px;
-}
-.feature{
-  position:relative;
-  height:440px;
-  border-radius:22px;
-  overflow:hidden;
-  border:1px solid #282828;
-  display:flex;
-  flex-direction:column;
-  justify-content:flex-end;
-  padding:28px;
-  box-shadow:0 16px 45px rgba(0,0,0,0.6);
-  transition:transform .3s ease, border-color .3s ease, box-shadow .3s ease;
-}
-.feature:hover{
-  transform:translateY(-7px);
-  border-color:#2563eb;
-  box-shadow:0 22px 55px rgba(37,99,235,0.22);
-}
-.feature-bg{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  z-index:1;
-  transition:transform .6s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.feature:hover .feature-bg{
-  transform:scale(1.1);
-}
-.feature-overlay{
-  position:absolute;
-  inset:0;
-  background:linear-gradient(180deg, rgba(5,5,5,0.15) 0%, rgba(5,5,5,0.7) 50%, #050505 100%);
-  z-index:2;
-}
-.feature-content{
-  position:relative;
-  z-index:3;
-  background:rgba(12, 12, 12, 0.82);
-  backdrop-filter:blur(14px);
-  -webkit-backdrop-filter:blur(14px);
-  border:1px solid rgba(255,255,255,0.12);
-  padding:22px;
-  border-radius:16px;
-}
-.feature-content h3{
-  font-size:20px;
-  font-weight:800;
-  color:#fff;
-  margin-bottom:8px;
-}
-.feature-content p{
-  color:#ccc;
-  font-size:13.5px;
-  line-height:1.55;
-  margin-bottom:12px;
-}
-.feature-content strong{
-  display:inline-block;
-  color:#60a5fa;
-  font-size:12px;
-  font-weight:700;
-  background:rgba(37, 99, 235, 0.2);
-  border:1px solid rgba(59, 130, 246, 0.4);
-  padding:5px 10px;
-  border-radius:6px;
-}
+.features{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;}
+.feature{position:relative;height:440px;border-radius:22px;overflow:hidden;border:1px solid #282828;display:flex;flex-direction:column;justify-content:flex-end;padding:28px;box-shadow:0 16px 45px rgba(0,0,0,0.6);transition:transform .3s ease, border-color .3s ease, box-shadow .3s ease;}
+.feature:hover{transform:translateY(-7px);border-color:#2563eb;box-shadow:0 22px 55px rgba(37,99,235,0.22);}
+.feature-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;transition:transform .6s cubic-bezier(0.16, 1, 0.3, 1);}
+.feature:hover .feature-bg{transform:scale(1.1);}
+.feature-overlay{position:absolute;inset:0;background:linear-gradient(180deg, rgba(5,5,5,0.15) 0%, rgba(5,5,5,0.7) 50%, #050505 100%);z-index:2;}
+.feature-content{position:relative;z-index:3;background:rgba(12, 12, 12, 0.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,0.12);padding:22px;border-radius:16px;}
+.feature-content h3{font-size:20px;font-weight:800;color:#fff;margin-bottom:8px;}
+.feature-content p{color:#ccc;font-size:13.5px;line-height:1.55;margin-bottom:12px;}
+.feature-content strong{display:inline-block;color:#60a5fa;font-size:12px;font-weight:700;background:rgba(37, 99, 235, 0.2);border:1px solid rgba(59, 130, 246, 0.4);padding:5px 10px;border-radius:6px;}
 
 /* =========================
    COMPARE
@@ -700,6 +644,13 @@ Sifarişdən sonra aktivləşdirmə adətən 5-30 dəqiqə ərzində həyata ke�
 </div>
 </div>
 </footer>
+
+<!-- DAİMİ AKTİV WHATSAPP LOQOSU -->
+<a href="https://wa.me/994702883484?text=Salam%2C%20məlumat%20almaq%20istəyirəm" target="_blank" class="whatsapp-float" aria-label="WhatsApp dəstək">
+  <svg viewBox="0 0 32 32">
+    <path d="M16.002 0c-8.837 0-16 7.163-16 16 0 2.825.736 5.485 2.025 7.795l-2.025 7.395 7.575-1.985c2.22 1.21 4.795 1.9 7.425 1.9 8.837 0 16-7.163 16-16s-7.163-16-16-16zM16.002 29.337c-2.345 0-4.57-0.63-6.505-1.725l-0.465-0.27-4.83 1.265 1.29-4.705-0.3-0.485c-1.215-1.95-1.855-4.22-1.855-6.557 0-7.36 5.99-13.35 13.35-13.35 7.36 0 13.35 5.99 13.35 13.35s-5.99 13.35-13.35 13.35zM22.56 19.32c-0.36-0.18-2.125-1.05-2.455-1.17s-0.57-0.18-0.81 0.18c-0.24 0.36-0.93 1.17-1.14 1.41s-0.42 0.27-0.78 0.09c-0.36-0.18-1.515-0.555-2.885-1.785-1.065-0.945-1.785-2.115-1.995-2.475s-0.03-0.555 0.15-0.735c0.15-0.15 0.36-0.39 0.54-0.585s0.24-0.33 0.36-0.555c0.12-0.225 0.06-0.42-0.03-0.585s-0.81-1.95-1.11-2.67c-0.285-0.69-0.585-0.6-0.81-0.615s-0.465-0.015-0.72-0.015c-0.255 0-0.66 0.09-1.005 0.465s-1.32 1.29-1.32 3.15 1.35 3.645 1.545 3.9c0.195 0.255 2.67 4.08 6.465 5.715 0.9 0.39 1.605 0.63 2.145 0.81 0.9 0.3 1.725 0.255 2.37 0.15 0.72-0.105 2.125-0.87 2.425-1.71s0.3-1.56 0.21-1.71c-0.09-0.15-0.33-0.24-0.69-0.42z"></path>
+  </svg>
+</a>
 
 <script>
 const translations={
