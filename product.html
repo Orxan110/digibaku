@@ -1214,6 +1214,23 @@ href="product.html?product=chatgpt"
 data-i18n="viewDetails">
 Ətraflı bax
 </a>
+<div class="other-card">
+
+<img
+src="gemini.avif"
+alt="Gemini AZ">
+
+<h3>
+Gemini AZ — Google Gemini Advanced (Pro)
+</h3>
+
+<a
+href="product.html?product=gemini"
+data-i18n="viewDetails">
+Ətraflı bax
+</a>
+
+</div>
 
 </div>
 
@@ -1777,255 +1794,1836 @@ function applyLanguage() {
         .textContent =
         t("footer");
 
+
     document.getElementById("azBtn")
-        .classList.toggle("active", lang === "az");
+        .classList.remove("active");
+
     document.getElementById("ruBtn")
-        .classList.toggle("active", lang === "ru");
+        .classList.remove("active");
+
     document.getElementById("enBtn")
-        .classList.toggle("active", lang === "en");
+        .classList.remove("active");
+
+
+    document.getElementById(lang + "Btn")
+        .classList.add("active");
+
+
+    renderDynamicContent();
+
+    updateCartUI();
+
 }
 
 
 /* =========================================================
-   MƏHSUL MƏLUMATLARI VƏ FUNKSİYALAR
+   MƏHSULLAR
    ========================================================= */
 
-const productsData = {
-    netflix: {
-        name: "Netflix 4K Premium Abunəliyi",
-        badge: "Premium rəqəmsal xidmət",
-        image: "netflix.webp",
-        rating: "5.0 (1 rəy)",
-        shortDescription: "Ən yüksək 4K Ultra HD keyfiyyətində Netflix təcrübəsi.",
-        packages: [
-            { name: "1 Ay", price: 6.99, period: "1 ay" },
-            { name: "3 Ay", price: 18.99, period: "3 ay" },
-            { name: "1 İl", price: 69.99, period: "1 il" }
-        ],
-        content: `
-            <h2>Netflix 4K Premium Haqqında</h2>
-            <p>Netflix dünyanın ən populyar yayım xidmətlərindən biridir. 4K Ultra HD keyfiyyətində sevimli filmlərinizi və seriallarınızı izləyin.</p>
-            <ul>
-                <li>4K Ultra HD + HDR dəstəyi</li>
-                <li>Eyni anda 4 ekran (profil) imkanı</li>
-                <li>Yüksək sürətli və kəsintisiz yayım</li>
-            </ul>
-        `,
-        faqs: [
-            { q: "Hesablar necə təqdim olunur?", a: "Ödənişdən dərhal sonra giriş məlumatları sizə təqdim olunur." },
-            { q: "Zəmanət verilirmi?", a: "Bəli, abunəlik müddəti ərzində tam zəmanət verilir." }
-        ],
-        reviews: [
-            { stars: "★★★★★", text: "Çox sürətli və etibarlı xidmət, təşəkkürlər!", name: "Elmir M.", role: "Verified Buyer" }
-        ],
-        articles: [
-            { title: "Netflix 4K izləmək üçün internet sürəti necə olmalıdır?", text: "4K keyfiyyət üçün tövsiyə olunan sürət...", date: "05 İyun 2026" }
-        ],
-        guides: [
-            { title: "Profil ayarları necə edilir?" }
-        ]
-    }
+const products = {
+
+netflix: {
+
+name: "Netflix 4K Premium Abunəliyi",
+
+nameRu: "Netflix 4K Premium подписка",
+
+nameEn: "Netflix 4K Premium Subscription",
+
+image: "netflix.webp",
+
+rating: "4.0 (1 rəy)",
+
+ratingRu: "4.0 (1 отзыв)",
+
+ratingEn: "4.0 (1 review)",
+
+short:
+"Netflix Premium abunəliyi ilə film və serialları Ultra HD keyfiyyətdə izləyin. Premium məzmunlara rahat şəkildə çıxış əldə edin.",
+
+shortRu:
+"С подпиской Netflix Premium смотрите фильмы и сериалы в качестве Ultra HD. Получите удобный доступ к премиум-контенту.",
+
+shortEn:
+"Watch movies and series in Ultra HD quality with Netflix Premium. Get convenient access to premium content.",
+
+packages: [
+
+{
+name: "1 ay",
+nameRu: "1 месяц",
+nameEn: "1 month",
+price: 6.99
+},
+
+{
+name: "2 ay",
+nameRu: "2 месяца",
+nameEn: "2 months",
+price: 12.99
+},
+
+{
+name: "3 ay",
+nameRu: "3 месяца",
+nameEn: "3 months",
+price: 20.99
+}
+
+],
+
+contentAz:
+`<h2>Netflix Premium abunəliyi haqqında</h2><p>Netflix film, serial və müxtəlif video məzmunları izləmək üçün istifadə olunan premium platformadır.</p>`,
+
+contentRu:
+`<h2>О подписке Netflix Premium</h2><p>Netflix — это премиальная платформа для просмотра фильмов, сериалов и различного видеоконтента.</p>`,
+
+contentEn:
+`<h2>About Netflix Premium subscription</h2><p>Netflix is a premium platform used to watch movies, series and various video content.</p>`,
+
+faq: [
+
+[
+"Netflix Premium abunəliyi neçəyədir?",
+"Netflix Premium paketləri DigiBaku.com-da 1 ay üçün 6.99 AZN-dir."
+],
+
+[
+"Netflix Premium nə üçün istifadə olunur?",
+"Netflix Premium film və serialları izləmək üçün istifadə olunur."
+]
+
+],
+
+faqRu: [
+
+[
+"Сколько стоит подписка Netflix Premium?",
+"Пакет Netflix Premium на DigiBaku.com стоит 6.99 AZN за 1 месяц."
+],
+
+[
+"Для чего используется Netflix Premium?",
+"Netflix Premium используется для просмотра фильмов и сериалов."
+]
+
+],
+
+faqEn: [
+
+[
+"How much is Netflix Premium?",
+"The Netflix Premium package on DigiBaku.com costs 6.99 AZN for 1 month."
+],
+
+[
+"What is Netflix Premium used for?",
+"Netflix Premium is used to watch movies and series."
+]
+
+],
+
+reviews: [
+[
+"Əla xidmət",
+"Orxan",
+"Netflix Premium"
+]
+],
+
+reviewsRu: [
+[
+"Отличный сервис",
+"Orxan",
+"Netflix Premium"
+]
+],
+
+reviewsEn: [
+[
+"Excellent service",
+"Orxan",
+"Netflix Premium"
+]
+],
+
+articles: [
+[
+"Netflix Premium nədir? Üstünlükləri",
+"18.05.2026"
+]
+],
+
+articlesRu: [
+[
+"Что такое Netflix Premium? Преимущества",
+"18.05.2026"
+]
+],
+
+articlesEn: [
+[
+"What is Netflix Premium? Benefits",
+"18.05.2026"
+]
+],
+
+guides: [
+"Netflix 4K üçün internet sürəti"
+],
+
+guidesRu: [
+"Скорость интернета для Netflix 4K"
+],
+
+guidesEn: [
+"Internet speed for Netflix 4K"
+]
+
+},
+
+youtube: {
+
+name: "YouTube Premium",
+
+nameRu: "YouTube Premium",
+
+nameEn: "YouTube Premium",
+
+image: "youtube.webp",
+
+rating: "5.0 (1 rəy)",
+
+ratingRu: "5.0 (1 отзыв)",
+
+ratingEn: "5.0 (1 review)",
+
+short:
+"YouTube Premium ilə videolara reklamsız baxın, musiqidən rahat istifadə edin.",
+
+shortRu:
+"С YouTube Premium смотрите видео без рекламы и удобно пользуйтесь музыкой.",
+
+shortEn:
+"Watch videos without ads and enjoy music conveniently with YouTube Premium.",
+
+packages: [
+
+{
+name: "1 ay",
+nameRu: "1 месяц",
+nameEn: "1 month",
+price: 7.99
+},
+
+{
+name: "2 ay",
+nameRu: "2 месяца",
+nameEn: "2 months",
+price: 14.99
+},
+
+{
+name: "3 ay",
+nameRu: "3 месяца",
+nameEn: "3 months",
+price: 21.99
+}
+
+],
+
+contentAz:
+`<h2>YouTube Premium haqqında</h2><p>Videolara reklamsız baxış və YouTube Music imkanları.</p>`,
+
+contentRu:
+`<h2>О YouTube Premium</h2><p>Просмотр видео без рекламы и возможности YouTube Music.</p>`,
+
+contentEn:
+`<h2>About YouTube Premium</h2><p>Ad-free video viewing and YouTube Music features.</p>`,
+
+faq: [
+[
+"YouTube Premium neçəyədir?",
+"1 ay üçün 7.99 AZN-dir."
+]
+],
+
+faqRu: [
+[
+"Сколько стоит YouTube Premium?",
+"Стоимость составляет 7.99 AZN за 1 месяц."
+]
+],
+
+faqEn: [
+[
+"How much is YouTube Premium?",
+"It costs 7.99 AZN for 1 month."
+]
+],
+
+reviews: [
+[
+"Əla xidmətdir",
+"Orxan",
+"YouTube Premium"
+]
+],
+
+reviewsRu: [
+[
+"Отличный сервис",
+"Orxan",
+"YouTube Premium"
+]
+],
+
+reviewsEn: [
+[
+"Excellent service",
+"Orxan",
+"YouTube Premium"
+]
+],
+
+articles: [
+[
+"YouTube Premium nədir?",
+"18.05.2026"
+]
+],
+
+articlesRu: [
+[
+"Что такое YouTube Premium?",
+"18.05.2026"
+]
+],
+
+articlesEn: [
+[
+"What is YouTube Premium?",
+"18.05.2026"
+]
+],
+
+guides: [
+"YouTube Premium istifadə qaydaları"
+],
+
+guidesRu: [
+"Руководство по использованию YouTube Premium"
+],
+
+guidesEn: [
+"YouTube Premium usage guide"
+]
+
+},
+
+chatgpt: {
+
+name: "ChatGPT Plus",
+
+nameRu: "ChatGPT Plus",
+
+nameEn: "ChatGPT Plus",
+
+image: "chatgpt.webp",
+
+rating: "5.0 (1 rəy)",
+
+ratingRu: "5.0 (1 отзыв)",
+
+ratingEn: "5.0 (1 review)",
+
+short:
+"ChatGPT Plus yazı, kod, araşdırma və gündəlik işlərdə süni intellekt imkanları.",
+
+shortRu:
+"ChatGPT Plus предоставляет возможности искусственного интеллекта для написания текстов, кода, исследований и повседневных задач.",
+
+shortEn:
+"ChatGPT Plus provides AI capabilities for writing, coding, research and everyday tasks.",
+
+packages: [
+
+{
+name: "1 ay",
+nameRu: "1 месяц",
+nameEn: "1 month",
+price: 11.99
+},
+
+{
+name: "2 ay",
+nameRu: "2 месяца",
+nameEn: "2 months",
+price: 22.99
+},
+
+{
+name: "3 ay",
+nameRu: "3 месяца",
+nameEn: "3 months",
+price: 33.99
+}
+
+],
+
+contentAz:
+`<h2>ChatGPT Plus haqqında</h2><p>Süni intellekt köməkçisi ilə işlərinizi sürətləndirin.</p>`,
+
+contentRu:
+`<h2>О ChatGPT Plus</h2><p>Ускорьте выполнение своих задач с помощью искусственного интеллекта.</p>`,
+
+contentEn:
+`<h2>About ChatGPT Plus</h2><p>Speed up your tasks with an artificial intelligence assistant.</p>`,
+
+faq: [
+[
+"ChatGPT Plus neçəyədir?",
+"1 ay üçün 11.99 AZN-dir."
+]
+],
+
+faqRu: [
+[
+"Сколько стоит ChatGPT Plus?",
+"Стоимость составляет 11.99 AZN за 1 месяц."
+]
+],
+
+faqEn: [
+[
+"How much is ChatGPT Plus?",
+"It costs 11.99 AZN for 1 month."
+]
+],
+
+reviews: [
+[
+"Çox kömək edir",
+"Orxan",
+"ChatGPT Plus"
+]
+],
+
+reviewsRu: [
+[
+"Очень помогает",
+"Orxan",
+"ChatGPT Plus"
+]
+],
+
+reviewsEn: [
+[
+"Very helpful",
+"Orxan",
+"ChatGPT Plus"
+]
+],
+
+articles: [
+[
+"ChatGPT Plus nədir?",
+"18.05.2026"
+]
+],
+
+articlesRu: [
+[
+"Что такое ChatGPT Plus?",
+"18.05.2026"
+]
+],
+
+articlesEn: [
+[
+"What is ChatGPT Plus?",
+"18.05.2026"
+]
+],
+
+guides: [
+"ChatGPT Plus istifadə bələdçisi"
+],
+
+guidesRu: [
+"Руководство по использованию ChatGPT Plus"
+],
+
+guidesEn: [
+"ChatGPT Plus usage guide"
+]
+gemini: {
+
+name: "Gemini AZ — Google Gemini Advanced (Pro)",
+
+nameRu: "Gemini AZ — Google Gemini Advanced (Pro)",
+
+nameEn: "Gemini AZ — Google Gemini Advanced (Pro)",
+
+image: "gemini.avif",
+
+rating: "5.0 (1 rəy)",
+
+ratingRu: "5.0 (1 отзыв)",
+
+ratingEn: "5.0 (1 review)",
+
+short:
+"Gemini AZ axtaran istifadəçilər üçün Google Gemini Advanced (Pro) AI yazı, analiz və Google ekosistemində iş axınını sürətləndirən premium paketdir.",
+
+shortRu:
+"Google Gemini Advanced (Pro) — премиум AI-пакет для написания текстов, анализа и ускорения рабочих процессов в экосистеме Google.",
+
+shortEn:
+"Google Gemini Advanced (Pro) is a premium AI package for writing, analysis and faster workflows across the Google ecosystem.",
+
+packages: [
+
+{
+name: "1 ay",
+nameRu: "1 месяц",
+nameEn: "1 month",
+price: 7.99
+},
+
+{
+name: "3 ay",
+nameRu: "3 месяца",
+nameEn: "3 months",
+price: 18.99
+},
+
+{
+name: "12 ay",
+nameRu: "12 месяцев",
+nameEn: "12 months",
+price: 47.99
+}
+
+],
+
+contentAz:
+`<h2>Google Gemini Advanced (Pro) kimlər üçün uyğundur?</h2>
+<p>Gemini Advanced mətn hazırlamaq, ideya tapmaq, araşdırma planı qurmaq, uzun məlumatları xülasə etmək və gündəlik işləri daha səliqəli idarə etmək istəyən istifadəçilər üçün praktik AI paketidir. Google alətləri ilə tez-tez işləyən tələbələr, kontent yaradıcıları, marketinq komandaları və ofis istifadəçiləri üçün seçim daha məntiqli görünür.</p>
+
+<div class="info">
+<strong>Təqdimat müddəti</strong>
+5–60 dəqiqə
+</div>
+
+<div class="info">
+<strong>Sifarişdən sonra dəstək</strong>
+WhatsApp
+</div>
+
+<div class="info">
+<strong>Sifariş aktivdir</strong>
+<span style="color:#22c55e;">●</span>
+</div>
+
+<h2>Sifarişdən əvvəl nəyə baxmaq lazımdır?</h2>
+<ul>
+<li>Əsas istifadəniz yazı, analiz, təqdimat və ya ideya işidir?</li>
+<li>Google hesabınızla işləmək sizin üçün rahatdır?</li>
+<li>Bir aylıq test paketindən sonra davam qərarı vermək istəyirsiniz?</li>
+</ul>
+
+<p>Hesablar.az-da Gemini Advanced paketinin müddətini, qiymətini və istifadə qaydasını əvvəlcədən görə bilərsiniz. Sifarişdən sonra aktivləşdirmə məlumatları göstərilən qaydalara uyğun təqdim olunur.</p>
+
+<h2>Google Gemini qiyməti və WhatsApp sifarişi</h2>
+<p>Google Gemini almaq istəyirsinizsə, aktiv paketlərin başlanğıc qiyməti 7.99 AZN-dir. Müddəti, istifadə qaydasını və təqdimat vaxtını yoxlayın, əlaqə məlumatlarını daxil edib WhatsApp-la sifariş verin.</p>
+
+<p>Aktiv müddətlər: 1 ay, 3 ay, 12 ay. Daha sərfəli seçimi tapmaq üçün ümumi məbləği ay sayına bölüb aylıq dəyəri müqayisə edin; yalnız “ucuz” sözünə deyil, müddətə və istifadə qaydasına əsasən qərar verin.</p>
+
+<ol>
+<li>Sifariş rəsmiləşdikdən sonra giriş məlumatları (və ya aktivasiya təlimatı) WhatsApp/E-poçt vasitəsilə sizə təqdim olunur.</li>
+<li>Hesab şəxsi istifadə üçün nəzərdə tutulub, şifrənin 3-cü şəxslərlə paylaşılması qadağandır.</li>
+<li>Abunəlik müddəti ərzində zəmanət və texniki dəstək göstərilir.</li>
+</ol>
+
+<h2>Etibar və sifariş axını</h2>
+<p>Sifarişdən əvvəl hər şey aydın görünür</p>
+<p>Qiymət, müddət, istifadə qaydası və dəstək prosesi əvvəlcədən göstərilir ki, paketi tərəddüdsüz seçəsiniz.</p>
+
+<h2>Sürətli təqdimat</h2>
+<p>Ödəniş təsdiqləndikdən sonra aktivləşdirmə məlumatları qısa müddətdə təqdim olunur.</p>
+
+<h2>Aydın qaydalar</h2>
+<p>Paket müddəti, qiymət, istifadə qeydləri və təhlükəsizlik məsləhətləri məhsul səhifəsində açıq göstərilir.</p>
+
+<h2>Dəstək yanınızdadır</h2>
+<p>Sifariş və istifadə ilə bağlı sual yaranarsa əlaqə kanalları üzərindən dəstək ala bilərsiniz.</p>
+
+<h2>Sifariş necə işləyir?</h2>
+<p><strong>01 — Paketi seçin</strong><br>Qiymət və müddəti müqayisə edin, sizə uyğun planı seçin.</p>
+<p><strong>02 — Sifarişi tamamlayın</strong><br>Əlaqə məlumatlarını düzgün yazın və sifarişi təsdiqləyin.</p>
+<p><strong>03 — İstifadəyə başlayın</strong><br>Aktivləşdirmə məlumatlarını alın, qaydalara uyğun istifadə edin.</p>`,
+
+contentRu:
+`<h2>Для кого подходит Google Gemini Advanced (Pro)?</h2><p>Gemini Advanced — практичный AI-пакет для пользователей, которые хотят работать с текстами, идеями, исследованиями, большими объёмами информации и повседневными задачами.</p>`,
+
+contentEn:
+`<h2>Who is Google Gemini Advanced (Pro) suitable for?</h2><p>Gemini Advanced is a practical AI package for users who want to work with writing, ideas, research, large amounts of information and everyday tasks.</p>`,
+
+faq: [
+
+[
+"Google Gemini Advanced (Pro) neçəyədir?",
+"Google Gemini Advanced (Pro) paketinin başlanğıc qiyməti 7.99 AZN-dir."
+],
+
+[
+"Google Gemini Advanced (Pro) nə üçün istifadə olunur?",
+"Yazı, analiz, ideya, araşdırma və gündəlik işlərdə süni intellekt imkanlarından istifadə etmək üçün nəzərdə tutulub."
+],
+
+[
+"Gemini sifarişi nə qədər müddətə təqdim olunur?",
+"Təqdimat müddəti 5–60 dəqiqədir."
+]
+
+],
+
+faqRu: [
+
+[
+"Сколько стоит Google Gemini Advanced (Pro)?",
+"Стоимость пакета начинается от 7.99 AZN."
+],
+
+[
+"Для чего используется Google Gemini Advanced (Pro)?",
+"Для работы с текстами, анализом, идеями, исследованиями и повседневными задачами."
+],
+
+[
+"Сколько занимает предоставление Gemini?",
+"Срок предоставления составляет 5–60 минут."
+]
+
+],
+
+faqEn: [
+
+[
+"How much is Google Gemini Advanced (Pro)?",
+"The package starts at 7.99 AZN."
+],
+
+[
+"What is Google Gemini Advanced (Pro) used for?",
+"It is designed for writing, analysis, ideas, research and everyday tasks."
+],
+
+[
+"How long does Gemini delivery take?",
+"The delivery time is 5–60 minutes."
+]
+
+],
+
+reviews: [
+[
+"Çox rahat AI xidməti",
+"Orxan",
+"Google Gemini Advanced (Pro)"
+]
+],
+
+reviewsRu: [
+[
+"Очень удобный AI-сервис",
+"Orxan",
+"Google Gemini Advanced (Pro)"
+]
+],
+
+reviewsEn: [
+[
+"Very convenient AI service",
+"Orxan",
+"Google Gemini Advanced (Pro)"
+]
+],
+
+articles: [
+[
+"Google Gemini Advanced (Pro) nədir?",
+"08.09.2026"
+]
+],
+
+articlesRu: [
+[
+"Что такое Google Gemini Advanced (Pro)?",
+"08.09.2026"
+]
+],
+
+articlesEn: [
+[
+"What is Google Gemini Advanced (Pro)?",
+"08.09.2026"
+]
+],
+
+guides: [
+"Google Gemini Advanced istifadə bələdçisi"
+],
+
+guidesRu: [
+"Руководство по использованию Google Gemini Advanced"
+],
+
+guidesEn: [
+"Google Gemini Advanced usage guide"
+]
+
+}
+
+},
+
+spotify: {
+
+name: "Spotify Premium",
+
+nameRu: "Spotify Premium",
+
+nameEn: "Spotify Premium",
+
+image: "spotfiy.webp",
+
+rating: "5.0 (1 rəy)",
+
+ratingRu: "5.0 (1 отзыв)",
+
+ratingEn: "5.0 (1 review)",
+
+short:
+"Spotify Premium ilə musiqiləri reklamsız dinləyin.",
+
+shortRu:
+"Слушайте музыку без рекламы с Spotify Premium.",
+
+shortEn:
+"Listen to music without ads with Spotify Premium.",
+
+packages: [
+
+{
+name: "1 ay",
+nameRu: "1 месяц",
+nameEn: "1 month",
+price: 7.99
+},
+
+{
+name: "2 ay",
+nameRu: "2 месяца",
+nameEn: "2 months",
+price: 14.99
+},
+
+{
+name: "3 ay",
+nameRu: "3 месяца",
+nameEn: "3 months",
+price: 21.99
+}
+
+],
+
+contentAz:
+`<h2>Spotify Premium haqqında</h2><p>Reklamsız musiqi və offline dinləmə imkanı.</p>`,
+
+contentRu:
+`<h2>О Spotify Premium</h2><p>Музыка без рекламы и возможность прослушивания офлайн.</p>`,
+
+contentEn:
+`<h2>About Spotify Premium</h2><p>Ad-free music and offline listening.</p>`,
+
+faq: [
+[
+"Spotify Premium neçəyədir?",
+"1 ay üçün 7.99 AZN-dir."
+]
+],
+
+faqRu: [
+[
+"Сколько стоит Spotify Premium?",
+"Стоимость составляет 7.99 AZN за 1 месяц."
+]
+],
+
+faqEn: [
+[
+"How much is Spotify Premium?",
+"It costs 7.99 AZN for 1 month."
+]
+],
+
+reviews: [
+[
+"Çox rahat",
+"Orxan",
+"Spotify Premium"
+]
+],
+
+reviewsRu: [
+[
+"Очень удобно",
+"Orxan",
+"Spotify Premium"
+]
+],
+
+reviewsEn: [
+[
+"Very convenient",
+"Orxan",
+"Spotify Premium"
+]
+],
+
+articles: [
+[
+"Spotify Premium nədir?",
+"18.05.2026"
+]
+],
+
+articlesRu: [
+[
+"Что такое Spotify Premium?",
+"18.05.2026"
+]
+],
+
+articlesEn: [
+[
+"What is Spotify Premium?",
+"18.05.2026"
+]
+],
+
+guides: [
+"Spotify Premium bələdçisi"
+],
+
+guidesRu: [
+"Руководство Spotify Premium"
+],
+
+guidesEn: [
+"Spotify Premium guide"
+]
+
+}
+
 };
 
-// URL-dən məhsul adını oxumaq
-const urlParams = new URLSearchParams(window.location.search);
-const productId = urlParams.get("product") || "netflix";
-const product = productsData[productId] || productsData.netflix;
 
-let selectedPackage = product.packages[0];
-let cart = JSON.parse(localStorage.getItem("digi_cart")) || [];
+/* =========================================================
+   URL-DƏN MƏHSULU GÖTÜR
+   ========================================================= */
 
-function renderProduct() {
-    document.getElementById("productName").textContent = product.name;
-    document.getElementById("productImage").src = product.image;
-    document.getElementById("shortDescription").textContent = product.shortDescription;
-    document.getElementById("rating").textContent = product.rating;
-    document.getElementById("content").innerHTML = product.content;
+const urlParams =
+new URLSearchParams(
+    window.location.search
+);
 
-    // Paketləri yüklə
-    const packagesContainer = document.getElementById("packages");
-    packagesContainer.innerHTML = "";
-    product.packages.forEach((pkg, index) => {
-        const div = document.createElement("div");
-        div.className = `package ${index === 0 ? "active" : ""}`;
-        div.onclick = () => selectPackage(index);
-        div.innerHTML = `
-            <span class="package-name">${pkg.name}</span>
-            <span class="package-price">${pkg.price.toFixed(2)} AZN</span>
-        `;
-        packagesContainer.appendChild(div);
-    });
+let productKey =
+urlParams.get("product");
 
-    updateSelectedDisplay();
-    renderFaqs();
-    renderReviews();
-    renderArticles();
-    renderGuides();
-    updateCartUI();
+if (!products[productKey]) {
+
+    productKey = "netflix";
+
 }
 
-function selectPackage(index) {
-    selectedPackage = product.packages[index];
-    document.querySelectorAll(".package").forEach((el, i) => {
-        el.classList.toggle("active", i === index);
-    });
-    updateSelectedDisplay();
+const product =
+products[productKey];
+
+let selectedPackage = 0;
+
+
+/* =========================================================
+   MƏHSUL ADI
+   ========================================================= */
+
+function getProductName() {
+
+    const lang = getLanguage();
+
+    if (lang === "ru") {
+
+        return product.nameRu;
+
+    }
+
+    if (lang === "en") {
+
+        return product.nameEn;
+
+    }
+
+    return product.name;
+
 }
 
-function updateSelectedDisplay() {
-    document.getElementById("selectedPrice").textContent = selectedPackage.price.toFixed(2) + " AZN";
-    document.getElementById("selectedPeriod").textContent = selectedPackage.period;
+
+/* =========================================================
+   MƏHSUL QISA MƏLUMATI
+   ========================================================= */
+
+function getProductShort() {
+
+    const lang = getLanguage();
+
+    if (lang === "ru") {
+
+        return product.shortRu;
+
+    }
+
+    if (lang === "en") {
+
+        return product.shortEn;
+
+    }
+
+    return product.short;
+
 }
 
-function renderFaqs() {
-    const list = document.getElementById("faqList");
-    list.innerHTML = "";
-    product.faqs.forEach(faq => {
-        const item = document.createElement("div");
-        item.className = "faq-item";
-        item.innerHTML = `
-            <button class="faq-question" onclick="toggleFaq(this)">
-                ${faq.q} <span class="faq-plus">+</span>
+
+/* =========================================================
+   MƏHSUL KONTENTİ
+   ========================================================= */
+
+function getProductContent() {
+
+    const lang = getLanguage();
+
+    if (lang === "ru") {
+
+        return product.contentRu;
+
+    }
+
+    if (lang === "en") {
+
+        return product.contentEn;
+
+    }
+
+    return product.contentAz;
+
+}
+
+
+/* =========================================================
+   FAQ MƏLUMATLARI
+   ========================================================= */
+
+function getProductFaq() {
+
+    const lang = getLanguage();
+
+    if (lang === "ru") {
+
+        return product.faqRu;
+
+    }
+
+    if (lang === "en") {
+
+        return product.faqEn;
+
+    }
+
+    return product.faq;
+
+}
+
+
+/* =========================================================
+   RƏYLƏR
+   ========================================================= */
+
+function getProductReviews() {
+
+    const lang = getLanguage();
+
+    if (lang === "ru") {
+
+        return product.reviewsRu;
+
+    }
+
+    if (lang === "en") {
+
+        return product.reviewsEn;
+
+    }
+
+    return product.reviews;
+
+}
+
+
+/* =========================================================
+   MƏQALƏLƏR
+   ========================================================= */
+
+function getProductArticles() {
+
+    const lang = getLanguage();
+
+    if (lang === "ru") {
+
+        return product.articlesRu;
+
+    }
+
+    if (lang === "en") {
+
+        return product.articlesEn;
+
+    }
+
+    return product.articles;
+
+}
+
+
+/* =========================================================
+   BƏLƏDÇİLƏR
+   ========================================================= */
+
+function getProductGuides() {
+
+    const lang = getLanguage();
+
+    if (lang === "ru") {
+
+        return product.guidesRu;
+
+    }
+
+    if (lang === "en") {
+
+        return product.guidesEn;
+
+    }
+
+    return product.guides;
+
+}
+
+
+/* =========================================================
+   MƏHSUL RATING
+   ========================================================= */
+
+function getProductRating() {
+
+    const lang = getLanguage();
+
+    if (lang === "ru") {
+
+        return product.ratingRu;
+
+    }
+
+    if (lang === "en") {
+
+        return product.ratingEn;
+
+    }
+
+    return product.rating;
+
+}
+
+
+/* =========================================================
+   MƏHSULU İLK DƏFƏ YÜKLƏ
+   ========================================================= */
+
+document.getElementById("productName")
+    .textContent =
+    getProductName();
+
+document.getElementById("breadcrumb")
+    .textContent =
+    getProductName();
+
+document.getElementById("productImage")
+    .src =
+    product.image;
+
+document.getElementById("rating")
+    .textContent =
+    getProductRating();
+
+document.getElementById("shortDescription")
+    .textContent =
+    getProductShort();
+
+document.getElementById("content")
+    .innerHTML =
+    getProductContent();
+
+
+/* =========================================================
+   FAQ GÖSTƏR
+   ========================================================= */
+
+function renderFaq() {
+
+    const faqList =
+        document.getElementById("faqList");
+
+    faqList.innerHTML = "";
+
+    const faqData =
+        getProductFaq();
+
+    faqData.forEach(function(item) {
+
+        const faqItem =
+            document.createElement("div");
+
+        faqItem.className =
+            "faq-item";
+
+        faqItem.innerHTML = `
+
+            <button class="faq-question">
+
+                <span>
+                    ${item[0]}
+                </span>
+
+                <span class="faq-plus">
+                    +
+                </span>
+
             </button>
-            <div class="faq-answer"><p>${faq.a}</p></div>
+
+            <div class="faq-answer">
+                ${item[1]}
+            </div>
+
         `;
-        list.appendChild(item);
+
+        faqItem
+            .querySelector(".faq-question")
+            .onclick =
+            function() {
+
+                faqItem.classList.toggle("open");
+
+                faqItem
+                    .querySelector(".faq-plus")
+                    .textContent =
+                    faqItem.classList.contains("open")
+                    ? "−"
+                    : "+";
+
+            };
+
+        faqList.appendChild(faqItem);
+
     });
+
 }
 
-function toggleFaq(btn) {
-    const item = btn.parentElement;
-    item.classList.toggle("open");
-}
+
+/* =========================================================
+   RƏYLƏRİ GÖSTƏR
+   ========================================================= */
 
 function renderReviews() {
-    const grid = document.getElementById("reviewsGrid");
-    grid.innerHTML = "";
-    product.reviews.forEach(rev => {
-        const card = document.createElement("div");
-        card.className = "review-card";
+
+    const reviewsGrid =
+        document.getElementById("reviewsGrid");
+
+    reviewsGrid.innerHTML = "";
+
+    const reviewsData =
+        getProductReviews();
+
+    reviewsData.forEach(function(review) {
+
+        const card =
+            document.createElement("div");
+
+        card.className =
+            "review-card";
+
         card.innerHTML = `
-            <div class="review-stars">${rev.stars}</div>
-            <p class="review-text">"${rev.text}"</p>
-            <div class="review-name">${rev.name}</div>
-            <div class="review-role">${rev.role}</div>
+
+            <div class="review-stars">
+                ★★★★★
+            </div>
+
+            <div class="review-text">
+                ${review[0]}
+            </div>
+
+            <div class="review-name">
+                ${review[1]}
+            </div>
+
+            <div class="review-role">
+                ${review[2]}
+            </div>
+
         `;
-        grid.appendChild(card);
+
+        reviewsGrid.appendChild(card);
+
     });
+
 }
+
+
+/* =========================================================
+   MƏQALƏLƏRİ GÖSTƏR
+   ========================================================= */
 
 function renderArticles() {
-    const grid = document.getElementById("articlesGrid");
-    grid.innerHTML = "";
-    product.articles.forEach(art => {
-        const card = document.createElement("div");
-        card.className = "article-card";
+
+    const articlesGrid =
+        document.getElementById("articlesGrid");
+
+    articlesGrid.innerHTML = "";
+
+    const articlesData =
+        getProductArticles();
+
+    articlesData.forEach(function(article) {
+
+        const card =
+            document.createElement("div");
+
+        card.className =
+            "article-card";
+
         card.innerHTML = `
-            <h3>${art.title}</h3>
-            <p>${art.text}</p>
-            <div class="article-date">${art.date}</div>
+
+            <h3>
+                ${article[0]}
+            </h3>
+
+            <p>
+                ${getArticleDescription()}
+            </p>
+
+            <div class="article-date">
+                ${article[1]}
+            </div>
+
         `;
-        grid.appendChild(card);
+
+        articlesGrid.appendChild(card);
+
     });
+
 }
+
+
+/* =========================================================
+   MƏQALƏ AÇIQLAMASI
+   ========================================================= */
+
+function getArticleDescription() {
+
+    const lang =
+        getLanguage();
+
+    if (lang === "ru") {
+
+        return "Полезная информация о премиум-услугах.";
+
+    }
+
+    if (lang === "en") {
+
+        return "Useful information about premium services.";
+
+    }
+
+    return "Premium xidmətlər haqqında faydalı məlumatlar.";
+
+}
+
+
+/* =========================================================
+   BƏLƏDÇİLƏRİ GÖSTƏR
+   ========================================================= */
 
 function renderGuides() {
-    const list = document.getElementById("guidesList");
-    list.innerHTML = "";
-    product.guides.forEach(g => {
-        const card = document.createElement("div");
-        card.className = "guide-card";
-        card.textContent = g.title;
-        list.appendChild(card);
+
+    const guidesList =
+        document.getElementById("guidesList");
+
+    guidesList.innerHTML = "";
+
+    const guidesData =
+        getProductGuides();
+
+    guidesData.forEach(function(guide) {
+
+        const guideCard =
+            document.createElement("div");
+
+        guideCard.className =
+            "guide-card";
+
+        guideCard.textContent =
+            guide;
+
+        guidesList.appendChild(guideCard);
+
     });
+
 }
 
-// SƏBƏT VƏ ALMAQ FUNKSİYALARI
-function toggleCart() {
-    const modal = document.getElementById("cartModal");
-    modal.style.display = modal.style.display === "block" ? "none" : "block";
+
+/* =========================================================
+   DİNAMİK MƏLUMATLARI YENİLƏ
+   ========================================================= */
+
+function renderDynamicContent() {
+
+    document.title =
+        t("pageTitle") +
+        " | " +
+        getProductName();
+
+    document.getElementById("productName")
+        .textContent =
+        getProductName();
+
+    document.getElementById("breadcrumb")
+        .textContent =
+        getProductName();
+
+    document.getElementById("rating")
+        .textContent =
+        getProductRating();
+
+    document.getElementById("shortDescription")
+        .textContent =
+        getProductShort();
+
+    document.getElementById("content")
+        .innerHTML =
+        getProductContent();
+
+    renderFaq();
+
+    renderReviews();
+
+    renderArticles();
+
+    renderGuides();
+
+    showPackages();
+
+    updateSelected();
+
 }
 
-function addToCart() {
-    const cartItem = {
-        name: product.name,
-        period: selectedPackage.period,
-        price: selectedPackage.price
-    };
-    cart.push(cartItem);
-    localStorage.setItem("digi_cart", JSON.stringify(cart));
-    updateCartUI();
-    alert(t("addedToCart"));
-}
 
-function removeFromCart(index) {
-    cart.splice(index, 1);
-    localStorage.setItem("digi_cart", JSON.stringify(cart));
-    updateCartUI();
-}
+/* =========================================================
+   PAKETLƏR
+   ========================================================= */
 
-function updateCartUI() {
-    document.getElementById("cartCount").textContent = cart.length;
-    const list = document.getElementById("cartItemsList");
-    
-    if (cart.length === 0) {
-        list.innerHTML = `<p id="emptyCartText" style="color: #777; text-align: center;">${t("emptyCart")}</p>`;
-        document.getElementById("cartTotalPrice").textContent = "0.00 AZN";
-        return;
+const packagesBox =
+    document.getElementById("packages");
+
+
+function getPackageName(item) {
+
+    const lang =
+        getLanguage();
+
+    if (lang === "ru") {
+
+        return item.nameRu;
+
     }
 
-    list.innerHTML = "";
-    let total = 0;
-    cart.forEach((item, index) => {
-        total += item.price;
-        const div = document.createElement("div");
-        div.style.cssText = "background: #151515; border: 1px solid #252525; border-radius: 8px; padding: 10px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;";
-        div.innerHTML = `
-            <div>
-                <strong style="font-size: 13px; display: block; color: #fff;">${item.name}</strong>
-                <span style="font-size: 11px; color: #888;">${item.period} - ${item.price.toFixed(2)} AZN</span>
-            </div>
-            <button onclick="removeFromCart(${index})" style="background: none; border: none; color: #ef4444; cursor: pointer; font-size: 12px;">${t("remove")}</button>
-        `;
-        list.appendChild(div);
-    });
+    if (lang === "en") {
 
-    document.getElementById("cartTotalPrice").textContent = total.toFixed(2) + " AZN";
+        return item.nameEn;
+
+    }
+
+    return item.name;
+
 }
+
+
+function showPackages() {
+
+    packagesBox.innerHTML = "";
+
+    product.packages.forEach(
+        function(item, index) {
+
+            const el =
+                document.createElement("div");
+
+            el.className =
+                "package" +
+                (
+                    index === selectedPackage
+                    ? " active"
+                    : ""
+                );
+
+            el.innerHTML = `
+
+                <span class="package-name">
+                    ${getPackageName(item)}
+                </span>
+
+                <span class="package-price">
+                    ${item.price.toFixed(2)} AZN
+                </span>
+
+            `;
+
+            el.onclick =
+                function() {
+
+                    selectedPackage =
+                        index;
+
+                    showPackages();
+
+                    updateSelected();
+
+                };
+
+            packagesBox.appendChild(el);
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   SEÇİLMİŞ PAKET
+   ========================================================= */
+
+function updateSelected() {
+
+    const item =
+        product.packages[selectedPackage];
+
+    document.getElementById("selectedPrice")
+        .textContent =
+        item.price.toFixed(2) +
+        " AZN";
+
+    document.getElementById("selectedPeriod")
+        .textContent =
+        getPackageName(item);
+
+}
+
+
+showPackages();
+
+updateSelected();
+
+
+/* =========================================================
+   İNDİ AL
+   ========================================================= */
 
 function buyNow() {
-    const message = encodeURIComponent(
+
+    const item =
+        product.packages[selectedPackage];
+
+    const phone =
+        "994702883484";
+
+    const message =
         t("orderMessage") +
-        t("productLabel") + " " + product.name + "\n" +
-        t("periodLabel") + " " + selectedPackage.period + "\n" +
-        t("priceLabel") + " " + selectedPackage.price.toFixed(2) + " AZN"
-    );
-    window.open(`https://wa.me/994702883484?text=${message}`, "_blank");
+
+        t("productLabel") +
+        " " +
+        getProductName() +
+        "\n" +
+
+        t("periodLabel") +
+        " " +
+        getPackageName(item) +
+        "\n" +
+
+        t("priceLabel") +
+        " " +
+        item.price.toFixed(2) +
+        " AZN";
+
+    window.location.href =
+        "https://wa.me/" +
+        phone +
+        "?text=" +
+        encodeURIComponent(message);
+
 }
+
+
+/* =========================================================
+   SƏBƏT
+   ========================================================= */
+
+let cart =
+    JSON.parse(
+        localStorage.getItem("digi_cart")
+    ) || [];
+
+
+/* =========================================================
+   SƏBƏTİ AÇ / BAĞLA
+   ========================================================= */
+
+function toggleCart() {
+
+    const modal =
+        document.getElementById("cartModal");
+
+    if (!modal) return;
+
+    if (
+        modal.style.display === "block"
+    ) {
+
+        modal.style.display =
+            "none";
+
+    } else {
+
+        modal.style.display =
+            "block";
+
+        updateCartUI();
+
+    }
+
+}
+
+
+/* =========================================================
+   SƏBƏTƏ ƏLAVƏ ET
+   ========================================================= */
+
+function addToCart() {
+
+    const item =
+        product.packages[selectedPackage];
+
+    cart.push({
+
+        name:
+            getProductName() +
+            " (" +
+            getPackageName(item) +
+            ")",
+
+        price:
+            item.price
+
+    });
+
+    localStorage.setItem(
+        "digi_cart",
+        JSON.stringify(cart)
+    );
+
+    updateCartCount();
+
+    alert(
+        t("cartProductAdded")
+    );
+
+}
+
+
+/* =========================================================
+   SƏBƏT SAYĞACI
+   ========================================================= */
+
+function updateCartCount() {
+
+    const countEl =
+        document.getElementById(
+            "cartCount"
+        );
+
+    if (countEl) {
+
+        countEl.textContent =
+            cart.length;
+
+    }
+
+}
+
+
+/* =========================================================
+   SƏBƏTİN İÇİNİ GÖSTƏR
+   ========================================================= */
+
+function updateCartUI() {
+
+    const list =
+        document.getElementById(
+            "cartItemsList"
+        );
+
+    const totalPriceEl =
+        document.getElementById(
+            "cartTotalPrice"
+        );
+
+    if (
+        !list ||
+        !totalPriceEl
+    ) return;
+
+
+    if (cart.length === 0) {
+
+        list.innerHTML = `
+
+            <p
+            style="color: #777; text-align: center;">
+
+                ${t("emptyCart")}
+
+            </p>
+
+        `;
+
+        totalPriceEl.textContent =
+            "0.00 AZN";
+
+        return;
+
+    }
+
+
+    let html = "";
+
+    let total = 0;
+
+
+    cart.forEach(
+        function(item, index) {
+
+            total +=
+                Number(
+                    item.price || 0
+                );
+
+            html += `
+
+                <div
+                style="
+                background: #080808;
+                border: 1px solid #222;
+                border-radius: 10px;
+                padding: 12px;
+                margin-bottom: 10px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                ">
+
+                    <div>
+
+                        <div
+                        style="
+                        font-weight: bold;
+                        color: #60a5fa;
+                        font-size: 14px;
+                        ">
+
+                            ${item.name}
+
+                        </div>
+
+                        <div
+                        style="
+                        color: #888;
+                        font-size: 12px;
+                        margin-top: 4px;
+                        ">
+
+                            ${Number(item.price).toFixed(2)}
+                            AZN
+
+                        </div>
+
+                    </div>
+
+                    <button
+                    onclick="removeFromCart(${index})"
+                    style="
+                    background: none;
+                    border: none;
+                    color: #ef4444;
+                    cursor: pointer;
+                    font-size: 13px;
+                    ">
+
+                        ${t("remove")}
+
+                    </button>
+
+                </div>
+
+            `;
+
+        }
+    );
+
+
+    list.innerHTML =
+        html;
+
+    totalPriceEl.textContent =
+        total.toFixed(2) +
+        " AZN";
+
+}
+
+
+/* =========================================================
+   SƏBƏTDƏN SİL
+   ========================================================= */
+
+function removeFromCart(index) {
+
+    cart.splice(
+        index,
+        1
+    );
+
+    localStorage.setItem(
+        "digi_cart",
+        JSON.stringify(cart)
+    );
+
+    updateCartCount();
+
+    updateCartUI();
+
+}
+
+
+/* =========================================================
+   SİFARİŞİ TƏSDİQLƏ
+   ========================================================= */
 
 function checkoutCart() {
+
     if (cart.length === 0) {
-        alert(t("emptyCartAlert"));
+
+        alert(
+            t("emptyCartAlert")
+        );
+
         return;
+
     }
-    let messageText = t("cartOrderMessage");
+
+
+    let message =
+        t("cartOrderMessage");
+
     let total = 0;
-    cart.forEach(item => {
-        messageText += `- ${item.name} (${item.period}): ${item.price.toFixed(2)} AZN\n`;
-        total += item.price;
-    });
-    messageText += `\n${t("totalAmount")} ${total.toFixed(2)} AZN`;
-    
-    const encodedMessage = encodeURIComponent(messageText);
-    window.open(`https://wa.me/994702883484?text=${encodedMessage}`, "_blank");
+
+
+    cart.forEach(
+        function(item, index) {
+
+            message +=
+                `${index + 1}. ${item.name} - ${Number(item.price).toFixed(2)} AZN\n`;
+
+            total +=
+                Number(
+                    item.price || 0
+                );
+
+        }
+    );
+
+
+    message +=
+        "\n" +
+        t("totalAmount") +
+        " " +
+        total.toFixed(2) +
+        " AZN";
+
+
+    const phone =
+        "994702883484";
+
+
+    const whatsappUrl =
+        "https://wa.me/" +
+        phone +
+        "?text=" +
+        encodeURIComponent(
+            message
+        );
+
+
+    cart = [];
+
+    localStorage.removeItem(
+        "digi_cart"
+    );
+
+    updateCartCount();
+
+    toggleCart();
+
+    window.location.href =
+        whatsappUrl;
+
 }
 
-// Səhifə yüklənəndə işə düşür
-window.onload = function() {
-    applyLanguage();
-    renderProduct();
-};
+
+/* =========================================================
+   BAŞLANĞIC
+   ========================================================= */
+
+updateCartCount();
+
+applyLanguage();
 
 </script>
+
 </body>
 </html>
