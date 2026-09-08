@@ -485,77 +485,56 @@ async function checkLogin(){
   const authArea=document.getElementById("authArea");
   const lang=getLanguage();
   if(!authArea) return;
-  if(session){
-    authArea.innerHTML="";
-    const profileButton=document.createElement("a");
-    profileButton.href="profile.html";
-    profileButton.className="btn btn-primary";
-    profileButton.textContent=t[lang]?.profile || "Profil";
-    const email=document.createElement("span");
-    email.className="user-email";
-    email.textContent=session.user.email || "";
-    const logoutButton=document.createElement("button");
-    logoutButton.className="btn btn-dark";
-    logoutButton.textContent=t[lang]?.logout || "Çıxış";
-    logoutButton.onclick=logout;
-    authArea.appendChild(profileButton);
-    authArea.appendChild(email);
-    authArea.appendChild(logoutButton);
-  }else{
+  if(session && session.user){
+    const email=session.user.email;
+    authArea.innerHTML=`
+      <a href="profile.html" class="user-email" title="${email}">👤 ${email}</a>
+      <button onclick="logout()" class="btn btn-dark">${t[lang]?.logout || "Çıxış"}</button>
+    `;
+  } else {
     authArea.innerHTML=`
       <a href="login.html" class="btn btn-dark" data-i18n="login">${t[lang]?.login || "Daxil ol"}</a>
       <a href="login.html" class="btn btn-primary" data-i18n="register">${t[lang]?.register || "Qeydiyyat"}</a>
     `;
   }
 }
+
 async function logout(){
   await supabaseClient.auth.signOut();
   window.location.reload();
 }
-supabaseClient.auth.onAuthStateChange((event,session)=>{checkLogin();});
-
-/* PRODUCT SELECTION SCRIPT */
-document.querySelectorAll(".product").forEach(card => {
-  const options = card.querySelectorAll(".duration-option");
-  const price = card.querySelector(".selected-price");
-  const duration = card.querySelector(".selected-duration");
-  const order = card.querySelector(".order-btn");
-  const productName = card.querySelector("h3");
-
-  function updateOrder(){
-    const selected = card.querySelector(".duration-option.active");
-    if(!selected) return;
-    const idx = [...options].indexOf(selected);
-    const lang = getLanguage();
-    const durationName = t.durationNames[lang][idx] || selected.dataset.duration;
-    const selectedPrice = selected.dataset.price;
-    if(duration) duration.textContent = durationName;
-    if(price) price.textContent = selectedPrice;
-
-    const names = {
-      az:`Salam DigiBaku, ${productName.textContent.trim()} sifarişi vermək istəyirəm. Müddət: ${durationName}. Qiymət: ${selectedPrice}.`,
-      en:`Hello DigiBaku, I would like to order ${productName.textContent.trim()}. Duration: ${durationName}. Price: ${selectedPrice}.`,
-      ru:`Здравствуйте, DigiBaku. Я хочу заказать ${productName.textContent.trim()}. Срок: ${durationName}. Цена: ${selectedPrice}.`
-    };
-    if(order) order.href = "https://wa.me/994702883484?text=" + encodeURIComponent(names[lang] || names.az);
-  }
-
-  options.forEach(option => {
-    option.addEventListener("click", () => {
-      options.forEach(x => x.classList.remove("active"));
-      option.classList.add("active");
-      updateOrder();
-    });
-  });
-  updateOrder();
-});
 
 document.addEventListener("DOMContentLoaded",()=>{
   const lang = getLanguage();
   setLang(lang);
   updateCartCount();
-  updateCartUI();
-  checkLogin();
+  
+  // Duration option selection logic
+  document.querySelectorAll(".duration-options").forEach(group => {
+    const buttons = group.querySelectorAll(".duration-option");
+    const productCard = group.closest(".product");
+    const priceLinePrice = productCard.querySelector(".selected-price");
+    const priceLineDuration = productCard.querySelector(".selected-duration");
+    const orderBtn = productCard.querySelector(".order-btn");
+    const productName = productCard.querySelector("h3").textContent;
+
+    buttons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        buttons.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        
+        const duration = btn.dataset.duration;
+        const price = btn.dataset.price;
+        
+        priceLinePrice.textContent = price;
+        priceLineDuration.textContent = duration;
+        
+        const productNameClean = productCard.id;
+        const waText = `Salam DigiBaku, ${productNameClean} (${duration} - ${price}) sifariş vermək istəyirəm.`;
+        orderBtn.href = `https://wa.me/994702883484?text=${encodeURIComponent(waText)}`;
+      });
+    });
+  });
 });
 </script>
 </body>
