@@ -1887,7 +1887,10 @@ function setLang(lang){
     const strong=b.querySelector("strong");
 
     if(strong){
-      strong.textContent=names[n];
+      strong.textContent=
+        b.closest("#canva")
+          ? t[lang].canvaDuration
+          : names[n];
     }
 
   });
@@ -2272,8 +2275,12 @@ document.querySelectorAll(".product").forEach(card=>{
       getLanguage();
 
     const durationName=
-      t.durationNames[lang][idx] ||
-      selected.dataset.duration;
+      card.id==="canva"
+        ? t[lang].canvaDuration
+        : (
+            t.durationNames[lang][idx] ||
+            selected.dataset.duration
+          );
 
     const selectedPrice=
       selected.dataset.price;
