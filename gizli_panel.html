@@ -275,6 +275,22 @@ border-color:#7f1d1d;
 color:#fca5a5;
 }
 
+
+/* =========================
+   CANVA
+========================= */
+
+.canva-price{
+border-color:#3b82f6;
+}
+
+.canva-title{
+color:#60a5fa;
+font-weight:bold;
+font-size:16px;
+margin-bottom:14px;
+}
+
 @media(max-width:600px){
 
 .price-row{
@@ -321,7 +337,7 @@ Admin yoxlanılır...
 <h2>Qiymət və Endirimlər</h2>
 
 <p class="subtitle">
-Məhsulların 1, 2 və 3 aylıq qiymətlərini və endirimlərini buradan idarə et
+Məhsulların qiymətlərini və endirimlərini buradan idarə et
 </p>
 
 <div id="pricesList">
@@ -377,19 +393,27 @@ Məhsul seçin...
 </option>
 
 <option value="Netflix Premium">
-Netflix Premium — 6.99 AZN
+Netflix Premium
 </option>
 
 <option value="YouTube Premium">
-YouTube Premium — 7.99 AZN
+YouTube Premium
 </option>
 
 <option value="ChatGPT Plus">
-ChatGPT Plus — 11.99 AZN
+ChatGPT Plus
+</option>
+
+<option value="Google Gemini Premium">
+Google Gemini Premium
 </option>
 
 <option value="Spotify Premium">
-Spotify Premium — 7.99 AZN
+Spotify Premium
+</option>
+
+<option value="Canva Premium">
+Canva Premium — 12 ay — 5.99 AZN
 </option>
 
 </select>
@@ -868,6 +892,145 @@ list.innerHTML="";
 
 data.forEach(item => {
 
+/* =========================
+   CANVA 12 AY
+========================= */
+
+if(item.product_key === "canva"){
+
+const div =
+document.createElement("div");
+
+div.className="price-product canva-price";
+
+div.innerHTML = `
+
+<h3>
+${escapeHtml(item.product_name)}
+</h3>
+
+<div class="price-month">
+
+<div class="price-month-title">
+12 ay
+</div>
+
+<div class="price-row">
+
+<div>
+
+<label>
+Normal qiymət (AZN)
+</label>
+
+<input
+type="number"
+step="0.01"
+min="0"
+id="price12-${item.id}"
+value="${Number(item.price_12_month || 0).toFixed(2)}"
+>
+
+</div>
+
+<div>
+
+<label>
+Endirimli qiymət (AZN)
+</label>
+
+<input
+type="number"
+step="0.01"
+min="0"
+id="sale12-${item.id}"
+value="${Number(item.sale_12_price ?? item.price_12_month ?? 0).toFixed(2)}"
+>
+
+</div>
+
+</div>
+
+<div class="switch-row">
+
+<input
+type="checkbox"
+id="active12-${item.id}"
+${item.sale_12_active ? "checked" : ""}
+>
+
+<label
+for="active12-${item.id}"
+style="margin:0">
+
+12 aylıq endirimi aktiv et
+
+</label>
+
+</div>
+
+<div class="sale-info">
+
+<span
+class="sale-percent"
+id="percent12-${item.id}">
+
+</span>
+
+<span
+class="sale-status"
+id="status12-${item.id}">
+
+</span>
+
+</div>
+
+</div>
+
+<button
+class="save-price"
+onclick="saveCanvaPrice(${item.id})">
+
+Yadda saxla
+
+</button>
+
+`;
+
+list.appendChild(div);
+
+updateCanvaPreview(item.id);
+
+document.getElementById(
+"price12-" + item.id
+).addEventListener(
+"input",
+() => updateCanvaPreview(item.id)
+);
+
+document.getElementById(
+"sale12-" + item.id
+).addEventListener(
+"input",
+() => updateCanvaPreview(item.id)
+);
+
+document.getElementById(
+"active12-" + item.id
+).addEventListener(
+"change",
+() => updateCanvaPreview(item.id)
+);
+
+return;
+
+}
+
+
+/* =========================
+   DİGƏR MƏHSULLAR
+========================= */
+
 const div =
 document.createElement("div");
 
@@ -1208,6 +1371,189 @@ document.getElementById(
 );
 
 });
+
+}
+
+
+/* =========================
+CANVA PREVIEW
+========================= */
+
+function updateCanvaPreview(id){
+
+const regular =
+Number(
+document.getElementById(
+"price12-" + id
+).value
+) || 0;
+
+const sale =
+Number(
+document.getElementById(
+"sale12-" + id
+).value
+) || 0;
+
+const active =
+document.getElementById(
+"active12-" + id
+).checked;
+
+const percentBox =
+document.getElementById(
+"percent12-" + id
+);
+
+const statusBox =
+document.getElementById(
+"status12-" + id
+);
+
+let percent = 0;
+
+if(
+active &&
+regular > 0 &&
+sale < regular
+){
+
+percent =
+Math.round(
+((regular - sale) / regular) * 100
+);
+
+}
+
+percentBox.textContent =
+percent > 0
+?
+"🔥 " + percent + "% ENDİRİM"
+:
+"Endirim yoxdur";
+
+statusBox.textContent =
+active
+?
+"AKTİV"
+:
+"DEAKTİV";
+
+}
+
+
+/* =========================
+CANVA QİYMƏTİNİ YADDA SAXLA
+========================= */
+
+async function saveCanvaPrice(id){
+
+const price12 =
+Number(
+document.getElementById(
+"price12-" + id
+).value
+);
+
+const sale12 =
+Number(
+document.getElementById(
+"sale12-" + id
+).value
+);
+
+const active12 =
+document.getElementById(
+"active12-" + id
+).checked;
+
+
+if(
+!Number.isFinite(price12) ||
+price12 < 0
+){
+
+showPriceMessage(
+"Canva normal qiyməti düzgün deyil.",
+true
+);
+
+return;
+
+}
+
+
+if(
+!Number.isFinite(sale12) ||
+sale12 < 0
+){
+
+showPriceMessage(
+"Canva endirimli qiyməti düzgün deyil.",
+true
+);
+
+return;
+
+}
+
+
+if(
+active12 &&
+sale12 >= price12
+){
+
+showPriceMessage(
+"Canva endirimli qiyməti normal qiymətdən aşağı olmalıdır.",
+true
+);
+
+return;
+
+}
+
+
+const {
+error
+} =
+await supabaseClient
+.from("product_prices")
+.update({
+
+price_12_month:price12,
+
+sale_12_price:sale12,
+
+sale_12_active:active12,
+
+updated_at:new Date().toISOString()
+
+})
+.eq("id",id)
+.eq("product_key","canva");
+
+
+if(error){
+
+console.error(error);
+
+showPriceMessage(
+"Canva qiyməti yadda saxlanmadı: " +
+error.message,
+true
+);
+
+return;
+
+}
+
+
+showPriceMessage(
+"✅ Canva 12 aylıq qiyməti uğurla yadda saxlanıldı.",
+false
+);
+
+await loadPrices();
 
 }
 
