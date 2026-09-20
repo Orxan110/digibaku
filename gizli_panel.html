@@ -173,6 +173,103 @@ background:#991b1b;
 color:#777;
 padding:15px 0;
 }
+
+
+/* =========================
+   QİYMƏT VƏ ENDİRİM PANELİ
+========================= */
+
+.price-product{
+background:#080808;
+border:1px solid #252525;
+border-radius:12px;
+padding:18px;
+margin-bottom:14px;
+}
+
+.price-product h3{
+color:#60a5fa;
+font-size:17px;
+margin-bottom:15px;
+}
+
+.price-row{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:12px;
+}
+
+.price-row input{
+margin-bottom:12px;
+}
+
+.sale-info{
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:10px;
+margin-top:2px;
+margin-bottom:12px;
+}
+
+.sale-percent{
+color:#86efac;
+font-size:14px;
+font-weight:bold;
+}
+
+.sale-status{
+font-size:13px;
+color:#888;
+}
+
+.switch-row{
+display:flex;
+align-items:center;
+gap:10px;
+margin:5px 0 14px;
+}
+
+.switch-row input{
+width:auto;
+margin:0;
+accent-color:#2563eb;
+}
+
+.save-price{
+background:#16a34a;
+margin-top:5px;
+}
+
+.save-price:hover{
+background:#15803d;
+}
+
+.price-message{
+display:none;
+padding:13px;
+border-radius:10px;
+margin-top:15px;
+background:#0b2b1d;
+border:1px solid #166534;
+color:#86efac;
+line-height:1.5;
+}
+
+.price-message.error{
+background:#2b0b0b;
+border-color:#7f1d1d;
+color:#fca5a5;
+}
+
+@media(max-width:600px){
+
+.price-row{
+grid-template-columns:1fr;
+gap:0;
+}
+
+}
 </style>
 </head>
 
@@ -204,6 +301,35 @@ Admin yoxlanılır...
 
 <div id="adminPanel">
 
+
+<!-- =========================
+     QİYMƏT VƏ ENDİRİMLƏR
+========================= -->
+
+<div class="card">
+
+<h2>Qiymət və Endirimlər</h2>
+
+<p class="subtitle">
+Məhsulların qiymətini və endirimlərini buradan idarə et
+</p>
+
+<div id="pricesList">
+
+<div class="empty">
+Qiymətlər yüklənir...
+</div>
+
+</div>
+
+<div id="priceMessage" class="price-message"></div>
+
+</div>
+
+
+<!-- =========================
+     MÜŞTƏRİYƏ MƏHSUL VER
+========================= -->
 
 <div class="card">
 
@@ -375,6 +501,8 @@ document.getElementById("adminPanel").style.display="block";
 await loadCustomers();
 
 await loadProducts();
+
+await loadPrices();
 
 }
 
@@ -725,6 +853,453 @@ return;
 
 
 await loadProducts();
+
+}
+
+
+/* =========================
+QİYMƏTLƏRİ YÜKLƏ
+========================= */
+
+async function loadPrices(){
+
+const list =
+document.getElementById("pricesList");
+
+
+const {
+data,
+error
+} =
+await supabaseClient
+.from("product_prices")
+.select("*")
+.order("id");
+
+
+if(error){
+
+console.error(error);
+
+list.innerHTML =
+'<div class="empty">Qiymətlər yüklənmədi. Supabase cədvəlini yoxla.</div>';
+
+return;
+
+}
+
+
+if(!data || data.length===0){
+
+list.innerHTML =
+'<div class="empty">Heç bir məhsul tapılmadı.</div>';
+
+return;
+
+}
+
+
+list.innerHTML="";
+
+
+data.forEach(item => {
+
+const div =
+document.createElement("div");
+
+div.className="price-product";
+
+const regularPrice =
+Number(item.regular_price || 0);
+
+const salePrice =
+item.sale_price === null
+?
+regularPrice
+:
+Number(item.sale_price);
+
+let percent = 0;
+
+if(
+item.sale_active &&
+regularPrice > 0 &&
+salePrice < regularPrice
+){
+
+percent =
+Math.round(
+((regularPrice - salePrice) /
+regularPrice) * 100
+);
+
+}
+
+
+div.innerHTML = `
+
+<h3>
+${escapeHtml(item.product_name)}
+</h3>
+
+<div class="price-row">
+
+<div>
+
+<label>
+Normal qiymət (AZN)
+</label>
+
+<input
+type="number"
+step="0.01"
+min="0"
+id="regular-${item.id}"
+value="${regularPrice.toFixed(2)}"
+>
+
+</div>
+
+<div>
+
+<label>
+Endirimli qiymət (AZN)
+</label>
+
+<input
+type="number"
+step="0.01"
+min="0"
+id="sale-${item.id}"
+value="${salePrice.toFixed(2)}"
+>
+
+</div>
+
+</div>
+
+
+<div class="switch-row">
+
+<input
+type="checkbox"
+id="active-${item.id}"
+${item.sale_active ? "checked" : ""}
+>
+
+<label
+for="active-${item.id}"
+style="margin:0">
+
+Endirimi aktiv et
+
+</label>
+
+</div>
+
+
+<div class="sale-info">
+
+<span
+class="sale-percent"
+id="percent-${item.id}">
+
+${
+percent > 0
+?
+"🔥 " + percent + "% ENDİRİM"
+:
+"Endirim yoxdur"
+}
+
+</span>
+
+<span
+class="sale-status"
+id="status-${item.id}">
+
+${
+item.sale_active
+?
+"AKTİV"
+:
+"DEAKTİV"
+}
+
+</span>
+
+</div>
+
+
+<button
+class="save-price"
+onclick="savePrice(${item.id}, '${escapeHtml(item.product_key)}')">
+
+Yadda saxla
+
+</button>
+
+`;
+
+
+list.appendChild(div);
+
+
+const regularInput =
+document.getElementById(
+"regular-" + item.id
+);
+
+const saleInput =
+document.getElementById(
+"sale-" + item.id
+);
+
+const activeInput =
+document.getElementById(
+"active-" + item.id
+);
+
+
+regularInput.addEventListener(
+"input",
+() => updatePricePreview(item.id)
+);
+
+saleInput.addEventListener(
+"input",
+() => updatePricePreview(item.id)
+);
+
+activeInput.addEventListener(
+"change",
+() => updatePricePreview(item.id)
+);
+
+});
+
+}
+
+
+/* =========================
+QİYMƏT PREVIEW
+========================= */
+
+function updatePricePreview(id){
+
+const regular =
+Number(
+document.getElementById(
+"regular-" + id
+).value
+) || 0;
+
+const sale =
+Number(
+document.getElementById(
+"sale-" + id
+).value
+) || 0;
+
+const active =
+document.getElementById(
+"active-" + id
+).checked;
+
+
+const percentBox =
+document.getElementById(
+"percent-" + id
+);
+
+const statusBox =
+document.getElementById(
+"status-" + id
+);
+
+
+let percent = 0;
+
+if(
+active &&
+regular > 0 &&
+sale < regular
+){
+
+percent =
+Math.round(
+((regular - sale) / regular) * 100
+);
+
+}
+
+
+percentBox.textContent =
+percent > 0
+?
+"🔥 " + percent + "% ENDİRİM"
+:
+"Endirim yoxdur";
+
+
+statusBox.textContent =
+active
+?
+"AKTİV"
+:
+"DEAKTİV";
+
+}
+
+
+/* =========================
+QİYMƏTİ YADDA SAXLA
+========================= */
+
+async function savePrice(id,productKey){
+
+const regular =
+Number(
+document.getElementById(
+"regular-" + id
+).value
+);
+
+const sale =
+Number(
+document.getElementById(
+"sale-" + id
+).value
+);
+
+const active =
+document.getElementById(
+"active-" + id
+).checked;
+
+
+if(
+isNaN(regular) ||
+regular < 0
+){
+
+showPriceMessage(
+"Normal qiymət düzgün deyil.",
+true
+);
+
+return;
+
+}
+
+
+if(
+isNaN(sale) ||
+sale < 0
+){
+
+showPriceMessage(
+"Endirimli qiymət düzgün deyil.",
+true
+);
+
+return;
+
+}
+
+
+if(active && sale >= regular){
+
+showPriceMessage(
+"Endirim aktivdirsə, endirimli qiymət normal qiymətdən aşağı olmalıdır.",
+true
+);
+
+return;
+
+}
+
+
+const {
+error
+} =
+await supabaseClient
+.from("product_prices")
+.update({
+
+regular_price:regular,
+
+sale_price:sale,
+
+sale_active:active,
+
+updated_at:new Date().toISOString()
+
+})
+.eq("id",id)
+.eq("product_key",productKey);
+
+
+if(error){
+
+console.error(error);
+
+showPriceMessage(
+"Qiymət yadda saxlanmadı: " +
+error.message,
+true
+);
+
+return;
+
+}
+
+
+showPriceMessage(
+"✅ " +
+productKey.toUpperCase() +
+" qiyməti uğurla yadda saxlanıldı.",
+false
+);
+
+
+await loadPrices();
+
+}
+
+
+/* =========================
+QİYMƏT MESAJI
+========================= */
+
+function showPriceMessage(text,isError){
+
+const box =
+document.getElementById(
+"priceMessage"
+);
+
+box.textContent=text;
+
+box.style.display="block";
+
+
+if(isError){
+
+box.classList.add("error");
+
+}else{
+
+box.classList.remove("error");
+
+}
+
+
+setTimeout(() => {
+
+box.style.display="none";
+
+},4000);
 
 }
 
