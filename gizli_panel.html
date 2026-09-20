@@ -176,7 +176,7 @@ padding:15px 0;
 
 
 /* =========================
-   QİYMƏT VƏ ENDİRİM PANELİ
+   QİYMƏT VƏ ENDİRİMLƏR
 ========================= */
 
 .price-product{
@@ -193,6 +193,20 @@ font-size:17px;
 margin-bottom:15px;
 }
 
+.price-month{
+border:1px solid #222;
+border-radius:10px;
+padding:14px;
+margin-bottom:12px;
+}
+
+.price-month-title{
+color:#fff;
+font-weight:bold;
+margin-bottom:12px;
+font-size:15px;
+}
+
 .price-row{
 display:grid;
 grid-template-columns:1fr 1fr;
@@ -203,13 +217,25 @@ gap:12px;
 margin-bottom:12px;
 }
 
+.switch-row{
+display:flex;
+align-items:center;
+gap:10px;
+margin:5px 0 12px;
+}
+
+.switch-row input{
+width:auto;
+margin:0;
+accent-color:#2563eb;
+}
+
 .sale-info{
 display:flex;
 align-items:center;
 justify-content:space-between;
 gap:10px;
-margin-top:2px;
-margin-bottom:12px;
+margin-bottom:5px;
 }
 
 .sale-percent{
@@ -223,22 +249,9 @@ font-size:13px;
 color:#888;
 }
 
-.switch-row{
-display:flex;
-align-items:center;
-gap:10px;
-margin:5px 0 14px;
-}
-
-.switch-row input{
-width:auto;
-margin:0;
-accent-color:#2563eb;
-}
-
 .save-price{
 background:#16a34a;
-margin-top:5px;
+margin-top:8px;
 }
 
 .save-price:hover{
@@ -289,7 +302,6 @@ DigiBaku<span>.com</span>
 </div>
 </header>
 
-
 <main>
 
 <div class="container">
@@ -298,9 +310,7 @@ DigiBaku<span>.com</span>
 Admin yoxlanılır...
 </div>
 
-
 <div id="adminPanel">
-
 
 <!-- =========================
      QİYMƏT VƏ ENDİRİMLƏR
@@ -311,7 +321,7 @@ Admin yoxlanılır...
 <h2>Qiymət və Endirimlər</h2>
 
 <p class="subtitle">
-Məhsulların qiymətini və endirimlərini buradan idarə et
+Məhsulların 1, 2 və 3 aylıq qiymətlərini və endirimlərini buradan idarə et
 </p>
 
 <div id="pricesList">
@@ -339,7 +349,6 @@ Qiymətlər yüklənir...
 Müştəriyə ödənişdən sonra məhsul ver
 </p>
 
-
 <label>
 Müştəri
 </label>
@@ -352,12 +361,10 @@ Müştəri seçin...
 
 </select>
 
-
 <div id="selectedCustomer"
 class="customer-info"
 style="display:none">
 </div>
-
 
 <label>
 Məhsul
@@ -387,7 +394,6 @@ Spotify Premium — 7.99 AZN
 
 </select>
 
-
 <label>
 Müştəriyə veriləcək hesab məlumatı
 </label>
@@ -402,7 +408,6 @@ Email: example@gmail.com
 və ya digər hesab məlumatı..."
 ></textarea>
 
-
 <button
 id="addButton"
 onclick="addProduct()">
@@ -411,9 +416,7 @@ Məhsulu müştəriyə əlavə et
 
 </button>
 
-
-<div id="message"
-class="message">
+<div id="message" class="message">
 </div>
 
 </div>
@@ -428,7 +431,6 @@ Yüklənir...
 </div>
 
 </div>
-
 
 </div>
 
@@ -451,9 +453,8 @@ SUPABASE_URL,
 SUPABASE_KEY
 );
 
-
 const ADMIN_EMAIL =
-"zahidovorxan989@gmail.com";
+"zahidovorxan@gmail.com";
 
 
 /* =========================
@@ -468,7 +469,6 @@ error
 } =
 await supabaseClient.auth.getSession();
 
-
 if(error || !data.session){
 
 window.location.href="login.html";
@@ -476,12 +476,10 @@ return;
 
 }
 
-
 const email =
 (data.session.user.email || "")
 .toLowerCase()
 .trim();
-
 
 if(email !== ADMIN_EMAIL.toLowerCase()){
 
@@ -492,11 +490,9 @@ return;
 
 }
 
-
 document.getElementById("loading").style.display="none";
 
 document.getElementById("adminPanel").style.display="block";
-
 
 await loadCustomers();
 
@@ -516,7 +512,6 @@ async function loadCustomers(){
 const select =
 document.getElementById("customerSelect");
 
-
 const {
 data,
 error
@@ -526,7 +521,6 @@ await supabaseClient
 .select("id,email")
 .not("email","is",null)
 .order("email");
-
 
 if(error){
 
@@ -539,10 +533,8 @@ return;
 
 }
 
-
 select.innerHTML =
 '<option value="">Müştəri seçin...</option>';
-
 
 data.forEach(customer => {
 
@@ -575,7 +567,6 @@ this.options[this.selectedIndex];
 const box =
 document.getElementById("selectedCustomer");
 
-
 if(!this.value){
 
 box.style.display="none";
@@ -583,7 +574,6 @@ box.textContent="";
 return;
 
 }
-
 
 box.style.display="block";
 
@@ -612,7 +602,6 @@ document.getElementById("accountInfo").value.trim();
 const button =
 document.getElementById("addButton");
 
-
 if(!customerId){
 
 showMessage(
@@ -623,7 +612,6 @@ true
 return;
 
 }
-
 
 if(!product){
 
@@ -636,7 +624,6 @@ return;
 
 }
 
-
 if(!accountInfo){
 
 showMessage(
@@ -648,11 +635,9 @@ return;
 
 }
 
-
 button.disabled=true;
 
 button.textContent="Əlavə edilir...";
-
 
 const {
 error
@@ -670,7 +655,6 @@ account_info:accountInfo,
 status:"active"
 
 });
-
 
 if(error){
 
@@ -691,12 +675,10 @@ return;
 
 }
 
-
 showMessage(
 "✅ Məhsul müştərinin profilinə əlavə edildi.",
 false
 );
-
 
 document.getElementById("customerSelect").value="";
 
@@ -706,9 +688,7 @@ document.getElementById("accountInfo").value="";
 
 document.getElementById("selectedCustomer").style.display="none";
 
-
 await loadProducts();
-
 
 button.disabled=false;
 
@@ -727,7 +707,6 @@ async function loadProducts(){
 const list =
 document.getElementById("productsList");
 
-
 const {
 data,
 error
@@ -736,7 +715,6 @@ await supabaseClient
 .from("customer_products")
 .select("*")
 .order("created_at",{ascending:false});
-
 
 if(error){
 
@@ -749,7 +727,6 @@ return;
 
 }
 
-
 if(!data || data.length===0){
 
 list.innerHTML =
@@ -759,9 +736,7 @@ return;
 
 }
 
-
 list.innerHTML="";
-
 
 data.forEach(item => {
 
@@ -770,7 +745,6 @@ document.createElement("div");
 
 div.className="product";
 
-
 const date =
 item.created_at
 ?
@@ -778,7 +752,6 @@ new Date(item.created_at)
 .toLocaleString("az-AZ")
 :
 "-";
-
 
 div.innerHTML=`
 
@@ -808,7 +781,6 @@ Məhsulu sil
 
 `;
 
-
 list.appendChild(div);
 
 });
@@ -830,7 +802,6 @@ return;
 
 }
 
-
 const {
 error
 } =
@@ -838,7 +809,6 @@ await supabaseClient
 .from("customer_products")
 .delete()
 .eq("id",id);
-
 
 if(error){
 
@@ -850,7 +820,6 @@ error.message
 return;
 
 }
-
 
 await loadProducts();
 
@@ -866,7 +835,6 @@ async function loadPrices(){
 const list =
 document.getElementById("pricesList");
 
-
 const {
 data,
 error
@@ -875,7 +843,6 @@ await supabaseClient
 .from("product_prices")
 .select("*")
 .order("id");
-
 
 if(error){
 
@@ -888,7 +855,6 @@ return;
 
 }
 
-
 if(!data || data.length===0){
 
 list.innerHTML =
@@ -898,9 +864,7 @@ return;
 
 }
 
-
 list.innerHTML="";
-
 
 data.forEach(item => {
 
@@ -909,38 +873,21 @@ document.createElement("div");
 
 div.className="price-product";
 
-const regularPrice =
-Number(item.regular_price || 0);
-
-const salePrice =
-item.sale_price === null
-?
-regularPrice
-:
-Number(item.sale_price);
-
-let percent = 0;
-
-if(
-item.sale_active &&
-regularPrice > 0 &&
-salePrice < regularPrice
-){
-
-percent =
-Math.round(
-((regularPrice - salePrice) /
-regularPrice) * 100
-);
-
-}
-
 
 div.innerHTML = `
 
 <h3>
 ${escapeHtml(item.product_name)}
 </h3>
+
+
+<!-- 1 AY -->
+
+<div class="price-month">
+
+<div class="price-month-title">
+1 ay
+</div>
 
 <div class="price-row">
 
@@ -954,8 +901,8 @@ Normal qiymət (AZN)
 type="number"
 step="0.01"
 min="0"
-id="regular-${item.id}"
-value="${regularPrice.toFixed(2)}"
+id="price1-${item.id}"
+value="${Number(item.price_1_month || 0).toFixed(2)}"
 >
 
 </div>
@@ -970,70 +917,216 @@ Endirimli qiymət (AZN)
 type="number"
 step="0.01"
 min="0"
-id="sale-${item.id}"
-value="${salePrice.toFixed(2)}"
+id="sale1-${item.id}"
+value="${Number(item.sale_1_price ?? item.price_1_month ?? 0).toFixed(2)}"
 >
 
 </div>
 
 </div>
-
 
 <div class="switch-row">
 
 <input
 type="checkbox"
-id="active-${item.id}"
-${item.sale_active ? "checked" : ""}
+id="active1-${item.id}"
+${item.sale_1_active ? "checked" : ""}
 >
 
 <label
-for="active-${item.id}"
+for="active1-${item.id}"
 style="margin:0">
 
-Endirimi aktiv et
+1 aylıq endirimi aktiv et
 
 </label>
 
 </div>
 
-
 <div class="sale-info">
 
 <span
 class="sale-percent"
-id="percent-${item.id}">
-
-${
-percent > 0
-?
-"🔥 " + percent + "% ENDİRİM"
-:
-"Endirim yoxdur"
-}
+id="percent1-${item.id}">
 
 </span>
 
 <span
 class="sale-status"
-id="status-${item.id}">
-
-${
-item.sale_active
-?
-"AKTİV"
-:
-"DEAKTİV"
-}
+id="status1-${item.id}">
 
 </span>
+
+</div>
+
+</div>
+
+
+<!-- 2 AY -->
+
+<div class="price-month">
+
+<div class="price-month-title">
+2 ay
+</div>
+
+<div class="price-row">
+
+<div>
+
+<label>
+Normal qiymət (AZN)
+</label>
+
+<input
+type="number"
+step="0.01"
+min="0"
+id="price2-${item.id}"
+value="${Number(item.price_2_month || 0).toFixed(2)}"
+>
+
+</div>
+
+<div>
+
+<label>
+Endirimli qiymət (AZN)
+</label>
+
+<input
+type="number"
+step="0.01"
+min="0"
+id="sale2-${item.id}"
+value="${Number(item.sale_2_price ?? item.price_2_month ?? 0).toFixed(2)}"
+>
+
+</div>
+
+</div>
+
+<div class="switch-row">
+
+<input
+type="checkbox"
+id="active2-${item.id}"
+${item.sale_2_active ? "checked" : ""}
+>
+
+<label
+for="active2-${item.id}"
+style="margin:0">
+
+2 aylıq endirimi aktiv et
+
+</label>
+
+</div>
+
+<div class="sale-info">
+
+<span
+class="sale-percent"
+id="percent2-${item.id}">
+
+</span>
+
+<span
+class="sale-status"
+id="status2-${item.id}">
+
+</span>
+
+</div>
+
+</div>
+
+
+<!-- 3 AY -->
+
+<div class="price-month">
+
+<div class="price-month-title">
+3 ay
+</div>
+
+<div class="price-row">
+
+<div>
+
+<label>
+Normal qiymət (AZN)
+</label>
+
+<input
+type="number"
+step="0.01"
+min="0"
+id="price3-${item.id}"
+value="${Number(item.price_3_month || 0).toFixed(2)}"
+>
+
+</div>
+
+<div>
+
+<label>
+Endirimli qiymət (AZN)
+</label>
+
+<input
+type="number"
+step="0.01"
+min="0"
+id="sale3-${item.id}"
+value="${Number(item.sale_3_price ?? item.price_3_month ?? 0).toFixed(2)}"
+>
+
+</div>
+
+</div>
+
+<div class="switch-row">
+
+<input
+type="checkbox"
+id="active3-${item.id}"
+${item.sale_3_active ? "checked" : ""}
+>
+
+<label
+for="active3-${item.id}"
+style="margin:0">
+
+3 aylıq endirimi aktiv et
+
+</label>
+
+</div>
+
+<div class="sale-info">
+
+<span
+class="sale-percent"
+id="percent3-${item.id}">
+
+</span>
+
+<span
+class="sale-status"
+id="status3-${item.id}">
+
+</span>
+
+</div>
 
 </div>
 
 
 <button
 class="save-price"
-onclick="savePrice(${item.id}, '${escapeHtml(item.product_key)}')">
+onclick="savePrice(${item.id}, '${item.product_key}')">
 
 Yadda saxla
 
@@ -1041,39 +1134,77 @@ Yadda saxla
 
 `;
 
-
 list.appendChild(div);
 
 
-const regularInput =
+updatePricePreview(item.id,1);
+updatePricePreview(item.id,2);
+updatePricePreview(item.id,3);
+
+
 document.getElementById(
-"regular-" + item.id
-);
-
-const saleInput =
-document.getElementById(
-"sale-" + item.id
-);
-
-const activeInput =
-document.getElementById(
-"active-" + item.id
-);
-
-
-regularInput.addEventListener(
+"price1-" + item.id
+).addEventListener(
 "input",
-() => updatePricePreview(item.id)
+() => updatePricePreview(item.id,1)
 );
 
-saleInput.addEventListener(
+document.getElementById(
+"sale1-" + item.id
+).addEventListener(
 "input",
-() => updatePricePreview(item.id)
+() => updatePricePreview(item.id,1)
 );
 
-activeInput.addEventListener(
+document.getElementById(
+"active1-" + item.id
+).addEventListener(
 "change",
-() => updatePricePreview(item.id)
+() => updatePricePreview(item.id,1)
+);
+
+
+document.getElementById(
+"price2-" + item.id
+).addEventListener(
+"input",
+() => updatePricePreview(item.id,2)
+);
+
+document.getElementById(
+"sale2-" + item.id
+).addEventListener(
+"input",
+() => updatePricePreview(item.id,2)
+);
+
+document.getElementById(
+"active2-" + item.id
+).addEventListener(
+"change",
+() => updatePricePreview(item.id,2)
+);
+
+
+document.getElementById(
+"price3-" + item.id
+).addEventListener(
+"input",
+() => updatePricePreview(item.id,3)
+);
+
+document.getElementById(
+"sale3-" + item.id
+).addEventListener(
+"input",
+() => updatePricePreview(item.id,3)
+);
+
+document.getElementById(
+"active3-" + item.id
+).addEventListener(
+"change",
+() => updatePricePreview(item.id,3)
 );
 
 });
@@ -1085,38 +1216,36 @@ activeInput.addEventListener(
 QİYMƏT PREVIEW
 ========================= */
 
-function updatePricePreview(id){
+function updatePricePreview(id,month){
 
 const regular =
 Number(
 document.getElementById(
-"regular-" + id
+"price" + month + "-" + id
 ).value
 ) || 0;
 
 const sale =
 Number(
 document.getElementById(
-"sale-" + id
+"sale" + month + "-" + id
 ).value
 ) || 0;
 
 const active =
 document.getElementById(
-"active-" + id
+"active" + month + "-" + id
 ).checked;
-
 
 const percentBox =
 document.getElementById(
-"percent-" + id
+"percent" + month + "-" + id
 );
 
 const statusBox =
 document.getElementById(
-"status-" + id
+"status" + month + "-" + id
 );
-
 
 let percent = 0;
 
@@ -1133,14 +1262,12 @@ Math.round(
 
 }
 
-
 percentBox.textContent =
 percent > 0
 ?
 "🔥 " + percent + "% ENDİRİM"
 :
 "Endirim yoxdur";
-
 
 statusBox.textContent =
 active
@@ -1158,33 +1285,77 @@ QİYMƏTİ YADDA SAXLA
 
 async function savePrice(id,productKey){
 
-const regular =
+const price1 =
 Number(
 document.getElementById(
-"regular-" + id
+"price1-" + id
 ).value
 );
 
-const sale =
+const price2 =
 Number(
 document.getElementById(
-"sale-" + id
+"price2-" + id
 ).value
 );
 
-const active =
+const price3 =
+Number(
 document.getElementById(
-"active-" + id
+"price3-" + id
+).value
+);
+
+
+const sale1 =
+Number(
+document.getElementById(
+"sale1-" + id
+).value
+);
+
+const sale2 =
+Number(
+document.getElementById(
+"sale2-" + id
+).value
+);
+
+const sale3 =
+Number(
+document.getElementById(
+"sale3-" + id
+).value
+);
+
+
+const active1 =
+document.getElementById(
+"active1-" + id
+).checked;
+
+const active2 =
+document.getElementById(
+"active2-" + id
+).checked;
+
+const active3 =
+document.getElementById(
+"active3-" + id
 ).checked;
 
 
 if(
-isNaN(regular) ||
-regular < 0
+!Number.isFinite(price1) ||
+price1 < 0 ||
+!Number.isFinite(price2) ||
+price2 < 0 ||
+!Number.isFinite(price3) ||
+price3 < 0
 ){
 
 showPriceMessage(
-"Normal qiymət düzgün deyil.",
+"Normal qiymətlər düzgün deyil.",
 true
 );
 
@@ -1194,12 +1365,16 @@ return;
 
 
 if(
-isNaN(sale) ||
-sale < 0
+!Number.isFinite(sale1) ||
+sale1 < 0 ||
+!Number.isFinite(sale2) ||
+sale2 < 0 ||
+!Number.isFinite(sale3) ||
+sale3 < 0
 ){
 
 showPriceMessage(
-"Endirimli qiymət düzgün deyil.",
+"Endirimli qiymətlər düzgün deyil.",
 true
 );
 
@@ -1208,10 +1383,34 @@ return;
 }
 
 
-if(active && sale >= regular){
+if(active1 && sale1 >= price1){
 
 showPriceMessage(
-"Endirim aktivdirsə, endirimli qiymət normal qiymətdən aşağı olmalıdır.",
+"1 aylıq endirimli qiymət normal qiymətdən aşağı olmalıdır.",
+true
+);
+
+return;
+
+}
+
+
+if(active2 && sale2 >= price2){
+
+showPriceMessage(
+"2 aylıq endirimli qiymət normal qiymətdən aşağı olmalıdır.",
+true
+);
+
+return;
+
+}
+
+
+if(active3 && sale3 >= price3){
+
+showPriceMessage(
+"3 aylıq endirimli qiymət normal qiymətdən aşağı olmalıdır.",
 true
 );
 
@@ -1227,11 +1426,17 @@ await supabaseClient
 .from("product_prices")
 .update({
 
-regular_price:regular,
+price_1_month:price1,
+price_2_month:price2,
+price_3_month:price3,
 
-sale_price:sale,
+sale_1_price:sale1,
+sale_2_price:sale2,
+sale_3_price:sale3,
 
-sale_active:active,
+sale_1_active:active1,
+sale_2_active:active2,
+sale_3_active:active3,
 
 updated_at:new Date().toISOString()
 
@@ -1258,7 +1463,7 @@ return;
 showPriceMessage(
 "✅ " +
 productKey.toUpperCase() +
-" qiyməti uğurla yadda saxlanıldı.",
+" qiymətləri uğurla yadda saxlanıldı.",
 false
 );
 
@@ -1283,7 +1488,6 @@ box.textContent=text;
 
 box.style.display="block";
 
-
 if(isError){
 
 box.classList.add("error");
@@ -1293,7 +1497,6 @@ box.classList.add("error");
 box.classList.remove("error");
 
 }
-
 
 setTimeout(() => {
 
