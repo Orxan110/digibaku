@@ -4,304 +4,505 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>DigiBaku Admin Panel</title>
+<title>DigiBaku — Admin</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-}
+*{box-sizing:border-box;margin:0;padding:0}
 
 body{
-    font-family:Arial,sans-serif;
-    background:#080b12;
-    color:#fff;
-}
-
-header{
-    background:#0d111b;
-    padding:20px;
-    border-bottom:1px solid #202838;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-}
-
-header h1{
-    color:#4da3ff;
-    font-size:22px;
-}
-
-button{
-    border:0;
-    border-radius:8px;
-    padding:10px 15px;
-    cursor:pointer;
-    font-weight:bold;
-}
-
-.logout{
-    background:#ff4444;
-    color:#fff;
+font-family:Arial,sans-serif;
+background:#050505;
+color:#fff;
+min-height:100vh;
 }
 
 .container{
-    max-width:1400px;
-    margin:auto;
-    padding:20px;
+width:92%;
+max-width:850px;
+margin:auto;
 }
 
-.section{
-    background:#0d111b;
-    border:1px solid #202838;
-    border-radius:14px;
-    padding:20px;
-    margin-bottom:20px;
+header{
+background:#090909;
+border-bottom:1px solid #222;
 }
 
-.section h2{
-    color:#4da3ff;
-    margin-bottom:15px;
+.nav{
+min-height:70px;
+display:flex;
+align-items:center;
+justify-content:space-between;
 }
 
-.grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-    gap:15px;
+.logo{
+font-size:24px;
+font-weight:900;
+color:#3b82f6;
 }
+
+.logo span{color:#fff}
+
+.back{
+color:#aaa;
+text-decoration:none;
+}
+
+main{padding:35px 0}
 
 .card{
-    background:#121826;
-    border:1px solid #263149;
-    border-radius:12px;
-    padding:15px;
+background:#101010;
+border:1px solid #262626;
+border-radius:18px;
+padding:25px;
+margin-bottom:20px;
 }
 
-.card h3{
-    margin-bottom:10px;
-    color:#fff;
-}
+h1{margin-bottom:8px}
+h2{margin-bottom:18px}
 
-input,
-select,
-textarea{
-    width:100%;
-    background:#080d16;
-    color:#fff;
-    border:1px solid #303b52;
-    border-radius:8px;
-    padding:10px;
-    margin-top:7px;
-    outline:none;
-}
-
-textarea{
-    resize:vertical;
-    min-height:80px;
+.subtitle{
+color:#888;
+margin-bottom:25px;
 }
 
 label{
-    display:block;
-    margin-top:10px;
-    color:#aeb9cc;
-    font-size:13px;
+display:block;
+color:#aaa;
+font-size:14px;
+font-weight:bold;
+margin-bottom:7px;
 }
 
-.save{
-    background:#1683ff;
-    color:#fff;
-    margin-top:12px;
+input,select,textarea{
+width:100%;
+padding:14px;
+margin-bottom:17px;
+border-radius:10px;
+border:1px solid #333;
+background:#080808;
+color:#fff;
+font-size:14px;
+outline:none;
 }
 
-.delete{
-    background:#e53935;
-    color:#fff;
-    margin-top:10px;
+textarea{
+min-height:130px;
+resize:vertical;
 }
 
-.small{
-    color:#8995aa;
-    font-size:12px;
+button{
+width:100%;
+padding:14px;
+border:0;
+border-radius:10px;
+background:#2563eb;
+color:#fff;
+font-weight:bold;
+font-size:15px;
+cursor:pointer;
 }
 
-.customer{
-    cursor:pointer;
-    transition:.2s;
-}
-
-.customer:hover{
-    border-color:#1683ff;
-}
-
-.customer.active{
-    border-color:#1683ff;
-    background:#101d31;
-}
-
-.unread{
-    background:#ff3b30;
-    color:#fff;
-    border-radius:20px;
-    padding:4px 8px;
-    font-size:11px;
-    float:right;
-}
-
-.chat-layout{
-    display:grid;
-    grid-template-columns:300px 1fr;
-    gap:15px;
-}
-
-.customer-list{
-    max-height:600px;
-    overflow-y:auto;
-}
-
-.chat-box{
-    background:#080d16;
-    border:1px solid #263149;
-    border-radius:12px;
-    display:flex;
-    flex-direction:column;
-    min-height:600px;
-}
-
-.chat-header{
-    padding:15px;
-    border-bottom:1px solid #263149;
-    color:#4da3ff;
-    font-weight:bold;
-}
-
-.messages{
-    flex:1;
-    padding:15px;
-    overflow-y:auto;
-    display:flex;
-    flex-direction:column;
-    gap:10px;
+button:disabled{
+opacity:.6;
 }
 
 .message{
-    max-width:75%;
-    padding:10px 13px;
-    border-radius:12px;
-    line-height:1.4;
+display:none;
+padding:13px;
+border-radius:10px;
+margin-top:15px;
+line-height:1.5;
+background:#0b2b1d;
+border:1px solid #166534;
+color:#86efac;
 }
 
-.message.customer-msg{
-    align-self:flex-start;
-    background:#202a3d;
+.message.error{
+background:#2b0b0b;
+border-color:#7f1d1d;
+color:#fca5a5;
 }
 
-.message.admin-msg{
-    align-self:flex-end;
-    background:#1264c7;
+.loading{
+text-align:center;
+padding:70px 20px;
+color:#888;
 }
 
-.message-time{
-    display:block;
-    font-size:10px;
-    opacity:.6;
-    margin-top:4px;
+#adminPanel{
+display:none;
 }
 
-.chat-input{
-    padding:12px;
-    border-top:1px solid #263149;
-    display:flex;
-    gap:8px;
+.customer-info{
+background:#080808;
+border:1px solid #222;
+padding:12px;
+border-radius:10px;
+margin-bottom:15px;
+color:#60a5fa;
+font-size:14px;
 }
 
-.chat-input textarea{
-    margin:0;
-    min-height:45px;
-    height:45px;
+.product{
+background:#080808;
+border:1px solid #252525;
+border-radius:12px;
+padding:17px;
+margin-bottom:10px;
 }
 
-.chat-input button{
-    background:#1683ff;
-    color:#fff;
-    min-width:90px;
+.product strong{
+display:block;
+color:#60a5fa;
+font-size:17px;
+margin-bottom:7px;
 }
 
-.order{
-    margin-bottom:12px;
+.product small{
+color:#888;
 }
 
-.order-top{
-    display:flex;
-    justify-content:space-between;
-    gap:10px;
-    flex-wrap:wrap;
-}
-
-.status{
-    padding:5px 8px;
-    border-radius:7px;
-    font-size:12px;
-}
-
-.status.pending{
-    background:#765d00;
-}
-
-.status.processing{
-    background:#075a99;
-}
-
-.status.completed{
-    background:#126b3b;
-}
-
-.status.cancelled{
-    background:#751e1e;
+.delete{
+margin-top:12px;
+background:#991b1b;
 }
 
 .empty{
-    color:#758197;
-    text-align:center;
-    padding:30px;
+color:#777;
+padding:15px 0;
+}
+
+/* QİYMƏT VƏ ENDİRİMLƏR */
+
+.price-product{
+background:#080808;
+border:1px solid #252525;
+border-radius:12px;
+padding:18px;
+margin-bottom:14px;
+}
+
+.price-product h3{
+color:#60a5fa;
+font-size:17px;
+margin-bottom:15px;
+}
+
+.price-month{
+border:1px solid #222;
+border-radius:10px;
+padding:14px;
+margin-bottom:12px;
+}
+
+.price-month-title{
+color:#fff;
+font-weight:bold;
+margin-bottom:12px;
+font-size:15px;
 }
 
 .price-row{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:10px;
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:12px;
 }
 
-.price-info{
-    margin-top:10px;
-    padding:10px;
-    background:#080d16;
-    border-radius:8px;
-    font-size:13px;
+.price-row input{
+margin-bottom:12px;
 }
 
-.sale-active{
-    color:#39e58c;
+.switch-row{
+display:flex;
+align-items:center;
+gap:10px;
+margin:5px 0 12px;
 }
 
-.sale-inactive{
-    color:#ff7070;
+.switch-row input{
+width:auto;
+margin:0;
+accent-color:#2563eb;
 }
 
-@media(max-width:700px){
-    .chat-layout{
-        grid-template-columns:1fr;
-    }
+.sale-info{
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:10px;
+margin-bottom:5px;
+}
 
-    .customer-list{
-        max-height:300px;
-    }
+.sale-percent{
+color:#86efac;
+font-size:14px;
+font-weight:bold;
+}
 
-    .message{
-        max-width:90%;
-    }
+.sale-status{
+font-size:13px;
+color:#888;
+}
+
+.save-price{
+background:#16a34a;
+margin-top:8px;
+}
+
+.save-price:hover{
+background:#15803d;
+}
+
+.price-message{
+display:none;
+padding:13px;
+border-radius:10px;
+margin-top:15px;
+background:#0b2b1d;
+border:1px solid #166534;
+color:#86efac;
+line-height:1.5;
+}
+
+.price-message.error{
+background:#2b0b0b;
+border-color:#7f1d1d;
+color:#fca5a5;
+}
+
+/* CANVA */
+
+.canva-price{
+border-color:#3b82f6;
+}
+
+.canva-title{
+color:#60a5fa;
+font-weight:bold;
+font-size:16px;
+margin-bottom:14px;
+}
+
+/* CHAT */
+
+.chat-layout{
+display:grid;
+grid-template-columns:260px 1fr;
+gap:15px;
+min-height:500px;
+}
+
+.chat-customers{
+background:#080808;
+border:1px solid #252525;
+border-radius:12px;
+overflow:hidden;
+}
+
+.chat-customer{
+padding:15px;
+border-bottom:1px solid #222;
+cursor:pointer;
+transition:.2s;
+}
+
+.chat-customer:hover{
+background:#151515;
+}
+
+.chat-customer.active{
+background:#172554;
+border-left:3px solid #3b82f6;
+}
+
+.chat-customer-name{
+font-weight:bold;
+color:#fff;
+font-size:14px;
+word-break:break-all;
+}
+
+.chat-customer-status{
+color:#777;
+font-size:12px;
+margin-top:5px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:5px;
+}
+
+.unread-badge{
+background:#2563eb;
+color:#fff;
+border-radius:20px;
+padding:3px 7px;
+font-size:11px;
+font-weight:bold;
+flex-shrink:0;
+}
+
+.chat-box{
+display:flex;
+flex-direction:column;
+background:#080808;
+border:1px solid #252525;
+border-radius:12px;
+overflow:hidden;
+min-width:0;
+}
+
+.chat-header{
+padding:15px;
+background:#101010;
+border-bottom:1px solid #222;
+font-weight:bold;
+color:#60a5fa;
+}
+
+.chat-messages{
+flex:1;
+height:330px;
+overflow-y:auto;
+padding:15px;
+display:flex;
+flex-direction:column;
+gap:10px;
+}
+
+.chat-msg{
+max-width:80%;
+padding:10px 13px;
+border-radius:12px;
+font-size:14px;
+line-height:1.45;
+word-break:break-word;
+}
+
+.chat-msg.admin{
+align-self:flex-end;
+background:#2563eb;
+color:#fff;
+border-bottom-right-radius:3px;
+}
+
+.chat-msg.customer{
+align-self:flex-start;
+background:#1b1b1b;
+border:1px solid #2b2b2b;
+color:#eee;
+border-bottom-left-radius:3px;
+}
+
+.chat-time{
+display:block;
+font-size:10px;
+opacity:.65;
+margin-top:5px;
+}
+
+.chat-send{
+padding:12px;
+border-top:1px solid #222;
+}
+
+.chat-send textarea{
+min-height:75px;
+margin-bottom:8px;
+}
+
+.chat-send button{
+margin:0;
+}
+
+/* ORDERS */
+
+.order-card{
+background:#080808;
+border:1px solid #252525;
+border-radius:12px;
+padding:16px;
+margin-bottom:12px;
+}
+
+.order-top{
+display:flex;
+justify-content:space-between;
+align-items:flex-start;
+gap:10px;
+margin-bottom:12px;
+}
+
+.order-product{
+font-size:17px;
+font-weight:bold;
+color:#60a5fa;
+}
+
+.order-id{
+font-size:11px;
+color:#666;
+margin-top:4px;
+word-break:break-all;
+}
+
+.order-info{
+color:#aaa;
+font-size:13px;
+line-height:1.7;
+margin-bottom:12px;
+}
+
+.order-info strong{
+color:#ddd;
+}
+
+.order-actions{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
+}
+
+.order-status{
+margin:0;
+}
+
+.order-chat{
+background:#374151;
+}
+
+.order-chat:hover{
+background:#4b5563;
+}
+
+/* MOBILE */
+
+@media(max-width:600px){
+
+.price-row{
+grid-template-columns:1fr;
+gap:0;
+}
+
+.chat-layout{
+grid-template-columns:1fr;
+}
+
+.chat-customers{
+max-height:230px;
+overflow-y:auto;
+}
+
+.chat-messages{
+height:300px;
+}
+
+.order-actions{
+grid-template-columns:1fr;
+}
+
 }
 </style>
 </head>
@@ -309,134 +510,263 @@ label{
 <body>
 
 <header>
-    <h1>💎 DigiBaku Admin Panel</h1>
-    <button class="logout" onclick="logout()">Çıxış</button>
+<div class="container nav">
+
+<div class="logo">
+DigiBaku<span>.com</span>
+</div>
+
+<a href="index.html" class="back">
+← Sayta qayıt
+</a>
+
+</div>
 </header>
+
+
+<main>
 
 <div class="container">
 
-    <!-- ================= MÜŞTƏRİ CHAT ================= -->
-
-    <div class="section">
-        <h2>💬 Müştəri Chatı</h2>
-
-        <div class="chat-layout">
-
-            <div>
-                <div class="small" style="margin-bottom:10px;">
-                    Müştərilər
-                </div>
-
-                <div id="customerList" class="customer-list">
-                    <div class="empty">Yüklənir...</div>
-                </div>
-            </div>
-
-            <div class="chat-box">
-
-                <div id="chatHeader" class="chat-header">
-                    Müştəri seçin
-                </div>
-
-                <div id="messages" class="messages">
-                    <div class="empty">
-                        Söhbəti görmək üçün müştəri seçin.
-                    </div>
-                </div>
-
-                <div class="chat-input">
-
-                    <textarea
-                        id="messageInput"
-                        placeholder="Mesaj yazın..."
-                        onkeydown="handleMessageKey(event)"
-                    ></textarea>
-
-                    <button onclick="sendMessage()">
-                        Göndər
-                    </button>
-
-                </div>
-
-            </div>
-
-        </div>
-    </div>
+<div id="loading" class="loading">
+Admin yoxlanılır...
+</div>
 
 
-    <!-- ================= SİFARİŞLƏR ================= -->
+<div id="adminPanel">
 
-    <div class="section">
+<!-- =====================================================
+     QİYMƏTLƏR
+===================================================== -->
 
-        <h2>🛒 Sifarişlər</h2>
+<div class="card">
 
-        <div id="ordersList">
-            <div class="empty">Sifarişlər yüklənir...</div>
-        </div>
+<h2>Qiymət və Endirimlər</h2>
 
-    </div>
+<p class="subtitle">
+Məhsulların qiymətlərini və endirimlərini buradan idarə et
+</p>
 
+<div id="pricesList">
+<div class="empty">
+Qiymətlər yüklənir...
+</div>
+</div>
 
-    <!-- ================= MÜŞTƏRİ MƏHSULLARI ================= -->
-
-    <div class="section">
-
-        <h2>📦 Müştəri Məhsulları</h2>
-
-        <div class="card">
-
-            <label>Müştəri ID</label>
-            <input
-                id="productUserId"
-                placeholder="Müştərinin UUID-si"
-            >
-
-            <label>Məhsul</label>
-
-            <select id="productName">
-                <option>Netflix Premium</option>
-                <option>YouTube Premium</option>
-                <option>ChatGPT Plus</option>
-                <option>Google Gemini Premium</option>
-                <option>Spotify Premium</option>
-                <option>Canva Premium</option>
-            </select>
-
-            <label>Hesab məlumatı</label>
-
-            <textarea
-                id="accountInfo"
-                placeholder="Email / şifrə və ya hesab məlumatı"
-            ></textarea>
-
-            <button class="save" onclick="addProduct()">
-                Məhsulu əlavə et
-            </button>
-
-        </div>
-
-        <br>
-
-        <div id="productsList" class="grid">
-            <div class="empty">Yüklənir...</div>
-        </div>
-
-    </div>
-
-
-    <!-- ================= QİYMƏTLƏR ================= -->
-
-    <div class="section">
-
-        <h2>💰 Məhsul Qiymətləri</h2>
-
-        <div id="pricesList" class="grid">
-            <div class="empty">Qiymətlər yüklənir...</div>
-        </div>
-
-    </div>
+<div id="priceMessage" class="price-message"></div>
 
 </div>
+
+
+<!-- =====================================================
+     MƏHSUL VERİLMƏSİ
+===================================================== -->
+
+<div class="card">
+
+<h1>Admin Panel</h1>
+
+<p class="subtitle">
+Müştəriyə ödənişdən sonra məhsul ver
+</p>
+
+
+<label>Müştəri</label>
+
+<select id="customerSelect">
+
+<option value="">
+Müştəri seçin...
+</option>
+
+</select>
+
+
+<div
+id="selectedCustomer"
+class="customer-info"
+style="display:none"
+></div>
+
+
+<label>Məhsul</label>
+
+<select id="productSelect">
+
+<option value="">
+Məhsul seçin...
+</option>
+
+<option value="Netflix Premium">
+Netflix Premium
+</option>
+
+<option value="YouTube Premium">
+YouTube Premium
+</option>
+
+<option value="ChatGPT Plus">
+ChatGPT Plus
+</option>
+
+<option value="Google Gemini Premium">
+Google Gemini Premium
+</option>
+
+<option value="Spotify Premium">
+Spotify Premium
+</option>
+
+<option value="Canva Premium">
+Canva Premium — 12 ay — 5.99 AZN
+</option>
+
+</select>
+
+
+<label>
+Müştəriyə veriləcək hesab məlumatı
+</label>
+
+<textarea
+id="accountInfo"
+placeholder="Məsələn:
+Email: example@gmail.com
+Şifrə: ********
+və ya digər hesab məlumatı..."
+></textarea>
+
+
+<button
+id="addButton"
+onclick="addProduct()"
+>
+Məhsulu müştəriyə əlavə et
+</button>
+
+<div id="message" class="message"></div>
+
+</div>
+
+
+<!-- =====================================================
+     VERİLMİŞ MƏHSULLAR
+===================================================== -->
+
+<div class="card">
+
+<h2>Verilmiş məhsullar</h2>
+
+<div id="productsList">
+Yüklənir...
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     CHAT
+===================================================== -->
+
+<div class="card">
+
+<h2>💬 Müştəri Çatı</h2>
+
+<p class="subtitle">
+Müştərilərlə birbaşa yazış
+</p>
+
+
+<div class="chat-layout">
+
+
+<div class="chat-customers">
+
+<div id="chatCustomers">
+
+<div class="empty">
+Müştərilər yüklənir...
+</div>
+
+</div>
+
+</div>
+
+
+<div class="chat-box">
+
+
+<div
+id="chatHeader"
+class="chat-header"
+>
+Müştəri seçin
+</div>
+
+
+<div
+id="chatMessages"
+class="chat-messages"
+>
+
+<div class="empty">
+Mesajları görmək üçün müştəri seçin.
+</div>
+
+</div>
+
+
+<div class="chat-send">
+
+<textarea
+id="chatInput"
+placeholder="Müştəriyə mesaj yaz..."
+></textarea>
+
+
+<button
+id="sendChatButton"
+onclick="sendChatMessage()"
+>
+Mesaj göndər
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     SİFARİŞLƏR
+===================================================== -->
+
+<div class="card">
+
+<h2>📦 Sifarişlər</h2>
+
+<p class="subtitle">
+Müştərilərin sifarişlərini idarə et
+</p>
+
+
+<div id="ordersList">
+
+<div class="empty">
+Sifarişlər yüklənir...
+</div>
+
+</div>
+
+</div>
+
+
+</div>
+</div>
+</main>
 
 
 <script>
@@ -447,411 +777,1287 @@ const SUPABASE_URL =
 const SUPABASE_KEY =
 "sb_publishable_jHvCp9fXBA_BwFqrXYpwlw_VC6C1OQk";
 
+
 const supabaseClient =
 window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
+SUPABASE_URL,
+SUPABASE_KEY
 );
+
 
 const ADMIN_EMAIL =
 "zahidovorxan989@gmail.com";
 
 
-let selectedCustomerId = null;
-let selectedCustomerEmail = "";
-let realtimeChannel = null;
+let selectedChatUserId = null;
+let selectedChatEmail = null;
+let adminRealtimeChannel = null;
 
 
 /* =====================================================
-   LOGIN / ADMIN
+   ADMIN CHECK
 ===================================================== */
 
 async function checkAdmin(){
 
-    const {
-        data:{
-            session
-        }
-    } = await supabaseClient.auth.getSession();
+try{
 
-    if(!session){
-        window.location.href = "login.html";
-        return;
-    }
+const {
+data:{
+session
+}
+} = await supabaseClient.auth.getSession();
 
-    const email =
-        session.user.email;
 
-    if(
-        !email ||
-        email.toLowerCase() !==
-        ADMIN_EMAIL.toLowerCase()
-    ){
+if(!session){
 
-        alert("Admin icazəsi yoxdur.");
+window.location.href="login.html";
 
-        await supabaseClient.auth.signOut();
+return;
 
-        window.location.href =
-            "login.html";
+}
 
-        return;
-    }
 
-    await loadCustomers();
-    await loadOrders();
-    await loadProducts();
-    await loadPrices();
+const email =
+(session.user.email || "").toLowerCase();
 
-    setupRealtime();
+
+if(email !== ADMIN_EMAIL.toLowerCase()){
+
+alert("Bu səhifəyə giriş icazəniz yoxdur.");
+
+await supabaseClient.auth.signOut();
+
+window.location.href="login.html";
+
+return;
+
+}
+
+
+document.getElementById("loading").style.display="none";
+
+document.getElementById("adminPanel").style.display="block";
+
+
+await loadCustomers();
+
+await loadProducts();
+
+await loadPrices();
+
+await loadChatCustomers();
+
+await loadOrders();
+
+setupAdminRealtime();
+
+
+}catch(error){
+
+console.error(error);
+
+document.getElementById("loading").innerHTML=
+"Admin yoxlanılarkən xəta baş verdi.";
+
+}
+
 }
 
 
 /* =====================================================
-   LOGOUT
-===================================================== */
-
-async function logout(){
-
-    await supabaseClient.auth.signOut();
-
-    window.location.href =
-        "login.html";
-}
-
-
-/* =====================================================
-   CUSTOMERS
+   CUSTOMER LIST
 ===================================================== */
 
 async function loadCustomers(){
 
-    const list =
-        document.getElementById(
-            "customerList"
-        );
+const select =
+document.getElementById("customerSelect");
 
-    const {
-        data,
-        error
-    } = await supabaseClient
-        .from("profiles")
-        .select("id,email,full_name,phone,created_at")
-        .order("created_at",{
-            ascending:false
-        });
 
-    if(error){
+const {
+data,
+error
+} =
+await supabaseClient
+.from("profiles")
+.select("id,email,full_name")
+.not("email","is",null)
+.order("email");
 
-        console.error(error);
 
-        list.innerHTML = `
-            <div class="empty">
-                Müştərilər yüklənmədi.
-                <br><br>
-                ${error.message}
-            </div>
-        `;
+if(error){
 
-        return;
-    }
+console.error(error);
 
-    if(!data || data.length === 0){
+return;
 
-        list.innerHTML =
-            `<div class="empty">
-                Müştəri yoxdur.
-            </div>`;
+}
 
-        return;
-    }
 
-    list.innerHTML = "";
+select.innerHTML=
+'<option value="">Müştəri seçin...</option>';
 
-    for(const customer of data){
 
-        const {
-            count
-        } = await supabaseClient
-            .from("messages")
-            .select("*",{
-                count:"exact",
-                head:true
-            })
-            .eq("user_id",customer.id)
-            .eq("sender_role","customer")
-            .eq("is_read",false);
+(data || []).forEach(function(customer){
 
-        const div =
-            document.createElement("div");
+const option =
+document.createElement("option");
 
-        div.className =
-            "card customer";
+option.value=customer.id;
 
-        div.dataset.id =
-            customer.id;
+option.textContent=
+customer.full_name
+? customer.full_name+" — "+customer.email
+: customer.email;
 
-        div.onclick = () =>
-            selectCustomer(
-                customer.id,
-                customer.email || "Müştəri"
-            );
+select.appendChild(option);
 
-        div.innerHTML = `
+});
 
-            <div>
-                <strong>
-                    ${
-                        customer.full_name ||
-                        customer.email ||
-                        "Müştəri"
-                    }
-                </strong>
-
-                ${
-                    count > 0
-                    ? `<span class="unread">${count}</span>`
-                    : ""
-                }
-            </div>
-
-            <div class="small" style="margin-top:6px;">
-                ${customer.email || "Email yoxdur"}
-            </div>
-
-            ${
-                customer.phone
-                ? `
-                <div class="small">
-                    ${customer.phone}
-                </div>
-                `
-                : ""
-            }
-
-        `;
-
-        list.appendChild(div);
-    }
 }
 
 
 /* =====================================================
-   SELECT CUSTOMER
+   CUSTOMER CHANGE
 ===================================================== */
 
-async function selectCustomer(
-    id,
-    email
-){
+document
+.getElementById("customerSelect")
+.addEventListener("change",function(){
 
-    selectedCustomerId =
-        id;
+const customerId=this.value;
 
-    selectedCustomerEmail =
-        email;
+const info =
+document.getElementById("selectedCustomer");
 
-    document
-        .querySelectorAll(".customer")
-        .forEach(el => {
 
-            el.classList.toggle(
-                "active",
-                el.dataset.id === id
-            );
+if(!customerId){
 
-        });
+info.style.display="none";
 
-    document.getElementById(
-        "chatHeader"
-    ).textContent =
-        "💬 " + email;
+info.innerHTML="";
 
-    await loadChat(id);
+return;
 
-    await markMessagesRead(id);
+}
 
-    await loadCustomers();
+
+const selected =
+this.options[this.selectedIndex];
+
+
+info.innerHTML=
+"Müştəri: <strong>"+
+escapeHtml(selected.textContent)+
+"</strong>";
+
+info.style.display="block";
+
+});
+
+
+/* =====================================================
+   ADD PRODUCT
+===================================================== */
+
+async function addProduct(){
+
+const customerId =
+document.getElementById("customerSelect").value;
+
+const product =
+document.getElementById("productSelect").value;
+
+const accountInfo =
+document.getElementById("accountInfo").value.trim();
+
+const button =
+document.getElementById("addButton");
+
+
+if(!customerId){
+
+showMessage(
+"Müştəri seçin.",
+true
+);
+
+return;
+
+}
+
+
+if(!product){
+
+showMessage(
+"Məhsul seçin.",
+true
+);
+
+return;
+
+}
+
+
+if(!accountInfo){
+
+showMessage(
+"Müştəriyə veriləcək hesab məlumatını yazın.",
+true
+);
+
+return;
+
+}
+
+
+button.disabled=true;
+
+
+const {
+error
+} =
+await supabaseClient
+.from("customer_products")
+.insert({
+
+user_id:customerId,
+
+product_name:product,
+
+account_info:accountInfo,
+
+status:"active"
+
+});
+
+
+button.disabled=false;
+
+
+if(error){
+
+console.error(error);
+
+showMessage(
+"Məhsul əlavə edilmədi: "+error.message,
+true
+);
+
+return;
+
+}
+
+
+document.getElementById("accountInfo").value="";
+
+document.getElementById("productSelect").value="";
+
+showMessage(
+"Məhsul müştəriyə uğurla əlavə edildi."
+);
+
+
+await loadProducts();
+
 }
 
 
 /* =====================================================
-   LOAD CHAT
+   LOAD PRODUCTS
 ===================================================== */
 
-async function loadChat(
-    userId
-){
+async function loadProducts(){
 
-    const box =
-        document.getElementById(
-            "messages"
-        );
+const box =
+document.getElementById("productsList");
 
-    const {
-        data,
-        error
-    } = await supabaseClient
-        .from("messages")
-        .select("*")
-        .eq("user_id",userId)
-        .order("created_at",{
-            ascending:true
-        });
 
-    if(error){
+const {
+data,
+error
+} =
+await supabaseClient
+.from("customer_products")
+.select("*")
+.order("created_at",{ascending:false});
 
-        console.error(error);
 
-        box.innerHTML = `
-            <div class="empty">
-                Chat yüklənmədi.
-                <br>
-                ${error.message}
-            </div>
-        `;
+if(error){
 
-        return;
-    }
+console.error(error);
 
-    if(!data || data.length === 0){
+box.innerHTML=
+'<div class="empty">Məhsullar yüklənmədi.</div>';
 
-        box.innerHTML =
-            `<div class="empty">
-                Hələ mesaj yoxdur.
-            </div>`;
+return;
 
-        return;
-    }
+}
 
-    box.innerHTML = "";
 
-    data.forEach(msg => {
+if(!data || data.length===0){
 
-        const div =
-            document.createElement("div");
+box.innerHTML=
+'<div class="empty">Hələ verilmiş məhsul yoxdur.</div>';
 
-        div.className =
-            "message " +
-            (
-                msg.sender_role === "admin"
-                ? "admin-msg"
-                : "customer-msg"
-            );
+return;
 
-        const date =
-            new Date(
-                msg.created_at
-            ).toLocaleString(
-                "az-AZ"
-            );
+}
 
-        div.innerHTML = `
 
-            ${escapeHtml(msg.message)}
+box.innerHTML=
+data.map(function(item){
 
-            <span class="message-time">
-                ${date}
-            </span>
+const date =
+item.created_at
+? new Date(item.created_at)
+.toLocaleString("az-AZ")
+: "";
 
-        `;
 
-        box.appendChild(div);
+return `
 
-    });
+<div class="product">
 
-    box.scrollTop =
-        box.scrollHeight;
+<strong>
+${escapeHtml(item.product_name || "Məhsul")}
+</strong>
+
+<small>
+Müştəri ID:
+${escapeHtml(String(item.user_id || ""))}
+</small>
+
+<br>
+
+<small>
+Tarix:
+${escapeHtml(date)}
+</small>
+
+<br>
+
+<small>
+Status:
+${escapeHtml(item.status || "")}
+</small>
+
+<button
+class="delete"
+onclick="
+deleteProduct('${item.id}')
+"
+>
+Sil
+</button>
+
+</div>
+
+`;
+
+}).join("");
+
 }
 
 
 /* =====================================================
-   MARK READ
+   DELETE PRODUCT
 ===================================================== */
 
-async function markMessagesRead(
-    userId
-){
+async function deleteProduct(id){
 
-    const {
-        error
-    } = await supabaseClient
-        .from("messages")
-        .update({
-            is_read:true
-        })
-        .eq("user_id",userId)
-        .eq("sender_role","customer")
-        .eq("is_read",false);
+if(!confirm("Bu məhsulu silmək istəyirsiniz?")){
+return;
+}
 
-    if(error){
-        console.error(error);
-    }
+
+const {
+error
+} =
+await supabaseClient
+.from("customer_products")
+.delete()
+.eq("id",id);
+
+
+if(error){
+
+alert(
+"Məhsul silinmədi: "+error.message
+);
+
+return;
+
+}
+
+
+await loadProducts();
+
 }
 
 
 /* =====================================================
-   SEND MESSAGE
+   PRICE FUNCTIONS
 ===================================================== */
 
-async function sendMessage(){
+async function loadPrices(){
 
-    if(!selectedCustomerId){
+const box =
+document.getElementById("pricesList");
 
-        alert(
-            "Əvvəlcə müştəri seçin."
-        );
 
-        return;
-    }
+const {
+data,
+error
+} =
+await supabaseClient
+.from("product_prices")
+.select("*")
+.order("id");
 
-    const input =
-        document.getElementById(
-            "messageInput"
-        );
 
-    const message =
-        input.value.trim();
+if(error){
 
-    if(!message)
-        return;
+console.error(error);
 
-    const {
-        error
-    } = await supabaseClient
-        .from("messages")
-        .insert({
+box.innerHTML=
+'<div class="empty">Qiymətlər yüklənmədi.</div>';
 
-            user_id:
-                selectedCustomerId,
+return;
 
-            sender_role:
-                "admin",
+}
 
-            message:
-                message,
 
-            is_read:false
+if(!data || data.length===0){
 
-        });
+box.innerHTML=
+'<div class="empty">Qiymət məlumatı yoxdur.</div>';
 
-    if(error){
+return;
 
-        alert(
-            "Mesaj göndərilmədi: " +
-            error.message
-        );
+}
 
-        console.error(error);
 
-        return;
-    }
+box.innerHTML =
+data.map(function(item){
 
-    input.value = "";
+if(item.product_key === "canva"){
 
-    await loadChat(
-        selectedCustomerId
-    );
+const price12 =
+Number(
+item.price_12_month || 0
+).toFixed(2);
+
+
+const sale12 =
+Number(
+item.sale_12_price ??
+item.price_12_month ??
+0
+).toFixed(2);
+
+
+return `
+
+<div class="price-product canva-price">
+
+<h3>
+${escapeHtml(item.product_name || "Canva Premium")}
+</h3>
+
+<div class="canva-title">
+12 aylıq qiymət
+</div>
+
+<div class="price-row">
+
+<div>
+
+<label>
+Normal qiymət
+</label>
+
+<input
+type="number"
+step="0.01"
+id="price12_${item.id}"
+value="${price12}"
+>
+
+</div>
+
+<div>
+
+<label>
+Endirimli qiymət
+</label>
+
+<input
+type="number"
+step="0.01"
+id="sale12_${item.id}"
+value="${sale12}"
+>
+
+</div>
+
+</div>
+
+
+<div class="switch-row">
+
+<input
+type="checkbox"
+id="sale12active_${item.id}"
+${item.sale_12_active ? "checked" : ""}
+>
+
+<label
+for="sale12active_${item.id}"
+style="margin:0"
+>
+Endirimi aktiv et
+</label>
+
+</div>
+
+
+<div class="sale-info">
+
+<span
+class="sale-percent"
+id="sale12percent_${item.id}"
+>
+${calculateSalePercent(
+Number(price12),
+Number(sale12)
+)}
+</span>
+
+<span
+class="sale-status"
+>
+${item.sale_12_active ? "Aktiv" : "Deaktiv"}
+</span>
+
+</div>
+
+
+<button
+class="save-price"
+onclick="
+saveCanvaPrice('${item.id}')
+"
+>
+Canva qiymətini yadda saxla
+</button>
+
+</div>
+
+`;
+
+}
+
+
+return `
+
+<div class="price-product">
+
+<h3>
+${escapeHtml(item.product_name || item.product_key)}
+</h3>
+
+
+${createPriceMonth(
+item,
+1,
+"1 ay"
+)}
+
+
+${createPriceMonth(
+item,
+2,
+"2 ay"
+)}
+
+
+${createPriceMonth(
+item,
+3,
+"3 ay"
+)}
+
+
+<button
+class="save-price"
+onclick="
+savePrice('${item.id}')
+"
+>
+Qiymətləri yadda saxla
+</button>
+
+</div>
+
+`;
+
+}).join("");
+
+}
+
+
+/* =====================================================
+   PRICE MONTH HTML
+===================================================== */
+
+function createPriceMonth(item,month,title){
+
+const price =
+Number(
+item["price_"+month+"_month"] || 0
+).toFixed(2);
+
+
+const sale =
+Number(
+item["sale_"+month+"_price"] ??
+item["price_"+month+"_month"] ??
+0
+).toFixed(2);
+
+
+const active =
+item["sale_"+month+"_active"]
+? "checked"
+: "";
+
+
+return `
+
+<div class="price-month">
+
+<div class="price-month-title">
+${title}
+</div>
+
+
+<div class="price-row">
+
+<div>
+
+<label>
+Normal qiymət
+</label>
+
+<input
+type="number"
+step="0.01"
+id="price${month}_${item.id}"
+value="${price}"
+>
+
+</div>
+
+
+<div>
+
+<label>
+Endirimli qiymət
+</label>
+
+<input
+type="number"
+step="0.01"
+id="sale${month}_${item.id}"
+value="${sale}"
+>
+
+</div>
+
+</div>
+
+
+<div class="switch-row">
+
+<input
+type="checkbox"
+id="sale${month}active_${item.id}"
+${active}
+>
+
+<label
+for="sale${month}active_${item.id}"
+style="margin:0"
+>
+Endirimi aktiv et
+</label>
+
+</div>
+
+
+<div class="sale-info">
+
+<span
+class="sale-percent"
+>
+${calculateSalePercent(
+Number(price),
+Number(sale)
+)}
+</span>
+
+<span class="sale-status">
+${active ? "Aktiv" : "Deaktiv"}
+</span>
+
+</div>
+
+</div>
+
+`;
+
+}
+
+
+/* =====================================================
+   SAVE NORMAL PRICE
+===================================================== */
+
+async function savePrice(id){
+
+const price1 =
+Number(
+document.getElementById("price1_"+id).value
+|| 0
+);
+
+const price2 =
+Number(
+document.getElementById("price2_"+id).value
+|| 0
+);
+
+const price3 =
+Number(
+document.getElementById("price3_"+id).value
+|| 0
+);
+
+
+const sale1 =
+Number(
+document.getElementById("sale1_"+id).value
+|| 0
+);
+
+const sale2 =
+Number(
+document.getElementById("sale2_"+id).value
+|| 0
+);
+
+const sale3 =
+Number(
+document.getElementById("sale3_"+id).value
+|| 0
+);
+
+
+const active1 =
+document.getElementById("sale1active_"+id).checked;
+
+const active2 =
+document.getElementById("sale2active_"+id).checked;
+
+const active3 =
+document.getElementById("sale3active_"+id).checked;
+
+
+const {
+error
+} =
+await supabaseClient
+.from("product_prices")
+.update({
+
+price_1_month:price1,
+
+price_2_month:price2,
+
+price_3_month:price3,
+
+sale_1_price:sale1,
+
+sale_2_price:sale2,
+
+sale_3_price:sale3,
+
+sale_1_active:active1,
+
+sale_2_active:active2,
+
+sale_3_active:active3,
+
+updated_at:new Date().toISOString()
+
+})
+.eq("id",id);
+
+
+if(error){
+
+showPriceMessage(
+"Qiymət yadda saxlanılmadı: "+error.message,
+true
+);
+
+return;
+
+}
+
+
+showPriceMessage(
+"Qiymətlər uğurla yeniləndi."
+);
+
+
+await loadPrices();
+
+}
+
+
+/* =====================================================
+   SAVE CANVA PRICE
+===================================================== */
+
+async function saveCanvaPrice(id){
+
+const price12 =
+Number(
+document.getElementById("price12_"+id).value
+|| 0
+);
+
+const sale12 =
+Number(
+document.getElementById("sale12_"+id).value
+|| 0
+);
+
+const active12 =
+document.getElementById(
+"sale12active_"+id
+).checked;
+
+
+const {
+error
+} =
+await supabaseClient
+.from("product_prices")
+.update({
+
+price_12_month:price12,
+
+sale_12_price:sale12,
+
+sale_12_active:active12,
+
+updated_at:new Date().toISOString()
+
+})
+.eq("id",id)
+.eq("product_key","canva");
+
+
+if(error){
+
+showPriceMessage(
+"Canva qiyməti yadda saxlanılmadı: "+error.message,
+true
+);
+
+return;
+
+}
+
+
+showPriceMessage(
+"Canva qiyməti uğurla yeniləndi."
+);
+
+
+await loadPrices();
+
+}
+
+
+/* =====================================================
+   CHAT CUSTOMERS
+===================================================== */
+
+async function loadChatCustomers(){
+
+const box =
+document.getElementById("chatCustomers");
+
+
+if(!box) return;
+
+
+const {
+data:customers,
+error
+} =
+await supabaseClient
+.from("profiles")
+.select("id,email,full_name")
+.not("email","is",null)
+.order("email");
+
+
+if(error){
+
+console.error(error);
+
+box.innerHTML=
+'<div class="empty">Müştərilər yüklənmədi.</div>';
+
+return;
+
+}
+
+
+const {
+data:unreadMessages
+} =
+await supabaseClient
+.from("messages")
+.select("user_id")
+.eq("sender_role","customer")
+.eq("is_read",false);
+
+
+const unreadMap={};
+
+
+(unreadMessages || []).forEach(function(item){
+
+unreadMap[item.user_id] =
+(unreadMap[item.user_id] || 0)+1;
+
+});
+
+
+if(!customers || customers.length===0){
+
+box.innerHTML=
+'<div class="empty">Hələ müştəri yoxdur.</div>';
+
+return;
+
+}
+
+
+box.innerHTML =
+customers.map(function(customer){
+
+const unread =
+unreadMap[customer.id] || 0;
+
+
+const name =
+customer.full_name ||
+customer.email ||
+"Müştəri";
+
+
+const active =
+selectedChatUserId === customer.id
+? "active"
+: "";
+
+
+return `
+
+<div
+class="chat-customer ${active}"
+onclick="
+selectChatCustomer(
+'${customer.id}',
+'${escapeHtml(customer.email || "")}'
+)
+"
+>
+
+<div class="chat-customer-name">
+
+${escapeHtml(name)}
+
+</div>
+
+
+<div class="chat-customer-status">
+
+<span>
+${escapeHtml(customer.email || "")}
+</span>
+
+
+${
+unread > 0
+?
+`<span class="unread-badge">${unread}</span>`
+:
+""
+}
+
+</div>
+
+</div>
+
+`;
+
+}).join("");
+
+}
+
+
+/* =====================================================
+   SELECT CHAT CUSTOMER
+===================================================== */
+
+async function selectChatCustomer(userId,email){
+
+selectedChatUserId=userId;
+
+selectedChatEmail=email;
+
+
+const header =
+document.getElementById("chatHeader");
+
+
+if(header){
+
+header.textContent=
+"💬 "+email;
+
+}
+
+
+await loadChatCustomers();
+
+await loadChatMessages(userId);
+
+await markCustomerMessagesRead(userId);
+
+await loadChatCustomers();
+
+}
+
+
+/* =====================================================
+   LOAD CHAT MESSAGES
+===================================================== */
+
+async function loadChatMessages(userId){
+
+const box =
+document.getElementById("chatMessages");
+
+
+if(!box) return;
+
+
+const {
+data,
+error
+} =
+await supabaseClient
+.from("messages")
+.select("*")
+.eq("user_id",userId)
+.order("created_at",{ascending:true});
+
+
+if(error){
+
+console.error(error);
+
+box.innerHTML=
+'<div class="empty">Mesajlar yüklənmədi.</div>';
+
+return;
+
+}
+
+
+if(!data || data.length===0){
+
+box.innerHTML=
+'<div class="empty">Hələ mesaj yoxdur.</div>';
+
+return;
+
+}
+
+
+box.innerHTML =
+data.map(function(item){
+
+const role =
+item.sender_role === "admin"
+? "admin"
+: "customer";
+
+
+const time =
+item.created_at
+?
+new Date(item.created_at)
+.toLocaleString(
+"az-AZ",
+{
+day:"2-digit",
+month:"2-digit",
+hour:"2-digit",
+minute:"2-digit"
+}
+)
+:
+"";
+
+
+return `
+
+<div class="chat-msg ${role}">
+
+${escapeHtml(item.message || "")}
+
+<span class="chat-time">
+${time}
+</span>
+
+</div>
+
+`;
+
+}).join("");
+
+
+box.scrollTop=box.scrollHeight;
+
+}
+
+
+/* =====================================================
+   MARK MESSAGES READ
+===================================================== */
+
+async function markCustomerMessagesRead(userId){
+
+const {
+error
+} =
+await supabaseClient
+.from("messages")
+.update({
+is_read:true
+})
+.eq("user_id",userId)
+.eq("sender_role","customer")
+.eq("is_read",false);
+
+
+if(error){
+
+console.error(
+"Read update error:",
+error
+);
+
+}
+
+}
+
+
+/* =====================================================
+   SEND CHAT
+===================================================== */
+
+async function sendChatMessage(){
+
+if(!selectedChatUserId){
+
+alert("Əvvəlcə müştəri seçin.");
+
+return;
+
+}
+
+
+const input =
+document.getElementById("chatInput");
+
+const button =
+document.getElementById("sendChatButton");
+
+
+const message =
+input.value.trim();
+
+
+if(!message) return;
+
+
+button.disabled=true;
+
+
+const {
+error
+} =
+await supabaseClient
+.from("messages")
+.insert({
+
+user_id:selectedChatUserId,
+
+sender_role:"admin",
+
+message:message,
+
+is_read:false
+
+});
+
+
+button.disabled=false;
+
+
+if(error){
+
+console.error(error);
+
+alert(
+"Mesaj göndərilmədi: "+
+error.message
+);
+
+return;
+
+}
+
+
+input.value="";
+
+
+await loadChatMessages(
+selectedChatUserId
+);
+
 }
 
 
@@ -859,19 +2065,31 @@ async function sendMessage(){
    ENTER SEND
 ===================================================== */
 
-function handleMessageKey(event){
+document.addEventListener(
+"keydown",
+function(event){
 
-    if(
-        event.key === "Enter" &&
-        !event.shiftKey
-    ){
+const input =
+document.getElementById("chatInput");
 
-        event.preventDefault();
 
-        sendMessage();
+if(!input) return;
 
-    }
+
+if(
+document.activeElement===input &&
+event.key==="Enter" &&
+!event.shiftKey
+){
+
+event.preventDefault();
+
+sendChatMessage();
+
 }
+
+}
+);
 
 
 /* =====================================================
@@ -880,225 +2098,284 @@ function handleMessageKey(event){
 
 async function loadOrders(){
 
-    const list =
-        document.getElementById(
-            "ordersList"
-        );
+const box =
+document.getElementById("ordersList");
 
-    const {
-        data,
-        error
-    } = await supabaseClient
-        .from("orders")
-        .select("*")
-        .order("created_at",{
-            ascending:false
-        });
 
-    if(error){
+if(!box) return;
 
-        console.error(error);
 
-        list.innerHTML = `
-            <div class="empty">
-                Sifarişlər yüklənmədi.
-                <br><br>
-                ${error.message}
-            </div>
-        `;
+const {
+data:orders,
+error
+} =
+await supabaseClient
+.from("orders")
+.select("*")
+.order("created_at",{ascending:false});
 
-        return;
-    }
 
-    if(!data || data.length === 0){
+if(error){
 
-        list.innerHTML =
-            `<div class="empty">
-                Hələ sifariş yoxdur.
-            </div>`;
+console.error(error);
 
-        return;
-    }
+box.innerHTML=
+'<div class="empty">Sifarişlər yüklənmədi.</div>';
 
-    list.innerHTML = "";
+return;
 
-    for(const order of data){
+}
 
-        let customerEmail =
-            "Müştəri";
 
-        if(order.user_id){
+if(!orders || orders.length===0){
 
-            const {
-                data:profile
-            } = await supabaseClient
-                .from("profiles")
-                .select("email,full_name")
-                .eq("id",order.user_id)
-                .maybeSingle();
+box.innerHTML=
+'<div class="empty">Hələ sifariş yoxdur.</div>';
 
-            if(profile){
+return;
 
-                customerEmail =
-                    profile.email ||
-                    profile.full_name ||
-                    "Müştəri";
+}
 
-            }
-        }
 
-        const div =
-            document.createElement(
-                "div"
-            );
+const userIds=[
+...new Set(
+orders
+.map(function(order){
+return order.user_id;
+})
+.filter(Boolean)
+)
+];
 
-        div.className =
-            "card order";
 
-        div.innerHTML = `
+let profiles={};
 
-            <div class="order-top">
 
-                <div>
+if(userIds.length>0){
 
-                    <strong>
-                        ${escapeHtml(
-                            order.product_name ||
-                            "Məhsul"
-                        )}
-                    </strong>
+const {
+data:customers
+} =
+await supabaseClient
+.from("profiles")
+.select("id,email,full_name")
+.in("id",userIds);
 
-                    <div class="small">
-                        👤 ${escapeHtml(
-                            customerEmail
-                        )}
-                    </div>
 
-                </div>
+(customers || []).forEach(function(customer){
 
-                <div>
-                    <strong>
-                        ${
-                            order.price != null
-                            ? Number(order.price).toFixed(2)
-                            : "0.00"
-                        }
-                        AZN
-                    </strong>
-                </div>
+profiles[customer.id]=customer;
 
-            </div>
+});
 
-            <div class="small"
-                 style="margin-top:10px;">
+}
 
-                Müddət:
-                ${
-                    order.duration ||
-                    "-"
-                }
 
-                <br>
+box.innerHTML =
+orders.map(function(order){
 
-                Tarix:
-                ${
-                    order.created_at
-                    ? new Date(
-                        order.created_at
-                    ).toLocaleString(
-                        "az-AZ"
-                    )
-                    : "-"
-                }
+const customer =
+profiles[order.user_id] || {};
 
-            </div>
 
-            ${
-                order.customer_note
-                ? `
-                <div class="price-info">
-                    📝 ${escapeHtml(
-                        order.customer_note
-                    )}
-                </div>
-                `
-                : ""
-            }
+const email =
+customer.email ||
+order.user_id ||
+"Naməlum müştəri";
 
-            <label>
-                Sifariş statusu
-            </label>
 
-            <select
-                onchange="
-                    updateOrderStatus(
-                        '${order.id}',
-                        this.value
-                    )
-                "
-            >
+const name =
+customer.full_name ||
+email;
 
-                <option
-                    value="pending"
-                    ${
-                        order.status === "pending"
-                        ? "selected"
-                        : ""
-                    }
-                >
-                    Gözləyir
-                </option>
 
-                <option
-                    value="processing"
-                    ${
-                        order.status === "processing"
-                        ? "selected"
-                        : ""
-                    }
-                >
-                    Hazırlanır
-                </option>
+const status =
+order.status ||
+"pending";
 
-                <option
-                    value="completed"
-                    ${
-                        order.status === "completed"
-                        ? "selected"
-                        : ""
-                    }
-                >
-                    Tamamlandı
-                </option>
 
-                <option
-                    value="cancelled"
-                    ${
-                        order.status === "cancelled"
-                        ? "selected"
-                        : ""
-                    }
-                >
-                    Ləğv edildi
-                </option>
+const date =
+order.created_at
+?
+new Date(order.created_at)
+.toLocaleString("az-AZ")
+:
+"";
 
-            </select>
 
-            <button
-                class="save"
-                onclick="
-                    openOrderChat(
-                        '${order.user_id || ""}'
-                    )
-                "
-            >
-                💬 Müştəri ilə danış
-            </button>
+return `
 
-        `;
+<div class="order-card">
 
-        list.appendChild(div);
-    }
+
+<div class="order-top">
+
+<div>
+
+<div class="order-product">
+
+${escapeHtml(
+order.product_name || "Məhsul"
+)}
+
+</div>
+
+
+<div class="order-id">
+
+ID:
+${escapeHtml(
+String(order.id)
+)}
+
+</div>
+
+</div>
+
+
+<strong>
+
+${Number(
+order.price || 0
+).toFixed(2)}
+AZN
+
+</strong>
+
+</div>
+
+
+<div class="order-info">
+
+
+<div>
+
+<strong>Müştəri:</strong>
+
+${escapeHtml(name)}
+
+</div>
+
+
+<div>
+
+<strong>Email:</strong>
+
+${escapeHtml(email)}
+
+</div>
+
+
+<div>
+
+<strong>Müddət:</strong>
+
+${escapeHtml(
+order.duration || "-"
+)}
+
+</div>
+
+
+<div>
+
+<strong>Tarix:</strong>
+
+${escapeHtml(date)}
+
+</div>
+
+
+${
+order.customer_note
+?
+`
+<div>
+
+<strong>Qeyd:</strong>
+
+${escapeHtml(
+order.customer_note
+)}
+
+</div>
+`
+:
+""
+}
+
+</div>
+
+
+<div class="order-actions">
+
+
+<select
+class="order-status"
+onchange="
+updateOrderStatus(
+'${order.id}',
+this.value
+)
+"
+>
+
+<option
+value="pending"
+${status==="pending"?"selected":""}
+>
+Gözləyir
+</option>
+
+
+<option
+value="processing"
+${status==="processing"?"selected":""}
+>
+Hazırlanır
+</option>
+
+
+<option
+value="completed"
+${status==="completed"?"selected":""}
+>
+Tamamlandı
+</option>
+
+
+<option
+value="cancelled"
+${status==="cancelled"?"selected":""}
+>
+Ləğv edildi
+</option>
+
+</select>
+
+
+<button
+class="order-chat"
+onclick="
+openOrderChat(
+'${order.user_id}',
+'${escapeHtml(email)}'
+)
+"
+>
+💬 Çata keç
+</button>
+
+
+</div>
+
+
+</div>
+
+`;
+
+}).join("");
+
 }
 
 
@@ -1107,807 +2384,85 @@ async function loadOrders(){
 ===================================================== */
 
 async function updateOrderStatus(
-    orderId,
-    status
+orderId,
+status
 ){
 
-    const {
-        error
-    } = await supabaseClient
-        .from("orders")
-        .update({
-            status:status,
-            updated_at:new Date().toISOString()
-        })
-        .eq("id",orderId);
+const {
+error
+} =
+await supabaseClient
+.from("orders")
+.update({
 
-    if(error){
+status:status,
 
-        alert(
-            "Status dəyişmədi: " +
-            error.message
-        );
+updated_at:
+new Date().toISOString()
 
-        console.error(error);
+})
+.eq("id",orderId);
 
-        return;
-    }
 
-    await loadOrders();
+if(error){
+
+console.error(error);
+
+alert(
+"Sifariş statusu dəyişmədi: "+
+error.message
+);
+
+return;
+
+}
+
+
+await loadOrders();
+
 }
 
 
 /* =====================================================
-   OPEN ORDER CHAT
+   ORDER TO CHAT
 ===================================================== */
 
 async function openOrderChat(
-    userId
+userId,
+email
 ){
 
-    if(!userId)
-        return;
+selectedChatUserId=userId;
 
-    const {
-        data
-    } = await supabaseClient
-        .from("profiles")
-        .select("email,full_name")
-        .eq("id",userId)
-        .maybeSingle();
+selectedChatEmail=email;
 
-    const email =
-        data?.email ||
-        data?.full_name ||
-        "Müştəri";
 
-    await selectCustomer(
-        userId,
-        email
-    );
+const header =
+document.getElementById("chatHeader");
 
-    document
-        .querySelector(".section")
-        ?.scrollIntoView({
-            behavior:"smooth"
-        });
+
+if(header){
+
+header.textContent=
+"💬 "+email;
+
 }
 
 
-/* =====================================================
-   CUSTOMER PRODUCTS
-===================================================== */
+await loadChatCustomers();
 
-async function addProduct(){
+await loadChatMessages(userId);
 
-    const userId =
-        document.getElementById(
-            "productUserId"
-        ).value.trim();
+await markCustomerMessagesRead(userId);
 
-    const productName =
-        document.getElementById(
-            "productName"
-        ).value;
+await loadChatCustomers();
 
-    const accountInfo =
-        document.getElementById(
-            "accountInfo"
-        ).value.trim();
 
-    if(!userId){
+header.scrollIntoView({
+behavior:"smooth",
+block:"start"
+});
 
-        alert(
-            "Müştəri ID daxil edin."
-        );
-
-        return;
-    }
-
-    if(!accountInfo){
-
-        alert(
-            "Hesab məlumatını daxil edin."
-        );
-
-        return;
-    }
-
-    const {
-        error
-    } = await supabaseClient
-        .from("customer_products")
-        .insert({
-
-            user_id:userId,
-
-            product_name:
-                productName,
-
-            account_info:
-                accountInfo,
-
-            status:
-                "active"
-
-        });
-
-    if(error){
-
-        alert(
-            "Məhsul əlavə olunmadı: " +
-            error.message
-        );
-
-        console.error(error);
-
-        return;
-    }
-
-    document.getElementById(
-        "accountInfo"
-    ).value = "";
-
-    await loadProducts();
-
-    alert(
-        "Məhsul müştəriyə əlavə edildi."
-    );
-}
-
-
-/* =====================================================
-   LOAD CUSTOMER PRODUCTS
-===================================================== */
-
-async function loadProducts(){
-
-    const list =
-        document.getElementById(
-            "productsList"
-        );
-
-    const {
-        data,
-        error
-    } = await supabaseClient
-        .from("customer_products")
-        .select("*")
-        .order("id",{
-            ascending:false
-        });
-
-    if(error){
-
-        console.error(error);
-
-        list.innerHTML = `
-            <div class="empty">
-                Məhsullar yüklənmədi.
-                <br>
-                ${error.message}
-            </div>
-        `;
-
-        return;
-    }
-
-    if(!data || data.length === 0){
-
-        list.innerHTML =
-            `<div class="empty">
-                Müştəri məhsulu yoxdur.
-            </div>`;
-
-        return;
-    }
-
-    list.innerHTML = "";
-
-    data.forEach(item => {
-
-        const div =
-            document.createElement(
-                "div"
-            );
-
-        div.className =
-            "card";
-
-        div.innerHTML = `
-
-            <h3>
-                ${escapeHtml(
-                    item.product_name ||
-                    "Məhsul"
-                )}
-            </h3>
-
-            <div class="small">
-                Müştəri ID:
-                ${escapeHtml(
-                    item.user_id || ""
-                )}
-            </div>
-
-            <div class="small">
-                Tarix:
-                ${
-                    item.created_at
-                    ? new Date(
-                        item.created_at
-                    ).toLocaleString(
-                        "az-AZ"
-                    )
-                    : "-"
-                }
-            </div>
-
-            <div class="price-info">
-
-                ${escapeHtml(
-                    item.account_info ||
-                    ""
-                )}
-
-            </div>
-
-            <div class="small"
-                 style="margin-top:8px;">
-
-                Status:
-                ${escapeHtml(
-                    item.status || ""
-                )}
-
-            </div>
-
-            <button
-                class="delete"
-                onclick="
-                    deleteProduct(
-                        '${item.id}'
-                    )
-                "
-            >
-                Sil
-            </button>
-
-        `;
-
-        list.appendChild(div);
-    });
-}
-
-
-/* =====================================================
-   DELETE PRODUCT
-===================================================== */
-
-async function deleteProduct(
-    id
-){
-
-    if(
-        !confirm(
-            "Bu məhsulu silmək istəyirsiniz?"
-        )
-    )
-        return;
-
-    const {
-        error
-    } = await supabaseClient
-        .from("customer_products")
-        .delete()
-        .eq("id",id);
-
-    if(error){
-
-        alert(
-            "Silinmədi: " +
-            error.message
-        );
-
-        return;
-    }
-
-    await loadProducts();
-}
-
-
-/* =====================================================
-   PRICES
-===================================================== */
-
-async function loadPrices(){
-
-    const list =
-        document.getElementById(
-            "pricesList"
-        );
-
-    const {
-        data,
-        error
-    } = await supabaseClient
-        .from("product_prices")
-        .select("*")
-        .order("id",{
-            ascending:true
-        });
-
-    if(error){
-
-        console.error(error);
-
-        list.innerHTML = `
-            <div class="empty">
-                Qiymətlər yüklənmədi.
-                <br>
-                ${error.message}
-            </div>
-        `;
-
-        return;
-    }
-
-    if(!data || data.length === 0){
-
-        list.innerHTML =
-            `<div class="empty">
-                Qiymət məlumatı yoxdur.
-            </div>`;
-
-        return;
-    }
-
-    list.innerHTML = "";
-
-    data.forEach(item => {
-
-        const card =
-            document.createElement(
-                "div"
-            );
-
-        card.className =
-            "card";
-
-        const name =
-            item.product_name ||
-            item.name ||
-            "Məhsul";
-
-        /*
-         * CANVA
-         * 12 aylıq xüsusi qiymət sistemi
-         */
-
-        if(
-            name.toLowerCase()
-                .includes("canva")
-        ){
-
-            const price12 =
-                Number(
-                    item.price_12_month || 0
-                ).toFixed(2);
-
-            const sale12 =
-                Number(
-                    item.sale_12_price || 0
-                ).toFixed(2);
-
-            const active =
-                !!item.sale_12_active;
-
-            card.innerHTML = `
-
-                <h3>
-                    ${escapeHtml(name)}
-                </h3>
-
-                <label>
-                    12 aylıq əsas qiymət
-                </label>
-
-                <input
-                    id="price12_${item.id}"
-                    type="number"
-                    step="0.01"
-                    value="${price12}"
-                >
-
-                <label>
-                    12 aylıq endirimli qiymət
-                </label>
-
-                <input
-                    id="sale12_${item.id}"
-                    type="number"
-                    step="0.01"
-                    value="${sale12}"
-                >
-
-                <label>
-                    Endirim aktivdir?
-                </label>
-
-                <select
-                    id="active12_${item.id}"
-                >
-
-                    <option
-                        value="true"
-                        ${
-                            active
-                            ? "selected"
-                            : ""
-                        }
-                    >
-                        Bəli
-                    </option>
-
-                    <option
-                        value="false"
-                        ${
-                            !active
-                            ? "selected"
-                            : ""
-                        }
-                    >
-                        Xeyr
-                    </option>
-
-                </select>
-
-                <div class="price-info">
-
-                    ${
-                        active
-                        ? `<span class="sale-active">
-                            ● Endirim aktivdir
-                           </span>`
-                        : `<span class="sale-inactive">
-                            ● Endirim deaktivdir
-                           </span>`
-                    }
-
-                </div>
-
-                <button
-                    class="save"
-                    onclick="
-                        saveCanvaPrice(
-                            '${item.id}'
-                        )
-                    "
-                >
-                    Yadda saxla
-                </button>
-
-            `;
-
-        }
-
-        /*
-         * DIGƏR MƏHSULLAR
-         */
-
-        else{
-
-            const p1 =
-                Number(
-                    item.price_1_month || 0
-                ).toFixed(2);
-
-            const p2 =
-                Number(
-                    item.price_2_month || 0
-                ).toFixed(2);
-
-            const p3 =
-                Number(
-                    item.price_3_month || 0
-                ).toFixed(2);
-
-            const s1 =
-                Number(
-                    item.sale_1_price || 0
-                ).toFixed(2);
-
-            const s2 =
-                Number(
-                    item.sale_2_price || 0
-                ).toFixed(2);
-
-            const s3 =
-                Number(
-                    item.sale_3_price || 0
-                ).toFixed(2);
-
-            card.innerHTML = `
-
-                <h3>
-                    ${escapeHtml(name)}
-                </h3>
-
-                <div class="price-row">
-
-                    <div>
-
-                        <label>
-                            1 ay əsas
-                        </label>
-
-                        <input
-                            id="p1_${item.id}"
-                            type="number"
-                            step="0.01"
-                            value="${p1}"
-                        >
-
-                    </div>
-
-                    <div>
-
-                        <label>
-                            1 ay endirim
-                        </label>
-
-                        <input
-                            id="s1_${item.id}"
-                            type="number"
-                            step="0.01"
-                            value="${s1}"
-                        >
-
-                    </div>
-
-                </div>
-
-
-                <div class="price-row">
-
-                    <div>
-
-                        <label>
-                            2 ay əsas
-                        </label>
-
-                        <input
-                            id="p2_${item.id}"
-                            type="number"
-                            step="0.01"
-                            value="${p2}"
-                        >
-
-                    </div>
-
-                    <div>
-
-                        <label>
-                            2 ay endirim
-                        </label>
-
-                        <input
-                            id="s2_${item.id}"
-                            type="number"
-                            step="0.01"
-                            value="${s2}"
-                        >
-
-                    </div>
-
-                </div>
-
-
-                <div class="price-row">
-
-                    <div>
-
-                        <label>
-                            3 ay əsas
-                        </label>
-
-                        <input
-                            id="p3_${item.id}"
-                            type="number"
-                            step="0.01"
-                            value="${p3}"
-                        >
-
-                    </div>
-
-                    <div>
-
-                        <label>
-                            3 ay endirim
-                        </label>
-
-                        <input
-                            id="s3_${item.id}"
-                            type="number"
-                            step="0.01"
-                            value="${s3}"
-                        >
-
-                    </div>
-
-                </div>
-
-
-                <button
-                    class="save"
-                    onclick="
-                        savePrice(
-                            '${item.id}'
-                        )
-                    "
-                >
-                    Yadda saxla
-                </button>
-
-            `;
-
-        }
-
-        list.appendChild(card);
-
-    });
-}
-
-
-/* =====================================================
-   SAVE CANVA
-===================================================== */
-
-async function saveCanvaPrice(
-    id
-){
-
-    const price =
-        Number(
-            document.getElementById(
-                "price12_" + id
-            ).value
-        );
-
-    const sale =
-        Number(
-            document.getElementById(
-                "sale12_" + id
-            ).value
-        );
-
-    const active =
-        document.getElementById(
-            "active12_" + id
-        ).value === "true";
-
-    const {
-        error
-    } = await supabaseClient
-        .from("product_prices")
-        .update({
-
-            price_12_month:
-                price,
-
-            sale_12_price:
-                sale,
-
-            sale_12_active:
-                active
-
-        })
-        .eq("id",id);
-
-    if(error){
-
-        alert(
-            "Qiymət yadda saxlanmadı: " +
-            error.message
-        );
-
-        console.error(error);
-
-        return;
-    }
-
-    alert(
-        "Canva qiyməti yadda saxlanıldı."
-    );
-
-    await loadPrices();
-}
-
-
-/* =====================================================
-   SAVE OTHER PRICE
-===================================================== */
-
-async function savePrice(
-    id
-){
-
-    const p1 =
-        Number(
-            document.getElementById(
-                "p1_" + id
-            ).value
-        );
-
-    const p2 =
-        Number(
-            document.getElementById(
-                "p2_" + id
-            ).value
-        );
-
-    const p3 =
-        Number(
-            document.getElementById(
-                "p3_" + id
-            ).value
-        );
-
-    const s1 =
-        Number(
-            document.getElementById(
-                "s1_" + id
-            ).value
-        );
-
-    const s2 =
-        Number(
-            document.getElementById(
-                "s2_" + id
-            ).value
-        );
-
-    const s3 =
-        Number(
-            document.getElementById(
-                "s3_" + id
-            ).value
-        );
-
-    const {
-        error
-    } = await supabaseClient
-        .from("product_prices")
-        .update({
-
-            price_1_month:p1,
-            price_2_month:p2,
-            price_3_month:p3,
-
-            sale_1_price:s1,
-            sale_2_price:s2,
-            sale_3_price:s3
-
-        })
-        .eq("id",id);
-
-    if(error){
-
-        alert(
-            "Qiymət yadda saxlanmadı: " +
-            error.message
-        );
-
-        console.error(error);
-
-        return;
-    }
-
-    alert(
-        "Qiymət yadda saxlanıldı."
-    );
-
-    await loadPrices();
 }
 
 
@@ -1915,73 +2470,160 @@ async function savePrice(
    REALTIME
 ===================================================== */
 
-function setupRealtime(){
+function setupAdminRealtime(){
 
-    if(realtimeChannel)
-        return;
+if(adminRealtimeChannel){
 
-    realtimeChannel =
-        supabaseClient
-        .channel("admin-panel-realtime")
+return;
 
-        .on(
-            "postgres_changes",
-            {
-                event:"*",
-                schema:"public",
-                table:"messages"
-            },
-            async () => {
+}
 
-                await loadCustomers();
 
-                if(selectedCustomerId){
+adminRealtimeChannel =
+supabaseClient
+.channel("admin-panel-realtime")
 
-                    await loadChat(
-                        selectedCustomerId
-                    );
 
-                }
+.on(
+"postgres_changes",
+{
+event:"*",
+schema:"public",
+table:"messages"
+},
+async function(){
 
-            }
-        )
+await loadChatCustomers();
 
-        .on(
-            "postgres_changes",
-            {
-                event:"*",
-                schema:"public",
-                table:"orders"
-            },
-            async () => {
 
-                await loadOrders();
+if(selectedChatUserId){
 
-            }
-        )
+await loadChatMessages(
+selectedChatUserId
+);
 
-        .subscribe();
+}
+
+}
+)
+
+
+.on(
+"postgres_changes",
+{
+event:"*",
+schema:"public",
+table:"orders"
+},
+async function(){
+
+await loadOrders();
+
+}
+)
+
+
+.subscribe();
+
 }
 
 
 /* =====================================================
-   HTML ESCAPE
+   HELPERS
 ===================================================== */
 
-function escapeHtml(
-    value
+function calculateSalePercent(
+normal,
+sale
 ){
 
-    if(value === null ||
-       value === undefined)
-        return "";
+if(
+!normal ||
+normal<=0 ||
+sale>=normal
+){
 
-    return String(value)
-        .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;")
-        .replace(/'/g,"&#039;");
+return "";
+
+}
+
+
+const percent =
+Math.round(
+((normal-sale)/normal)*100
+);
+
+
+return "−"+percent+"%";
+
+}
+
+
+function escapeHtml(value){
+
+return String(value ?? "")
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;")
+.replace(/'/g,"&#039;");
+
+}
+
+
+function showMessage(
+text,
+isError=false
+){
+
+const box =
+document.getElementById("message");
+
+
+box.textContent=text;
+
+box.className=
+isError
+? "message error"
+: "message";
+
+box.style.display="block";
+
+
+setTimeout(function(){
+
+box.style.display="none";
+
+},4000);
+
+}
+
+
+function showPriceMessage(
+text,
+isError=false
+){
+
+const box =
+document.getElementById("priceMessage");
+
+
+box.textContent=text;
+
+box.className=
+isError
+? "price-message error"
+: "price-message";
+
+box.style.display="block";
+
+
+setTimeout(function(){
+
+box.style.display="none";
+
+},4000);
+
 }
 
 
