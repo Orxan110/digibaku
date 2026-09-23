@@ -2,69 +2,82 @@
 <html lang="az">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 
 <title>DigiBaku — Admin</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
+*{
+box-sizing:border-box;
+margin:0;
+padding:0
+}
 
 body{
 font-family:Arial,sans-serif;
 background:#050505;
 color:#fff;
-min-height:100vh;
+min-height:100vh
 }
 
 .container{
 width:92%;
-max-width:850px;
-margin:auto;
+max-width:1000px;
+margin:auto
 }
 
 header{
 background:#090909;
-border-bottom:1px solid #222;
+border-bottom:1px solid #222
 }
 
 .nav{
 min-height:70px;
 display:flex;
 align-items:center;
-justify-content:space-between;
+justify-content:space-between
 }
 
 .logo{
 font-size:24px;
 font-weight:900;
-color:#3b82f6;
+color:#3b82f6
 }
 
-.logo span{color:#fff}
+.logo span{
+color:#fff
+}
 
 .back{
 color:#aaa;
-text-decoration:none;
+text-decoration:none
 }
 
-main{padding:35px 0}
+main{
+padding:30px 0
+}
 
 .card{
 background:#101010;
 border:1px solid #262626;
 border-radius:18px;
-padding:25px;
-margin-bottom:20px;
+padding:22px;
+margin-bottom:20px
 }
 
-h1{margin-bottom:8px}
-h2{margin-bottom:18px}
+h1{
+margin-bottom:8px
+}
+
+h2{
+margin-bottom:15px
+}
 
 .subtitle{
 color:#888;
-margin-bottom:25px;
+margin-bottom:20px
 }
 
 label{
@@ -72,24 +85,26 @@ display:block;
 color:#aaa;
 font-size:14px;
 font-weight:bold;
-margin-bottom:7px;
+margin-bottom:7px
 }
 
-input,select,textarea{
+input,
+select,
+textarea{
 width:100%;
 padding:14px;
-margin-bottom:17px;
+margin-bottom:15px;
 border-radius:10px;
 border:1px solid #333;
 background:#080808;
 color:#fff;
 font-size:14px;
-outline:none;
+outline:none
 }
 
 textarea{
-min-height:130px;
-resize:vertical;
+min-height:120px;
+resize:vertical
 }
 
 button{
@@ -101,11 +116,21 @@ background:#2563eb;
 color:#fff;
 font-weight:bold;
 font-size:15px;
-cursor:pointer;
+cursor:pointer
 }
 
 button:disabled{
-opacity:.6;
+opacity:.6
+}
+
+.loading{
+text-align:center;
+padding:70px 20px;
+color:#888
+}
+
+#adminPanel{
+display:none
 }
 
 .message{
@@ -116,23 +141,336 @@ margin-top:15px;
 line-height:1.5;
 background:#0b2b1d;
 border:1px solid #166534;
-color:#86efac;
+color:#86efac
 }
 
 .message.error{
 background:#2b0b0b;
 border-color:#7f1d1d;
-color:#fca5a5;
+color:#fca5a5
 }
 
-.loading{
+.empty{
+color:#777;
+padding:15px 0
+}
+
+
+/* =========================
+   CHAT
+========================= */
+
+.chat-layout{
+display:grid;
+grid-template-columns:280px 1fr;
+gap:15px;
+min-height:550px
+}
+
+.customer-list{
+background:#080808;
+border:1px solid #222;
+border-radius:14px;
+overflow:hidden
+}
+
+.customer-list-title{
+padding:15px;
+border-bottom:1px solid #222;
+font-weight:bold
+}
+
+.customer-item{
+padding:14px;
+border-bottom:1px solid #1c1c1c;
+cursor:pointer;
+transition:.2s
+}
+
+.customer-item:hover{
+background:#151515
+}
+
+.customer-item.active{
+background:#172554;
+border-left:3px solid #3b82f6
+}
+
+.customer-email{
+font-size:14px;
+word-break:break-all
+}
+
+.unread{
+display:inline-block;
+margin-top:7px;
+padding:3px 7px;
+border-radius:20px;
+background:#dc2626;
+font-size:11px
+}
+
+.chat-box{
+background:#080808;
+border:1px solid #222;
+border-radius:14px;
+display:flex;
+flex-direction:column;
+min-height:550px
+}
+
+.chat-header{
+padding:15px;
+border-bottom:1px solid #222;
+font-weight:bold
+}
+
+.chat-header small{
+display:block;
+color:#777;
+margin-top:5px
+}
+
+.chat-messages{
+flex:1;
+padding:15px;
+overflow-y:auto;
+max-height:400px
+}
+
+.chat-empty{
+color:#666;
 text-align:center;
-padding:70px 20px;
-color:#888;
+padding:70px 10px
 }
 
-#adminPanel{
-display:none;
+.chat-message{
+max-width:80%;
+padding:11px 13px;
+border-radius:14px;
+margin-bottom:10px;
+line-height:1.45;
+word-break:break-word
+}
+
+.chat-message.customer{
+background:#1d1d1d;
+margin-right:auto
+}
+
+.chat-message.admin{
+background:#2563eb;
+margin-left:auto
+}
+
+.chat-time{
+font-size:10px;
+opacity:.55;
+margin-top:5px
+}
+
+.chat-input{
+border-top:1px solid #222;
+padding:12px;
+display:flex;
+gap:8px
+}
+
+.chat-input textarea{
+margin:0;
+min-height:50px;
+height:50px;
+resize:none
+}
+
+.chat-input button{
+width:110px;
+height:50px
+}
+
+
+/* =========================
+   SİFARİŞ
+========================= */
+
+.order{
+background:#080808;
+border:1px solid #252525;
+border-radius:12px;
+padding:16px;
+margin-bottom:10px
+}
+
+.order-top{
+display:flex;
+justify-content:space-between;
+gap:10px;
+margin-bottom:10px
+}
+
+.order-product{
+font-weight:bold;
+color:#60a5fa
+}
+
+.order-price{
+font-weight:bold
+}
+
+.order-info{
+color:#888;
+font-size:13px;
+line-height:1.7
+}
+
+.status{
+display:inline-block;
+padding:5px 9px;
+border-radius:20px;
+font-size:11px;
+font-weight:bold;
+margin-top:8px
+}
+
+.status.pending{
+background:#422006;
+color:#fbbf24
+}
+
+.status.processing{
+background:#172554;
+color:#60a5fa
+}
+
+.status.completed{
+background:#052e16;
+color:#4ade80
+}
+
+.status.cancelled{
+background:#450a0a;
+color:#f87171
+}
+
+.order-actions{
+display:flex;
+gap:8px;
+margin-top:12px
+}
+
+.order-actions select{
+margin:0
+}
+
+
+/* =========================
+   QİYMƏTLƏR
+========================= */
+
+.price-product{
+background:#080808;
+border:1px solid #252525;
+border-radius:12px;
+padding:18px;
+margin-bottom:14px
+}
+
+.price-product h3{
+color:#60a5fa;
+font-size:17px;
+margin-bottom:15px
+}
+
+.price-month{
+border:1px solid #222;
+border-radius:10px;
+padding:14px;
+margin-bottom:12px
+}
+
+.price-month-title{
+color:#fff;
+font-weight:bold;
+margin-bottom:12px
+}
+
+.price-row{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:12px
+}
+
+.price-row input{
+margin-bottom:12px
+}
+
+.switch-row{
+display:flex;
+align-items:center;
+gap:10px;
+margin:5px 0 12px
+}
+
+.switch-row input{
+width:auto;
+margin:0;
+accent-color:#2563eb
+}
+
+.sale-info{
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:10px
+}
+
+.sale-percent{
+color:#86efac;
+font-size:14px;
+font-weight:bold
+}
+
+.sale-status{
+font-size:13px;
+color:#888
+}
+
+.save-price{
+background:#16a34a;
+margin-top:8px
+}
+
+.canva-price{
+border-color:#3b82f6
+}
+
+
+/* =========================
+   MƏHSUL
+========================= */
+
+.product{
+background:#080808;
+border:1px solid #252525;
+border-radius:12px;
+padding:17px;
+margin-bottom:10px
+}
+
+.product strong{
+display:block;
+color:#60a5fa;
+font-size:17px;
+margin-bottom:7px
+}
+
+.product small{
+color:#888
+}
+
+.delete{
+margin-top:12px;
+background:#991b1b
 }
 
 .customer-info{
@@ -142,160 +480,47 @@ padding:12px;
 border-radius:10px;
 margin-bottom:15px;
 color:#60a5fa;
-font-size:14px;
-}
-
-.product{
-background:#080808;
-border:1px solid #252525;
-border-radius:12px;
-padding:17px;
-margin-bottom:10px;
-}
-
-.product strong{
-display:block;
-color:#60a5fa;
-font-size:17px;
-margin-bottom:7px;
-}
-
-.product small{
-color:#888;
-}
-
-.delete{
-margin-top:12px;
-background:#991b1b;
-}
-
-.empty{
-color:#777;
-padding:15px 0;
+font-size:14px
 }
 
 
 /* =========================
-   QİYMƏT VƏ ENDİRİMLƏR
+   MOBİL
 ========================= */
 
-.price-product{
-background:#080808;
-border:1px solid #252525;
-border-radius:12px;
-padding:18px;
-margin-bottom:14px;
+@media(max-width:700px){
+
+.chat-layout{
+grid-template-columns:1fr
 }
 
-.price-product h3{
-color:#60a5fa;
-font-size:17px;
-margin-bottom:15px;
+.customer-list{
+max-height:230px;
+overflow-y:auto
 }
 
-.price-month{
-border:1px solid #222;
-border-radius:10px;
-padding:14px;
-margin-bottom:12px;
+.chat-box{
+min-height:500px
 }
 
-.price-month-title{
-color:#fff;
-font-weight:bold;
-margin-bottom:12px;
-font-size:15px;
+.chat-messages{
+max-height:330px
 }
 
 .price-row{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:12px;
+grid-template-columns:1fr
 }
 
-.price-row input{
-margin-bottom:12px;
+.order-top{
+flex-direction:column
 }
 
-.switch-row{
-display:flex;
-align-items:center;
-gap:10px;
-margin:5px 0 12px;
+.chat-input{
+align-items:flex-end
 }
 
-.switch-row input{
-width:auto;
-margin:0;
-accent-color:#2563eb;
-}
-
-.sale-info{
-display:flex;
-align-items:center;
-justify-content:space-between;
-gap:10px;
-margin-bottom:5px;
-}
-
-.sale-percent{
-color:#86efac;
-font-size:14px;
-font-weight:bold;
-}
-
-.sale-status{
-font-size:13px;
-color:#888;
-}
-
-.save-price{
-background:#16a34a;
-margin-top:8px;
-}
-
-.save-price:hover{
-background:#15803d;
-}
-
-.price-message{
-display:none;
-padding:13px;
-border-radius:10px;
-margin-top:15px;
-background:#0b2b1d;
-border:1px solid #166534;
-color:#86efac;
-line-height:1.5;
-}
-
-.price-message.error{
-background:#2b0b0b;
-border-color:#7f1d1d;
-color:#fca5a5;
-}
-
-
-/* =========================
-   CANVA
-========================= */
-
-.canva-price{
-border-color:#3b82f6;
-}
-
-.canva-title{
-color:#60a5fa;
-font-weight:bold;
-font-size:16px;
-margin-bottom:14px;
-}
-
-@media(max-width:600px){
-
-.price-row{
-grid-template-columns:1fr;
-gap:0;
+.chat-input button{
+width:90px
 }
 
 }
@@ -318,6 +543,7 @@ DigiBaku<span>.com</span>
 </div>
 </header>
 
+
 <main>
 
 <div class="container">
@@ -326,18 +552,120 @@ DigiBaku<span>.com</span>
 Admin yoxlanılır...
 </div>
 
+
 <div id="adminPanel">
 
-<!-- =========================
-     QİYMƏT VƏ ENDİRİMLƏR
-========================= -->
+
+<!-- =================================
+     CHAT
+================================= -->
 
 <div class="card">
 
-<h2>Qiymət və Endirimlər</h2>
+<h2>💬 Müştəri Chatı</h2>
 
 <p class="subtitle">
-Məhsulların qiymətlərini və endirimlərini buradan idarə et
+Müştərilərlə canlı mesajlaş
+</p>
+
+<div class="chat-layout">
+
+<div class="customer-list">
+
+<div class="customer-list-title">
+Müştərilər
+</div>
+
+<div id="customerList">
+<div class="empty">
+Müştərilər yüklənir...
+</div>
+</div>
+
+</div>
+
+
+<div class="chat-box">
+
+<div class="chat-header">
+
+<span id="chatCustomer">
+Müştəri seçin
+</span>
+
+<small id="chatCustomerId"></small>
+
+</div>
+
+
+<div
+id="chatMessages"
+class="chat-messages">
+
+<div class="chat-empty">
+Sol tərəfdən müştəri seçin
+</div>
+
+</div>
+
+
+<div class="chat-input">
+
+<textarea
+id="chatInput"
+placeholder="Mesajınızı yazın..."
+></textarea>
+
+<button
+id="sendButton"
+onclick="sendMessage()">
+
+Göndər
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- =================================
+     SİFARİŞLƏR
+================================= -->
+
+<div class="card">
+
+<h2>🛒 Sifarişlər</h2>
+
+<p class="subtitle">
+Müştərilərin göndərdiyi sifarişləri idarə et
+</p>
+
+<div id="ordersList">
+
+<div class="empty">
+Sifarişlər yüklənir...
+</div>
+
+</div>
+
+</div>
+
+
+<!-- =================================
+     QİYMƏTLƏR
+================================= -->
+
+<div class="card">
+
+<h2>💰 Qiymət və Endirimlər</h2>
+
+<p class="subtitle">
+Məhsulların qiymətlərini və endirimlərini idarə et
 </p>
 
 <div id="pricesList">
@@ -348,26 +676,24 @@ Qiymətlər yüklənir...
 
 </div>
 
-<div id="priceMessage" class="price-message"></div>
+<div id="priceMessage" class="message"></div>
 
 </div>
 
 
-<!-- =========================
+<!-- =================================
      MÜŞTƏRİYƏ MƏHSUL VER
-========================= -->
+================================= -->
 
 <div class="card">
 
-<h1>Admin Panel</h1>
+<h2>📦 Müştəriyə Məhsul Ver</h2>
 
 <p class="subtitle">
-Müştəriyə ödənişdən sonra məhsul ver
+Ödənişdən sonra hesab məlumatını müştərinin profilinə əlavə et
 </p>
 
-<label>
-Müştəri
-</label>
+<label>Müştəri</label>
 
 <select id="customerSelect">
 
@@ -377,14 +703,15 @@ Müştəri seçin...
 
 </select>
 
-<div id="selectedCustomer"
+
+<div
+id="selectedCustomer"
 class="customer-info"
 style="display:none">
 </div>
 
-<label>
-Məhsul
-</label>
+
+<label>Məhsul</label>
 
 <select id="productSelect">
 
@@ -418,19 +745,17 @@ Canva Premium — 12 ay — 5.99 AZN
 
 </select>
 
+
 <label>
 Müştəriyə veriləcək hesab məlumatı
 </label>
 
 <textarea
 id="accountInfo"
-placeholder="Məsələn:
-
-Email: example@gmail.com
-Şifrə: ********
-
-və ya digər hesab məlumatı..."
+placeholder="Email: example@gmail.com
+Şifrə: ********"
 ></textarea>
+
 
 <button
 id="addButton"
@@ -440,21 +765,25 @@ Məhsulu müştəriyə əlavə et
 
 </button>
 
-<div id="message" class="message">
-</div>
+<div id="message" class="message"></div>
 
 </div>
 
+
+<!-- =================================
+     VERİLMİŞ MƏHSULLAR
+================================= -->
 
 <div class="card">
 
-<h2>Verilmiş məhsullar</h2>
+<h2>📋 Verilmiş məhsullar</h2>
 
 <div id="productsList">
 Yüklənir...
 </div>
 
 </div>
+
 
 </div>
 
@@ -464,6 +793,10 @@ Yüklənir...
 
 
 <script>
+
+/* =================================
+   SUPABASE
+================================= */
 
 const SUPABASE_URL =
 "https://zeknhnkaicqkfzgnvycq.supabase.co";
@@ -481,9 +814,12 @@ const ADMIN_EMAIL =
 "zahidovorxan989@gmail.com";
 
 
-/* =========================
-ADMIN YOXLAMA
-========================= */
+let selectedCustomerId = null;
+
+
+/* =================================
+   ADMIN YOXLAMA
+================================= */
 
 async function checkAdmin(){
 
@@ -505,7 +841,7 @@ const email =
 .toLowerCase()
 .trim();
 
-if(email !== ADMIN_EMAIL.toLowerCase()){
+if(email !== ADMIN_EMAIL){
 
 document.getElementById("loading").textContent =
 "Bu səhifəyə giriş icazəniz yoxdur.";
@@ -518,23 +854,77 @@ document.getElementById("loading").style.display="none";
 
 document.getElementById("adminPanel").style.display="block";
 
+
 await loadCustomers();
 
 await loadProducts();
 
 await loadPrices();
 
+await loadOrders();
+
+
+/* REALTIME */
+
+supabaseClient
+.channel("admin-live")
+.on(
+"postgres_changes",
+{
+event:"*",
+schema:"public",
+table:"messages"
+},
+async payload => {
+
+if(
+selectedCustomerId &&
+(
+payload.new?.user_id === selectedCustomerId ||
+payload.old?.user_id === selectedCustomerId
+)
+){
+
+await loadChat(
+selectedCustomerId
+);
+
+}
+
+await loadCustomers();
+
+}
+)
+.on(
+"postgres_changes",
+{
+event:"*",
+schema:"public",
+table:"orders"
+},
+async () => {
+
+await loadOrders();
+
+}
+)
+.subscribe();
+
 }
 
 
-/* =========================
-MÜŞTƏRİLƏR
-========================= */
+/* =================================
+   MÜŞTƏRİLƏR
+================================= */
 
 async function loadCustomers(){
 
+const list =
+document.getElementById("customerList");
+
 const select =
 document.getElementById("customerSelect");
+
 
 const {
 data,
@@ -542,25 +932,91 @@ error
 } =
 await supabaseClient
 .from("profiles")
-.select("id,email")
+.select("id,email,full_name,phone")
 .not("email","is",null)
 .order("email");
+
 
 if(error){
 
 console.error(error);
 
-select.innerHTML =
-'<option>Müştərilər yüklənmədi</option>';
+list.innerHTML =
+'<div class="empty">Müştərilər yüklənmədi.</div>';
 
 return;
 
 }
 
+
+list.innerHTML="";
+
 select.innerHTML =
 '<option value="">Müştəri seçin...</option>';
 
-data.forEach(customer => {
+
+for(const customer of data){
+
+/* unread */
+
+const {
+count
+} =
+await supabaseClient
+.from("messages")
+.select("*",{count:"exact",head:true})
+.eq("user_id",customer.id)
+.eq("sender_role","customer")
+.eq("is_read",false);
+
+
+const div =
+document.createElement("div");
+
+div.className="customer-item";
+
+if(
+selectedCustomerId === customer.id
+){
+
+div.classList.add("active");
+
+}
+
+
+div.onclick=() => {
+
+selectCustomer(
+customer.id,
+customer.email
+);
+
+};
+
+
+div.innerHTML=`
+
+<div class="customer-email">
+${escapeHtml(customer.email || "Email yoxdur")}
+</div>
+
+${
+count > 0
+?
+`<span class="unread">
+${count} yeni mesaj
+</span>`
+:
+""
+}
+
+`;
+
+
+list.appendChild(div);
+
+
+/* Select */
 
 const option =
 document.createElement("option");
@@ -569,48 +1025,548 @@ option.value =
 customer.id;
 
 option.textContent =
-customer.email;
+customer.email ||
+customer.full_name ||
+"Müştəri";
 
 select.appendChild(option);
 
-});
+}
 
 }
 
 
-/* =========================
-MÜŞTƏRİ SEÇİLƏNDƏ
-========================= */
+/* =================================
+   MÜŞTƏRİ SEÇ
+================================= */
 
-document.getElementById("customerSelect")
-.addEventListener("change",function(){
+async function selectCustomer(id,email){
 
-const option =
-this.options[this.selectedIndex];
+selectedCustomerId=id;
+
+document.getElementById("chatCustomer")
+.textContent =
+email || "Müştəri";
+
+
+document.getElementById("chatCustomerId")
+.textContent =
+"ID: " + id;
+
+
+document
+.getElementById("customerSelect")
+.value=id;
+
 
 const box =
 document.getElementById("selectedCustomer");
-
-if(!this.value){
-
-box.style.display="none";
-box.textContent="";
-return;
-
-}
 
 box.style.display="block";
 
 box.textContent =
 "Seçilmiş müştəri: " +
-option.textContent;
+(email || "Müştəri");
+
+
+await loadChat(id);
+
+await markMessagesRead(id);
+
+await loadCustomers();
+
+}
+
+
+/* =================================
+   CHAT YÜKLƏ
+================================= */
+
+async function loadChat(userId){
+
+const box =
+document.getElementById("chatMessages");
+
+
+const {
+data,
+error
+} =
+await supabaseClient
+.from("messages")
+.select("*")
+.eq("user_id",userId)
+.order("created_at",{ascending:true});
+
+
+if(error){
+
+console.error(error);
+
+box.innerHTML =
+'<div class="chat-empty">Mesajlar yüklənmədi.</div>';
+
+return;
+
+}
+
+
+if(!data || data.length===0){
+
+box.innerHTML =
+'<div class="chat-empty">Hələ mesaj yoxdur.</div>';
+
+return;
+
+}
+
+
+box.innerHTML="";
+
+
+data.forEach(msg => {
+
+const div =
+document.createElement("div");
+
+div.className =
+"chat-message " +
+(
+msg.sender_role === "admin"
+?
+"admin"
+:
+"customer"
+);
+
+
+const date =
+new Date(msg.created_at)
+.toLocaleString("az-AZ");
+
+
+div.innerHTML=`
+
+<div>
+${escapeHtml(msg.message)}
+</div>
+
+<div class="chat-time">
+${escapeHtml(date)}
+</div>
+
+`;
+
+
+box.appendChild(div);
 
 });
 
 
-/* =========================
-MƏHSUL ƏLAVƏ ET
-========================= */
+box.scrollTop =
+box.scrollHeight;
+
+}
+
+
+/* =================================
+   MESAJLARI OXUNDU ET
+================================= */
+
+async function markMessagesRead(userId){
+
+const {
+error
+} =
+await supabaseClient
+.from("messages")
+.update({
+is_read:true
+})
+.eq("user_id",userId)
+.eq("sender_role","customer")
+.eq("is_read",false);
+
+if(error){
+
+console.error(error);
+
+}
+
+}
+
+
+/* =================================
+   MESAJ GÖNDƏR
+================================= */
+
+async function sendMessage(){
+
+if(!selectedCustomerId){
+
+alert("Əvvəlcə müştəri seç.");
+
+return;
+
+}
+
+
+const input =
+document.getElementById("chatInput");
+
+const text =
+input.value.trim();
+
+
+if(!text){
+
+return;
+
+}
+
+
+const button =
+document.getElementById("sendButton");
+
+button.disabled=true;
+
+button.textContent="Göndərilir...";
+
+
+const {
+error
+} =
+await supabaseClient
+.from("messages")
+.insert({
+
+user_id:selectedCustomerId,
+
+sender_role:"admin",
+
+message:text,
+
+is_read:false
+
+});
+
+
+if(error){
+
+console.error(error);
+
+alert(
+"Mesaj göndərilmədi: " +
+error.message
+);
+
+button.disabled=false;
+
+button.textContent="Göndər";
+
+return;
+
+}
+
+
+input.value="";
+
+button.disabled=false;
+
+button.textContent="Göndər";
+
+
+await loadChat(selectedCustomerId);
+
+}
+
+
+/* Enter ilə göndər */
+
+document
+.getElementById("chatInput")
+.addEventListener("keydown",function(e){
+
+if(
+e.key==="Enter" &&
+!e.shiftKey
+){
+
+e.preventDefault();
+
+sendMessage();
+
+}
+
+});
+
+
+/* =================================
+   SİFARİŞLƏR
+================================= */
+
+async function loadOrders(){
+
+const list =
+document.getElementById("ordersList");
+
+
+const {
+data,
+error
+} =
+await supabaseClient
+.from("orders")
+.select("*")
+.order("created_at",{ascending:false});
+
+
+if(error){
+
+console.error(error);
+
+list.innerHTML =
+'<div class="empty">Sifarişlər yüklənmədi.</div>';
+
+return;
+
+}
+
+
+if(!data || data.length===0){
+
+list.innerHTML =
+'<div class="empty">Hələ sifariş yoxdur.</div>';
+
+return;
+
+}
+
+
+list.innerHTML="";
+
+
+for(const order of data){
+
+let email="";
+
+
+const {
+data:profile
+} =
+await supabaseClient
+.from("profiles")
+.select("email")
+.eq("id",order.user_id)
+.maybeSingle();
+
+
+if(profile){
+
+email=profile.email || "";
+
+}
+
+
+const div =
+document.createElement("div");
+
+div.className="order";
+
+
+const date =
+new Date(order.created_at)
+.toLocaleString("az-AZ");
+
+
+div.innerHTML=`
+
+<div class="order-top">
+
+<div>
+
+<div class="order-product">
+${escapeHtml(order.product_name)}
+</div>
+
+<div class="order-info">
+Müştəri: ${escapeHtml(email || order.user_id)}
+<br>
+Müddət: ${escapeHtml(order.duration || "-")}
+<br>
+Tarix: ${escapeHtml(date)}
+</div>
+
+</div>
+
+<div class="order-price">
+${Number(order.price || 0).toFixed(2)} AZN
+</div>
+
+</div>
+
+
+<span class="status ${escapeHtml(order.status)}">
+${statusText(order.status)}
+</span>
+
+
+<div class="order-actions">
+
+<select
+id="order-status-${order.id}"
+>
+
+<option value="pending"
+${order.status==="pending"?"selected":""}>
+Gözləyir
+</option>
+
+<option value="processing"
+${order.status==="processing"?"selected":""}>
+İşlənir
+</option>
+
+<option value="completed"
+${order.status==="completed"?"selected":""}>
+Tamamlandı
+</option>
+
+<option value="cancelled"
+${order.status==="cancelled"?"selected":""}>
+Ləğv edildi
+</option>
+
+</select>
+
+<button
+onclick="updateOrderStatus(${order.id})">
+
+Statusu yadda saxla
+
+</button>
+
+</div>
+
+<button
+style="margin-top:8px;background:#172554"
+onclick="openOrderChat('${order.user_id}')">
+
+💬 Bu müştəri ilə chat
+
+</button>
+
+`;
+
+
+list.appendChild(div);
+
+}
+
+}
+
+
+/* =================================
+   SİFARİŞ STATUSU
+================================= */
+
+async function updateOrderStatus(id){
+
+const select =
+document.getElementById(
+"order-status-" + id
+);
+
+const status =
+select.value;
+
+
+const {
+error
+} =
+await supabaseClient
+.from("orders")
+.update({
+status:status,
+updated_at:new Date().toISOString()
+})
+.eq("id",id);
+
+
+if(error){
+
+alert(
+"Status dəyişmədi: " +
+error.message
+);
+
+return;
+
+}
+
+
+await loadOrders();
+
+}
+
+
+/* =================================
+   SİFARİŞ CHAT
+================================= */
+
+async function openOrderChat(userId){
+
+const {
+data,
+error
+} =
+await supabaseClient
+.from("profiles")
+.select("email")
+.eq("id",userId)
+.maybeSingle();
+
+
+const email =
+data?.email || userId;
+
+
+selectCustomer(userId,email);
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+
+}
+
+
+/* =================================
+   STATUS MƏTNİ
+================================= */
+
+function statusText(status){
+
+if(status==="pending")
+return "GÖZLƏYİR";
+
+if(status==="processing")
+return "İŞLƏNİR";
+
+if(status==="completed")
+return "TAMAMLANDI";
+
+if(status==="cancelled")
+return "LƏĞV EDİLDİ";
+
+return status;
+
+}
+
+
+/* =================================
+   MƏHSUL ƏLAVƏ ET
+================================= */
 
 async function addProduct(){
 
@@ -626,6 +1582,7 @@ document.getElementById("accountInfo").value.trim();
 const button =
 document.getElementById("addButton");
 
+
 if(!customerId){
 
 showMessage(
@@ -636,6 +1593,7 @@ true
 return;
 
 }
+
 
 if(!product){
 
@@ -648,6 +1606,7 @@ return;
 
 }
 
+
 if(!accountInfo){
 
 showMessage(
@@ -659,9 +1618,11 @@ return;
 
 }
 
+
 button.disabled=true;
 
 button.textContent="Əlavə edilir...";
+
 
 const {
 error
@@ -680,6 +1641,7 @@ status:"active"
 
 });
 
+
 if(error){
 
 console.error(error);
@@ -692,17 +1654,19 @@ true
 
 button.disabled=false;
 
-button.textContent =
+button.textContent=
 "Məhsulu müştəriyə əlavə et";
 
 return;
 
 }
 
+
 showMessage(
 "✅ Məhsul müştərinin profilinə əlavə edildi.",
 false
 );
+
 
 document.getElementById("customerSelect").value="";
 
@@ -712,24 +1676,27 @@ document.getElementById("accountInfo").value="";
 
 document.getElementById("selectedCustomer").style.display="none";
 
+
 await loadProducts();
+
 
 button.disabled=false;
 
-button.textContent =
+button.textContent=
 "Məhsulu müştəriyə əlavə et";
 
 }
 
 
-/* =========================
-MƏHSULLAR
-========================= */
+/* =================================
+   VERİLMİŞ MƏHSULLAR
+================================= */
 
 async function loadProducts(){
 
 const list =
 document.getElementById("productsList");
+
 
 const {
 data,
@@ -739,6 +1706,7 @@ await supabaseClient
 .from("customer_products")
 .select("*")
 .order("created_at",{ascending:false});
+
 
 if(error){
 
@@ -751,6 +1719,7 @@ return;
 
 }
 
+
 if(!data || data.length===0){
 
 list.innerHTML =
@@ -760,7 +1729,9 @@ return;
 
 }
 
+
 list.innerHTML="";
+
 
 data.forEach(item => {
 
@@ -769,6 +1740,7 @@ document.createElement("div");
 
 div.className="product";
 
+
 const date =
 item.created_at
 ?
@@ -776,6 +1748,7 @@ new Date(item.created_at)
 .toLocaleString("az-AZ")
 :
 "-";
+
 
 div.innerHTML=`
 
@@ -805,6 +1778,7 @@ Məhsulu sil
 
 `;
 
+
 list.appendChild(div);
 
 });
@@ -812,9 +1786,9 @@ list.appendChild(div);
 }
 
 
-/* =========================
-SİL
-========================= */
+/* =================================
+   MƏHSUL SİL
+================================= */
 
 async function deleteProduct(id){
 
@@ -826,6 +1800,7 @@ return;
 
 }
 
+
 const {
 error
 } =
@@ -833,6 +1808,7 @@ await supabaseClient
 .from("customer_products")
 .delete()
 .eq("id",id);
+
 
 if(error){
 
@@ -845,19 +1821,21 @@ return;
 
 }
 
+
 await loadProducts();
 
 }
 
 
-/* =========================
-QİYMƏTLƏRİ YÜKLƏ
-========================= */
+/* =================================
+   QİYMƏTLƏR
+================================= */
 
 async function loadPrices(){
 
 const list =
 document.getElementById("pricesList");
+
 
 const {
 data,
@@ -868,16 +1846,18 @@ await supabaseClient
 .select("*")
 .order("id");
 
+
 if(error){
 
 console.error(error);
 
 list.innerHTML =
-'<div class="empty">Qiymətlər yüklənmədi. Supabase cədvəlini yoxla.</div>';
+'<div class="empty">Qiymətlər yüklənmədi.</div>';
 
 return;
 
 }
+
 
 if(!data || data.length===0){
 
@@ -888,22 +1868,22 @@ return;
 
 }
 
+
 list.innerHTML="";
+
 
 data.forEach(item => {
 
-/* =========================
-   CANVA 12 AY
-========================= */
-
-if(item.product_key === "canva"){
+if(item.product_key==="canva"){
 
 const div =
 document.createElement("div");
 
-div.className="price-product canva-price";
+div.className=
+"price-product canva-price";
 
-div.innerHTML = `
+
+div.innerHTML=`
 
 <h3>
 ${escapeHtml(item.product_name)}
@@ -956,7 +1936,7 @@ value="${Number(item.sale_12_price ?? item.price_12_month ?? 0).toFixed(2)}"
 <input
 type="checkbox"
 id="active12-${item.id}"
-${item.sale_12_active ? "checked" : ""}
+${item.sale_12_active?"checked":""}
 >
 
 <label
@@ -974,13 +1954,11 @@ style="margin:0">
 <span
 class="sale-percent"
 id="percent12-${item.id}">
-
 </span>
 
 <span
 class="sale-status"
 id="status12-${item.id}">
-
 </span>
 
 </div>
@@ -997,39 +1975,16 @@ Yadda saxla
 
 `;
 
+
 list.appendChild(div);
 
+
 updateCanvaPreview(item.id);
-
-document.getElementById(
-"price12-" + item.id
-).addEventListener(
-"input",
-() => updateCanvaPreview(item.id)
-);
-
-document.getElementById(
-"sale12-" + item.id
-).addEventListener(
-"input",
-() => updateCanvaPreview(item.id)
-);
-
-document.getElementById(
-"active12-" + item.id
-).addEventListener(
-"change",
-() => updateCanvaPreview(item.id)
-);
 
 return;
 
 }
 
-
-/* =========================
-   DİGƏR MƏHSULLAR
-========================= */
 
 const div =
 document.createElement("div");
@@ -1037,259 +1992,23 @@ document.createElement("div");
 div.className="price-product";
 
 
-div.innerHTML = `
+div.innerHTML=`
 
 <h3>
 ${escapeHtml(item.product_name)}
 </h3>
 
 
-<!-- 1 AY -->
+${priceMonthHTML(item.id,1)}
 
-<div class="price-month">
+${priceMonthHTML(item.id,2)}
 
-<div class="price-month-title">
-1 ay
-</div>
-
-<div class="price-row">
-
-<div>
-
-<label>
-Normal qiymət (AZN)
-</label>
-
-<input
-type="number"
-step="0.01"
-min="0"
-id="price1-${item.id}"
-value="${Number(item.price_1_month || 0).toFixed(2)}"
->
-
-</div>
-
-<div>
-
-<label>
-Endirimli qiymət (AZN)
-</label>
-
-<input
-type="number"
-step="0.01"
-min="0"
-id="sale1-${item.id}"
-value="${Number(item.sale_1_price ?? item.price_1_month ?? 0).toFixed(2)}"
->
-
-</div>
-
-</div>
-
-<div class="switch-row">
-
-<input
-type="checkbox"
-id="active1-${item.id}"
-${item.sale_1_active ? "checked" : ""}
->
-
-<label
-for="active1-${item.id}"
-style="margin:0">
-
-1 aylıq endirimi aktiv et
-
-</label>
-
-</div>
-
-<div class="sale-info">
-
-<span
-class="sale-percent"
-id="percent1-${item.id}">
-
-</span>
-
-<span
-class="sale-status"
-id="status1-${item.id}">
-
-</span>
-
-</div>
-
-</div>
-
-
-<!-- 2 AY -->
-
-<div class="price-month">
-
-<div class="price-month-title">
-2 ay
-</div>
-
-<div class="price-row">
-
-<div>
-
-<label>
-Normal qiymət (AZN)
-</label>
-
-<input
-type="number"
-step="0.01"
-min="0"
-id="price2-${item.id}"
-value="${Number(item.price_2_month || 0).toFixed(2)}"
->
-
-</div>
-
-<div>
-
-<label>
-Endirimli qiymət (AZN)
-</label>
-
-<input
-type="number"
-step="0.01"
-min="0"
-id="sale2-${item.id}"
-value="${Number(item.sale_2_price ?? item.price_2_month ?? 0).toFixed(2)}"
->
-
-</div>
-
-</div>
-
-<div class="switch-row">
-
-<input
-type="checkbox"
-id="active2-${item.id}"
-${item.sale_2_active ? "checked" : ""}
->
-
-<label
-for="active2-${item.id}"
-style="margin:0">
-
-2 aylıq endirimi aktiv et
-
-</label>
-
-</div>
-
-<div class="sale-info">
-
-<span
-class="sale-percent"
-id="percent2-${item.id}">
-
-</span>
-
-<span
-class="sale-status"
-id="status2-${item.id}">
-
-</span>
-
-</div>
-
-</div>
-
-
-<!-- 3 AY -->
-
-<div class="price-month">
-
-<div class="price-month-title">
-3 ay
-</div>
-
-<div class="price-row">
-
-<div>
-
-<label>
-Normal qiymət (AZN)
-</label>
-
-<input
-type="number"
-step="0.01"
-min="0"
-id="price3-${item.id}"
-value="${Number(item.price_3_month || 0).toFixed(2)}"
->
-
-</div>
-
-<div>
-
-<label>
-Endirimli qiymət (AZN)
-</label>
-
-<input
-type="number"
-step="0.01"
-min="0"
-id="sale3-${item.id}"
-value="${Number(item.sale_3_price ?? item.price_3_month ?? 0).toFixed(2)}"
->
-
-</div>
-
-</div>
-
-<div class="switch-row">
-
-<input
-type="checkbox"
-id="active3-${item.id}"
-${item.sale_3_active ? "checked" : ""}
->
-
-<label
-for="active3-${item.id}"
-style="margin:0">
-
-3 aylıq endirimi aktiv et
-
-</label>
-
-</div>
-
-<div class="sale-info">
-
-<span
-class="sale-percent"
-id="percent3-${item.id}">
-
-</span>
-
-<span
-class="sale-status"
-id="status3-${item.id}">
-
-</span>
-
-</div>
-
-</div>
+${priceMonthHTML(item.id,3)}
 
 
 <button
 class="save-price"
-onclick="savePrice(${item.id}, '${item.product_key}')">
+onclick="savePrice(${item.id},'${escapeHtml(item.product_key)}')">
 
 Yadda saxla
 
@@ -1297,142 +2016,172 @@ Yadda saxla
 
 `;
 
+
 list.appendChild(div);
 
 
 updatePricePreview(item.id,1);
+
 updatePricePreview(item.id,2);
+
 updatePricePreview(item.id,3);
-
-
-document.getElementById(
-"price1-" + item.id
-).addEventListener(
-"input",
-() => updatePricePreview(item.id,1)
-);
-
-document.getElementById(
-"sale1-" + item.id
-).addEventListener(
-"input",
-() => updatePricePreview(item.id,1)
-);
-
-document.getElementById(
-"active1-" + item.id
-).addEventListener(
-"change",
-() => updatePricePreview(item.id,1)
-);
-
-
-document.getElementById(
-"price2-" + item.id
-).addEventListener(
-"input",
-() => updatePricePreview(item.id,2)
-);
-
-document.getElementById(
-"sale2-" + item.id
-).addEventListener(
-"input",
-() => updatePricePreview(item.id,2)
-);
-
-document.getElementById(
-"active2-" + item.id
-).addEventListener(
-"change",
-() => updatePricePreview(item.id,2)
-);
-
-
-document.getElementById(
-"price3-" + item.id
-).addEventListener(
-"input",
-() => updatePricePreview(item.id,3)
-);
-
-document.getElementById(
-"sale3-" + item.id
-).addEventListener(
-"input",
-() => updatePricePreview(item.id,3)
-);
-
-document.getElementById(
-"active3-" + item.id
-).addEventListener(
-"change",
-() => updatePricePreview(item.id,3)
-);
 
 });
 
 }
 
 
-/* =========================
-CANVA PREVIEW
-========================= */
+/* =================================
+   QİYMƏT HTML
+================================= */
+
+function priceMonthHTML(id,month){
+
+return `
+
+<div class="price-month">
+
+<div class="price-month-title">
+${month} ay
+</div>
+
+<div class="price-row">
+
+<div>
+
+<label>
+Normal qiymət (AZN)
+</label>
+
+<input
+type="number"
+step="0.01"
+min="0"
+id="price${month}-${id}"
+value="0"
+>
+
+</div>
+
+<div>
+
+<label>
+Endirimli qiymət (AZN)
+</label>
+
+<input
+type="number"
+step="0.01"
+min="0"
+id="sale${month}-${id}"
+value="0"
+>
+
+</div>
+
+</div>
+
+<div class="switch-row">
+
+<input
+type="checkbox"
+id="active${month}-${id}"
+>
+
+<label
+for="active${month}-${id}"
+style="margin:0">
+
+${month} aylıq endirimi aktiv et
+
+</label>
+
+</div>
+
+<div class="sale-info">
+
+<span
+class="sale-percent"
+id="percent${month}-${id}">
+</span>
+
+<span
+class="sale-status"
+id="status${month}-${id}">
+</span>
+
+</div>
+
+</div>
+
+`;
+
+}
+
+
+/* =================================
+   CANVA PREVIEW
+================================= */
 
 function updateCanvaPreview(id){
 
 const regular =
 Number(
 document.getElementById(
-"price12-" + id
+"price12-"+id
 ).value
-) || 0;
+)||0;
 
 const sale =
 Number(
 document.getElementById(
-"sale12-" + id
+"sale12-"+id
 ).value
-) || 0;
+)||0;
 
 const active =
 document.getElementById(
-"active12-" + id
+"active12-"+id
 ).checked;
+
 
 const percentBox =
 document.getElementById(
-"percent12-" + id
+"percent12-"+id
 );
 
 const statusBox =
 document.getElementById(
-"status12-" + id
+"status12-"+id
 );
 
-let percent = 0;
+
+let percent=0;
+
 
 if(
 active &&
-regular > 0 &&
-sale < regular
+regular>0 &&
+sale<regular
 ){
 
-percent =
+percent=
 Math.round(
-((regular - sale) / regular) * 100
+((regular-sale)/regular)*100
 );
 
 }
 
-percentBox.textContent =
-percent > 0
+
+percentBox.textContent=
+percent>0
 ?
-"🔥 " + percent + "% ENDİRİM"
+"🔥 "+percent+"% ENDİRİM"
 :
 "Endirim yoxdur";
 
-statusBox.textContent =
+
+statusBox.textContent=
 active
 ?
 "AKTİV"
@@ -1442,54 +2191,111 @@ active
 }
 
 
-/* =========================
-CANVA QİYMƏTİNİ YADDA SAXLA
-========================= */
+/* =================================
+   QİYMƏT PREVIEW
+================================= */
+
+function updatePricePreview(id,month){
+
+const regular =
+Number(
+document.getElementById(
+"price"+month+"-"+id
+).value
+)||0;
+
+const sale =
+Number(
+document.getElementById(
+"sale"+month+"-"+id
+).value
+)||0;
+
+const active =
+document.getElementById(
+"active"+month+"-"+id
+).checked;
+
+
+const percentBox =
+document.getElementById(
+"percent"+month+"-"+id
+);
+
+const statusBox =
+document.getElementById(
+"status"+month+"-"+id
+);
+
+
+let percent=0;
+
+
+if(
+active &&
+regular>0 &&
+sale<regular
+){
+
+percent=
+Math.round(
+((regular-sale)/regular)*100
+);
+
+}
+
+
+percentBox.textContent=
+percent>0
+?
+"🔥 "+percent+"% ENDİRİM"
+:
+"Endirim yoxdur";
+
+
+statusBox.textContent=
+active
+?
+"AKTİV"
+:
+"DEAKTİV";
+
+}
+
+
+/* =================================
+   CANVA SAVE
+================================= */
 
 async function saveCanvaPrice(id){
 
-const price12 =
+const price12=
 Number(
 document.getElementById(
-"price12-" + id
+"price12-"+id
 ).value
 );
 
-const sale12 =
+const sale12=
 Number(
 document.getElementById(
-"sale12-" + id
+"sale12-"+id
 ).value
 );
 
-const active12 =
+const active12=
 document.getElementById(
-"active12-" + id
+"active12-"+id
 ).checked;
 
 
 if(
 !Number.isFinite(price12) ||
-price12 < 0
+!Number.isFinite(sale12)
 ){
 
 showPriceMessage(
-"Canva normal qiyməti düzgün deyil.",
-true
-);
-
-return;
-
-}
-
-
-if(
-!Number.isFinite(sale12) ||
-sale12 < 0
-){
-
-showPriceMessage(
-"Canva endirimli qiyməti düzgün deyil.",
+"Qiymət düzgün deyil.",
 true
 );
 
@@ -1500,11 +2306,11 @@ return;
 
 if(
 active12 &&
-sale12 >= price12
+sale12>=price12
 ){
 
 showPriceMessage(
-"Canva endirimli qiyməti normal qiymətdən aşağı olmalıdır.",
+"Endirimli qiymət normal qiymətdən aşağı olmalıdır.",
 true
 );
 
@@ -1535,10 +2341,8 @@ updated_at:new Date().toISOString()
 
 if(error){
 
-console.error(error);
-
 showPriceMessage(
-"Canva qiyməti yadda saxlanmadı: " +
+"Yadda saxlanmadı: "+
 error.message,
 true
 );
@@ -1549,214 +2353,69 @@ return;
 
 
 showPriceMessage(
-"✅ Canva 12 aylıq qiyməti uğurla yadda saxlanıldı.",
+"✅ Canva qiyməti yadda saxlanıldı.",
 false
 );
+
 
 await loadPrices();
 
 }
 
 
-/* =========================
-QİYMƏT PREVIEW
-========================= */
-
-function updatePricePreview(id,month){
-
-const regular =
-Number(
-document.getElementById(
-"price" + month + "-" + id
-).value
-) || 0;
-
-const sale =
-Number(
-document.getElementById(
-"sale" + month + "-" + id
-).value
-) || 0;
-
-const active =
-document.getElementById(
-"active" + month + "-" + id
-).checked;
-
-const percentBox =
-document.getElementById(
-"percent" + month + "-" + id
-);
-
-const statusBox =
-document.getElementById(
-"status" + month + "-" + id
-);
-
-let percent = 0;
-
-if(
-active &&
-regular > 0 &&
-sale < regular
-){
-
-percent =
-Math.round(
-((regular - sale) / regular) * 100
-);
-
-}
-
-percentBox.textContent =
-percent > 0
-?
-"🔥 " + percent + "% ENDİRİM"
-:
-"Endirim yoxdur";
-
-statusBox.textContent =
-active
-?
-"AKTİV"
-:
-"DEAKTİV";
-
-}
-
-
-/* =========================
-QİYMƏTİ YADDA SAXLA
-========================= */
+/* =================================
+   DİGƏR QİYMƏTLƏRİ SAVE
+================================= */
 
 async function savePrice(id,productKey){
 
-const price1 =
-Number(
+const p1=
+Number(document.getElementById(
+"price1-"+id).value);
+
+const p2=
+Number(document.getElementById(
+"price2-"+id).value);
+
+const p3=
+Number(document.getElementById(
+"price3-"+id).value);
+
+
+const s1=
+Number(document.getElementById(
+"sale1-"+id).value);
+
+const s2=
+Number(document.getElementById(
+"sale2-"+id).value);
+
+const s3=
+Number(document.getElementById(
+"sale3-"+id).value);
+
+
+const a1=
 document.getElementById(
-"price1-" + id
-).value
-);
+"active1-"+id).checked;
 
-const price2 =
-Number(
+const a2=
 document.getElementById(
-"price2-" + id
-).value
-);
+"active2-"+id).checked;
 
-const price3 =
-Number(
+const a3=
 document.getElementById(
-"price3-" + id
-).value
-);
-
-
-const sale1 =
-Number(
-document.getElementById(
-"sale1-" + id
-).value
-);
-
-const sale2 =
-Number(
-document.getElementById(
-"sale2-" + id
-).value
-);
-
-const sale3 =
-Number(
-document.getElementById(
-"sale3-" + id
-).value
-);
-
-
-const active1 =
-document.getElementById(
-"active1-" + id
-).checked;
-
-const active2 =
-document.getElementById(
-"active2-" + id
-).checked;
-
-const active3 =
-document.getElementById(
-"active3-" + id
-).checked;
+"active3-"+id).checked;
 
 
 if(
-!Number.isFinite(price1) ||
-price1 < 0 ||
-!Number.isFinite(price2) ||
-price2 < 0 ||
-!Number.isFinite(price3) ||
-price3 < 0
+a1&&s1>=p1 ||
+a2&&s2>=p2 ||
+a3&&s3>=p3
 ){
 
 showPriceMessage(
-"Normal qiymətlər düzgün deyil.",
-true
-);
-
-return;
-
-}
-
-
-if(
-!Number.isFinite(sale1) ||
-sale1 < 0 ||
-!Number.isFinite(sale2) ||
-sale2 < 0 ||
-!Number.isFinite(sale3) ||
-sale3 < 0
-){
-
-showPriceMessage(
-"Endirimli qiymətlər düzgün deyil.",
-true
-);
-
-return;
-
-}
-
-
-if(active1 && sale1 >= price1){
-
-showPriceMessage(
-"1 aylıq endirimli qiymət normal qiymətdən aşağı olmalıdır.",
-true
-);
-
-return;
-
-}
-
-
-if(active2 && sale2 >= price2){
-
-showPriceMessage(
-"2 aylıq endirimli qiymət normal qiymətdən aşağı olmalıdır.",
-true
-);
-
-return;
-
-}
-
-
-if(active3 && sale3 >= price3){
-
-showPriceMessage(
-"3 aylıq endirimli qiymət normal qiymətdən aşağı olmalıdır.",
+"Endirimli qiymət normal qiymətdən aşağı olmalıdır.",
 true
 );
 
@@ -1772,17 +2431,17 @@ await supabaseClient
 .from("product_prices")
 .update({
 
-price_1_month:price1,
-price_2_month:price2,
-price_3_month:price3,
+price_1_month:p1,
+price_2_month:p2,
+price_3_month:p3,
 
-sale_1_price:sale1,
-sale_2_price:sale2,
-sale_3_price:sale3,
+sale_1_price:s1,
+sale_2_price:s2,
+sale_3_price:s3,
 
-sale_1_active:active1,
-sale_2_active:active2,
-sale_3_active:active3,
+sale_1_active:a1,
+sale_2_active:a2,
+sale_3_active:a3,
 
 updated_at:new Date().toISOString()
 
@@ -1793,10 +2452,8 @@ updated_at:new Date().toISOString()
 
 if(error){
 
-console.error(error);
-
 showPriceMessage(
-"Qiymət yadda saxlanmadı: " +
+"Qiymət yadda saxlanmadı: "+
 error.message,
 true
 );
@@ -1807,9 +2464,7 @@ return;
 
 
 showPriceMessage(
-"✅ " +
-productKey.toUpperCase() +
-" qiymətləri uğurla yadda saxlanıldı.",
+"✅ Qiymətlər yadda saxlanıldı.",
 false
 );
 
@@ -1819,13 +2474,30 @@ await loadPrices();
 }
 
 
-/* =========================
-QİYMƏT MESAJI
-========================= */
+/* =================================
+   MESAJLAR
+================================= */
 
-function showPriceMessage(text,isError){
+function showMessage(text,error){
 
-const box =
+const box=
+document.getElementById("message");
+
+box.textContent=text;
+
+box.style.display="block";
+
+if(error)
+box.classList.add("error");
+else
+box.classList.remove("error");
+
+}
+
+
+function showPriceMessage(text,error){
+
+const box=
 document.getElementById(
 "priceMessage"
 );
@@ -1834,58 +2506,28 @@ box.textContent=text;
 
 box.style.display="block";
 
-if(isError){
-
+if(error)
 box.classList.add("error");
-
-}else{
-
+else
 box.classList.remove("error");
 
-}
-
-setTimeout(() => {
-
-box.style.display="none";
-
-},4000);
-
-}
-
-
-/* =========================
-MESAJ
-========================= */
-
-function showMessage(text,isError){
-
-const box =
-document.getElementById("message");
-
-box.textContent=text;
-
-box.style.display="block";
-
-if(isError){
-
-box.classList.add("error");
-
-}else{
-
-box.classList.remove("error");
-
-}
+setTimeout(
+()=>{
+box.style.display="none"
+},
+4000
+);
 
 }
 
 
-/* =========================
-TƏHLÜKƏSİZ MƏTN
-========================= */
+/* =================================
+   ESCAPE
+================================= */
 
 function escapeHtml(text){
 
-return String(text)
+return String(text ?? "")
 .replace(/&/g,"&amp;")
 .replace(/</g,"&lt;")
 .replace(/>/g,"&gt;")
@@ -1894,6 +2536,10 @@ return String(text)
 
 }
 
+
+/* =================================
+   START
+================================= */
 
 checkAdmin();
 
