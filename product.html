@@ -150,6 +150,25 @@ header {
     color: #fff;
 }
 
+.auth-links button{
+    background:none;
+    border:none;
+    color:#aaa;
+    font-size:14px;
+    font-weight:600;
+    cursor:pointer;
+    font-family:inherit;
+}
+
+.auth-links button:hover{
+    color:#fff;
+}
+
+.user-email{
+    color:#777;
+    font-size:13px;
+}
+
 #cartModal {
     display: none;
     position: fixed;
@@ -951,7 +970,7 @@ DigiBaku<span>.com</span>
 
 </div>
 
-<div class="auth-links">
+<div class="auth-links" id="authArea">
 <a href="login.html" data-i18n="login">Daxil ol</a>
 <a href="login.html" data-i18n="register">Qeydiyyat</a>
 </div>
@@ -1377,7 +1396,6 @@ window.supabase.createClient(
     SUPABASE_KEY
 );
 
-
 /* =========================================================
    DİL SİSTEMİ
    ========================================================= */
@@ -1397,6 +1415,8 @@ blog:"Bloq",
 contact:"Əlaqə",
 login:"Daxil ol",
 register:"Qeydiyyat",
+profile:"Profil",
+logout:"Çıxış",
 reviews:"Rəylər",
 
 cart:"Səbət",
@@ -1498,6 +1518,8 @@ blog:"Блог",
 contact:"Контакты",
 login:"Войти",
 register:"Регистрация",
+profile:"Профиль",
+logout:"Выйти",
 reviews:"Отзывы",
 
 cart:"Корзина",
@@ -1599,6 +1621,8 @@ blog:"Blog",
 contact:"Contact",
 login:"Log in",
 register:"Register",
+profile:"Profile",
+logout:"Log out",
 reviews:"Reviews",
 
 cart:"Cart",
@@ -1689,7 +1713,6 @@ cartProductAdded:"Product added to cart!"
 
 };
 
-
 /* =========================================================
    DİL
    ========================================================= */
@@ -1707,6 +1730,83 @@ return translations[lang][key]
 || key;
 
 }
+
+/* =========================================================
+   LOGIN / SESSION
+   ========================================================= */
+
+async function checkLogin(){
+
+    const {
+        data:{session},
+        error
+    } = await supabaseClient.auth.getSession();
+
+    if(error){
+        console.error("Login session xətası:", error);
+        return;
+    }
+
+    const authArea =
+        document.getElementById("authArea");
+
+    if(!authArea) return;
+
+    if(session){
+
+        authArea.innerHTML="";
+
+        const profileButton =
+            document.createElement("a");
+
+        profileButton.href="profile.html";
+        profileButton.textContent=t("profile");
+
+        const email =
+            document.createElement("span");
+
+        email.className="user-email";
+        email.textContent=session.user.email || "";
+
+        const logoutButton =
+            document.createElement("button");
+
+        logoutButton.textContent=t("logout");
+
+        logoutButton.onclick=logout;
+
+        authArea.appendChild(profileButton);
+        authArea.appendChild(email);
+        authArea.appendChild(logoutButton);
+
+    }else{
+
+        authArea.innerHTML=`
+            <a href="login.html" data-i18n="login">
+                ${t("login")}
+            </a>
+
+            <a href="login.html" data-i18n="register">
+                ${t("register")}
+            </a>
+        `;
+
+    }
+}
+
+async function logout(){
+
+    await supabaseClient.auth.signOut();
+
+    window.location.reload();
+
+}
+
+supabaseClient.auth.onAuthStateChange(
+    (event, session)=>{
+        checkLogin();
+    }
+);
 
 function setLanguage(lang){
 
@@ -1771,6 +1871,7 @@ document.getElementById("trustSubtitle").textContent=t("trustSubtitle");
 document.getElementById("fastTitle").textContent=t("fastTitle");
 document.getElementById("fastText").textContent=t("fastText");
 
+document.getElementById("secureTitle").textContent=t("secureText");
 document.getElementById("secureTitle").textContent=t("secureTitle");
 document.getElementById("secureText").textContent=t("secureText");
 
@@ -1793,7 +1894,6 @@ renderDynamicContent();
 updateCartUI();
 
 }
-
 
 /* =========================================================
    MƏHSULLAR
@@ -2078,7 +2178,6 @@ guidesEn:["Canva Pro usage guide"]
 
 };
 
-
 /* =========================================================
    URL-DƏN MƏHSULU GÖTÜR
    ========================================================= */
@@ -2097,7 +2196,6 @@ const product=
 products[productKey];
 
 let selectedPackage=0;
-
 
 /* =========================================================
    DİNAMİK QİYMƏT SİSTEMİ
@@ -2128,7 +2226,6 @@ active:"sale_12_active",
 sale:"sale_12_price"
 }
 };
-
 
 function getCurrentPackagePrice(item){
 
@@ -2178,7 +2275,6 @@ sale:false
 
 }
 
-
 /* =========================================================
    QİYMƏTİ GÖSTƏR
    ========================================================= */
@@ -2220,7 +2316,6 @@ ${current.price.toFixed(2)} AZN
 `;
 
 }
-
 
 /* =========================================================
    SUPABASE-DAN QİYMƏTLƏRİ GÖTÜR
@@ -2287,7 +2382,6 @@ error
 }
 
 }
-
 
 /* =========================================================
    REALTIME QİYMƏT DƏYİŞİKLİYİ
@@ -2359,7 +2453,6 @@ status
 
 }
 
-
 /* =========================================================
    MƏHSUL ADI
    ========================================================= */
@@ -2379,7 +2472,6 @@ return product.nameEn;
 return product.name;
 
 }
-
 
 /* =========================================================
    MƏHSUL QISA MƏLUMATI
@@ -2401,7 +2493,6 @@ return product.short;
 
 }
 
-
 /* =========================================================
    MƏHSUL KONTENTİ
    ========================================================= */
@@ -2421,7 +2512,6 @@ return product.contentEn;
 return product.contentAz;
 
 }
-
 
 /* =========================================================
    FAQ
@@ -2443,7 +2533,6 @@ return product.faq;
 
 }
 
-
 /* =========================================================
    RƏYLƏR
    ========================================================= */
@@ -2463,7 +2552,6 @@ return product.reviewsEn;
 return product.reviews;
 
 }
-
 
 /* =========================================================
    MƏQALƏLƏR
@@ -2485,7 +2573,6 @@ return product.articles;
 
 }
 
-
 /* =========================================================
    BƏLƏDÇİLƏR
    ========================================================= */
@@ -2506,7 +2593,6 @@ return product.guides;
 
 }
 
-
 /* =========================================================
    RATING
    ========================================================= */
@@ -2526,7 +2612,6 @@ return product.ratingEn;
 return product.rating;
 
 }
-
 
 /* =========================================================
    İLK YÜKLƏMƏ
@@ -2549,7 +2634,6 @@ document.getElementById("shortDescription")
 
 document.getElementById("content")
 .innerHTML=getProductContent();
-
 
 /* =========================================================
    FAQ GÖSTƏR
@@ -2613,7 +2697,6 @@ faqList.appendChild(faqItem);
 
 }
 
-
 /* =========================================================
    RƏYLƏR
    ========================================================= */
@@ -2661,7 +2744,6 @@ reviewsGrid.appendChild(card);
 
 }
 
-
 /* =========================================================
    MƏQALƏLƏR
    ========================================================= */
@@ -2705,7 +2787,6 @@ articlesGrid.appendChild(card);
 
 }
 
-
 function getArticleDescription(){
 
 const lang=getLanguage();
@@ -2721,7 +2802,6 @@ return "Useful information about premium services.";
 return "Premium xidmətlər haqqında faydalı məlumatlar.";
 
 }
-
 
 /* =========================================================
    BƏLƏDÇİLƏR
@@ -2751,7 +2831,6 @@ guidesList.appendChild(guideCard);
 });
 
 }
-
 
 /* =========================================================
    DİNAMİK MƏLUMATLAR
@@ -2788,7 +2867,6 @@ updateSelected();
 
 }
 
-
 /* =========================================================
    PAKETLƏR
    ========================================================= */
@@ -2811,7 +2889,6 @@ return item.nameEn;
 return item.name;
 
 }
-
 
 function showPackages(){
 
@@ -2858,7 +2935,6 @@ packagesBox.appendChild(el);
 
 }
 
-
 /* =========================================================
    SEÇİLMİŞ PAKET
    ========================================================= */
@@ -2903,7 +2979,6 @@ current.price.toFixed(2)+" AZN";
 document.getElementById("selectedPeriod")
 .textContent=
 getPackageName(item);
-
 
 /* =========================================================
    SEÇİLMİŞ PAKET ÜÇÜN ENDİRİM FAİZİ
@@ -2955,7 +3030,6 @@ discountEl.style.display=
 
 }
 
-
 /* =========================================================
    İNDİ AL
    ========================================================= */
@@ -2997,7 +3071,6 @@ encodeURIComponent(message);
 
 }
 
-
 /* =========================================================
    SƏBƏT
    ========================================================= */
@@ -3006,7 +3079,6 @@ let cart=
 JSON.parse(
 localStorage.getItem("digi_cart")
 )||[];
-
 
 /* =========================================================
    SƏBƏTİ AÇ / BAĞLA
@@ -3032,7 +3104,6 @@ updateCartUI();
 }
 
 }
-
 
 /* =========================================================
    SƏBƏTƏ ƏLAVƏ ET
@@ -3072,7 +3143,6 @@ t("cartProductAdded")
 
 }
 
-
 /* =========================================================
    SƏBƏT SAYĞACI
    ========================================================= */
@@ -3090,7 +3160,6 @@ cart.length;
 }
 
 }
-
 
 /* =========================================================
    SƏBƏTİN İÇİ
@@ -3197,7 +3266,6 @@ total.toFixed(2)+" AZN";
 
 }
 
-
 /* =========================================================
    SƏBƏTDƏN SİL
    ========================================================= */
@@ -3216,7 +3284,6 @@ updateCartCount();
 updateCartUI();
 
 }
-
 
 /* =========================================================
    SİFARİŞİ TƏSDİQLƏ
@@ -3278,7 +3345,6 @@ whatsappUrl;
 
 }
 
-
 /* =========================================================
    BAŞLANĞIC
    ========================================================= */
@@ -3286,6 +3352,8 @@ whatsappUrl;
 updateCartCount();
 
 applyLanguage();
+
+checkLogin();
 
 loadProductPrices();
 
