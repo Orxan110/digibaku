@@ -9,584 +9,757 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
 
 body{
-font-family:Arial,sans-serif;
-background:#050505;
-color:#fff;
-min-height:100vh;
+    font-family:Arial,sans-serif;
+    background:#050505;
+    color:#fff;
+    min-height:100vh;
 }
 
 .container{
-width:92%;
-max-width:850px;
-margin:auto;
+    width:92%;
+    max-width:900px;
+    margin:auto;
 }
 
 header{
-background:#090909;
-border-bottom:1px solid #222;
+    background:#090909;
+    border-bottom:1px solid #222;
 }
 
 .nav{
-min-height:70px;
-display:flex;
-align-items:center;
-justify-content:space-between;
+    min-height:70px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
 }
 
 .logo{
-font-size:24px;
-font-weight:900;
-color:#3b82f6;
+    font-size:24px;
+    font-weight:900;
+    color:#3b82f6;
 }
 
-.logo span{color:#fff}
+.logo span{
+    color:#fff;
+}
 
 .back{
-color:#aaa;
-text-decoration:none;
+    color:#aaa;
+    text-decoration:none;
+    font-size:14px;
 }
 
-main{padding:35px 0}
-
-.card{
-background:#101010;
-border:1px solid #262626;
-border-radius:18px;
-padding:25px;
-margin-bottom:20px;
-}
-
-h1{margin-bottom:8px}
-h2{margin-bottom:18px}
-
-.subtitle{
-color:#888;
-margin-bottom:25px;
-}
-
-label{
-display:block;
-color:#aaa;
-font-size:14px;
-font-weight:bold;
-margin-bottom:7px;
-}
-
-input,select,textarea{
-width:100%;
-padding:14px;
-margin-bottom:17px;
-border-radius:10px;
-border:1px solid #333;
-background:#080808;
-color:#fff;
-font-size:14px;
-outline:none;
-}
-
-textarea{
-min-height:130px;
-resize:vertical;
-}
-
-button{
-width:100%;
-padding:14px;
-border:0;
-border-radius:10px;
-background:#2563eb;
-color:#fff;
-font-weight:bold;
-font-size:15px;
-cursor:pointer;
-}
-
-button:disabled{
-opacity:.6;
-}
-
-.message{
-display:none;
-padding:13px;
-border-radius:10px;
-margin-top:15px;
-line-height:1.5;
-background:#0b2b1d;
-border:1px solid #166534;
-color:#86efac;
-}
-
-.message.error{
-background:#2b0b0b;
-border-color:#7f1d1d;
-color:#fca5a5;
+main{
+    padding:30px 0 70px;
 }
 
 .loading{
-text-align:center;
-padding:70px 20px;
-color:#888;
+    text-align:center;
+    padding:80px 20px;
+    color:#888;
 }
 
 #adminPanel{
-display:none;
+    display:none;
 }
 
-.customer-info{
-background:#080808;
-border:1px solid #222;
-padding:12px;
-border-radius:10px;
-margin-bottom:15px;
-color:#60a5fa;
-font-size:14px;
+/* =========================
+   SECTIONS
+========================= */
+
+.admin-section{
+    background:#101010;
+    border:1px solid #242424;
+    border-radius:18px;
+    margin-bottom:18px;
+    overflow:hidden;
 }
 
-.product{
-background:#080808;
-border:1px solid #252525;
-border-radius:12px;
-padding:17px;
-margin-bottom:10px;
+.section-head{
+    padding:22px 24px;
+    background:#111;
+    border-bottom:1px solid #242424;
 }
 
-.product strong{
-display:block;
-color:#60a5fa;
-font-size:17px;
-margin-bottom:7px;
+.section-head h2{
+    font-size:20px;
+    margin-bottom:6px;
 }
 
-.product small{
-color:#888;
+.section-head p{
+    color:#777;
+    font-size:13px;
+    line-height:1.5;
 }
 
-.delete{
-margin-top:12px;
-background:#991b1b;
+.section-body{
+    padding:24px;
+}
+
+label{
+    display:block;
+    color:#aaa;
+    font-size:13px;
+    font-weight:bold;
+    margin-bottom:7px;
+}
+
+input,
+select,
+textarea{
+    width:100%;
+    padding:13px;
+    margin-bottom:16px;
+    border-radius:10px;
+    border:1px solid #333;
+    background:#080808;
+    color:#fff;
+    font-size:14px;
+    outline:none;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+    border-color:#2563eb;
+}
+
+textarea{
+    min-height:120px;
+    resize:vertical;
+}
+
+button{
+    width:100%;
+    padding:13px 15px;
+    border:0;
+    border-radius:10px;
+    background:#2563eb;
+    color:#fff;
+    font-weight:bold;
+    font-size:14px;
+    cursor:pointer;
+}
+
+button:hover{
+    filter:brightness(1.08);
+}
+
+button:disabled{
+    opacity:.55;
+    cursor:not-allowed;
 }
 
 .empty{
-color:#777;
-padding:15px 0;
+    color:#666;
+    padding:15px 0;
+    font-size:14px;
 }
 
-/* QİYMƏT */
+/* =========================
+   MESSAGE
+========================= */
+
+.message,
+.price-message{
+    display:none;
+    padding:13px;
+    border-radius:10px;
+    margin-top:15px;
+    line-height:1.5;
+    background:#0b2b1d;
+    border:1px solid #166534;
+    color:#86efac;
+}
+
+.message.error,
+.price-message.error{
+    background:#2b0b0b;
+    border-color:#7f1d1d;
+    color:#fca5a5;
+}
+
+/* =========================
+   PRODUCT DELIVERY
+========================= */
+
+.customer-info{
+    background:#080808;
+    border:1px solid #222;
+    padding:12px;
+    border-radius:10px;
+    margin-bottom:15px;
+    color:#60a5fa;
+    font-size:14px;
+}
+
+.delivery-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+}
+
+.product{
+    background:#080808;
+    border:1px solid #252525;
+    border-radius:12px;
+    padding:16px;
+    margin-bottom:10px;
+}
+
+.product strong{
+    display:block;
+    color:#60a5fa;
+    font-size:16px;
+    margin-bottom:7px;
+}
+
+.product small{
+    color:#888;
+    line-height:1.7;
+}
+
+.delete{
+    margin-top:12px;
+    background:#991b1b;
+}
+
+/* =========================
+   PRICE
+========================= */
 
 .price-product{
-background:#080808;
-border:1px solid #252525;
-border-radius:12px;
-padding:18px;
-margin-bottom:14px;
+    background:#080808;
+    border:1px solid #252525;
+    border-radius:12px;
+    padding:18px;
+    margin-bottom:14px;
 }
 
 .price-product h3{
-color:#60a5fa;
-font-size:17px;
-margin-bottom:15px;
+    color:#60a5fa;
+    font-size:17px;
+    margin-bottom:15px;
 }
 
 .price-month{
-border:1px solid #222;
-border-radius:10px;
-padding:14px;
-margin-bottom:12px;
+    border:1px solid #222;
+    border-radius:10px;
+    padding:14px;
+    margin-bottom:12px;
 }
 
 .price-month-title{
-color:#fff;
-font-weight:bold;
-margin-bottom:12px;
-font-size:15px;
+    color:#fff;
+    font-weight:bold;
+    margin-bottom:12px;
 }
 
 .price-row{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:12px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
 }
 
 .price-row input{
-margin-bottom:12px;
+    margin-bottom:12px;
 }
 
 .switch-row{
-display:flex;
-align-items:center;
-gap:10px;
-margin:5px 0 12px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin:5px 0 12px;
 }
 
 .switch-row input{
-width:auto;
-margin:0;
-accent-color:#2563eb;
+    width:auto;
+    margin:0;
+    accent-color:#2563eb;
+}
+
+.switch-row label{
+    margin:0;
 }
 
 .sale-info{
-display:flex;
-align-items:center;
-justify-content:space-between;
-gap:10px;
-margin-bottom:5px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
 }
 
 .sale-percent{
-color:#86efac;
-font-size:14px;
-font-weight:bold;
+    color:#86efac;
+    font-weight:bold;
 }
 
 .sale-status{
-font-size:13px;
-color:#888;
+    color:#777;
+    font-size:12px;
 }
 
 .save-price{
-background:#16a34a;
-margin-top:8px;
+    background:#16a34a;
+    margin-top:8px;
 }
 
-.price-message{
-display:none;
-padding:13px;
-border-radius:10px;
-margin-top:15px;
-line-height:1.5;
-background:#0b2b1d;
-border:1px solid #166534;
-color:#86efac;
-}
-
-.price-message.error{
-background:#2b0b0b;
-border-color:#7f1d1d;
-color:#fca5a5;
-}
-
-/* CHAT */
+/* =========================
+   CHAT
+========================= */
 
 .chat-layout{
-display:grid;
-grid-template-columns:260px 1fr;
-gap:15px;
-min-height:500px;
+    display:grid;
+    grid-template-columns:250px 1fr;
+    gap:15px;
+    min-height:520px;
 }
 
 .chat-customers{
-background:#080808;
-border:1px solid #252525;
-border-radius:12px;
-overflow:hidden;
+    background:#080808;
+    border:1px solid #252525;
+    border-radius:12px;
+    overflow:hidden;
 }
 
 .chat-customer{
-padding:15px;
-border-bottom:1px solid #222;
-cursor:pointer;
-transition:.2s;
+    padding:14px;
+    border-bottom:1px solid #222;
+    cursor:pointer;
 }
 
 .chat-customer:hover{
-background:#151515;
+    background:#151515;
 }
 
 .chat-customer.active{
-background:#172554;
-border-left:3px solid #3b82f6;
+    background:#172554;
+    border-left:3px solid #3b82f6;
 }
 
 .chat-customer-name{
-font-weight:bold;
-color:#fff;
-font-size:14px;
-word-break:break-all;
+    font-weight:bold;
+    font-size:14px;
+    word-break:break-all;
 }
 
 .chat-customer-status{
-color:#777;
-font-size:12px;
-margin-top:5px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-gap:5px;
+    color:#777;
+    font-size:11px;
+    margin-top:6px;
+    display:flex;
+    justify-content:space-between;
+    gap:5px;
 }
 
 .unread-badge{
-background:#2563eb;
-color:#fff;
-border-radius:20px;
-padding:3px 7px;
-font-size:11px;
-font-weight:bold;
-flex-shrink:0;
+    background:#2563eb;
+    color:#fff;
+    border-radius:20px;
+    padding:3px 7px;
+    font-size:10px;
+    font-weight:bold;
 }
 
 .order-status-badge{
-background:#2563eb;
-color:#fff;
-border-radius:20px;
-padding:3px 7px;
-font-size:10px;
-font-weight:bold;
-white-space:nowrap;
-flex-shrink:0;
+    background:#2563eb;
+    color:#fff;
+    border-radius:20px;
+    padding:3px 7px;
+    font-size:9px;
+    font-weight:bold;
+    white-space:nowrap;
 }
 
-.order-status-badge.pending{background:#ca8a04}
-.order-status-badge.confirmed{background:#16a34a}
-.order-status-badge.processing{background:#2563eb}
-.order-status-badge.completed{background:#4b5563}
-.order-status-badge.cancelled{background:#991b1b}
-
-.chat-order-status{
-padding:10px 15px;
-background:#0d0d0d;
-border-bottom:1px solid #222;
-display:flex;
-justify-content:space-between;
-align-items:center;
-gap:10px;
-font-size:13px;
+.order-status-badge.pending{
+    background:#ca8a04;
 }
 
-.chat-order-status-label{
-color:#888;
+.order-status-badge.confirmed{
+    background:#16a34a;
 }
 
-.chat-order-status-value{
-font-weight:bold;
-color:#60a5fa;
+.order-status-badge.processing{
+    background:#2563eb;
 }
 
-.chat-order-status-value.pending{color:#facc15}
-.chat-order-status-value.confirmed{color:#4ade80}
-.chat-order-status-value.processing{color:#60a5fa}
-.chat-order-status-value.completed{color:#9ca3af}
-.chat-order-status-value.cancelled{color:#f87171}
-
-.chat-order-status-control{
-padding:10px 15px;
-background:#0a0a0a;
-border-bottom:1px solid #222;
+.order-status-badge.completed{
+    background:#4b5563;
 }
 
-.chat-order-status-control label{
-margin-bottom:7px;
-font-size:12px;
-color:#777;
-}
-
-.chat-order-status-control select{
-margin:0;
-padding:10px 12px;
-font-size:13px;
-background:#111;
-border-color:#333;
-}
-
-.chat-status-save{
-margin-top:8px;
-background:#16a34a;
-padding:10px;
-font-size:13px;
-}
-
-.chat-status-save:disabled{
-opacity:.6;
+.order-status-badge.cancelled{
+    background:#991b1b;
 }
 
 .chat-box{
-display:flex;
-flex-direction:column;
-background:#080808;
-border:1px solid #252525;
-border-radius:12px;
-overflow:hidden;
-min-width:0;
+    display:flex;
+    flex-direction:column;
+    background:#080808;
+    border:1px solid #252525;
+    border-radius:12px;
+    overflow:hidden;
+    min-width:0;
 }
 
 .chat-header{
-padding:15px;
-background:#101010;
-border-bottom:1px solid #222;
-font-weight:bold;
-color:#60a5fa;
+    padding:15px;
+    background:#101010;
+    border-bottom:1px solid #222;
+    font-weight:bold;
+    color:#60a5fa;
+}
+
+.chat-order-status{
+    padding:10px 15px;
+    background:#0d0d0d;
+    border-bottom:1px solid #222;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-size:13px;
+}
+
+.chat-order-status-label{
+    color:#888;
+}
+
+.chat-order-status-value{
+    font-weight:bold;
+    color:#60a5fa;
+}
+
+.chat-order-status-value.pending{
+    color:#facc15;
+}
+
+.chat-order-status-value.confirmed{
+    color:#4ade80;
+}
+
+.chat-order-status-value.processing{
+    color:#60a5fa;
+}
+
+.chat-order-status-value.completed{
+    color:#9ca3af;
+}
+
+.chat-order-status-value.cancelled{
+    color:#f87171;
+}
+
+.chat-order-status-control{
+    padding:10px 15px;
+    background:#0a0a0a;
+    border-bottom:1px solid #222;
+}
+
+.chat-order-status-control select{
+    margin:0;
+}
+
+.chat-status-save{
+    margin-top:8px;
+    background:#16a34a;
+    padding:10px;
 }
 
 .chat-messages{
-flex:1;
-height:330px;
-overflow-y:auto;
-padding:15px;
-display:flex;
-flex-direction:column;
-gap:10px;
+    height:340px;
+    overflow-y:auto;
+    padding:15px;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
 }
 
 .chat-msg{
-max-width:80%;
-padding:10px 13px;
-border-radius:12px;
-font-size:14px;
-line-height:1.45;
-word-break:break-word;
+    max-width:82%;
+    padding:10px 13px;
+    border-radius:12px;
+    font-size:14px;
+    line-height:1.45;
+    word-break:break-word;
 }
 
 .chat-msg.admin{
-align-self:flex-end;
-background:#2563eb;
-color:#fff;
-border-bottom-right-radius:3px;
+    align-self:flex-end;
+    background:#2563eb;
+    border-bottom-right-radius:3px;
 }
 
 .chat-msg.customer{
-align-self:flex-start;
-background:#1b1b1b;
-border:1px solid #2b2b2b;
-color:#eee;
-border-bottom-left-radius:3px;
+    align-self:flex-start;
+    background:#1b1b1b;
+    border:1px solid #2b2b2b;
+    border-bottom-left-radius:3px;
 }
 
 .chat-time{
-display:block;
-font-size:10px;
-opacity:.65;
-margin-top:5px;
+    display:block;
+    font-size:10px;
+    opacity:.6;
+    margin-top:5px;
 }
 
 .chat-send{
-padding:12px;
-border-top:1px solid #222;
+    padding:12px;
+    border-top:1px solid #222;
 }
 
 .chat-send textarea{
-min-height:75px;
-margin-bottom:8px;
+    min-height:70px;
+    margin-bottom:8px;
 }
 
-.chat-send button{
-margin:0;
-}
-
-/* ORDERS */
+/* =========================
+   ORDERS
+========================= */
 
 .order-card{
-background:#080808;
-border:1px solid #252525;
-border-radius:12px;
-padding:16px;
-margin-bottom:12px;
+    background:#080808;
+    border:1px solid #252525;
+    border-radius:12px;
+    padding:16px;
+    margin-bottom:12px;
 }
 
 .order-top{
-display:flex;
-justify-content:space-between;
-align-items:flex-start;
-gap:10px;
-margin-bottom:12px;
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+    margin-bottom:12px;
 }
 
 .order-product{
-font-size:17px;
-font-weight:bold;
-color:#60a5fa;
+    font-size:16px;
+    font-weight:bold;
+    color:#60a5fa;
 }
 
 .order-id{
-font-size:11px;
-color:#666;
-margin-top:4px;
-word-break:break-all;
+    color:#555;
+    font-size:10px;
+    margin-top:4px;
+    word-break:break-all;
 }
 
 .order-info{
-color:#aaa;
-font-size:13px;
-line-height:1.7;
-margin-bottom:12px;
+    color:#aaa;
+    font-size:13px;
+    line-height:1.7;
+    margin-bottom:12px;
 }
 
 .order-info strong{
-color:#ddd;
-}
-
-.order-actions{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:10px;
-}
-
-.order-status{
-margin:0;
-}
-
-.order-chat{
-background:#374151;
-}
-
-.order-chat:hover{
-background:#4b5563;
+    color:#ddd;
 }
 
 .order-current-status{
-display:inline-block;
-padding:5px 9px;
-border-radius:20px;
-font-size:11px;
-font-weight:bold;
-margin-bottom:10px;
+    display:inline-block;
+    padding:5px 9px;
+    border-radius:20px;
+    font-size:10px;
+    font-weight:bold;
+    margin-bottom:10px;
 }
 
 .order-current-status.pending{
-background:#ca8a04;
+    background:#ca8a04;
 }
 
 .order-current-status.confirmed{
-background:#16a34a;
+    background:#16a34a;
 }
 
 .order-current-status.processing{
-background:#2563eb;
+    background:#2563eb;
 }
 
 .order-current-status.completed{
-background:#4b5563;
+    background:#4b5563;
 }
 
 .order-current-status.cancelled{
-background:#991b1b;
-}
-
-@media(max-width:600px){
-
-.price-row{
-grid-template-columns:1fr;
-gap:0;
-}
-
-.chat-layout{
-grid-template-columns:1fr;
-}
-
-.chat-customers{
-max-height:230px;
-overflow-y:auto;
-}
-
-.chat-messages{
-height:300px;
+    background:#991b1b;
 }
 
 .order-actions{
-grid-template-columns:1fr;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
 }
 
+.order-actions select{
+    margin:0;
+}
+
+.order-chat{
+    background:#374151;
+}
+
+/* =========================
+   NEW ORDER NOTIFICATION
+========================= */
+
+.new-order-notification{
+    position:fixed;
+    right:20px;
+    bottom:20px;
+    width:350px;
+    max-width:calc(100vw - 30px);
+    background:#111;
+    border:1px solid #2563eb;
+    border-radius:16px;
+    padding:16px;
+    box-shadow:0 15px 50px rgba(0,0,0,.7);
+    z-index:9999;
+    display:none;
+    animation:notificationIn .25s ease;
+}
+
+@keyframes notificationIn{
+    from{
+        transform:translateY(25px);
+        opacity:0;
+    }
+    to{
+        transform:translateY(0);
+        opacity:1;
+    }
+}
+
+.new-order-title{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    margin-bottom:10px;
+}
+
+.new-order-title strong{
+    color:#60a5fa;
+    font-size:16px;
+}
+
+.new-order-close{
+    width:30px;
+    height:30px;
+    padding:0;
+    background:#222;
+    border-radius:8px;
+}
+
+.new-order-info{
+    color:#aaa;
+    font-size:13px;
+    line-height:1.7;
+    margin-bottom:12px;
+}
+
+.new-order-info strong{
+    color:#fff;
+}
+
+.new-order-buttons{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+}
+
+.new-order-buttons button{
+    padding:10px;
+    font-size:12px;
+}
+
+.new-order-chat{
+    background:#374151;
+}
+
+/* =========================
+   ADMIN ERROR
+========================= */
+
+.error-box{
+    background:#151515;
+    border:1px solid #7f1d1d;
+    border-radius:14px;
+    padding:25px;
+    max-width:600px;
+    margin:auto;
+    text-align:left;
+}
+
+.error-title{
+    font-size:19px;
+    font-weight:bold;
+    color:#fca5a5;
+    margin-bottom:10px;
+}
+
+.error-text{
+    color:#aaa;
+    line-height:1.6;
+    margin-bottom:18px;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:700px){
+
+    .container{
+        width:94%;
+    }
+
+    main{
+        padding-top:20px;
+    }
+
+    .section-body,
+    .section-head{
+        padding:18px;
+    }
+
+    .delivery-grid{
+        grid-template-columns:1fr;
+        gap:0;
+    }
+
+    .price-row{
+        grid-template-columns:1fr;
+        gap:0;
+    }
+
+    .chat-layout{
+        grid-template-columns:1fr;
+    }
+
+    .chat-customers{
+        max-height:230px;
+        overflow-y:auto;
+    }
+
+    .chat-messages{
+        height:300px;
+    }
+
+    .order-actions{
+        grid-template-columns:1fr;
+    }
+
+    .new-order-notification{
+        right:10px;
+        bottom:10px;
+        width:calc(100vw - 20px);
+    }
 }
 </style>
 </head>
@@ -617,13 +790,21 @@ Supabase bağlantısı yoxlanılır...
 
 <div id="adminPanel">
 
-<div class="card">
+<!-- =====================================================
+     1. QİYMƏTLƏR
+===================================================== -->
 
-<h2>Qiymət və Endirimlər</h2>
+<section class="admin-section">
 
-<p class="subtitle">
-Məhsulların qiymətlərini və endirimlərini buradan idarə et
+<div class="section-head">
+<h2>💰 Qiymət və Endirimlər</h2>
+<p>
+Məhsulların normal və endirimli qiymətlərini idarə et.
+Dəyişikliklər Supabase-də yadda saxlanılır.
 </p>
+</div>
+
+<div class="section-body">
 
 <div id="pricesList">
 <div class="empty">
@@ -634,19 +815,30 @@ Qiymətlər yüklənir...
 <div id="priceMessage" class="price-message"></div>
 
 </div>
+</section>
 
-<div class="card">
 
-<h1>Admin Panel</h1>
+<!-- =====================================================
+     2. MÜŞTƏRİYƏ MƏHSUL VER
+===================================================== -->
 
-<p class="subtitle">
-Müştəriyə ödənişdən sonra məhsul ver
+<section class="admin-section">
+
+<div class="section-head">
+<h2>🎁 Müştəriyə Məhsul Ver</h2>
+<p>
+Ödənişdən sonra müştərinin hesabına məhsul məlumatını əlavə et.
 </p>
+</div>
+
+<div class="section-body">
 
 <label>Müştəri</label>
 
 <select id="customerSelect">
-<option value="">Müştəri seçin...</option>
+<option value="">
+Müştəri seçin...
+</option>
 </select>
 
 <div
@@ -655,11 +847,18 @@ class="customer-info"
 style="display:none"
 ></div>
 
+
+<div class="delivery-grid">
+
+<div>
+
 <label>Məhsul</label>
 
 <select id="productSelect">
 
-<option value="">Məhsul seçin...</option>
+<option value="">
+Məhsul seçin...
+</option>
 
 <option value="Netflix Premium">
 Netflix Premium
@@ -682,10 +881,42 @@ Spotify Premium
 </option>
 
 <option value="Canva Premium">
-Canva Premium — 12 ay — 5.99 AZN
+Canva Premium
 </option>
 
 </select>
+
+</div>
+
+
+<div>
+
+<label>Müddət</label>
+
+<select id="durationSelect">
+
+<option value="1">
+1 ay
+</option>
+
+<option value="2">
+2 ay
+</option>
+
+<option value="3">
+3 ay
+</option>
+
+<option value="12">
+12 ay
+</option>
+
+</select>
+
+</div>
+
+</div>
+
 
 <label>
 Müştəriyə veriləcək hesab məlumatı
@@ -693,8 +924,7 @@ Müştəriyə veriləcək hesab məlumatı
 
 <textarea
 id="accountInfo"
-placeholder="Məsələn:
-Email: example@gmail.com
+placeholder="Email: example@gmail.com
 Şifrə: ********
 və ya digər hesab məlumatı..."
 ></textarea>
@@ -709,24 +939,46 @@ Məhsulu müştəriyə əlavə et
 <div id="message" class="message"></div>
 
 </div>
+</section>
 
-<div class="card">
 
-<h2>Verilmiş məhsullar</h2>
+<!-- =====================================================
+     3. VERİLMİŞ MƏHSULLAR
+===================================================== -->
+
+<section class="admin-section">
+
+<div class="section-head">
+<h2>📦 Verilmiş Məhsullar</h2>
+<p>
+Müştərilərə verilmiş məhsulların siyahısı.
+</p>
+</div>
+
+<div class="section-body">
 
 <div id="productsList">
 Yüklənir...
 </div>
 
 </div>
+</section>
 
-<div class="card">
 
+<!-- =====================================================
+     4. MÜŞTƏRİ ÇATI
+===================================================== -->
+
+<section class="admin-section" id="chatSection">
+
+<div class="section-head">
 <h2>💬 Müştəri Çatı</h2>
-
-<p class="subtitle">
-Müştərilərlə birbaşa yazış
+<p>
+Müştərilərlə birbaşa yazış və sifariş statusunu idarə et.
 </p>
+</div>
+
+<div class="section-body">
 
 <div class="chat-layout">
 
@@ -742,11 +994,13 @@ Müştərilər yüklənir...
 
 </div>
 
+
 <div class="chat-box">
 
 <div id="chatHeader" class="chat-header">
 Müştəri seçin
 </div>
+
 
 <div
 id="chatOrderStatus"
@@ -766,6 +1020,7 @@ class="chat-order-status-value"
 </span>
 
 </div>
+
 
 <div
 id="chatOrderStatusControl"
@@ -811,6 +1066,7 @@ Statusu yadda saxla
 
 </div>
 
+
 <div
 id="chatMessages"
 class="chat-messages"
@@ -821,6 +1077,7 @@ Mesajları görmək üçün müştəri seçin.
 </div>
 
 </div>
+
 
 <div class="chat-send">
 
@@ -843,14 +1100,23 @@ Mesaj göndər
 </div>
 
 </div>
+</section>
 
-<div class="card">
 
-<h2>📦 Sifarişlər</h2>
+<!-- =====================================================
+     5. SİFARİŞLƏR
+===================================================== -->
 
-<p class="subtitle">
-Müştərilərin sifarişlərini idarə et
+<section class="admin-section" id="ordersSection">
+
+<div class="section-head">
+<h2>🛒 Sifarişlər</h2>
+<p>
+Bütün sifarişləri burada idarə et.
 </p>
+</div>
+
+<div class="section-body">
 
 <div id="ordersList">
 
@@ -861,12 +1127,70 @@ Sifarişlər yüklənir...
 </div>
 
 </div>
+</section>
 
 </div>
 </div>
+
 </main>
 
+
+<!-- =====================================================
+     YENİ SİFARİŞ BİLDİRİŞİ
+===================================================== -->
+
+<div
+id="newOrderNotification"
+class="new-order-notification"
+>
+
+<div class="new-order-title">
+
+<strong>
+🔔 Yeni sifariş
+</strong>
+
+<button
+class="new-order-close"
+onclick="hideNewOrderNotification()"
+>
+×
+</button>
+
+</div>
+
+<div
+id="newOrderNotificationInfo"
+class="new-order-info"
+>
+Yeni sifariş daxil oldu.
+</div>
+
+<div class="new-order-buttons">
+
+<button
+onclick="openNewOrder()"
+>
+Sifarişə bax
+</button>
+
+<button
+class="new-order-chat"
+onclick="openNewOrderChat()"
+>
+💬 Çata keç
+</button>
+
+</div>
+
+</div>
+
+
 <script>
+
+/* =====================================================
+   CONFIG
+===================================================== */
 
 const SUPABASE_URL =
 "https://zeknhnkaicqkfzgnvycq.supabase.co";
@@ -882,3257 +1206,3231 @@ let supabaseClient = null;
 let selectedChatUserId = null;
 let selectedChatEmail = null;
 let selectedChatOrderId = null;
+
 let adminRealtimeChannel = null;
+
+let notificationOrder = null;
+
+const seenOrderNotifications =
+new Set();
 
 
 /* =====================================================
-SUPABASE BAĞLANTISI
+   TIMEOUT
 ===================================================== */
 
-function withTimeout(promise,ms,message){
+function withTimeout(
+    promise,
+    ms,
+    message
+){
 
-return Promise.race([
+    return Promise.race([
 
-promise,
+        promise,
 
-new Promise(function(_,reject){
+        new Promise(function(_,reject){
 
-setTimeout(function(){
+            setTimeout(function(){
 
-reject(
-new Error(message)
-);
+                reject(
+                    new Error(message)
+                );
 
-},ms);
+            },ms);
 
-})
+        })
 
-]);
+    ]);
 
 }
 
+
+/* =====================================================
+   SUPABASE
+===================================================== */
 
 async function initSupabase(){
 
-if(
-!window.supabase ||
-typeof window.supabase.createClient !== "function"
-){
+    if(
+        !window.supabase ||
+        typeof window.supabase.createClient !== "function"
+    ){
 
-throw new Error(
-"Supabase kitabxanası yüklənmədi."
-);
+        throw new Error(
+            "Supabase kitabxanası yüklənmədi."
+        );
 
-}
+    }
 
-supabaseClient =
-window.supabase.createClient(
-SUPABASE_URL,
-SUPABASE_KEY,
-{
+    supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY,
+        {
+            auth:{
+                autoRefreshToken:true,
+                persistSession:true,
+                detectSessionInUrl:true,
 
-auth:{
+                lock:async function(
+                    _name,
+                    _timeout,
+                    fn
+                ){
 
-autoRefreshToken:true,
+                    return await fn();
 
-persistSession:true,
+                }
+            }
+        }
+    );
 
-detectSessionInUrl:true,
-
-/*
-  Supabase browser lock bəzən
-  getSession() prosesini ilişdirə bilər.
-  Burada lock-u sadələşdiririk.
-*/
-
-lock:async function(
-_name,
-_acquireTimeout,
-fn
-){
-
-return await fn();
-
-}
-
-}
-
-}
-);
-
-return true;
-
+    return true;
 }
 
 
 /* =====================================================
-ADMIN CHECK
+   ADMIN CHECK
 ===================================================== */
 
 async function checkAdmin(){
 
-const loading =
-document.getElementById("loading");
+    const loading =
+    document.getElementById("loading");
 
-const panel =
-document.getElementById("adminPanel");
+    const panel =
+    document.getElementById("adminPanel");
 
-try{
+    try{
 
-const sessionResult =
-await withTimeout(
-supabaseClient.auth.getSession(),
-12000,
-"Supabase sessiyası 12 saniyə ərzində yoxlanılmadı."
-);
+        const result =
+        await withTimeout(
+            supabaseClient.auth.getSession(),
+            12000,
+            "Supabase sessiyası 12 saniyə ərzində yoxlanılmadı."
+        );
 
-const session =
-sessionResult?.data?.session || null;
+        const session =
+        result?.data?.session || null;
 
-if(!session){
+        if(!session){
 
-loading.innerHTML = `
+            loading.innerHTML = `
 
-<div style="
-background:#151515;
-border:1px solid #333;
-border-radius:14px;
-padding:25px;
-max-width:500px;
-margin:auto;
-">
+            <div class="error-box"
+            style="border-color:#333;text-align:center">
 
-<div style="
-font-size:18px;
-font-weight:bold;
-color:#fff;
-margin-bottom:10px;
-">
-Admin giriş tələb olunur
-</div>
+                <div class="error-title"
+                style="color:#fff">
+                    Admin giriş tələb olunur
+                </div>
 
-<div style="
-color:#888;
-margin-bottom:18px;
-line-height:1.5;
-">
-Bu səhifəni açmaq üçün admin hesabı ilə
-login olunmalıdır.
-</div>
+                <div class="error-text">
+                    Admin panelə daxil olmaq üçün
+                    admin hesabı ilə login olun.
+                </div>
 
-<button
-onclick="window.location.replace('login.html')"
->
-Login səhifəsinə keç
-</button>
+                <button
+                onclick="location.replace('login.html')"
+                >
+                    Login səhifəsinə keç
+                </button>
 
-</div>
+            </div>
 
-`;
+            `;
 
-return;
-
-}
-
-const email =
-String(
-session.user?.email || ""
-)
-.trim()
-.toLowerCase();
-
-if(
-email !== ADMIN_EMAIL.toLowerCase()
-){
-
-alert(
-"Bu səhifəyə giriş icazəniz yoxdur."
-);
-
-try{
-
-await withTimeout(
-supabaseClient.auth.signOut(),
-8000,
-"Çıxış əməliyyatı vaxt aşımına uğradı."
-);
-
-}catch(error){
-
-console.error(
-"Sign out error:",
-error
-);
-
-}
-
-window.location.replace(
-"login.html"
-);
-
-return;
-
-}
+            return;
+        }
 
 
-/*
-  ADMIN TƏSDİQLƏNDİ
-*/
-
-loading.style.display="none";
-
-panel.style.display="block";
-
-
-/*
-  Hər bölməni ayrıca yükləyirik.
-  Bir sorğuda xəta olsa belə
-  bütün admin paneli bağlanmır.
-*/
-
-try{
-await loadCustomers();
-}catch(error){
-console.error(
-"loadCustomers error:",
-error
-);
-}
-
-try{
-await loadProducts();
-}catch(error){
-console.error(
-"loadProducts error:",
-error
-);
-}
-
-try{
-await loadPrices();
-}catch(error){
-console.error(
-"loadPrices error:",
-error
-);
-}
-
-try{
-await loadChatCustomers();
-}catch(error){
-console.error(
-"loadChatCustomers error:",
-error
-);
-}
-
-try{
-await loadOrders();
-}catch(error){
-console.error(
-"loadOrders error:",
-error
-);
-}
-
-try{
-setupAdminRealtime();
-}catch(error){
-console.error(
-"Realtime setup error:",
-error
-);
-}
+        const email =
+        String(
+            session.user?.email || ""
+        )
+        .trim()
+        .toLowerCase();
 
 
-/*
-  Login sonradan itərsə
-*/
-supabaseClient.auth.onAuthStateChange(
-function(event,session){
+        if(
+            email !==
+            ADMIN_EMAIL.toLowerCase()
+        ){
 
-if(
-event === "SIGNED_OUT"
-){
+            alert(
+                "Bu səhifəyə giriş icazəniz yoxdur."
+            );
 
-window.location.replace(
-"login.html"
-);
+            try{
 
-}
+                await withTimeout(
+                    supabaseClient.auth.signOut(),
+                    8000,
+                    "Çıxış əməliyyatı vaxt aşımına uğradı."
+                );
 
-}
-);
+            }catch(error){
+
+                console.error(
+                    "Sign out:",
+                    error
+                );
+
+            }
+
+            location.replace("login.html");
+
+            return;
+        }
 
 
-}catch(error){
+        loading.style.display="none";
 
-console.error(
-"ADMIN CHECK ERROR:",
-error
-);
+        panel.style.display="block";
 
-loading.innerHTML = `
 
-<div style="
-background:#151515;
-border:1px solid #7f1d1d;
-border-radius:14px;
-padding:25px;
-max-width:600px;
-margin:auto;
-text-align:left;
-">
+        await safeLoad(
+            "Müştərilər",
+            loadCustomers
+        );
 
-<div style="
-font-size:19px;
-font-weight:bold;
-color:#fca5a5;
-margin-bottom:12px;
-">
-Admin yoxlanışı alınmadı
-</div>
+        await safeLoad(
+            "Verilmiş məhsullar",
+            loadProducts
+        );
 
-<div style="
-color:#aaa;
-line-height:1.6;
-margin-bottom:18px;
-">
-${escapeHtml(
-error.message ||
-"Naməlum xəta baş verdi."
-)}
-</div>
+        await safeLoad(
+            "Qiymətlər",
+            loadPrices
+        );
 
-<button
-onclick="location.reload()"
->
-Yenidən yoxla
-</button>
+        await safeLoad(
+            "Çat",
+            loadChatCustomers
+        );
 
-<button
-onclick="window.location.replace('login.html')"
-style="
-margin-top:10px;
-background:#374151;
-"
->
-Login səhifəsinə keç
-</button>
+        await safeLoad(
+            "Sifarişlər",
+            loadOrders
+        );
 
-</div>
+        setupAdminRealtime();
 
-`;
+        await checkForExistingNewOrders();
 
-}
 
+        supabaseClient.auth.onAuthStateChange(
+            function(event){
+
+                if(
+                    event === "SIGNED_OUT"
+                ){
+
+                    location.replace(
+                        "login.html"
+                    );
+
+                }
+
+            }
+        );
+
+    }catch(error){
+
+        console.error(
+            "ADMIN CHECK ERROR:",
+            error
+        );
+
+        loading.innerHTML = `
+
+        <div class="error-box">
+
+            <div class="error-title">
+                Admin yoxlanışı alınmadı
+            </div>
+
+            <div class="error-text">
+                ${escapeHtml(
+                    error.message ||
+                    "Naməlum xəta baş verdi."
+                )}
+            </div>
+
+            <button
+            onclick="location.reload()"
+            >
+                Yenidən yoxla
+            </button>
+
+            <button
+            onclick="location.replace('login.html')"
+            style="margin-top:10px;background:#374151"
+            >
+                Login səhifəsinə keç
+            </button>
+
+        </div>
+
+        `;
+
+    }
 }
 
 
 /* =====================================================
-CUSTOMER LIST
+   SAFE LOAD
+===================================================== */
+
+async function safeLoad(
+    name,
+    fn
+){
+
+    try{
+
+        await fn();
+
+    }catch(error){
+
+        console.error(
+            name+" error:",
+            error
+        );
+
+    }
+}
+
+
+/* =====================================================
+   CUSTOMERS
 ===================================================== */
 
 async function loadCustomers(){
 
-const select =
-document.getElementById("customerSelect");
+    const select =
+    document.getElementById(
+        "customerSelect"
+    );
 
-const {
-data,
-error
-} =
-await supabaseClient
-.from("profiles")
-.select("id,email,full_name")
-.not("email","is",null)
-.order("email");
+    const {
+        data,
+        error
+    } =
+    await supabaseClient
+    .from("profiles")
+    .select(
+        "id,email,full_name"
+    )
+    .not(
+        "email",
+        "is",
+        null
+    )
+    .order("email");
 
-if(error){
+    if(error){
 
-console.error(
-"Customer error:",
-error
-);
+        console.error(error);
 
-return;
+        return;
+    }
 
+    select.innerHTML =
+    `
+    <option value="">
+        Müştəri seçin...
+    </option>
+    `;
+
+    (data || []).forEach(
+        function(customer){
+
+            const option =
+            document.createElement(
+                "option"
+            );
+
+            option.value =
+            customer.id;
+
+            option.textContent =
+            customer.full_name
+            ?
+            customer.full_name+
+            " — "+
+            customer.email
+            :
+            customer.email;
+
+            select.appendChild(
+                option
+            );
+
+        }
+    );
 }
 
-select.innerHTML =
-'<option value="">Müştəri seçin...</option>';
-
-(data || []).forEach(
-function(customer){
-
-const option =
-document.createElement("option");
-
-option.value =
-customer.id;
-
-option.textContent =
-customer.full_name
-?
-customer.full_name+
-" — "+
-customer.email
-:
-customer.email;
-
-select.appendChild(option);
-
-}
-);
-
-}
-
-
-/* CUSTOMER CHANGE */
 
 document
 .getElementById("customerSelect")
 .addEventListener(
-"change",
-function(){
+    "change",
+    function(){
 
-const customerId =
-this.value;
+        const id =
+        this.value;
 
-const info =
-document.getElementById(
-"selectedCustomer"
-);
+        const info =
+        document.getElementById(
+            "selectedCustomer"
+        );
 
-if(!customerId){
+        if(!id){
 
-info.style.display="none";
+            info.style.display="none";
+            info.innerHTML="";
+            return;
 
-info.innerHTML="";
+        }
 
-return;
+        const option =
+        this.options[
+            this.selectedIndex
+        ];
 
-}
+        info.innerHTML =
+        "Müştəri: <strong>"+
+        escapeHtml(
+            option.textContent
+        )+
+        "</strong>";
 
-const selected =
-this.options[
-this.selectedIndex
-];
+        info.style.display="block";
 
-info.innerHTML =
-"Müştəri: <strong>"+
-escapeHtml(
-selected.textContent
-)+
-"</strong>";
-
-info.style.display="block";
-
-}
+    }
 );
 
 
 /* =====================================================
-ADD PRODUCT
+   ADD PRODUCT
 ===================================================== */
 
 async function addProduct(){
 
-const customerId =
-document.getElementById(
-"customerSelect"
-).value;
+    const customerId =
+    document.getElementById(
+        "customerSelect"
+    ).value;
 
-const product =
-document.getElementById(
-"productSelect"
-).value;
+    const product =
+    document.getElementById(
+        "productSelect"
+    ).value;
 
-const accountInfo =
-document.getElementById(
-"accountInfo"
-).value.trim();
+    const duration =
+    Number(
+        document.getElementById(
+            "durationSelect"
+        ).value
+    );
 
-const button =
-document.getElementById(
-"addButton"
-);
+    const accountInfo =
+    document.getElementById(
+        "accountInfo"
+    ).value.trim();
 
-if(!customerId){
-
-showMessage(
-"Müştəri seçin.",
-true
-);
-
-return;
-
-}
-
-if(!product){
-
-showMessage(
-"Məhsul seçin.",
-true
-);
-
-return;
-
-}
-
-if(!accountInfo){
-
-showMessage(
-"Müştəriyə veriləcək hesab məlumatını yazın.",
-true
-);
-
-return;
-
-}
-
-button.disabled=true;
-
-const {
-error
-} =
-await supabaseClient
-.from("customer_products")
-.insert({
-
-user_id:customerId,
-
-product_name:product,
-
-account_info:accountInfo,
-
-status:"active"
-
-});
-
-if(error){
-
-button.disabled=false;
-
-console.error(error);
-
-showMessage(
-"Məhsul əlavə edilmədi: "+
-error.message,
-true
-);
-
-return;
-
-}
+    const button =
+    document.getElementById(
+        "addButton"
+    );
 
 
-/*
-  Pending sifarişi confirmed et
-*/
+    if(!customerId){
 
-const {
-data:pendingOrders,
-error:pendingOrderError
-} =
-await supabaseClient
-.from("orders")
-.select(
-"id,status,total,created_at,updated_at"
-)
-.eq(
-"user_id",
-customerId
-)
-.eq(
-"status",
-"pending"
-)
-.order(
-"created_at",
-{
-ascending:false
-}
-)
-.limit(1);
+        showMessage(
+            "Müştəri seçin.",
+            true
+        );
 
-if(
-!pendingOrderError &&
-pendingOrders &&
-pendingOrders.length>0
-){
+        return;
+    }
 
-const orderToConfirm =
-pendingOrders[0];
 
-const {
-error:updateError
-} =
-await supabaseClient
-.from("orders")
-.update({
+    if(!product){
 
-status:"confirmed",
+        showMessage(
+            "Məhsul seçin.",
+            true
+        );
 
-updated_at:
-new Date().toISOString()
+        return;
+    }
 
-})
-.eq(
-"id",
-orderToConfirm.id
-);
 
-if(updateError){
+    if(!accountInfo){
 
-console.error(
-"Order confirm error:",
-updateError
-);
+        showMessage(
+            "Hesab məlumatını yazın.",
+            true
+        );
 
-}
+        return;
+    }
 
-}else if(pendingOrderError){
 
-console.error(
-"Pending order search error:",
-pendingOrderError
-);
+    button.disabled=true;
 
-}
 
-button.disabled=false;
+    const expires =
+    new Date();
 
-document.getElementById(
-"accountInfo"
-).value="";
+    expires.setMonth(
+        expires.getMonth()+
+        duration
+    );
 
-document.getElementById(
-"productSelect"
-).value="";
 
-showMessage(
-"Məhsul müştəriyə uğurla əlavə edildi."
-);
+    const {
+        error
+    } =
+    await supabaseClient
+    .from("customer_products")
+    .insert({
 
-await loadProducts();
+        user_id:
+        customerId,
 
-await loadOrders();
+        product_name:
+        product,
 
-await loadChatCustomers();
+        account_info:
+        accountInfo,
 
-if(
-selectedChatUserId===customerId
-){
+        status:
+        "active",
 
-await loadChatOrderStatus(
-customerId
-);
+        duration_months:
+        duration,
 
-}
+        expires_at:
+        expires.toISOString()
+
+    });
+
+
+    if(error){
+
+        button.disabled=false;
+
+        showMessage(
+            "Məhsul əlavə edilmədi: "+
+            error.message,
+            true
+        );
+
+        return;
+    }
+
+
+    /*
+      Ən son gözləyən sifarişi tamamla.
+    */
+
+    const {
+        data:orders
+    } =
+    await supabaseClient
+    .from("orders")
+    .select(
+        "id,status,created_at"
+    )
+    .eq(
+        "user_id",
+        customerId
+    )
+    .in(
+        "status",
+        [
+            "pending",
+            "confirmed",
+            "processing"
+        ]
+    )
+    .order(
+        "created_at",
+        {
+            ascending:false
+        }
+    )
+    .limit(1);
+
+
+    if(
+        orders &&
+        orders.length
+    ){
+
+        await supabaseClient
+        .from("orders")
+        .update({
+            status:"completed",
+            updated_at:
+            new Date().toISOString()
+        })
+        .eq(
+            "id",
+            orders[0].id
+        );
+
+    }
+
+
+    button.disabled=false;
+
+    document.getElementById(
+        "accountInfo"
+    ).value="";
+
+    document.getElementById(
+        "productSelect"
+    ).value="";
+
+    showMessage(
+        "Məhsul müştəriyə uğurla verildi."
+    );
+
+
+    await loadProducts();
+    await loadOrders();
+    await loadChatCustomers();
 
 }
 
 
 /* =====================================================
-LOAD PRODUCTS
+   PRODUCTS
 ===================================================== */
 
 async function loadProducts(){
 
-const box =
-document.getElementById(
-"productsList"
-);
+    const box =
+    document.getElementById(
+        "productsList"
+    );
 
-const {
-data,
-error
-} =
-await supabaseClient
-.from("customer_products")
-.select("*")
-.order(
-"created_at",
-{
-ascending:false
+    const {
+        data,
+        error
+    } =
+    await supabaseClient
+    .from("customer_products")
+    .select("*")
+    .order(
+        "created_at",
+        {
+            ascending:false
+        }
+    );
+
+    if(error){
+
+        box.innerHTML =
+        `
+        <div class="empty">
+            Məhsullar yüklənmədi.
+        </div>
+        `;
+
+        return;
+    }
+
+
+    if(
+        !data ||
+        !data.length
+    ){
+
+        box.innerHTML =
+        `
+        <div class="empty">
+            Hələ verilmiş məhsul yoxdur.
+        </div>
+        `;
+
+        return;
+    }
+
+
+    box.innerHTML =
+    data.map(
+        function(item){
+
+            const created =
+            item.created_at
+            ?
+            new Date(
+                item.created_at
+            ).toLocaleString(
+                "az-AZ"
+            )
+            :
+            "-";
+
+
+            const expires =
+            item.expires_at
+            ?
+            new Date(
+                item.expires_at
+            ).toLocaleDateString(
+                "az-AZ"
+            )
+            :
+            "-";
+
+
+            return `
+
+            <div class="product">
+
+                <strong>
+                    ${escapeHtml(
+                        item.product_name ||
+                        "Məhsul"
+                    )}
+                </strong>
+
+                <small>
+                    Müştəri ID:
+                    ${escapeHtml(
+                        String(
+                            item.user_id || ""
+                        )
+                    )}
+                </small>
+
+                <br>
+
+                <small>
+                    Verilmə:
+                    ${escapeHtml(created)}
+                </small>
+
+                <br>
+
+                <small>
+                    Bitmə:
+                    ${escapeHtml(expires)}
+                </small>
+
+                <br>
+
+                <small>
+                    Status:
+                    ${escapeHtml(
+                        item.status || ""
+                    )}
+                </small>
+
+                <button
+                class="delete"
+                onclick="deleteProduct('${escapeHtml(String(item.id))}')"
+                >
+                    Sil
+                </button>
+
+            </div>
+
+            `;
+
+        }
+    ).join("");
+
 }
-);
 
-if(error){
-
-console.error(error);
-
-box.innerHTML =
-'<div class="empty">Məhsullar yüklənmədi.</div>';
-
-return;
-
-}
-
-if(
-!data ||
-data.length===0
-){
-
-box.innerHTML =
-'<div class="empty">Hələ verilmiş məhsul yoxdur.</div>';
-
-return;
-
-}
-
-box.innerHTML =
-data.map(
-function(item){
-
-const date =
-item.created_at
-?
-new Date(
-item.created_at
-).toLocaleString(
-"az-AZ"
-)
-:
-"";
-
-return `
-
-<div class="product">
-
-<strong>
-${escapeHtml(
-item.product_name ||
-"Məhsul"
-)}
-</strong>
-
-<small>
-Müştəri ID:
-${escapeHtml(
-String(
-item.user_id || ""
-)
-)}
-</small>
-
-<br>
-
-<small>
-Tarix:
-${escapeHtml(date)}
-</small>
-
-<br>
-
-<small>
-Status:
-${escapeHtml(
-item.status || ""
-)}
-</small>
-
-<button
-class="delete"
-onclick="deleteProduct('${escapeHtml(String(item.id))}')"
->
-Sil
-</button>
-
-</div>
-
-`;
-
-}
-).join("");
-
-}
-
-
-/* DELETE PRODUCT */
 
 async function deleteProduct(id){
 
-if(
-!confirm(
-"Bu məhsulu silmək istəyirsiniz?"
-)
-){
+    if(
+        !confirm(
+            "Bu məhsulu silmək istəyirsiniz?"
+        )
+    ){
 
-return;
+        return;
+    }
 
-}
 
-const {
-error
-} =
-await supabaseClient
-.from("customer_products")
-.delete()
-.eq(
-"id",
-id
-);
+    const {
+        error
+    } =
+    await supabaseClient
+    .from("customer_products")
+    .delete()
+    .eq(
+        "id",
+        id
+    );
 
-if(error){
 
-alert(
-"Məhsul silinmədi: "+
-error.message
-);
+    if(error){
 
-return;
+        alert(
+            "Məhsul silinmədi: "+
+            error.message
+        );
 
-}
+        return;
+    }
 
-await loadProducts();
+
+    await loadProducts();
 
 }
 
 
 /* =====================================================
-PRICE FUNCTIONS
+   PRICES
 ===================================================== */
 
 async function loadPrices(){
 
-const box =
-document.getElementById(
-"pricesList"
-);
+    const box =
+    document.getElementById(
+        "pricesList"
+    );
 
-const {
-data,
-error
-} =
-await supabaseClient
-.from("product_prices")
-.select("*")
-.order("id");
+    const {
+        data,
+        error
+    } =
+    await supabaseClient
+    .from("product_prices")
+    .select("*")
+    .order("id");
 
-if(error){
 
-console.error(error);
+    if(error){
 
-box.innerHTML =
-'<div class="empty">Qiymətlər yüklənmədi.</div>';
+        box.innerHTML =
+        `
+        <div class="empty">
+            Qiymətlər yüklənmədi:
+            ${escapeHtml(error.message)}
+        </div>
+        `;
 
-return;
+        return;
+    }
 
-}
 
-if(
-!data ||
-data.length===0
-){
+    if(
+        !data ||
+        !data.length
+    ){
 
-box.innerHTML =
-'<div class="empty">Qiymət məlumatı yoxdur.</div>';
+        box.innerHTML =
+        `
+        <div class="empty">
+            Qiymət məlumatı yoxdur.
+        </div>
+        `;
 
-return;
+        return;
+    }
 
-}
 
-box.innerHTML =
-data.map(
-function(item){
+    box.innerHTML =
+    data.map(
+        function(item){
 
-if(
-item.product_key === "canva"
-){
+            if(
+                item.product_key ===
+                "canva"
+            ){
 
-const price12 =
-Number(
-item.price_12_month || 0
-).toFixed(2);
+                const price =
+                Number(
+                    item.price_12_month || 0
+                ).toFixed(2);
 
-const sale12 =
-Number(
-item.sale_12_price ??
-item.price_12_month ??
-0
-).toFixed(2);
+                const sale =
+                Number(
+                    item.sale_12_price ??
+                    item.price_12_month ??
+                    0
+                ).toFixed(2);
 
-return `
 
-<div class="price-product">
+                return `
 
-<h3>
-${escapeHtml(
-item.product_name ||
-"Canva Premium"
-)}
-</h3>
+                <div class="price-product">
 
-<div class="price-month-title">
-12 aylıq qiymət
-</div>
+                    <h3>
+                        ${escapeHtml(
+                            item.product_name ||
+                            "Canva Premium"
+                        )}
+                    </h3>
 
-<div class="price-row">
+                    <div class="price-month">
 
-<div>
+                        <div class="price-month-title">
+                            12 aylıq
+                        </div>
 
-<label>
-Normal qiymət
-</label>
+                        <div class="price-row">
 
-<input
-type="number"
-step="0.01"
-id="price12_${item.id}"
-value="${price12}"
->
+                            <div>
+                                <label>
+                                    Normal qiymət
+                                </label>
 
-</div>
+                                <input
+                                type="number"
+                                step="0.01"
+                                id="price12_${item.id}"
+                                value="${price}"
+                                >
+                            </div>
 
-<div>
+                            <div>
+                                <label>
+                                    Endirimli qiymət
+                                </label>
 
-<label>
-Endirimli qiymət
-</label>
+                                <input
+                                type="number"
+                                step="0.01"
+                                id="sale12_${item.id}"
+                                value="${sale}"
+                                >
+                            </div>
 
-<input
-type="number"
-step="0.01"
-id="sale12_${item.id}"
-value="${sale12}"
->
+                        </div>
 
-</div>
+                        <div class="switch-row">
 
-</div>
+                            <input
+                            type="checkbox"
+                            id="sale12active_${item.id}"
+                            ${
+                                item.sale_12_active
+                                ?
+                                "checked"
+                                :
+                                ""
+                            }
+                            >
 
-<div class="switch-row">
+                            <label
+                            for="sale12active_${item.id}"
+                            >
+                                Endirimi aktiv et
+                            </label>
 
-<input
-type="checkbox"
-id="sale12active_${item.id}"
-${item.sale_12_active ? "checked" : ""}
->
+                        </div>
 
-<label
-for="sale12active_${item.id}"
-style="margin:0"
->
-Endirimi aktiv et
-</label>
+                        <div class="sale-info">
 
-</div>
+                            <span class="sale-percent">
+                                ${calculateSalePercent(
+                                    Number(price),
+                                    Number(sale)
+                                )}
+                            </span>
 
-<div class="sale-info">
+                            <span class="sale-status">
+                                ${
+                                    item.sale_12_active
+                                    ?
+                                    "Aktiv"
+                                    :
+                                    "Deaktiv"
+                                }
+                            </span>
 
-<span class="sale-percent">
+                        </div>
 
-${calculateSalePercent(
-Number(price12),
-Number(sale12)
-)}
+                    </div>
 
-</span>
+                    <button
+                    class="save-price"
+                    onclick="saveCanvaPrice('${escapeHtml(String(item.id))}')"
+                    >
+                        Canva qiymətini yadda saxla
+                    </button>
 
-<span class="sale-status">
+                </div>
 
-${
-item.sale_12_active
-?
-"Aktiv"
-:
-"Deaktiv"
-}
+                `;
 
-</span>
+            }
 
-</div>
 
-<button
-class="save-price"
-onclick="saveCanvaPrice('${escapeHtml(String(item.id))}')"
->
-Canva qiymətini yadda saxla
-</button>
+            return `
 
-</div>
+            <div class="price-product">
 
-`;
+                <h3>
+                    ${escapeHtml(
+                        item.product_name ||
+                        item.product_key
+                    )}
+                </h3>
 
-}
+                ${createPriceMonth(
+                    item,
+                    1,
+                    "1 ay"
+                )}
 
-return `
+                ${createPriceMonth(
+                    item,
+                    2,
+                    "2 ay"
+                )}
 
-<div class="price-product">
+                ${createPriceMonth(
+                    item,
+                    3,
+                    "3 ay"
+                )}
 
-<h3>
-${escapeHtml(
-item.product_name ||
-item.product_key
-)}
-</h3>
+                <button
+                class="save-price"
+                onclick="savePrice('${escapeHtml(String(item.id))}')"
+                >
+                    Qiymətləri yadda saxla
+                </button>
 
-${createPriceMonth(
-item,
-1,
-"1 ay"
-)}
+            </div>
 
-${createPriceMonth(
-item,
-2,
-"2 ay"
-)}
+            `;
 
-${createPriceMonth(
-item,
-3,
-"3 ay"
-)}
-
-<button
-class="save-price"
-onclick="savePrice('${escapeHtml(String(item.id))}')"
->
-Qiymətləri yadda saxla
-</button>
-
-</div>
-
-`;
-
-}
-).join("");
+        }
+    ).join("");
 
 }
 
 
 function createPriceMonth(
-item,
-month,
-title
+    item,
+    month,
+    title
 ){
 
-const price =
-Number(
-item[
-"price_"+month+"_month"
-] || 0
-).toFixed(2);
+    const normal =
+    Number(
+        item[
+            "price_"+month+"_month"
+        ] || 0
+    ).toFixed(2);
 
-const sale =
-Number(
-item[
-"sale_"+month+"_price"
-] ??
-item[
-"price_"+month+"_month"
-] ??
-0
-).toFixed(2);
 
-const active =
-item[
-"sale_"+month+"_active"
-]
-? "checked"
-: "";
+    const sale =
+    Number(
+        item[
+            "sale_"+month+"_price"
+        ] ??
+        item[
+            "price_"+month+"_month"
+        ] ??
+        0
+    ).toFixed(2);
 
-return `
 
-<div class="price-month">
+    const active =
+    item[
+        "sale_"+month+"_active"
+    ]
+    ?
+    "checked"
+    :
+    "";
 
-<div class="price-month-title">
-${title}
-</div>
 
-<div class="price-row">
+    return `
 
-<div>
+    <div class="price-month">
 
-<label>
-Normal qiymət
-</label>
+        <div class="price-month-title">
+            ${title}
+        </div>
 
-<input
-type="number"
-step="0.01"
-id="price${month}_${item.id}"
-value="${price}"
->
+        <div class="price-row">
 
-</div>
+            <div>
 
-<div>
+                <label>
+                    Normal qiymət
+                </label>
 
-<label>
-Endirimli qiymət
-</label>
+                <input
+                type="number"
+                step="0.01"
+                id="price${month}_${item.id}"
+                value="${normal}"
+                >
 
-<input
-type="number"
-step="0.01"
-id="sale${month}_${item.id}"
-value="${sale}"
->
+            </div>
 
-</div>
+            <div>
 
-</div>
+                <label>
+                    Endirimli qiymət
+                </label>
 
-<div class="switch-row">
+                <input
+                type="number"
+                step="0.01"
+                id="sale${month}_${item.id}"
+                value="${sale}"
+                >
 
-<input
-type="checkbox"
-id="sale${month}active_${item.id}"
-${active}
->
+            </div>
 
-<label
-for="sale${month}active_${item.id}"
-style="margin:0"
->
-Endirimi aktiv et
-</label>
+        </div>
 
-</div>
+        <div class="switch-row">
 
-<div class="sale-info">
+            <input
+            type="checkbox"
+            id="sale${month}active_${item.id}"
+            ${active}
+            >
 
-<span class="sale-percent">
+            <label
+            for="sale${month}active_${item.id}"
+            >
+                Endirimi aktiv et
+            </label>
 
-${calculateSalePercent(
-Number(price),
-Number(sale)
-)}
+        </div>
 
-</span>
+        <div class="sale-info">
 
-<span class="sale-status">
+            <span class="sale-percent">
+                ${calculateSalePercent(
+                    Number(normal),
+                    Number(sale)
+                )}
+            </span>
 
-${active ? "Aktiv" : "Deaktiv"}
+            <span class="sale-status">
+                ${active ? "Aktiv" : "Deaktiv"}
+            </span>
 
-</span>
+        </div>
 
-</div>
+    </div>
 
-</div>
-
-`;
+    `;
 
 }
 
 
 async function savePrice(id){
 
-const price1 =
-Number(
-document.getElementById(
-"price1_"+id
-).value || 0
-);
+    const values = {};
 
-const price2 =
-Number(
-document.getElementById(
-"price2_"+id
-).value || 0
-);
+    for(
+        let month=1;
+        month<=3;
+        month++
+    ){
 
-const price3 =
-Number(
-document.getElementById(
-"price3_"+id
-).value || 0
-);
+        values[
+            "price_"+month+"_month"
+        ] =
+        Number(
+            document.getElementById(
+                "price"+month+"_"+id
+            ).value || 0
+        );
 
-const sale1 =
-Number(
-document.getElementById(
-"sale1_"+id
-).value || 0
-);
+        values[
+            "sale_"+month+"_price"
+        ] =
+        Number(
+            document.getElementById(
+                "sale"+month+"_"+id
+            ).value || 0
+        );
 
-const sale2 =
-Number(
-document.getElementById(
-"sale2_"+id
-).value || 0
-);
+        values[
+            "sale_"+month+"_active"
+        ] =
+        document.getElementById(
+            "sale"+month+"active_"+id
+        ).checked;
 
-const sale3 =
-Number(
-document.getElementById(
-"sale3_"+id
-).value || 0
-);
+    }
 
-const active1 =
-document.getElementById(
-"sale1active_"+id
-).checked;
 
-const active2 =
-document.getElementById(
-"sale2active_"+id
-).checked;
+    values.updated_at =
+    new Date().toISOString();
 
-const active3 =
-document.getElementById(
-"sale3active_"+id
-).checked;
 
-const {
-error
-} =
-await supabaseClient
-.from("product_prices")
-.update({
+    const {
+        error
+    } =
+    await supabaseClient
+    .from("product_prices")
+    .update(values)
+    .eq(
+        "id",
+        id
+    );
 
-price_1_month:price1,
 
-price_2_month:price2,
+    if(error){
 
-price_3_month:price3,
+        showPriceMessage(
+            "Qiymət yadda saxlanılmadı: "+
+            error.message,
+            true
+        );
 
-sale_1_price:sale1,
+        return;
+    }
 
-sale_2_price:sale2,
 
-sale_3_price:sale3,
+    showPriceMessage(
+        "Qiymətlər uğurla yeniləndi."
+    );
 
-sale_1_active:active1,
-
-sale_2_active:active2,
-
-sale_3_active:active3,
-
-updated_at:
-new Date().toISOString()
-
-})
-.eq(
-"id",
-id
-);
-
-if(error){
-
-showPriceMessage(
-"Qiymət yadda saxlanılmadı: "+
-error.message,
-true
-);
-
-return;
-
-}
-
-showPriceMessage(
-"Qiymətlər uğurla yeniləndi."
-);
-
-await loadPrices();
+    await loadPrices();
 
 }
 
 
 async function saveCanvaPrice(id){
 
-const price12 =
-Number(
-document.getElementById(
-"price12_"+id
-).value || 0
-);
+    const price =
+    Number(
+        document.getElementById(
+            "price12_"+id
+        ).value || 0
+    );
 
-const sale12 =
-Number(
-document.getElementById(
-"sale12_"+id
-).value || 0
-);
+    const sale =
+    Number(
+        document.getElementById(
+            "sale12_"+id
+        ).value || 0
+    );
 
-const active12 =
-document.getElementById(
-"sale12active_"+id
-).checked;
+    const active =
+    document.getElementById(
+        "sale12active_"+id
+    ).checked;
 
-const {
-error
-} =
-await supabaseClient
-.from("product_prices")
-.update({
 
-price_12_month:price12,
+    const {
+        error
+    } =
+    await supabaseClient
+    .from("product_prices")
+    .update({
 
-sale_12_price:sale12,
+        price_12_month:
+        price,
 
-sale_12_active:active12,
+        sale_12_price:
+        sale,
 
-updated_at:
-new Date().toISOString()
+        sale_12_active:
+        active,
 
-})
-.eq(
-"id",
-id
-)
-.eq(
-"product_key",
-"canva"
-);
+        updated_at:
+        new Date().toISOString()
 
-if(error){
+    })
+    .eq(
+        "id",
+        id
+    )
+    .eq(
+        "product_key",
+        "canva"
+    );
 
-showPriceMessage(
-"Canva qiyməti yadda saxlanılmadı: "+
-error.message,
-true
-);
 
-return;
+    if(error){
 
-}
+        showPriceMessage(
+            "Canva qiyməti yadda saxlanılmadı: "+
+            error.message,
+            true
+        );
 
-showPriceMessage(
-"Canva qiyməti uğurla yeniləndi."
-);
+        return;
+    }
 
-await loadPrices();
+
+    showPriceMessage(
+        "Canva qiyməti uğurla yeniləndi."
+    );
+
+    await loadPrices();
 
 }
 
 
 /* =====================================================
-CHAT CUSTOMERS
+   CHAT CUSTOMERS
 ===================================================== */
 
 async function loadChatCustomers(){
 
-const box =
-document.getElementById(
-"chatCustomers"
-);
-
-if(!box) return;
-
-const {
-data:messages,
-error:messagesError
-} =
-await supabaseClient
-.from("messages")
-.select(
-"user_id,sender_role,message,is_read,created_at"
-)
-.order(
-"created_at",
-{
-ascending:false
-}
-);
-
-if(messagesError){
-
-console.error(
-"Chat messages error:",
-messagesError
-);
-
-box.innerHTML =
-'<div class="empty">Mesajlar yüklənmədi: '+
-escapeHtml(
-messagesError.message
-)+
-'</div>';
-
-return;
-
-}
-
-const userIds=[
-...new Set(
-(messages || [])
-.map(
-function(item){
-return item.user_id;
-}
-)
-.filter(Boolean)
-)
-];
-
-let profiles={};
-let latestOrders={};
-
-if(userIds.length>0){
-
-const {
-data:customers,
-error:profileError
-} =
-await supabaseClient
-.from("profiles")
-.select(
-"id,email,full_name"
-)
-.in(
-"id",
-userIds
-);
-
-if(profileError){
-
-console.error(
-"Chat profiles error:",
-profileError
-);
-
-}
-
-(customers || []).forEach(
-function(customer){
-
-profiles[
-customer.id
-]=customer;
-
-}
-);
-
-const {
-data:orders,
-error:ordersError
-} =
-await supabaseClient
-.from("orders")
-.select(
-"id,user_id,status,created_at,updated_at"
-)
-.in(
-"user_id",
-userIds
-)
-.order(
-"created_at",
-{
-ascending:false
-}
-);
+    const box =
+    document.getElementById(
+        "chatCustomers"
+    );
+
+    const {
+        data:messages,
+        error
+    } =
+    await supabaseClient
+    .from("messages")
+    .select(
+        "user_id,sender_role,message,is_read,created_at"
+    )
+    .order(
+        "created_at",
+        {
+            ascending:false
+        }
+    );
+
+
+    if(error){
+
+        box.innerHTML =
+        `
+        <div class="empty">
+            Mesajlar yüklənmədi.
+        </div>
+        `;
+
+        return;
+    }
+
+
+    const userIds=[
+        ...new Set(
+            (messages || [])
+            .map(
+                x=>x.user_id
+            )
+            .filter(Boolean)
+        )
+    ];
+
+
+    let profiles={};
+    let orders={};
 
-if(ordersError){
+
+    if(userIds.length){
 
-console.error(
-"Chat orders error:",
-ordersError
-);
+        const {
+            data:profileData
+        } =
+        await supabaseClient
+        .from("profiles")
+        .select(
+            "id,email,full_name"
+        )
+        .in(
+            "id",
+            userIds
+        );
 
-}else{
 
-(orders || []).forEach(
-function(order){
+        (profileData || [])
+        .forEach(
+            x=>{
+                profiles[x.id]=x;
+            }
+        );
 
-if(
-!latestOrders[
-order.user_id
-]
-){
 
-latestOrders[
-order.user_id
-]=order;
+        const {
+            data:orderData
+        } =
+        await supabaseClient
+        .from("orders")
+        .select(
+            "id,user_id,status,created_at"
+        )
+        .in(
+            "user_id",
+            userIds
+        )
+        .order(
+            "created_at",
+            {
+                ascending:false
+            }
+        );
 
-}
 
-});
+        (orderData || [])
+        .forEach(
+            x=>{
 
-}
+                if(
+                    !orders[x.user_id]
+                ){
 
-}
+                    orders[
+                        x.user_id
+                    ]=x;
 
-const customerMap={};
+                }
 
-(messages || []).forEach(
-function(item){
+            }
+        );
 
-if(!item.user_id) return;
+    }
 
-if(
-!customerMap[
-item.user_id
-]
-){
 
-customerMap[
-item.user_id
-]={
+    const map={};
 
-user_id:item.user_id,
 
-last_message:
-item.message || "",
+    (messages || [])
+    .forEach(
+        message=>{
 
-last_created_at:
-item.created_at,
+            if(!message.user_id)
+                return;
 
-unread:0
 
-};
+            if(
+                !map[
+                    message.user_id
+                ]
+            ){
 
-}
+                map[
+                    message.user_id
+                ]={
 
-if(
-item.sender_role==="customer" &&
-item.is_read===false
-){
-
-customerMap[
-item.user_id
-].unread++;
-
-}
-
-}
-);
-
-const customers =
-Object.values(
-customerMap
-);
-
-if(
-customers.length===0
-){
+                    user_id:
+                    message.user_id,
 
-box.innerHTML =
-'<div class="empty">Hələ heç kim mesaj yazmayıb.</div>';
+                    last:
+                    message.message || "",
 
-return;
+                    date:
+                    message.created_at,
 
-}
-
-customers.sort(
-function(a,b){
-
-return new Date(
-b.last_created_at
-) -
-new Date(
-a.last_created_at
-);
+                    unread:0
 
-}
-);
-
-box.innerHTML =
-customers.map(
-function(item){
-
-const customer =
-profiles[
-item.user_id
-] || {};
-
-const email =
-customer.email || "";
-
-const name =
-customer.full_name ||
-email ||
-"Müştəri";
+                };
 
-const active =
-selectedChatUserId ===
-item.user_id
-?
-"active"
-:
-"";
+            }
 
-const lastMessage =
-item.last_message.length>35
-?
-item.last_message.substring(
-0,
-35
-)+"..."
-:
-item.last_message;
 
-const order =
-latestOrders[
-item.user_id
-];
+            if(
+                message.sender_role ===
+                "customer" &&
+                message.is_read === false
+            ){
 
-const status =
-order
-?
-order.status || "pending"
-:
-"";
+                map[
+                    message.user_id
+                ].unread++;
 
-const statusText =
-getOrderStatusText(
-status
-);
+            }
 
-const statusBadge =
-order
-?
-`
-<span
-class="order-status-badge ${escapeHtml(status)}"
->
-${escapeHtml(statusText)}
-</span>
-`
-:
-"";
+        }
+    );
 
-return `
 
-<div
-class="chat-customer ${active}"
-data-user-id="${escapeHtml(String(item.user_id))}"
-data-email="${escapeHtml(email)}"
->
+    const customers =
+    Object.values(map);
 
-<div class="chat-customer-name">
 
-${escapeHtml(name)}
+    if(!customers.length){
 
-</div>
+        box.innerHTML =
+        `
+        <div class="empty">
+            Hələ heç kim mesaj yazmayıb.
+        </div>
+        `;
 
-<div class="chat-customer-status">
+        return;
+    }
 
-<span
-style="
-overflow:hidden;
-text-overflow:ellipsis;
-white-space:nowrap;
-max-width:180px;
-"
->
 
-${escapeHtml(lastMessage)}
+    customers.sort(
+        (a,b)=>
+        new Date(b.date)-
+        new Date(a.date)
+    );
 
-</span>
 
-<span
-style="
-display:flex;
-align-items:center;
-gap:5px;
-"
->
+    box.innerHTML =
+    customers.map(
+        item=>{
 
-${statusBadge}
+            const customer =
+            profiles[
+                item.user_id
+            ] || {};
 
-${
-item.unread>0
-?
-`<span class="unread-badge">${item.unread}</span>`
-:
-""
-}
 
-</span>
+            const name =
+            customer.full_name ||
+            customer.email ||
+            "Müştəri";
 
-</div>
 
-</div>
+            const order =
+            orders[
+                item.user_id
+            ];
 
-`;
 
-}
-).join("");
+            const status =
+            order?.status;
 
 
-/*
-  onclick-i HTML-dən çıxarıb
-  event listener ilə bağlayırıq.
-*/
-box.querySelectorAll(
-".chat-customer"
-).forEach(
-function(element){
+            const last =
+            item.last.length>35
+            ?
+            item.last.substring(
+                0,
+                35
+            )+"..."
+            :
+            item.last;
 
-element.addEventListener(
-"click",
-function(){
 
-selectChatCustomer(
-element.dataset.userId,
-element.dataset.email
-);
+            return `
 
-}
-);
+            <div
+            class="chat-customer ${
+                selectedChatUserId ===
+                item.user_id
+                ?
+                "active"
+                :
+                ""
+            }"
+            data-user-id="${escapeHtml(String(item.user_id))}"
+            data-email="${escapeHtml(customer.email || "")}"
+            >
 
-}
-);
+                <div class="chat-customer-name">
+                    ${escapeHtml(name)}
+                </div>
+
+                <div class="chat-customer-status">
+
+                    <span>
+                        ${escapeHtml(last)}
+                    </span>
+
+                    <span>
+
+                        ${
+                            status
+                            ?
+                            `
+                            <span
+                            class="order-status-badge ${escapeHtml(status)}"
+                            >
+                                ${escapeHtml(
+                                    getOrderStatusText(
+                                        status
+                                    )
+                                )}
+                            </span>
+                            `
+                            :
+                            ""
+                        }
+
+                        ${
+                            item.unread
+                            ?
+                            `
+                            <span class="unread-badge">
+                                ${item.unread}
+                            </span>
+                            `
+                            :
+                            ""
+                        }
+
+                    </span>
+
+                </div>
+
+            </div>
+
+            `;
+
+        }
+    ).join("");
+
+
+    box.querySelectorAll(
+        ".chat-customer"
+    ).forEach(
+        element=>{
+
+            element.addEventListener(
+                "click",
+                function(){
+
+                    selectChatCustomer(
+                        element.dataset.userId,
+                        element.dataset.email
+                    );
+
+                }
+            );
+
+        }
+    );
 
 }
 
 
 /* =====================================================
-STATUS TEXT
-===================================================== */
-
-function getOrderStatusText(status){
-
-const statuses={
-
-pending:"Cavab gözlənilir",
-
-confirmed:"Təsdiqləndi",
-
-processing:"Hazırlanır",
-
-completed:"Hazırdır",
-
-cancelled:"Ləğv edildi"
-
-};
-
-return statuses[status] ||
-"Cavab gözlənilir";
-
-}
-
-
-/* =====================================================
-ACTIVE ORDER
-===================================================== */
-
-async function getCustomerActiveOrder(
-userId
-){
-
-if(!userId){
-
-return null;
-
-}
-
-const {
-data,
-error
-} =
-await supabaseClient
-.from("orders")
-.select(
-"id,user_id,total,status,created_at,updated_at"
-)
-.eq(
-"user_id",
-userId
-)
-.in(
-"status",
-[
-"pending",
-"confirmed",
-"processing"
-]
-)
-.order(
-"created_at",
-{
-ascending:false
-}
-)
-.limit(1);
-
-if(error){
-
-console.error(
-"Active order error:",
-error
-);
-
-return null;
-
-}
-
-if(
-data &&
-data.length>0
-){
-
-return data[0];
-
-}
-
-const {
-data:lastOrders,
-error:lastError
-} =
-await supabaseClient
-.from("orders")
-.select(
-"id,user_id,total,status,created_at,updated_at"
-)
-.eq(
-"user_id",
-userId
-)
-.order(
-"created_at",
-{
-ascending:false
-}
-)
-.limit(1);
-
-if(lastError){
-
-console.error(
-"Last order error:",
-lastError
-);
-
-return null;
-
-}
-
-return lastOrders &&
-lastOrders.length>0
-?
-lastOrders[0]
-:
-null;
-
-}
-
-
-/* =====================================================
-CHAT ORDER STATUS
-===================================================== */
-
-async function loadChatOrderStatus(
-userId
-){
-
-const statusBox =
-document.getElementById(
-"chatOrderStatus"
-);
-
-const statusValue =
-document.getElementById(
-"chatOrderStatusValue"
-);
-
-const statusControl =
-document.getElementById(
-"chatOrderStatusControl"
-);
-
-const statusSelect =
-document.getElementById(
-"chatOrderStatusSelect"
-);
-
-if(
-!statusBox ||
-!statusValue ||
-!statusControl
-){
-
-return;
-
-}
-
-if(!userId){
-
-statusBox.style.display="none";
-
-statusControl.style.display="none";
-
-selectedChatOrderId=null;
-
-return;
-
-}
-
-const order =
-await getCustomerActiveOrder(
-userId
-);
-
-if(!order){
-
-statusBox.style.display="none";
-
-statusControl.style.display="none";
-
-selectedChatOrderId=null;
-
-return;
-
-}
-
-selectedChatOrderId =
-order.id;
-
-const currentStatus =
-order.status || "pending";
-
-statusValue.textContent =
-getOrderStatusText(
-currentStatus
-);
-
-statusValue.className =
-"chat-order-status-value "+
-currentStatus;
-
-if(statusSelect){
-
-statusSelect.value =
-currentStatus;
-
-}
-
-statusBox.style.display="flex";
-
-statusControl.style.display="block";
-
-}
-
-
-/* =====================================================
-CHAT STATUS UPDATE
-===================================================== */
-
-async function updateChatOrderStatus(){
-
-if(!selectedChatOrderId){
-
-alert(
-"Bu müştərinin aktiv sifarişi tapılmadı."
-);
-
-return;
-
-}
-
-const select =
-document.getElementById(
-"chatOrderStatusSelect"
-);
-
-const button =
-document.getElementById(
-"chatStatusSaveButton"
-);
-
-if(
-!select ||
-!button
-){
-
-return;
-
-}
-
-const status =
-select.value;
-
-const allowedStatuses=[
-"pending",
-"confirmed",
-"processing",
-"completed",
-"cancelled"
-];
-
-if(
-!allowedStatuses.includes(status)
-){
-
-alert(
-"Yanlış sifariş statusu."
-);
-
-return;
-
-}
-
-button.disabled=true;
-
-const {
-error
-} =
-await supabaseClient
-.from("orders")
-.update({
-
-status:status,
-
-updated_at:
-new Date().toISOString()
-
-})
-.eq(
-"id",
-selectedChatOrderId
-);
-
-button.disabled=false;
-
-if(error){
-
-console.error(
-"Chat status update error:",
-error
-);
-
-alert(
-"Sifariş statusu dəyişmədi: "+
-error.message
-);
-
-return;
-
-}
-
-await loadChatOrderStatus(
-selectedChatUserId
-);
-
-await loadOrders();
-
-await loadChatCustomers();
-
-}
-
-
-/* =====================================================
-SELECT CHAT CUSTOMER
+   CHAT SELECT
 ===================================================== */
 
 async function selectChatCustomer(
-userId,
-email
+    userId,
+    email
 ){
 
-selectedChatUserId =
-userId;
+    selectedChatUserId =
+    userId;
 
-selectedChatEmail =
-email;
+    selectedChatEmail =
+    email || "";
 
-selectedChatOrderId =
-null;
+    selectedChatOrderId =
+    null;
 
-const header =
-document.getElementById(
-"chatHeader"
-);
 
-if(header){
+    document.getElementById(
+        "chatHeader"
+    ).textContent =
+    "💬 "+
+    (
+        email ||
+        "Müştəri"
+    );
 
-header.textContent =
-"💬 "+
-(email || "Müştəri");
 
-}
+    await loadChatMessages(
+        userId
+    );
 
-await loadChatMessages(
-userId
-);
+    await loadChatOrderStatus(
+        userId
+    );
 
-await loadChatOrderStatus(
-userId
-);
+    await markCustomerMessagesRead(
+        userId
+    );
 
-await markCustomerMessagesRead(
-userId
-);
-
-await loadChatCustomers();
+    await loadChatCustomers();
 
 }
 
 
 /* =====================================================
-LOAD CHAT MESSAGES
+   CHAT MESSAGES
 ===================================================== */
 
 async function loadChatMessages(
-userId
+    userId
 ){
 
-const box =
-document.getElementById(
-"chatMessages"
-);
+    const box =
+    document.getElementById(
+        "chatMessages"
+    );
 
-if(!box) return;
 
-const {
-data,
-error
-} =
-await supabaseClient
-.from("messages")
-.select(
-"id,user_id,sender_role,message,is_read,created_at"
-)
-.eq(
-"user_id",
-userId
-)
-.order(
-"created_at",
-{
-ascending:true
+    const {
+        data,
+        error
+    } =
+    await supabaseClient
+    .from("messages")
+    .select(
+        "id,user_id,sender_role,message,is_read,created_at"
+    )
+    .eq(
+        "user_id",
+        userId
+    )
+    .order(
+        "created_at",
+        {
+            ascending:true
+        }
+    );
+
+
+    if(error){
+
+        box.innerHTML =
+        `
+        <div class="empty">
+            Mesajlar yüklənmədi.
+        </div>
+        `;
+
+        return;
+    }
+
+
+    if(
+        !data ||
+        !data.length
+    ){
+
+        box.innerHTML =
+        `
+        <div class="empty">
+            Hələ mesaj yoxdur.
+        </div>
+        `;
+
+        return;
+    }
+
+
+    box.innerHTML =
+    data.map(
+        item=>{
+
+            const role =
+            item.sender_role ===
+            "admin"
+            ?
+            "admin"
+            :
+            "customer";
+
+
+            const time =
+            item.created_at
+            ?
+            new Date(
+                item.created_at
+            ).toLocaleString(
+                "az-AZ",
+                {
+                    day:"2-digit",
+                    month:"2-digit",
+                    hour:"2-digit",
+                    minute:"2-digit"
+                }
+            )
+            :
+            "";
+
+
+            return `
+
+            <div class="chat-msg ${role}">
+
+                ${escapeHtml(
+                    item.message || ""
+                )}
+
+                <span class="chat-time">
+                    ${escapeHtml(time)}
+                </span>
+
+            </div>
+
+            `;
+
+        }
+    ).join("");
+
+
+    box.scrollTop =
+    box.scrollHeight;
+
 }
-);
 
-if(error){
-
-console.error(
-"Load chat messages error:",
-error
-);
-
-box.innerHTML =
-'<div class="empty">Mesajlar yüklənmədi: '+
-escapeHtml(
-error.message
-)+
-'</div>';
-
-return;
-
-}
-
-if(
-!data ||
-data.length===0
-){
-
-box.innerHTML =
-'<div class="empty">Hələ mesaj yoxdur.</div>';
-
-return;
-
-}
-
-box.innerHTML =
-data.map(
-function(item){
-
-const role =
-item.sender_role === "admin"
-?
-"admin"
-:
-"customer";
-
-const time =
-item.created_at
-?
-new Date(
-item.created_at
-).toLocaleString(
-"az-AZ",
-{
-day:"2-digit",
-month:"2-digit",
-hour:"2-digit",
-minute:"2-digit"
-}
-)
-:
-"";
-
-return `
-
-<div class="chat-msg ${role}">
-
-${escapeHtml(
-item.message || ""
-)}
-
-<span class="chat-time">
-
-${escapeHtml(time)}
-
-</span>
-
-</div>
-
-`;
-
-}
-).join("");
-
-box.scrollTop =
-box.scrollHeight;
-
-}
-
-
-/* READ */
 
 async function markCustomerMessagesRead(
-userId
+    userId
 ){
 
-const {
-error
-} =
-await supabaseClient
-.from("messages")
-.update({
-is_read:true
-})
-.eq(
-"user_id",
-userId
-)
-.eq(
-"sender_role",
-"customer"
-)
-.eq(
-"is_read",
-false
-);
-
-if(error){
-
-console.error(
-"Read update error:",
-error
-);
+    await supabaseClient
+    .from("messages")
+    .update({
+        is_read:true
+    })
+    .eq(
+        "user_id",
+        userId
+    )
+    .eq(
+        "sender_role",
+        "customer"
+    )
+    .eq(
+        "is_read",
+        false
+    );
 
 }
 
-}
-
-
-/* SEND CHAT */
 
 async function sendChatMessage(){
 
-if(!selectedChatUserId){
+    if(!selectedChatUserId){
 
-alert(
-"Əvvəlcə müştəri seçin."
-);
+        alert(
+            "Əvvəlcə müştəri seçin."
+        );
 
-return;
+        return;
+    }
 
-}
 
-const input =
-document.getElementById(
-"chatInput"
-);
+    const input =
+    document.getElementById(
+        "chatInput"
+    );
 
-const button =
-document.getElementById(
-"sendChatButton"
-);
+    const button =
+    document.getElementById(
+        "sendChatButton"
+    );
 
-if(
-!input ||
-!button
-){
 
-return;
+    const message =
+    input.value.trim();
 
-}
 
-const message =
-input.value.trim();
+    if(!message)
+        return;
 
-if(!message){
 
-return;
+    button.disabled=true;
 
-}
 
-button.disabled=true;
+    const {
+        error
+    } =
+    await supabaseClient
+    .from("messages")
+    .insert({
 
-const {
-error
-} =
-await supabaseClient
-.from("messages")
-.insert({
+        user_id:
+        selectedChatUserId,
 
-user_id:
-selectedChatUserId,
+        sender_role:
+        "admin",
 
-sender_role:
-"admin",
+        message:
+        message,
 
-message:
-message,
+        is_read:
+        false
 
-is_read:false
+    });
 
-});
 
-button.disabled=false;
+    button.disabled=false;
 
-if(error){
 
-console.error(
-"Admin chat send error:",
-error
-);
+    if(error){
 
-alert(
-"Mesaj göndərilmədi: "+
-error.message
-);
+        alert(
+            "Mesaj göndərilmədi: "+
+            error.message
+        );
 
-return;
+        return;
+    }
 
-}
 
-input.value="";
+    input.value="";
 
-await loadChatMessages(
-selectedChatUserId
-);
+    await loadChatMessages(
+        selectedChatUserId
+    );
 
 }
 
 
-/* ENTER SEND */
+/* ENTER */
 
 document.addEventListener(
-"keydown",
-function(event){
+    "keydown",
+    function(event){
 
-const input =
-document.getElementById(
-"chatInput"
-);
+        const input =
+        document.getElementById(
+            "chatInput"
+        );
 
-if(!input) return;
+        if(
+            input &&
+            document.activeElement === input &&
+            event.key === "Enter" &&
+            !event.shiftKey
+        ){
 
-if(
-document.activeElement === input &&
-event.key === "Enter" &&
-!event.shiftKey
-){
+            event.preventDefault();
 
-event.preventDefault();
+            sendChatMessage();
 
-sendChatMessage();
+        }
 
-}
-
-}
+    }
 );
 
 
 /* =====================================================
-ORDERS
+   ORDER STATUS
+===================================================== */
+
+function getOrderStatusText(
+    status
+){
+
+    const statuses={
+
+        pending:
+        "Cavab gözlənilir",
+
+        confirmed:
+        "Təsdiqləndi",
+
+        processing:
+        "Hazırlanır",
+
+        completed:
+        "Hazırdır",
+
+        cancelled:
+        "Ləğv edildi"
+
+    };
+
+
+    return statuses[
+        status
+    ] ||
+    "Cavab gözlənilir";
+
+}
+
+
+/* =====================================================
+   ACTIVE ORDER
+===================================================== */
+
+async function getCustomerActiveOrder(
+    userId
+){
+
+    const {
+        data
+    } =
+    await supabaseClient
+    .from("orders")
+    .select(
+        "id,user_id,total,status,created_at,updated_at"
+    )
+    .eq(
+        "user_id",
+        userId
+    )
+    .order(
+        "created_at",
+        {
+            ascending:false
+        }
+    )
+    .limit(1);
+
+
+    return data &&
+    data.length
+    ?
+    data[0]
+    :
+    null;
+
+}
+
+
+async function loadChatOrderStatus(
+    userId
+){
+
+    const box =
+    document.getElementById(
+        "chatOrderStatus"
+    );
+
+    const value =
+    document.getElementById(
+        "chatOrderStatusValue"
+    );
+
+    const control =
+    document.getElementById(
+        "chatOrderStatusControl"
+    );
+
+    const select =
+    document.getElementById(
+        "chatOrderStatusSelect"
+    );
+
+
+    const order =
+    await getCustomerActiveOrder(
+        userId
+    );
+
+
+    if(!order){
+
+        box.style.display="none";
+        control.style.display="none";
+
+        selectedChatOrderId=null;
+
+        return;
+    }
+
+
+    selectedChatOrderId =
+    order.id;
+
+
+    const status =
+    order.status ||
+    "pending";
+
+
+    value.textContent =
+    getOrderStatusText(
+        status
+    );
+
+
+    value.className =
+    "chat-order-status-value "+
+    status;
+
+
+    select.value =
+    status;
+
+
+    box.style.display="flex";
+    control.style.display="block";
+
+}
+
+
+async function updateChatOrderStatus(){
+
+    if(!selectedChatOrderId){
+
+        alert(
+            "Sifariş tapılmadı."
+        );
+
+        return;
+    }
+
+
+    const select =
+    document.getElementById(
+        "chatOrderStatusSelect"
+    );
+
+    const button =
+    document.getElementById(
+        "chatStatusSaveButton"
+    );
+
+
+    button.disabled=true;
+
+
+    const {
+        error
+    } =
+    await supabaseClient
+    .from("orders")
+    .update({
+
+        status:
+        select.value,
+
+        updated_at:
+        new Date().toISOString()
+
+    })
+    .eq(
+        "id",
+        selectedChatOrderId
+    );
+
+
+    button.disabled=false;
+
+
+    if(error){
+
+        alert(
+            "Status dəyişmədi: "+
+            error.message
+        );
+
+        return;
+    }
+
+
+    await loadChatOrderStatus(
+        selectedChatUserId
+    );
+
+    await loadOrders();
+
+    await loadChatCustomers();
+
+}
+
+
+/* =====================================================
+   ORDERS
 ===================================================== */
 
 async function loadOrders(){
 
-const box =
-document.getElementById(
-"ordersList"
-);
+    const box =
+    document.getElementById(
+        "ordersList"
+    );
 
-if(!box) return;
 
-const {
-data:orders,
-error
-} =
-await supabaseClient
-.from("orders")
-.select(
-"id,user_id,total,status,created_at,updated_at"
-)
-.order(
-"created_at",
-{
-ascending:false
+    const {
+        data:orders,
+        error
+    } =
+    await supabaseClient
+    .from("orders")
+    .select(
+        "id,user_id,total,status,created_at,updated_at"
+    )
+    .order(
+        "created_at",
+        {
+            ascending:false
+        }
+    );
+
+
+    if(error){
+
+        box.innerHTML =
+        `
+        <div class="empty">
+            Sifarişlər yüklənmədi.
+        </div>
+        `;
+
+        return;
+    }
+
+
+    if(
+        !orders ||
+        !orders.length
+    ){
+
+        box.innerHTML =
+        `
+        <div class="empty">
+            Hələ sifariş yoxdur.
+        </div>
+        `;
+
+        return;
+    }
+
+
+    const userIds=[
+        ...new Set(
+            orders
+            .map(
+                x=>x.user_id
+            )
+            .filter(Boolean)
+        )
+    ];
+
+
+    let profiles={};
+
+
+    if(userIds.length){
+
+        const {
+            data
+        } =
+        await supabaseClient
+        .from("profiles")
+        .select(
+            "id,email,full_name"
+        )
+        .in(
+            "id",
+            userIds
+        );
+
+
+        (data || [])
+        .forEach(
+            x=>{
+                profiles[x.id]=x;
+            }
+        );
+
+    }
+
+
+    box.innerHTML =
+    orders.map(
+        order=>{
+
+            const profile =
+            profiles[
+                order.user_id
+            ] || {};
+
+
+            const email =
+            profile.email ||
+            "Email yoxdur";
+
+
+            const name =
+            profile.full_name ||
+            email ||
+            "Müştəri";
+
+
+            const status =
+            order.status ||
+            "pending";
+
+
+            const total =
+            Number(
+                order.total || 0
+            ).toFixed(2);
+
+
+            const date =
+            order.created_at
+            ?
+            new Date(
+                order.created_at
+            ).toLocaleString(
+                "az-AZ"
+            )
+            :
+            "-";
+
+
+            return `
+
+            <div class="order-card">
+
+                <div class="order-top">
+
+                    <div>
+
+                        <div class="order-product">
+                            📦 Yeni sifariş
+                        </div>
+
+                        <div class="order-id">
+                            #${escapeHtml(
+                                String(order.id)
+                            )}
+                        </div>
+
+                    </div>
+
+                    <strong>
+                        ${escapeHtml(total)}
+                        AZN
+                    </strong>
+
+                </div>
+
+
+                <span
+                class="order-current-status ${escapeHtml(status)}"
+                >
+                    ${escapeHtml(
+                        getOrderStatusText(
+                            status
+                        )
+                    )}
+                </span>
+
+
+                <div class="order-info">
+
+                    <div>
+                        <strong>Müştəri:</strong>
+                        ${escapeHtml(name)}
+                    </div>
+
+                    <div>
+                        <strong>Email:</strong>
+                        ${escapeHtml(email)}
+                    </div>
+
+                    <div>
+                        <strong>Məbləğ:</strong>
+                        ${escapeHtml(total)}
+                        AZN
+                    </div>
+
+                    <div>
+                        <strong>Tarix:</strong>
+                        ${escapeHtml(date)}
+                    </div>
+
+                </div>
+
+
+                <div class="order-actions">
+
+                    <select
+                    data-order-id="${escapeHtml(String(order.id))}"
+                    class="order-status"
+                    >
+
+                        <option
+                        value="pending"
+                        ${
+                            status==="pending"
+                            ?
+                            "selected"
+                            :
+                            ""
+                        }
+                        >
+                            Cavab gözlənilir
+                        </option>
+
+                        <option
+                        value="confirmed"
+                        ${
+                            status==="confirmed"
+                            ?
+                            "selected"
+                            :
+                            ""
+                        }
+                        >
+                            Təsdiqləndi
+                        </option>
+
+                        <option
+                        value="processing"
+                        ${
+                            status==="processing"
+                            ?
+                            "selected"
+                            :
+                            ""
+                        }
+                        >
+                            Hazırlanır
+                        </option>
+
+                        <option
+                        value="completed"
+                        ${
+                            status==="completed"
+                            ?
+                            "selected"
+                            :
+                            ""
+                        }
+                        >
+                            Hazırdır
+                        </option>
+
+                        <option
+                        value="cancelled"
+                        ${
+                            status==="cancelled"
+                            ?
+                            "selected"
+                            :
+                            ""
+                        }
+                        >
+                            Ləğv edildi
+                        </option>
+
+                    </select>
+
+
+                    <button
+                    class="order-chat"
+                    data-user-id="${escapeHtml(String(order.user_id || ""))}"
+                    data-email="${escapeHtml(email)}"
+                    >
+                        💬 Çata keç
+                    </button>
+
+                </div>
+
+            </div>
+
+            `;
+
+        }
+    ).join("");
+
+
+    box.querySelectorAll(
+        ".order-status"
+    ).forEach(
+        select=>{
+
+            select.addEventListener(
+                "change",
+                function(){
+
+                    updateOrderStatus(
+                        select.dataset.orderId,
+                        select.value
+                    );
+
+                }
+            );
+
+        }
+    );
+
+
+    box.querySelectorAll(
+        ".order-chat"
+    ).forEach(
+        button=>{
+
+            button.addEventListener(
+                "click",
+                function(){
+
+                    openOrderChat(
+                        button.dataset.userId,
+                        button.dataset.email
+                    );
+
+                }
+            );
+
+        }
+    );
+
 }
-);
 
-if(error){
-
-console.error(
-"Orders error:",
-error
-);
-
-box.innerHTML =
-'<div class="empty">Sifarişlər yüklənmədi: '+
-escapeHtml(
-error.message
-)+
-'</div>';
-
-return;
-
-}
-
-if(
-!orders ||
-orders.length===0
-){
-
-box.innerHTML =
-'<div class="empty">Hələ sifariş yoxdur.</div>';
-
-return;
-
-}
-
-const userIds=[
-...new Set(
-orders
-.map(
-function(order){
-return order.user_id;
-}
-)
-.filter(Boolean)
-)
-];
-
-let profiles={};
-
-if(userIds.length>0){
-
-const {
-data:customers,
-error:profileError
-} =
-await supabaseClient
-.from("profiles")
-.select(
-"id,email,full_name"
-)
-.in(
-"id",
-userIds
-);
-
-if(profileError){
-
-console.error(
-"Profiles error:",
-profileError
-);
-
-}
-
-(customers || []).forEach(
-function(customer){
-
-profiles[
-customer.id
-]=customer;
-
-}
-);
-
-}
-
-box.innerHTML =
-orders.map(
-function(order){
-
-const customer =
-profiles[
-order.user_id
-] || {};
-
-const email =
-customer.email ||
-"Email yoxdur";
-
-const name =
-customer.full_name ||
-email ||
-"Müştəri";
-
-const status =
-order.status ||
-"pending";
-
-const total =
-Number(
-order.total || 0
-).toFixed(2);
-
-const date =
-order.created_at
-?
-new Date(
-order.created_at
-).toLocaleString(
-"az-AZ"
-)
-:
-"";
-
-return `
-
-<div class="order-card">
-
-<div class="order-top">
-
-<div>
-
-<div class="order-product">
-
-📦 Sifariş #${escapeHtml(
-String(order.id)
-)}
-
-</div>
-
-<div class="order-id">
-
-Sifariş ID:
-${escapeHtml(
-String(order.id)
-)}
-
-</div>
-
-</div>
-
-<strong>
-
-${escapeHtml(total)} AZN
-
-</strong>
-
-</div>
-
-<div>
-
-<span
-class="order-current-status ${escapeHtml(status)}"
->
-${escapeHtml(
-getOrderStatusText(status)
-)}
-</span>
-
-</div>
-
-<div class="order-info">
-
-<div>
-<strong>Müştəri:</strong>
-${escapeHtml(name)}
-</div>
-
-<div>
-<strong>Email:</strong>
-${escapeHtml(email)}
-</div>
-
-<div>
-<strong>Məbləğ:</strong>
-${escapeHtml(total)} AZN
-</div>
-
-<div>
-<strong>Tarix:</strong>
-${escapeHtml(date)}
-</div>
-
-<div>
-<strong>User ID:</strong>
-${escapeHtml(
-String(order.user_id || "")
-)}
-</div>
-
-</div>
-
-<div class="order-actions">
-
-<select
-class="order-status"
-data-order-id="${escapeHtml(String(order.id))}"
->
-
-<option value="pending"
-${status==="pending" ? "selected" : ""}>
-Cavab gözlənilir
-</option>
-
-<option value="confirmed"
-${status==="confirmed" ? "selected" : ""}>
-Təsdiqləndi
-</option>
-
-<option value="processing"
-${status==="processing" ? "selected" : ""}>
-Hazırlanır
-</option>
-
-<option value="completed"
-${status==="completed" ? "selected" : ""}>
-Hazırdır
-</option>
-
-<option value="cancelled"
-${status==="cancelled" ? "selected" : ""}>
-Ləğv edildi
-</option>
-
-</select>
-
-<button
-class="order-chat"
-data-user-id="${escapeHtml(String(order.user_id || ""))}"
-data-email="${escapeHtml(email)}"
->
-💬 Çata keç
-</button>
-
-</div>
-
-</div>
-
-`;
-
-}
-).join("");
-
-
-/*
-  Sifariş status eventləri
-*/
-box.querySelectorAll(
-".order-status"
-).forEach(
-function(select){
-
-select.addEventListener(
-"change",
-function(){
-
-updateOrderStatus(
-select.dataset.orderId,
-select.value
-);
-
-}
-);
-
-}
-);
-
-
-/*
-  Çata keç eventləri
-*/
-box.querySelectorAll(
-".order-chat"
-).forEach(
-function(button){
-
-button.addEventListener(
-"click",
-function(){
-
-openOrderChat(
-button.dataset.userId,
-button.dataset.email
-);
-
-}
-);
-
-}
-);
-
-}
-
-
-/* UPDATE STATUS */
 
 async function updateOrderStatus(
-orderId,
-status
+    orderId,
+    status
 ){
 
-if(!orderId){
+    const {
+        error
+    } =
+    await supabaseClient
+    .from("orders")
+    .update({
 
-alert(
-"Sifariş ID tapılmadı."
-);
+        status:
+        status,
 
-return;
+        updated_at:
+        new Date().toISOString()
 
-}
-
-const allowedStatuses=[
-"pending",
-"confirmed",
-"processing",
-"completed",
-"cancelled"
-];
-
-if(
-!allowedStatuses.includes(status)
-){
-
-alert(
-"Yanlış sifariş statusu."
-);
-
-return;
-
-}
-
-const {
-error
-} =
-await supabaseClient
-.from("orders")
-.update({
-
-status:status,
-
-updated_at:
-new Date().toISOString()
-
-})
-.eq(
-"id",
-orderId
-);
-
-if(error){
-
-console.error(
-"Status update error:",
-error
-);
-
-alert(
-"Sifariş statusu dəyişmədi: "+
-error.message
-);
-
-return;
-
-}
-
-await loadOrders();
-
-await loadChatCustomers();
-
-if(selectedChatUserId){
-
-await loadChatOrderStatus(
-selectedChatUserId
-);
-
-}
-
-}
+    })
+    .eq(
+        "id",
+        orderId
+    );
 
 
-/* ORDER TO CHAT */
+    if(error){
 
-async function openOrderChat(
-userId,
-email
-){
+        alert(
+            "Status dəyişmədi: "+
+            error.message
+        );
 
-if(!userId){
-
-alert(
-"Bu sifariş üçün müştəri ID-si tapılmadı."
-);
-
-return;
-
-}
-
-selectedChatUserId =
-userId;
-
-selectedChatEmail =
-email || "";
-
-selectedChatOrderId =
-null;
-
-const header =
-document.getElementById(
-"chatHeader"
-);
-
-if(header){
-
-header.textContent =
-"💬 "+
-(email || "Müştəri");
-
-}
-
-const chatMessages =
-document.getElementById(
-"chatMessages"
-);
-
-if(chatMessages){
-
-chatMessages.innerHTML =
-'<div class="empty">Mesajlar yüklənir...</div>';
-
-}
-
-await loadChatMessages(
-userId
-);
-
-await loadChatOrderStatus(
-userId
-);
-
-await markCustomerMessagesRead(
-userId
-);
-
-await loadChatCustomers();
+        return;
+    }
 
 
-/*
-  Chat kartına scroll
-*/
-const chatBox =
-document.querySelector(
-".chat-box"
-);
+    await loadOrders();
 
-if(chatBox){
-
-chatBox.scrollIntoView({
-behavior:"smooth",
-block:"center"
-});
-
-}
+    await loadChatCustomers();
 
 }
 
 
 /* =====================================================
-REALTIME
+   ORDER → CHAT
+===================================================== */
+
+async function openOrderChat(
+    userId,
+    email
+){
+
+    if(!userId)
+        return;
+
+
+    selectedChatUserId =
+    userId;
+
+    selectedChatEmail =
+    email;
+
+
+    document.getElementById(
+        "chatHeader"
+    ).textContent =
+    "💬 "+
+    (
+        email ||
+        "Müştəri"
+    );
+
+
+    await loadChatMessages(
+        userId
+    );
+
+    await loadChatOrderStatus(
+        userId
+    );
+
+    await markCustomerMessagesRead(
+        userId
+    );
+
+    await loadChatCustomers();
+
+
+    document.getElementById(
+        "chatSection"
+    ).scrollIntoView({
+        behavior:"smooth",
+        block:"start"
+    });
+
+}
+
+
+/* =====================================================
+   NEW ORDER NOTIFICATION
+===================================================== */
+
+async function checkForExistingNewOrders(){
+
+    const {
+        data,
+        error
+    } =
+    await supabaseClient
+    .from("orders")
+    .select(
+        "id,user_id,total,status,created_at"
+    )
+    .eq(
+        "status",
+        "pending"
+    )
+    .order(
+        "created_at",
+        {
+            ascending:false
+        }
+    )
+    .limit(1);
+
+
+    if(
+        error ||
+        !data ||
+        !data.length
+    ){
+
+        return;
+    }
+
+
+    const order =
+    data[0];
+
+
+    /*
+      Səhifə ilk açıldıqda köhnə pending
+      sifarişi popup kimi göstərmirik.
+      Yalnız sonradan gələn sifariş
+      bildiriş verir.
+    */
+
+    seenOrderNotifications.add(
+        order.id
+    );
+
+}
+
+
+async function showNewOrderNotification(
+    order
+){
+
+    if(!order)
+        return;
+
+
+    if(
+        seenOrderNotifications.has(
+            order.id
+        )
+    ){
+
+        return;
+    }
+
+
+    seenOrderNotifications.add(
+        order.id
+    );
+
+
+    notificationOrder =
+    order;
+
+
+    let customerText =
+    "Müştəri";
+
+
+    if(order.user_id){
+
+        const {
+            data
+        } =
+        await supabaseClient
+        .from("profiles")
+        .select(
+            "email,full_name"
+        )
+        .eq(
+            "id",
+            order.user_id
+        )
+        .maybeSingle();
+
+
+        if(data){
+
+            customerText =
+            data.full_name ||
+            data.email ||
+            "Müştəri";
+
+            notificationOrder.email =
+            data.email || "";
+
+        }
+
+    }
+
+
+    const amount =
+    Number(
+        order.total || 0
+    ).toFixed(2);
+
+
+    document.getElementById(
+        "newOrderNotificationInfo"
+    ).innerHTML = `
+
+        <div>
+            <strong>Müştəri:</strong>
+            ${escapeHtml(customerText)}
+        </div>
+
+        <div>
+            <strong>Məbləğ:</strong>
+            ${escapeHtml(amount)}
+            AZN
+        </div>
+
+        <div>
+            <strong>Status:</strong>
+            Cavab gözlənilir
+        </div>
+
+    `;
+
+
+    document.getElementById(
+        "newOrderNotification"
+    ).style.display =
+    "block";
+
+
+    /*
+      Bildiriş səsi.
+    */
+
+    try{
+
+        const AudioContext =
+        window.AudioContext ||
+        window.webkitAudioContext;
+
+        if(AudioContext){
+
+            const audio =
+            new AudioContext();
+
+            const oscillator =
+            audio.createOscillator();
+
+            const gain =
+            audio.createGain();
+
+            oscillator.connect(
+                gain
+            );
+
+            gain.connect(
+                audio.destination
+            );
+
+            oscillator.frequency.value =
+            880;
+
+            gain.gain.value =
+            0.06;
+
+            oscillator.start();
+
+            oscillator.stop(
+                audio.currentTime+
+                0.18
+            );
+
+        }
+
+    }catch(e){
+
+        console.log(
+            "Notification sound unavailable"
+        );
+
+    }
+
+}
+
+
+function hideNewOrderNotification(){
+
+    document.getElementById(
+        "newOrderNotification"
+    ).style.display =
+    "none";
+
+}
+
+
+function openNewOrder(){
+
+    hideNewOrderNotification();
+
+
+    document.getElementById(
+        "ordersSection"
+    ).scrollIntoView({
+        behavior:"smooth",
+        block:"start"
+    });
+
+
+    loadOrders();
+
+}
+
+
+function openNewOrderChat(){
+
+    hideNewOrderNotification();
+
+
+    if(
+        notificationOrder &&
+        notificationOrder.user_id
+    ){
+
+        openOrderChat(
+            notificationOrder.user_id,
+            notificationOrder.email || ""
+        );
+
+    }else{
+
+        document.getElementById(
+            "chatSection"
+        ).scrollIntoView({
+            behavior:"smooth",
+            block:"start"
+        });
+
+    }
+
+}
+
+
+/* =====================================================
+   REALTIME
 ===================================================== */
 
 function setupAdminRealtime(){
 
-if(adminRealtimeChannel){
+    if(adminRealtimeChannel)
+        return;
 
-return;
 
-}
+    adminRealtimeChannel =
+    supabaseClient
+    .channel(
+        "admin-panel-realtime"
+    )
 
-adminRealtimeChannel =
-supabaseClient
-.channel(
-"admin-panel-realtime"
-)
 
-.on(
-"postgres_changes",
-{
-event:"*",
-schema:"public",
-table:"messages"
-},
-async function(payload){
+    /* MESSAGES */
 
-console.log(
-"CHAT REALTIME:",
-payload
-);
+    .on(
+        "postgres_changes",
+        {
+            event:"*",
+            schema:"public",
+            table:"messages"
+        },
+        async function(){
 
-try{
+            await loadChatCustomers();
 
-await loadChatCustomers();
+            if(
+                selectedChatUserId
+            ){
 
-if(selectedChatUserId){
+                await loadChatMessages(
+                    selectedChatUserId
+                );
 
-await loadChatMessages(
-selectedChatUserId
-);
+            }
 
-await loadChatOrderStatus(
-selectedChatUserId
-);
+        }
+    )
 
-}
 
-}catch(error){
+    /* ORDERS */
 
-console.error(
-"Chat realtime refresh error:",
-error
-);
+    .on(
+        "postgres_changes",
+        {
+            event:"INSERT",
+            schema:"public",
+            table:"orders"
+        },
+        async function(payload){
 
-}
+            console.log(
+                "NEW ORDER:",
+                payload
+            );
 
-}
-)
 
-.on(
-"postgres_changes",
-{
-event:"*",
-schema:"public",
-table:"orders"
-},
-async function(){
+            await loadOrders();
 
-try{
+            await loadChatCustomers();
 
-await loadOrders();
 
-await loadChatCustomers();
+            /*
+              Yeni sifariş gələndə
+              aşağı sağ bildiriş.
+            */
 
-if(selectedChatUserId){
+            await showNewOrderNotification(
+                payload.new
+            );
 
-await loadChatOrderStatus(
-selectedChatUserId
-);
+        }
+    )
 
-}
 
-}catch(error){
+    .on(
+        "postgres_changes",
+        {
+            event:"UPDATE",
+            schema:"public",
+            table:"orders"
+        },
+        async function(){
 
-console.error(
-"Order realtime refresh error:",
-error
-);
+            await loadOrders();
 
-}
+            await loadChatCustomers();
 
-}
-)
+        }
+    )
 
-.on(
-"postgres_changes",
-{
-event:"*",
-schema:"public",
-table:"customer_products"
-},
-async function(){
 
-try{
+    .on(
+        "postgres_changes",
+        {
+            event:"DELETE",
+            schema:"public",
+            table:"orders"
+        },
+        async function(){
 
-await loadProducts();
+            await loadOrders();
 
-}catch(error){
+            await loadChatCustomers();
 
-console.error(
-"Product realtime refresh error:",
-error
-);
+        }
+    )
 
-}
 
-}
-)
+    /* CUSTOMER PRODUCTS */
 
-.on(
-"postgres_changes",
-{
-event:"*",
-schema:"public",
-table:"product_prices"
-},
-async function(){
+    .on(
+        "postgres_changes",
+        {
+            event:"*",
+            schema:"public",
+            table:"customer_products"
+        },
+        async function(){
 
-try{
+            await loadProducts();
 
-await loadPrices();
+        }
+    )
 
-}catch(error){
 
-console.error(
-"Price realtime refresh error:",
-error
-);
+    /* PRICES */
 
-}
+    .on(
+        "postgres_changes",
+        {
+            event:"*",
+            schema:"public",
+            table:"product_prices"
+        },
+        async function(){
 
-}
-)
+            await loadPrices();
 
-.subscribe(
-function(status){
+        }
+    )
 
-console.log(
-"Admin realtime status:",
-status
-);
 
-}
-);
+    .subscribe(
+        function(status){
+
+            console.log(
+                "Admin realtime:",
+                status
+            );
+
+        }
+    );
 
 }
 
 
 /* =====================================================
-HELPERS
+   HELPERS
 ===================================================== */
 
 function calculateSalePercent(
-normal,
-sale
+    normal,
+    sale
 ){
 
-if(
-!normal ||
-normal<=0 ||
-sale>=normal
-){
+    if(
+        !normal ||
+        normal<=0 ||
+        sale>=normal
+    ){
 
-return "";
+        return "";
 
-}
+    }
 
-const percent =
-Math.round(
-(
-(normal-sale) /
-normal
-) * 100
-);
 
-return "−"+percent+"%";
+    const percent =
+    Math.round(
+        (
+            (normal-sale) /
+            normal
+        )*100
+    );
+
+
+    return "−"+percent+"%";
 
 }
 
 
 function escapeHtml(value){
 
-return String(
-value ?? ""
-)
-.replace(
-/&/g,
-"&amp;"
-)
-.replace(
-/</g,
-"&lt;"
-)
-.replace(
-/>/g,
-"&gt;"
-)
-.replace(
-/"/g,
-"&quot;"
-)
-.replace(
-/'/g,
-"&#039;"
-);
+    return String(
+        value ?? ""
+    )
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+    .replace(
+        /</g,
+        "&lt;"
+    )
+    .replace(
+        />/g,
+        "&gt;"
+    )
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+    .replace(
+        /'/g,
+        "&#039;"
+    );
 
 }
 
 
 function showMessage(
-text,
-isError=false
+    text,
+    isError=false
 ){
 
-const box =
-document.getElementById(
-"message"
-);
+    const box =
+    document.getElementById(
+        "message"
+    );
 
-box.textContent =
-text;
 
-box.className =
-isError
-?
-"message error"
-:
-"message";
+    box.textContent =
+    text;
 
-box.style.display =
-"block";
 
-setTimeout(
-function(){
+    box.className =
+    isError
+    ?
+    "message error"
+    :
+    "message";
 
-box.style.display =
-"none";
 
-},
-4000
-);
+    box.style.display =
+    "block";
+
+
+    setTimeout(
+        function(){
+
+            box.style.display =
+            "none";
+
+        },
+        4000
+    );
 
 }
 
 
 function showPriceMessage(
-text,
-isError=false
+    text,
+    isError=false
 ){
 
-const box =
-document.getElementById(
-"priceMessage"
-);
+    const box =
+    document.getElementById(
+        "priceMessage"
+    );
 
-box.textContent =
-text;
 
-box.className =
-isError
-?
-"price-message error"
-:
-"price-message";
+    box.textContent =
+    text;
 
-box.style.display =
-"block";
 
-setTimeout(
-function(){
+    box.className =
+    isError
+    ?
+    "price-message error"
+    :
+    "price-message";
 
-box.style.display =
-"none";
 
-},
-4000
-);
+    box.style.display =
+    "block";
+
+
+    setTimeout(
+        function(){
+
+            box.style.display =
+            "none";
+
+        },
+        4000
+    );
 
 }
 
 
 /* =====================================================
-START
+   START
 ===================================================== */
 
 async function startAdmin(){
 
-const loading =
-document.getElementById(
-"loading"
-);
+    const loading =
+    document.getElementById(
+        "loading"
+    );
 
-try{
 
-loading.textContent =
-"Supabase bağlantısı yoxlanılır...";
+    try{
 
-await withTimeout(
-initSupabase(),
-10000,
-"Supabase kitabxanası yüklənmədi."
-);
+        loading.textContent =
+        "Supabase bağlantısı yoxlanılır...";
 
-loading.textContent =
-"Admin hesabı yoxlanılır...";
 
-await checkAdmin();
+        await withTimeout(
+            initSupabase(),
+            10000,
+            "Supabase kitabxanası yüklənmədi."
+        );
 
-}catch(error){
 
-console.error(
-"ADMIN START ERROR:",
-error
-);
+        loading.textContent =
+        "Admin hesabı yoxlanılır...";
 
-loading.innerHTML = `
 
-<div style="
-background:#151515;
-border:1px solid #7f1d1d;
-border-radius:14px;
-padding:25px;
-max-width:600px;
-margin:auto;
-text-align:left;
-">
+        await checkAdmin();
 
-<div style="
-font-size:19px;
-font-weight:bold;
-color:#fca5a5;
-margin-bottom:12px;
-">
-Admin panel açıla bilmədi
-</div>
 
-<div style="
-color:#aaa;
-line-height:1.6;
-margin-bottom:18px;
-">
-${escapeHtml(
-error.message ||
-"Naməlum xəta baş verdi."
-)}
-</div>
+    }catch(error){
 
-<button
-onclick="location.reload()"
->
-Yenidən yoxla
-</button>
+        console.error(
+            "ADMIN START ERROR:",
+            error
+        );
 
-<button
-onclick="window.location.replace('login.html')"
-style="
-margin-top:10px;
-background:#374151;
-"
->
-Login səhifəsinə keç
-</button>
 
-</div>
+        loading.innerHTML = `
 
-`;
+        <div class="error-box">
 
-}
+            <div class="error-title">
+                Admin panel açıla bilmədi
+            </div>
+
+            <div class="error-text">
+                ${escapeHtml(
+                    error.message ||
+                    "Naməlum xəta baş verdi."
+                )}
+            </div>
+
+            <button
+            onclick="location.reload()"
+            >
+                Yenidən yoxla
+            </button>
+
+            <button
+            onclick="location.replace('login.html')"
+            style="
+                margin-top:10px;
+                background:#374151;
+            "
+            >
+                Login səhifəsinə keç
+            </button>
+
+        </div>
+
+        `;
+
+    }
 
 }
 
 
 if(
-document.readyState === "loading"
+    document.readyState ===
+    "loading"
 ){
 
-document.addEventListener(
-"DOMContentLoaded",
-startAdmin,
-{
-once:true
-}
-);
+    document.addEventListener(
+        "DOMContentLoaded",
+        startAdmin,
+        {
+            once:true
+        }
+    );
 
 }else{
 
-startAdmin();
+    startAdmin();
 
 }
 
