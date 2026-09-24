@@ -523,7 +523,6 @@ DigiBaku<span>.com</span>
 </div>
 </header>
 
-
 <main>
 
 <div class="container">
@@ -532,12 +531,9 @@ DigiBaku<span>.com</span>
 Admin yoxlanılır...
 </div>
 
-
 <div id="adminPanel">
 
-<!-- =====================================================
-     QİYMƏTLƏR
-===================================================== -->
+<!-- QİYMƏTLƏR -->
 
 <div class="card">
 
@@ -558,9 +554,7 @@ Qiymətlər yüklənir...
 </div>
 
 
-<!-- =====================================================
-     MƏHSUL VERİLMƏSİ
-===================================================== -->
+<!-- MƏHSUL VERİLMƏSİ -->
 
 <div class="card">
 
@@ -569,7 +563,6 @@ Qiymətlər yüklənir...
 <p class="subtitle">
 Müştəriyə ödənişdən sonra məhsul ver
 </p>
-
 
 <label>Müştəri</label>
 
@@ -581,13 +574,11 @@ Müştəri seçin...
 
 </select>
 
-
 <div
 id="selectedCustomer"
 class="customer-info"
 style="display:none"
 ></div>
-
 
 <label>Məhsul</label>
 
@@ -623,7 +614,6 @@ Canva Premium — 12 ay — 5.99 AZN
 
 </select>
 
-
 <label>
 Müştəriyə veriləcək hesab məlumatı
 </label>
@@ -635,7 +625,6 @@ Email: example@gmail.com
 Şifrə: ********
 və ya digər hesab məlumatı..."
 ></textarea>
-
 
 <button
 id="addButton"
@@ -649,9 +638,7 @@ Məhsulu müştəriyə əlavə et
 </div>
 
 
-<!-- =====================================================
-     VERİLMİŞ MƏHSULLAR
-===================================================== -->
+<!-- VERİLMİŞ MƏHSULLAR -->
 
 <div class="card">
 
@@ -664,9 +651,7 @@ Yüklənir...
 </div>
 
 
-<!-- =====================================================
-     CHAT
-===================================================== -->
+<!-- CHAT -->
 
 <div class="card">
 
@@ -676,9 +661,7 @@ Yüklənir...
 Müştərilərlə birbaşa yazış
 </p>
 
-
 <div class="chat-layout">
-
 
 <div class="chat-customers">
 
@@ -692,9 +675,7 @@ Müştərilər yüklənir...
 
 </div>
 
-
 <div class="chat-box">
-
 
 <div
 id="chatHeader"
@@ -702,7 +683,6 @@ class="chat-header"
 >
 Müştəri seçin
 </div>
-
 
 <div
 id="chatMessages"
@@ -715,14 +695,12 @@ Mesajları görmək üçün müştəri seçin.
 
 </div>
 
-
 <div class="chat-send">
 
 <textarea
 id="chatInput"
 placeholder="Müştəriyə mesaj yaz..."
 ></textarea>
-
 
 <button
 id="sendChatButton"
@@ -740,9 +718,7 @@ Mesaj göndər
 </div>
 
 
-<!-- =====================================================
-     SİFARİŞLƏR
-===================================================== -->
+<!-- SİFARİŞLƏR -->
 
 <div class="card">
 
@@ -751,7 +727,6 @@ Mesaj göndər
 <p class="subtitle">
 Müştərilərin sifarişlərini idarə et
 </p>
-
 
 <div id="ordersList">
 
@@ -762,7 +737,6 @@ Sifarişlər yüklənir...
 </div>
 
 </div>
-
 
 </div>
 </div>
@@ -777,17 +751,14 @@ const SUPABASE_URL =
 const SUPABASE_KEY =
 "sb_publishable_jHvCp9fXBA_BwFqrXYpwlw_VC6C1OQk";
 
-
 const supabaseClient =
 window.supabase.createClient(
 SUPABASE_URL,
 SUPABASE_KEY
 );
 
-
 const ADMIN_EMAIL =
 "zahidovorxan989@gmail.com";
-
 
 let selectedChatUserId = null;
 let selectedChatEmail = null;
@@ -808,19 +779,15 @@ session
 }
 } = await supabaseClient.auth.getSession();
 
-
 if(!session){
 
 window.location.href="login.html";
-
 return;
 
 }
 
-
 const email =
 (session.user.email || "").toLowerCase();
-
 
 if(email !== ADMIN_EMAIL.toLowerCase()){
 
@@ -829,35 +796,27 @@ alert("Bu səhifəyə giriş icazəniz yoxdur.");
 await supabaseClient.auth.signOut();
 
 window.location.href="login.html";
-
 return;
 
 }
-
 
 document.getElementById("loading").style.display="none";
 
 document.getElementById("adminPanel").style.display="block";
 
-
 await loadCustomers();
-
 await loadProducts();
-
 await loadPrices();
-
 await loadChatCustomers();
-
 await loadOrders();
 
 setupAdminRealtime();
-
 
 }catch(error){
 
 console.error(error);
 
-document.getElementById("loading").innerHTML=
+document.getElementById("loading").innerHTML =
 "Admin yoxlanılarkən xəta baş verdi.";
 
 }
@@ -874,7 +833,6 @@ async function loadCustomers(){
 const select =
 document.getElementById("customerSelect");
 
-
 const {
 data,
 error
@@ -885,19 +843,15 @@ await supabaseClient
 .not("email","is",null)
 .order("email");
 
-
 if(error){
 
-console.error(error);
-
+console.error("Customer error:",error);
 return;
 
 }
 
-
-select.innerHTML=
+select.innerHTML =
 '<option value="">Müştəri seçin...</option>';
-
 
 (data || []).forEach(function(customer){
 
@@ -906,7 +860,7 @@ document.createElement("option");
 
 option.value=customer.id;
 
-option.textContent=
+option.textContent =
 customer.full_name
 ? customer.full_name+" — "+customer.email
 : customer.email;
@@ -924,37 +878,37 @@ select.appendChild(option);
 
 document
 .getElementById("customerSelect")
-.addEventListener("change",function(){
+.addEventListener(
+"change",
+function(){
 
 const customerId=this.value;
 
 const info =
-document.getElementById("selectedCustomer");
-
+document.getElementById(
+"selectedCustomer"
+);
 
 if(!customerId){
 
 info.style.display="none";
-
 info.innerHTML="";
-
 return;
 
 }
 
-
 const selected =
 this.options[this.selectedIndex];
 
-
-info.innerHTML=
+info.innerHTML =
 "Müştəri: <strong>"+
 escapeHtml(selected.textContent)+
 "</strong>";
 
 info.style.display="block";
 
-});
+}
+);
 
 
 /* =====================================================
@@ -964,17 +918,24 @@ info.style.display="block";
 async function addProduct(){
 
 const customerId =
-document.getElementById("customerSelect").value;
+document.getElementById(
+"customerSelect"
+).value;
 
 const product =
-document.getElementById("productSelect").value;
+document.getElementById(
+"productSelect"
+).value;
 
 const accountInfo =
-document.getElementById("accountInfo").value.trim();
+document.getElementById(
+"accountInfo"
+).value.trim();
 
 const button =
-document.getElementById("addButton");
-
+document.getElementById(
+"addButton"
+);
 
 if(!customerId){
 
@@ -987,7 +948,6 @@ return;
 
 }
 
-
 if(!product){
 
 showMessage(
@@ -998,7 +958,6 @@ true
 return;
 
 }
-
 
 if(!accountInfo){
 
@@ -1011,9 +970,7 @@ return;
 
 }
 
-
 button.disabled=true;
-
 
 const {
 error
@@ -1023,25 +980,21 @@ await supabaseClient
 .insert({
 
 user_id:customerId,
-
 product_name:product,
-
 account_info:accountInfo,
-
 status:"active"
 
 });
 
-
 button.disabled=false;
-
 
 if(error){
 
 console.error(error);
 
 showMessage(
-"Məhsul əlavə edilmədi: "+error.message,
+"Məhsul əlavə edilmədi: "+
+error.message,
 true
 );
 
@@ -1049,15 +1002,17 @@ return;
 
 }
 
+document.getElementById(
+"accountInfo"
+).value="";
 
-document.getElementById("accountInfo").value="";
-
-document.getElementById("productSelect").value="";
+document.getElementById(
+"productSelect"
+).value="";
 
 showMessage(
 "Məhsul müştəriyə uğurla əlavə edildi."
 );
-
 
 await loadProducts();
 
@@ -1071,8 +1026,9 @@ await loadProducts();
 async function loadProducts(){
 
 const box =
-document.getElementById("productsList");
-
+document.getElementById(
+"productsList"
+);
 
 const {
 data,
@@ -1081,52 +1037,59 @@ error
 await supabaseClient
 .from("customer_products")
 .select("*")
-.order("created_at",{ascending:false});
-
+.order(
+"created_at",
+{ascending:false}
+);
 
 if(error){
 
 console.error(error);
 
-box.innerHTML=
+box.innerHTML =
 '<div class="empty">Məhsullar yüklənmədi.</div>';
 
 return;
 
 }
 
-
 if(!data || data.length===0){
 
-box.innerHTML=
+box.innerHTML =
 '<div class="empty">Hələ verilmiş məhsul yoxdur.</div>';
 
 return;
 
 }
 
-
-box.innerHTML=
+box.innerHTML =
 data.map(function(item){
 
 const date =
 item.created_at
-? new Date(item.created_at)
-.toLocaleString("az-AZ")
-: "";
-
+?
+new Date(
+item.created_at
+).toLocaleString("az-AZ")
+:
+"";
 
 return `
 
 <div class="product">
 
 <strong>
-${escapeHtml(item.product_name || "Məhsul")}
+${escapeHtml(
+item.product_name ||
+"Məhsul"
+)}
 </strong>
 
 <small>
 Müştəri ID:
-${escapeHtml(String(item.user_id || ""))}
+${escapeHtml(
+String(item.user_id || "")
+)}
 </small>
 
 <br>
@@ -1140,7 +1103,9 @@ ${escapeHtml(date)}
 
 <small>
 Status:
-${escapeHtml(item.status || "")}
+${escapeHtml(
+item.status || ""
+)}
 </small>
 
 <button
@@ -1167,10 +1132,13 @@ Sil
 
 async function deleteProduct(id){
 
-if(!confirm("Bu məhsulu silmək istəyirsiniz?")){
-return;
-}
+if(!confirm(
+"Bu məhsulu silmək istəyirsiniz?"
+)){
 
+return;
+
+}
 
 const {
 error
@@ -1180,17 +1148,16 @@ await supabaseClient
 .delete()
 .eq("id",id);
 
-
 if(error){
 
 alert(
-"Məhsul silinmədi: "+error.message
+"Məhsul silinmədi: "+
+error.message
 );
 
 return;
 
 }
-
 
 await loadProducts();
 
@@ -1204,8 +1171,9 @@ await loadProducts();
 async function loadPrices(){
 
 const box =
-document.getElementById("pricesList");
-
+document.getElementById(
+"pricesList"
+);
 
 const {
 data,
@@ -1216,28 +1184,25 @@ await supabaseClient
 .select("*")
 .order("id");
 
-
 if(error){
 
 console.error(error);
 
-box.innerHTML=
+box.innerHTML =
 '<div class="empty">Qiymətlər yüklənmədi.</div>';
 
 return;
 
 }
 
-
 if(!data || data.length===0){
 
-box.innerHTML=
+box.innerHTML =
 '<div class="empty">Qiymət məlumatı yoxdur.</div>';
 
 return;
 
 }
-
 
 box.innerHTML =
 data.map(function(item){
@@ -1249,7 +1214,6 @@ Number(
 item.price_12_month || 0
 ).toFixed(2);
 
-
 const sale12 =
 Number(
 item.sale_12_price ??
@@ -1257,13 +1221,15 @@ item.price_12_month ??
 0
 ).toFixed(2);
 
-
 return `
 
 <div class="price-product canva-price">
 
 <h3>
-${escapeHtml(item.product_name || "Canva Premium")}
+${escapeHtml(
+item.product_name ||
+"Canva Premium"
+)}
 </h3>
 
 <div class="canva-title">
@@ -1304,7 +1270,6 @@ value="${sale12}"
 
 </div>
 
-
 <div class="switch-row">
 
 <input
@@ -1322,7 +1287,6 @@ Endirimi aktiv et
 
 </div>
 
-
 <div class="sale-info">
 
 <span
@@ -1335,14 +1299,13 @@ Number(sale12)
 )}
 </span>
 
-<span
-class="sale-status"
->
-${item.sale_12_active ? "Aktiv" : "Deaktiv"}
+<span class="sale-status">
+${item.sale_12_active
+? "Aktiv"
+: "Deaktiv"}
 </span>
 
 </div>
-
 
 <button
 class="save-price"
@@ -1359,15 +1322,16 @@ Canva qiymətini yadda saxla
 
 }
 
-
 return `
 
 <div class="price-product">
 
 <h3>
-${escapeHtml(item.product_name || item.product_key)}
+${escapeHtml(
+item.product_name ||
+item.product_key
+)}
 </h3>
-
 
 ${createPriceMonth(
 item,
@@ -1375,20 +1339,17 @@ item,
 "1 ay"
 )}
 
-
 ${createPriceMonth(
 item,
 2,
 "2 ay"
 )}
 
-
 ${createPriceMonth(
 item,
 3,
 "3 ay"
 )}
-
 
 <button
 class="save-price"
@@ -1412,27 +1373,36 @@ Qiymətləri yadda saxla
    PRICE MONTH HTML
 ===================================================== */
 
-function createPriceMonth(item,month,title){
+function createPriceMonth(
+item,
+month,
+title
+){
 
 const price =
 Number(
-item["price_"+month+"_month"] || 0
+item[
+"price_"+month+"_month"
+] || 0
 ).toFixed(2);
-
 
 const sale =
 Number(
-item["sale_"+month+"_price"] ??
-item["price_"+month+"_month"] ??
+item[
+"sale_"+month+"_price"
+] ??
+item[
+"price_"+month+"_month"
+] ??
 0
 ).toFixed(2);
 
-
 const active =
-item["sale_"+month+"_active"]
+item[
+"sale_"+month+"_active"
+]
 ? "checked"
 : "";
-
 
 return `
 
@@ -1441,7 +1411,6 @@ return `
 <div class="price-month-title">
 ${title}
 </div>
-
 
 <div class="price-row">
 
@@ -1460,7 +1429,6 @@ value="${price}"
 
 </div>
 
-
 <div>
 
 <label>
@@ -1477,7 +1445,6 @@ value="${sale}"
 </div>
 
 </div>
-
 
 <div class="switch-row">
 
@@ -1496,16 +1463,15 @@ Endirimi aktiv et
 
 </div>
 
-
 <div class="sale-info">
 
-<span
-class="sale-percent"
->
+<span class="sale-percent">
+
 ${calculateSalePercent(
 Number(price),
 Number(sale)
 )}
+
 </span>
 
 <span class="sale-status">
@@ -1529,51 +1495,60 @@ async function savePrice(id){
 
 const price1 =
 Number(
-document.getElementById("price1_"+id).value
-|| 0
+document.getElementById(
+"price1_"+id
+).value || 0
 );
 
 const price2 =
 Number(
-document.getElementById("price2_"+id).value
-|| 0
+document.getElementById(
+"price2_"+id
+).value || 0
 );
 
 const price3 =
 Number(
-document.getElementById("price3_"+id).value
-|| 0
+document.getElementById(
+"price3_"+id
+).value || 0
 );
-
 
 const sale1 =
 Number(
-document.getElementById("sale1_"+id).value
-|| 0
+document.getElementById(
+"sale1_"+id
+).value || 0
 );
 
 const sale2 =
 Number(
-document.getElementById("sale2_"+id).value
-|| 0
+document.getElementById(
+"sale2_"+id
+).value || 0
 );
 
 const sale3 =
 Number(
-document.getElementById("sale3_"+id).value
-|| 0
+document.getElementById(
+"sale3_"+id
+).value || 0
 );
 
-
 const active1 =
-document.getElementById("sale1active_"+id).checked;
+document.getElementById(
+"sale1active_"+id
+).checked;
 
 const active2 =
-document.getElementById("sale2active_"+id).checked;
+document.getElementById(
+"sale2active_"+id
+).checked;
 
 const active3 =
-document.getElementById("sale3active_"+id).checked;
-
+document.getElementById(
+"sale3active_"+id
+).checked;
 
 const {
 error
@@ -1583,33 +1558,28 @@ await supabaseClient
 .update({
 
 price_1_month:price1,
-
 price_2_month:price2,
-
 price_3_month:price3,
 
 sale_1_price:sale1,
-
 sale_2_price:sale2,
-
 sale_3_price:sale3,
 
 sale_1_active:active1,
-
 sale_2_active:active2,
-
 sale_3_active:active3,
 
-updated_at:new Date().toISOString()
+updated_at:
+new Date().toISOString()
 
 })
 .eq("id",id);
 
-
 if(error){
 
 showPriceMessage(
-"Qiymət yadda saxlanılmadı: "+error.message,
+"Qiymət yadda saxlanılmadı: "+
+error.message,
 true
 );
 
@@ -1617,11 +1587,9 @@ return;
 
 }
 
-
 showPriceMessage(
 "Qiymətlər uğurla yeniləndi."
 );
-
 
 await loadPrices();
 
@@ -1636,21 +1604,22 @@ async function saveCanvaPrice(id){
 
 const price12 =
 Number(
-document.getElementById("price12_"+id).value
-|| 0
+document.getElementById(
+"price12_"+id
+).value || 0
 );
 
 const sale12 =
 Number(
-document.getElementById("sale12_"+id).value
-|| 0
+document.getElementById(
+"sale12_"+id
+).value || 0
 );
 
 const active12 =
 document.getElementById(
 "sale12active_"+id
 ).checked;
-
 
 const {
 error
@@ -1660,22 +1629,21 @@ await supabaseClient
 .update({
 
 price_12_month:price12,
-
 sale_12_price:sale12,
-
 sale_12_active:active12,
 
-updated_at:new Date().toISOString()
+updated_at:
+new Date().toISOString()
 
 })
 .eq("id",id)
 .eq("product_key","canva");
 
-
 if(error){
 
 showPriceMessage(
-"Canva qiyməti yadda saxlanılmadı: "+error.message,
+"Canva qiyməti yadda saxlanılmadı: "+
+error.message,
 true
 );
 
@@ -1683,11 +1651,9 @@ return;
 
 }
 
-
 showPriceMessage(
 "Canva qiyməti uğurla yeniləndi."
 );
-
 
 await loadPrices();
 
@@ -1701,11 +1667,11 @@ await loadPrices();
 async function loadChatCustomers(){
 
 const box =
-document.getElementById("chatCustomers");
-
+document.getElementById(
+"chatCustomers"
+);
 
 if(!box) return;
-
 
 const {
 data:customers,
@@ -1713,25 +1679,29 @@ error
 } =
 await supabaseClient
 .from("profiles")
-.select("id,email,full_name")
+.select(
+"id,email,full_name"
+)
 .not("email","is",null)
 .order("email");
 
-
 if(error){
 
-console.error(error);
+console.error(
+"Chat customers error:",
+error
+);
 
-box.innerHTML=
+box.innerHTML =
 '<div class="empty">Müştərilər yüklənmədi.</div>';
 
 return;
 
 }
 
-
 const {
-data:unreadMessages
+data:unreadMessages,
+error:unreadError
 } =
 await supabaseClient
 .from("messages")
@@ -1739,46 +1709,52 @@ await supabaseClient
 .eq("sender_role","customer")
 .eq("is_read",false);
 
+if(unreadError){
+
+console.error(
+"Unread error:",
+unreadError
+);
+
+}
 
 const unreadMap={};
 
-
-(unreadMessages || []).forEach(function(item){
+(unreadMessages || []).forEach(
+function(item){
 
 unreadMap[item.user_id] =
 (unreadMap[item.user_id] || 0)+1;
 
-});
+}
+);
 
+if(!customers ||
+customers.length===0){
 
-if(!customers || customers.length===0){
-
-box.innerHTML=
+box.innerHTML =
 '<div class="empty">Hələ müştəri yoxdur.</div>';
 
 return;
 
 }
 
-
 box.innerHTML =
-customers.map(function(customer){
+customers.map(
+function(customer){
 
 const unread =
 unreadMap[customer.id] || 0;
-
 
 const name =
 customer.full_name ||
 customer.email ||
 "Müştəri";
 
-
 const active =
 selectedChatUserId === customer.id
 ? "active"
 : "";
-
 
 return `
 
@@ -1786,8 +1762,12 @@ return `
 class="chat-customer ${active}"
 onclick="
 selectChatCustomer(
-'${customer.id}',
-'${escapeHtml(customer.email || "")}'
+'${escapeHtml(
+String(customer.id)
+)}',
+'${escapeHtml(
+customer.email || ""
+)}'
 )
 "
 >
@@ -1798,13 +1778,13 @@ ${escapeHtml(name)}
 
 </div>
 
-
 <div class="chat-customer-status">
 
 <span>
-${escapeHtml(customer.email || "")}
+${escapeHtml(
+customer.email || ""
+)}
 </span>
-
 
 ${
 unread > 0
@@ -1820,7 +1800,8 @@ unread > 0
 
 `;
 
-}).join("");
+}
+).join("");
 
 }
 
@@ -1829,30 +1810,36 @@ unread > 0
    SELECT CHAT CUSTOMER
 ===================================================== */
 
-async function selectChatCustomer(userId,email){
+async function selectChatCustomer(
+userId,
+email
+){
 
 selectedChatUserId=userId;
-
 selectedChatEmail=email;
 
-
 const header =
-document.getElementById("chatHeader");
-
+document.getElementById(
+"chatHeader"
+);
 
 if(header){
 
-header.textContent=
-"💬 "+email;
+header.textContent =
+"💬 "+
+(email || "Müştəri");
 
 }
 
-
 await loadChatCustomers();
 
-await loadChatMessages(userId);
+await loadChatMessages(
+userId
+);
 
-await markCustomerMessagesRead(userId);
+await markCustomerMessagesRead(
+userId
+);
 
 await loadChatCustomers();
 
@@ -1863,14 +1850,16 @@ await loadChatCustomers();
    LOAD CHAT MESSAGES
 ===================================================== */
 
-async function loadChatMessages(userId){
+async function loadChatMessages(
+userId
+){
 
 const box =
-document.getElementById("chatMessages");
-
+document.getElementById(
+"chatMessages"
+);
 
 if(!box) return;
-
 
 const {
 data,
@@ -1880,30 +1869,31 @@ await supabaseClient
 .from("messages")
 .select("*")
 .eq("user_id",userId)
-.order("created_at",{ascending:true});
-
+.order(
+"created_at",
+{ascending:true}
+);
 
 if(error){
 
 console.error(error);
 
-box.innerHTML=
+box.innerHTML =
 '<div class="empty">Mesajlar yüklənmədi.</div>';
 
 return;
 
 }
 
+if(!data ||
+data.length===0){
 
-if(!data || data.length===0){
-
-box.innerHTML=
+box.innerHTML =
 '<div class="empty">Hələ mesaj yoxdur.</div>';
 
 return;
 
 }
-
 
 box.innerHTML =
 data.map(function(item){
@@ -1913,12 +1903,12 @@ item.sender_role === "admin"
 ? "admin"
 : "customer";
 
-
 const time =
 item.created_at
 ?
-new Date(item.created_at)
-.toLocaleString(
+new Date(
+item.created_at
+).toLocaleString(
 "az-AZ",
 {
 day:"2-digit",
@@ -1930,12 +1920,13 @@ minute:"2-digit"
 :
 "";
 
-
 return `
 
 <div class="chat-msg ${role}">
 
-${escapeHtml(item.message || "")}
+${escapeHtml(
+item.message || ""
+)}
 
 <span class="chat-time">
 ${time}
@@ -1947,8 +1938,8 @@ ${time}
 
 }).join("");
 
-
-box.scrollTop=box.scrollHeight;
+box.scrollTop =
+box.scrollHeight;
 
 }
 
@@ -1957,7 +1948,9 @@ box.scrollTop=box.scrollHeight;
    MARK MESSAGES READ
 ===================================================== */
 
-async function markCustomerMessagesRead(userId){
+async function markCustomerMessagesRead(
+userId
+){
 
 const {
 error
@@ -1970,7 +1963,6 @@ is_read:true
 .eq("user_id",userId)
 .eq("sender_role","customer")
 .eq("is_read",false);
-
 
 if(error){
 
@@ -1992,29 +1984,30 @@ async function sendChatMessage(){
 
 if(!selectedChatUserId){
 
-alert("Əvvəlcə müştəri seçin.");
+alert(
+"Əvvəlcə müştəri seçin."
+);
 
 return;
 
 }
 
-
 const input =
-document.getElementById("chatInput");
+document.getElementById(
+"chatInput"
+);
 
 const button =
-document.getElementById("sendChatButton");
-
+document.getElementById(
+"sendChatButton"
+);
 
 const message =
 input.value.trim();
 
-
 if(!message) return;
 
-
 button.disabled=true;
-
 
 const {
 error
@@ -2024,18 +2017,13 @@ await supabaseClient
 .insert({
 
 user_id:selectedChatUserId,
-
 sender_role:"admin",
-
 message:message,
-
 is_read:false
 
 });
 
-
 button.disabled=false;
-
 
 if(error){
 
@@ -2050,9 +2038,7 @@ return;
 
 }
 
-
 input.value="";
-
 
 await loadChatMessages(
 selectedChatUserId
@@ -2070,11 +2056,11 @@ document.addEventListener(
 function(event){
 
 const input =
-document.getElementById("chatInput");
-
+document.getElementById(
+"chatInput"
+);
 
 if(!input) return;
-
 
 if(
 document.activeElement===input &&
@@ -2099,11 +2085,11 @@ sendChatMessage();
 async function loadOrders(){
 
 const box =
-document.getElementById("ordersList");
-
+document.getElementById(
+"ordersList"
+);
 
 if(!box) return;
-
 
 const {
 data:orders,
@@ -2111,31 +2097,42 @@ error
 } =
 await supabaseClient
 .from("orders")
-.select("*")
-.order("created_at",{ascending:false});
-
+.select(
+"id,user_id,total,status,created_at,updated_at"
+)
+.order(
+"created_at",
+{ascending:false}
+);
 
 if(error){
 
-console.error(error);
+console.error(
+"Orders error:",
+error
+);
 
-box.innerHTML=
-'<div class="empty">Sifarişlər yüklənmədi.</div>';
+box.innerHTML =
+'<div class="empty">Sifarişlər yüklənmədi: '+
+escapeHtml(error.message)+
+'</div>';
 
 return;
 
 }
 
+if(!orders ||
+orders.length===0){
 
-if(!orders || orders.length===0){
-
-box.innerHTML=
+box.innerHTML =
 '<div class="empty">Hələ sifariş yoxdur.</div>';
 
 return;
 
 }
 
+
+/* MÜŞTƏRİ ID-LƏRİ */
 
 const userIds=[
 ...new Set(
@@ -2147,66 +2144,80 @@ return order.user_id;
 )
 ];
 
-
 let profiles={};
-
 
 if(userIds.length>0){
 
 const {
-data:customers
+data:customers,
+error:profileError
 } =
 await supabaseClient
 .from("profiles")
-.select("id,email,full_name")
+.select(
+"id,email,full_name"
+)
 .in("id",userIds);
 
+if(profileError){
 
-(customers || []).forEach(function(customer){
+console.error(
+"Profiles error:",
+profileError
+);
+
+}
+
+(customers || []).forEach(
+function(customer){
 
 profiles[customer.id]=customer;
 
-});
+}
+);
 
 }
 
 
+/* SİFARİŞLƏR */
+
 box.innerHTML =
-orders.map(function(order){
+orders.map(
+function(order){
 
 const customer =
 profiles[order.user_id] || {};
 
-
 const email =
 customer.email ||
-order.user_id ||
-"Naməlum müştəri";
-
+"Email yoxdur";
 
 const name =
 customer.full_name ||
-email;
-
+email ||
+"Müştəri";
 
 const status =
 order.status ||
 "pending";
 
+const total =
+Number(
+order.total || 0
+).toFixed(2);
 
 const date =
 order.created_at
 ?
-new Date(order.created_at)
-.toLocaleString("az-AZ")
+new Date(
+order.created_at
+).toLocaleString("az-AZ")
 :
 "";
-
 
 return `
 
 <div class="order-card">
-
 
 <div class="order-top">
 
@@ -2214,16 +2225,15 @@ return `
 
 <div class="order-product">
 
-${escapeHtml(
-order.product_name || "Məhsul"
+📦 Sifariş #${escapeHtml(
+String(order.id)
 )}
 
 </div>
 
-
 <div class="order-id">
 
-ID:
+Sifariş ID:
 ${escapeHtml(
 String(order.id)
 )}
@@ -2232,13 +2242,9 @@ String(order.id)
 
 </div>
 
-
 <strong>
 
-${Number(
-order.price || 0
-).toFixed(2)}
-AZN
+${escapeHtml(total)} AZN
 
 </strong>
 
@@ -2246,7 +2252,6 @@ AZN
 
 
 <div class="order-info">
-
 
 <div>
 
@@ -2256,7 +2261,6 @@ ${escapeHtml(name)}
 
 </div>
 
-
 <div>
 
 <strong>Email:</strong>
@@ -2265,17 +2269,13 @@ ${escapeHtml(email)}
 
 </div>
 
-
 <div>
 
-<strong>Müddət:</strong>
+<strong>Məbləğ:</strong>
 
-${escapeHtml(
-order.duration || "-"
-)}
+${escapeHtml(total)} AZN
 
 </div>
-
 
 <div>
 
@@ -2285,36 +2285,28 @@ ${escapeHtml(date)}
 
 </div>
 
-
-${
-order.customer_note
-?
-`
 <div>
 
-<strong>Qeyd:</strong>
+<strong>User ID:</strong>
 
 ${escapeHtml(
-order.customer_note
+String(order.user_id || "")
 )}
 
 </div>
-`
-:
-""
-}
 
 </div>
 
 
 <div class="order-actions">
 
-
 <select
 class="order-status"
 onchange="
 updateOrderStatus(
-'${order.id}',
+'${escapeHtml(
+String(order.id)
+)}',
 this.value
 )
 "
@@ -2322,31 +2314,36 @@ this.value
 
 <option
 value="pending"
-${status==="pending"?"selected":""}
+${status==="pending"
+? "selected"
+: ""}
 >
 Gözləyir
 </option>
 
-
 <option
 value="processing"
-${status==="processing"?"selected":""}
+${status==="processing"
+? "selected"
+: ""}
 >
 Hazırlanır
 </option>
 
-
 <option
 value="completed"
-${status==="completed"?"selected":""}
+${status==="completed"
+? "selected"
+: ""}
 >
 Tamamlandı
 </option>
 
-
 <option
 value="cancelled"
-${status==="cancelled"?"selected":""}
+${status==="cancelled"
+? "selected"
+: ""}
 >
 Ləğv edildi
 </option>
@@ -2358,7 +2355,9 @@ Ləğv edildi
 class="order-chat"
 onclick="
 openOrderChat(
-'${order.user_id}',
+'${escapeHtml(
+String(order.user_id || "")
+)}',
 '${escapeHtml(email)}'
 )
 "
@@ -2366,15 +2365,14 @@ openOrderChat(
 💬 Çata keç
 </button>
 
-
 </div>
-
 
 </div>
 
 `;
 
-}).join("");
+}
+).join("");
 
 }
 
@@ -2387,6 +2385,16 @@ async function updateOrderStatus(
 orderId,
 status
 ){
+
+if(!orderId){
+
+alert(
+"Sifariş ID tapılmadı."
+);
+
+return;
+
+}
 
 const {
 error
@@ -2401,12 +2409,17 @@ updated_at:
 new Date().toISOString()
 
 })
-.eq("id",orderId);
-
+.eq(
+"id",
+orderId
+);
 
 if(error){
 
-console.error(error);
+console.error(
+"Status update error:",
+error
+);
 
 alert(
 "Sifariş statusu dəyişmədi: "+
@@ -2416,7 +2429,6 @@ error.message
 return;
 
 }
-
 
 await loadOrders();
 
@@ -2432,36 +2444,64 @@ userId,
 email
 ){
 
-selectedChatUserId=userId;
+if(!userId){
 
-selectedChatEmail=email;
+alert(
+"Bu sifariş üçün müştəri ID-si tapılmadı."
+);
 
-
-const header =
-document.getElementById("chatHeader");
-
-
-if(header){
-
-header.textContent=
-"💬 "+email;
+return;
 
 }
 
+selectedChatUserId=userId;
+selectedChatEmail=email || "";
+
+const header =
+document.getElementById(
+"chatHeader"
+);
+
+if(header){
+
+header.textContent =
+"💬 "+
+(email || "Müştəri");
+
+}
+
+const chatMessages =
+document.getElementById(
+"chatMessages"
+);
+
+if(chatMessages){
+
+chatMessages.innerHTML =
+'<div class="empty">Mesajlar yüklənir...</div>';
+
+}
 
 await loadChatCustomers();
 
-await loadChatMessages(userId);
+await loadChatMessages(
+userId
+);
 
-await markCustomerMessagesRead(userId);
+await markCustomerMessagesRead(
+userId
+);
 
 await loadChatCustomers();
 
+if(header){
 
 header.scrollIntoView({
 behavior:"smooth",
-block:"start"
+block:"center"
 });
+
+}
 
 }
 
@@ -2478,11 +2518,11 @@ return;
 
 }
 
-
 adminRealtimeChannel =
 supabaseClient
-.channel("admin-panel-realtime")
-
+.channel(
+"admin-panel-realtime"
+)
 
 .on(
 "postgres_changes",
@@ -2495,7 +2535,6 @@ async function(){
 
 await loadChatCustomers();
 
-
 if(selectedChatUserId){
 
 await loadChatMessages(
@@ -2506,7 +2545,6 @@ selectedChatUserId
 
 }
 )
-
 
 .on(
 "postgres_changes",
@@ -2521,7 +2559,6 @@ await loadOrders();
 
 }
 )
-
 
 .subscribe();
 
@@ -2547,12 +2584,10 @@ return "";
 
 }
 
-
 const percent =
 Math.round(
 ((normal-sale)/normal)*100
 );
-
 
 return "−"+percent+"%";
 
@@ -2561,12 +2596,29 @@ return "−"+percent+"%";
 
 function escapeHtml(value){
 
-return String(value ?? "")
-.replace(/&/g,"&amp;")
-.replace(/</g,"&lt;")
-.replace(/>/g,"&gt;")
-.replace(/"/g,"&quot;")
-.replace(/'/g,"&#039;");
+return String(
+value ?? ""
+)
+.replace(
+/&/g,
+"&amp;"
+)
+.replace(
+/</g,
+"&lt;"
+)
+.replace(
+/>/g,
+"&gt;"
+)
+.replace(
+/"/g,
+"&quot;"
+)
+.replace(
+/'/g,
+"&#039;"
+);
 
 }
 
@@ -2577,24 +2629,27 @@ isError=false
 ){
 
 const box =
-document.getElementById("message");
-
+document.getElementById(
+"message"
+);
 
 box.textContent=text;
 
-box.className=
+box.className =
 isError
 ? "message error"
 : "message";
 
 box.style.display="block";
 
-
-setTimeout(function(){
+setTimeout(
+function(){
 
 box.style.display="none";
 
-},4000);
+},
+4000
+);
 
 }
 
@@ -2605,24 +2660,27 @@ isError=false
 ){
 
 const box =
-document.getElementById("priceMessage");
-
+document.getElementById(
+"priceMessage"
+);
 
 box.textContent=text;
 
-box.className=
+box.className =
 isError
 ? "price-message error"
 : "price-message";
 
 box.style.display="block";
 
-
-setTimeout(function(){
+setTimeout(
+function(){
 
 box.style.display="none";
 
-},4000);
+},
+4000
+);
 
 }
 
