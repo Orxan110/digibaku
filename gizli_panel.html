@@ -22,19 +22,17 @@ scroll-behavior:smooth;
 body{
 font-family:Arial,sans-serif;
 background:
-radial-gradient(circle at top left,rgba(37,99,235,.08),transparent 30%),
-radial-gradient(circle at top right,rgba(59,130,246,.05),transparent 25%),
+radial-gradient(circle at top left,#101d3a 0%,transparent 30%),
+radial-gradient(circle at top right,#0b1830 0%,transparent 25%),
 #050505;
 color:#fff;
 min-height:100vh;
-line-height:1.45;
+line-height:1.5;
 }
 
-/* CONTAINER */
-
 .container{
-width:94%;
-max-width:1100px;
+width:92%;
+max-width:1050px;
 margin:auto;
 }
 
@@ -46,7 +44,7 @@ top:0;
 z-index:100;
 background:rgba(7,7,7,.94);
 backdrop-filter:blur(14px);
-border-bottom:1px solid #202020;
+border-bottom:1px solid #1d1d1d;
 box-shadow:0 8px 30px rgba(0,0,0,.25);
 }
 
@@ -61,7 +59,7 @@ gap:20px;
 .logo{
 font-size:25px;
 font-weight:900;
-letter-spacing:-.6px;
+letter-spacing:-.5px;
 color:#3b82f6;
 }
 
@@ -70,78 +68,72 @@ color:#fff;
 }
 
 .back{
-display:inline-flex;
-align-items:center;
-gap:6px;
 color:#aaa;
 text-decoration:none;
 font-size:14px;
 font-weight:bold;
-padding:9px 13px;
+padding:9px 14px;
 border:1px solid #292929;
 border-radius:9px;
-background:#101010;
+background:#0d0d0d;
 transition:.2s;
 }
 
 .back:hover{
 color:#fff;
-background:#171717;
 border-color:#3b82f6;
+background:#101a30;
 }
 
 /* MAIN */
 
 main{
-padding:30px 0 60px;
+padding:35px 0 60px;
 }
 
 #adminPanel{
 display:none;
 }
 
-/* CARD */
+/* CARDS */
 
 .card{
 background:
-linear-gradient(145deg,rgba(255,255,255,.025),rgba(255,255,255,.008)),
-#0d0d0d;
-border:1px solid #242424;
+linear-gradient(145deg,rgba(18,18,18,.98),rgba(10,10,10,.98));
+border:1px solid #252525;
 border-radius:18px;
 padding:25px;
 margin-bottom:20px;
 box-shadow:
-0 10px 35px rgba(0,0,0,.20),
-inset 0 1px 0 rgba(255,255,255,.02);
+0 12px 35px rgba(0,0,0,.24),
+inset 0 1px 0 rgba(255,255,255,.025);
 }
 
-.card:hover{
-border-color:#303030;
+.card:last-child{
+margin-bottom:0;
 }
 
 h1{
-font-size:24px;
-line-height:1.2;
+font-size:27px;
+font-weight:800;
 margin-bottom:8px;
+letter-spacing:-.4px;
 }
 
 h2{
-font-size:20px;
-line-height:1.25;
-margin-bottom:10px;
-}
-
-h3{
-line-height:1.3;
+font-size:21px;
+font-weight:800;
+margin-bottom:8px;
+letter-spacing:-.2px;
 }
 
 .subtitle{
-color:#777;
+color:#858585;
 font-size:14px;
-margin-bottom:22px;
+margin-bottom:24px;
 }
 
-/* FORMS */
+/* FORM */
 
 label{
 display:block;
@@ -156,12 +148,11 @@ select,
 textarea{
 width:100%;
 padding:13px 14px;
-margin-bottom:16px;
+margin-bottom:17px;
 border-radius:10px;
 border:1px solid #303030;
 background:#080808;
 color:#fff;
-font-family:inherit;
 font-size:14px;
 outline:none;
 transition:
@@ -173,15 +164,20 @@ background .2s;
 input:hover,
 select:hover,
 textarea:hover{
-border-color:#3b3b3b;
+border-color:#3a3a3a;
 }
 
 input:focus,
 select:focus,
 textarea:focus{
 border-color:#2563eb;
-background:#0a0a0a;
+background:#0a0d14;
 box-shadow:0 0 0 3px rgba(37,99,235,.12);
+}
+
+input::placeholder,
+textarea::placeholder{
+color:#555;
 }
 
 textarea{
@@ -189,12 +185,6 @@ min-height:130px;
 resize:vertical;
 line-height:1.5;
 }
-
-select{
-cursor:pointer;
-}
-
-/* BUTTONS */
 
 button{
 width:100%;
@@ -204,18 +194,18 @@ border-radius:10px;
 background:#2563eb;
 color:#fff;
 font-weight:bold;
-font-family:inherit;
 font-size:14px;
 cursor:pointer;
 transition:
-background .2s,
 transform .15s,
-box-shadow .2s;
+background .2s,
+box-shadow .2s,
+opacity .2s;
 }
 
 button:hover{
 background:#1d4ed8;
-box-shadow:0 5px 18px rgba(37,99,235,.18);
+box-shadow:0 6px 18px rgba(37,99,235,.18);
 }
 
 button:active{
@@ -223,7 +213,7 @@ transform:translateY(1px);
 }
 
 button:disabled{
-opacity:.6;
+opacity:.55;
 cursor:not-allowed;
 box-shadow:none;
 }
@@ -259,11 +249,11 @@ color:#777;
 font-size:14px;
 }
 
-/* CUSTOMER INFO */
+/* CUSTOMER */
 
 .customer-info{
 background:linear-gradient(135deg,#09101d,#080808);
-border:1px solid #20365b;
+border:1px solid #263b5c;
 padding:13px 14px;
 border-radius:10px;
 margin-bottom:16px;
@@ -275,7 +265,7 @@ font-size:13px;
 
 .empty{
 color:#666;
-padding:20px 5px;
+padding:18px 4px;
 font-size:13px;
 text-align:center;
 }
@@ -291,22 +281,22 @@ gap:12px;
 .product{
 background:#080808;
 border:1px solid #252525;
-border-radius:12px;
+border-radius:13px;
 padding:17px;
 margin:0;
 transition:.2s;
 }
 
 .product:hover{
-border-color:#333;
-background:#0a0a0a;
+border-color:#303d52;
+transform:translateY(-1px);
 }
 
 .product strong{
 display:block;
 color:#60a5fa;
 font-size:16px;
-margin-bottom:8px;
+margin-bottom:9px;
 }
 
 .product small{
@@ -324,9 +314,7 @@ background:#991b1b;
 background:#b91c1c;
 }
 
-/* =========================
-   QİYMƏT
-========================= */
+/* QİYMƏTLƏR */
 
 #pricesList{
 display:grid;
@@ -344,8 +332,7 @@ transition:.2s;
 }
 
 .price-product:hover{
-border-color:#343434;
-box-shadow:0 8px 25px rgba(0,0,0,.18);
+border-color:#30405a;
 }
 
 .price-product h3{
@@ -363,12 +350,12 @@ margin-bottom:12px;
 }
 
 .price-month-title{
-display:flex;
-align-items:center;
 color:#fff;
 font-weight:bold;
 margin-bottom:12px;
 font-size:14px;
+padding-bottom:9px;
+border-bottom:1px solid #1c1c1c;
 }
 
 .price-row{
@@ -378,29 +365,31 @@ gap:12px;
 }
 
 .price-row input{
-margin-bottom:11px;
+margin-bottom:12px;
 }
 
 .switch-row{
 display:flex;
 align-items:center;
 gap:9px;
-margin:4px 0 11px;
+margin:5px 0 12px;
+padding:9px 10px;
+background:#0d0d0d;
+border:1px solid #1d1d1d;
+border-radius:8px;
 }
 
 .switch-row input{
-width:17px;
-height:17px;
+width:auto;
 margin:0;
 accent-color:#2563eb;
-cursor:pointer;
 }
 
 .switch-row label{
-margin:0!important;
-cursor:pointer;
+margin:0 !important;
 font-size:12px;
 color:#aaa;
+cursor:pointer;
 }
 
 .sale-info{
@@ -408,9 +397,8 @@ display:flex;
 align-items:center;
 justify-content:space-between;
 gap:10px;
-padding-top:9px;
-border-top:1px solid #1b1b1b;
-margin-bottom:2px;
+margin-bottom:5px;
+padding-top:2px;
 }
 
 .sale-percent{
@@ -421,7 +409,7 @@ font-weight:bold;
 
 .sale-status{
 font-size:12px;
-color:#666;
+color:#777;
 }
 
 .save-price{
@@ -431,26 +419,21 @@ margin-top:8px;
 
 .save-price:hover{
 background:#15803d;
-}
-
-.canva-price{
-border-color:#263d63;
+box-shadow:0 6px 18px rgba(22,163,74,.16);
 }
 
 .canva-title{
-display:inline-block;
-font-size:12px;
+font-size:13px;
+font-weight:bold;
 color:#aaa;
-background:#111827;
-border:1px solid #26354f;
-border-radius:7px;
-padding:5px 8px;
-margin-bottom:15px;
+margin-bottom:13px;
+padding:8px 10px;
+background:#0d0d0d;
+border:1px solid #1d1d1d;
+border-radius:8px;
 }
 
-/* =========================
-   CHAT
-========================= */
+/* CHAT */
 
 .chat-layout{
 display:grid;
@@ -464,7 +447,7 @@ background:#080808;
 border:1px solid #252525;
 border-radius:13px;
 overflow:hidden;
-min-height:520px;
+min-width:0;
 }
 
 #chatCustomers{
@@ -479,16 +462,16 @@ cursor:pointer;
 transition:.2s;
 }
 
+.chat-customer:last-child{
+border-bottom:0;
+}
+
 .chat-customer:hover{
-background:#121212;
+background:#111;
 }
 
 .chat-customer.active{
-background:linear-gradient(
-90deg,
-#101d3c,
-#111827
-);
+background:linear-gradient(90deg,#111e3c,#0d1425);
 border-left:3px solid #3b82f6;
 padding-left:11px;
 }
@@ -503,7 +486,7 @@ word-break:break-all;
 .chat-customer-status{
 color:#777;
 font-size:11px;
-margin-top:7px;
+margin-top:6px;
 display:flex;
 justify-content:space-between;
 align-items:center;
@@ -551,7 +534,7 @@ background:#4b5563;
 background:#991b1b;
 }
 
-/* CHAT STATUS */
+/* CHAT ORDER STATUS */
 
 .chat-order-status{
 padding:10px 15px;
@@ -640,13 +623,12 @@ border:1px solid #252525;
 border-radius:13px;
 overflow:hidden;
 min-width:0;
-min-height:520px;
+box-shadow:inset 0 1px 0 rgba(255,255,255,.02);
 }
 
 .chat-header{
-padding:15px 16px;
-background:
-linear-gradient(90deg,#101010,#0d1118);
+padding:15px;
+background:linear-gradient(90deg,#111,#0d0d0d);
 border-bottom:1px solid #222;
 font-weight:bold;
 font-size:14px;
@@ -657,12 +639,12 @@ color:#60a5fa;
 flex:1;
 height:330px;
 overflow-y:auto;
-padding:18px;
+padding:16px;
 display:flex;
 flex-direction:column;
 gap:10px;
 background:
-radial-gradient(circle at center,#0c0c0c,#080808 70%);
+radial-gradient(circle at center,#0b0b0b,#070707);
 }
 
 .chat-msg{
@@ -684,8 +666,8 @@ border-bottom-right-radius:3px;
 
 .chat-msg.customer{
 align-self:flex-start;
-background:#171717;
-border:1px solid #292929;
+background:#1b1b1b;
+border:1px solid #2b2b2b;
 color:#eee;
 border-bottom-left-radius:3px;
 }
@@ -700,11 +682,11 @@ margin-top:5px;
 .chat-send{
 padding:12px;
 border-top:1px solid #222;
-background:#0b0b0b;
+background:#0a0a0a;
 }
 
 .chat-send textarea{
-min-height:70px;
+min-height:75px;
 margin-bottom:8px;
 }
 
@@ -712,9 +694,7 @@ margin-bottom:8px;
 margin:0;
 }
 
-/* =========================
-   ORDERS
-========================= */
+/* ORDERS */
 
 #ordersList{
 display:grid;
@@ -732,8 +712,7 @@ transition:.2s;
 }
 
 .order-card:hover{
-border-color:#333;
-background:#0a0a0a;
+border-color:#303d52;
 }
 
 .order-top{
@@ -745,36 +724,34 @@ margin-bottom:12px;
 }
 
 .order-top > strong{
-font-size:16px;
+font-size:15px;
 white-space:nowrap;
+color:#fff;
 }
 
 .order-product{
 font-size:15px;
 font-weight:bold;
 color:#60a5fa;
+word-break:break-word;
 }
 
 .order-id{
 font-size:10px;
 color:#555;
-margin-top:5px;
+margin-top:4px;
 word-break:break-all;
 }
 
 .order-info{
-color:#999;
+color:#888;
 font-size:12px;
-line-height:1.75;
+line-height:1.8;
 margin-bottom:12px;
-padding:10px;
-border-radius:9px;
-background:#0b0b0b;
-border:1px solid #1c1c1c;
 }
 
 .order-info strong{
-color:#ddd;
+color:#ccc;
 }
 
 .order-actions{
@@ -785,6 +762,8 @@ gap:10px;
 
 .order-status{
 margin:0;
+font-size:12px;
+padding:11px 10px;
 }
 
 .order-chat{
@@ -826,49 +805,63 @@ background:#991b1b;
 
 /* SCROLLBAR */
 
+*{
+scrollbar-width:thin;
+scrollbar-color:#333 #090909;
+}
+
 ::-webkit-scrollbar{
 width:7px;
 height:7px;
 }
 
 ::-webkit-scrollbar-track{
-background:#080808;
+background:#090909;
 }
 
 ::-webkit-scrollbar-thumb{
-background:#292929;
+background:#333;
 border-radius:10px;
 }
 
 ::-webkit-scrollbar-thumb:hover{
-background:#3b3b3b;
+background:#444;
 }
 
-/* =========================
-   TABLET
-========================= */
+/* MOBILE */
 
-@media(max-width:900px){
+@media(max-width:850px){
 
 .container{
-width:92%;
+width:94%;
 }
 
 #pricesList,
+#productsList,
 #ordersList{
 grid-template-columns:1fr;
 }
 
 }
 
-/* =========================
-   MOBILE
-========================= */
+@media(max-width:700px){
 
-@media(max-width:650px){
+main{
+padding:25px 0 45px;
+}
 
-.container{
-width:92%;
+.card{
+padding:18px;
+border-radius:15px;
+margin-bottom:15px;
+}
+
+h1{
+font-size:23px;
+}
+
+h2{
+font-size:19px;
 }
 
 .nav{
@@ -884,68 +877,41 @@ font-size:12px;
 padding:8px 10px;
 }
 
-main{
-padding:20px 0 40px;
-}
-
-.card{
-padding:18px;
-border-radius:15px;
-margin-bottom:15px;
-}
-
-h1{
-font-size:21px;
-}
-
-h2{
-font-size:18px;
-}
-
-.subtitle{
-font-size:13px;
-margin-bottom:18px;
-}
-
-.price-row{
-grid-template-columns:1fr;
-gap:0;
-}
-
 .chat-layout{
 grid-template-columns:1fr;
-min-height:0;
 }
 
 .chat-customers{
-min-height:0;
-max-height:230px;
+max-height:240px;
 }
 
 #chatCustomers{
 max-height:230px;
 }
 
-.chat-box{
-min-height:500px;
-}
-
 .chat-messages{
 height:300px;
-padding:14px;
-}
-
-.chat-msg{
-max-width:88%;
-font-size:13px;
 }
 
 .order-actions{
 grid-template-columns:1fr;
 }
 
-#productsList{
+}
+
+@media(max-width:600px){
+
+.price-row{
 grid-template-columns:1fr;
+gap:0;
+}
+
+.price-row input{
+margin-bottom:12px;
+}
+
+.chat-msg{
+max-width:88%;
 }
 
 .order-top{
@@ -958,9 +924,11 @@ align-self:flex-start;
 
 }
 
-/* VERY SMALL */
+@media(max-width:420px){
 
-@media(max-width:400px){
+.container{
+width:95%;
+}
 
 .card{
 padding:15px;
@@ -1390,7 +1358,9 @@ function(){
 const customerId=this.value;
 
 const info =
-document.getElementById("selectedCustomer");
+document.getElementById(
+"selectedCustomer"
+);
 
 if(!customerId){
 
@@ -1416,16 +1386,24 @@ info.style.display="block";
 async function addProduct(){
 
 const customerId =
-document.getElementById("customerSelect").value;
+document.getElementById(
+"customerSelect"
+).value;
 
 const product =
-document.getElementById("productSelect").value;
+document.getElementById(
+"productSelect"
+).value;
 
 const accountInfo =
-document.getElementById("accountInfo").value.trim();
+document.getElementById(
+"accountInfo"
+).value.trim();
 
 const button =
-document.getElementById("addButton");
+document.getElementById(
+"addButton"
+);
 
 if(!customerId){
 
@@ -1458,10 +1436,12 @@ const {error} =
 await supabaseClient
 .from("customer_products")
 .insert({
+
 user_id:customerId,
 product_name:product,
 account_info:accountInfo,
 status:"active"
+
 });
 
 if(error){
@@ -1471,7 +1451,8 @@ button.disabled=false;
 console.error(error);
 
 showMessage(
-"Məhsul əlavə edilmədi: "+error.message,
+"Məhsul əlavə edilmədi: "+
+error.message,
 true
 );
 
@@ -1485,7 +1466,9 @@ error:pendingOrderError
 } =
 await supabaseClient
 .from("orders")
-.select("id,status,total,created_at,updated_at")
+.select(
+"id,status,total,created_at,updated_at"
+)
 .eq("user_id",customerId)
 .eq("status","pending")
 .order("created_at",{ascending:false})
@@ -1500,19 +1483,21 @@ pendingOrders.length>0
 const orderToConfirm =
 pendingOrders[0];
 
-const {error:updateError} =
+const {
+error:updateError
+} =
 await supabaseClient
 .from("orders")
 .update({
+
 status:"confirmed",
 updated_at:new Date().toISOString()
+
 })
 .eq("id",orderToConfirm.id);
 
 if(updateError){
-
 console.error("Order confirm error:",updateError);
-
 }
 
 }else if(pendingOrderError){
@@ -1538,9 +1523,7 @@ await loadOrders();
 await loadChatCustomers();
 
 if(selectedChatUserId===customerId){
-
 await loadChatOrderStatus(customerId);
-
 }
 
 }
@@ -1581,8 +1564,10 @@ data.map(function(item){
 
 const date =
 item.created_at
-? new Date(item.created_at).toLocaleString("az-AZ")
-: "";
+?
+new Date(item.created_at).toLocaleString("az-AZ")
+:
+"";
 
 return `
 
@@ -1644,7 +1629,11 @@ await supabaseClient
 
 if(error){
 
-alert("Məhsul silinmədi: "+error.message);
+alert(
+"Məhsul silinmədi: "+
+error.message
+);
+
 return;
 
 }
@@ -1705,7 +1694,8 @@ return `
 
 <h3>
 ${escapeHtml(
-item.product_name || "Canva Premium"
+item.product_name ||
+"Canva Premium"
 )}
 </h3>
 
@@ -1717,9 +1707,7 @@ item.product_name || "Canva Premium"
 
 <div>
 
-<label>
-Normal qiymət
-</label>
+<label>Normal qiymət</label>
 
 <input
 type="number"
@@ -1732,9 +1720,7 @@ value="${price12}"
 
 <div>
 
-<label>
-Endirimli qiymət
-</label>
+<label>Endirimli qiymət</label>
 
 <input
 type="number"
@@ -1798,7 +1784,8 @@ return `
 
 <h3>
 ${escapeHtml(
-item.product_name || item.product_key
+item.product_name ||
+item.product_key
 )}
 </h3>
 
@@ -1852,9 +1839,7 @@ ${title}
 
 <div>
 
-<label>
-Normal qiymət
-</label>
+<label>Normal qiymət</label>
 
 <input
 type="number"
@@ -1867,9 +1852,7 @@ value="${price}"
 
 <div>
 
-<label>
-Endirimli qiymət
-</label>
+<label>Endirimli qiymət</label>
 
 <input
 type="number"
@@ -1974,7 +1957,8 @@ updated_at:new Date().toISOString()
 if(error){
 
 showPriceMessage(
-"Qiymət yadda saxlanılmadı: "+error.message,
+"Qiymət yadda saxlanılmadı: "+
+error.message,
 true
 );
 
@@ -2003,7 +1987,9 @@ document.getElementById("sale12_"+id).value || 0
 );
 
 const active12 =
-document.getElementById("sale12active_"+id).checked;
+document.getElementById(
+"sale12active_"+id
+).checked;
 
 const {error} =
 await supabaseClient
@@ -2023,7 +2009,8 @@ updated_at:new Date().toISOString()
 if(error){
 
 showPriceMessage(
-"Canva qiyməti yadda saxlanılmadı: "+error.message,
+"Canva qiyməti yadda saxlanılmadı: "+
+error.message,
 true
 );
 
@@ -2098,12 +2085,7 @@ await supabaseClient
 .in("id",userIds);
 
 if(profileError){
-
-console.error(
-"Chat profiles error:",
-profileError
-);
-
+console.error("Chat profiles error:",profileError);
 }
 
 (customers || []).forEach(
@@ -2137,9 +2119,7 @@ ordersError
 function(order){
 
 if(!latestOrders[order.user_id]){
-
 latestOrders[order.user_id]=order;
-
 }
 
 });
@@ -2185,7 +2165,7 @@ Object.values(customerMap);
 
 if(customers.length===0){
 
-box.innerHTML =
+box.innerHTML=
 '<div class="empty">Hələ heç kim mesaj yazmayıb.</div>';
 
 return;
@@ -2201,7 +2181,7 @@ new Date(a.last_created_at);
 }
 );
 
-box.innerHTML =
+box.innerHTML=
 customers.map(
 function(item){
 
@@ -2245,7 +2225,9 @@ const statusBadge=
 order
 ?
 `
-<span class="order-status-badge ${escapeHtml(status)}">
+<span
+class="order-status-badge ${escapeHtml(status)}"
+>
 ${escapeHtml(statusText)}
 </span>
 `
@@ -2332,9 +2314,7 @@ return statuses[status] ||
 async function getCustomerActiveOrder(userId){
 
 if(!userId){
-
 return null;
-
 }
 
 const {
@@ -2370,9 +2350,7 @@ return null;
 }
 
 if(data && data.length>0){
-
 return data[0];
-
 }
 
 const {
@@ -2424,9 +2402,7 @@ if(
 !statusValue ||
 !statusControl
 ){
-
 return;
-
 }
 
 if(!userId){
@@ -2467,9 +2443,7 @@ statusValue.className=
 currentStatus;
 
 if(statusSelect){
-
 statusSelect.value=currentStatus;
-
 }
 
 statusBox.style.display="flex";
@@ -2500,9 +2474,7 @@ document.getElementById(
 );
 
 if(!select || !button){
-
 return;
-
 }
 
 const status=select.value;
@@ -2559,7 +2531,10 @@ await loadChatCustomers();
 
 }
 
-async function selectChatCustomer(userId,email){
+async function selectChatCustomer(
+userId,
+email
+){
 
 selectedChatUserId=userId;
 selectedChatEmail=email;
@@ -2571,7 +2546,8 @@ document.getElementById("chatHeader");
 if(header){
 
 header.textContent=
-"💬 "+(email || "Müştəri");
+"💬 "+
+(email || "Müştəri");
 
 }
 
@@ -2590,10 +2566,7 @@ document.getElementById("chatMessages");
 
 if(!box) return;
 
-const {
-data,
-error
-} =
+const {data,error} =
 await supabaseClient
 .from("messages")
 .select(
@@ -2609,7 +2582,7 @@ console.error(
 error
 );
 
-box.innerHTML =
+box.innerHTML=
 '<div class="empty">Mesajlar yüklənmədi: '+
 escapeHtml(error.message)+
 '</div>';
@@ -2620,14 +2593,14 @@ return;
 
 if(!data || data.length===0){
 
-box.innerHTML =
+box.innerHTML=
 '<div class="empty">Hələ mesaj yoxdur.</div>';
 
 return;
 
 }
 
-box.innerHTML =
+box.innerHTML=
 data.map(
 function(item){
 
@@ -2639,7 +2612,9 @@ item.sender_role==="admin"
 const time=
 item.created_at
 ?
-new Date(item.created_at).toLocaleString(
+new Date(
+item.created_at
+).toLocaleString(
 "az-AZ",
 {
 day:"2-digit",
@@ -2712,7 +2687,8 @@ document.getElementById("sendChatButton");
 
 if(!input || !button) return;
 
-const message=input.value.trim();
+const message=
+input.value.trim();
 
 if(!message) return;
 
@@ -2803,7 +2779,7 @@ console.error(
 error
 );
 
-box.innerHTML =
+box.innerHTML=
 '<div class="empty">Sifarişlər yüklənmədi: '+
 escapeHtml(error.message)+
 '</div>';
@@ -2814,7 +2790,7 @@ return;
 
 if(!orders || orders.length===0){
 
-box.innerHTML =
+box.innerHTML=
 '<div class="empty">Hələ sifariş yoxdur.</div>';
 
 return;
@@ -2855,15 +2831,13 @@ profileError
 
 (customers || []).forEach(
 function(customer){
-
 profiles[customer.id]=customer;
-
 }
 );
 
 }
 
-box.innerHTML =
+box.innerHTML=
 orders.map(
 function(order){
 
@@ -2871,7 +2845,8 @@ const customer=
 profiles[order.user_id] || {};
 
 const email=
-customer.email || "Email yoxdur";
+customer.email ||
+"Email yoxdur";
 
 const name=
 customer.full_name ||
@@ -2879,7 +2854,8 @@ email ||
 "Müştəri";
 
 const status=
-order.status || "pending";
+order.status ||
+"pending";
 
 const total=
 Number(order.total || 0).toFixed(2);
@@ -2887,7 +2863,9 @@ Number(order.total || 0).toFixed(2);
 const date=
 order.created_at
 ?
-new Date(order.created_at).toLocaleString("az-AZ")
+new Date(
+order.created_at
+).toLocaleString("az-AZ")
 :
 "";
 
@@ -2900,20 +2878,12 @@ return `
 <div>
 
 <div class="order-product">
-
-📦 Sifariş #${escapeHtml(
-String(order.id)
-)}
-
+📦 Sifariş #${escapeHtml(String(order.id))}
 </div>
 
 <div class="order-id">
-
 Sifariş ID:
-${escapeHtml(
-String(order.id)
-)}
-
+${escapeHtml(String(order.id))}
 </div>
 
 </div>
@@ -3042,7 +3012,10 @@ this.dataset.email
 
 }
 
-async function updateOrderStatus(orderId,status){
+async function updateOrderStatus(
+orderId,
+status
+){
 
 if(!orderId){
 
@@ -3098,13 +3071,18 @@ await loadChatCustomers();
 
 if(selectedChatUserId){
 
-await loadChatOrderStatus(selectedChatUserId);
+await loadChatOrderStatus(
+selectedChatUserId
+);
 
 }
 
 }
 
-async function openOrderChat(userId,email){
+async function openOrderChat(
+userId,
+email
+){
 
 if(!userId){
 
@@ -3126,7 +3104,8 @@ document.getElementById("chatHeader");
 if(header){
 
 header.textContent=
-"💬 "+(email || "Müştəri");
+"💬 "+
+(email || "Müştəri");
 
 }
 
@@ -3160,9 +3139,7 @@ block:"center"
 function setupAdminRealtime(){
 
 if(adminRealtimeChannel){
-
 return;
-
 }
 
 adminRealtimeChannel=
@@ -3187,8 +3164,13 @@ await loadChatCustomers();
 
 if(selectedChatUserId){
 
-await loadChatMessages(selectedChatUserId);
-await loadChatOrderStatus(selectedChatUserId);
+await loadChatMessages(
+selectedChatUserId
+);
+
+await loadChatOrderStatus(
+selectedChatUserId
+);
 
 }
 
@@ -3209,7 +3191,9 @@ await loadChatCustomers();
 
 if(selectedChatUserId){
 
-await loadChatOrderStatus(selectedChatUserId);
+await loadChatOrderStatus(
+selectedChatUserId
+);
 
 }
 
@@ -3229,7 +3213,10 @@ status
 
 }
 
-function calculateSalePercent(normal,sale){
+function calculateSalePercent(
+normal,
+sale
+){
 
 if(
 !normal ||
@@ -3252,7 +3239,9 @@ return "−"+percent+"%";
 
 function escapeHtml(value){
 
-return String(value ?? "")
+return String(
+value ?? ""
+)
 .replace(/&/g,"&amp;")
 .replace(/</g,"&lt;")
 .replace(/>/g,"&gt;")
@@ -3261,7 +3250,10 @@ return String(value ?? "")
 
 }
 
-function showMessage(text,isError=false){
+function showMessage(
+text,
+isError=false
+){
 
 const box=
 document.getElementById("message");
@@ -3286,7 +3278,10 @@ box.style.display="none";
 
 }
 
-function showPriceMessage(text,isError=false){
+function showPriceMessage(
+text,
+isError=false
+){
 
 const box=
 document.getElementById("priceMessage");
