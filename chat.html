@@ -1,0 +1,2380 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>DigiBaku.com — Dəstək Çatı</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+
+*{
+box-sizing:border-box;
+margin:0;
+padding:0;
+}
+
+html{
+scroll-behavior:smooth;
+}
+
+body{
+font-family:Arial,Helvetica,sans-serif;
+background:#050505;
+color:#fff;
+min-height:100vh;
+}
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+header{
+height:70px;
+background:rgba(5,5,5,.96);
+border-bottom:1px solid #222;
+display:flex;
+align-items:center;
+position:sticky;
+top:0;
+z-index:1000;
+backdrop-filter:blur(12px);
+}
+
+.header-inner{
+width:92%;
+max-width:1200px;
+margin:auto;
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:15px;
+}
+
+.logo{
+font-size:25px;
+font-weight:900;
+color:#3b82f6;
+text-decoration:none;
+}
+
+.logo span{
+color:#fff;
+}
+
+.header-right{
+display:flex;
+align-items:center;
+gap:8px;
+}
+
+.header-btn{
+display:inline-flex;
+align-items:center;
+justify-content:center;
+padding:9px 13px;
+border-radius:9px;
+border:1px solid #333;
+background:#151515;
+color:#fff;
+text-decoration:none;
+font-size:13px;
+font-weight:bold;
+}
+
+.header-btn:hover{
+background:#202020;
+}
+
+/* =========================================================
+   MAIN CHAT
+========================================================= */
+
+.page{
+width:92%;
+max-width:850px;
+margin:35px auto 50px;
+}
+
+.page-title{
+text-align:center;
+margin-bottom:25px;
+}
+
+.page-title h1{
+font-size:32px;
+margin-bottom:7px;
+}
+
+.page-title p{
+color:#888;
+font-size:14px;
+}
+
+/* =========================================================
+   CHAT BOX
+========================================================= */
+
+.chat-box{
+background:#0d0d0d;
+border:1px solid #292929;
+border-radius:18px;
+overflow:hidden;
+box-shadow:0 20px 60px rgba(0,0,0,.55);
+}
+
+/* =========================================================
+   CHAT HEADER
+========================================================= */
+
+.chat-header{
+height:70px;
+background:#111;
+border-bottom:1px solid #292929;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 18px;
+}
+
+.chat-header-left{
+display:flex;
+align-items:center;
+gap:11px;
+}
+
+.chat-avatar{
+width:42px;
+height:42px;
+border-radius:50%;
+background:#2563eb;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:19px;
+}
+
+.chat-title{
+font-size:15px;
+font-weight:800;
+}
+
+.chat-status{
+font-size:10px;
+color:#4ade80;
+margin-top:2px;
+}
+
+.online-dot{
+display:inline-block;
+width:6px;
+height:6px;
+border-radius:50%;
+background:#4ade80;
+margin-right:3px;
+}
+
+/* =========================================================
+   LOGIN
+========================================================= */
+
+.login-box{
+padding:45px 25px;
+text-align:center;
+color:#999;
+}
+
+.login-icon{
+font-size:38px;
+margin-bottom:12px;
+}
+
+.login-box h2{
+font-size:18px;
+color:#fff;
+margin-bottom:7px;
+}
+
+.login-box p{
+font-size:13px;
+margin-bottom:18px;
+}
+
+.login-button{
+display:inline-flex;
+align-items:center;
+justify-content:center;
+background:#2563eb;
+border:0;
+border-radius:9px;
+padding:11px 20px;
+color:#fff;
+font-weight:bold;
+cursor:pointer;
+text-decoration:none;
+font-size:13px;
+}
+
+.login-button:hover{
+background:#1d4ed8;
+}
+
+/* =========================================================
+   ORDER STATUS
+========================================================= */
+
+.customer-order-status{
+margin:12px;
+padding:12px;
+background:#101010;
+border:1px solid #292929;
+border-radius:11px;
+}
+
+.customer-order-status-title{
+font-size:10px;
+color:#777;
+margin-bottom:7px;
+font-weight:700;
+text-transform:uppercase;
+letter-spacing:.3px;
+}
+
+.customer-order-status-main{
+display:flex;
+align-items:center;
+gap:8px;
+font-size:13px;
+font-weight:800;
+}
+
+.customer-order-status-dot{
+width:9px;
+height:9px;
+border-radius:50%;
+background:#3b82f6;
+box-shadow:0 0 8px rgba(59,130,246,.6);
+flex-shrink:0;
+}
+
+.customer-order-status.pending
+.customer-order-status-dot{
+background:#f59e0b;
+box-shadow:0 0 8px rgba(245,158,11,.6);
+}
+
+.customer-order-status.confirmed
+.customer-order-status-dot{
+background:#22c55e;
+box-shadow:0 0 8px rgba(34,197,94,.6);
+}
+
+.customer-order-status.processing
+.customer-order-status-dot{
+background:#3b82f6;
+box-shadow:0 0 8px rgba(59,130,246,.6);
+}
+
+.customer-order-status.completed
+.customer-order-status-dot{
+background:#22c55e;
+box-shadow:0 0 8px rgba(34,197,94,.6);
+}
+
+.customer-order-status.cancelled
+.customer-order-status-dot{
+background:#ef4444;
+box-shadow:0 0 8px rgba(239,68,68,.6);
+}
+
+.customer-order-status-text{
+color:#fff;
+}
+
+.customer-order-status-count{
+display:inline-flex;
+align-items:center;
+justify-content:center;
+min-width:19px;
+height:19px;
+padding:0 5px;
+margin-left:5px;
+border-radius:10px;
+background:#2563eb;
+color:#fff;
+font-size:10px;
+font-weight:900;
+}
+
+.customer-order-status-sub{
+font-size:10px;
+color:#777;
+margin-top:5px;
+padding-left:17px;
+}
+
+.customer-order-status-time{
+font-size:10px;
+color:#aaa;
+margin-top:6px;
+padding-left:17px;
+}
+
+/* =========================================================
+   MESSAGES
+========================================================= */
+
+.chat-messages{
+height:430px;
+overflow-y:auto;
+padding:15px;
+background:#080808;
+display:flex;
+flex-direction:column;
+gap:8px;
+}
+
+.chat-empty{
+text-align:center;
+color:#777;
+font-size:12px;
+padding:45px 15px;
+line-height:1.6;
+}
+
+.chat-message{
+max-width:78%;
+padding:10px 12px;
+border-radius:12px;
+font-size:13px;
+line-height:1.5;
+word-break:break-word;
+}
+
+.chat-message.customer{
+align-self:flex-end;
+background:#2563eb;
+color:#fff;
+border-bottom-right-radius:4px;
+}
+
+.chat-message.admin{
+align-self:flex-start;
+background:#191919;
+border:1px solid #292929;
+color:#eee;
+border-bottom-left-radius:4px;
+}
+
+.chat-message-time{
+display:block;
+font-size:9px;
+opacity:.6;
+margin-top:4px;
+text-align:right;
+}
+
+/* =========================================================
+   PACKAGES
+========================================================= */
+
+.chat-packages{
+padding:12px;
+background:#101010;
+border-top:1px solid #292929;
+}
+
+.chat-packages-title{
+font-size:11px;
+color:#999;
+font-weight:bold;
+margin-bottom:8px;
+}
+
+.chat-package-list{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:7px;
+max-height:220px;
+overflow-y:auto;
+}
+
+.chat-package{
+width:100%;
+padding:10px;
+border:1px solid #292929;
+border-radius:9px;
+background:#151515;
+color:#fff;
+cursor:pointer;
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:8px;
+font-size:11px;
+transition:.2s;
+text-align:left;
+}
+
+.chat-package:hover{
+background:#1b1b1b;
+border-color:#2563eb;
+transform:translateY(-1px);
+}
+
+.chat-package:disabled{
+opacity:.6;
+cursor:wait;
+transform:none;
+}
+
+.chat-package-name{
+color:#bbb;
+font-weight:600;
+line-height:1.35;
+}
+
+.chat-package-price{
+color:#60a5fa;
+font-weight:900;
+white-space:nowrap;
+}
+
+.chat-package-old-price{
+text-decoration:line-through;
+color:#666;
+margin-right:5px;
+font-weight:400;
+}
+
+/* =========================================================
+   SEND
+========================================================= */
+
+.chat-send{
+padding:11px;
+background:#101010;
+border-top:1px solid #292929;
+display:flex;
+gap:7px;
+align-items:flex-end;
+}
+
+.chat-input{
+flex:1;
+min-height:42px;
+max-height:110px;
+resize:none;
+background:#181818;
+border:1px solid #303030;
+border-radius:9px;
+color:#fff;
+padding:11px;
+font-size:13px;
+outline:none;
+}
+
+.chat-input::placeholder{
+color:#666;
+}
+
+.chat-input:focus{
+border-color:#2563eb;
+}
+
+.chat-send-button{
+width:44px;
+height:42px;
+border:0;
+border-radius:9px;
+background:#2563eb;
+color:#fff;
+font-size:18px;
+cursor:pointer;
+}
+
+.chat-send-button:hover{
+background:#1d4ed8;
+}
+
+.chat-send-button:disabled{
+opacity:.6;
+cursor:wait;
+}
+
+/* =========================================================
+   WHATSAPP
+========================================================= */
+
+.whatsapp-float{
+position:fixed;
+bottom:25px;
+right:25px;
+width:60px;
+height:60px;
+background:#25d366;
+color:#fff;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+box-shadow:0 4px 15px rgba(37,211,102,.4);
+z-index:9999;
+transition:.3s;
+}
+
+.whatsapp-float:hover{
+transform:scale(1.1);
+background:#20ba5a;
+}
+
+.whatsapp-float svg{
+width:34px;
+height:34px;
+}
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.footer{
+text-align:center;
+color:#555;
+font-size:12px;
+padding:20px;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:700px){
+
+header{
+height:65px;
+}
+
+.logo{
+font-size:22px;
+}
+
+.header-btn{
+font-size:11px;
+padding:8px 10px;
+}
+
+.page{
+width:95%;
+margin-top:22px;
+}
+
+.page-title h1{
+font-size:26px;
+}
+
+.page-title p{
+font-size:12px;
+}
+
+.chat-box{
+border-radius:14px;
+}
+
+.chat-header{
+height:62px;
+padding:0 13px;
+}
+
+.chat-messages{
+height:calc(100vh - 480px);
+min-height:300px;
+max-height:500px;
+}
+
+.chat-message{
+max-width:88%;
+font-size:12px;
+}
+
+.chat-package-list{
+grid-template-columns:1fr;
+max-height:220px;
+}
+
+.chat-package{
+font-size:11px;
+}
+
+.whatsapp-float{
+right:18px;
+bottom:20px;
+width:56px;
+height:56px;
+}
+
+.whatsapp-float svg{
+width:31px;
+height:31px;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+<div class="header-inner">
+
+<a href="index.html" class="logo">
+DigiBaku<span>.com</span>
+</a>
+
+<div class="header-right">
+
+<a href="index.html" class="header-btn">
+← Ana səhifə
+</a>
+
+<a href="profile.html" class="header-btn">
+Profil
+</a>
+
+</div>
+
+</div>
+
+</header>
+
+
+<main class="page">
+
+<div class="page-title">
+
+<h1>💬 DigiBaku Dəstək</h1>
+
+<p>
+Sualınız varsa və ya sifariş vermək istəyirsinizsə, bizə yazın.
+</p>
+
+</div>
+
+
+<div class="chat-box">
+
+<div class="chat-header">
+
+<div class="chat-header-left">
+
+<div class="chat-avatar">
+💬
+</div>
+
+<div>
+
+<div class="chat-title">
+DigiBaku Dəstək
+</div>
+
+<div class="chat-status">
+<span class="online-dot"></span>
+Onlayn dəstək
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div id="customerOrderStatus"></div>
+
+
+<div id="loginArea"></div>
+
+
+<div
+id="customerChatMessages"
+class="chat-messages">
+
+<div class="chat-empty">
+Chat yüklənir...
+</div>
+
+</div>
+
+
+<div
+id="customerChatPackages"
+class="chat-packages"
+style="display:none;">
+
+<div class="chat-packages-title">
+Hazır paket seçin:
+</div>
+
+<div
+id="customerChatPackageList"
+class="chat-package-list">
+
+<div style="padding:7px;color:#777;font-size:11px;">
+Qiymətlər yüklənir...
+</div>
+
+</div>
+
+</div>
+
+
+<div
+id="customerChatSendArea"
+class="chat-send"
+style="display:none;">
+
+<textarea
+id="customerChatInput"
+class="chat-input"
+placeholder="Mesajınızı yazın..."
+></textarea>
+
+<button
+id="customerChatSendButton"
+class="chat-send-button"
+onclick="sendCustomerChatMessage()"
+title="Göndər">
+➤
+</button>
+
+</div>
+
+</div>
+
+</main>
+
+
+<div class="footer">
+© 2026 DigiBaku.com — Bütün hüquqlar qorunur.
+</div>
+
+
+<a
+href="https://wa.me/994513626349?text=Salam%2C%20məlumat%20almaq%20istəyirəm"
+target="_blank"
+class="whatsapp-float"
+aria-label="WhatsApp dəstək">
+
+<svg viewBox="0 0 32 32">
+
+<path d="M16.002 0c-8.837 0-16 7.163-16 16 0 2.825.736 5.485 2.025 7.795l-2.025 7.395 7.575-1.985c2.22 1.21 4.795 1.9 7.425 1.9 8.837 0 16-7.163 16-16s-7.163-16-16-16zM16.002 29.337c-2.345 0-4.57-.63-6.505-1.725l-0.465-0.27-4.83 1.265 1.29-4.705-0.3-0.485c-1.215-1.95-1.855-4.22-1.855-6.557 0-7.36 5.99-13.35 13.35-13.35 7.36 0 13.35 5.99 13.35 13.35s-5.99 13.35-13.35 13.35zM22.56 19.32c-0.36-0.18-2.125-1.05-2.455-1.17s-0.57-0.18-0.81 0.18c-0.24 0.36-0.93 1.17-1.14 1.41s-0.42 0.27-0.78 0.09c-0.36-0.18-1.515-0.555-2.885-1.785-1.065-0.945-1.785-2.115-1.995-2.475s-0.03-0.555 0.15-0.735c0.15-0.15 0.36-0.39 0.54-0.585s0.24-0.33 0.36-0.555c0.12-0.225 0.06-0.42-0.03-0.585s-0.81-1.95-1.11-2.67c-0.285-0.69-0.585-0.6-0.81-0.615s-0.465-0.015-0.72-0.015c-0.255 0-0.66 0.09-1.005 0.465s-1.32 1.29-1.32 3.15 1.35 3.645 1.545 3.9c0.195.255 2.67 4.08 6.465 5.715 0.9.39 1.605.63 2.145.81 0.9.3 1.725.255 2.37.15 0.72-0.105 2.125-0.87 2.425-1.71s0.3-1.56 0.21-1.71c-0.09-0.15-0.33-0.24-0.69-0.42z"></path>
+
+</svg>
+
+</a>
+
+
+<script>
+
+/* =========================================================
+   SUPABASE
+========================================================= */
+
+const SUPABASE_URL=
+"https://zeknhnkaicqkfzgnvycq.supabase.co";
+
+const SUPABASE_KEY=
+"sb_publishable_jHvCp9fXBA_BwFqrXYpwlw_VC6C1OQk";
+
+const supabaseClient=
+window.supabase.createClient(
+SUPABASE_URL,
+SUPABASE_KEY
+);
+
+
+/* =========================================================
+   VARIABLES
+========================================================= */
+
+let customerChatUserId=null;
+
+let customerChatChannel=null;
+
+let customerChatPricesChannel=null;
+
+let customerOrderStatusChannel=null;
+
+let customerOrdersChannel=null;
+
+let customerChatProducts={};
+
+
+const CUSTOMER_CHAT_PRODUCT_ORDER=[
+"netflix",
+"youtube",
+"chatgpt",
+"gemini",
+"spotify",
+"canva"
+];
+
+
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
+
+function escapeHtml(text){
+
+return String(text)
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;")
+.replace(/'/g,"&#039;");
+
+}
+
+
+/* =========================================================
+   LOGIN
+========================================================= */
+
+async function checkLogin(){
+
+const {
+data:{session}
+}=await supabaseClient.auth.getSession();
+
+
+const loginArea=
+document.getElementById("loginArea");
+
+const messages=
+document.getElementById("customerChatMessages");
+
+const sendArea=
+document.getElementById("customerChatSendArea");
+
+const packages=
+document.getElementById("customerChatPackages");
+
+
+if(!session){
+
+customerChatUserId=null;
+
+removeCustomerOrderRealtime();
+
+removeCustomerChatRealtime();
+
+if(loginArea){
+
+loginArea.innerHTML=`
+
+<div class="login-box">
+
+<div class="login-icon">
+🔐
+</div>
+
+<h2>
+Dəstək çatına qoşulun
+</h2>
+
+<p>
+Mesaj yazmaq və sifariş vermək üçün hesabınıza daxil olun.
+</p>
+
+<a
+href="login.html"
+class="login-button">
+Daxil ol / Qeydiyyat
+</a>
+
+</div>
+
+`;
+
+}
+
+if(messages){
+
+messages.innerHTML=`
+<div class="chat-empty">
+Hesabınıza daxil olduqdan sonra<br>
+mesajlaşmağa başlaya bilərsiniz.
+</div>
+`;
+
+}
+
+if(sendArea){
+sendArea.style.display="none";
+}
+
+if(packages){
+packages.style.display="none";
+}
+
+const statusBox=
+document.getElementById("customerOrderStatus");
+
+if(statusBox){
+statusBox.innerHTML="";
+}
+
+return;
+
+}
+
+
+/* =========================================================
+   LOGIN VAR
+========================================================= */
+
+loginArea.innerHTML="";
+
+const newUserId=
+session.user.id;
+
+customerChatUserId=
+newUserId;
+
+
+if(sendArea){
+sendArea.style.display="flex";
+}
+
+if(packages){
+packages.style.display="block";
+}
+
+
+await loadCustomerChatPackages();
+
+await loadCustomerChatMessages();
+
+await loadCustomerOrderStatus();
+
+await markAdminMessagesRead();
+
+await loadCustomerChatUnread();
+
+setupCustomerChatRealtime();
+
+setupCustomerChatPricesRealtime();
+
+setupCustomerOrderStatusRealtime();
+
+}
+
+
+/* =========================================================
+   ORDER STATUS
+========================================================= */
+
+const CUSTOMER_ORDER_STATUS_MAP={
+
+pending:{
+text:"Cavab gözlənilir",
+className:"pending"
+},
+
+confirmed:{
+text:"Təsdiqləndi",
+className:"confirmed"
+},
+
+processing:{
+text:"Hazırlanır",
+className:"processing"
+},
+
+completed:{
+text:"Hazırdır",
+className:"completed"
+},
+
+cancelled:{
+text:"Ləğv edildi",
+className:"cancelled"
+}
+
+};
+
+
+function getCustomerOrderStatusText(status){
+
+const key=
+String(status || "")
+.trim()
+.toLowerCase();
+
+return CUSTOMER_ORDER_STATUS_MAP[key] || null;
+
+}
+
+
+function formatCustomerOrderDate(dateValue){
+
+if(!dateValue)return"";
+
+const date=
+new Date(dateValue);
+
+if(Number.isNaN(date.getTime())){
+return"";
+}
+
+return date.toLocaleString(
+"az-AZ",
+{
+day:"2-digit",
+month:"2-digit",
+year:"numeric",
+hour:"2-digit",
+minute:"2-digit"
+}
+);
+
+}
+
+
+/* =========================================================
+   LOAD ORDER STATUS
+========================================================= */
+
+async function loadCustomerOrderStatus(){
+
+const box=
+document.getElementById(
+"customerOrderStatus"
+);
+
+if(!box)return;
+
+if(!customerChatUserId){
+
+box.innerHTML="";
+return;
+
+}
+
+
+const {data,error}=
+await supabaseClient
+.from("orders")
+.select(`
+id,
+user_id,
+total,
+status,
+created_at,
+updated_at
+`)
+.eq(
+"user_id",
+customerChatUserId
+)
+.order(
+"created_at",
+{ascending:false}
+)
+.limit(20);
+
+
+if(error){
+
+console.error(
+"CUSTOMER ORDER STATUS ERROR:",
+error
+);
+
+box.innerHTML="";
+return;
+
+}
+
+
+const orders=data || [];
+
+
+if(!orders.length){
+
+box.innerHTML="";
+return;
+
+}
+
+
+/*
+ Ən son dəyişdirilmiş sifariş
+ yuxarıda göstərilir.
+*/
+
+orders.sort(function(a,b){
+
+const aDate=
+new Date(
+a.updated_at ||
+a.created_at ||
+0
+).getTime();
+
+const bDate=
+new Date(
+b.updated_at ||
+b.created_at ||
+0
+).getTime();
+
+return bDate-aDate;
+
+});
+
+
+const latestOrder=
+orders[0];
+
+
+const statusInfo=
+getCustomerOrderStatusText(
+latestOrder.status
+);
+
+
+if(!statusInfo){
+
+box.innerHTML="";
+return;
+
+}
+
+
+const activeOrderCount=
+orders.filter(function(order){
+
+const status=
+String(
+order.status || ""
+)
+.trim()
+.toLowerCase();
+
+return status!=="cancelled" &&
+status!=="completed";
+
+}).length;
+
+
+const statusDate=
+latestOrder.updated_at ||
+latestOrder.created_at;
+
+
+box.innerHTML=`
+
+<div class="customer-order-status ${statusInfo.className}">
+
+<div class="customer-order-status-title">
+📦 Sifariş statusu
+</div>
+
+<div class="customer-order-status-main">
+
+<span class="customer-order-status-dot"></span>
+
+<span class="customer-order-status-text">
+${escapeHtml(statusInfo.text)}
+</span>
+
+<span class="customer-order-status-count">
+#${escapeHtml(String(latestOrder.id))}
+</span>
+
+</div>
+
+<div class="customer-order-status-sub">
+
+Sifariş #${escapeHtml(String(latestOrder.id))}
+
+${
+activeOrderCount>1
+?
+" • "+activeOrderCount+" aktiv sifariş"
+:
+""
+}
+
+</div>
+
+<div class="customer-order-status-time">
+🕒 Son yenilənmə:
+${escapeHtml(
+formatCustomerOrderDate(statusDate)
+)}
+</div>
+
+</div>
+
+`;
+
+}
+
+
+/* =========================================================
+   ORDER REALTIME
+========================================================= */
+
+function removeCustomerOrderRealtime(){
+
+if(customerOrderStatusChannel){
+
+supabaseClient.removeChannel(
+customerOrderStatusChannel
+);
+
+customerOrderStatusChannel=null;
+
+}
+
+if(customerOrdersChannel){
+
+supabaseClient.removeChannel(
+customerOrdersChannel
+);
+
+customerOrdersChannel=null;
+
+}
+
+}
+
+
+function setupCustomerOrderStatusRealtime(){
+
+if(!customerChatUserId)return;
+
+removeCustomerOrderRealtime();
+
+
+const channelName=
+"customer-orders-status-"+
+customerChatUserId;
+
+
+customerOrderStatusChannel=
+supabaseClient
+.channel(channelName)
+
+.on(
+"postgres_changes",
+{
+event:"INSERT",
+schema:"public",
+table:"orders",
+filter:
+"user_id=eq."+
+customerChatUserId
+},
+async function(){
+
+await loadCustomerOrderStatus();
+
+}
+)
+
+.on(
+"postgres_changes",
+{
+event:"UPDATE",
+schema:"public",
+table:"orders",
+filter:
+"user_id=eq."+
+customerChatUserId
+},
+async function(){
+
+await loadCustomerOrderStatus();
+
+}
+)
+
+.on(
+"postgres_changes",
+{
+event:"DELETE",
+schema:"public",
+table:"orders",
+filter:
+"user_id=eq."+
+customerChatUserId
+},
+async function(){
+
+await loadCustomerOrderStatus();
+
+}
+)
+
+.subscribe();
+
+}
+
+
+/* =========================================================
+   LOAD PACKAGES
+========================================================= */
+
+async function loadCustomerChatPackages(){
+
+const packagesBox=
+document.getElementById(
+"customerChatPackages"
+);
+
+const packageList=
+document.getElementById(
+"customerChatPackageList"
+);
+
+
+if(!packagesBox || !packageList){
+return;
+}
+
+
+packagesBox.style.display="block";
+
+
+packageList.innerHTML=`
+
+<div style="
+padding:7px;
+color:#777;
+font-size:11px;
+">
+Qiymətlər yüklənir...
+</div>
+
+`;
+
+
+try{
+
+const {data,error}=
+await supabaseClient
+.from("product_prices")
+.select(`
+id,
+product_key,
+product_name,
+price_1_month,
+price_2_month,
+price_3_month,
+sale_1_active,
+sale_2_active,
+sale_3_active,
+sale_1_price,
+sale_2_price,
+sale_3_price,
+price_12_month,
+sale_12_price,
+sale_12_active,
+updated_at
+`);
+
+
+if(error){
+
+console.error(
+"PRODUCT PRICES ERROR:",
+error
+);
+
+packageList.innerHTML=`
+
+<div style="
+padding:8px;
+color:#ff6b6b;
+font-size:11px;
+">
+Qiymətlər yüklənmədi.
+</div>
+
+`;
+
+return;
+
+}
+
+
+customerChatProducts={};
+
+
+(data || []).forEach(function(product){
+
+const key=
+String(
+product.product_key || ""
+)
+.trim()
+.toLowerCase();
+
+if(key){
+
+customerChatProducts[key]=product;
+
+}
+
+});
+
+
+let html="";
+
+
+CUSTOMER_CHAT_PRODUCT_ORDER.forEach(function(key){
+
+const product=
+customerChatProducts[key];
+
+if(!product)return;
+
+html+=
+createCustomerChatPackageButtons(
+key,
+product
+);
+
+});
+
+
+Object.keys(customerChatProducts)
+.forEach(function(key){
+
+if(
+CUSTOMER_CHAT_PRODUCT_ORDER
+.includes(key)
+){
+return;
+}
+
+html+=
+createCustomerChatPackageButtons(
+key,
+customerChatProducts[key]
+);
+
+});
+
+
+if(!html){
+
+packageList.innerHTML=`
+
+<div style="
+padding:8px;
+color:#777;
+font-size:11px;
+">
+Hazır paket yoxdur.
+</div>
+
+`;
+
+return;
+
+}
+
+
+packageList.innerHTML=html;
+
+
+}catch(error){
+
+console.error(
+"CUSTOMER CHAT PACKAGE ERROR:",
+error
+);
+
+packageList.innerHTML=`
+
+<div style="
+padding:8px;
+color:#ff6b6b;
+font-size:11px;
+">
+Paketlər yüklənərkən xəta baş verdi.
+</div>
+
+`;
+
+}
+
+}
+
+
+/* =========================================================
+   CREATE PACKAGE BUTTONS
+========================================================= */
+
+function createCustomerChatPackageButtons(
+key,
+product
+){
+
+const productName=
+product.product_name || key;
+
+let html="";
+
+
+/*
+ 1, 2, 3 və 12 aylıq paketlər.
+ Canva üçün əsasən 12 ay işləyir.
+ Digər məhsullarda hansı qiymət varsa göstərilir.
+*/
+
+[1,2,3,12].forEach(function(month){
+
+const normalKey=
+"price_"+month+"_month";
+
+const activeKey=
+"sale_"+month+"_active";
+
+const saleKey=
+"sale_"+month+"_price";
+
+
+const normalPrice=
+Number(product[normalKey]);
+
+
+if(
+!Number.isFinite(normalPrice) ||
+normalPrice<=0
+){
+return;
+}
+
+
+const saleActive=
+product[activeKey]===true;
+
+
+const salePrice=
+Number(product[saleKey]);
+
+
+const hasSale=
+saleActive &&
+Number.isFinite(salePrice) &&
+salePrice>0;
+
+
+const finalPrice=
+hasSale
+?salePrice
+:normalPrice;
+
+
+let priceHtml="";
+
+
+if(hasSale){
+
+priceHtml+=`
+
+<span class="chat-package-old-price">
+${normalPrice.toFixed(2)} AZN
+</span>
+
+`;
+
+}
+
+
+priceHtml+=
+finalPrice.toFixed(2)+
+" AZN";
+
+
+html+=`
+
+<button
+type="button"
+class="chat-package"
+onclick="sendCustomerChatPackage(
+'${escapeHtml(key)}',
+${month},
+${finalPrice}
+)">
+
+<span class="chat-package-name">
+
+${escapeHtml(productName)}
+—
+${month} ay
+
+</span>
+
+<span class="chat-package-price">
+
+${priceHtml}
+
+</span>
+
+</button>
+
+`;
+
+});
+
+
+return html;
+
+}
+
+
+/* =========================================================
+   CREATE ORDER FROM PACKAGE
+========================================================= */
+
+async function sendCustomerChatPackage(
+slug,
+month,
+price
+){
+
+const {
+data:{session}
+}=
+await supabaseClient.auth.getSession();
+
+
+if(!session){
+
+window.location.href="login.html";
+
+return;
+
+}
+
+
+customerChatUserId=
+session.user.id;
+
+
+const product=
+customerChatProducts[slug];
+
+
+if(!product){
+
+alert("Məhsul tapılmadı.");
+
+return;
+
+}
+
+
+const productName=
+product.product_name || slug;
+
+
+const finalPrice=
+Number(price);
+
+
+if(
+!Number.isFinite(finalPrice) ||
+finalPrice<=0
+){
+
+alert("Qiymət düzgün deyil.");
+
+return;
+
+}
+
+
+const message=
+"Salam, "
++productName
++" paketini sifariş etmək istəyirəm.\n\n"
++"📦 Müddət: "
++month
++" ay\n"
++"💰 Qiymət: "
++finalPrice.toFixed(2)
++" AZN";
+
+
+const buttons=
+document.querySelectorAll(
+".chat-package"
+);
+
+
+buttons.forEach(function(button){
+
+button.disabled=true;
+
+});
+
+
+/*
+ İlkin status:
+ Təsdiqləndi
+*/
+
+const {
+data:orderData,
+error:orderError
+}=
+await supabaseClient
+.from("orders")
+.insert({
+
+user_id:
+customerChatUserId,
+
+total:
+finalPrice,
+
+status:
+"confirmed"
+
+})
+.select(`
+id,
+user_id,
+total,
+status,
+created_at,
+updated_at
+`)
+.single();
+
+
+if(orderError){
+
+console.error(
+"CREATE ORDER ERROR:",
+orderError
+);
+
+buttons.forEach(function(button){
+
+button.disabled=false;
+
+});
+
+
+alert(
+"Sifariş yaradılmadı: "+
+orderError.message
+);
+
+return;
+
+}
+
+
+const {
+error:messageError
+}=
+await supabaseClient
+.from("messages")
+.insert({
+
+user_id:
+customerChatUserId,
+
+sender_role:
+"customer",
+
+message:
+message,
+
+is_read:
+false
+
+});
+
+
+buttons.forEach(function(button){
+
+button.disabled=false;
+
+});
+
+
+if(messageError){
+
+console.error(
+"CUSTOMER PACKAGE MESSAGE ERROR:",
+messageError
+);
+
+alert(
+"Sifariş yaradıldı, lakin chat mesajı göndərilmədi: "+
+messageError.message
+);
+
+await loadCustomerOrderStatus();
+
+return;
+
+}
+
+
+await loadCustomerChatMessages();
+
+await loadCustomerOrderStatus();
+
+}
+
+
+/* =========================================================
+   LOAD MESSAGES
+========================================================= */
+
+async function loadCustomerChatMessages(){
+
+if(!customerChatUserId){
+return;
+}
+
+
+const messages=
+document.getElementById(
+"customerChatMessages"
+);
+
+
+if(!messages){
+return;
+}
+
+
+const {
+data,
+error
+}=
+await supabaseClient
+.from("messages")
+.select(`
+id,
+user_id,
+sender_role,
+message,
+is_read,
+created_at
+`)
+.eq(
+"user_id",
+customerChatUserId
+)
+.order(
+"created_at",
+{ascending:true}
+);
+
+
+if(error){
+
+console.error(
+"CHAT MESSAGES ERROR:",
+error
+);
+
+messages.innerHTML=`
+
+<div class="chat-empty">
+Mesajlar yüklənmədi.
+</div>
+
+`;
+
+return;
+
+}
+
+
+const visibleMessages=
+(data || []).filter(function(item){
+
+return !(
+item.sender_role==="admin" &&
+/^\[\[DIGIBAKU_STATUS:(confirmed|waiting|preparing)\]\]$/i
+.test(
+String(item.message || "").trim()
+)
+);
+
+});
+
+
+if(!visibleMessages.length){
+
+messages.innerHTML=`
+
+<div class="chat-empty">
+
+Salam! 👋
+
+<br><br>
+
+Sizə necə kömək edə bilərik?
+
+</div>
+
+`;
+
+return;
+
+}
+
+
+let html="";
+
+
+visibleMessages.forEach(function(item){
+
+const role=
+item.sender_role==="customer"
+?"customer"
+:"admin";
+
+
+const date=
+item.created_at
+?
+new Date(
+item.created_at
+).toLocaleTimeString(
+"az-AZ",
+{
+hour:"2-digit",
+minute:"2-digit"
+}
+)
+:"";
+
+
+html+=`
+
+<div class="chat-message ${role}">
+
+${escapeHtml(item.message)
+.replace(/\n/g,"<br>")}
+
+<span class="chat-message-time">
+
+${date}
+
+</span>
+
+</div>
+
+`;
+
+});
+
+
+messages.innerHTML=html;
+
+messages.scrollTop=
+messages.scrollHeight;
+
+}
+
+
+/* =========================================================
+   SEND MESSAGE
+========================================================= */
+
+async function sendCustomerChatMessage(){
+
+const input=
+document.getElementById(
+"customerChatInput"
+);
+
+
+if(!input)return;
+
+
+const message=
+input.value.trim();
+
+
+if(!message)return;
+
+
+const {
+data:{session}
+}=
+await supabaseClient.auth.getSession();
+
+
+if(!session){
+
+window.location.href="login.html";
+
+return;
+
+}
+
+
+customerChatUserId=
+session.user.id;
+
+
+const sendButton=
+document.getElementById(
+"customerChatSendButton"
+);
+
+
+if(sendButton){
+
+sendButton.disabled=true;
+
+}
+
+
+const {error}=
+await supabaseClient
+.from("messages")
+.insert({
+
+user_id:
+customerChatUserId,
+
+sender_role:
+"customer",
+
+message:
+message,
+
+is_read:
+false
+
+});
+
+
+if(sendButton){
+
+sendButton.disabled=false;
+
+}
+
+
+if(error){
+
+console.error(
+"SEND MESSAGE ERROR:",
+error
+);
+
+alert(
+"Mesaj göndərilmədi: "+
+error.message
+);
+
+return;
+
+}
+
+
+input.value="";
+
+
+await loadCustomerChatMessages();
+
+}
+
+
+/* =========================================================
+   ENTER TO SEND
+========================================================= */
+
+document.addEventListener(
+"keydown",
+function(event){
+
+const input=
+document.getElementById(
+"customerChatInput"
+);
+
+
+if(
+event.target===input &&
+event.key==="Enter" &&
+!event.shiftKey
+){
+
+event.preventDefault();
+
+sendCustomerChatMessage();
+
+}
+
+});
+
+
+/* =========================================================
+   MARK ADMIN MESSAGES READ
+========================================================= */
+
+async function markAdminMessagesRead(){
+
+if(!customerChatUserId){
+return;
+}
+
+
+const {error}=
+await supabaseClient
+.from("messages")
+.update({
+is_read:true
+})
+.eq(
+"user_id",
+customerChatUserId
+)
+.eq(
+"sender_role",
+"admin"
+)
+.eq(
+"is_read",
+false
+);
+
+
+if(error){
+
+console.error(
+"MARK READ ERROR:",
+error
+);
+
+}
+
+}
+
+
+/* =========================================================
+   UNREAD
+========================================================= */
+
+async function loadCustomerChatUnread(){
+
+if(!customerChatUserId){
+return;
+}
+
+
+const {data,error}=
+await supabaseClient
+.from("messages")
+.select(
+"id,message"
+)
+.eq(
+"user_id",
+customerChatUserId
+)
+.eq(
+"sender_role",
+"admin"
+)
+.eq(
+"is_read",
+false
+);
+
+
+if(error){
+
+console.error(
+"UNREAD ERROR:",
+error
+);
+
+return;
+
+}
+
+
+/*
+ Burada badge olmadığı üçün
+ yalnız console məlumatı saxlanılır.
+*/
+
+const unreadCount=
+(data || []).filter(function(item){
+
+return !(
+/^\[\[DIGIBAKU_STATUS:(confirmed|waiting|preparing)\]\]$/i
+.test(
+String(item.message || "").trim()
+)
+);
+
+}).length;
+
+
+console.log(
+"Oxunmamış admin mesajları:",
+unreadCount
+);
+
+}
+
+
+/* =========================================================
+   CHAT REALTIME
+========================================================= */
+
+function removeCustomerChatRealtime(){
+
+if(customerChatChannel){
+
+supabaseClient.removeChannel(
+customerChatChannel
+);
+
+customerChatChannel=null;
+
+}
+
+}
+
+
+function setupCustomerChatRealtime(){
+
+if(!customerChatUserId){
+return;
+}
+
+
+removeCustomerChatRealtime();
+
+
+customerChatChannel=
+supabaseClient
+.channel(
+"customer-chat-"+
+customerChatUserId
+)
+
+.on(
+"postgres_changes",
+{
+event:"*",
+schema:"public",
+table:"messages",
+filter:
+"user_id=eq."+
+customerChatUserId
+},
+async function(){
+
+await loadCustomerChatMessages();
+
+await loadCustomerChatUnread();
+
+await markAdminMessagesRead();
+
+}
+)
+
+.subscribe();
+
+}
+
+
+/* =========================================================
+   PRICE REALTIME
+========================================================= */
+
+function setupCustomerChatPricesRealtime(){
+
+if(customerChatPricesChannel){
+
+supabaseClient.removeChannel(
+customerChatPricesChannel
+);
+
+customerChatPricesChannel=null;
+
+}
+
+
+customerChatPricesChannel=
+supabaseClient
+.channel(
+"customer-chat-product-prices"
+)
+
+.on(
+"postgres_changes",
+{
+event:"*",
+schema:"public",
+table:"product_prices"
+},
+async function(){
+
+await loadCustomerChatPackages();
+
+}
+)
+
+.subscribe();
+
+}
+
+
+/* =========================================================
+   AUTH REALTIME
+========================================================= */
+
+supabaseClient.auth.onAuthStateChange(
+async function(){
+
+await checkLogin();
+
+}
+);
+
+
+/* =========================================================
+   PAGE LOAD
+========================================================= */
+
+document.addEventListener(
+"DOMContentLoaded",
+async function(){
+
+await checkLogin();
+
+}
+);
+
+</script>
+
+</body>
+</html>
