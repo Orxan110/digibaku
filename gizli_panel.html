@@ -15,10 +15,6 @@ margin:0;
 padding:0;
 }
 
-html{
-scroll-behavior:smooth;
-}
-
 body{
 font-family:Arial,sans-serif;
 background:#050505;
@@ -45,7 +41,6 @@ min-height:70px;
 display:flex;
 align-items:center;
 justify-content:space-between;
-gap:15px;
 }
 
 .logo{
@@ -72,28 +67,18 @@ padding:30px 0 60px;
 background:#101010;
 border:1px solid #262626;
 border-radius:18px;
-padding:24px;
 margin-bottom:20px;
-}
-
-h1{
-margin-bottom:8px;
-font-size:25px;
+overflow:hidden;
 }
 
 h2{
-margin-bottom:10px;
 font-size:21px;
-}
-
-h3{
-margin-bottom:10px;
 }
 
 .subtitle{
 color:#888;
-margin-bottom:22px;
 line-height:1.5;
+margin-bottom:20px;
 }
 
 label{
@@ -118,12 +103,6 @@ font-size:14px;
 outline:none;
 }
 
-input:focus,
-select:focus,
-textarea:focus{
-border-color:#2563eb;
-}
-
 textarea{
 min-height:130px;
 resize:vertical;
@@ -146,12 +125,21 @@ opacity:.6;
 cursor:not-allowed;
 }
 
+.loading{
+text-align:center;
+padding:70px 20px;
+color:#888;
+}
+
+#adminPanel{
+display:none;
+}
+
 .message{
 display:none;
 padding:13px;
 border-radius:10px;
 margin-top:15px;
-line-height:1.5;
 background:#0b2b1d;
 border:1px solid #166534;
 color:#86efac;
@@ -161,16 +149,6 @@ color:#86efac;
 background:#2b0b0b;
 border-color:#7f1d1d;
 color:#fca5a5;
-}
-
-.loading{
-text-align:center;
-padding:70px 20px;
-color:#888;
-}
-
-#adminPanel{
-display:none;
 }
 
 .section-number{
@@ -183,26 +161,17 @@ border-radius:50%;
 background:#2563eb;
 font-size:13px;
 margin-right:8px;
-vertical-align:middle;
 }
 
 /* =========================
 ACCORDION
 ========================= */
 
-.accordion-card{
-padding:0;
-overflow:hidden;
-}
-
 .accordion-card > h2{
-margin:0;
 padding:20px 24px;
 cursor:pointer;
 display:flex;
 align-items:center;
-justify-content:flex-start;
-gap:4px;
 user-select:none;
 transition:.2s;
 }
@@ -215,7 +184,6 @@ background:#151515;
 content:"＋";
 margin-left:auto;
 font-size:23px;
-font-weight:normal;
 color:#60a5fa;
 }
 
@@ -223,13 +191,13 @@ color:#60a5fa;
 content:"−";
 }
 
-.accordion-card > .accordion-content{
+.accordion-content{
 display:none;
 padding:20px 24px 24px;
 border-top:1px solid #262626;
 }
 
-.accordion-card.open > .accordion-content{
+.accordion-card.open .accordion-content{
 display:block;
 }
 
@@ -270,7 +238,6 @@ font-weight:900;
 }
 
 .new-order-notification{
-width:100%;
 text-align:left;
 background:#15100a;
 border:1px solid #854d0e;
@@ -278,10 +245,6 @@ display:flex;
 align-items:center;
 justify-content:space-between;
 gap:10px;
-}
-
-.new-order-notification:hover{
-background:#20170b;
 }
 
 .notification-left{
@@ -317,7 +280,109 @@ font-weight:bold;
 }
 
 /* =========================
-CUSTOMER PRODUCT
+NEW CHAT ALERT
+========================= */
+
+.new-chat-alert{
+position:fixed;
+right:20px;
+bottom:20px;
+z-index:99999;
+width:230px;
+min-height:62px;
+padding:12px 15px;
+border:none;
+border-radius:15px;
+background:#2563eb;
+color:#fff;
+box-shadow:0 0 0 0 rgba(37,99,235,.7);
+display:none;
+align-items:center;
+justify-content:space-between;
+gap:10px;
+cursor:pointer;
+animation:chatAlertPulse 1.1s infinite;
+}
+
+.new-chat-alert.show{
+display:flex;
+}
+
+.new-chat-alert-left{
+display:flex;
+align-items:center;
+gap:10px;
+min-width:0;
+}
+
+.new-chat-alert-icon{
+width:38px;
+height:38px;
+border-radius:50%;
+background:#fff;
+color:#2563eb;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:19px;
+flex-shrink:0;
+}
+
+.new-chat-alert-text{
+min-width:0;
+text-align:left;
+}
+
+.new-chat-alert-title{
+font-size:14px;
+font-weight:900;
+}
+
+.new-chat-alert-name{
+font-size:11px;
+opacity:.8;
+margin-top:3px;
+overflow:hidden;
+text-overflow:ellipsis;
+white-space:nowrap;
+max-width:125px;
+}
+
+.new-chat-alert-count{
+min-width:27px;
+height:27px;
+padding:0 7px;
+border-radius:50%;
+background:#ef4444;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:12px;
+font-weight:900;
+flex-shrink:0;
+}
+
+@keyframes chatAlertPulse{
+
+0%{
+box-shadow:0 0 0 0 rgba(37,99,235,.75);
+opacity:1;
+}
+
+50%{
+box-shadow:0 0 0 9px rgba(37,99,235,0);
+opacity:.72;
+}
+
+100%{
+box-shadow:0 0 0 0 rgba(37,99,235,0);
+opacity:1;
+}
+
+}
+
+/* =========================
+PRODUCT
 ========================= */
 
 .customer-info{
@@ -328,7 +393,6 @@ border-radius:10px;
 margin-bottom:16px;
 color:#60a5fa;
 font-size:14px;
-line-height:1.6;
 }
 
 .product-price-panel{
@@ -421,12 +485,6 @@ margin-bottom:15px;
 GIVEN PRODUCTS
 ========================= */
 
-.products-grid{
-display:flex;
-flex-direction:column;
-gap:12px;
-}
-
 .product{
 background:#080808;
 border:1px solid #252525;
@@ -453,13 +511,11 @@ color:#fff;
 font-size:14px;
 font-weight:bold;
 margin-bottom:3px;
-word-break:break-word;
 }
 
 .product-email{
 color:#888;
 font-size:13px;
-word-break:break-word;
 }
 
 .product-details{
@@ -515,10 +571,6 @@ margin-top:12px;
 background:#991b1b;
 }
 
-.delete:hover{
-background:#b91c1c;
-}
-
 /* =========================
 PRICE
 ========================= */
@@ -557,10 +609,6 @@ grid-template-columns:1fr 1fr;
 gap:12px;
 }
 
-.price-row input{
-margin-bottom:12px;
-}
-
 .switch-row{
 display:flex;
 align-items:center;
@@ -571,26 +619,6 @@ margin:5px 0 12px;
 .switch-row input{
 width:auto;
 margin:0;
-accent-color:#2563eb;
-}
-
-.sale-info{
-display:flex;
-align-items:center;
-justify-content:space-between;
-gap:10px;
-margin-bottom:5px;
-}
-
-.sale-percent{
-color:#86efac;
-font-size:14px;
-font-weight:bold;
-}
-
-.sale-status{
-font-size:13px;
-color:#888;
 }
 
 .save-price{
@@ -636,7 +664,6 @@ overflow:hidden;
 padding:15px;
 border-bottom:1px solid #222;
 cursor:pointer;
-transition:.2s;
 }
 
 .chat-customer:hover{
@@ -650,7 +677,6 @@ border-left:3px solid #3b82f6;
 
 .chat-customer-name{
 font-weight:bold;
-color:#fff;
 font-size:14px;
 word-break:break-all;
 }
@@ -661,7 +687,6 @@ font-size:12px;
 margin-top:5px;
 display:flex;
 justify-content:space-between;
-align-items:center;
 gap:5px;
 }
 
@@ -704,64 +729,6 @@ background:#4b5563;
 background:#991b1b;
 }
 
-.chat-order-status{
-padding:10px 15px;
-background:#0d0d0d;
-border-bottom:1px solid #222;
-display:flex;
-justify-content:space-between;
-align-items:center;
-gap:10px;
-font-size:13px;
-}
-
-.chat-order-status-label{
-color:#888;
-}
-
-.chat-order-status-value{
-font-weight:bold;
-color:#60a5fa;
-}
-
-.chat-order-status-value.pending{
-color:#facc15;
-}
-
-.chat-order-status-value.confirmed{
-color:#4ade80;
-}
-
-.chat-order-status-value.processing{
-color:#60a5fa;
-}
-
-.chat-order-status-value.completed{
-color:#9ca3af;
-}
-
-.chat-order-status-value.cancelled{
-color:#f87171;
-}
-
-.chat-order-status-control{
-padding:10px 15px;
-background:#0a0a0a;
-border-bottom:1px solid #222;
-}
-
-.chat-order-status-control select{
-margin:0;
-padding:10px;
-}
-
-.chat-status-save{
-margin-top:8px;
-background:#16a34a;
-padding:10px;
-font-size:13px;
-}
-
 .chat-box{
 display:flex;
 flex-direction:column;
@@ -778,6 +745,29 @@ background:#101010;
 border-bottom:1px solid #222;
 font-weight:bold;
 color:#60a5fa;
+}
+
+.chat-order-status,
+.chat-order-status-control{
+display:none;
+}
+
+.chat-order-status{
+padding:10px 15px;
+background:#0d0d0d;
+border-bottom:1px solid #222;
+justify-content:space-between;
+}
+
+.chat-order-status-value{
+font-weight:bold;
+}
+
+.chat-status-save{
+margin-top:8px;
+background:#16a34a;
+padding:10px;
+font-size:13px;
 }
 
 .chat-messages{
@@ -802,14 +792,12 @@ word-break:break-word;
 .chat-msg.admin{
 align-self:flex-end;
 background:#2563eb;
-border-bottom-right-radius:3px;
 }
 
 .chat-msg.customer{
 align-self:flex-start;
 background:#1b1b1b;
 border:1px solid #2b2b2b;
-border-bottom-left-radius:3px;
 }
 
 .chat-time{
@@ -837,7 +825,6 @@ ORDERS
 display:flex;
 align-items:center;
 justify-content:space-between;
-gap:10px;
 margin-bottom:8px;
 }
 
@@ -849,7 +836,6 @@ padding:6px 10px;
 border-radius:20px;
 font-size:12px;
 font-weight:bold;
-white-space:nowrap;
 }
 
 .order-card{
@@ -862,7 +848,6 @@ margin-bottom:12px;
 
 .order-card.new-order{
 border-color:#854d0e;
-background:#0d0a06;
 }
 
 .new-label{
@@ -879,7 +864,6 @@ margin-bottom:10px;
 .order-top{
 display:flex;
 justify-content:space-between;
-align-items:flex-start;
 gap:10px;
 margin-bottom:12px;
 }
@@ -954,7 +938,6 @@ background:#991b1b;
 .empty{
 color:#777;
 padding:18px 0;
-line-height:1.5;
 }
 
 .error-box{
@@ -972,33 +955,17 @@ line-height:1.5;
 width:94%;
 }
 
-.card{
-padding:18px;
-}
-
-.accordion-card{
-padding:0;
-}
-
-.accordion-card > h2{
-padding:18px;
-}
-
-.accordion-card > .accordion-content{
-padding:18px;
-}
-
 .order-summary{
+grid-template-columns:1fr;
+}
+
+.duration-grid{
 grid-template-columns:1fr;
 }
 
 .price-row{
 grid-template-columns:1fr;
 gap:0;
-}
-
-.duration-grid{
-grid-template-columns:1fr;
 }
 
 .chat-layout{
@@ -1015,12 +982,14 @@ grid-template-columns:1fr;
 }
 
 .orders-heading{
-align-items:flex-start;
 flex-direction:column;
+align-items:flex-start;
 }
 
-.product-header{
-flex-direction:column;
+.new-chat-alert{
+right:12px;
+bottom:15px;
+width:210px;
 }
 
 }
@@ -1053,18 +1022,13 @@ Admin yoxlanılır...
 
 <div id="adminPanel">
 
-
-<!-- =========================
-SİFARİŞ XÜLASƏSİ
-========================= -->
+<!-- SİFARİŞ XÜLASƏSİ -->
 
 <div class="order-summary">
 
 <div class="summary-box">
 
-<div class="summary-icon">
-📦
-</div>
+<div class="summary-icon">📦</div>
 
 <div>
 <div class="summary-label">
@@ -1123,11 +1087,12 @@ class="notification-count"
 </div>
 
 
-<!-- =========================
-1. QİYMƏTLƏR
-========================= -->
+<!-- 1 -->
 
-<div class="card accordion-card" id="priceSection">
+<div
+class="card accordion-card"
+id="priceSection"
+>
 
 <h2 onclick="toggleAdminSection(this)">
 <span class="section-number">1</span>
@@ -1152,11 +1117,12 @@ Qiymətlər yüklənir...
 </div>
 
 
-<!-- =========================
-2. MƏHSUL VER
-========================= -->
+<!-- 2 -->
 
-<div class="card accordion-card" id="giveProductSection">
+<div
+class="card accordion-card"
+id="giveProductSection"
+>
 
 <h2 onclick="toggleAdminSection(this)">
 <span class="section-number">2</span>
@@ -1182,7 +1148,6 @@ id="selectedCustomer"
 class="customer-info"
 style="display:none"
 ></div>
-
 
 <label>Məhsul</label>
 
@@ -1218,7 +1183,6 @@ Canva Premium
 
 </select>
 
-
 <div
 id="productPricePanel"
 class="product-price-panel"
@@ -1231,8 +1195,7 @@ Məhsul üçün mövcud müddətlər və qiymətlər
 <div
 id="durationOptions"
 class="duration-grid"
->
-</div>
+></div>
 
 <div
 id="selectedPrice"
@@ -1254,10 +1217,7 @@ class="selected-price-value"
 
 </div>
 
-
-<label>
-Müddət
-</label>
+<label>Müddət</label>
 
 <select id="durationSelect">
 
@@ -1268,9 +1228,8 @@ Müddət
 </select>
 
 <div class="duration-help">
-Məhsul seçdikdən sonra həmin məhsul üçün mövcud aylar və qiymətlər avtomatik göstərilir.
+Seçdiyin müddət məhsula dəqiq saxlanılır.
 </div>
-
 
 <label>
 Müştəriyə veriləcək hesab məlumatı
@@ -1281,7 +1240,6 @@ id="accountInfo"
 placeholder="Email, şifrə və ya digər hesab məlumatı..."
 ></textarea>
 
-
 <button
 id="addButton"
 onclick="addProduct()"
@@ -1289,20 +1247,18 @@ onclick="addProduct()"
 Məhsulu müştəriyə əlavə et
 </button>
 
+<div id="message" class="message"></div>
+
+</div>
+</div>
+
+
+<!-- 3 -->
+
 <div
-id="message"
-class="message"
-></div>
-
-</div>
-</div>
-
-
-<!-- =========================
-3. VERİLMİŞ MƏHSULLAR
-========================= -->
-
-<div class="card accordion-card" id="givenProductsSection">
+class="card accordion-card"
+id="givenProductsSection"
+>
 
 <h2 onclick="toggleAdminSection(this)">
 <span class="section-number">3</span>
@@ -1316,22 +1272,21 @@ Müştərilərə verilmiş məhsullara bax.
 </p>
 
 <div id="productsList">
-
 <div class="empty">
 Verilmiş məhsullar yüklənir...
 </div>
-
 </div>
 
 </div>
 </div>
 
 
-<!-- =========================
-4. CHAT
-========================= -->
+<!-- 4 -->
 
-<div class="card accordion-card" id="chatSection">
+<div
+class="card accordion-card"
+id="chatSection"
+>
 
 <h2 onclick="toggleAdminSection(this)">
 <span class="section-number">4</span>
@@ -1349,15 +1304,12 @@ Müştərilərlə birbaşa yazış.
 <div class="chat-customers">
 
 <div id="chatCustomers">
-
 <div class="empty">
 Müştərilər yüklənir...
 </div>
-
 </div>
 
 </div>
-
 
 <div class="chat-box">
 
@@ -1368,14 +1320,12 @@ class="chat-header"
 Müştəri seçin
 </div>
 
-
 <div
 id="chatOrderStatus"
 class="chat-order-status"
-style="display:none"
 >
 
-<span class="chat-order-status-label">
+<span>
 📦 Sifariş statusu
 </span>
 
@@ -1388,16 +1338,12 @@ class="chat-order-status-value"
 
 </div>
 
-
 <div
 id="chatOrderStatusControl"
 class="chat-order-status-control"
-style="display:none"
 >
 
-<label>
-Statusu dəyiş
-</label>
+<label>Statusu dəyiş</label>
 
 <select id="chatOrderStatusSelect">
 
@@ -1424,7 +1370,6 @@ Ləğv edildi
 </select>
 
 <button
-id="chatStatusSaveButton"
 class="chat-status-save"
 onclick="updateChatOrderStatus()"
 >
@@ -1433,18 +1378,14 @@ Statusu yadda saxla
 
 </div>
 
-
 <div
 id="chatMessages"
 class="chat-messages"
 >
-
 <div class="empty">
 Mesajları görmək üçün müştəri seçin.
 </div>
-
 </div>
-
 
 <div class="chat-send">
 
@@ -1470,9 +1411,7 @@ Mesaj göndər
 </div>
 
 
-<!-- =========================
-5. SİFARİŞLƏR
-========================= -->
+<!-- 5 -->
 
 <div
 class="card accordion-card"
@@ -1488,13 +1427,9 @@ id="ordersSection"
 
 <div class="orders-heading">
 
-<div>
-
 <p class="subtitle">
 Müştərilərin bütün sifarişlərini idarə et.
 </p>
-
-</div>
 
 <div
 id="activeOrderBadge"
@@ -1506,34 +1441,103 @@ Aktiv: 0
 </div>
 
 <div id="ordersList">
-
 <div class="empty">
 Sifarişlər yüklənir...
 </div>
-
 </div>
 
 </div>
 </div>
-
 
 </div>
 </div>
 </main>
 
 
+<!-- YENİ CHAT MESAJI -->
+
+<button
+id="newChatAlert"
+class="new-chat-alert"
+onclick="openNewChatAlert()"
+>
+
+<div class="new-chat-alert-left">
+
+<div class="new-chat-alert-icon">
+💬
+</div>
+
+<div class="new-chat-alert-text">
+
+<div class="new-chat-alert-title">
+Yeni mesaj
+</div>
+
+<div
+id="newChatAlertName"
+class="new-chat-alert-name"
+>
+Müştəri
+</div>
+
+</div>
+
+</div>
+
+<div
+id="newChatAlertCount"
+class="new-chat-alert-count"
+>
+0
+</div>
+
+</button>
+
+
 <script>
 
-/* =====================================================
+const SUPABASE_URL =
+"https://zeknhnkaicqkfzgnvycq.supabase.co";
+
+const SUPABASE_KEY =
+"sb_publishable_jHvCp9fXBA_BwFqrXYpwlw_VC6C1OQk";
+
+const ADMIN_EMAIL =
+"zahidovorxan989@gmail.com";
+
+const supabaseClient =
+window.supabase.createClient(
+SUPABASE_URL,
+SUPABASE_KEY
+);
+
+let selectedChatUserId=null;
+let selectedChatEmail=null;
+let selectedChatOrderId=null;
+
+let adminRealtimeChannel=null;
+
+let newChatUserId=null;
+let newChatEmail=null;
+let newChatUnreadCount=0;
+
+let priceDataCache=[];
+
+let selectedDurationMonths=null;
+let selectedDurationPrice=null;
+
+
+/* =========================
 ACCORDION
-===================================================== */
+========================= */
 
 function toggleAdminSection(title){
 
-const section =
+const section=
 title.closest(".accordion-card");
 
-const isOpen =
+const wasOpen=
 section.classList.contains("open");
 
 document
@@ -1544,7 +1548,7 @@ card.classList.remove("open");
 
 });
 
-if(!isOpen){
+if(!wasOpen){
 
 section.classList.add("open");
 
@@ -1553,39 +1557,9 @@ section.classList.add("open");
 }
 
 
-/* =====================================================
-SUPABASE
-===================================================== */
-
-const SUPABASE_URL =
-"https://zeknhnkaicqkfzgnvycq.supabase.co";
-
-const SUPABASE_KEY =
-"sb_publishable_jHvCp9fXBA_BwFqrXYpwlw_VC6C1OQk";
-
-const supabaseClient =
-window.supabase.createClient(
-SUPABASE_URL,
-SUPABASE_KEY
-);
-
-const ADMIN_EMAIL =
-"zahidovorxan989@gmail.com";
-
-let selectedChatUserId=null;
-let selectedChatEmail=null;
-let selectedChatOrderId=null;
-let adminRealtimeChannel=null;
-
-let priceDataCache=[];
-
-let selectedDurationMonths=null;
-let selectedDurationPrice=null;
-
-
-/* =====================================================
-ADMIN CHECK
-===================================================== */
+/* =========================
+ADMIN
+========================= */
 
 async function checkAdmin(){
 
@@ -1595,7 +1569,7 @@ const {
 data:{
 session
 }
-} =
+}=
 await supabaseClient.auth.getSession();
 
 if(!session){
@@ -1606,8 +1580,8 @@ return;
 }
 
 if(
-(session.user.email || "")
-.toLowerCase() !==
+(session.user.email||"")
+.toLowerCase()!==
 ADMIN_EMAIL.toLowerCase()
 ){
 
@@ -1618,7 +1592,6 @@ alert(
 await supabaseClient.auth.signOut();
 
 window.location.href="login.html";
-
 return;
 
 }
@@ -1636,6 +1609,7 @@ await loadPrices();
 await loadProducts();
 await loadChatCustomers();
 await loadOrders();
+await checkUnreadChatMessages();
 
 setupAdminRealtime();
 
@@ -1653,13 +1627,13 @@ document.getElementById(
 }
 
 
-/* =====================================================
+/* =========================
 CUSTOMERS
-===================================================== */
+========================= */
 
 async function loadCustomers(){
 
-const select =
+const select=
 document.getElementById(
 "customerSelect"
 );
@@ -1667,7 +1641,7 @@ document.getElementById(
 const {
 data,
 error
-} =
+}=
 await supabaseClient
 .from("profiles")
 .select("id,email,full_name")
@@ -1675,11 +1649,6 @@ await supabaseClient
 .order("email");
 
 if(error){
-
-console.error(
-"Customer error:",
-error
-);
 
 select.innerHTML=
 '<option value="">Müştərilər yüklənmədi</option>';
@@ -1691,13 +1660,12 @@ return;
 select.innerHTML=
 '<option value="">Müştəri seçin...</option>';
 
-(data || []).forEach(function(customer){
+(data||[]).forEach(function(customer){
 
 const option=
 document.createElement("option");
 
-option.value=
-customer.id;
+option.value=customer.id;
 
 option.textContent=
 customer.full_name
@@ -1715,28 +1683,22 @@ select.appendChild(option);
 }
 
 
-/* =====================================================
-CUSTOMER CHANGE
-===================================================== */
-
 document
 .getElementById("customerSelect")
 .addEventListener(
 "change",
 function(){
 
-const customerId=this.value;
+const id=this.value;
 
 const info=
 document.getElementById(
 "selectedCustomer"
 );
 
-if(!customerId){
+if(!id){
 
 info.style.display="none";
-info.innerHTML="";
-
 return;
 
 }
@@ -1755,27 +1717,21 @@ info.style.display="block";
 );
 
 
-/* =====================================================
-PRODUCT CHANGE
-===================================================== */
+/* =========================
+PRODUCT PRICE
+========================= */
 
 document
 .getElementById("productSelect")
 .addEventListener(
 "change",
-async function(){
+function(){
 
-await showProductPrices(
-this.value
-);
+showProductPrices(this.value);
 
 }
 );
 
-
-/* =====================================================
-SHOW PRODUCT PRICES
-===================================================== */
 
 async function showProductPrices(productName){
 
@@ -1784,31 +1740,24 @@ document.getElementById(
 "productPricePanel"
 );
 
-const durationOptions=
+const options=
 document.getElementById(
 "durationOptions"
 );
 
-const durationSelect=
+const select=
 document.getElementById(
 "durationSelect"
-);
-
-const selectedPrice=
-document.getElementById(
-"selectedPrice"
 );
 
 if(!productName){
 
 panel.classList.remove("visible");
 
-durationOptions.innerHTML="";
+options.innerHTML="";
 
-durationSelect.innerHTML=
+select.innerHTML=
 '<option value="">Əvvəlcə məhsul seçin...</option>';
-
-selectedPrice.classList.remove("show");
 
 selectedDurationMonths=null;
 selectedDurationPrice=null;
@@ -1824,13 +1773,8 @@ if(!item){
 
 panel.classList.add("visible");
 
-durationOptions.innerHTML=
-'<div class="empty">Bu məhsul üçün qiymət məlumatı tapılmadı.</div>';
-
-durationSelect.innerHTML=
-'<option value="">Qiymət məlumatı yoxdur</option>';
-
-selectedPrice.classList.remove("show");
+options.innerHTML=
+'<div class="empty">Qiymət tapılmadı.</div>';
 
 return;
 
@@ -1839,8 +1783,8 @@ return;
 let durations=[];
 
 if(
-item.product_key==="canva" ||
-productName.toLowerCase().includes("canva")
+productName.toLowerCase().includes("canva")||
+item.product_key==="canva"
 ){
 
 const price=
@@ -1861,22 +1805,21 @@ price:price
 
 const normal=
 Number(
-item["price_"+months+"_month"] || 0
+item["price_"+months+"_month"]||0
 );
 
 const sale=
 Number(
-item["sale_"+months+"_price"] ??
-normal
+item["sale_"+months+"_price"]??normal
 );
 
-const saleActive=
+const active=
 Boolean(
 item["sale_"+months+"_active"]
 );
 
 const price=
-saleActive && sale>0
+active&&sale>0
 ?
 sale
 :
@@ -1897,48 +1840,38 @@ price:price
 
 panel.classList.add("visible");
 
-if(!durations.length){
-
-durationOptions.innerHTML=
-'<div class="empty">Bu məhsul üçün aktiv qiymət yoxdur.</div>';
-
-durationSelect.innerHTML=
-'<option value="">Qiymət yoxdur</option>';
-
-return;
-
-}
-
-durationOptions.innerHTML=
-durations.map(function(option,index){
+options.innerHTML=
+durations.map(function(item,index){
 
 return `
 <div
 class="duration-option ${index===0?"active":""}"
-data-months="${option.months}"
-onclick="chooseDuration(${option.months},${option.price})"
+data-months="${item.months}"
+onclick="chooseDuration(${item.months},${item.price})"
 >
-<strong>${option.months} ay</strong>
-<span>${Number(option.price).toFixed(2)} AZN</span>
+<strong>${item.months} ay</strong>
+<span>${Number(item.price).toFixed(2)} AZN</span>
 </div>
 `;
 
 }).join("");
 
-durationSelect.innerHTML=
+select.innerHTML=
 '<option value="">Müddət seçin...</option>'+
-durations.map(function(option){
+durations.map(function(item){
 
 return `
 <option
-value="${option.months}"
-data-price="${option.price}"
+value="${item.months}"
+data-price="${item.price}"
 >
-${option.months} ay — ${Number(option.price).toFixed(2)} AZN
+${item.months} ay — ${Number(item.price).toFixed(2)} AZN
 </option>
 `;
 
 }).join("");
+
+if(durations.length){
 
 chooseDuration(
 durations[0].months,
@@ -1947,72 +1880,48 @@ durations[0].price
 
 }
 
+}
 
-/* =====================================================
-FIND PRICE
-===================================================== */
 
 function findPriceProduct(productName){
 
 const wanted=
-String(productName||"")
-.toLowerCase()
-.trim();
+productName.toLowerCase();
 
 return priceDataCache.find(function(item){
 
 const name=
 String(item.product_name||"")
-.toLowerCase()
-.trim();
+.toLowerCase();
 
 const key=
 String(item.product_key||"")
-.toLowerCase()
-.trim();
+.toLowerCase();
 
-if(wanted===name)return true;
+if(name===wanted)return true;
 
-if(
-wanted.includes("netflix") &&
-(name.includes("netflix")||key==="netflix")
-)return true;
+if(wanted.includes("netflix")&&(name.includes("netflix")||key==="netflix"))
+return true;
 
-if(
-wanted.includes("youtube") &&
-(name.includes("youtube")||key==="youtube")
-)return true;
+if(wanted.includes("youtube")&&(name.includes("youtube")||key==="youtube"))
+return true;
 
-if(
-wanted.includes("chatgpt") &&
-(name.includes("chatgpt")||key==="chatgpt")
-)return true;
+if(wanted.includes("chatgpt")&&(name.includes("chatgpt")||key==="chatgpt"))
+return true;
 
-if(
-wanted.includes("gemini") &&
-(name.includes("gemini")||key==="gemini")
-)return true;
+if(wanted.includes("gemini")&&(name.includes("gemini")||key==="gemini"))
+return true;
 
-if(
-wanted.includes("spotify") &&
-(name.includes("spotify")||key==="spotify")
-)return true;
+if(wanted.includes("spotify")&&(name.includes("spotify")||key==="spotify"))
+return true;
 
-if(
-wanted.includes("canva") &&
-(name.includes("canva")||key==="canva")
-)return true;
+if(wanted.includes("canva")&&(name.includes("canva")||key==="canva"))
+return true;
 
 return false;
 
-});
-
 }
 
-
-/* =====================================================
-PRICE
-===================================================== */
 
 function getSaleOrNormalPrice(item,months){
 
@@ -2026,12 +1935,7 @@ Number(
 item["sale_"+months+"_price"]??normal
 );
 
-const active=
-Boolean(
-item["sale_"+months+"_active"]
-);
-
-return active && sale>0
+return item["sale_"+months+"_active"]&&sale>0
 ?
 sale
 :
@@ -2040,9 +1944,9 @@ normal;
 }
 
 
-/* =====================================================
+/* =========================
 DURATION
-===================================================== */
+========================= */
 
 function chooseDuration(months,price){
 
@@ -2058,28 +1962,24 @@ document
 
 option.classList.toggle(
 "active",
-Number(option.dataset.months)===Number(months)
+Number(option.dataset.months)===
+Number(months)
 );
 
 });
 
 document.getElementById(
 "durationSelect"
-).value=String(months);
+).value=
+String(months);
 
-const selectedPrice=
 document.getElementById(
 "selectedPrice"
-);
+).classList.add("show");
 
-const value=
 document.getElementById(
 "selectedPriceValue"
-);
-
-selectedPrice.classList.add("show");
-
-value.textContent=
+).textContent=
 Number(price).toFixed(2)+" AZN";
 
 }
@@ -2094,18 +1994,7 @@ function(){
 const months=
 Number(this.value);
 
-if(!months){
-
-selectedDurationMonths=null;
-selectedDurationPrice=null;
-
-document
-.getElementById("selectedPrice")
-.classList.remove("show");
-
-return;
-
-}
+if(!months)return;
 
 const option=
 this.options[this.selectedIndex];
@@ -2119,9 +2008,9 @@ Number(option.dataset.price||0)
 );
 
 
-/* =====================================================
+/* =========================
 DATE
-===================================================== */
+========================= */
 
 function addMonthsSafe(date,months){
 
@@ -2129,9 +2018,11 @@ const d=new Date(date);
 const day=d.getDate();
 
 d.setDate(1);
-d.setMonth(d.getMonth()+months);
+d.setMonth(
+d.getMonth()+Number(months)
+);
 
-const lastDay=
+const last=
 new Date(
 d.getFullYear(),
 d.getMonth()+1,
@@ -2139,38 +2030,10 @@ d.getMonth()+1,
 ).getDate();
 
 d.setDate(
-Math.min(day,lastDay)
+Math.min(day,last)
 );
 
 return d;
-
-}
-
-
-function getProductDurationMonths(productName){
-
-return String(productName||"")
-.toLowerCase()
-.includes("canva")
-?
-12
-:
-1;
-
-}
-
-
-function calculateProductExpiry(
-startDate,
-productName,
-durationMonths
-){
-
-return addMonthsSafe(
-new Date(startDate),
-Number(durationMonths)||
-getProductDurationMonths(productName)
-);
 
 }
 
@@ -2194,9 +2057,9 @@ second:"2-digit"
 }
 
 
-/* =====================================================
+/* =========================
 ADD PRODUCT
-===================================================== */
+========================= */
 
 async function addProduct(){
 
@@ -2215,40 +2078,23 @@ document.getElementById(
 "accountInfo"
 ).value.trim();
 
-const button=
-document.getElementById(
-"addButton"
-);
-
 if(!customerId){
 
-showMessage(
-"Müştəri seçin.",
-true
-);
-
+showMessage("Müştəri seçin.",true);
 return;
 
 }
 
 if(!product){
 
-showMessage(
-"Məhsul seçin.",
-true
-);
-
+showMessage("Məhsul seçin.",true);
 return;
 
 }
 
 if(!selectedDurationMonths){
 
-showMessage(
-"Məhsul müddətini seçin.",
-true
-);
-
+showMessage("Müddət seçin.",true);
 return;
 
 }
@@ -2256,7 +2102,7 @@ return;
 if(!accountInfo){
 
 showMessage(
-"Müştəriyə veriləcək hesab məlumatını yazın.",
+"Hesab məlumatını yazın.",
 true
 );
 
@@ -2264,28 +2110,50 @@ return;
 
 }
 
+const button=
+document.getElementById(
+"addButton"
+);
+
 button.disabled=true;
+
+
+/*
+ƏSAS DÜZƏLİŞ:
+Seçilən 3 ay birbaşa INSERT zamanı
+duration_months-a yazılır.
+*/
 
 const startDate=new Date();
 
 const expiryDate=
-calculateProductExpiry(
+addMonthsSafe(
 startDate,
-product,
 selectedDurationMonths
 );
 
 const {
-data:insertedData,
+data,
 error
-} =
+}=
 await supabaseClient
 .from("customer_products")
 .insert({
+
 user_id:customerId,
+
 product_name:product,
+
 account_info:accountInfo,
-status:"active"
+
+status:"active",
+
+duration_months:
+Number(selectedDurationMonths),
+
+expires_at:
+expiryDate.toISOString()
+
 })
 .select("*")
 .single();
@@ -2306,42 +2174,12 @@ return;
 
 
 /*
-Əgər cədvəldə bu sütunlar varsa,
-müddəti də yadda saxlayır.
-*/
-
-if(insertedData?.id){
-
-const {
-error:durationError
-} =
-await supabaseClient
-.from("customer_products")
-.update({
-duration_months:selectedDurationMonths,
-expires_at:expiryDate.toISOString()
-})
-.eq("id",insertedData.id);
-
-if(durationError){
-
-console.log(
-"Optional duration fields:",
-durationError.message
-);
-
-}
-
-}
-
-
-/*
-Ən son aktiv sifarişi tapırıq.
+Son aktiv sifarişi hazır edirik.
 */
 
 const {
 data:orders
-} =
+}=
 await supabaseClient
 .from("orders")
 .select("id,status,created_at")
@@ -2362,19 +2200,22 @@ ascending:false
 )
 .limit(1);
 
-
-if(
-orders &&
-orders.length
-){
+if(orders&&orders.length){
 
 await supabaseClient
 .from("orders")
 .update({
+
 status:"completed",
-updated_at:new Date().toISOString()
+
+updated_at:
+new Date().toISOString()
+
 })
-.eq("id",orders[0].id);
+.eq(
+"id",
+orders[0].id
+);
 
 }
 
@@ -2398,27 +2239,22 @@ document.getElementById(
 "productPricePanel"
 ).classList.remove("visible");
 
-document.getElementById(
-"selectedPrice"
-).classList.remove("show");
-
 selectedDurationMonths=null;
 selectedDurationPrice=null;
 
 showMessage(
-"Məhsul müştəriyə əlavə edildi. Sifariş varsa avtomatik “Hazırdır” edildi."
+"Məhsul əlavə edildi. Seçilmiş müddət dəqiq saxlanıldı."
 );
 
 await loadProducts();
 await loadOrders();
-await loadChatCustomers();
 
 }
 
 
-/* =====================================================
+/* =========================
 PRODUCTS
-===================================================== */
+========================= */
 
 async function loadProducts(){
 
@@ -2430,7 +2266,7 @@ document.getElementById(
 const {
 data,
 error
-} =
+}=
 await supabaseClient
 .from("customer_products")
 .select("*")
@@ -2446,7 +2282,6 @@ if(error){
 box.innerHTML=
 `
 <div class="error-box">
-Məhsullar yüklənmədi:<br>
 ${escapeHtml(error.message)}
 </div>
 `;
@@ -2458,7 +2293,7 @@ return;
 if(!data?.length){
 
 box.innerHTML=
-'<div class="empty">Hələ verilmiş məhsul yoxdur.</div>';
+'<div class="empty">Hələ məhsul yoxdur.</div>';
 
 return;
 
@@ -2478,7 +2313,7 @@ if(ids.length){
 
 const {
 data:customers
-} =
+}=
 await supabaseClient
 .from("profiles")
 .select("id,email,full_name")
@@ -2498,14 +2333,13 @@ data.map(function(item){
 const profile=
 profiles[item.user_id]||{};
 
-const email=
-profile.email||
-"Email yoxdur";
-
 const name=
 profile.full_name||
-email||
+profile.email||
 "Müştəri";
+
+const email=
+profile.email||"";
 
 const start=
 item.created_at
@@ -2516,28 +2350,17 @@ new Date();
 
 const duration=
 Number(item.duration_months)||
-getProductDurationMonths(
-item.product_name
-);
+1;
 
-let end;
+const end=
+item.expires_at
+?
+new Date(item.expires_at)
+:
+addMonthsSafe(start,duration);
 
-if(item.expires_at){
-
-end=new Date(item.expires_at);
-
-}else{
-
-end=
-calculateProductExpiry(
-start,
-item.product_name,
-duration
-);
-
-}
-
-const expired=end<new Date();
+const expired=
+end<new Date();
 
 let statusClass="active";
 let statusText="Aktiv";
@@ -2563,9 +2386,7 @@ return `
 <div>
 
 <strong>
-${escapeHtml(
-item.product_name||"Məhsul"
-)}
+${escapeHtml(item.product_name||"Məhsul")}
 </strong>
 
 <div class="product-customer">
@@ -2606,9 +2427,7 @@ ${escapeHtml(formatDate(end))}
 <div class="account-box">
 <strong>Hesab məlumatı:</strong>
 
-${escapeHtml(
-item.account_info||""
-)}
+${escapeHtml(item.account_info||"")}
 </div>
 
 <button
@@ -2627,21 +2446,14 @@ Sil
 }
 
 
-/* =====================================================
-DELETE PRODUCT
-===================================================== */
-
 async function deleteProduct(id){
 
-if(
-!confirm(
-"Bu məhsulu silmək istəyirsiniz?"
-)
-)return;
+if(!confirm("Bu məhsulu silmək istəyirsiniz?"))
+return;
 
 const {
 error
-} =
+}=
 await supabaseClient
 .from("customer_products")
 .delete()
@@ -2649,11 +2461,7 @@ await supabaseClient
 
 if(error){
 
-alert(
-"Məhsul silinmədi: "+
-error.message
-);
-
+alert(error.message);
 return;
 
 }
@@ -2663,9 +2471,9 @@ await loadProducts();
 }
 
 
-/* =====================================================
+/* =========================
 PRICES
-===================================================== */
+========================= */
 
 async function loadPrices(){
 
@@ -2677,7 +2485,7 @@ document.getElementById(
 const {
 data,
 error
-} =
+}=
 await supabaseClient
 .from("product_prices")
 .select("*")
@@ -2688,7 +2496,6 @@ if(error){
 box.innerHTML=
 `
 <div class="error-box">
-Qiymətlər yüklənmədi:<br>
 ${escapeHtml(error.message)}
 </div>
 `;
@@ -2702,7 +2509,7 @@ priceDataCache=data||[];
 if(!data?.length){
 
 box.innerHTML=
-'<div class="empty">Qiymət məlumatı yoxdur.</div>';
+'<div class="empty">Qiymət yoxdur.</div>';
 
 return;
 
@@ -2819,27 +2626,7 @@ Qiymətləri yadda saxla
 }
 
 
-/* =====================================================
-PRICE MONTH
-===================================================== */
-
-function createPriceMonth(
-item,
-month,
-title
-){
-
-const normal=
-Number(
-item["price_"+month+"_month"]||0
-).toFixed(2);
-
-const sale=
-Number(
-item["sale_"+month+"_price"] ??
-item["price_"+month+"_month"] ??
-0
-).toFixed(2);
+function createPriceMonth(item,month,title){
 
 return `
 
@@ -2853,30 +2640,26 @@ ${title}
 
 <div>
 
-<label>
-Normal qiymət
-</label>
+<label>Normal qiymət</label>
 
 <input
 type="number"
 step="0.01"
 id="price${month}_${item.id}"
-value="${normal}"
+value="${Number(item["price_"+month+"_month"]||0).toFixed(2)}"
 >
 
 </div>
 
 <div>
 
-<label>
-Endirimli qiymət
-</label>
+<label>Endirimli qiymət</label>
 
 <input
 type="number"
 step="0.01"
 id="sale${month}_${item.id}"
-value="${sale}"
+value="${Number(item["sale_"+month+"_price"]??item["price_"+month+"_month"]??0).toFixed(2)}"
 >
 
 </div>
@@ -2907,46 +2690,36 @@ Endirimi aktiv et
 }
 
 
-/* =====================================================
-SAVE PRICE
-===================================================== */
-
 async function savePrice(id){
 
 const update={};
 
 [1,2,3].forEach(function(month){
 
-update[
-"price_"+month+"_month"
-]=Number(
+update["price_"+month+"_month"]=
+Number(
 document.getElementById(
 "price"+month+"_"+id
 ).value||0
 );
 
-update[
-"sale_"+month+"_price"
-]=Number(
+update["sale_"+month+"_price"]=
+Number(
 document.getElementById(
 "sale"+month+"_"+id
 ).value||0
 );
 
-update[
-"sale_"+month+"_active"
-]=document.getElementById(
+update["sale_"+month+"_active"]=
+document.getElementById(
 "sale"+month+"active_"+id
 ).checked;
 
 });
 
-update.updated_at=
-new Date().toISOString();
-
 const {
 error
-} =
+}=
 await supabaseClient
 .from("product_prices")
 .update(update)
@@ -2955,7 +2728,6 @@ await supabaseClient
 if(error){
 
 showPriceMessage(
-"Qiymət yadda saxlanılmadı: "+
 error.message,
 true
 );
@@ -2965,7 +2737,7 @@ return;
 }
 
 showPriceMessage(
-"Qiymətlər uğurla yeniləndi."
+"Qiymətlər yeniləndi."
 );
 
 await loadPrices();
@@ -2973,15 +2745,11 @@ await loadPrices();
 }
 
 
-/* =====================================================
-CANVA PRICE
-===================================================== */
-
 async function saveCanvaPrice(id){
 
 const {
 error
-} =
+}=
 await supabaseClient
 .from("product_prices")
 .update({
@@ -3001,10 +2769,7 @@ document.getElementById(
 sale_12_active:
 document.getElementById(
 "sale12active_"+id
-).checked,
-
-updated_at:
-new Date().toISOString()
+).checked
 
 })
 .eq("id",id);
@@ -3012,7 +2777,6 @@ new Date().toISOString()
 if(error){
 
 showPriceMessage(
-"Canva qiyməti yadda saxlanılmadı: "+
 error.message,
 true
 );
@@ -3030,9 +2794,9 @@ await loadPrices();
 }
 
 
-/* =====================================================
+/* =========================
 CHAT CUSTOMERS
-===================================================== */
+========================= */
 
 async function loadChatCustomers(){
 
@@ -3044,7 +2808,7 @@ document.getElementById(
 const {
 data:messages,
 error
-} =
+}=
 await supabaseClient
 .from("messages")
 .select(
@@ -3062,7 +2826,6 @@ if(error){
 box.innerHTML=
 `
 <div class="error-box">
-Mesajlar yüklənmədi:<br>
 ${escapeHtml(error.message)}
 </div>
 `;
@@ -3082,7 +2845,7 @@ const ids=[
 if(!ids.length){
 
 box.innerHTML=
-'<div class="empty">Hələ heç kim mesaj yazmayıb.</div>';
+'<div class="empty">Hələ mesaj yoxdur.</div>';
 
 return;
 
@@ -3092,7 +2855,7 @@ let profiles={};
 
 const {
 data:customers
-} =
+}=
 await supabaseClient
 .from("profiles")
 .select("id,email,full_name")
@@ -3104,12 +2867,11 @@ profiles[c.id]=c;
 
 });
 
-
 let latestOrders={};
 
 const {
 data:orders
-} =
+}=
 await supabaseClient
 .from("orders")
 .select("id,user_id,status,created_at")
@@ -3130,7 +2892,6 @@ latestOrders[order.user_id]=order;
 }
 
 });
-
 
 const customerMap={};
 
@@ -3160,7 +2921,6 @@ customerMap[item.user_id].unread++;
 
 });
 
-
 const list=
 Object.values(customerMap);
 
@@ -3170,7 +2930,6 @@ return new Date(b.last_created_at)-
 new Date(a.last_created_at);
 
 });
-
 
 box.innerHTML=
 list.map(function(item){
@@ -3188,9 +2947,6 @@ email||
 
 const order=
 latestOrders[item.user_id];
-
-const status=
-order?.status||"";
 
 return `
 
@@ -3226,13 +2982,13 @@ item.last_message
 <span>
 
 ${
-status
+order
 ?
 `
 <span
-class="order-status-badge ${status}"
+class="order-status-badge ${order.status}"
 >
-${getOrderStatusText(status)}
+${getOrderStatusText(order.status)}
 </span>
 `
 :
@@ -3289,9 +3045,9 @@ return map[status]||status;
 }
 
 
-/* =====================================================
-CHAT
-===================================================== */
+/* =========================
+CHAT SELECT
+========================= */
 
 async function selectChatCustomer(
 userId,
@@ -3304,17 +3060,34 @@ selectedChatEmail=email;
 syncProductCustomer(userId);
 
 document.getElementById(
+"chatSection"
+).classList.add("open");
+
+document.getElementById(
 "chatHeader"
 ).textContent=
 "💬 "+(email||"Müştəri");
 
 await loadChatMessages(userId);
+
 await loadChatOrderStatus(userId);
+
+/*
+Burada mesajlar oxunmuş edilir.
+Bundan sonra checkUnreadChatMessages()
+bildirişi söndürür.
+*/
+
 await markCustomerMessagesRead(userId);
+
 await loadChatCustomers();
 
 }
 
+
+/* =========================
+SYNC CUSTOMER
+========================= */
 
 function syncProductCustomer(userId){
 
@@ -3345,9 +3118,9 @@ new Event("change")
 }
 
 
-/* =====================================================
+/* =========================
 CHAT MESSAGES
-===================================================== */
+========================= */
 
 async function loadChatMessages(userId){
 
@@ -3359,7 +3132,7 @@ document.getElementById(
 const {
 data,
 error
-} =
+}=
 await supabaseClient
 .from("messages")
 .select(
@@ -3432,17 +3205,21 @@ minute:"2-digit"
 
 }).join("");
 
-box.scrollTop=box.scrollHeight;
+box.scrollTop=
+box.scrollHeight;
 
 }
 
 
-/* =====================================================
-READ
-===================================================== */
+/* =========================
+READ MESSAGE
+========================= */
 
 async function markCustomerMessagesRead(userId){
 
+const {
+error
+}=
 await supabaseClient
 .from("messages")
 .update({
@@ -3452,21 +3229,38 @@ is_read:true
 .eq("sender_role","customer")
 .eq("is_read",false);
 
+if(error){
+
+console.error(
+"Read error:",
+error
+);
+
+return;
+
+}
+
+/*
+Əsas hissə:
+Bazadan yenidən yoxlayırıq.
+Oxunmamış mesaj qalmayıbsa
+sağdakı işıq dərhal sönür.
+*/
+
+await checkUnreadChatMessages();
+
 }
 
 
-/* =====================================================
-SEND CHAT
-===================================================== */
+/* =========================
+SEND MESSAGE
+========================= */
 
 async function sendChatMessage(){
 
 if(!selectedChatUserId){
 
-alert(
-"Əvvəlcə müştəri seçin."
-);
-
+alert("Əvvəlcə müştəri seçin.");
 return;
 
 }
@@ -3490,14 +3284,17 @@ button.disabled=true;
 
 const {
 error
-} =
+}=
 await supabaseClient
 .from("messages")
 .insert({
 
 user_id:selectedChatUserId,
+
 sender_role:"admin",
+
 message:message,
+
 is_read:false
 
 });
@@ -3524,16 +3321,166 @@ selectedChatUserId
 }
 
 
-/* =====================================================
+/* =========================
+NEW CHAT ALERT
+========================= */
+
+async function checkUnreadChatMessages(){
+
+const {
+data,
+error
+}=
+await supabaseClient
+.from("messages")
+.select(
+"user_id,message,created_at"
+)
+.eq("sender_role","customer")
+.eq("is_read",false)
+.order(
+"created_at",
+{
+ascending:false
+}
+);
+
+if(error){
+
+console.error(
+"Unread messages:",
+error
+);
+
+return;
+
+}
+
+if(!data||!data.length){
+
+hideNewChatAlert();
+
+return;
+
+}
+
+newChatUnreadCount=
+data.length;
+
+newChatUserId=
+data[0].user_id;
+
+const {
+data:profile
+}=
+await supabaseClient
+.from("profiles")
+.select("email,full_name")
+.eq("id",newChatUserId)
+.maybeSingle();
+
+newChatEmail=
+profile?.full_name||
+profile?.email||
+"Müştəri";
+
+showNewChatAlert(
+newChatEmail,
+newChatUnreadCount
+);
+
+
+}
+
+
+function showNewChatAlert(
+name,
+count
+){
+
+const alert=
+document.getElementById(
+"newChatAlert"
+);
+
+if(!alert)return;
+
+document.getElementById(
+"newChatAlertName"
+).textContent=name;
+
+document.getElementById(
+"newChatAlertCount"
+).textContent=count;
+
+alert.classList.add("show");
+
+}
+
+
+function hideNewChatAlert(){
+
+const alert=
+document.getElementById(
+"newChatAlert"
+);
+
+if(!alert)return;
+
+alert.classList.remove("show");
+
+newChatUserId=null;
+newChatEmail=null;
+newChatUnreadCount=0;
+
+}
+
+
+async function openNewChatAlert(){
+
+if(!newChatUserId){
+
+await checkUnreadChatMessages();
+
+if(!newChatUserId)return;
+
+}
+
+const userId=
+newChatUserId;
+
+const email=
+newChatEmail;
+
+/*
+Chatı açırıq.
+*/
+
+await selectChatCustomer(
+userId,
+email
+);
+
+/*
+selectChatCustomer daxilində
+mesajlar artıq oxunmuş edilir.
+*/
+
+await checkUnreadChatMessages();
+
+}
+
+
+/* =========================
 CHAT ORDER
-===================================================== */
+========================= */
 
 async function getCustomerActiveOrder(userId){
 
 const {
 data,
 error
-} =
+}=
 await supabaseClient
 .from("orders")
 .select(
@@ -3549,8 +3496,6 @@ ascending:false
 .limit(1);
 
 if(error){
-
-console.error(error);
 
 return null;
 
@@ -3568,14 +3513,14 @@ document.getElementById(
 "chatOrderStatus"
 );
 
-const statusValue=
-document.getElementById(
-"chatOrderStatusValue"
-);
-
 const control=
 document.getElementById(
 "chatOrderStatusControl"
+);
+
+const value=
+document.getElementById(
+"chatOrderStatusValue"
 );
 
 const select=
@@ -3597,16 +3542,14 @@ return;
 
 }
 
-selectedChatOrderId=order.id;
+selectedChatOrderId=
+order.id;
 
-statusValue.textContent=
+value.textContent=
 getOrderStatusText(order.status);
 
-statusValue.className=
-"chat-order-status-value "+
+select.value=
 order.status;
-
-select.value=order.status;
 
 statusBox.style.display="flex";
 control.style.display="block";
@@ -3619,7 +3562,6 @@ async function updateChatOrderStatus(){
 if(!selectedChatOrderId){
 
 alert("Sifariş tapılmadı.");
-
 return;
 
 }
@@ -3631,24 +3573,25 @@ document.getElementById(
 
 const {
 error
-} =
+}=
 await supabaseClient
 .from("orders")
 .update({
 
 status:status,
-updated_at:new Date().toISOString()
+
+updated_at:
+new Date().toISOString()
 
 })
-.eq("id",selectedChatOrderId);
+.eq(
+"id",
+selectedChatOrderId
+);
 
 if(error){
 
-alert(
-"Sifariş statusu dəyişmədi: "+
-error.message
-);
-
+alert(error.message);
 return;
 
 }
@@ -3663,9 +3606,9 @@ await loadChatCustomers();
 }
 
 
-/* =====================================================
+/* =========================
 ORDERS
-===================================================== */
+========================= */
 
 async function loadOrders(){
 
@@ -3677,7 +3620,7 @@ document.getElementById(
 const {
 data:orders,
 error
-} =
+}=
 await supabaseClient
 .from("orders")
 .select(
@@ -3695,7 +3638,6 @@ if(error){
 box.innerHTML=
 `
 <div class="error-box">
-Sifarişlər yüklənmədi:<br>
 ${escapeHtml(error.message)}
 </div>
 `;
@@ -3726,7 +3668,6 @@ return order.status==="pending";
 
 }).length;
 
-
 document.getElementById(
 "activeOrderCount"
 ).textContent=
@@ -3736,7 +3677,6 @@ document.getElementById(
 "activeOrderBadge"
 ).textContent=
 "Aktiv: "+activeCount;
-
 
 const notification=
 document.getElementById(
@@ -3760,7 +3700,6 @@ document.getElementById(
 ).textContent=
 newCount+" yeni sifariş";
 
-
 if(!orders?.length){
 
 box.innerHTML=
@@ -3769,7 +3708,6 @@ box.innerHTML=
 return;
 
 }
-
 
 const ids=[
 ...new Set(
@@ -3785,7 +3723,7 @@ if(ids.length){
 
 const {
 data:customers
-} =
+}=
 await supabaseClient
 .from("profiles")
 .select("id,email,full_name")
@@ -3798,7 +3736,6 @@ profiles[c.id]=c;
 });
 
 }
-
 
 box.innerHTML=
 orders.map(function(order){
@@ -3817,10 +3754,6 @@ email||
 
 const status=
 order.status||"pending";
-
-const total=
-Number(order.total||0)
-.toFixed(2);
 
 return `
 
@@ -3846,39 +3779,31 @@ status==="pending"
 ""
 }
 
-
 <div class="order-top">
 
 <div>
 
 <div class="order-product">
-📦 Sifariş #${escapeHtml(String(order.id))}
+📦 Sifariş
 </div>
 
 <div class="order-id">
-Sifariş ID:
-${escapeHtml(String(order.id))}
+ID: ${escapeHtml(String(order.id))}
 </div>
 
 </div>
 
 <strong>
-${total} AZN
+${Number(order.total||0).toFixed(2)} AZN
 </strong>
 
 </div>
-
-
-<div>
 
 <span
 class="order-current-status ${status}"
 >
 ${getOrderStatusText(status)}
 </span>
-
-</div>
-
 
 <div class="order-info">
 
@@ -3894,7 +3819,7 @@ ${escapeHtml(email)}
 
 <div>
 <strong>Məbləğ:</strong>
-${total} AZN
+${Number(order.total||0).toFixed(2)} AZN
 </div>
 
 <div>
@@ -3904,13 +3829,11 @@ ${escapeHtml(formatDate(order.created_at))}
 
 </div>
 
-
 <div class="order-actions">
 
 <select
 class="order-status"
-data-order-id="${escapeHtml(String(order.id))}"
-onchange="updateOrderStatus(this.dataset.orderId,this.value)"
+onchange="updateOrderStatus('${escapeHtml(String(order.id))}',this.value)"
 >
 
 <option value="pending" ${status==="pending"?"selected":""}>
@@ -3935,12 +3858,9 @@ Ləğv edildi
 
 </select>
 
-
 <button
 class="order-chat"
-data-user-id="${escapeHtml(String(order.user_id||""))}"
-data-email="${escapeHtml(email)}"
-onclick="openOrderChat(this.dataset.userId,this.dataset.email)"
+onclick="openOrderChat('${escapeHtml(String(order.user_id||""))}','${escapeHtml(email)}')"
 >
 💬 Çata keç
 </button>
@@ -3956,10 +3876,6 @@ onclick="openOrderChat(this.dataset.userId,this.dataset.email)"
 }
 
 
-/* =====================================================
-UPDATE ORDER
-===================================================== */
-
 async function updateOrderStatus(
 orderId,
 status
@@ -3967,24 +3883,22 @@ status
 
 const {
 error
-} =
+}=
 await supabaseClient
 .from("orders")
 .update({
 
 status:status,
-updated_at:new Date().toISOString()
+
+updated_at:
+new Date().toISOString()
 
 })
 .eq("id",orderId);
 
 if(error){
 
-alert(
-"Sifariş statusu dəyişmədi: "+
-error.message
-);
-
+alert(error.message);
 return;
 
 }
@@ -4003,10 +3917,6 @@ selectedChatUserId
 }
 
 
-/* =====================================================
-ORDER -> CHAT
-===================================================== */
-
 async function openOrderChat(
 userId,
 email
@@ -4014,29 +3924,15 @@ email
 
 if(!userId){
 
-alert(
-"Bu sifariş üçün müştəri tapılmadı."
-);
-
+alert("Müştəri tapılmadı.");
 return;
 
 }
 
-selectedChatUserId=userId;
-selectedChatEmail=email;
-
-syncProductCustomer(userId);
-
-document.getElementById(
-"chatHeader"
-).textContent=
-"💬 "+(email||"Müştəri");
-
-await loadChatCustomers();
-await loadChatMessages(userId);
-await loadChatOrderStatus(userId);
-await markCustomerMessagesRead(userId);
-await loadChatCustomers();
+await selectChatCustomer(
+userId,
+email
+);
 
 document.getElementById(
 "chatSection"
@@ -4047,9 +3943,9 @@ behavior:"smooth"
 }
 
 
-/* =====================================================
+/* =========================
 REALTIME
-===================================================== */
+========================= */
 
 function setupAdminRealtime(){
 
@@ -4077,6 +3973,8 @@ selectedChatUserId
 );
 
 }
+
+await checkUnreadChatMessages();
 
 }
 )
@@ -4123,14 +4021,11 @@ await loadProducts();
 }
 
 
-/* =====================================================
-MESSAGE
-===================================================== */
+/* =========================
+MESSAGES
+========================= */
 
-function showMessage(
-text,
-isError=false
-){
+function showMessage(text,isError=false){
 
 const box=
 document.getElementById(
@@ -4187,9 +4082,9 @@ box.style.display="none";
 }
 
 
-/* =====================================================
+/* =========================
 ESCAPE
-===================================================== */
+========================= */
 
 function escapeHtml(value){
 
@@ -4203,9 +4098,9 @@ return String(value??"")
 }
 
 
-/* =====================================================
-SCROLL ORDERS
-===================================================== */
+/* =========================
+ORDERS SCROLL
+========================= */
 
 function scrollToOrders(){
 
@@ -4218,9 +4113,9 @@ behavior:"smooth"
 }
 
 
-/* =====================================================
+/* =========================
 START
-===================================================== */
+========================= */
 
 checkAdmin();
 
