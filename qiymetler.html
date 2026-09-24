@@ -3091,6 +3091,12 @@ function escapeJs(text){
     .replace(/\r/g,"\\r");
 }
 
+/* ==========================================================
+   DÜZƏLDİLDİ:
+   orders.duration INTEGER-dir.
+   Ekrandakı "2 ay" kimi mətn bazaya 2 kimi yazılır.
+========================================================== */
+
 async function sendCustomerChatPackage(
   productKey,
   productName,
@@ -3126,6 +3132,27 @@ async function sendCustomerChatPackage(
     return;
   }
 
+  /*
+    "1 ay"  -> 1
+    "2 ay"  -> 2
+    "3 ay"  -> 3
+    "12 ay" -> 12
+  */
+
+  const durationMatch=
+    String(duration).match(/\d+/);
+
+  const numericDuration=
+    durationMatch
+      ? parseInt(durationMatch[0],10)
+      : 0;
+
+  if(!numericDuration){
+
+    alert("Paket müddəti düzgün deyil.");
+    return;
+  }
+
   const buttons=
     document.querySelectorAll(
       ".customer-chat-package"
@@ -3140,11 +3167,6 @@ async function sendCustomerChatPackage(
 
   try{
 
-    /*
-      VACİB:
-      orders cədvəlində price sütunu istifadə edilmir.
-    */
-
     const orderMessage=
       `Paket seçildi: ${productName} — ${duration} — ${numericPrice.toFixed(2)} AZN`;
 
@@ -3154,17 +3176,22 @@ async function sendCustomerChatPackage(
         .insert({
           user_id:session.user.id,
           product_name:productName,
-          duration:duration,
+
+          /* VACİB: integer göndərilir */
+          duration:numericDuration,
+
           status:"confirmed"
         })
         .select()
         .single();
 
     if(orderError){
+
       console.error(
         "Customer order create error:",
         orderError
       );
+
       throw orderError;
     }
 
@@ -3195,10 +3222,6 @@ async function sendCustomerChatPackage(
       throw messageError;
     }
 
-    /*
-      orders.message_id varsa əlaqələndir.
-    */
-
     if(order?.id && message?.id){
 
       const {error:updateOrderError}=
@@ -3228,6 +3251,7 @@ async function sendCustomerChatPackage(
       );
 
     if(messagesBox){
+
       messagesBox.scrollTop=
         messagesBox.scrollHeight;
     }
@@ -3457,10 +3481,6 @@ async function loadCustomerOrderStatus(){
 
   if(!statusBox || !statusValue) return;
 
-  /*
-    PRICE SÜTUNU BURADA DA YOXDUR.
-  */
-
   const {data,error}=
     await supabaseClient
       .from("orders")
@@ -3523,8 +3543,21 @@ async function loadCustomerOrderStatus(){
 
     orderInfo.classList.add("show");
 
+    /*
+      Bazada duration = 2
+      Müştəriyə isə "2 ay" göstərilir.
+    */
+
+    const durationNumber=
+      Number(order.duration || 0);
+
+    const durationText=
+      durationNumber > 0
+        ? durationNumber+" ay"
+        : "";
+
     orderInfo.textContent=
-      `${order.product_name || "Sifariş"} · ${order.duration || ""}`;
+      `${order.product_name || "Sifariş"} · ${durationText}`;
   }
 }
 
@@ -3550,6 +3583,7 @@ async function markCustomerChatMessagesRead(){
       .eq("is_read",false);
 
   if(error){
+
     console.warn(
       "Mark customer messages read warning:",
       error
