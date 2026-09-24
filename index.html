@@ -135,6 +135,74 @@ font-size:18px;
 .customer-chat-status{font-size:10px;color:#4ade80;margin-top:1px;}
 .customer-chat-close{border:0;background:none;color:#888;font-size:20px;cursor:pointer;}
 .customer-chat-close:hover{color:#fff;}
+
+.customer-order-status{
+margin:10px 12px 0;
+padding:11px 12px;
+background:#101010;
+border:1px solid #292929;
+border-radius:10px;
+flex-shrink:0;
+}
+
+.customer-order-status-title{
+font-size:10px;
+color:#777;
+margin-bottom:7px;
+font-weight:700;
+text-transform:uppercase;
+letter-spacing:.3px;
+}
+
+.customer-order-status-main{
+display:flex;
+align-items:center;
+gap:8px;
+font-size:13px;
+font-weight:800;
+}
+
+.customer-order-status-dot{
+width:9px;
+height:9px;
+border-radius:50%;
+background:#3b82f6;
+box-shadow:0 0 8px rgba(59,130,246,.6);
+flex-shrink:0;
+}
+
+.customer-order-status.confirmed .customer-order-status-dot{
+background:#22c55e;
+box-shadow:0 0 8px rgba(34,197,94,.6);
+}
+
+.customer-order-status.waiting .customer-order-status-dot{
+background:#f59e0b;
+box-shadow:0 0 8px rgba(245,158,11,.6);
+}
+
+.customer-order-status.preparing .customer-order-status-dot{
+background:#3b82f6;
+box-shadow:0 0 8px rgba(59,130,246,.6);
+}
+
+.customer-order-status-text{color:#fff;}
+
+.customer-order-status-count{
+display:inline-flex;
+align-items:center;
+justify-content:center;
+min-width:19px;
+height:19px;
+padding:0 5px;
+margin-left:5px;
+border-radius:10px;
+background:#2563eb;
+color:#fff;
+font-size:10px;
+font-weight:900;
+}
+
 .customer-chat-messages{
 flex:1;
 overflow-y:auto;
@@ -938,6 +1006,8 @@ title="Dəstək çatı">
 
 </div>
 
+<div id="customerOrderStatus"></div>
+
 <div id="customerChatMessages" class="customer-chat-messages">
 <div class="customer-chat-empty">Chat yüklənir...</div>
 </div>
@@ -1509,6 +1579,7 @@ loadCustomerChat();
 let customerChatUserId=null;
 let customerChatChannel=null;
 let customerChatPricesChannel=null;
+let customerOrderStatusChannel=null;
 let customerChatOpen=false;
 let customerChatProducts={};
 
@@ -1520,6 +1591,206 @@ const CUSTOMER_CHAT_PRODUCT_ORDER=[
 "spotify",
 "canva"
 ];
+
+/* =========================================================
+   CUSTOMER ORDER STATUS SYSTEM
+========================================================= */
+
+const CUSTOMER_ORDER_STATUS_MAP={
+confirmed:{
+text:"Təsdiqləndi",
+className:"confirmed"
+},
+waiting:{
+text:"Cavab gözlənilir",
+className:"waiting"
+},
+preparing:{
+text:"Hazırlanır",
+className:"preparing"
+}
+};
+
+function getCustomerOrderStatusFromMessages(data){
+
+if(!data || !data.length)return null;
+
+let latestStatus=null;
+
+data.forEach(function(item){
+
+if(item.sender_role!=="admin")return;
+
+const message=String(item.message || "").trim();
+
+const match=message.match(
+/^\[\[DIGIBAKU_STATUS:(confirmed|waiting|preparing)\]\]$/i
+);
+
+if(!match)return;
+
+const key=match[1].toLowerCase();
+
+if(!CUSTOMER_ORDER_STATUS_MAP[key])return;
+
+latestStatus={
+status:key,
+created_at:item.created_at,
+id:item.id
+};
+
+});
+
+return latestStatus;
+
+}
+
+function isCustomerOrderStatusMessage(message){
+
+return /^\[\[DIGIBAKU_STATUS:(confirmed|waiting|preparing)\]\]$/i
+.test(String(message || "").trim());
+
+}
+
+function renderCustomerOrderStatus(data){
+
+const box=document.getElementById("customerOrderStatus");
+
+if(!box)return;
+
+const latestStatus=getCustomerOrderStatusFromMessages(data);
+
+if(!latestStatus){
+
+box.innerHTML="";
+return;
+
+}
+
+const statusInfo=
+CUSTOMER_ORDER_STATUS_MAP[latestStatus.status];
+
+if(!statusInfo){
+
+box.innerHTML="";
+return;
+
+}
+
+const count=
+data.filter(function(item){
+
+return item.sender_role==="admin" &&
+isCustomerOrderStatusMessage(item.message);
+
+}).length;
+
+box.innerHTML=`
+
+<div class="customer-order-status ${statusInfo.className}">
+
+<div class="customer-order-status-title">
+Sifariş statusu
+</div>
+
+<div class="customer-order-status-main">
+
+<span class="customer-order-status-dot"></span>
+
+<span class="customer-order-status-text">
+${escapeHtml(statusInfo.text)}
+</span>
+
+<span class="customer-order-status-count">
+${count}
+</span>
+
+</div>
+
+</div>
+
+`;
+
+}
+
+async function loadCustomerOrderStatus(){
+
+if(!customerChatUserId){
+
+const box=document.getElementById("customerOrderStatus");
+
+if(box)box.innerHTML="";
+
+return;
+
+}
+
+const {data,error}=await supabaseClient
+.from("messages")
+.select(`
+id,
+user_id,
+sender_role,
+message,
+created_at
+`)
+.eq("user_id",customerChatUserId)
+.eq("sender_role","admin")
+.order("created_at",{ascending:true});
+
+if(error){
+
+console.error(
+"CUSTOMER ORDER STATUS ERROR:",
+error
+);
+
+return;
+
+}
+
+renderCustomerOrderStatus(data || []);
+
+}
+
+function setupCustomerOrderStatusRealtime(){
+
+if(!customerChatUserId)return;
+
+if(customerOrderStatusChannel){
+
+supabaseClient.removeChannel(
+customerOrderStatusChannel
+);
+
+customerOrderStatusChannel=null;
+
+}
+
+customerOrderStatusChannel=
+supabaseClient
+.channel("customer-order-status-"+customerChatUserId)
+.on(
+"postgres_changes",
+{
+event:"*",
+schema:"public",
+table:"messages",
+filter:"user_id=eq."+customerChatUserId
+},
+async function(){
+
+await loadCustomerOrderStatus();
+
+}
+)
+.subscribe();
+
+}
+
+/* =========================================================
+   CUSTOMER CHAT
+========================================================= */
 
 async function toggleCustomerChat(){
 
@@ -1557,6 +1828,20 @@ if(!session){
 
 customerChatUserId=null;
 
+if(customerOrderStatusChannel){
+
+supabaseClient.removeChannel(
+customerOrderStatusChannel
+);
+
+customerOrderStatusChannel=null;
+
+}
+
+const statusBox=document.getElementById("customerOrderStatus");
+
+if(statusBox)statusBox.innerHTML="";
+
 if(sendArea)sendArea.style.display="none";
 
 if(messages){
@@ -1593,11 +1878,13 @@ customerChatUserId=session.user.id;
 if(sendArea)sendArea.style.display="flex";
 
 await loadCustomerChatMessages();
+await loadCustomerOrderStatus();
 await markAdminMessagesRead();
 await loadCustomerChatUnread();
 
 setupCustomerChatRealtime();
 setupCustomerChatPricesRealtime();
+setupCustomerOrderStatusRealtime();
 
 }
 
@@ -1870,7 +2157,21 @@ return;
 
 }
 
-if(!data || data.length===0){
+/*
+ Status məlumatını ayrıca yuxarıda göstəririk.
+*/
+renderCustomerOrderStatus(data || []);
+
+const visibleMessages=(data || []).filter(function(item){
+
+return !(
+item.sender_role==="admin" &&
+isCustomerOrderStatusMessage(item.message)
+);
+
+});
+
+if(!visibleMessages.length){
 
 messages.innerHTML=`
 <div class="customer-chat-empty">
@@ -1885,7 +2186,7 @@ return;
 
 let html="";
 
-data.forEach(function(item){
+visibleMessages.forEach(function(item){
 
 const role=item.sender_role==="customer"?"customer":"admin";
 
@@ -1992,7 +2293,8 @@ const {error}=await supabaseClient
 .update({is_read:true})
 .eq("user_id",customerChatUserId)
 .eq("sender_role","admin")
-.eq("is_read",false);
+.eq("is_read",false)
+.not("message","like","[[DIGIBAKU_STATUS:%");
 
 if(error)console.error("MARK READ ERROR:",error);
 
@@ -2011,9 +2313,9 @@ return;
 
 }
 
-const {count,error}=await supabaseClient
+const {data,error}=await supabaseClient
 .from("messages")
-.select("id",{count:"exact",head:true})
+.select("id,message",{count:"exact"})
 .eq("user_id",customerChatUserId)
 .eq("sender_role","admin")
 .eq("is_read",false);
@@ -2025,9 +2327,19 @@ return;
 
 }
 
-if(count && count>0){
+const unreadNormalMessages=(data || []).filter(function(item){
 
-badge.textContent=count>99?"99+":String(count);
+return !isCustomerOrderStatusMessage(item.message);
+
+}).length;
+
+if(unreadNormalMessages>0){
+
+badge.textContent=
+unreadNormalMessages>99
+?"99+"
+:String(unreadNormalMessages);
+
 badge.style.display="flex";
 
 }else{
@@ -2063,6 +2375,7 @@ filter:"user_id=eq."+customerChatUserId
 async function(){
 
 await loadCustomerChatMessages();
+await loadCustomerOrderStatus();
 await loadCustomerChatUnread();
 
 if(customerChatOpen){
@@ -2197,11 +2510,6 @@ productKey==="canva"
 let priceData=
 getIndexProductPrice(row,duration);
 
-/*
- Əgər Canva-da 12 aylıq yoxdursa
- və ya başqa məhsulda 1 aylıq yoxdursa,
- mövcud qiyməti tapırıq.
-*/
 if(!priceData){
 
 for(const d of [1,2,3,12]){
@@ -2265,9 +2573,6 @@ ${durationText}
 
 }
 
-/*
- Sifariş düyməsinin qiymətini də yeniləyirik.
-*/
 const orderButton=
 card.querySelector(".product-actions button:nth-child(2)");
 
@@ -2464,16 +2769,10 @@ updateCartCount();
 updateCartUI();
 checkLogin();
 
-/*
- Chat qiymətləri
-*/
 await loadCustomerChatPackages();
 
 setupCustomerChatPricesRealtime();
 
-/*
- Index məhsul qiymətləri
-*/
 await loadIndexProductPrices();
 
 setupIndexProductPricesRealtime();
