@@ -369,6 +369,19 @@ h1 {
     font-weight: bold;
 }
 
+/* ENDİRİM FAİZİ */
+
+.discount-percent {
+    display: inline-block;
+    margin-left: 6px;
+    color: #fff;
+    background: #ef4444;
+    border-radius: 5px;
+    padding: 2px 6px;
+    font-size: 11px;
+    font-weight: bold;
+}
+
 /* SELECTED */
 
 .selected {
@@ -2180,12 +2193,23 @@ current.sale &&
 current.normal > current.price
 ){
 
+const discountPercent=
+Math.round(
+((current.normal-current.price)/
+current.normal)*100
+);
+
 return `
 <span class="old-price">
 ${current.normal.toFixed(2)} AZN
 </span>
+
 <span class="sale-price">
 ${current.price.toFixed(2)} AZN
+</span>
+
+<span class="discount-percent">
+-${discountPercent}%
 </span>
 `;
 
@@ -2879,6 +2903,55 @@ current.price.toFixed(2)+" AZN";
 document.getElementById("selectedPeriod")
 .textContent=
 getPackageName(item);
+
+
+/* =========================================================
+   SEÇİLMİŞ PAKET ÜÇÜN ENDİRİM FAİZİ
+   ========================================================= */
+
+let discountEl=
+document.getElementById("selectedDiscount");
+
+if(!discountEl){
+
+discountEl=
+document.createElement("span");
+
+discountEl.id=
+"selectedDiscount";
+
+discountEl.className=
+"discount-percent";
+
+selectedPrice.parentNode.appendChild(
+discountEl
+);
+
+}
+
+if(
+current.sale &&
+current.normal > current.price
+){
+
+const discountPercent=
+Math.round(
+((current.normal-current.price)/
+current.normal)*100
+);
+
+discountEl.textContent=
+"-"+discountPercent+"%";
+
+discountEl.style.display=
+"inline-block";
+
+}else{
+
+discountEl.style.display=
+"none";
+
+}
 
 }
 
