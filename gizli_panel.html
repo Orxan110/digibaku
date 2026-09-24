@@ -2490,31 +2490,41 @@ async function checkAuth(){
 
         if(error || !data.user){
 
-            location.href = "login.html";
+            location.href =
+                "https://digibaku.com";
+
             return;
         }
 
-        currentUser = data.user;
+        currentUser =
+            data.user;
 
         if(
+            !currentUser.email ||
             currentUser.email.toLowerCase() !==
             ADMIN_EMAIL.toLowerCase()
         ){
 
             await supabaseClient.auth.signOut();
 
-            location.href = "login.html";
+            location.href =
+                "https://digibaku.com";
+
             return;
         }
 
-        document.getElementById("loadingScreen")
-            .style.display = "none";
+        document.getElementById(
+            "loadingScreen"
+        ).style.display = "none";
 
-        document.getElementById("app")
-            .style.display = "block";
+        document.getElementById(
+            "app"
+        ).style.display = "block";
 
-        document.getElementById("adminEmail")
-            .textContent = currentUser.email;
+        document.getElementById(
+            "adminEmail"
+        ).textContent =
+            currentUser.email;
 
         await updateBadges();
 
@@ -2526,7 +2536,8 @@ async function checkAuth(){
 
         console.error(error);
 
-        location.href = "login.html";
+        location.href =
+            "https://digibaku.com";
 
     }
 
@@ -5471,7 +5482,7 @@ async function logout(){
         .signOut();
 
     location.href =
-        "login.html";
+        "https://digibaku.com";
 
 }
 
