@@ -51,9 +51,33 @@ header{position:sticky;top:0;z-index:1000;background:rgba(5,5,5,.94);border-bott
 .cart-total-row{display:flex;justify-content:space-between;margin-bottom:15px;font-weight:bold;}
 .cart-empty{color:#777;text-align:center;padding:25px 10px;}
 
+/* WHATSAPP */
 .whatsapp-float{position:fixed;bottom:25px;right:25px;width:60px;height:60px;background:#25d366;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 15px rgba(37,211,102,.4);z-index:9999;transition:.3s;}
 .whatsapp-float:hover{transform:scale(1.1);background:#20ba5a;}
 .whatsapp-float svg{width:34px;height:34px;fill:#fff;}
+
+/* CHAT */
+.chat-float{
+position:fixed;
+bottom:25px;
+right:100px;
+width:60px;
+height:60px;
+background:#2563eb;
+color:#fff;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:28px;
+box-shadow:0 4px 15px rgba(37,99,235,.4);
+z-index:9999;
+transition:.3s;
+}
+.chat-float:hover{
+transform:scale(1.1);
+background:#1d4ed8;
+}
 
 .hero{padding:90px 0;background:radial-gradient(circle at 20% 10%,#172554 0,transparent 35%),radial-gradient(circle at 90% 20%,#111827 0,transparent 35%),#050505;}
 .hero-inner{display:flex;align-items:center;justify-content:space-between;gap:55px;}
@@ -87,11 +111,11 @@ section{padding:75px 0;}
 .feature:hover{transform:translateY(-7px);border-color:#2563eb;box-shadow:0 22px 55px rgba(37,99,235,0.22);}
 .feature-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;transition:transform .6s cubic-bezier(0.16,1,0.3,1);}
 .feature:hover .feature-bg{transform:scale(1.1);}
-.feature-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,5,5,0.15) 0%,rgba(5,5,5,0.7) 50%,#050505 100%);z-index:2;}
-.feature-content{position:relative;z-index:3;background:rgba(12,12,12,0.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,0.12);padding:22px;border-radius:16px;}
+.feature-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,5,5,.15) 0%,rgba(5,5,5,.7) 50%,#050505 100%);z-index:2;}
+.feature-content{position:relative;z-index:3;background:rgba(12,12,12,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.12);padding:22px;border-radius:16px;}
 .feature-content h3{font-size:20px;font-weight:800;color:#fff;margin-bottom:8px;}
 .feature-content p{color:#ccc;font-size:13.5px;line-height:1.55;margin-bottom:12px;}
-.feature-content strong{display:inline-block;color:#60a5fa;font-size:12px;font-weight:700;background:rgba(37,99,235,0.2);border:1px solid rgba(59,130,246,0.4);padding:5px 10px;border-radius:6px;}
+.feature-content strong{display:inline-block;color:#60a5fa;font-size:12px;font-weight:700;background:rgba(37,99,235,.2);border:1px solid rgba(59,130,246,.4);padding:5px 10px;border-radius:6px;}
 
 .compare-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;}
 .compare-card{background:#101010;border:1px solid #242424;padding:24px;border-radius:15px;}
@@ -151,7 +175,6 @@ footer{background:#030303;border-top:1px solid #222;padding:45px 0 20px;}
 .footer-grid{grid-template-columns:1fr 1fr;}
 .menu{display:none;}
 }
-
 @media(max-width:700px){
 .nav{min-height:65px;}
 .logo{font-size:22px;}
@@ -169,6 +192,7 @@ footer{background:#030303;border-top:1px solid #222;padding:45px 0 20px;}
 .footer-grid{grid-template-columns:1fr;}
 #cartModal{max-width:100%;}
 .about-dropdown-menu{position:static;margin-top:8px;box-shadow:none;}
+.chat-float{right:95px;}
 }
 </style>
 </head>
@@ -185,10 +209,7 @@ footer{background:#030303;border-top:1px solid #222;padding:45px 0 20px;}
 <a href="#compare" data-i18n="compareMenu">Müqayisə</a>
 
 <div class="about-dropdown">
-<a href="faq.html#about" data-i18n="about">
-Haqqımızda <span class="about-dropdown-arrow">⌄</span>
-</a>
-
+<a href="faq.html#about" data-i18n="about">Haqqımızda <span class="about-dropdown-arrow">⌄</span></a>
 <div class="about-dropdown-menu">
 <a href="faq.html#about" data-i18n="about">DigiBaku haqqında</a>
 <a href="faq.html#faq" data-i18n="faqMenu">FAQ</a>
@@ -200,13 +221,13 @@ Haqqımızda <span class="about-dropdown-arrow">⌄</span>
 </div>
 </div>
 
+<a href="chat.html">💬 Çat</a>
 <a href="qiymetler.html" data-i18n="prices">Qiymətlər</a>
 <a href="#blog" data-i18n="blogMenu">Bloq</a>
 <a href="#contact" data-i18n="contactTitle">Əlaqə</a>
 </nav>
 
 <div class="header-right">
-
 <button onclick="toggleCart()" class="btn cart-btn">
 🛒 <span data-i18n="cart">Səbət</span>
 <span id="cartCount" class="cart-count">0</span>
@@ -224,12 +245,10 @@ Haqqımızda <span class="about-dropdown-arrow">⌄</span>
 <span>|</span>
 <button onclick="setLanguage('en')" id="langEN">EN</button>
 </div>
-
 </div>
 </div>
 </header>
 
-<!-- CART -->
 <div id="cartModal">
 <div class="cart-header">
 <h2 data-i18n="yourCart">Səbətiniz</h2>
@@ -254,14 +273,11 @@ Haqqımızda <span class="about-dropdown-arrow">⌄</span>
 
 <main>
 
-<!-- HERO -->
 <section class="hero" id="home">
 <div class="container hero-inner">
 
 <div class="hero-content">
-<div class="badge" data-i18n="premiumService">
-Premium rəqəmsal xidmətlər
-</div>
+<div class="badge" data-i18n="premiumService">Premium rəqəmsal xidmətlər</div>
 
 <h1 data-i18n="heroTitle">
 Premium rəqəmsal xidmətlər
@@ -285,7 +301,6 @@ Dünyanın ən çox istifadə olunan premium platformalarını bir araya gətir�
 </div>
 </section>
 
-<!-- PRODUCTS -->
 <section id="products">
 <div class="container">
 
@@ -296,225 +311,75 @@ Dünyanın ən çox istifadə olunan premium platformalarını bir araya gətir�
 
 <div class="products">
 
-<!-- NETFLIX -->
 <div class="product" data-product-key="netflix">
 <img class="product-image" src="netflix.webp" alt="Netflix Premium">
-
-<h3 data-i18n="netflixName">
-Netflix 4K Premium Abunəliyi
-</h3>
-
-<p data-i18n="netflixDescription">
-Film və serialları yüksək keyfiyyətdə izləmək üçün Netflix Premium.
-</p>
-
-<div class="price" id="price-netflix">
-6.99 AZN <small data-i18n="month1">/ 1 ay</small>
-</div>
-
+<h3 data-i18n="netflixName">Netflix 4K Premium Abunəliyi</h3>
+<p data-i18n="netflixDescription">Film və serialları yüksək keyfiyyətdə izləmək üçün Netflix Premium.</p>
+<div class="price">6.99 AZN <small data-i18n="month1">/ 1 ay</small></div>
 <div class="product-actions">
 <a href="product.html?product=netflix" class="btn btn-primary" data-i18n="details">Ətraflı bax</a>
-
-<button
-id="order-netflix"
-onclick="orderNow('Netflix 4K Premium Abunəliyi (1 ay)',6.99)"
-class="btn btn-dark"
-data-i18n="order">
-Sifariş et
-</button>
-
-<button
-id="cart-netflix"
-onclick="addToCart('Netflix 4K Premium Abunəliyi (1 ay)',6.99)"
-class="btn btn-dark"
-data-i18n="addCart">
-Səbətə at
-</button>
+<button onclick="orderNow('Netflix 4K Premium Abunəliyi (1 ay)',6.99)" class="btn btn-dark" data-i18n="order">Sifariş et</button>
+<button onclick="addToCart('Netflix 4K Premium Abunəliyi (1 ay)',6.99)" class="btn btn-dark" data-i18n="addCart">Səbətə at</button>
 </div>
 </div>
 
-<!-- YOUTUBE -->
 <div class="product" data-product-key="youtube">
 <img class="product-image" src="youtube.webp" alt="YouTube Premium">
-
-<h3 data-i18n="youtubeName">
-YouTube Premium
-</h3>
-
-<p data-i18n="youtubeDescription">
-Reklamsız video, musiqi və premium YouTube təcrübəsi.
-</p>
-
-<div class="price" id="price-youtube">
-7.99 AZN <small data-i18n="month1">/ 1 ay</small>
-</div>
-
+<h3 data-i18n="youtubeName">YouTube Premium</h3>
+<p data-i18n="youtubeDescription">Reklamsız video, musiqi və premium YouTube təcrübəsi.</p>
+<div class="price">7.99 AZN <small data-i18n="month1">/ 1 ay</small></div>
 <div class="product-actions">
 <a href="product.html?product=youtube" class="btn btn-primary" data-i18n="details">Ətraflı bax</a>
-
-<button
-id="order-youtube"
-onclick="orderNow('YouTube Premium (1 ay)',7.99)"
-class="btn btn-dark"
-data-i18n="order">
-Sifariş et
-</button>
-
-<button
-id="cart-youtube"
-onclick="addToCart('YouTube Premium (1 ay)',7.99)"
-class="btn btn-dark"
-data-i18n="addCart">
-Səbətə at
-</button>
+<button onclick="orderNow('YouTube Premium (1 ay)',7.99)" class="btn btn-dark" data-i18n="order">Sifariş et</button>
+<button onclick="addToCart('YouTube Premium (1 ay)',7.99)" class="btn btn-dark" data-i18n="addCart">Səbətə at</button>
 </div>
 </div>
 
-<!-- CHATGPT -->
 <div class="product" data-product-key="chatgpt">
 <img class="product-image" src="chatgpt.webp" alt="ChatGPT Plus">
-
-<h3 data-i18n="chatgptName">
-ChatGPT Plus
-</h3>
-
-<p data-i18n="chatgptDescription">
-Süni intellekt, yazı, kod və gündəlik işlər üçün premium xidmət.
-</p>
-
-<div class="price" id="price-chatgpt">
-11.99 AZN <small data-i18n="month1">/ 1 ay</small>
-</div>
-
+<h3 data-i18n="chatgptName">ChatGPT Plus</h3>
+<p data-i18n="chatgptDescription">Süni intellekt, yazı, kod və gündəlik işlər üçün premium xidmət.</p>
+<div class="price">11.99 AZN <small data-i18n="month1">/ 1 ay</small></div>
 <div class="product-actions">
 <a href="product.html?product=chatgpt" class="btn btn-primary" data-i18n="details">Ətraflı bax</a>
-
-<button
-id="order-chatgpt"
-onclick="orderNow('ChatGPT Plus (1 ay)',11.99)"
-class="btn btn-dark"
-data-i18n="order">
-Sifariş et
-</button>
-
-<button
-id="cart-chatgpt"
-onclick="addToCart('ChatGPT Plus (1 ay)',11.99)"
-class="btn btn-dark"
-data-i18n="addCart">
-Səbətə at
-</button>
+<button onclick="orderNow('ChatGPT Plus (1 ay)',11.99)" class="btn btn-dark" data-i18n="order">Sifariş et</button>
+<button onclick="addToCart('ChatGPT Plus (1 ay)',11.99)" class="btn btn-dark" data-i18n="addCart">Səbətə at</button>
 </div>
 </div>
 
-<!-- GEMINI -->
 <div class="product" data-product-key="gemini">
 <img class="product-image" src="gemini.avif" alt="Gemini AZ — Google Gemini Advanced (Pro)">
-
-<h3 data-i18n="geminiName">
-Gemini AZ — Google Gemini Advanced (Pro)
-</h3>
-
-<p data-i18n="geminiDescription">
-Gemini AZ axtaran istifadəçilər üçün Google Gemini Advanced (Pro) AI yazı, analiz və Google ekosistemində iş axınını sürətləndirən premium paketdir.
-</p>
-
-<div class="price" id="price-gemini">
-7.99 AZN <small data-i18n="month1">/ 1 ay</small>
-</div>
-
+<h3 data-i18n="geminiName">Gemini AZ — Google Gemini Advanced (Pro)</h3>
+<p data-i18n="geminiDescription">Gemini AZ axtaran istifadəçilər üçün Google Gemini Advanced (Pro) AI yazı, analiz və Google ekosistemində iş axınını sürətləndirən premium paketdir.</p>
+<div class="price">7.99 AZN <small data-i18n="month1">/ 1 ay</small></div>
 <div class="product-actions">
 <a href="product.html?product=gemini" class="btn btn-primary" data-i18n="details">Ətraflı bax</a>
-
-<button
-id="order-gemini"
-onclick="orderNow('Gemini Advanced (1 ay)',7.99)"
-class="btn btn-dark"
-data-i18n="order">
-Sifariş et
-</button>
-
-<button
-id="cart-gemini"
-onclick="addToCart('Gemini Advanced (1 ay)',7.99)"
-class="btn btn-dark"
-data-i18n="addCart">
-Səbətə at
-</button>
+<button onclick="orderNow('Gemini Advanced (1 ay)',7.99)" class="btn btn-dark" data-i18n="order">Sifariş et</button>
+<button onclick="addToCart('Gemini Advanced (1 ay)',7.99)" class="btn btn-dark" data-i18n="addCart">Səbətə at</button>
 </div>
 </div>
 
-<!-- SPOTIFY -->
 <div class="product" data-product-key="spotify">
 <img class="product-image" src="spotfiy.webp" alt="Spotify Premium">
-
-<h3 data-i18n="spotifyName">
-Spotify Premium
-</h3>
-
-<p data-i18n="spotifyDescription">
-Reklamsız musiqi, yüksək keyfiyyət və offline dinləmə.
-</p>
-
-<div class="price" id="price-spotify">
-7.99 AZN <small data-i18n="month1">/ 1 ay</small>
-</div>
-
+<h3 data-i18n="spotifyName">Spotify Premium</h3>
+<p data-i18n="spotifyDescription">Reklamsız musiqi, yüksək keyfiyyət və offline dinləmə.</p>
+<div class="price">7.99 AZN <small data-i18n="month1">/ 1 ay</small></div>
 <div class="product-actions">
 <a href="product.html?product=spotify" class="btn btn-primary" data-i18n="details">Ətraflı bax</a>
-
-<button
-id="order-spotify"
-onclick="orderNow('Spotify Premium (1 ay)',7.99)"
-class="btn btn-dark"
-data-i18n="order">
-Sifariş et
-</button>
-
-<button
-id="cart-spotify"
-onclick="addToCart('Spotify Premium (1 ay)',7.99)"
-class="btn btn-dark"
-data-i18n="addCart">
-Səbətə at
-</button>
+<button onclick="orderNow('Spotify Premium (1 ay)',7.99)" class="btn btn-dark" data-i18n="order">Sifariş et</button>
+<button onclick="addToCart('Spotify Premium (1 ay)',7.99)" class="btn btn-dark" data-i18n="addCart">Səbətə at</button>
 </div>
 </div>
 
-<!-- CANVA -->
 <div class="product" data-product-key="canva">
 <img class="product-image" src="canva.webp" alt="Canva Pro">
-
-<h3 data-i18n="canvaName">
-Canva Pro
-</h3>
-
-<p data-i18n="canvaDescription">
-Dizayn, təqdimat, poster və sosial media üçün premium Canva imkanları.
-</p>
-
-<div class="price" id="price-canva">
-5.99 AZN <small data-i18n="year12">/ 12 ay</small>
-</div>
-
+<h3 data-i18n="canvaName">Canva Pro</h3>
+<p data-i18n="canvaDescription">Dizayn, təqdimat, poster və sosial media üçün premium Canva imkanları.</p>
+<div class="price">5.99 AZN <small data-i18n="year12">/ 12 ay</small></div>
 <div class="product-actions">
 <a href="product.html?product=canva" class="btn btn-primary" data-i18n="details">Ətraflı bax</a>
-
-<button
-id="order-canva"
-onclick="orderNow('Canva Pro (12 ay)',5.99)"
-class="btn btn-dark"
-data-i18n="order">
-Sifariş et
-</button>
-
-<button
-id="cart-canva"
-onclick="addToCart('Canva Pro (12 ay)',5.99)"
-class="btn btn-dark"
-data-i18n="addCart">
-Səbətə at
-</button>
+<button onclick="orderNow('Canva Pro (12 ay)',5.99)" class="btn btn-dark" data-i18n="order">Sifariş et</button>
+<button onclick="addToCart('Canva Pro (12 ay)',5.99)" class="btn btn-dark" data-i18n="addCart">Səbətə at</button>
 </div>
 </div>
 
@@ -522,15 +387,11 @@ Səbətə at
 </div>
 </section>
 
-<!-- FEATURES -->
 <section>
 <div class="container">
-
 <div class="section-title">
 <h2 data-i18n="whyUs">Niyə məhz biz?</h2>
-<p data-i18n="whyUsText">
-Premium xidmətlərə çıxışı daha sürətli, rahat və təhlükəsiz etmək üçün prosesi sadələşdirdik.
-</p>
+<p data-i18n="whyUsText">Premium xidmətlərə çıxışı daha sürətli, rahat və təhlükəsiz etmək üçün prosesi sadələşdirdik.</p>
 </div>
 
 <div class="features">
@@ -540,9 +401,7 @@ Premium xidmətlərə çıxışı daha sürətli, rahat və təhlükəsiz etmək
 <div class="feature-overlay"></div>
 <div class="feature-content">
 <h3 data-i18n="fastActivation">Sürətli aktivləşdirmə</h3>
-<p data-i18n="fastActivationText">
-Sifarişinizi tamamlayın, qalanını biz həll edək. Hesab məlumatlarınız hazırlanaraq sizə təqdim olunur.
-</p>
+<p data-i18n="fastActivationText">Sifarişinizi tamamlayın, qalanını biz həll edək. Hesab məlumatlarınız hazırlanaraq sizə təqdim olunur.</p>
 <strong data-i18n="activationTime">5-30 dəq ərzində aktivləşdirmə</strong>
 </div>
 </div>
@@ -552,9 +411,7 @@ Sifarişinizi tamamlayın, qalanını biz həll edək. Hesab məlumatlarınız h
 <div class="feature-overlay"></div>
 <div class="feature-content">
 <h3 data-i18n="safeOrder">Təhlükəsizlik</h3>
-<p data-i18n="safeOrderText">
-Prosesiniz qorunan sistem üzərindən aparılır və sifarişiniz təhlükəsiz şəkildə tamamlanır.
-</p>
+<p data-i18n="safeOrderText">Prosesiniz qorunan sistem üzərindən aparılır və sifarişiniz təhlükəsiz şəkildə tamamlanır.</p>
 <strong data-i18n="protectedPayment">Qorunan sistem</strong>
 </div>
 </div>
@@ -564,9 +421,7 @@ Prosesiniz qorunan sistem üzərindən aparılır və sifarişiniz təhlükəsiz
 <div class="feature-overlay"></div>
 <div class="feature-content">
 <h3 data-i18n="support">Etibarlı dəstək</h3>
-<p data-i18n="supportText">
-Sifariş və aktivləşdirmə ilə bağlı suallarınız yarandıqda dəstək komandamız sizə operativ şəkildə kömək edir.
-</p>
+<p data-i18n="supportText">Sifariş və aktivləşdirmə ilə bağlı suallarınız yarandıqda dəstək komandamız sizə operativ şəkildə kömək edir.</p>
 <strong data-i18n="customerSupport">Operativ müştəri dəstəyi</strong>
 </div>
 </div>
@@ -575,208 +430,132 @@ Sifariş və aktivləşdirmə ilə bağlı suallarınız yarandıqda dəstək ko
 </div>
 </section>
 
-<!-- COMPARE -->
 <section id="compare">
 <div class="container">
-
 <div class="section-title">
 <h2 data-i18n="compareTitle">Müqayisə bələdçiləri</h2>
-<p data-i18n="compareSubtitle">
-İstifadə məqsədinizə uyğun premium xidməti daha rahat seçin.
-</p>
+<p data-i18n="compareSubtitle">İstifadə məqsədinizə uyğun premium xidməti daha rahat seçin.</p>
 </div>
 
 <div class="compare-grid">
 
 <div class="compare-card">
 <h3 data-i18n="compareNetflixYoutube">Netflix vs YouTube Premium</h3>
-<p data-i18n="compareNetflixYoutubeText">
-Netflix film və serial üçün, YouTube Premium isə reklamsız video və musiqi üçün daha uyğundur.
-</p>
-<a href="product.html?product=netflix" data-i18n="netflixLook">
-Netflix Premium-a bax →
-</a>
+<p data-i18n="compareNetflixYoutubeText">Netflix film və serial üçün, YouTube Premium isə reklamsız video və musiqi üçün daha uyğundur.</p>
+<a href="product.html?product=netflix" data-i18n="netflixLook">Netflix Premium-a bax →</a>
 </div>
 
 <div class="compare-card">
 <h3 data-i18n="compareSpotifyYoutube">Spotify vs YouTube Premium</h3>
-<p data-i18n="compareSpotifyYoutubeText">
-Musiqi üçün Spotify, video və musiqini bir yerdə istifadə etmək üçün YouTube Premium.
-</p>
-<a href="product.html?product=spotify" data-i18n="spotifyLook">
-Spotify Premium-a bax →
-</a>
+<p data-i18n="compareSpotifyYoutubeText">Musiqi üçün Spotify, video və musiqini bir yerdə istifadə etmək üçün YouTube Premium.</p>
+<a href="product.html?product=spotify" data-i18n="spotifyLook">Spotify Premium-a bax →</a>
 </div>
 
 <div class="compare-card">
 <h3 data-i18n="compareChatGPT">ChatGPT Plus</h3>
-<p data-i18n="compareChatGPTText">
-Yazı, kod, araşdırma və süni intellekt əsaslı gündəlik işlər üçün premium AI xidməti.
-</p>
-<a href="product.html?product=chatgpt" data-i18n="chatgptLook">
-ChatGPT Plus-a bax →
-</a>
+<p data-i18n="compareChatGPTText">Yazı, kod, araşdırma və süni intellekt əsaslı gündəlik işlər üçün premium AI xidməti.</p>
+<a href="product.html?product=chatgpt" data-i18n="chatgptLook">ChatGPT Plus-a bax →</a>
 </div>
 
 <div class="compare-card">
 <h3 data-i18n="comparePackage">Premium paket seçimi</h3>
-<p data-i18n="comparePackageText">
-Qiymət, müddət və istifadə məqsədinizə uyğun xidməti seçin.
-</p>
-<a href="#products" data-i18n="allProducts">
-Bütün məhsullara bax →
-</a>
+<p data-i18n="comparePackageText">Qiymət, müddət və istifadə məqsədinizə uyğun xidməti seçin.</p>
+<a href="#products" data-i18n="allProducts">Bütün məhsullara bax →</a>
 </div>
 
 </div>
 </div>
 </section>
 
-<!-- REVIEWS -->
 <section class="reviews" id="reviews">
 <div class="container">
-
 <div class="section-title">
 <h2 data-i18n="reviewsTitle">Müştəri rəyləri</h2>
-<p data-i18n="reviewsSubtitle">
-Müştərilərimizin təcrübəsi bizim üçün ən böyük motivasiyadır.
-</p>
+<p data-i18n="reviewsSubtitle">Müştərilərimizin təcrübəsi bizim üçün ən böyük motivasiyadır.</p>
 </div>
 
 <div class="review-grid">
 
 <div class="review">
 <div class="stars">★★★★★</div>
-<div class="review-text" data-i18n="review1">
-“Çox sağ olun. Sifariş sürətli və problemsiz oldu.”
-</div>
-<div class="reviewer">
-<div class="avatar">O</div>
-<div><strong>Cəfərov Xəqani</strong><span>Netflix Premium</span></div>
-</div>
+<div class="review-text" data-i18n="review1">“Çox sağ olun. Sifariş sürətli və problemsiz oldu.”</div>
+<div class="reviewer"><div class="avatar">O</div><div><strong>Cəfərov Xəqani</strong><span>Netflix Premium</span></div></div>
 </div>
 
 <div class="review">
 <div class="stars">★★★★★</div>
-<div class="review-text" data-i18n="review2">
-“Əla, uyğun qiymətədir və sürətli bir şəkildə əldə etdim. Təşəkkür edirəm.”
-</div>
-<div class="reviewer">
-<div class="avatar">S</div>
-<div><strong>Shabnam Valizada</strong><span>YouTube Premium</span></div>
-</div>
+<div class="review-text" data-i18n="review2">“Əla, uyğun qiymətədir və sürətli bir şəkildə əldə etdim. Təşəkkür edirəm.”</div>
+<div class="reviewer"><div class="avatar">S</div><div><strong>Shabnam Valizada</strong><span>YouTube Premium</span></div></div>
 </div>
 
 <div class="review">
 <div class="stars">★★★★★</div>
-<div class="review-text" data-i18n="review3">
-“Sərfəli qiymətdir və sifariş prosesi çox rahatdır.”
-</div>
-<div class="reviewer">
-<div class="avatar">D</div>
-<div><strong>Dergah Abdullayev</strong><span>ChatGPT Plus</span></div>
-</div>
+<div class="review-text" data-i18n="review3">“Sərfəli qiymətdir və sifariş prosesi çox rahatdır.”</div>
+<div class="reviewer"><div class="avatar">D</div><div><strong>Dergah Abdullayev</strong><span>ChatGPT Plus</span></div></div>
 </div>
 
 <div class="review">
 <div class="stars">★★★★★</div>
-<div class="review-text" data-i18n="review4">
-“Etibarlı və sürətli xidmətdir. Dostlarıma da tövsiyə edirəm.”
-</div>
-<div class="reviewer">
-<div class="avatar">R</div>
-<div><strong>Rəşad Məmmədli</strong><span>Spotify Premium</span></div>
-</div>
+<div class="review-text" data-i18n="review4">“Etibarlı və sürətli xidmətdir. Dostlarıma da tövsiyə edirəm.”</div>
+<div class="reviewer"><div class="avatar">R</div><div><strong>Rəşad Məmmədli</strong><span>Spotify Premium</span></div></div>
 </div>
 
 <div class="review">
 <div class="stars">★★★★★</div>
-<div class="review-text" data-i18n="review5">
-“Dəstək komandası suallarıma tez cavab verdi və mənə kömək etdi.”
-</div>
-<div class="reviewer">
-<div class="avatar">S</div>
-<div><strong>Səbinə Əliyeva</strong><span data-i18n="customerBadge">Müştəri</span></div>
-</div>
+<div class="review-text" data-i18n="review5">“Dəstək komandası suallarıma tez cavab verdi və mənə kömək etdi.”</div>
+<div class="reviewer"><div class="avatar">S</div><div><strong>Səbinə Əliyeva</strong><span data-i18n="customerBadge">Müştəri</span></div></div>
 </div>
 
 <div class="review">
 <div class="stars">★★★★★</div>
-<div class="review-text" data-i18n="review6">
-“Bir neçə dəfə sifariş vermişəm və hər dəfə xidmət problemsiz işləyib.”
-</div>
-<div class="reviewer">
-<div class="avatar">E</div>
-<div><strong>Elvin Cəfərov</strong><span data-i18n="customerBadge">Müştəri</span></div>
-</div>
+<div class="review-text" data-i18n="review6">“Bir neçə dəfə sifariş vermişəm və hər dəfə xidmət problemsiz işləyib.”</div>
+<div class="reviewer"><div class="avatar">E</div><div><strong>Elvin Cəfərov</strong><span data-i18n="customerBadge">Müştəri</span></div></div>
 </div>
 
 <div class="review">
 <div class="stars">★★★★★</div>
-<div class="review-text" data-i18n="review7">
-“Saytın istifadəsi sadədir. İstədiyim məhsulu çox tez tapdım.”
-</div>
-<div class="reviewer">
-<div class="avatar">L</div>
-<div><strong>Ləman Hüseynova</strong><span data-i18n="customerBadge">Müştəri</span></div>
-</div>
+<div class="review-text" data-i18n="review7">“Saytın istifadəsi sadədir. İstədiyim məhsulu çox tez tapdım.”</div>
+<div class="reviewer"><div class="avatar">L</div><div><strong>Ləman Hüseynova</strong><span data-i18n="customerBadge">Müştəri</span></div></div>
 </div>
 
 <div class="review">
 <div class="stars">★★★★★</div>
-<div class="review-text" data-i18n="review8">
-“Qiymətlər münasibdir və aktivləşdirmə gözlədiyimdən daha sürətli oldu.”
-</div>
-<div class="reviewer">
-<div class="avatar">V</div>
-<div><strong>Vahid Kərimov</strong><span data-i18n="customerBadge">Müştəri</span></div>
-</div>
+<div class="review-text" data-i18n="review8">“Qiymətlər münasibdir və aktivləşdirmə gözlədiyimdən daha sürətli oldu.”</div>
+<div class="reviewer"><div class="avatar">V</div><div><strong>Vahid Kərimov</strong><span data-i18n="customerBadge">Müştəri</span></div></div>
 </div>
 
 </div>
 </div>
 </section>
 
-<!-- BLOG -->
 <section id="blog">
 <div class="container">
-
 <div class="section-title">
 <h2 data-i18n="blogTitle">Bloq</h2>
 <p data-i18n="blogSubtitle">Premium xidmətlər haqqında faydalı məlumatlar</p>
 </div>
 
 <div class="blog-grid">
-
 <div class="blog-card">
 <h3 data-i18n="blog1Title">Netflix Premium nədir?</h3>
-<p data-i18n="blog1Text">
-Netflix Premium film və serial izləmək üçün premium imkanlar təqdim edən abunə xidmətidir.
-</p>
+<p data-i18n="blog1Text">Netflix Premium film və serial izləmək üçün premium imkanlar təqdim edən abunə xidmətidir.</p>
 </div>
 
 <div class="blog-card">
 <h3 data-i18n="blog2Title">YouTube Premium nə verir?</h3>
-<p data-i18n="blog2Text">
-Reklamsız video, musiqi və digər premium istifadə imkanları.
-</p>
+<p data-i18n="blog2Text">Reklamsız video, musiqi və digər premium istifadə imkanları.</p>
 </div>
 
 <div class="blog-card">
 <h3 data-i18n="blog3Title">ChatGPT Plus kimlər üçündür?</h3>
-<p data-i18n="blog3Text">
-Yazı, kod, araşdırma və gündəlik AI işlərində istifadə üçün.
-</p>
+<p data-i18n="blog3Text">Yazı, kod, araşdırma və gündəlik AI işlərində istifadə üçün.</p>
 </div>
-
 </div>
 </div>
 </section>
 
-<!-- FAQ -->
 <section>
 <div class="container">
-
 <div class="section-title">
 <h2 data-i18n="faqTitle">Tez-tez verilən suallar</h2>
 </div>
@@ -785,52 +564,38 @@ Yazı, kod, araşdırma və gündəlik AI işlərində istifadə üçün.
 
 <div class="faq-item">
 <div class="faq-question" onclick="toggleFaq(this)">
-<span data-i18n="faq1Question">Sifariş necə verilir?</span>
-<span>+</span>
+<span data-i18n="faq1Question">Sifariş necə verilir?</span><span>+</span>
 </div>
-<div class="faq-answer" data-i18n="faq1Answer">
-Məhsulu seçin, “Sifariş et” düyməsinə klikləyin və WhatsApp üzərindən sifarişinizi göndərin.
-</div>
+<div class="faq-answer" data-i18n="faq1Answer">Məhsulu seçin, “Sifariş et” düyməsinə klikləyin və WhatsApp üzərindən sifarişinizi göndərin.</div>
 </div>
 
 <div class="faq-item">
 <div class="faq-question" onclick="toggleFaq(this)">
-<span data-i18n="faq2Question">Hansı məhsullar satılır?</span>
-<span>+</span>
+<span data-i18n="faq2Question">Hansı məhsullar satılır?</span><span>+</span>
 </div>
-<div class="faq-answer" data-i18n="faq2Answer">
-Netflix Premium, YouTube Premium, ChatGPT Plus və Spotify Premium.
-</div>
+<div class="faq-answer" data-i18n="faq2Answer">Netflix Premium, YouTube Premium, ChatGPT Plus, Spotify Premium və Canva Pro.</div>
 </div>
 
 <div class="faq-item">
 <div class="faq-question" onclick="toggleFaq(this)">
-<span data-i18n="faq3Question">Dəstəklə necə əlaqə saxlayım?</span>
-<span>+</span>
+<span data-i18n="faq3Question">Dəstəklə necə əlaqə saxlayım?</span><span>+</span>
 </div>
-<div class="faq-answer" data-i18n="faq3Answer">
-E-poçt vasitəsilə premium989b@gmail.com ünvanından əlaqə saxlaya bilərsiniz.
-</div>
+<div class="faq-answer" data-i18n="faq3Answer">E-poçt vasitəsilə premium989b@gmail.com ünvanından əlaqə saxlaya bilərsiniz.</div>
 </div>
 
 <div class="faq-item">
 <div class="faq-question" onclick="toggleFaq(this)">
-<span data-i18n="faq4Question">Aktivləşdirmə nə qədər çəkir?</span>
-<span>+</span>
+<span data-i18n="faq4Question">Aktivləşdirmə nə qədər çəkir?</span><span>+</span>
 </div>
-<div class="faq-answer" data-i18n="faq4Answer">
-Sifarişdən sonra aktivləşdirmə adətən 5-30 dəqiqə ərzində həyata keçirilir.
-</div>
+<div class="faq-answer" data-i18n="faq4Answer">Sifarişdən sonra aktivləşdirmə adətən 5-30 dəqiqə ərzində həyata keçirilir.</div>
 </div>
 
 </div>
 </div>
 </section>
 
-<!-- CONTACT -->
 <section class="contact" id="contact">
 <div class="container">
-
 <div class="section-title">
 <h2 data-i18n="contactTitle">Əlaqə</h2>
 <p data-i18n="contactSubtitle">DigiBaku.com dəstək</p>
@@ -847,7 +612,7 @@ Sifarişdən sonra aktivləşdirmə adətən 5-30 dəqiqə ərzində həyata ke�
 </div>
 
 <div class="contact-item">
-<strong data-i18n="whatsapp">Whatsapp</strong>
+<strong>Whatsapp</strong>
 <span>+994513626349</span>
 </div>
 
@@ -860,43 +625,28 @@ Sifarişdən sonra aktivləşdirmə adətən 5-30 dəqiqə ərzində həyata ke�
 <strong data-i18n="workingHours">İş saatları</strong>
 <span>10:00 — 22:00</span>
 </div>
-
 </div>
 
 <div class="contact-box">
 <h3 data-i18n="orderSupport">Sifariş və dəstək</h3>
-
-<p style="margin-bottom:20px" data-i18n="orderSupportText">
-Məhsulu seçin və “Sifariş et” düyməsi ilə WhatsApp üzərindən sifarişinizi göndərin.
-</p>
-
-<a href="#products" class="btn btn-primary" data-i18n="viewProducts">
-Məhsullara bax
-</a>
-
+<p style="margin-bottom:20px" data-i18n="orderSupportText">Məhsulu seçin və “Sifariş et” düyməsi ilə WhatsApp üzərindən sifarişinizi göndərin.</p>
+<a href="#products" class="btn btn-primary" data-i18n="viewProducts">Məhsullara bax</a>
 </div>
+
 </div>
 </div>
 </section>
 
 </main>
 
-<!-- FOOTER -->
 <footer>
 <div class="container">
-
 <div class="footer-grid">
 
 <div class="footer-col">
 <h3 class="logo">DigiBaku<span>.com</span></h3>
-
-<p data-i18n="footerText">
-Premium rəqəmsal xidmətlər bir platformada.
-</p>
-
-<p>
-Netflix • YouTube Premium • ChatGPT Plus • Spotify Premium • Gemini AZ — Google Gemini Advanced (Pro) • Canva Pro
-</p>
+<p data-i18n="footerText">Premium rəqəmsal xidmətlər bir platformada.</p>
+<p>Netflix • YouTube Premium • ChatGPT Plus • Spotify Premium • Gemini AZ — Google Gemini Advanced (Pro) • Canva Pro</p>
 </div>
 
 <div class="footer-col">
@@ -927,29 +677,23 @@ Netflix • YouTube Premium • ChatGPT Plus • Spotify Premium • Gemini AZ �
 </div>
 
 <div class="copyright">
-© 2026 DigiBaku.com.
-<span data-i18n="copyright">Bütün hüquqlar qorunur.</span>
+© 2026 DigiBaku.com. <span data-i18n="copyright">Bütün hüquqlar qorunur.</span>
 </div>
-
 </div>
 </footer>
 
-<!-- WHATSAPP -->
-<a
-href="https://wa.me/994513626349?text=Salam%2C%20məlumat%20almaq%20istəyirəm"
-target="_blank"
-class="whatsapp-float"
-aria-label="WhatsApp dəstək">
+<!-- CHAT -->
+<a href="chat.html" class="chat-float" aria-label="Çat">💬</a>
 
+<!-- WHATSAPP -->
+<a href="https://wa.me/994513626349?text=Salam%2C%20məlumat%20almaq%20istəyirəm" target="_blank" class="whatsapp-float" aria-label="WhatsApp dəstək">
 <svg viewBox="0 0 32 32">
 <path d="M16.002 0c-8.837 0-16 7.163-16 16 0 2.825.736 5.485 2.025 7.795l-2.025 7.395 7.575-1.985c2.22 1.21 4.795 1.9 7.425 1.9 8.837 0 16-7.163 16-16s-7.163-16-16-16zM16.002 29.337c-2.345 0-4.57-0.63-6.505-1.725l-0.465-0.27-4.83 1.265 1.29-4.705-0.3-0.485c-1.215-1.95-1.855-4.22-1.855-6.557 0-7.36 5.99-13.35 13.35-13.35 7.36 0 13.35 5.99 13.35 13.35s-5.99 13.35-13.35 13.35zM22.56 19.32c-0.36-0.18-2.125-1.05-2.455-1.17s-0.57-0.18-0.81 0.18c-0.24 0.36-0.93 1.17-1.14 1.41s-0.42 0.27-0.78 0.09c-0.36-0.18-1.515-0.555-2.885-1.785-1.065-0.945-1.785-2.115-1.995-2.475s-0.03-0.555 0.15-0.735c0.15-0.15 0.36-0.39 0.54-0.585s0.24-0.33 0.36-0.555c0.12-0.225 0.06-0.42-0.03-0.585s-0.81-1.95-1.11-2.67c-0.285-0.69-0.585-0.6-0.81-0.615s-0.465-0.015-0.72-0.015c-0.255 0-0.66 0.09-1.005 0.465s-1.32 1.29-1.32 3.15 1.35 3.645 1.545 3.9c0.195 0.255 2.67 4.08 6.465 5.715 0.9 0.39 1.605 0.63 2.145 0.81 0.9 0.3 1.725 0.255 2.37 0.15 0.72-0.105 2.125-0.87 2.425-1.71s0.3-1.56 0.21-1.71c-0.09-0.15-0.33-0.24-0.69-0.42z"></path>
 </svg>
 </a>
 
 <script>
-
 const translations={
-
 az:{
 home:"Ana səhifə",products:"Məhsullar",about:"Haqqımızda",faqMenu:"FAQ",howItWorksMenu:"Necə işləyir?",trustMenu:"Etibar",editorialMenu:"Redaksiya siyasəti",termsMenu:"Şərtlər",reviews:"Rəylər",compareMenu:"Müqayisə",blogMenu:"Bloq",prices:"Qiymətlər",login:"Daxil ol",register:"Qeydiyyat",logout:"Çıxış",profile:"Profil",cart:"Səbət",yourCart:"Səbətiniz",cartEmpty:"Səbətiniz boşdur",total:"Ümumi məbləğ:",confirmOrder:"Sifarişi təsdiq et",remove:"Sil",
 premiumService:"Premium rəqəmsal xidmətlər",heroTitle:"Premium rəqəmsal xidmətlər",heroTitleSpan:"bir platformada",viewProducts:"Məhsullara bax",
@@ -958,7 +702,6 @@ productsSubtitle:"Premium rəqəmsal xidmətlərimizi kəşf edin.",details:"Ət
 netflixName:"Netflix 4K Premium Abunəliyi",netflixDescription:"Film və serialları yüksək keyfiyyətdə izləmək üçün Netflix Premium.",
 youtubeName:"YouTube Premium",youtubeDescription:"Reklamsız video, musiqi və premium YouTube təcrübəsi.",
 chatgptName:"ChatGPT Plus",chatgptDescription:"Süni intellekt, yazı, kod və gündəlik işlər üçün premium xidmət.",
-geminiName:"Gemini AZ — Google Gemini Advanced (Pro)",geminiDescription:"Gemini AZ axtaran istifadəçilər üçün Google Gemini Advanced (Pro) AI yazı, analiz və Google ekosistemində iş axınını sürətləndirən premium paketdir.",
 spotifyName:"Spotify Premium",spotifyDescription:"Reklamsız musiqi, yüksək keyfiyyət və offline dinləmə.",
 canvaName:"Canva Pro",canvaDescription:"Dizayn, təqdimat, poster və sosial media üçün premium Canva imkanları.",year12:"/ 12 ay",
 whyUs:"Niyə məhz biz?",whyUsText:"Premium xidmətlərə çıxışı daha sürətli, rahat və təhlükəsiz etmək üçün prosesi sadələşdirdik.",
@@ -983,11 +726,10 @@ faqTitle:"Tez-tez verilən suallar",faq1Question:"Sifariş necə verilir?",faq1A
 faq2Question:"Hansı məhsullar satılır?",faq2Answer:"Netflix Premium, YouTube Premium, ChatGPT Plus, Spotify Premium və Canva Pro.",
 faq3Question:"Dəstəklə necə əlaqə saxlayım?",faq3Answer:"E-poçt vasitəsilə premium989b@gmail.com ünvanından əlaqə saxlaya bilərsiniz.",
 faq4Question:"Aktivləşdirmə nə qədər çəkir?",faq4Answer:"Sifarişdən sonra aktivləşdirmə adətən 5-30 dəqiqə ərzində həyata keçirilir.",
-contactTitle:"Əlaqə",contactSubtitle:"DigiBaku.com dəstək",city:"Şəhər",cityVal:"Bakı, Azərbaycan",whatsapp:"Whatsapp",email:"E-poçt",workingHours:"İş saatları",orderSupport:"Sifariş və dəstək",orderSupportText:"Məhsulu seçin və “Sifariş et” düyməsi ilə WhatsApp üzərindən sifarişinizi göndərin.",
+contactTitle:"Əlaqə",contactSubtitle:"DigiBaku.com dəstək",city:"Şəhər",cityVal:"Bakı, Azərbaycan",email:"E-poçt",workingHours:"İş saatları",orderSupport:"Sifariş və dəstək",orderSupportText:"Məhsulu seçin və “Sifariş et” düyməsi ilə WhatsApp üzərindən sifarişinizi göndərin.",
 footerText:"Premium rəqəmsal xidmətlər bir platformada.",usefulLinks:"Faydalı linklər",copyright:"Bütün hüquqlar qorunur.",
 orderMessage:"Salam DigiBaku.com!\n\nBu məhsulu sifariş etmək istəyirəm:",orderSent:"Sifariş WhatsApp-a yönləndirilir...",addedToCart:"Məhsul səbətə əlavə edildi!",emptyCartAlert:"Səbətiniz boşdur!"
 },
-
 ru:{
 home:"Главная",products:"Товары",about:"О нас",faqMenu:"FAQ",howItWorksMenu:"Как это работает?",trustMenu:"Надёжность",editorialMenu:"Редакционная политика",termsMenu:"Условия",reviews:"Отзывы",compareMenu:"Сравнение",blogMenu:"Блог",prices:"Цены",login:"Войти",register:"Регистрация",logout:"Выйти",profile:"Профиль",cart:"Корзина",yourCart:"Ваша корзина",cartEmpty:"Ваша корзина пуста",total:"Итого:",confirmOrder:"Подтвердить заказ",remove:"Удалить",
 premiumService:"Премиальные цифровые услуги",heroTitle:"Премиальные цифровые услуги",heroTitleSpan:"на одной платформе",viewProducts:"Посмотреть товары",
@@ -996,7 +738,6 @@ productsSubtitle:"Откройте для себя наши премиальны
 netflixName:"Netflix 4K Premium",netflixDescription:"Netflix Premium для просмотра фильмов и сериалов в высоком качестве.",
 youtubeName:"YouTube Premium",youtubeDescription:"Видео и музыка без рекламы с премиальными возможностями YouTube.",
 chatgptName:"ChatGPT Plus",chatgptDescription:"Премиальный AI-сервис для текста, кода и повседневных задач.",
-geminiName:"Gemini AZ — Google Gemini Advanced (Pro)",geminiDescription:"Премиальный пакет Google Gemini Advanced (Pro) для текста, анализа и работы в экосистеме Google.",
 spotifyName:"Spotify Premium",spotifyDescription:"Музыка без рекламы, высокое качество и офлайн-прослушивание.",
 canvaName:"Canva Pro",canvaDescription:"Премиальные возможности Canva для дизайна, презентаций, постеров и социальных сетей.",year12:"/ 12 месяцев",
 whyUs:"Почему именно мы?",whyUsText:"Мы упростили процесс, чтобы сделать доступ к премиальным сервисам быстрым, удобным и безопасным.",
@@ -1021,11 +762,10 @@ faqTitle:"Часто задаваемые вопросы",faq1Question:"Как �
 faq2Question:"Какие товары продаются?",faq2Answer:"Netflix Premium, YouTube Premium, ChatGPT Plus, Spotify Premium и Canva Pro.",
 faq3Question:"Как связаться с поддержкой?",faq3Answer:"Вы можете связаться с нами по email: premium989b@gmail.com.",
 faq4Question:"Сколько занимает активация?",faq4Answer:"Обычно активация выполняется в течение 5-30 минут после заказа.",
-contactTitle:"Контакты",contactSubtitle:"Поддержка DigiBaku.com",city:"Город",cityVal:"Баку, Азербайджан",whatsapp:"Whatsapp",email:"Email",workingHours:"Рабочие часы",orderSupport:"Заказ и поддержка",orderSupportText:"Выберите товар и нажмите «Заказать», чтобы отправить заказ через WhatsApp.",
+contactTitle:"Контакты",contactSubtitle:"Поддержка DigiBaku.com",city:"Город",cityVal:"Баку, Азербайджан",email:"Email",workingHours:"Рабочие часы",orderSupport:"Заказ и поддержка",orderSupportText:"Выберите товар и нажмите «Заказать», чтобы отправить заказ через WhatsApp.",
 footerText:"Премиальные цифровые услуги на одной платформе.",usefulLinks:"Полезные ссылки",copyright:"Все права защищены.",
 orderMessage:"Здравствуйте, DigiBaku.com!\n\nЯ хочу заказать этот товар:",orderSent:"Переходим в WhatsApp...",addedToCart:"Товар добавлен в корзину!",emptyCartAlert:"Ваша корзина пуста!"
 },
-
 en:{
 home:"Home",products:"Products",about:"About us",faqMenu:"FAQ",howItWorksMenu:"How it works?",trustMenu:"Trust",editorialMenu:"Editorial policy",termsMenu:"Terms",reviews:"Reviews",compareMenu:"Comparison",blogMenu:"Blog",prices:"Prices",login:"Login",register:"Register",logout:"Logout",profile:"Profile",cart:"Cart",yourCart:"Your cart",cartEmpty:"Your cart is empty",total:"Total:",confirmOrder:"Confirm order",remove:"Remove",
 premiumService:"Premium digital services",heroTitle:"Premium digital services",heroTitleSpan:"on one platform",viewProducts:"View products",
@@ -1034,7 +774,6 @@ productsSubtitle:"Discover our premium digital services.",details:"View details"
 netflixName:"Netflix 4K Premium",netflixDescription:"Netflix Premium for watching movies and series in high quality.",
 youtubeName:"YouTube Premium",youtubeDescription:"Ad-free videos and music with premium YouTube features.",
 chatgptName:"ChatGPT Plus",chatgptDescription:"A premium AI service for writing, coding and everyday tasks.",
-geminiName:"Gemini AZ — Google Gemini Advanced (Pro)",geminiDescription:"A premium Google Gemini Advanced (Pro) package for writing, analysis and workflows in the Google ecosystem.",
 spotifyName:"Spotify Premium",spotifyDescription:"Ad-free music, high quality and offline listening.",
 canvaName:"Canva Pro",canvaDescription:"Premium Canva features for design, presentations, posters and social media.",year12:"/ 12 months",
 whyUs:"Why choose us?",whyUsText:"We simplified the process to make access to premium services faster, easier and safer.",
@@ -1059,7 +798,7 @@ faqTitle:"Frequently asked questions",faq1Question:"How do I place an order?",fa
 faq2Question:"What products are sold?",faq2Answer:"Netflix Premium, YouTube Premium, ChatGPT Plus, Spotify Premium and Canva Pro.",
 faq3Question:"How can I contact support?",faq3Answer:"You can contact us by email at premium989b@gmail.com.",
 faq4Question:"How long does activation take?",faq4Answer:"Activation is usually completed within 5-30 minutes after the order.",
-contactTitle:"Contact",contactSubtitle:"DigiBaku.com support",city:"City",cityVal:"Baku, Azerbaijan",whatsapp:"Whatsapp",email:"Email",workingHours:"Working hours",orderSupport:"Orders and support",orderSupportText:"Choose a product and click “Order now” to send your order through WhatsApp.",
+contactTitle:"Contact",contactSubtitle:"DigiBaku.com support",city:"City",cityVal:"Baku, Azerbaijan",email:"Email",workingHours:"Working hours",orderSupport:"Orders and support",orderSupportText:"Choose a product and click “Order now” to send your order through WhatsApp.",
 footerText:"Premium digital services on one platform.",usefulLinks:"Useful links",copyright:"All rights reserved.",
 orderMessage:"Hello DigiBaku.com!\n\nI would like to order this product:",orderSent:"Redirecting to WhatsApp...",addedToCart:"Product added to cart!",emptyCartAlert:"Your cart is empty!"
 }
@@ -1070,43 +809,33 @@ return localStorage.getItem("digi_language") || "az";
 }
 
 function setLanguage(lang){
-if(!translations[lang]){
-lang="az";
-}
+if(!translations[lang]) lang="az";
 localStorage.setItem("digi_language",lang);
 applyLanguage(lang);
 }
 
 function t(key){
 const lang=getLanguage();
-
-return translations[lang]?.[key]
-|| translations.az?.[key]
-|| key;
+return translations[lang]?.[key] || translations.az?.[key] || key;
 }
 
 function applyLanguage(lang){
-
 const dictionary=translations[lang] || translations.az;
 
 document.documentElement.lang=lang;
 
 document.querySelectorAll("[data-i18n]").forEach(element=>{
 const key=element.getAttribute("data-i18n");
-
 if(dictionary[key] !== undefined){
 element.textContent=dictionary[key];
 }
 });
 
 ["az","ru","en"].forEach(code=>{
-
 const desktop=document.getElementById("lang"+code.toUpperCase());
-
 if(desktop){
 desktop.classList.toggle("active",code===lang);
 }
-
 });
 
 if(lang==="ru"){
@@ -1119,30 +848,22 @@ document.title="DigiBaku.com — Premium rəqəmsal xidmətlər";
 
 updateCartUI();
 checkLogin();
+
+if(typeof loadIndexProductPrices==="function"){
+loadIndexProductPrices();
+}
 }
 
 function toggleFaq(element){
 element.parentElement.classList.toggle("open");
 }
 
-/* =========================
-   SUPABASE
-========================= */
-
+/* SUPABASE */
 const SUPABASE_URL="https://zeknhnkaicqkfzgnvycq.supabase.co";
-
 const SUPABASE_KEY="sb_publishable_jHvCp9fXBA_BwFqrXYpwlw_VC6C1OQk";
+const supabaseClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 
-const supabaseClient=window.supabase.createClient(
-SUPABASE_URL,
-SUPABASE_KEY
-);
-
-
-/* =========================
-   CART
-========================= */
-
+/* CART */
 let cart=JSON.parse(localStorage.getItem("digi_cart")) || [];
 
 function saveCart(){
@@ -1150,55 +871,34 @@ localStorage.setItem("digi_cart",JSON.stringify(cart));
 }
 
 function toggleCart(){
-
 const modal=document.getElementById("cartModal");
-
 if(!modal)return;
-
 modal.style.display=(modal.style.display==="block")?"none":"block";
-
-if(modal.style.display==="block"){
-updateCartUI();
-}
-
+if(modal.style.display==="block")updateCartUI();
 }
 
 function addToCart(productName,price){
-
-cart.push({
-name:productName,
-price:Number(price)
-});
-
+cart.push({name:productName,price:Number(price)});
 saveCart();
 updateCartCount();
 updateCartUI();
-
 alert(t("addedToCart"));
 }
 
 function updateCartCount(){
-
 const countEl=document.getElementById("cartCount");
-
-if(countEl){
-countEl.textContent=cart.length;
-}
-
+if(countEl)countEl.textContent=cart.length;
 }
 
 function updateCartUI(){
-
 const list=document.getElementById("cartItemsList");
 const totalPriceEl=document.getElementById("cartTotalPrice");
 
 if(!list || !totalPriceEl)return;
 
 if(cart.length===0){
-
 list.innerHTML=`<p class="cart-empty">${t("cartEmpty")}</p>`;
 totalPriceEl.textContent="0.00 AZN";
-
 return;
 }
 
@@ -1206,9 +906,7 @@ let html="";
 let total=0;
 
 cart.forEach((item,index)=>{
-
 const price=Number(item.price || 0);
-
 total+=price;
 
 html+=`
@@ -1217,58 +915,30 @@ html+=`
 <div class="cart-item-name">${escapeHtml(item.name)}</div>
 <div class="cart-item-price">${price.toFixed(2)} AZN</div>
 </div>
-
-<button onclick="removeFromCart(${index})" class="cart-remove">
-${t("remove")}
-</button>
-
-</div>
-`;
-
+<button onclick="removeFromCart(${index})" class="cart-remove">${t("remove")}</button>
+</div>`;
 });
 
 list.innerHTML=html;
-
 totalPriceEl.textContent=total.toFixed(2)+" AZN";
 }
 
 function removeFromCart(index){
-
 cart.splice(index,1);
-
 saveCart();
 updateCartCount();
 updateCartUI();
 }
 
-
-/* =========================
-   WHATSAPP ORDER
-========================= */
-
 function orderNow(productName,price){
-
-const message=
-t("orderMessage")
-+"\n\n"
-+"1. "
-+productName
-+" — "
-+Number(price).toFixed(2)
-+" AZN";
-
+const message=t("orderMessage")+"\n\n"+"1. "+productName+" — "+Number(price).toFixed(2)+" AZN";
 const phone="994513626349";
-
-window.location.href=
-"https://wa.me/"+phone+"?text="+encodeURIComponent(message);
+window.location.href="https://wa.me/"+phone+"?text="+encodeURIComponent(message);
 }
 
 function checkoutCart(){
-
 if(cart.length===0){
-
 alert(t("emptyCartAlert"));
-
 return;
 }
 
@@ -1276,48 +946,28 @@ let message=t("orderMessage")+"\n\n";
 let total=0;
 
 cart.forEach((item,index)=>{
-
 const price=Number(item.price || 0);
-
-message+=
-(index+1)
-+". "
-+item.name
-+" — "
-+price.toFixed(2)
-+" AZN\n";
-
+message+=(index+1)+". "+item.name+" — "+price.toFixed(2)+" AZN\n";
 total+=price;
-
 });
 
 message+="\n"+t("total")+" "+total.toFixed(2)+" AZN";
 
 const phone="994513626349";
-
-const whatsappUrl=
-"https://wa.me/"
-+phone
-+"?text="
-+encodeURIComponent(message);
+const whatsappUrl="https://wa.me/"+phone+"?text="+encodeURIComponent(message);
 
 cart=[];
-
 saveCart();
 updateCartCount();
 updateCartUI();
 
 const modal=document.getElementById("cartModal");
-
-if(modal){
-modal.style.display="none";
-}
+if(modal)modal.style.display="none";
 
 window.location.href=whatsappUrl;
 }
 
 function escapeHtml(text){
-
 return String(text)
 .replace(/&/g,"&amp;")
 .replace(/</g,"&lt;")
@@ -1326,19 +976,258 @@ return String(text)
 .replace(/'/g,"&#039;");
 }
 
+/* ==========================================
+   INDEX QİYMƏT / ENDİRİM SİSTEMİ
+========================================== */
 
-/* =========================
-   LOGIN
-========================= */
+const INDEX_PRICE_CONFIG={
+netflix:{
+duration:1,
+name:"Netflix 4K Premium Abunəliyi (1 ay)"
+},
+youtube:{
+duration:1,
+name:"YouTube Premium (1 ay)"
+},
+chatgpt:{
+duration:1,
+name:"ChatGPT Plus (1 ay)"
+},
+gemini:{
+duration:1,
+name:"Gemini Advanced (1 ay)"
+},
+spotify:{
+duration:1,
+name:"Spotify Premium (1 ay)"
+},
+canva:{
+duration:12,
+name:"Canva Pro (12 ay)"
+}
+};
+
+function getIndexPrice(row,duration){
+
+if(!row)return null;
+
+let normal=0;
+let sale=0;
+let active=false;
+
+if(Number(duration)===12){
+
+normal=Number(row.price_12_month || 0);
+sale=Number(row.sale_12_price || 0);
+active=row.sale_12_active===true;
+
+}else{
+
+normal=Number(row.price_1_month || 0);
+sale=Number(row.sale_1_price || 0);
+active=row.sale_1_active===true;
+
+}
+
+if(active && sale>0){
+return{
+price:sale,
+normal:normal,
+sale:true
+};
+}
+
+return{
+price:normal,
+normal:normal,
+sale:false
+};
+}
+
+function updateIndexProduct(productKey,row){
+
+const config=INDEX_PRICE_CONFIG[productKey];
+
+if(!config)return;
+
+const card=document.querySelector(
+'.product[data-product-key="'+productKey+'"]'
+);
+
+if(!card)return;
+
+const result=getIndexPrice(row,config.duration);
+
+if(!result || result.price<=0)return;
+
+const priceBox=card.querySelector(".price");
+
+if(priceBox){
+
+const durationText=
+config.duration===12
+?t("year12")
+:t("month1");
+
+if(result.sale && result.normal>result.price){
+
+priceBox.innerHTML=
+'<span style="text-decoration:line-through;color:#666;font-size:15px;margin-right:7px;">'
++result.normal.toFixed(2)
++' AZN</span>'
++'<span style="color:#22c55e;">'
++result.price.toFixed(2)
++' AZN</span> '
++'<small>'
++durationText
++'</small>';
+
+}else{
+
+priceBox.innerHTML=
+result.price.toFixed(2)
++" AZN "
++'<small>'
++durationText
++"</small>";
+
+}
+
+}
+
+const buttons=card.querySelectorAll(".product-actions button");
+
+if(buttons.length>=2){
+
+buttons[0].onclick=function(){
+orderNow(config.name,result.price);
+};
+
+buttons[1].onclick=function(){
+addToCart(config.name,result.price);
+};
+
+}
+
+}
+
+async function loadIndexProductPrices(){
+
+try{
+
+const {data,error}=await supabaseClient
+.from("product_prices")
+.select(`
+product_key,
+price_1_month,
+price_2_month,
+price_3_month,
+price_12_month,
+sale_1_active,
+sale_1_price,
+sale_2_active,
+sale_2_price,
+sale_3_active,
+sale_3_price,
+sale_12_active,
+sale_12_price
+`);
+
+if(error){
+
+console.error(
+"Index qiymətləri yüklənmədi:",
+error
+);
+
+return;
+}
+
+if(!Array.isArray(data))return;
+
+data.forEach(row=>{
+
+const productKey=
+String(row.product_key || "")
+.toLowerCase()
+.trim();
+
+if(INDEX_PRICE_CONFIG[productKey]){
+
+updateIndexProduct(
+productKey,
+row
+);
+
+}
+
+});
+
+}catch(error){
+
+console.error(
+"Index qiymət sistemi xətası:",
+error
+);
+
+}
+
+}
+
+let indexPricesChannel=null;
+
+function setupIndexPricesRealtime(){
+
+if(indexPricesChannel){
+
+try{
+supabaseClient.removeChannel(indexPricesChannel);
+}catch(e){}
+
+indexPricesChannel=null;
+}
+
+indexPricesChannel=
+supabaseClient
+.channel("index-product-prices")
+.on(
+"postgres_changes",
+{
+event:"*",
+schema:"public",
+table:"product_prices"
+},
+payload=>{
+
+console.log(
+"DigiBaku qiymət/endirim yeniləndi:",
+payload.eventType
+);
+
+loadIndexProductPrices();
+
+}
+)
+.subscribe(status=>{
+
+console.log(
+"Index qiymət realtime:",
+status
+);
+
+});
+
+}
+
+/* LOGIN */
 
 async function checkLogin(){
 
-const {
-data:{session},
-error
-}=await supabaseClient.auth.getSession();
+const {data:{session},error}=
+await supabaseClient.auth.getSession();
 
-const authArea=document.getElementById("authArea");
+const authArea=
+document.getElementById("authArea");
 
 if(!authArea)return;
 
@@ -1346,18 +1235,21 @@ if(session){
 
 authArea.innerHTML="";
 
-const profileButton=document.createElement("a");
+const profileButton=
+document.createElement("a");
 
 profileButton.href="profile.html";
 profileButton.className="btn btn-primary";
 profileButton.textContent=t("profile");
 
-const email=document.createElement("span");
+const email=
+document.createElement("span");
 
 email.className="user-email";
 email.textContent=session.user.email || "";
 
-const logoutButton=document.createElement("button");
+const logoutButton=
+document.createElement("button");
 
 logoutButton.className="btn btn-dark";
 logoutButton.textContent=t("logout");
@@ -1381,340 +1273,9 @@ authArea.innerHTML=`
 async function logout(){
 
 await supabaseClient.auth.signOut();
-
 window.location.reload();
-}
-
-
-/* =========================================================
-   INDEX PRODUCT PRICE SYSTEM
-   GİZLİ PANELDƏN DƏYİŞƏN QİYMƏTLƏRİ AVTOMATİK GÖTÜRÜR
-========================================================= */
-
-const INDEX_PRODUCT_CONFIG={
-
-netflix:{
-duration:1,
-priceId:"price-netflix",
-orderId:"order-netflix",
-cartId:"cart-netflix",
-name:"Netflix 4K Premium Abunəliyi (1 ay)"
-},
-
-youtube:{
-duration:1,
-priceId:"price-youtube",
-orderId:"order-youtube",
-cartId:"cart-youtube",
-name:"YouTube Premium (1 ay)"
-},
-
-chatgpt:{
-duration:1,
-priceId:"price-chatgpt",
-orderId:"order-chatgpt",
-cartId:"cart-chatgpt",
-name:"ChatGPT Plus (1 ay)"
-},
-
-gemini:{
-duration:1,
-priceId:"price-gemini",
-orderId:"order-gemini",
-cartId:"cart-gemini",
-name:"Gemini Advanced (1 ay)"
-},
-
-spotify:{
-duration:1,
-priceId:"price-spotify",
-orderId:"order-spotify",
-cartId:"cart-spotify",
-name:"Spotify Premium (1 ay)"
-},
-
-canva:{
-duration:12,
-priceId:"price-canva",
-orderId:"order-canva",
-cartId:"cart-canva",
-name:"Canva Pro (12 ay)"
-}
-
-};
-
-
-/*
-  Supabase product_prices cədvəlindən qiymət seçir.
-  Əgər sale aktivdirsə sale qiymətini,
-  əks halda normal qiyməti göstərir.
-*/
-
-function getIndexProductPrice(row,duration){
-
-if(!row)return 0;
-
-let normalPrice=0;
-let salePrice=0;
-let saleActive=false;
-
-if(Number(duration)===12){
-
-normalPrice=Number(row.price_12_month || 0);
-salePrice=Number(row.sale_12_price || 0);
-saleActive=Boolean(row.sale_12_active);
-
-}else if(Number(duration)===3){
-
-normalPrice=Number(row.price_3_month || 0);
-salePrice=Number(row.sale_3_price || 0);
-saleActive=Boolean(row.sale_3_active);
-
-}else if(Number(duration)===2){
-
-normalPrice=Number(row.price_2_month || 0);
-salePrice=Number(row.sale_2_price || 0);
-saleActive=Boolean(row.sale_2_active);
-
-}else{
-
-normalPrice=Number(row.price_1_month || 0);
-salePrice=Number(row.sale_1_price || 0);
-saleActive=Boolean(row.sale_1_active);
 
 }
-
-if(saleActive && salePrice>0){
-return salePrice;
-}
-
-return normalPrice;
-}
-
-
-/*
-  Məhsul kartındakı qiyməti dəyişir.
-  Eyni zamanda Sifariş et və Səbətə at düymələrinə
-  yeni qiyməti bağlayır.
-*/
-
-function updateIndexProductCard(card,row){
-
-if(!card || !row)return;
-
-const productKey=card.getAttribute("data-product-key");
-
-const config=INDEX_PRODUCT_CONFIG[productKey];
-
-if(!config)return;
-
-const price=getIndexProductPrice(
-row,
-config.duration
-);
-
-const priceEl=document.getElementById(config.priceId);
-
-if(priceEl){
-
-const durationText=
-config.duration===12
-?t("year12")
-:t("month1");
-
-priceEl.innerHTML=
-Number(price).toFixed(2)
-+" AZN <small>"
-+durationText
-+"</small>";
-
-}
-
-
-/*
-  Sifariş düyməsinin qiymətini yenilə.
-*/
-
-const orderButton=document.getElementById(config.orderId);
-
-if(orderButton){
-
-orderButton.onclick=function(){
-
-orderNow(
-config.name,
-price
-);
-
-};
-
-}
-
-
-/*
-  Səbət düyməsinin qiymətini yenilə.
-*/
-
-const cartButton=document.getElementById(config.cartId);
-
-if(cartButton){
-
-cartButton.onclick=function(){
-
-addToCart(
-config.name,
-price
-);
-
-};
-
-}
-
-}
-
-
-/*
-  product_prices cədvəlindən bütün məhsul qiymətlərini yükləyir.
-*/
-
-async function loadIndexProductPrices(){
-
-try{
-
-const {
-data,
-error
-}=await supabaseClient
-.from("product_prices")
-.select(`
-id,
-product_key,
-product_name,
-price_1_month,
-price_2_month,
-price_3_month,
-sale_1_active,
-sale_2_active,
-sale_3_active,
-sale_1_price,
-sale_2_price,
-sale_3_price,
-price_12_month,
-sale_12_price,
-sale_12_active,
-updated_at
-`);
-
-if(error){
-
-console.error(
-"DigiBaku qiymətləri yüklənmədi:",
-error
-);
-
-return;
-}
-
-if(!Array.isArray(data))return;
-
-data.forEach(row=>{
-
-const productKey=
-String(row.product_key || "")
-.toLowerCase()
-.trim();
-
-const card=
-document.querySelector(
-`.product[data-product-key="${productKey}"]`
-);
-
-if(card){
-
-updateIndexProductCard(
-card,
-row
-);
-
-}
-
-});
-
-}catch(error){
-
-console.error(
-"Qiymət sistemi xətası:",
-error
-);
-
-}
-
-}
-
-
-/*
-  Gizli paneldən qiymət dəyişəndə Supabase Realtime
-  vasitəsilə indexdə avtomatik yeniləyir.
-*/
-
-let indexProductPricesChannel=null;
-
-function setupIndexProductPricesRealtime(){
-
-if(indexProductPricesChannel){
-
-try{
-supabaseClient.removeChannel(
-indexProductPricesChannel
-);
-}catch(e){}
-
-indexProductPricesChannel=null;
-}
-
-indexProductPricesChannel=
-supabaseClient
-.channel("index-product-prices-realtime")
-
-.on(
-"postgres_changes",
-{
-event:"*",
-schema:"public",
-table:"product_prices"
-},
-payload=>{
-
-console.log(
-"DigiBaku qiymət yeniləndi:",
-payload.eventType
-);
-
-/*
-  Dəyişiklikdən sonra bütün qiymətləri
-  yenidən Supabase-dən oxuyuruq.
-*/
-
-loadIndexProductPrices();
-
-}
-)
-
-.subscribe(status=>{
-
-console.log(
-"Index product prices realtime:",
-status
-);
-
-});
-
-}
-
-
-/* =========================================================
-   AUTH REALTIME
-========================================================= */
 
 supabaseClient.auth.onAuthStateChange(
 (event,session)=>{
@@ -1722,37 +1283,25 @@ checkLogin();
 }
 );
 
-
-/* =========================================================
-   PAGE LOAD
-========================================================= */
-
-document.addEventListener(
-"DOMContentLoaded",
-async function(){
+document.addEventListener("DOMContentLoaded",async()=>{
 
 const lang=getLanguage();
 
 applyLanguage(lang);
 
 updateCartCount();
+
 updateCartUI();
 
 checkLogin();
 
-/*
-  Əvvəl Supabase-dəki aktual qiymətləri yüklə.
-*/
+/* GİZLİ PANELDƏKİ QİYMƏT/ENDİRİMİ INDEXƏ YÜKLƏ */
 await loadIndexProductPrices();
 
-/*
-  Sonra qiymət dəyişikliklərini realtime dinlə.
-*/
-setupIndexProductPricesRealtime();
+/* QİYMƏT DƏYİŞƏNDƏ INDEX AVTOMATİK YENİLƏNSİN */
+setupIndexPricesRealtime();
 
-}
-);
-
+});
 </script>
 
 </body>
