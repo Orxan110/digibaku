@@ -1070,7 +1070,6 @@ textarea{
         </div>
     </div>
 
-
     <section id="dashboard">
 
         <div class="dashboard-head">
@@ -1107,7 +1106,6 @@ textarea{
             </button>
 
         </div>
-
 
         <div class="dashboard-grid">
 
@@ -1157,7 +1155,6 @@ textarea{
 
     </section>
 
-
     <section id="ordersPanel" class="panel">
 
         <div class="panel-head">
@@ -1203,7 +1200,6 @@ textarea{
 
     </section>
 
-
     <section id="messagesPanel" class="panel">
 
         <div class="panel-head">
@@ -1228,7 +1224,6 @@ textarea{
                     Müştərilər yüklənir...
                 </div>
             </div>
-
 
             <div class="chat-box">
 
@@ -1279,7 +1274,6 @@ textarea{
 
             </div>
 
-
             <div class="chat-orders">
 
                 <div class="chat-orders-head">
@@ -1311,7 +1305,6 @@ textarea{
 
     </section>
 
-
     <section id="pricesPanel" class="panel">
 
         <div class="panel-head">
@@ -1332,7 +1325,6 @@ textarea{
         <div id="pricesList"></div>
 
     </section>
-
 
     <section id="productsPanel" class="panel">
 
@@ -1366,7 +1358,6 @@ textarea{
 
     </section>
 
-
     <section id="giveProductPanel" class="panel">
 
         <div class="panel-head">
@@ -1398,7 +1389,6 @@ textarea{
                     </select>
                 </div>
 
-
                 <div class="field">
                     <label>Məhsul</label>
 
@@ -1406,34 +1396,8 @@ textarea{
                         <option value="">
                             Məhsul seç
                         </option>
-
-                        <option value="Netflix Premium">
-                            Netflix Premium
-                        </option>
-
-                        <option value="YouTube Premium">
-                            YouTube Premium
-                        </option>
-
-                        <option value="ChatGPT Plus">
-                            ChatGPT Plus
-                        </option>
-
-                        <option value="Google Gemini Premium">
-                            Google Gemini Premium
-                        </option>
-
-                        <option value="Spotify Premium">
-                            Spotify Premium
-                        </option>
-
-                        <option value="Canva Premium">
-                            Canva Premium
-                        </option>
-
                     </select>
                 </div>
-
 
                 <div class="field full">
 
@@ -1464,7 +1428,6 @@ textarea{
         </div>
 
     </section>
-
 
     <section id="customersPanel" class="panel">
 
@@ -1497,7 +1460,6 @@ textarea{
         <div id="customersList"></div>
 
     </section>
-
 
     <section id="statsPanel" class="panel">
 
@@ -1546,7 +1508,6 @@ textarea{
 
     </section>
 
-
     <section id="settingsPanel" class="panel">
 
         <div class="panel-head">
@@ -1587,7 +1548,6 @@ textarea{
 
             </div>
 
-
             <div class="setting-row">
 
                 <div>
@@ -1605,7 +1565,6 @@ textarea{
                 </span>
 
             </div>
-
 
             <div class="setting-row">
 
@@ -1625,7 +1584,6 @@ textarea{
 
             </div>
 
-
             <div style="margin-top:18px;">
 
                 <button
@@ -1644,9 +1602,7 @@ textarea{
 </div>
 </div>
 
-
 <div id="toast"></div>
-
 
 <script>
 
@@ -1670,7 +1626,6 @@ let currentChatUser = null;
 let currentOrders = [];
 let currentOrderFilter = "all";
 let realtimeChannel = null;
-
 
 const PRICE_PRODUCTS = [
 
@@ -1712,7 +1667,6 @@ const PRICE_PRODUCTS = [
 
 ];
 
-
 const STATUS_NAMES = {
 
     pending:"Cavab gözlənilir",
@@ -1723,14 +1677,12 @@ const STATUS_NAMES = {
 
 };
 
-
 function statusClass(status){
 
     return "status status-" +
         String(status || "pending").toLowerCase();
 
 }
-
 
 function toast(message){
 
@@ -1749,7 +1701,6 @@ function toast(message){
 
 }
 
-
 async function checkAuth(){
 
     try{
@@ -1762,7 +1713,7 @@ async function checkAuth(){
 
         if(error || !data.user){
 
-            location.href = "login.html";
+            location.href = "https://digibaku.com";
             return;
         }
 
@@ -1775,7 +1726,7 @@ async function checkAuth(){
 
             await supabaseClient.auth.signOut();
 
-            location.href = "login.html";
+            location.href = "https://digibaku.com";
             return;
         }
 
@@ -1796,12 +1747,11 @@ async function checkAuth(){
 
         console.error(error);
 
-        location.href = "login.html";
+        location.href = "https://digibaku.com";
 
     }
 
 }
-
 
 function openPanel(id){
 
@@ -1832,7 +1782,6 @@ function openPanel(id){
 
 }
 
-
 function goDashboard(){
 
     document
@@ -1854,7 +1803,6 @@ function goDashboard(){
     updateBadges();
 
 }
-
 
 async function updateBadges(){
 
@@ -1951,7 +1899,6 @@ async function updateBadges(){
 
 }
 
-
 async function loadOrders(){
 
     const container =
@@ -2040,7 +1987,6 @@ async function loadOrders(){
 
 }
 
-
 function filterOrders(filter){
 
     currentOrderFilter =
@@ -2049,7 +1995,6 @@ function filterOrders(filter){
     renderOrders();
 
 }
-
 
 function renderOrders(){
 
@@ -2191,7 +2136,6 @@ function renderOrders(){
 
 }
 
-
 async function updateOrderStatus(
     orderId,
     status
@@ -2235,7 +2179,6 @@ async function updateOrderStatus(
 
 }
 
-
 async function openOrderChat(userId){
 
     openPanel("messagesPanel");
@@ -2258,7 +2201,6 @@ async function openOrderChat(userId){
     }
 
 }
-
 
 async function loadChatUsers(){
 
@@ -2407,7 +2349,6 @@ async function loadChatUsers(){
 
 }
 
-
 async function loadChatForUser(userId){
 
     currentChatUser =
@@ -2488,7 +2429,6 @@ async function loadChatForUser(userId){
     await loadCustomerOrders(userId);
 
 }
-
 
 async function loadCustomerOrders(userId){
 
@@ -2653,7 +2593,6 @@ async function loadCustomerOrders(userId){
 
 }
 
-
 async function updateChatOrderStatus(
     orderId,
     status
@@ -2707,7 +2646,6 @@ async function updateChatOrderStatus(
     await updateBadges();
 
 }
-
 
 function renderMessages(messages){
 
@@ -2768,7 +2706,6 @@ function renderMessages(messages){
 
 }
 
-
 async function sendAdminMessage(){
 
     if(!currentChatUser){
@@ -2825,7 +2762,6 @@ async function sendAdminMessage(){
 
 }
 
-
 function handleChatEnter(event){
 
     if(
@@ -2840,7 +2776,6 @@ function handleChatEnter(event){
     }
 
 }
-
 
 async function loadPrices(){
 
@@ -2914,7 +2849,6 @@ async function loadPrices(){
 
 }
 
-
 function renderPriceItem(
     product,
     row
@@ -2968,7 +2902,6 @@ function renderPriceItem(
     `;
 
 }
-
 
 function renderPriceBox(
     key,
@@ -3043,7 +2976,6 @@ function renderPriceBox(
     `;
 
 }
-
 
 async function savePrice(key){
 
@@ -3121,6 +3053,34 @@ async function savePrice(key){
 
 }
 
+function formatBakuDate(value){
+
+    if(!value){
+        return "-";
+    }
+
+    const date =
+        new Date(value);
+
+    if(Number.isNaN(date.getTime())){
+        return "-";
+    }
+
+    return new Intl.DateTimeFormat(
+        "az-AZ",
+        {
+            timeZone:"Asia/Baku",
+            day:"2-digit",
+            month:"2-digit",
+            year:"numeric",
+            hour:"2-digit",
+            minute:"2-digit",
+            second:"2-digit",
+            hour12:false
+        }
+    ).format(date);
+
+}
 
 async function loadProducts(){
 
@@ -3215,11 +3175,9 @@ async function loadProducts(){
                 ) || {};
 
             const date =
-                product.created_at
-                ? new Date(
+                formatBakuDate(
                     product.created_at
-                ).toLocaleString("az-AZ")
-                : "-";
+                );
 
             return `
 
@@ -3284,7 +3242,6 @@ async function loadProducts(){
 
 }
 
-
 function showAccountInfo(info){
 
     alert(
@@ -3292,7 +3249,6 @@ function showAccountInfo(info){
     );
 
 }
-
 
 async function deleteProduct(id){
 
@@ -3331,7 +3287,6 @@ async function deleteProduct(id){
     loadProducts();
 
 }
-
 
 async function loadCustomersPanel(){
 
@@ -3433,7 +3388,6 @@ async function loadCustomersPanel(){
 
 }
 
-
 async function prepareGiveProduct(){
 
     const select =
@@ -3441,52 +3395,154 @@ async function prepareGiveProduct(){
             "giveUser"
         );
 
+    const productSelect =
+        document.getElementById(
+            "giveProduct"
+        );
+
     select.innerHTML =
         `<option value="">
             Müştəri seç
         </option>`;
 
-    const {
-        data,
-        error
-    } =
-    await supabaseClient
-    .from("profiles")
-    .select(
-        "id,email,full_name"
-    )
-    .order("full_name",{
-        ascending:true
-    });
+    productSelect.innerHTML =
+        `<option value="">
+            Məhsul yüklənir...
+        </option>`;
 
-    if(error){
+    const [
+        profilesResult,
+        pricesResult
+    ] =
+    await Promise.all([
 
-        console.error(error);
+        supabaseClient
+        .from("profiles")
+        .select(
+            "id,email,full_name"
+        )
+        .order("full_name",{
+            ascending:true
+        }),
+
+        supabaseClient
+        .from("product_prices")
+        .select("*")
+
+    ]);
+
+    if(profilesResult.error){
+
+        console.error(
+            profilesResult.error
+        );
+
+    }else{
+
+        (profilesResult.data || []).forEach(user => {
+
+            const option =
+                document.createElement("option");
+
+            option.value =
+                user.id;
+
+            option.textContent =
+                `${
+                    user.full_name ||
+                    "Müştəri"
+                } — ${
+                    user.email || ""
+                }`;
+
+            select.appendChild(option);
+
+        });
+
+    }
+
+    if(pricesResult.error){
+
+        console.error(
+            pricesResult.error
+        );
+
+        productSelect.innerHTML =
+            `<option value="">
+                Məhsul seç
+            </option>`;
+
         return;
     }
 
-    (data || []).forEach(user => {
+    const rows =
+        pricesResult.data || [];
 
-        const option =
-            document.createElement("option");
+    productSelect.innerHTML =
+        `<option value="">
+            Məhsul seç
+        </option>`;
 
-        option.value =
-            user.id;
+    PRICE_PRODUCTS.forEach(product => {
 
-        option.textContent =
-            `${
-                user.full_name ||
-                "Müştəri"
-            } — ${
-                user.email || ""
-            }`;
+        const row =
+            rows.find(
+                item =>
+                item.product_key ===
+                product.key
+            ) || {};
 
-        select.appendChild(option);
+        product.months.forEach(month => {
+
+            const normal =
+                row[`price_${month}_month`];
+
+            const sale =
+                row[`sale_${month}_price`];
+
+            const saleActive =
+                !!row[`sale_${month}_active`];
+
+            let priceText =
+                "Qiymət yoxdur";
+
+            if(
+                saleActive &&
+                sale !== null &&
+                sale !== undefined &&
+                sale !== ""
+            ){
+
+                priceText =
+                    `${formatMoney(sale)} AZN (Endirim)`;
+
+            }else if(
+                normal !== null &&
+                normal !== undefined &&
+                normal !== ""
+            ){
+
+                priceText =
+                    `${formatMoney(normal)} AZN`;
+
+            }
+
+            const option =
+                document.createElement("option");
+
+            option.value =
+                `${product.name} — ${month} ay`;
+
+            option.textContent =
+                `${product.name} — ${month} ay — ${priceText}`;
+
+            productSelect.appendChild(option);
+
+        });
 
     });
 
 }
-
 
 async function giveProduct(){
 
@@ -3596,7 +3652,6 @@ async function giveProduct(){
 
 }
 
-
 /* =========================================================
    STATISTICS
 ========================================================= */
@@ -3632,7 +3687,6 @@ async function loadStats(){
         const orders =
             ordersResult.data || [];
 
-
         /*
          * Yalnız "Hazırdır" statusundakı
          * sifarişlər qazanca daxil edilir.
@@ -3643,7 +3697,6 @@ async function loadStats(){
                 order =>
                     order.status === "completed"
             );
-
 
         /*
          * Ümumi qazanc:
@@ -3657,7 +3710,6 @@ async function loadStats(){
                     Number(order.total || 0),
                 0
             );
-
 
         /*
          * Bu günün başlanğıcı.
@@ -3676,7 +3728,6 @@ async function loadStats(){
                 0,
                 0
             );
-
 
         /*
          * Bu gün "Hazırdır" statusuna
@@ -3701,7 +3752,6 @@ async function loadStats(){
 
             });
 
-
         /*
          * Bu gün qazanc.
          */
@@ -3714,18 +3764,15 @@ async function loadStats(){
                 0
             );
 
-
         document.getElementById(
             "statCustomers"
         ).textContent =
             customerCount;
 
-
         document.getElementById(
             "statOrders"
         ).textContent =
             orders.length;
-
 
         document.getElementById(
             "statTodayRevenue"
@@ -3733,13 +3780,11 @@ async function loadStats(){
             formatMoney(todayRevenue) +
             " AZN";
 
-
         document.getElementById(
             "statRevenue"
         ).textContent =
             formatMoney(revenue) +
             " AZN";
-
 
     }catch(error){
 
@@ -3748,7 +3793,6 @@ async function loadStats(){
     }
 
 }
-
 
 function setupRealtime(){
 
@@ -3844,7 +3888,6 @@ function setupRealtime(){
 
 }
 
-
 async function logout(){
 
     await supabaseClient
@@ -3856,7 +3899,6 @@ async function logout(){
 
 }
 
-
 function formatMoney(value){
 
     const number =
@@ -3865,7 +3907,6 @@ function formatMoney(value){
     return number.toFixed(2);
 
 }
-
 
 function escapeHtml(value){
 
@@ -3878,7 +3919,6 @@ function escapeHtml(value){
 
 }
 
-
 function escapeJs(value){
 
     return String(value ?? "")
@@ -3888,7 +3928,6 @@ function escapeJs(value){
         .replace(/\r/g,"\\r");
 
 }
-
 
 function cssEscape(value){
 
@@ -3908,7 +3947,6 @@ function cssEscape(value){
         );
 
 }
-
 
 checkAuth();
 
