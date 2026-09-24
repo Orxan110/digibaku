@@ -1071,6 +1071,11 @@ config.duration===12
 
 if(result.sale && result.normal>result.price){
 
+const discountPercent=
+Math.round(
+((result.normal-result.price)/result.normal)*100
+);
+
 priceBox.innerHTML=
 '<span style="text-decoration:line-through;color:#666;font-size:15px;margin-right:7px;">'
 +result.normal.toFixed(2)
@@ -1078,6 +1083,9 @@ priceBox.innerHTML=
 +'<span style="color:#22c55e;">'
 +result.price.toFixed(2)
 +' AZN</span> '
++'<span style="display:inline-block;margin-left:6px;background:#ef4444;color:#fff;font-size:11px;font-weight:800;padding:3px 7px;border-radius:5px;">'
++'-'+discountPercent+'%'
++'</span> '
 +'<small>'
 +durationText
 +'</small>';
