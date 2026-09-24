@@ -169,6 +169,21 @@ header {
     font-size:13px;
 }
 
+.logout-btn{
+    background:none;
+    border:none;
+    color:#aaa;
+    font-size:14px;
+    font-weight:600;
+    cursor:pointer;
+    font-family:inherit;
+    padding:0;
+}
+
+.logout-btn:hover{
+    color:#fff;
+}
+
 #cartModal {
     display: none;
     position: fixed;
@@ -980,6 +995,15 @@ DigiBaku<span>.com</span>
 <span id="cartCount" class="cart-count">0</span>
 </button>
 
+<button
+id="logoutButton"
+class="logout-btn"
+data-i18n="logout"
+style="display:none;"
+onclick="logout()">
+Çıxış
+</button>
+
 </div>
 
 </div>
@@ -1750,7 +1774,10 @@ async function checkLogin(){
     const authArea =
         document.getElementById("authArea");
 
-    if(!authArea) return;
+    const logoutButton =
+        document.getElementById("logoutButton");
+
+    if(!authArea || !logoutButton) return;
 
     if(session){
 
@@ -1760,6 +1787,10 @@ async function checkLogin(){
             document.createElement("a");
 
         profileButton.href="profile.html";
+        profileButton.setAttribute(
+            "data-i18n",
+            "profile"
+        );
         profileButton.textContent=t("profile");
 
         const email =
@@ -1768,16 +1799,15 @@ async function checkLogin(){
         email.className="user-email";
         email.textContent=session.user.email || "";
 
-        const logoutButton =
-            document.createElement("button");
-
-        logoutButton.textContent=t("logout");
-
-        logoutButton.onclick=logout;
-
         authArea.appendChild(profileButton);
         authArea.appendChild(email);
-        authArea.appendChild(logoutButton);
+
+        logoutButton.style.display="inline-block";
+        logoutButton.setAttribute(
+            "data-i18n",
+            "logout"
+        );
+        logoutButton.textContent=t("logout");
 
     }else{
 
@@ -1790,6 +1820,8 @@ async function checkLogin(){
                 ${t("register")}
             </a>
         `;
+
+        logoutButton.style.display="none";
 
     }
 }
@@ -1820,6 +1852,8 @@ lang
 );
 
 applyLanguage();
+
+checkLogin();
 
 }
 
@@ -1871,7 +1905,7 @@ document.getElementById("trustSubtitle").textContent=t("trustSubtitle");
 document.getElementById("fastTitle").textContent=t("fastTitle");
 document.getElementById("fastText").textContent=t("fastText");
 
-document.getElementById("secureTitle").textContent=t("secureText");
+document.getElementById("secureTitle").textContent=t("secureTitle");
 document.getElementById("secureTitle").textContent=t("secureTitle");
 document.getElementById("secureText").textContent=t("secureText");
 
