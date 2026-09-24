@@ -1662,6 +1662,8 @@ await loadPrices();
 
 /* =====================================================
    CHAT CUSTOMERS
+   YENİ VERSİYA:
+   MESAJ YAZAN MÜŞTƏRİ AVTOMATİK GÖRÜNÜR
 ===================================================== */
 
 async function loadChatCustomers(){
@@ -1673,88 +1675,190 @@ document.getElementById(
 
 if(!box) return;
 
+
+/* BÜTÜN CHAT MESAJLARI */
+
+const {
+data:messages,
+error:messagesError
+} =
+await supabaseClient
+.from("messages")
+.select(
+"user_id,sender_role,message,is_read,created_at"
+)
+.order(
+"created_at",
+{ascending:false}
+);
+
+if(messagesError){
+
+console.error(
+"Chat messages error:",
+messagesError
+);
+
+box.innerHTML =
+'<div class="empty">Mesajlar yüklənmədi: '+
+escapeHtml(messagesError.message)+
+'</div>';
+
+return;
+
+}
+
+
+/* MESAJ YAZAN MÜŞTƏRİ ID-LƏRİ */
+
+const userIds=[
+...new Set(
+(messages || [])
+.map(function(item){
+return item.user_id;
+})
+.filter(Boolean)
+)
+];
+
+
+/* PROFİLLƏR */
+
+let profiles={};
+
+if(userIds.length>0){
+
 const {
 data:customers,
-error
+error:profileError
 } =
 await supabaseClient
 .from("profiles")
 .select(
 "id,email,full_name"
 )
-.not("email","is",null)
-.order("email");
+.in("id",userIds);
 
-if(error){
-
-console.error(
-"Chat customers error:",
-error
-);
-
-box.innerHTML =
-'<div class="empty">Müştərilər yüklənmədi.</div>';
-
-return;
-
-}
-
-const {
-data:unreadMessages,
-error:unreadError
-} =
-await supabaseClient
-.from("messages")
-.select("user_id")
-.eq("sender_role","customer")
-.eq("is_read",false);
-
-if(unreadError){
+if(profileError){
 
 console.error(
-"Unread error:",
-unreadError
+"Chat profiles error:",
+profileError
 );
 
 }
 
-const unreadMap={};
-
-(unreadMessages || []).forEach(
-function(item){
-
-unreadMap[item.user_id] =
-(unreadMap[item.user_id] || 0)+1;
-
-}
-);
-
-if(!customers ||
-customers.length===0){
-
-box.innerHTML =
-'<div class="empty">Hələ müştəri yoxdur.</div>';
-
-return;
-
-}
-
-box.innerHTML =
-customers.map(
+(customers || []).forEach(
 function(customer){
 
-const unread =
-unreadMap[customer.id] || 0;
+profiles[customer.id]=customer;
 
-const name =
+}
+);
+
+}
+
+
+/* MÜŞTƏRİLƏRİ YIĞ */
+
+const customerMap={};
+
+(messages || []).forEach(
+function(item){
+
+if(!item.user_id) return;
+
+if(!customerMap[item.user_id]){
+
+customerMap[item.user_id]={
+
+user_id:item.user_id,
+
+last_message:item.message || "",
+
+last_created_at:item.created_at,
+
+unread:0
+
+};
+
+}
+
+
+/* OXUNMAMIŞ MÜŞTƏRİ MESAJI */
+
+if(
+item.sender_role==="customer" &&
+item.is_read===false
+){
+
+customerMap[item.user_id].unread++;
+
+}
+
+}
+);
+
+
+const customers=
+Object.values(customerMap);
+
+
+/* HEÇ MESAJ YOXDUR */
+
+if(customers.length===0){
+
+box.innerHTML=
+'<div class="empty">Hələ heç kim mesaj yazmayıb.</div>';
+
+return;
+
+}
+
+
+/* ƏN SON MESAJ YUXARIDA */
+
+customers.sort(
+function(a,b){
+
+return new Date(b.last_created_at) -
+new Date(a.last_created_at);
+
+}
+);
+
+
+/* HTML */
+
+box.innerHTML=
+customers.map(
+function(item){
+
+const customer=
+profiles[item.user_id] || {};
+
+const email=
+customer.email || "";
+
+const name=
 customer.full_name ||
-customer.email ||
+email ||
 "Müştəri";
 
-const active =
-selectedChatUserId === customer.id
+
+const active=
+selectedChatUserId===item.user_id
 ? "active"
 : "";
+
+
+const lastMessage=
+item.last_message.length>35
+?
+item.last_message.substring(0,35)+"..."
+:
+item.last_message;
+
 
 return `
 
@@ -1762,12 +1866,8 @@ return `
 class="chat-customer ${active}"
 onclick="
 selectChatCustomer(
-'${escapeHtml(
-String(customer.id)
-)}',
-'${escapeHtml(
-customer.email || ""
-)}'
+'${escapeHtml(String(item.user_id))}',
+'${escapeHtml(email)}'
 )
 "
 >
@@ -1780,16 +1880,23 @@ ${escapeHtml(name)}
 
 <div class="chat-customer-status">
 
-<span>
-${escapeHtml(
-customer.email || ""
-)}
+<span
+style="
+overflow:hidden;
+text-overflow:ellipsis;
+white-space:nowrap;
+max-width:180px;
+"
+>
+
+${escapeHtml(lastMessage)}
+
 </span>
 
 ${
-unread > 0
+item.unread>0
 ?
-`<span class="unread-badge">${unread}</span>`
+`<span class="unread-badge">${item.unread}</span>`
 :
 ""
 }
@@ -1818,14 +1925,14 @@ email
 selectedChatUserId=userId;
 selectedChatEmail=email;
 
-const header =
+const header=
 document.getElementById(
 "chatHeader"
 );
 
 if(header){
 
-header.textContent =
+header.textContent=
 "💬 "+
 (email || "Müştəri");
 
@@ -1854,7 +1961,7 @@ async function loadChatMessages(
 userId
 ){
 
-const box =
+const box=
 document.getElementById(
 "chatMessages"
 );
@@ -1867,8 +1974,13 @@ error
 } =
 await supabaseClient
 .from("messages")
-.select("*")
-.eq("user_id",userId)
+.select(
+"id,user_id,sender_role,message,is_read,created_at"
+)
+.eq(
+"user_id",
+userId
+)
 .order(
 "created_at",
 {ascending:true}
@@ -1876,34 +1988,42 @@ await supabaseClient
 
 if(error){
 
-console.error(error);
+console.error(
+"Load chat messages error:",
+error
+);
 
-box.innerHTML =
-'<div class="empty">Mesajlar yüklənmədi.</div>';
+box.innerHTML=
+'<div class="empty">Mesajlar yüklənmədi: '+
+escapeHtml(error.message)+
+'</div>';
 
 return;
 
 }
 
-if(!data ||
-data.length===0){
+if(
+!data ||
+data.length===0
+){
 
-box.innerHTML =
+box.innerHTML=
 '<div class="empty">Hələ mesaj yoxdur.</div>';
 
 return;
 
 }
 
-box.innerHTML =
-data.map(function(item){
+box.innerHTML=
+data.map(
+function(item){
 
-const role =
-item.sender_role === "admin"
+const role=
+item.sender_role==="admin"
 ? "admin"
 : "customer";
 
-const time =
+const time=
 item.created_at
 ?
 new Date(
@@ -1920,6 +2040,7 @@ minute:"2-digit"
 :
 "";
 
+
 return `
 
 <div class="chat-msg ${role}">
@@ -1929,23 +2050,27 @@ item.message || ""
 )}
 
 <span class="chat-time">
-${time}
+
+${escapeHtml(time)}
+
 </span>
 
 </div>
 
 `;
 
-}).join("");
+}
+).join("");
 
-box.scrollTop =
+
+box.scrollTop=
 box.scrollHeight;
 
 }
 
 
 /* =====================================================
-   MARK MESSAGES READ
+   MARK CUSTOMER MESSAGES READ
 ===================================================== */
 
 async function markCustomerMessagesRead(
@@ -1960,9 +2085,18 @@ await supabaseClient
 .update({
 is_read:true
 })
-.eq("user_id",userId)
-.eq("sender_role","customer")
-.eq("is_read",false);
+.eq(
+"user_id",
+userId
+)
+.eq(
+"sender_role",
+"customer"
+)
+.eq(
+"is_read",
+false
+);
 
 if(error){
 
@@ -1977,7 +2111,7 @@ error
 
 
 /* =====================================================
-   SEND CHAT
+   SEND ADMIN CHAT MESSAGE
 ===================================================== */
 
 async function sendChatMessage(){
@@ -1992,17 +2126,19 @@ return;
 
 }
 
-const input =
+const input=
 document.getElementById(
 "chatInput"
 );
 
-const button =
+const button=
 document.getElementById(
 "sendChatButton"
 );
 
-const message =
+if(!input || !button) return;
+
+const message=
 input.value.trim();
 
 if(!message) return;
@@ -2017,8 +2153,11 @@ await supabaseClient
 .insert({
 
 user_id:selectedChatUserId,
+
 sender_role:"admin",
+
 message:message,
+
 is_read:false
 
 });
@@ -2027,7 +2166,10 @@ button.disabled=false;
 
 if(error){
 
-console.error(error);
+console.error(
+"Admin chat send error:",
+error
+);
 
 alert(
 "Mesaj göndərilmədi: "+
@@ -2055,7 +2197,7 @@ document.addEventListener(
 "keydown",
 function(event){
 
-const input =
+const input=
 document.getElementById(
 "chatInput"
 );
@@ -2084,7 +2226,7 @@ sendChatMessage();
 
 async function loadOrders(){
 
-const box =
+const box=
 document.getElementById(
 "ordersList"
 );
@@ -2112,7 +2254,7 @@ console.error(
 error
 );
 
-box.innerHTML =
+box.innerHTML=
 '<div class="empty">Sifarişlər yüklənmədi: '+
 escapeHtml(error.message)+
 '</div>';
@@ -2121,10 +2263,12 @@ return;
 
 }
 
-if(!orders ||
-orders.length===0){
+if(
+!orders ||
+orders.length===0
+){
 
-box.innerHTML =
+box.innerHTML=
 '<div class="empty">Hələ sifariş yoxdur.</div>';
 
 return;
@@ -2132,17 +2276,18 @@ return;
 }
 
 
-/* MÜŞTƏRİ ID-LƏRİ */
-
 const userIds=[
 ...new Set(
 orders
-.map(function(order){
+.map(
+function(order){
 return order.user_id;
-})
+}
+)
 .filter(Boolean)
 )
 ];
+
 
 let profiles={};
 
@@ -2157,7 +2302,10 @@ await supabaseClient
 .select(
 "id,email,full_name"
 )
-.in("id",userIds);
+.in(
+"id",
+userIds
+);
 
 if(profileError){
 
@@ -2179,34 +2327,32 @@ profiles[customer.id]=customer;
 }
 
 
-/* SİFARİŞLƏR */
-
-box.innerHTML =
+box.innerHTML=
 orders.map(
 function(order){
 
-const customer =
+const customer=
 profiles[order.user_id] || {};
 
-const email =
+const email=
 customer.email ||
 "Email yoxdur";
 
-const name =
+const name=
 customer.full_name ||
 email ||
 "Müştəri";
 
-const status =
+const status=
 order.status ||
 "pending";
 
-const total =
+const total=
 Number(
 order.total || 0
 ).toFixed(2);
 
-const date =
+const date=
 order.created_at
 ?
 new Date(
@@ -2214,6 +2360,7 @@ order.created_at
 ).toLocaleString("az-AZ")
 :
 "";
+
 
 return `
 
@@ -2457,27 +2604,27 @@ return;
 selectedChatUserId=userId;
 selectedChatEmail=email || "";
 
-const header =
+const header=
 document.getElementById(
 "chatHeader"
 );
 
 if(header){
 
-header.textContent =
+header.textContent=
 "💬 "+
 (email || "Müştəri");
 
 }
 
-const chatMessages =
+const chatMessages=
 document.getElementById(
 "chatMessages"
 );
 
 if(chatMessages){
 
-chatMessages.innerHTML =
+chatMessages.innerHTML=
 '<div class="empty">Mesajlar yüklənir...</div>';
 
 }
@@ -2518,7 +2665,7 @@ return;
 
 }
 
-adminRealtimeChannel =
+adminRealtimeChannel=
 supabaseClient
 .channel(
 "admin-panel-realtime"
@@ -2531,7 +2678,12 @@ event:"*",
 schema:"public",
 table:"messages"
 },
-async function(){
+async function(payload){
+
+console.log(
+"CHAT REALTIME:",
+payload
+);
 
 await loadChatCustomers();
 
@@ -2560,7 +2712,16 @@ await loadOrders();
 }
 )
 
-.subscribe();
+.subscribe(
+function(status){
+
+console.log(
+"Admin realtime status:",
+status
+);
+
+}
+);
 
 }
 
@@ -2584,7 +2745,7 @@ return "";
 
 }
 
-const percent =
+const percent=
 Math.round(
 ((normal-sale)/normal)*100
 );
@@ -2628,14 +2789,14 @@ text,
 isError=false
 ){
 
-const box =
+const box=
 document.getElementById(
 "message"
 );
 
 box.textContent=text;
 
-box.className =
+box.className=
 isError
 ? "message error"
 : "message";
@@ -2659,14 +2820,14 @@ text,
 isError=false
 ){
 
-const box =
+const box=
 document.getElementById(
 "priceMessage"
 );
 
 box.textContent=text;
 
-box.className =
+box.className=
 isError
 ? "price-message error"
 : "price-message";
