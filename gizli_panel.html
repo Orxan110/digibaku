@@ -24,29 +24,53 @@ line-height:1.5;
 
 /* HEADER */
 header{
-position:sticky;top:0;z-index:100;
+position:sticky;
+top:0;
+z-index:100;
 background:rgba(7,7,7,.94);
 backdrop-filter:blur(14px);
 border-bottom:1px solid #1d1d1d;
 box-shadow:0 8px 30px rgba(0,0,0,.25)
 }
 .nav{
-min-height:70px;display:flex;align-items:center;
-justify-content:space-between;gap:15px
+min-height:70px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:15px
 }
-.logo{font-size:24px;font-weight:900;color:#3b82f6}
+.logo{
+font-size:24px;
+font-weight:900;
+color:#3b82f6
+}
 .logo span{color:#fff}
 .back{
-color:#aaa;text-decoration:none;font-size:13px;font-weight:bold;
-padding:8px 13px;border:1px solid #292929;border-radius:9px;
-background:#0d0d0d;transition:.2s
+color:#aaa;
+text-decoration:none;
+font-size:13px;
+font-weight:bold;
+padding:8px 13px;
+border:1px solid #292929;
+border-radius:9px;
+background:#0d0d0d;
+transition:.2s
 }
-.back:hover{color:#fff;border-color:#3b82f6;background:#101a30}
+.back:hover{
+color:#fff;
+border-color:#3b82f6;
+background:#101a30
+}
 
 /* MAIN */
 main{padding:28px 0 50px}
 #adminPanel{display:none}
-.loading{text-align:center;padding:90px 20px;color:#777;font-size:14px}
+.loading{
+text-align:center;
+padding:90px 20px;
+color:#777;
+font-size:14px
+}
 
 /* SECTIONS */
 .admin-section{
@@ -59,10 +83,13 @@ box-shadow:0 8px 25px rgba(0,0,0,.18)
 }
 .admin-section[open]{border-color:#30405a}
 .admin-section summary{
-list-style:none;cursor:pointer;
-display:flex;align-items:center;
+list-style:none;
+cursor:pointer;
+display:flex;
+align-items:center;
 justify-content:space-between;
-gap:15px;padding:16px 18px;
+gap:15px;
+padding:16px 18px;
 background:linear-gradient(90deg,#101010,#0b0b0b);
 transition:.2s
 }
@@ -71,23 +98,42 @@ transition:.2s
 background:linear-gradient(90deg,#121923,#0b0b0b)
 }
 .section-title{
-display:flex;align-items:center;gap:12px;min-width:0
+display:flex;
+align-items:center;
+gap:12px;
+min-width:0
 }
 .section-icon{
-width:38px;height:38px;display:flex;
-align-items:center;justify-content:center;
-background:#111c32;border:1px solid #263b5c;
-border-radius:10px;font-size:18px;flex-shrink:0
+width:38px;
+height:38px;
+display:flex;
+align-items:center;
+justify-content:center;
+background:#111c32;
+border:1px solid #263b5c;
+border-radius:10px;
+font-size:18px;
+flex-shrink:0
 }
 .section-title strong{
-display:block;color:#fff;font-size:15px;margin-bottom:2px
+display:block;
+color:#fff;
+font-size:15px;
+margin-bottom:2px
 }
-.section-title small{display:block;color:#777;font-size:11px}
+.section-title small{
+display:block;
+color:#777;
+font-size:11px
+}
 .section-arrow{
-font-size:20px;color:#777;transition:.2s
+font-size:20px;
+color:#777;
+transition:.2s
 }
 .admin-section[open] .section-arrow{
-transform:rotate(180deg);color:#60a5fa
+transform:rotate(180deg);
+color:#60a5fa
 }
 .section-content{
 padding:18px;
@@ -97,131 +143,311 @@ border-top:1px solid #202020
 
 /* FORM */
 label{
-display:block;color:#aaa;font-size:13px;
-font-weight:bold;margin-bottom:7px
+display:block;
+color:#aaa;
+font-size:13px;
+font-weight:bold;
+margin-bottom:7px
 }
 input,select,textarea{
-width:100%;padding:12px 13px;margin-bottom:15px;
-border-radius:10px;border:1px solid #303030;
-background:#080808;color:#fff;font-size:14px;
-outline:none;transition:.2s
+width:100%;
+padding:12px 13px;
+margin-bottom:15px;
+border-radius:10px;
+border:1px solid #303030;
+background:#080808;
+color:#fff;
+font-size:14px;
+outline:none;
+transition:.2s
 }
 input:focus,select:focus,textarea:focus{
-border-color:#2563eb;background:#0a0d14;
+border-color:#2563eb;
+background:#0a0d14;
 box-shadow:0 0 0 3px rgba(37,99,235,.12)
 }
 input::placeholder,textarea::placeholder{color:#555}
-textarea{min-height:125px;resize:vertical}
-button{
-width:100%;padding:12px 14px;border:0;border-radius:10px;
-background:#2563eb;color:#fff;font-weight:bold;
-font-size:14px;cursor:pointer;transition:.2s
+textarea{
+min-height:125px;
+resize:vertical
 }
-button:hover{background:#1d4ed8;box-shadow:0 6px 18px rgba(37,99,235,.18)}
+button{
+width:100%;
+padding:12px 14px;
+border:0;
+border-radius:10px;
+background:#2563eb;
+color:#fff;
+font-weight:bold;
+font-size:14px;
+cursor:pointer;
+transition:.2s
+}
+button:hover{
+background:#1d4ed8;
+box-shadow:0 6px 18px rgba(37,99,235,.18)
+}
 button:active{transform:translateY(1px)}
-button:disabled{opacity:.55;cursor:not-allowed;box-shadow:none}
+button:disabled{
+opacity:.55;
+cursor:not-allowed;
+box-shadow:none
+}
 
 /* MESSAGES */
 .message,.price-message{
-display:none;padding:12px 14px;border-radius:10px;
-margin-top:14px;font-size:13px;
-background:#0b2b1d;border:1px solid #166534;color:#86efac
+display:none;
+padding:12px 14px;
+border-radius:10px;
+margin-top:14px;
+font-size:13px;
+background:#0b2b1d;
+border:1px solid #166534;
+color:#86efac
 }
 .message.error,.price-message.error{
-background:#2b0b0b;border-color:#7f1d1d;color:#fca5a5
+background:#2b0b0b;
+border-color:#7f1d1d;
+color:#fca5a5
 }
 .customer-info{
 background:linear-gradient(135deg,#09101d,#080808);
-border:1px solid #263b5c;padding:12px 14px;
-border-radius:10px;margin-bottom:15px;color:#60a5fa;font-size:13px
+border:1px solid #263b5c;
+padding:12px 14px;
+border-radius:10px;
+margin-bottom:15px;
+color:#60a5fa;
+font-size:13px
 }
-.empty{color:#666;padding:18px 4px;font-size:13px;text-align:center}
+.empty{
+color:#666;
+padding:18px 4px;
+font-size:13px;
+text-align:center
+}
 
 /* PRICE */
 #pricesList{
-display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px
+display:grid;
+grid-template-columns:repeat(2,minmax(0,1fr));
+gap:13px
 }
 .price-product{
-background:#080808;border:1px solid #252525;
-border-radius:13px;padding:17px
+background:#080808;
+border:1px solid #252525;
+border-radius:13px;
+padding:17px
 }
-.price-product h3{color:#60a5fa;font-size:16px;margin-bottom:14px}
+.price-product h3{
+color:#60a5fa;
+font-size:16px;
+margin-bottom:14px
+}
 .price-month{
-background:#0b0b0b;border:1px solid #202020;
-border-radius:10px;padding:13px;margin-bottom:11px
+background:#0b0b0b;
+border:1px solid #202020;
+border-radius:10px;
+padding:13px;
+margin-bottom:11px
 }
 .price-month-title{
-color:#fff;font-weight:bold;font-size:14px;
-margin-bottom:11px;padding-bottom:8px;border-bottom:1px solid #1c1c1c
+color:#fff;
+font-weight:bold;
+font-size:14px;
+margin-bottom:11px;
+padding-bottom:8px;
+border-bottom:1px solid #1c1c1c
 }
-.price-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.price-row{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px
+}
 .price-row input{margin-bottom:10px}
 .switch-row{
-display:flex;align-items:center;gap:9px;
-margin:4px 0 10px;padding:8px 9px;
-background:#0d0d0d;border:1px solid #1d1d1d;border-radius:8px
+display:flex;
+align-items:center;
+gap:9px;
+margin:4px 0 10px;
+padding:8px 9px;
+background:#0d0d0d;
+border:1px solid #1d1d1d;
+border-radius:8px
 }
-.switch-row input{width:auto;margin:0;accent-color:#2563eb}
-.switch-row label{margin:0!important;font-size:12px;color:#aaa}
+.switch-row input{
+width:auto;
+margin:0;
+accent-color:#2563eb
+}
+.switch-row label{
+margin:0!important;
+font-size:12px;
+color:#aaa
+}
 .sale-info{
-display:flex;align-items:center;
-justify-content:space-between;gap:10px
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:10px
 }
-.sale-percent{color:#86efac;font-size:13px;font-weight:bold}
-.sale-status{font-size:12px;color:#777}
-.save-price{background:#16a34a;margin-top:7px}
+.sale-percent{
+color:#86efac;
+font-size:13px;
+font-weight:bold
+}
+.sale-status{
+font-size:12px;
+color:#777
+}
+.save-price{
+background:#16a34a;
+margin-top:7px
+}
 .save-price:hover{background:#15803d}
 .canva-title{
-font-size:12px;font-weight:bold;color:#aaa;margin-bottom:12px;
-padding:8px 10px;background:#0d0d0d;
-border:1px solid #1d1d1d;border-radius:8px
+font-size:12px;
+font-weight:bold;
+color:#aaa;
+margin-bottom:12px;
+padding:8px 10px;
+background:#0d0d0d;
+border:1px solid #1d1d1d;
+border-radius:8px
 }
 
 /* PRODUCTS */
 #productsList{
-display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px
+display:grid;
+grid-template-columns:repeat(2,minmax(0,1fr));
+gap:12px
 }
 .product{
-background:#080808;border:1px solid #252525;
-border-radius:12px;padding:15px
+background:#080808;
+border:1px solid #252525;
+border-radius:12px;
+padding:15px
 }
 .product:hover{border-color:#30405a}
 .product strong{
-display:block;color:#60a5fa;font-size:15px;margin-bottom:7px
+display:block;
+color:#60a5fa;
+font-size:15px;
+margin-bottom:7px
 }
-.product small{color:#777;font-size:12px;line-height:1.7}
-.delete{margin-top:11px;background:#991b1b}
+.product small{
+color:#777;
+font-size:12px;
+line-height:1.7
+}
+.delete{
+margin-top:11px;
+background:#991b1b
+}
 .delete:hover{background:#b91c1c}
+
+/* PRODUCT DETAILS */
+.product-detail-box{
+margin-top:10px;
+padding:10px;
+background:#0d0d0d;
+border:1px solid #202020;
+border-radius:9px
+}
+.product-detail-row{
+display:block;
+font-size:12px;
+line-height:1.7;
+margin-bottom:5px;
+color:#aaa
+}
+.product-detail-row:last-child{margin-bottom:0}
+.product-detail-label{
+color:#777
+}
+.product-detail-value{
+color:#ddd
+}
+.product-date{
+color:#fff
+}
+.product-expiry{
+color:#facc15
+}
+.product-status{
+color:#4ade80
+}
+.product-account{
+margin-top:10px;
+padding:10px;
+background:#070707;
+border:1px solid #1d1d1d;
+border-radius:9px
+}
+.product-account-title{
+font-size:11px;
+color:#777;
+margin-bottom:5px
+}
+.product-account-value{
+color:#ddd;
+font-size:12px;
+line-height:1.6;
+white-space:pre-wrap;
+word-break:break-word
+}
 
 /* CHAT */
 .chat-layout{
-display:grid;grid-template-columns:270px minmax(0,1fr);
-gap:13px;min-height:510px
+display:grid;
+grid-template-columns:270px minmax(0,1fr);
+gap:13px;
+min-height:510px
 }
 .chat-customers{
-background:#080808;border:1px solid #252525;
-border-radius:12px;overflow:hidden;min-width:0
+background:#080808;
+border:1px solid #252525;
+border-radius:12px;
+overflow:hidden;
+min-width:0
 }
-#chatCustomers{max-height:510px;overflow-y:auto}
+#chatCustomers{
+max-height:510px;
+overflow-y:auto
+}
 .chat-customer{
-padding:13px;border-bottom:1px solid #1d1d1d;
-cursor:pointer;transition:.2s
+padding:13px;
+border-bottom:1px solid #1d1d1d;
+cursor:pointer;
+transition:.2s
 }
 .chat-customer:hover{background:#111}
 .chat-customer.active{
 background:linear-gradient(90deg,#111e3c,#0d1425);
-border-left:3px solid #3b82f6;padding-left:10px
+border-left:3px solid #3b82f6;
+padding-left:10px
 }
 .chat-customer-name{
-font-weight:bold;color:#fff;font-size:13px;word-break:break-all
+font-weight:bold;
+color:#fff;
+font-size:13px;
+word-break:break-all
 }
 .chat-customer-status{
-color:#777;font-size:11px;margin-top:5px;
-display:flex;justify-content:space-between;align-items:center;gap:5px
+color:#777;
+font-size:11px;
+margin-top:5px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:5px
 }
 .unread-badge,.order-status-badge{
-color:#fff;border-radius:20px;padding:3px 7px;
-font-size:9px;font-weight:bold;white-space:nowrap
+color:#fff;
+border-radius:20px;
+padding:3px 7px;
+font-size:9px;
+font-weight:bold;
+white-space:nowrap
 }
 .unread-badge{background:#2563eb}
 .order-status-badge{background:#2563eb}
@@ -232,85 +458,174 @@ font-size:9px;font-weight:bold;white-space:nowrap
 .order-status-badge.cancelled{background:#991b1b}
 
 .chat-box{
-display:flex;flex-direction:column;
-background:#080808;border:1px solid #252525;
-border-radius:12px;overflow:hidden;min-width:0
+display:flex;
+flex-direction:column;
+background:#080808;
+border:1px solid #252525;
+border-radius:12px;
+overflow:hidden;
+min-width:0
 }
 .chat-header{
-padding:14px;background:#101010;border-bottom:1px solid #222;
-font-weight:bold;font-size:14px;color:#60a5fa
+padding:14px;
+background:#101010;
+border-bottom:1px solid #222;
+font-weight:bold;
+font-size:14px;
+color:#60a5fa
 }
 .chat-order-status{
-padding:10px 14px;background:#0d0d0d;
+padding:10px 14px;
+background:#0d0d0d;
 border-bottom:1px solid #222;
-display:flex;justify-content:space-between;
-align-items:center;gap:10px;font-size:12px
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:10px;
+font-size:12px
 }
 .chat-order-status-label{color:#777}
-.chat-order-status-value{font-weight:bold;color:#60a5fa}
+.chat-order-status-value{
+font-weight:bold;
+color:#60a5fa
+}
 .chat-order-status-value.pending{color:#facc15}
 .chat-order-status-value.confirmed{color:#4ade80}
 .chat-order-status-value.processing{color:#60a5fa}
 .chat-order-status-value.completed{color:#9ca3af}
 .chat-order-status-value.cancelled{color:#f87171}
 .chat-order-status-control{
-padding:11px 14px;background:#0a0a0a;border-bottom:1px solid #222
+padding:11px 14px;
+background:#0a0a0a;
+border-bottom:1px solid #222
 }
-.chat-order-status-control label{font-size:11px;color:#777;margin-bottom:6px}
-.chat-order-status-control select{margin:0;padding:9px 11px;font-size:12px}
+.chat-order-status-control label{
+font-size:11px;
+color:#777;
+margin-bottom:6px
+}
+.chat-order-status-control select{
+margin:0;
+padding:9px 11px;
+font-size:12px
+}
 .chat-status-save{
-margin-top:7px;background:#16a34a;padding:9px;font-size:12px
+margin-top:7px;
+background:#16a34a;
+padding:9px;
+font-size:12px
 }
 .chat-status-save:hover{background:#15803d}
 .chat-messages{
-flex:1;height:320px;overflow-y:auto;padding:15px;
-display:flex;flex-direction:column;gap:9px;
+flex:1;
+height:320px;
+overflow-y:auto;
+padding:15px;
+display:flex;
+flex-direction:column;
+gap:9px;
 background:#070707
 }
 .chat-msg{
-max-width:80%;padding:10px 12px;border-radius:12px;
-font-size:13px;line-height:1.45;word-break:break-word
+max-width:80%;
+padding:10px 12px;
+border-radius:12px;
+font-size:13px;
+line-height:1.45;
+word-break:break-word
 }
 .chat-msg.admin{
-align-self:flex-end;background:#2563eb;
+align-self:flex-end;
+background:#2563eb;
 border-bottom-right-radius:3px
 }
 .chat-msg.customer{
-align-self:flex-start;background:#1b1b1b;
-border:1px solid #2b2b2b;border-bottom-left-radius:3px
+align-self:flex-start;
+background:#1b1b1b;
+border:1px solid #2b2b2b;
+border-bottom-left-radius:3px
 }
-.chat-time{display:block;font-size:9px;opacity:.6;margin-top:5px}
-.chat-send{padding:11px;border-top:1px solid #222;background:#0a0a0a}
-.chat-send textarea{min-height:70px;margin-bottom:7px}
+.chat-time{
+display:block;
+font-size:9px;
+opacity:.6;
+margin-top:5px
+}
+.chat-send{
+padding:11px;
+border-top:1px solid #222;
+background:#0a0a0a
+}
+.chat-send textarea{
+min-height:70px;
+margin-bottom:7px
+}
 .chat-send button{margin:0}
 
 /* ORDERS */
 #ordersList{
-display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px
+display:grid;
+grid-template-columns:repeat(2,minmax(0,1fr));
+gap:12px
 }
 .order-card{
-background:#080808;border:1px solid #252525;
-border-radius:12px;padding:15px
+background:#080808;
+border:1px solid #252525;
+border-radius:12px;
+padding:15px
 }
 .order-card:hover{border-color:#30405a}
 .order-top{
-display:flex;justify-content:space-between;
-align-items:flex-start;gap:10px;margin-bottom:10px
+display:flex;
+justify-content:space-between;
+align-items:flex-start;
+gap:10px;
+margin-bottom:10px
 }
-.order-top>strong{font-size:15px;white-space:nowrap}
+.order-top>strong{
+font-size:15px;
+white-space:nowrap
+}
 .order-product{
-font-size:15px;font-weight:bold;color:#60a5fa;word-break:break-word
+font-size:15px;
+font-weight:bold;
+color:#60a5fa;
+word-break:break-word
 }
-.order-id{font-size:10px;color:#555;margin-top:3px;word-break:break-all}
-.order-info{color:#888;font-size:12px;line-height:1.8;margin-bottom:11px}
+.order-id{
+font-size:10px;
+color:#555;
+margin-top:3px;
+word-break:break-all
+}
+.order-info{
+color:#888;
+font-size:12px;
+line-height:1.8;
+margin-bottom:11px
+}
 .order-info strong{color:#ccc}
-.order-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.order-status{margin:0;font-size:12px;padding:10px}
-.order-chat{background:#374151}
+.order-actions{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:8px
+}
+.order-status{
+margin:0;
+font-size:12px;
+padding:10px
+}
+.order-chat{
+background:#374151
+}
 .order-chat:hover{background:#4b5563}
 .order-current-status{
-display:inline-block;padding:5px 9px;border-radius:20px;
-font-size:10px;font-weight:bold;margin-bottom:9px
+display:inline-block;
+padding:5px 9px;
+border-radius:20px;
+font-size:10px;
+font-weight:bold;
+margin-bottom:9px
 }
 .order-current-status.pending{background:#ca8a04}
 .order-current-status.confirmed{background:#16a34a}
@@ -319,21 +634,39 @@ font-size:10px;font-weight:bold;margin-bottom:9px
 .order-current-status.cancelled{background:#991b1b}
 
 /* SCROLL */
-*{scrollbar-width:thin;scrollbar-color:#333 #090909}
-::-webkit-scrollbar{width:7px;height:7px}
+*{
+scrollbar-width:thin;
+scrollbar-color:#333 #090909
+}
+::-webkit-scrollbar{
+width:7px;
+height:7px
+}
 ::-webkit-scrollbar-track{background:#090909}
-::-webkit-scrollbar-thumb{background:#333;border-radius:10px}
+::-webkit-scrollbar-thumb{
+background:#333;
+border-radius:10px
+}
 
 /* MOBILE */
 @media(max-width:850px){
 .container{width:94%}
-#pricesList,#productsList,#ordersList{grid-template-columns:1fr}
+#pricesList,
+#productsList,
+#ordersList{
+grid-template-columns:1fr
 }
+}
+
 @media(max-width:700px){
 main{padding:20px 0 40px}
 .admin-section summary{padding:14px}
 .section-content{padding:14px}
-.section-icon{width:34px;height:34px;font-size:16px}
+.section-icon{
+width:34px;
+height:34px;
+font-size:16px
+}
 .section-title strong{font-size:14px}
 .section-title small{font-size:10px}
 .chat-layout{grid-template-columns:1fr}
@@ -341,15 +674,26 @@ main{padding:20px 0 40px}
 #chatCustomers{max-height:225px}
 .chat-messages{height:290px}
 .order-actions{grid-template-columns:1fr}
-.price-row{grid-template-columns:1fr;gap:0}
+.price-row{
+grid-template-columns:1fr;
+gap:0
 }
+}
+
 @media(max-width:600px){
 .container{width:95%}
 .logo{font-size:21px}
-.back{font-size:11px;padding:7px 9px}
+.back{
+font-size:11px;
+padding:7px 9px
+}
 .chat-msg{max-width:88%}
-.order-top{flex-direction:column}
-.order-top>strong{align-self:flex-start}
+.order-top{
+flex-direction:column
+}
+.order-top>strong{
+align-self:flex-start
+}
 }
 </style>
 </head>
@@ -386,10 +730,13 @@ Admin yoxlanılır...
 </summary>
 
 <div class="section-content">
+
 <div id="pricesList">
 <div class="empty">Qiymətlər yüklənir...</div>
 </div>
+
 <div id="priceMessage" class="price-message"></div>
+
 </div>
 </details>
 
@@ -423,12 +770,29 @@ Admin yoxlanılır...
 
 <option value="">Məhsul seçin...</option>
 
-<option value="Netflix Premium">Netflix Premium</option>
-<option value="YouTube Premium">YouTube Premium</option>
-<option value="ChatGPT Plus">ChatGPT Plus</option>
-<option value="Google Gemini Premium">Google Gemini Premium</option>
-<option value="Spotify Premium">Spotify Premium</option>
-<option value="Canva Premium">Canva Premium — 12 ay — 5.99 AZN</option>
+<option value="Netflix Premium">
+Netflix Premium
+</option>
+
+<option value="YouTube Premium">
+YouTube Premium
+</option>
+
+<option value="ChatGPT Plus">
+ChatGPT Plus
+</option>
+
+<option value="Google Gemini Premium">
+Google Gemini Premium
+</option>
+
+<option value="Spotify Premium">
+Spotify Premium
+</option>
+
+<option value="Canva Premium">
+Canva Premium — 12 ay — 5.99 AZN
+</option>
 
 </select>
 
@@ -466,7 +830,11 @@ Məhsulu müştəriyə əlavə et
 </summary>
 
 <div class="section-content">
-<div id="productsList">Yüklənir...</div>
+
+<div id="productsList">
+<div class="empty">Məhsullar yüklənir...</div>
+</div>
+
 </div>
 </details>
 
@@ -489,9 +857,11 @@ Məhsulu müştəriyə əlavə et
 <div class="chat-layout">
 
 <div class="chat-customers">
+
 <div id="chatCustomers">
 <div class="empty">Müştərilər yüklənir...</div>
 </div>
+
 </div>
 
 <div class="chat-box">
@@ -500,27 +870,54 @@ Məhsulu müştəriyə əlavə et
 Müştəri seçin
 </div>
 
-<div id="chatOrderStatus" class="chat-order-status" style="display:none">
+<div
+id="chatOrderStatus"
+class="chat-order-status"
+style="display:none"
+>
 
 <span class="chat-order-status-label">
 📦 Sifariş statusu
 </span>
 
-<span id="chatOrderStatusValue" class="chat-order-status-value">-</span>
+<span
+id="chatOrderStatusValue"
+class="chat-order-status-value"
+>
+-
+</span>
 
 </div>
 
-<div id="chatOrderStatusControl" class="chat-order-status-control" style="display:none">
+<div
+id="chatOrderStatusControl"
+class="chat-order-status-control"
+style="display:none"
+>
 
 <label>Statusu dəyiş</label>
 
 <select id="chatOrderStatusSelect">
 
-<option value="pending">Cavab gözlənilir</option>
-<option value="confirmed">Təsdiqləndi</option>
-<option value="processing">Hazırlanır</option>
-<option value="completed">Hazırdır</option>
-<option value="cancelled">Ləğv edildi</option>
+<option value="pending">
+Cavab gözlənilir
+</option>
+
+<option value="confirmed">
+Təsdiqləndi
+</option>
+
+<option value="processing">
+Hazırlanır
+</option>
+
+<option value="completed">
+Hazırdır
+</option>
+
+<option value="cancelled">
+Ləğv edildi
+</option>
 
 </select>
 
@@ -534,7 +931,10 @@ Statusu yadda saxla
 
 </div>
 
-<div id="chatMessages" class="chat-messages">
+<div
+id="chatMessages"
+class="chat-messages"
+>
 
 <div class="empty">
 Mesajları görmək üçün müştəri seçin.
@@ -559,7 +959,9 @@ Mesaj göndər
 </div>
 
 </div>
+
 </div>
+
 </div>
 </details>
 
@@ -592,15 +994,21 @@ Mesaj göndər
 
 
 <script>
-const SUPABASE_URL="https://zeknhnkaicqkfzgnvycq.supabase.co";
-const SUPABASE_KEY="sb_publishable_jHvCp9fXBA_BwFqrXYpwlw_VC6C1OQk";
 
-const supabaseClient=window.supabase.createClient(
+const SUPABASE_URL=
+"https://zeknhnkaicqkfzgnvycq.supabase.co";
+
+const SUPABASE_KEY=
+"sb_publishable_jHvCp9fXBA_BwFqrXYpwlw_VC6C1OQk";
+
+const supabaseClient=
+window.supabase.createClient(
 SUPABASE_URL,
 SUPABASE_KEY
 );
 
-const ADMIN_EMAIL="zahidovorxan989@gmail.com";
+const ADMIN_EMAIL=
+"zahidovorxan989@gmail.com";
 
 let selectedChatUserId=null;
 let selectedChatEmail=null;
@@ -614,26 +1022,37 @@ async function checkAdmin(){
 
 try{
 
-const {data:{session}}=await supabaseClient.auth.getSession();
+const {
+data:{session}
+}=await supabaseClient.auth.getSession();
 
 if(!session){
+
 window.location.href="login.html";
 return;
+
 }
 
-const email=(session.user.email||"").toLowerCase();
+const email=
+(session.user.email||"").toLowerCase();
 
-if(email!==ADMIN_EMAIL.toLowerCase()){
+if(
+email!==ADMIN_EMAIL.toLowerCase()
+){
 
-alert("Bu səhifəyə giriş icazəniz yoxdur.");
+alert(
+"Bu səhifəyə giriş icazəniz yoxdur."
+);
 
 await supabaseClient.auth.signOut();
 
 window.location.href="login.html";
 return;
+
 }
 
 document.getElementById("loading").style.display="none";
+
 document.getElementById("adminPanel").style.display="block";
 
 await loadCustomers();
@@ -660,24 +1079,36 @@ document.getElementById("loading").innerHTML=
 
 async function loadCustomers(){
 
-const select=document.getElementById("customerSelect");
+const select=
+document.getElementById("customerSelect");
 
-const {data,error}=await supabaseClient
+const {
+data,
+error
+}=await supabaseClient
 .from("profiles")
 .select("id,email,full_name")
 .not("email","is",null)
 .order("email");
 
 if(error){
-console.error("Customer error:",error);
+
+console.error(
+"Customer error:",
+error
+);
+
 return;
+
 }
 
-select.innerHTML='<option value="">Müştəri seçin...</option>';
+select.innerHTML=
+'<option value="">Müştəri seçin...</option>';
 
 (data||[]).forEach(customer=>{
 
-const option=document.createElement("option");
+const option=
+document.createElement("option");
 
 option.value=customer.id;
 
@@ -693,11 +1124,16 @@ select.appendChild(option);
 }
 
 
-document.getElementById("customerSelect").addEventListener(
+document.getElementById(
+"customerSelect"
+).addEventListener(
 "change",
 function(){
 
-const info=document.getElementById("selectedCustomer");
+const info=
+document.getElementById(
+"selectedCustomer"
+);
 
 if(!this.value){
 
@@ -707,7 +1143,8 @@ return;
 
 }
 
-const selected=this.options[this.selectedIndex];
+const selected=
+this.options[this.selectedIndex];
 
 info.innerHTML=
 "Müştəri: <strong>"+
@@ -724,29 +1161,63 @@ info.style.display="block";
 
 async function addProduct(){
 
-const customerId=document.getElementById("customerSelect").value;
-const product=document.getElementById("productSelect").value;
-const accountInfo=document.getElementById("accountInfo").value.trim();
-const button=document.getElementById("addButton");
+const customerId=
+document.getElementById(
+"customerSelect"
+).value;
+
+const product=
+document.getElementById(
+"productSelect"
+).value;
+
+const accountInfo=
+document.getElementById(
+"accountInfo"
+).value.trim();
+
+const button=
+document.getElementById(
+"addButton"
+);
 
 if(!customerId){
-showMessage("Müştəri seçin.",true);
+
+showMessage(
+"Müştəri seçin.",
+true
+);
+
 return;
+
 }
 
 if(!product){
-showMessage("Məhsul seçin.",true);
+
+showMessage(
+"Məhsul seçin.",
+true
+);
+
 return;
+
 }
 
 if(!accountInfo){
-showMessage("Müştəriyə veriləcək hesab məlumatını yazın.",true);
+
+showMessage(
+"Müştəriyə veriləcək hesab məlumatını yazın.",
+true
+);
+
 return;
+
 }
 
 button.disabled=true;
 
-const {error}=await supabaseClient
+const {error}=
+await supabaseClient
 .from("customer_products")
 .insert({
 user_id:customerId,
@@ -758,14 +1229,17 @@ status:"active"
 if(error){
 
 button.disabled=false;
+
 console.error(error);
 
 showMessage(
-"Məhsul əlavə edilmədi: "+error.message,
+"Məhsul əlavə edilmədi: "+
+error.message,
 true
 );
 
 return;
+
 }
 
 
@@ -776,17 +1250,25 @@ data:pendingOrders,
 error:pendingOrderError
 }=await supabaseClient
 .from("orders")
-.select("id,status,total,created_at,updated_at")
+.select(
+"id,status,total,created_at,updated_at"
+)
 .eq("user_id",customerId)
 .eq("status","pending")
 .order("created_at",{ascending:false})
 .limit(1);
 
-if(!pendingOrderError&&pendingOrders&&pendingOrders.length){
+if(
+!pendingOrderError&&
+pendingOrders&&
+pendingOrders.length
+){
 
-const orderToConfirm=pendingOrders[0];
+const orderToConfirm=
+pendingOrders[0];
 
-const {error:updateError}=await supabaseClient
+const {error:updateError}=
+await supabaseClient
 .from("orders")
 .update({
 status:"confirmed",
@@ -795,7 +1277,12 @@ updated_at:new Date().toISOString()
 .eq("id",orderToConfirm.id);
 
 if(updateError){
-console.error("Order confirm error:",updateError);
+
+console.error(
+"Order confirm error:",
+updateError
+);
+
 }
 
 }else if(pendingOrderError){
@@ -809,17 +1296,28 @@ pendingOrderError
 
 button.disabled=false;
 
-document.getElementById("accountInfo").value="";
-document.getElementById("productSelect").value="";
+document.getElementById(
+"accountInfo"
+).value="";
 
-showMessage("Məhsul müştəriyə uğurla əlavə edildi.");
+document.getElementById(
+"productSelect"
+).value="";
+
+showMessage(
+"Məhsul müştəriyə uğurla əlavə edildi."
+);
 
 await loadProducts();
 await loadOrders();
 await loadChatCustomers();
 
 if(selectedChatUserId===customerId){
-await loadChatOrderStatus(customerId);
+
+await loadChatOrderStatus(
+customerId
+);
+
 }
 
 }
@@ -829,59 +1327,344 @@ await loadChatOrderStatus(customerId);
 
 async function loadProducts(){
 
-const box=document.getElementById("productsList");
+const box=
+document.getElementById(
+"productsList"
+);
 
-const {data,error}=await supabaseClient
+if(!box)return;
+
+
+/*
+BÜTÜN VERİLMİŞ MƏHSULLARI GƏTİR
+*/
+
+const {
+data:products,
+error
+}=await supabaseClient
 .from("customer_products")
 .select("*")
 .order("created_at",{ascending:false});
 
 if(error){
 
-console.error(error);
-box.innerHTML='<div class="empty">Məhsullar yüklənmədi.</div>';
+console.error(
+"Products error:",
+error
+);
+
+box.innerHTML=
+'<div class="empty">'+
+"Məhsullar yüklənmədi: "+
+escapeHtml(error.message)+
+"</div>";
+
 return;
 
 }
 
-if(!data||!data.length){
+if(
+!products||
+!products.length
+){
 
-box.innerHTML='<div class="empty">Hələ verilmiş məhsul yoxdur.</div>';
+box.innerHTML=
+'<div class="empty">'+
+"Hələ verilmiş məhsul yoxdur."+
+"</div>";
+
 return;
 
 }
 
-box.innerHTML=data.map(item=>{
 
-const date=item.created_at
-?new Date(item.created_at).toLocaleString("az-AZ")
-:"";
+/*
+MÜŞTƏRİ ID-LƏRİ
+*/
+
+const userIds=[
+...new Set(
+products
+.map(item=>item.user_id)
+.filter(Boolean)
+)
+];
+
+
+/*
+PROFİLLƏRİ GƏTİR
+*/
+
+let profiles={};
+
+if(userIds.length){
+
+const {
+data:customers,
+error:profileError
+}=await supabaseClient
+.from("profiles")
+.select("id,email,full_name")
+.in("id",userIds);
+
+if(profileError){
+
+console.error(
+"Product profiles error:",
+profileError
+);
+
+}
+
+(customers||[]).forEach(
+customer=>{
+profiles[customer.id]=customer;
+}
+);
+
+}
+
+
+/*
+MƏHSULLARI GÖSTƏR
+*/
+
+box.innerHTML=
+products.map(item=>{
+
+const customer=
+profiles[item.user_id]||{};
+
+const customerName=
+customer.full_name||
+customer.email||
+"Müştəri";
+
+const customerEmail=
+customer.email||
+"Email yoxdur";
+
+
+/*
+VERİLMƏ TARİXİ
+*/
+
+const startDate=
+item.created_at
+?new Date(item.created_at)
+:null;
+
+const startDateText=
+startDate
+?startDate.toLocaleString(
+"az-AZ",
+{
+day:"2-digit",
+month:"2-digit",
+year:"numeric",
+hour:"2-digit",
+minute:"2-digit"
+}
+)
+:"Tarix yoxdur";
+
+
+/*
+BİTMƏ TARİXİ
+ƏGƏR CƏDVƏLDƏ VARSA
+ONU İSTİFADƏ ET
+*/
+
+let endDate=null;
+
+const existingEndDate=
+item.expires_at||
+item.expiry_date||
+item.end_date||
+item.expires_on||
+null;
+
+if(existingEndDate){
+
+endDate=
+new Date(existingEndDate);
+
+}else if(startDate){
+
+/*
+CANVA = 12 AY
+DİGƏRLƏR = 1 AY
+*/
+
+const productName=
+String(
+item.product_name||""
+).toLowerCase();
+
+if(
+productName.includes("canva")
+){
+
+endDate=
+new Date(startDate);
+
+endDate.setMonth(
+endDate.getMonth()+12
+);
+
+}else{
+
+endDate=
+new Date(startDate);
+
+endDate.setMonth(
+endDate.getMonth()+1
+);
+
+}
+
+}
+
+const endDateText=
+endDate
+?endDate.toLocaleString(
+"az-AZ",
+{
+day:"2-digit",
+month:"2-digit",
+year:"numeric",
+hour:"2-digit",
+minute:"2-digit"
+}
+)
+:"Bitmə tarixi yoxdur";
+
+
+/*
+STATUS
+*/
+
+const status=
+item.status||
+"active";
+
+
+/*
+HESAB MƏLUMATI
+*/
+
+const accountInfo=
+item.account_info||
+"—";
+
 
 return `
+
 <div class="product">
 
-<strong>${escapeHtml(item.product_name||"Məhsul")}</strong>
+<strong>
+📦 ${escapeHtml(
+item.product_name||"Məhsul"
+)}
+</strong>
 
-<small>
-Müştəri ID: ${escapeHtml(String(item.user_id||""))}
-</small><br>
 
-<small>
-Tarix: ${escapeHtml(date)}
-</small><br>
+<div class="product-detail-box">
 
-<small>
-Status: ${escapeHtml(item.status||"")}
-</small>
+<div class="product-detail-row">
+
+<span class="product-detail-label">
+👤 Müştəri:
+</span>
+
+<span class="product-detail-value">
+${escapeHtml(customerName)}
+</span>
+
+</div>
+
+
+<div class="product-detail-row">
+
+<span class="product-detail-label">
+📧 Email:
+</span>
+
+<span class="product-detail-value">
+${escapeHtml(customerEmail)}
+</span>
+
+</div>
+
+</div>
+
+
+<div class="product-detail-box">
+
+<div class="product-detail-row">
+
+<span class="product-detail-label">
+📅 Verilmə tarixi:
+</span>
+
+<span class="product-date">
+${escapeHtml(startDateText)}
+</span>
+
+</div>
+
+
+<div class="product-detail-row">
+
+<span class="product-detail-label">
+⏳ Bitmə tarixi:
+</span>
+
+<span class="product-expiry">
+${escapeHtml(endDateText)}
+</span>
+
+</div>
+
+
+<div class="product-detail-row">
+
+<span class="product-detail-label">
+📌 Status:
+</span>
+
+<span class="product-status">
+${escapeHtml(status)}
+</span>
+
+</div>
+
+</div>
+
+
+<div class="product-account">
+
+<div class="product-account-title">
+🔐 Hesab məlumatı:
+</div>
+
+<div class="product-account-value">
+${escapeHtml(accountInfo)}
+</div>
+
+</div>
+
 
 <button
 class="delete"
-onclick="deleteProduct('${item.id}')"
+onclick="deleteProduct('${escapeHtml(String(item.id))}')"
 >
 Sil
 </button>
 
 </div>
+
 `;
 
 }).join("");
@@ -891,16 +1674,25 @@ Sil
 
 async function deleteProduct(id){
 
-if(!confirm("Bu məhsulu silmək istəyirsiniz?"))return;
+if(
+!confirm(
+"Bu məhsulu silmək istəyirsiniz?"
+)
+)return;
 
-const {error}=await supabaseClient
+const {error}=
+await supabaseClient
 .from("customer_products")
 .delete()
 .eq("id",id);
 
 if(error){
 
-alert("Məhsul silinmədi: "+error.message);
+alert(
+"Məhsul silinmədi: "+
+error.message
+);
+
 return;
 
 }
@@ -914,9 +1706,15 @@ await loadProducts();
 
 async function loadPrices(){
 
-const box=document.getElementById("pricesList");
+const box=
+document.getElementById(
+"pricesList"
+);
 
-const {data,error}=await supabaseClient
+const {
+data,
+error
+}=await supabaseClient
 .from("product_prices")
 .select("*")
 .order("id");
@@ -924,34 +1722,56 @@ const {data,error}=await supabaseClient
 if(error){
 
 console.error(error);
-box.innerHTML='<div class="empty">Qiymətlər yüklənmədi.</div>';
+
+box.innerHTML=
+'<div class="empty">'+
+"Qiymətlər yüklənmədi."+
+"</div>";
+
 return;
 
 }
 
 if(!data||!data.length){
 
-box.innerHTML='<div class="empty">Qiymət məlumatı yoxdur.</div>';
+box.innerHTML=
+'<div class="empty">'+
+"Qiymət məlumatı yoxdur."+
+"</div>";
+
 return;
 
 }
 
-box.innerHTML=data.map(item=>{
+box.innerHTML=
+data.map(item=>{
 
-if(item.product_key==="canva"){
+if(
+item.product_key==="canva"
+){
 
-const price12=Number(item.price_12_month||0).toFixed(2);
+const price12=
+Number(
+item.price_12_month||0
+).toFixed(2);
 
-const sale12=Number(
+const sale12=
+Number(
 item.sale_12_price??
 item.price_12_month??
 0
 ).toFixed(2);
 
 return `
+
 <div class="price-product canva-price">
 
-<h3>${escapeHtml(item.product_name||"Canva Premium")}</h3>
+<h3>
+${escapeHtml(
+item.product_name||
+"Canva Premium"
+)}
+</h3>
 
 <div class="canva-title">
 12 aylıq qiymət
@@ -960,7 +1780,10 @@ return `
 <div class="price-row">
 
 <div>
-<label>Normal qiymət</label>
+
+<label>
+Normal qiymət
+</label>
 
 <input
 type="number"
@@ -968,10 +1791,14 @@ step="0.01"
 id="price12_${item.id}"
 value="${price12}"
 >
+
 </div>
 
 <div>
-<label>Endirimli qiymət</label>
+
+<label>
+Endirimli qiymət
+</label>
 
 <input
 type="number"
@@ -979,6 +1806,7 @@ step="0.01"
 id="sale12_${item.id}"
 value="${sale12}"
 >
+
 </div>
 
 </div>
@@ -991,7 +1819,9 @@ id="sale12active_${item.id}"
 ${item.sale_12_active?"checked":""}
 >
 
-<label for="sale12active_${item.id}">
+<label
+for="sale12active_${item.id}"
+>
 Endirimi aktiv et
 </label>
 
@@ -1000,11 +1830,18 @@ Endirimi aktiv et
 <div class="sale-info">
 
 <span class="sale-percent">
-${calculateSalePercent(Number(price12),Number(sale12))}
+
+${calculateSalePercent(
+Number(price12),
+Number(sale12)
+)}
+
 </span>
 
 <span class="sale-status">
-${item.sale_12_active?"Aktiv":"Deaktiv"}
+${item.sale_12_active
+?"Aktiv"
+:"Deaktiv"}
 </span>
 
 </div>
@@ -1017,20 +1854,39 @@ Canva qiymətini yadda saxla
 </button>
 
 </div>
+
 `;
 
 }
 
 return `
+
 <div class="price-product">
 
 <h3>
-${escapeHtml(item.product_name||item.product_key)}
+${escapeHtml(
+item.product_name||
+item.product_key
+)}
 </h3>
 
-${createPriceMonth(item,1,"1 ay")}
-${createPriceMonth(item,2,"2 ay")}
-${createPriceMonth(item,3,"3 ay")}
+${createPriceMonth(
+item,
+1,
+"1 ay"
+)}
+
+${createPriceMonth(
+item,
+2,
+"2 ay"
+)}
+
+${createPriceMonth(
+item,
+3,
+"3 ay"
+)}
 
 <button
 class="save-price"
@@ -1040,6 +1896,7 @@ Qiymətləri yadda saxla
 </button>
 
 </div>
+
 `;
 
 }).join("");
@@ -1047,22 +1904,39 @@ Qiymətləri yadda saxla
 }
 
 
-function createPriceMonth(item,month,title){
+function createPriceMonth(
+item,
+month,
+title
+){
 
-const price=Number(
-item["price_"+month+"_month"]||0
+const price=
+Number(
+item[
+"price_"+month+"_month"
+]||0
 ).toFixed(2);
 
-const sale=Number(
-item["sale_"+month+"_price"]??
-item["price_"+month+"_month"]??
+const sale=
+Number(
+item[
+"sale_"+month+"_price"
+]??
+item[
+"price_"+month+"_month"
+]??
 0
 ).toFixed(2);
 
-const active=item["sale_"+month+"_active"]
-?"checked":"";
+const active=
+item[
+"sale_"+month+"_active"
+]
+?"checked"
+:"";
 
 return `
+
 <div class="price-month">
 
 <div class="price-month-title">
@@ -1073,7 +1947,9 @@ ${title}
 
 <div>
 
-<label>Normal qiymət</label>
+<label>
+Normal qiymət
+</label>
 
 <input
 type="number"
@@ -1086,7 +1962,9 @@ value="${price}"
 
 <div>
 
-<label>Endirimli qiymət</label>
+<label>
+Endirimli qiymət
+</label>
 
 <input
 type="number"
@@ -1107,7 +1985,9 @@ id="sale${month}active_${item.id}"
 ${active}
 >
 
-<label for="sale${month}active_${item.id}">
+<label
+for="sale${month}active_${item.id}"
+>
 Endirimi aktiv et
 </label>
 
@@ -1116,7 +1996,12 @@ Endirimi aktiv et
 <div class="sale-info">
 
 <span class="sale-percent">
-${calculateSalePercent(Number(price),Number(sale))}
+
+${calculateSalePercent(
+Number(price),
+Number(sale)
+)}
+
 </span>
 
 <span class="sale-status">
@@ -1126,6 +2011,7 @@ ${active?"Aktiv":"Deaktiv"}
 </div>
 
 </div>
+
 `;
 
 }
@@ -1133,19 +2019,65 @@ ${active?"Aktiv":"Deaktiv"}
 
 async function savePrice(id){
 
-const price1=Number(document.getElementById("price1_"+id).value||0);
-const price2=Number(document.getElementById("price2_"+id).value||0);
-const price3=Number(document.getElementById("price3_"+id).value||0);
+const price1=
+Number(
+document.getElementById(
+"price1_"+id
+).value||0
+);
 
-const sale1=Number(document.getElementById("sale1_"+id).value||0);
-const sale2=Number(document.getElementById("sale2_"+id).value||0);
-const sale3=Number(document.getElementById("sale3_"+id).value||0);
+const price2=
+Number(
+document.getElementById(
+"price2_"+id
+).value||0
+);
 
-const active1=document.getElementById("sale1active_"+id).checked;
-const active2=document.getElementById("sale2active_"+id).checked;
-const active3=document.getElementById("sale3active_"+id).checked;
+const price3=
+Number(
+document.getElementById(
+"price3_"+id
+).value||0
+);
 
-const {error}=await supabaseClient
+const sale1=
+Number(
+document.getElementById(
+"sale1_"+id
+).value||0
+);
+
+const sale2=
+Number(
+document.getElementById(
+"sale2_"+id
+).value||0
+);
+
+const sale3=
+Number(
+document.getElementById(
+"sale3_"+id
+).value||0
+);
+
+const active1=
+document.getElementById(
+"sale1active_"+id
+).checked;
+
+const active2=
+document.getElementById(
+"sale2active_"+id
+).checked;
+
+const active3=
+document.getElementById(
+"sale3active_"+id
+).checked;
+
+const {error}=
+await supabaseClient
 .from("product_prices")
 .update({
 
@@ -1161,7 +2093,8 @@ sale_1_active:active1,
 sale_2_active:active2,
 sale_3_active:active3,
 
-updated_at:new Date().toISOString()
+updated_at:
+new Date().toISOString()
 
 })
 .eq("id",id);
@@ -1169,7 +2102,8 @@ updated_at:new Date().toISOString()
 if(error){
 
 showPriceMessage(
-"Qiymət yadda saxlanılmadı: "+error.message,
+"Qiymət yadda saxlanılmadı: "+
+error.message,
 true
 );
 
@@ -1177,7 +2111,9 @@ return;
 
 }
 
-showPriceMessage("Qiymətlər uğurla yeniləndi.");
+showPriceMessage(
+"Qiymətlər uğurla yeniləndi."
+);
 
 await loadPrices();
 
@@ -1186,26 +2122,36 @@ await loadPrices();
 
 async function saveCanvaPrice(id){
 
-const price12=Number(
-document.getElementById("price12_"+id).value||0
+const price12=
+Number(
+document.getElementById(
+"price12_"+id
+).value||0
 );
 
-const sale12=Number(
-document.getElementById("sale12_"+id).value||0
+const sale12=
+Number(
+document.getElementById(
+"sale12_"+id
+).value||0
 );
 
-const active12=document.getElementById(
+const active12=
+document.getElementById(
 "sale12active_"+id
 ).checked;
 
-const {error}=await supabaseClient
+const {error}=
+await supabaseClient
 .from("product_prices")
 .update({
 
 price_12_month:price12,
 sale_12_price:sale12,
 sale_12_active:active12,
-updated_at:new Date().toISOString()
+
+updated_at:
+new Date().toISOString()
 
 })
 .eq("id",id)
@@ -1214,7 +2160,8 @@ updated_at:new Date().toISOString()
 if(error){
 
 showPriceMessage(
-"Canva qiyməti yadda saxlanılmadı: "+error.message,
+"Canva qiyməti yadda saxlanılmadı: "+
+error.message,
 true
 );
 
@@ -1222,7 +2169,9 @@ return;
 
 }
 
-showPriceMessage("Canva qiyməti uğurla yeniləndi.");
+showPriceMessage(
+"Canva qiyməti uğurla yeniləndi."
+);
 
 await loadPrices();
 
@@ -1233,7 +2182,10 @@ await loadPrices();
 
 async function loadChatCustomers(){
 
-const box=document.getElementById("chatCustomers");
+const box=
+document.getElementById(
+"chatCustomers"
+);
 
 if(!box)return;
 
@@ -1242,17 +2194,28 @@ data:messages,
 error:messagesError
 }=await supabaseClient
 .from("messages")
-.select("user_id,sender_role,message,is_read,created_at")
-.order("created_at",{ascending:false});
+.select(
+"user_id,sender_role,message,is_read,created_at"
+)
+.order(
+"created_at",
+{ascending:false}
+);
 
 if(messagesError){
 
-console.error("Chat messages error:",messagesError);
+console.error(
+"Chat messages error:",
+messagesError
+);
 
 box.innerHTML=
-'<div class="empty">Mesajlar yüklənmədi: '+
-escapeHtml(messagesError.message)+
-'</div>';
+'<div class="empty">'+
+"Mesajlar yüklənmədi: "+
+escapeHtml(
+messagesError.message
+)+
+"</div>";
 
 return;
 
@@ -1279,31 +2242,51 @@ error:profileError
 .select("id,email,full_name")
 .in("id",userIds);
 
-if(profileError)console.error("Chat profiles error:",profileError);
+if(profileError)
+console.error(
+"Chat profiles error:",
+profileError
+);
 
-(customers||[]).forEach(c=>profiles[c.id]=c);
+(customers||[]).forEach(
+c=>profiles[c.id]=c
+);
 
 const {
 data:orders,
 error:ordersError
 }=await supabaseClient
 .from("orders")
-.select("id,user_id,status,created_at,updated_at")
+.select(
+"id,user_id,status,created_at,updated_at"
+)
 .in("user_id",userIds)
-.order("created_at",{ascending:false});
+.order(
+"created_at",
+{ascending:false}
+);
 
 if(ordersError){
 
-console.error("Chat orders error:",ordersError);
+console.error(
+"Chat orders error:",
+ordersError
+);
 
 }else{
 
-(orders||[]).forEach(order=>{
+(orders||[]).forEach(
+order=>{
 
-if(!latestOrders[order.user_id])
-latestOrders[order.user_id]=order;
+if(!latestOrders[
+order.user_id
+])
+latestOrders[
+order.user_id
+]=order;
 
-});
+}
+);
 
 }
 
@@ -1315,7 +2298,9 @@ const customerMap={};
 
 if(!item.user_id)return;
 
-if(!customerMap[item.user_id]){
+if(
+!customerMap[item.user_id]
+){
 
 customerMap[item.user_id]={
 user_id:item.user_id,
@@ -1331,57 +2316,92 @@ item.sender_role==="customer"&&
 item.is_read===false
 ){
 
-customerMap[item.user_id].unread++;
+customerMap[
+item.user_id
+].unread++;
 
 }
 
 });
 
-const customers=Object.values(customerMap);
+const customers=
+Object.values(customerMap);
 
 if(!customers.length){
 
 box.innerHTML=
-'<div class="empty">Hələ heç kim mesaj yazmayıb.</div>';
+'<div class="empty">'+
+"Hələ heç kim mesaj yazmayıb."+
+"</div>";
 
 return;
 
 }
 
 customers.sort(
-(a,b)=>new Date(b.last_created_at)-new Date(a.last_created_at)
+(a,b)=>
+new Date(b.last_created_at)-
+new Date(a.last_created_at)
 );
 
-box.innerHTML=customers.map(item=>{
+box.innerHTML=
+customers.map(item=>{
 
-const customer=profiles[item.user_id]||{};
-const email=customer.email||"";
-const name=customer.full_name||email||"Müştəri";
+const customer=
+profiles[item.user_id]||{};
+
+const email=
+customer.email||"";
+
+const name=
+customer.full_name||
+email||
+"Müştəri";
 
 const active=
-selectedChatUserId===item.user_id?"active":"";
+selectedChatUserId===
+item.user_id
+?"active"
+:"";
 
 const lastMessage=
 item.last_message.length>35
-?item.last_message.substring(0,35)+"..."
+?item.last_message.substring(
+0,
+35
+)+"..."
 :item.last_message;
 
-const order=latestOrders[item.user_id];
+const order=
+latestOrders[
+item.user_id
+];
 
-const status=order?order.status||"pending":"";
+const status=
+order
+?order.status||"pending"
+:"";
 
-const statusBadge=order?`
+const statusBadge=
+order
+?`
 <span class="order-status-badge ${escapeHtml(status)}">
-${escapeHtml(getOrderStatusText(status))}
+${escapeHtml(
+getOrderStatusText(status)
+)}
 </span>
-`:"";
+`
+:"";
 
 return `
+
 <div
 class="chat-customer ${active}"
 onclick="
 selectChatCustomer(
-'${escapeHtml(String(item.user_id))}',
+'${escapeHtml(
+String(item.user_id)
+)}',
 '${escapeHtml(email)}'
 )
 "
@@ -1421,6 +2441,7 @@ item.unread>0
 </div>
 
 </div>
+
 `;
 
 }).join("");
@@ -1433,21 +2454,26 @@ item.unread>0
 function getOrderStatusText(status){
 
 const statuses={
+
 pending:"Cavab gözlənilir",
 confirmed:"Təsdiqləndi",
 processing:"Hazırlanır",
 completed:"Hazırdır",
 cancelled:"Ləğv edildi"
+
 };
 
-return statuses[status]||"Cavab gözlənilir";
+return statuses[status]||
+"Cavab gözlənilir";
 
 }
 
 
 /* ACTIVE ORDER */
 
-async function getCustomerActiveOrder(userId){
+async function getCustomerActiveOrder(
+userId
+){
 
 if(!userId)return null;
 
@@ -1456,85 +2482,151 @@ data,
 error
 }=await supabaseClient
 .from("orders")
-.select("id,user_id,total,status,created_at,updated_at")
+.select(
+"id,user_id,total,status,created_at,updated_at"
+)
 .eq("user_id",userId)
-.in("status",["pending","confirmed","processing"])
-.order("created_at",{ascending:false})
+.in(
+"status",
+[
+"pending",
+"confirmed",
+"processing"
+]
+)
+.order(
+"created_at",
+{ascending:false}
+)
 .limit(1);
 
 if(error){
 
-console.error("Active order error:",error);
+console.error(
+"Active order error:",
+error
+);
+
 return null;
 
 }
 
-if(data&&data.length)return data[0];
+if(
+data&&
+data.length
+)
+return data[0];
 
 const {
 data:lastOrders,
 error:lastError
 }=await supabaseClient
 .from("orders")
-.select("id,user_id,total,status,created_at,updated_at")
+.select(
+"id,user_id,total,status,created_at,updated_at"
+)
 .eq("user_id",userId)
-.order("created_at",{ascending:false})
+.order(
+"created_at",
+{ascending:false}
+)
 .limit(1);
 
 if(lastError){
 
-console.error("Last order error:",lastError);
+console.error(
+"Last order error:",
+lastError
+);
+
 return null;
 
 }
 
-return lastOrders&&lastOrders.length?lastOrders[0]:null;
+return lastOrders&&
+lastOrders.length
+?lastOrders[0]
+:null;
 
 }
 
 
 /* CHAT ORDER STATUS */
 
-async function loadChatOrderStatus(userId){
+async function loadChatOrderStatus(
+userId
+){
 
-const statusBox=document.getElementById("chatOrderStatus");
-const statusValue=document.getElementById("chatOrderStatusValue");
-const statusControl=document.getElementById("chatOrderStatusControl");
-const statusSelect=document.getElementById("chatOrderStatusSelect");
+const statusBox=
+document.getElementById(
+"chatOrderStatus"
+);
 
-if(!statusBox||!statusValue||!statusControl)return;
+const statusValue=
+document.getElementById(
+"chatOrderStatusValue"
+);
+
+const statusControl=
+document.getElementById(
+"chatOrderStatusControl"
+);
+
+const statusSelect=
+document.getElementById(
+"chatOrderStatusSelect"
+);
+
+if(
+!statusBox||
+!statusValue||
+!statusControl
+)
+return;
 
 if(!userId){
 
 statusBox.style.display="none";
 statusControl.style.display="none";
 selectedChatOrderId=null;
+
 return;
 
 }
 
-const order=await getCustomerActiveOrder(userId);
+const order=
+await getCustomerActiveOrder(
+userId
+);
 
 if(!order){
 
 statusBox.style.display="none";
 statusControl.style.display="none";
 selectedChatOrderId=null;
+
 return;
 
 }
 
-selectedChatOrderId=order.id;
+selectedChatOrderId=
+order.id;
 
-const currentStatus=order.status||"pending";
+const currentStatus=
+order.status||"pending";
 
-statusValue.textContent=getOrderStatusText(currentStatus);
+statusValue.textContent=
+getOrderStatusText(
+currentStatus
+);
 
 statusValue.className=
-"chat-order-status-value "+currentStatus;
+"chat-order-status-value "+
+currentStatus;
 
 if(statusSelect)
-statusSelect.value=currentStatus;
+statusSelect.value=
+currentStatus;
 
 statusBox.style.display="flex";
 statusControl.style.display="block";
@@ -1546,17 +2638,28 @@ async function updateChatOrderStatus(){
 
 if(!selectedChatOrderId){
 
-alert("Bu müştərinin aktiv sifarişi tapılmadı.");
+alert(
+"Bu müştərinin aktiv sifarişi tapılmadı."
+);
+
 return;
 
 }
 
-const select=document.getElementById("chatOrderStatusSelect");
-const button=document.getElementById("chatStatusSaveButton");
+const select=
+document.getElementById(
+"chatOrderStatusSelect"
+);
+
+const button=
+document.getElementById(
+"chatStatusSaveButton"
+);
 
 if(!select||!button)return;
 
-const status=select.value;
+const status=
+select.value;
 
 const allowedStatuses=[
 "pending",
@@ -1566,20 +2669,27 @@ const allowedStatuses=[
 "cancelled"
 ];
 
-if(!allowedStatuses.includes(status)){
+if(
+!allowedStatuses.includes(status)
+){
 
-alert("Yanlış sifariş statusu.");
+alert(
+"Yanlış sifariş statusu."
+);
+
 return;
 
 }
 
 button.disabled=true;
 
-const {error}=await supabaseClient
+const {error}=
+await supabaseClient
 .from("orders")
 .update({
 status:status,
-updated_at:new Date().toISOString()
+updated_at:
+new Date().toISOString()
 })
 .eq("id",selectedChatOrderId);
 
@@ -1587,14 +2697,24 @@ button.disabled=false;
 
 if(error){
 
-console.error("Chat status update error:",error);
+console.error(
+"Chat status update error:",
+error
+);
 
-alert("Sifariş statusu dəyişmədi: "+error.message);
+alert(
+"Sifariş statusu dəyişmədi: "+
+error.message
+);
+
 return;
 
 }
 
-await loadChatOrderStatus(selectedChatUserId);
+await loadChatOrderStatus(
+selectedChatUserId
+);
+
 await loadOrders();
 await loadChatCustomers();
 
@@ -1603,16 +2723,23 @@ await loadChatCustomers();
 
 /* SELECT CHAT */
 
-async function selectChatCustomer(userId,email){
+async function selectChatCustomer(
+userId,
+email
+){
 
 selectedChatUserId=userId;
 selectedChatEmail=email;
 selectedChatOrderId=null;
 
-const header=document.getElementById("chatHeader");
+const header=
+document.getElementById(
+"chatHeader"
+);
 
 if(header)
-header.textContent="💬 "+(email||"Müştəri");
+header.textContent=
+"💬 "+(email||"Müştəri");
 
 await loadChatCustomers();
 await loadChatMessages(userId);
@@ -1625,26 +2752,45 @@ await loadChatCustomers();
 
 /* CHAT MESSAGES */
 
-async function loadChatMessages(userId){
+async function loadChatMessages(
+userId
+){
 
-const box=document.getElementById("chatMessages");
+const box=
+document.getElementById(
+"chatMessages"
+);
 
 if(!box)return;
 
-const {data,error}=await supabaseClient
+const {
+data,
+error
+}=await supabaseClient
 .from("messages")
-.select("id,user_id,sender_role,message,is_read,created_at")
+.select(
+"id,user_id,sender_role,message,is_read,created_at"
+)
 .eq("user_id",userId)
-.order("created_at",{ascending:true});
+.order(
+"created_at",
+{ascending:true}
+);
 
 if(error){
 
-console.error("Load chat messages error:",error);
+console.error(
+"Load chat messages error:",
+error
+);
 
 box.innerHTML=
-'<div class="empty">Mesajlar yüklənmədi: '+
-escapeHtml(error.message)+
-'</div>';
+'<div class="empty">'+
+"Mesajlar yüklənmədi: "+
+escapeHtml(
+error.message
+)+
+"</div>";
 
 return;
 
@@ -1653,21 +2799,27 @@ return;
 if(!data||!data.length){
 
 box.innerHTML=
-'<div class="empty">Hələ mesaj yoxdur.</div>';
+'<div class="empty">'+
+"Hələ mesaj yoxdur."+
+"</div>";
 
 return;
 
 }
 
-box.innerHTML=data.map(item=>{
+box.innerHTML=
+data.map(item=>{
 
 const role=
 item.sender_role==="admin"
 ?"admin"
 :"customer";
 
-const time=item.created_at
-?new Date(item.created_at).toLocaleString(
+const time=
+item.created_at
+?new Date(
+item.created_at
+).toLocaleString(
 "az-AZ",
 {
 day:"2-digit",
@@ -1679,35 +2831,48 @@ minute:"2-digit"
 :"";
 
 return `
+
 <div class="chat-msg ${role}">
 
-${escapeHtml(item.message||"")}
+${escapeHtml(
+item.message||""
+)}
 
 <span class="chat-time">
 ${escapeHtml(time)}
 </span>
 
 </div>
+
 `;
 
 }).join("");
 
-box.scrollTop=box.scrollHeight;
+box.scrollTop=
+box.scrollHeight;
 
 }
 
 
-async function markCustomerMessagesRead(userId){
+async function markCustomerMessagesRead(
+userId
+){
 
-const {error}=await supabaseClient
+const {error}=
+await supabaseClient
 .from("messages")
-.update({is_read:true})
+.update({
+is_read:true
+})
 .eq("user_id",userId)
 .eq("sender_role","customer")
 .eq("is_read",false);
 
 if(error)
-console.error("Read update error:",error);
+console.error(
+"Read update error:",
+error
+);
 
 }
 
@@ -1718,23 +2883,35 @@ async function sendChatMessage(){
 
 if(!selectedChatUserId){
 
-alert("Əvvəlcə müştəri seçin.");
+alert(
+"Əvvəlcə müştəri seçin."
+);
+
 return;
 
 }
 
-const input=document.getElementById("chatInput");
-const button=document.getElementById("sendChatButton");
+const input=
+document.getElementById(
+"chatInput"
+);
+
+const button=
+document.getElementById(
+"sendChatButton"
+);
 
 if(!input||!button)return;
 
-const message=input.value.trim();
+const message=
+input.value.trim();
 
 if(!message)return;
 
 button.disabled=true;
 
-const {error}=await supabaseClient
+const {error}=
+await supabaseClient
 .from("messages")
 .insert({
 user_id:selectedChatUserId,
@@ -1747,23 +2924,37 @@ button.disabled=false;
 
 if(error){
 
-console.error("Admin chat send error:",error);
+console.error(
+"Admin chat send error:",
+error
+);
 
-alert("Mesaj göndərilmədi: "+error.message);
+alert(
+"Mesaj göndərilmədi: "+
+error.message
+);
+
 return;
 
 }
 
 input.value="";
 
-await loadChatMessages(selectedChatUserId);
+await loadChatMessages(
+selectedChatUserId
+);
 
 }
 
 
-document.addEventListener("keydown",function(event){
+document.addEventListener(
+"keydown",
+function(event){
 
-const input=document.getElementById("chatInput");
+const input=
+document.getElementById(
+"chatInput"
+);
 
 if(!input)return;
 
@@ -1774,18 +2965,23 @@ event.key==="Enter"&&
 ){
 
 event.preventDefault();
+
 sendChatMessage();
 
 }
 
-});
+}
+);
 
 
 /* ORDERS */
 
 async function loadOrders(){
 
-const box=document.getElementById("ordersList");
+const box=
+document.getElementById(
+"ordersList"
+);
 
 if(!box)return;
 
@@ -1794,26 +2990,40 @@ data:orders,
 error
 }=await supabaseClient
 .from("orders")
-.select("id,user_id,total,status,created_at,updated_at")
-.order("created_at",{ascending:false});
+.select(
+"id,user_id,total,status,created_at,updated_at"
+)
+.order(
+"created_at",
+{ascending:false}
+);
 
 if(error){
 
-console.error("Orders error:",error);
+console.error(
+"Orders error:",
+error
+);
 
 box.innerHTML=
-'<div class="empty">Sifarişlər yüklənmədi: '+
+'<div class="empty">'+
+"Sifarişlər yüklənmədi: "+
 escapeHtml(error.message)+
-'</div>';
+"</div>";
 
 return;
 
 }
 
-if(!orders||!orders.length){
+if(
+!orders||
+!orders.length
+){
 
 box.innerHTML=
-'<div class="empty">Hələ sifariş yoxdur.</div>';
+'<div class="empty">'+
+"Hələ sifariş yoxdur."+
+"</div>";
 
 return;
 
@@ -1821,7 +3031,9 @@ return;
 
 const userIds=[
 ...new Set(
-orders.map(order=>order.user_id).filter(Boolean)
+orders
+.map(order=>order.user_id)
+.filter(Boolean)
 )
 ];
 
@@ -1834,32 +3046,63 @@ data:customers,
 error:profileError
 }=await supabaseClient
 .from("profiles")
-.select("id,email,full_name")
+.select(
+"id,email,full_name"
+)
 .in("id",userIds);
 
 if(profileError)
-console.error("Profiles error:",profileError);
+console.error(
+"Profiles error:",
+profileError
+);
 
 (customers||[]).forEach(
-customer=>profiles[customer.id]=customer
+customer=>
+profiles[
+customer.id
+]=customer
 );
 
 }
 
-box.innerHTML=orders.map(order=>{
+box.innerHTML=
+orders.map(order=>{
 
-const customer=profiles[order.user_id]||{};
+const customer=
+profiles[
+order.user_id
+]||{};
 
-const email=customer.email||"Email yoxdur";
-const name=customer.full_name||email||"Müştəri";
-const status=order.status||"pending";
-const total=Number(order.total||0).toFixed(2);
+const email=
+customer.email||
+"Email yoxdur";
 
-const date=order.created_at
-?new Date(order.created_at).toLocaleString("az-AZ")
+const name=
+customer.full_name||
+email||
+"Müştəri";
+
+const status=
+order.status||
+"pending";
+
+const total=
+Number(
+order.total||0
+).toFixed(2);
+
+const date=
+order.created_at
+?new Date(
+order.created_at
+).toLocaleString(
+"az-AZ"
+)
 :"";
 
 return `
+
 <div class="order-card">
 
 <div class="order-top">
@@ -1867,23 +3110,34 @@ return `
 <div>
 
 <div class="order-product">
-📦 Sifariş #${escapeHtml(String(order.id))}
+📦 Sifariş #${escapeHtml(
+String(order.id)
+)}
 </div>
 
 <div class="order-id">
-Sifariş ID: ${escapeHtml(String(order.id))}
+Sifariş ID:
+${escapeHtml(
+String(order.id)
+)}
 </div>
 
 </div>
 
-<strong>${escapeHtml(total)} AZN</strong>
+<strong>
+${escapeHtml(total)} AZN
+</strong>
 
 </div>
 
 <div>
 
 <span class="order-current-status ${escapeHtml(status)}">
-${escapeHtml(getOrderStatusText(status))}
+
+${escapeHtml(
+getOrderStatusText(status)
+)}
+
 </span>
 
 </div>
@@ -1912,7 +3166,9 @@ ${escapeHtml(date)}
 
 <div>
 <strong>User ID:</strong>
-${escapeHtml(String(order.user_id||""))}
+${escapeHtml(
+String(order.user_id||"")
+)}
 </div>
 
 </div>
@@ -1921,7 +3177,9 @@ ${escapeHtml(String(order.user_id||""))}
 
 <select
 class="order-status"
-data-order-id="${escapeHtml(String(order.id))}"
+data-order-id="${escapeHtml(
+String(order.id)
+)}"
 onchange="
 updateOrderStatus(
 this.dataset.orderId,
@@ -1930,23 +3188,48 @@ this.value
 "
 >
 
-<option value="pending" ${status==="pending"?"selected":""}>
+<option
+value="pending"
+${status==="pending"
+?"selected"
+:""}
+>
 Cavab gözlənilir
 </option>
 
-<option value="confirmed" ${status==="confirmed"?"selected":""}>
+<option
+value="confirmed"
+${status==="confirmed"
+?"selected"
+:""}
+>
 Təsdiqləndi
 </option>
 
-<option value="processing" ${status==="processing"?"selected":""}>
+<option
+value="processing"
+${status==="processing"
+?"selected"
+:""}
+>
 Hazırlanır
 </option>
 
-<option value="completed" ${status==="completed"?"selected":""}>
+<option
+value="completed"
+${status==="completed"
+?"selected"
+:""}
+>
 Hazırdır
 </option>
 
-<option value="cancelled" ${status==="cancelled"?"selected":""}>
+<option
+value="cancelled"
+${status==="cancelled"
+?"selected"
+:""}
+>
 Ləğv edildi
 </option>
 
@@ -1954,7 +3237,9 @@ Ləğv edildi
 
 <button
 class="order-chat"
-data-user-id="${escapeHtml(String(order.user_id||""))}"
+data-user-id="${escapeHtml(
+String(order.user_id||"")
+)}"
 data-email="${escapeHtml(email)}"
 onclick="
 openOrderChat(
@@ -1969,6 +3254,7 @@ this.dataset.email
 </div>
 
 </div>
+
 `;
 
 }).join("");
@@ -1978,11 +3264,17 @@ this.dataset.email
 
 /* UPDATE ORDER STATUS */
 
-async function updateOrderStatus(orderId,status){
+async function updateOrderStatus(
+orderId,
+status
+){
 
 if(!orderId){
 
-alert("Sifariş ID tapılmadı.");
+alert(
+"Sifariş ID tapılmadı."
+);
+
 return;
 
 }
@@ -1995,26 +3287,40 @@ const allowedStatuses=[
 "cancelled"
 ];
 
-if(!allowedStatuses.includes(status)){
+if(
+!allowedStatuses.includes(status)
+){
 
-alert("Yanlış sifariş statusu.");
+alert(
+"Yanlış sifariş statusu."
+);
+
 return;
 
 }
 
-const {error}=await supabaseClient
+const {error}=
+await supabaseClient
 .from("orders")
 .update({
 status:status,
-updated_at:new Date().toISOString()
+updated_at:
+new Date().toISOString()
 })
 .eq("id",orderId);
 
 if(error){
 
-console.error("Status update error:",error);
+console.error(
+"Status update error:",
+error
+);
 
-alert("Sifariş statusu dəyişmədi: "+error.message);
+alert(
+"Sifariş statusu dəyişmədi: "+
+error.message
+);
+
 return;
 
 }
@@ -2023,18 +3329,26 @@ await loadOrders();
 await loadChatCustomers();
 
 if(selectedChatUserId)
-await loadChatOrderStatus(selectedChatUserId);
+await loadChatOrderStatus(
+selectedChatUserId
+);
 
 }
 
 
 /* ORDER TO CHAT */
 
-async function openOrderChat(userId,email){
+async function openOrderChat(
+userId,
+email
+){
 
 if(!userId){
 
-alert("Bu sifariş üçün müştəri ID-si tapılmadı.");
+alert(
+"Bu sifariş üçün müştəri ID-si tapılmadı."
+);
+
 return;
 
 }
@@ -2043,16 +3357,25 @@ selectedChatUserId=userId;
 selectedChatEmail=email||"";
 selectedChatOrderId=null;
 
-const header=document.getElementById("chatHeader");
+const header=
+document.getElementById(
+"chatHeader"
+);
 
 if(header)
-header.textContent="💬 "+(email||"Müştəri");
+header.textContent=
+"💬 "+(email||"Müştəri");
 
-const chatMessages=document.getElementById("chatMessages");
+const chatMessages=
+document.getElementById(
+"chatMessages"
+);
 
 if(chatMessages)
 chatMessages.innerHTML=
-'<div class="empty">Mesajlar yüklənir...</div>';
+'<div class="empty">'+
+"Mesajlar yüklənir..."+
+"</div>";
 
 await loadChatCustomers();
 await loadChatMessages(userId);
@@ -2076,11 +3399,14 @@ block:"center"
 
 function setupAdminRealtime(){
 
-if(adminRealtimeChannel)return;
+if(adminRealtimeChannel)
+return;
 
 adminRealtimeChannel=
 supabaseClient
-.channel("admin-panel-realtime")
+.channel(
+"admin-panel-realtime"
+)
 
 .on(
 "postgres_changes",
@@ -2091,14 +3417,22 @@ table:"messages"
 },
 async function(payload){
 
-console.log("CHAT REALTIME:",payload);
+console.log(
+"CHAT REALTIME:",
+payload
+);
 
 await loadChatCustomers();
 
 if(selectedChatUserId){
 
-await loadChatMessages(selectedChatUserId);
-await loadChatOrderStatus(selectedChatUserId);
+await loadChatMessages(
+selectedChatUserId
+);
+
+await loadChatOrderStatus(
+selectedChatUserId
+);
 
 }
 
@@ -2118,50 +3452,113 @@ await loadOrders();
 await loadChatCustomers();
 
 if(selectedChatUserId)
-await loadChatOrderStatus(selectedChatUserId);
+await loadChatOrderStatus(
+selectedChatUserId
+);
 
 }
 )
 
-.subscribe(function(status){
+.on(
+"postgres_changes",
+{
+event:"*",
+schema:"public",
+table:"customer_products"
+},
+async function(){
 
-console.log("Admin realtime status:",status);
+/*
+MÜŞTƏRİYƏ YENİ MƏHSUL
+VERİLƏNDƏ PANEL AVTOMATİK
+YENİLƏNSİN
+*/
 
-});
+await loadProducts();
+
+}
+)
+
+.subscribe(
+function(status){
+
+console.log(
+"Admin realtime status:",
+status
+);
+
+}
+);
 
 }
 
 
 /* HELPERS */
 
-function calculateSalePercent(normal,sale){
+function calculateSalePercent(
+normal,
+sale
+){
 
-if(!normal||normal<=0||sale>=normal)return "";
+if(
+!normal||
+normal<=0||
+sale>=normal
+)
+return "";
 
-return "−"+Math.round(((normal-sale)/normal)*100)+"%";
+return "−"+
+Math.round(
+((normal-sale)/normal)*100
+)+
+"%";
 
 }
 
 
 function escapeHtml(value){
 
-return String(value??"")
-.replace(/&/g,"&amp;")
-.replace(/</g,"&lt;")
-.replace(/>/g,"&gt;")
-.replace(/"/g,"&quot;")
-.replace(/'/g,"&#039;");
+return String(
+value??""
+)
+.replace(
+/&/g,
+"&amp;"
+)
+.replace(
+/</g,
+"&lt;"
+)
+.replace(
+/>/g,
+"&gt;"
+)
+.replace(
+/"/g,
+"&quot;"
+)
+.replace(
+/'/g,
+"&#039;"
+);
 
 }
 
 
-function showMessage(text,isError=false){
+function showMessage(
+text,
+isError=false
+){
 
-const box=document.getElementById("message");
+const box=
+document.getElementById(
+"message"
+);
 
 box.textContent=text;
 
-box.className=isError
+box.className=
+isError
 ?"message error"
 :"message";
 
@@ -2175,13 +3572,20 @@ setTimeout(
 }
 
 
-function showPriceMessage(text,isError=false){
+function showPriceMessage(
+text,
+isError=false
+){
 
-const box=document.getElementById("priceMessage");
+const box=
+document.getElementById(
+"priceMessage"
+);
 
 box.textContent=text;
 
-box.className=isError
+box.className=
+isError
 ?"price-message error"
 :"price-message";
 
