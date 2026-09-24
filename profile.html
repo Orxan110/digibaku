@@ -227,6 +227,75 @@ header{
     text-align:center;
     color:#777;
 }
+/* ORDER STATUS */
+.order-item{
+    background:#080808;
+    border:1px solid #252525;
+    border-radius:14px;
+    padding:20px;
+    margin-bottom:12px;
+}
+.order-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+    margin-bottom:12px;
+}
+.order-number{
+    font-size:15px;
+    font-weight:bold;
+    color:#fff;
+}
+.order-price{
+    font-size:15px;
+    font-weight:bold;
+    color:#60a5fa;
+}
+.order-date{
+    color:#777;
+    font-size:12px;
+    margin-bottom:14px;
+}
+.order-status{
+    display:inline-flex;
+    align-items:center;
+    padding:8px 12px;
+    border-radius:8px;
+    font-size:13px;
+    font-weight:bold;
+}
+.status-pending{
+    background:rgba(234,179,8,.12);
+    color:#facc15;
+    border:1px solid rgba(234,179,8,.25);
+}
+.status-confirmed{
+    background:rgba(59,130,246,.12);
+    color:#60a5fa;
+    border:1px solid rgba(59,130,246,.25);
+}
+.status-processing{
+    background:rgba(168,85,247,.12);
+    color:#c084fc;
+    border:1px solid rgba(168,85,247,.25);
+}
+.status-completed{
+    background:rgba(34,197,94,.12);
+    color:#4ade80;
+    border:1px solid rgba(34,197,94,.25);
+}
+.status-cancelled{
+    background:rgba(239,68,68,.12);
+    color:#f87171;
+    border:1px solid rgba(239,68,68,.25);
+}
+.status-unknown{
+    background:rgba(156,163,175,.12);
+    color:#9ca3af;
+    border:1px solid rgba(156,163,175,.25);
+}
+/* BUTTONS */
 .btn{
     border:0;
     border-radius:9px;
@@ -248,94 +317,6 @@ header{
     display:flex;
     gap:10px;
     flex-wrap:wrap;
-}
-/* SİFARİŞ STATUSLARI */
-.order-status-card{
-    background:#080808;
-    border:1px solid #252525;
-    border-radius:14px;
-    padding:20px;
-    margin-bottom:12px;
-}
-.order-status-top{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:12px;
-    margin-bottom:14px;
-}
-.order-number{
-    color:#888;
-    font-size:12px;
-}
-.order-status-badge{
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    border-radius:999px;
-    padding:7px 12px;
-    font-size:12px;
-    font-weight:bold;
-    white-space:nowrap;
-}
-.status-pending{
-    color:#fbbf24;
-    background:rgba(251,191,36,.12);
-    border:1px solid rgba(251,191,36,.25);
-}
-.status-confirmed{
-    color:#60a5fa;
-    background:rgba(96,165,250,.12);
-    border:1px solid rgba(96,165,250,.25);
-}
-.status-processing{
-    color:#c084fc;
-    background:rgba(192,132,252,.12);
-    border:1px solid rgba(192,132,252,.25);
-}
-.status-completed{
-    color:#6ee7b7;
-    background:rgba(110,231,183,.12);
-    border:1px solid rgba(110,231,183,.25);
-}
-.status-cancelled{
-    color:#f87171;
-    background:rgba(248,113,113,.12);
-    border:1px solid rgba(248,113,113,.25);
-}
-.order-info{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:10px;
-}
-.order-info-box{
-    background:#111;
-    border:1px solid #222;
-    border-radius:10px;
-    padding:12px;
-}
-.order-info-box span{
-    display:block;
-    color:#777;
-    font-size:11px;
-    margin-bottom:5px;
-}
-.order-info-box strong{
-    color:#ddd;
-    font-size:14px;
-}
-.chat-button{
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    gap:8px;
-    margin-top:15px;
-    background:#2563eb;
-    color:#fff;
-    border-radius:9px;
-    padding:12px 18px;
-    font-weight:bold;
-    font-size:14px;
 }
 #loading{
     text-align:center;
@@ -372,13 +353,6 @@ header{
     .info-grid{
         grid-template-columns:1fr;
     }
-    .order-info{
-        grid-template-columns:1fr;
-    }
-    .order-status-top{
-        align-items:flex-start;
-        flex-direction:column;
-    }
     .actions{
         flex-direction:column;
     }
@@ -386,8 +360,9 @@ header{
         width:100%;
         text-align:center;
     }
-    .chat-button{
-        width:100%;
+    .order-top{
+        align-items:flex-start;
+        flex-direction:column;
     }
 }
 </style>
@@ -400,17 +375,11 @@ DigiBaku<span>.com</span>
 </a>
 <div class="header-right">
 <div class="language">
-
-AZ
-
-|
-
-RU
-
-|
-
-EN
-
+<button id="azBtn" onclick="setLanguage('az')">AZ</button>
+<span style="color:#444;">|</span>
+<button id="ruBtn" onclick="setLanguage('ru')">RU</button>
+<span style="color:#444;">|</span>
+<button id="enBtn" onclick="setLanguage('en')">EN</button>
 </div>
 <a href="index.html" class="back" id="backHome">
 ← Ana səhifə
@@ -460,9 +429,10 @@ Email
 <span id="statusLabel">
 Hesab statusu
 </span>
-
+<strong
+class="status"
+id="statusValue">
 ● Aktiv
-
 </strong>
 </div>
 <div class="info-box">
@@ -477,26 +447,12 @@ Qeydiyyat tarixi
 <span id="userIdLabel">
 İstifadəçi ID
 </span>
+<strong
+id="userId"
+style="font-size:11px;word-break:break-all;">
+-
 </strong>
 </div>
-</div>
-</div>
-<!-- MƏHSULLAR -->
-<div class="orders">
-<h2 id="myProducts">
-Məhsullarım
-</h2>
-<p
-class="orders-subtitle"
-id="productsSubtitle">
-
-Satın aldığınız premium xidmətlər burada görünür.
-
-</p>
-<div id="productsList">
-
-Yüklənir…
-
 </div>
 </div>
 <!-- SİFARİŞLƏR -->
@@ -507,45 +463,65 @@ Sifarişlərim
 <p
 class="orders-subtitle"
 id="ordersSubtitle">
-
 Sifarişlərinizin vəziyyətini buradan izləyə bilərsiniz.
-
 </p>
 <div id="ordersList">
-
-Yüklənir…
-
+Yüklənir...
 </div>
-
-💬 Çata keç
-
-</a>
+</div>
+<!-- MƏHSULLAR -->
+<div class="orders">
+<h2 id="myProducts">
+Məhsullarım
+</h2>
+<p
+class="orders-subtitle"
+id="productsSubtitle">
+Satın aldığınız premium xidmətlər burada görünür.
+</p>
+<div id="productsList">
+Yüklənir...
+</div>
 </div>
 <!-- ACTIONS -->
 <div class="user-card">
 <h2
 id="accountActions"
 style="margin-bottom:18px;">
-
 Hesab əməliyyatları
-
 </h2>
 <div class="actions">
-
-Ana səhifə
-
+<a
+href="chat.html"
+class="btn btn-primary"
+id="chatButton">
+💬 Çata keç
 </a>
-
+<a
+href="index.html"
+class="btn btn-primary"
+id="homeButton">
+Ana səhifə
+</a>
+<button
+onclick="logout()"
+class="btn btn-dark"
+id="logoutButton">
 Çıxış
-
 </button>
 </div>
 </div>
 </div>
 </section>
 </main>
-<!-- WHATSAPP -->
+<!-- DAİMİ AKTİV WHATSAPP LOQOSU -->
+<a
+href="https://wa.me/994702883484?text=Salam%2C%20məlumat%20almaq%20istəyirəm"
+target="_blank"
+class="whatsapp-float"
+aria-label="WhatsApp dəstək">
 <svg viewBox="0 0 32 32">
+<path d="M16.002 0c-8.837 0-16 7.163-16 16 0 2.825.736 5.485 2.025 7.795l-2.025 7.395 7.575-1.985c2.22 1.21 4.795 1.9 7.425 1.9 8.837 0 16-7.163 16-16s-7.163-16-16-16zM16.002 29.337c-2.345 0-4.57-0.63-6.505-1.725l-0.465-0.27-4.83 1.265 1.29-4.705-0.3-0.485c-1.215-1.95-1.855-4.22-1.855-6.557 0-7.36 5.99-13.35 13.35-13.35 7.36 0 13.35 5.99 13.35 13.35s-5.99 13.35-13.35 13.35zM22.56 19.32c-0.36-0.18-2.125-1.05-2.455-1.17s-0.57-0.18-0.81 0.18c-0.24 0.36-0.93 1.17-1.14 1.41s-0.42 0.27-0.78 0.09c-0.36-0.18-1.515-0.555-2.885-1.785-1.065-0.945-1.785-2.115-1.995-2.475s-0.03-0.555 0.15-0.735c0.15-0.15 0.36-0.39 0.54-0.585s0.24-0.33 0.36-0.555c0.12-0.225 0.06-0.42-0.03-0.585s-0.81-1.95-1.11-2.67c-0.285-0.69-0.585-0.6-0.81-0.615s-0.465-0.015-0.72-0.015c-0.255 0-0.66 0.09-1.005 0.465s-1.32 1.29-1.32 3.15 1.35 3.645 1.545 3.9c0.195 0.255 2.67 4.08 6.465 5.715 0.9 0.39 1.605 0.63 2.145 0.81 0.9 0.3 1.725 0.255 2.37 0.15 0.72-0.105 2.125-0.87 2.425-1.71s0.3-1.56 0.21-1.71c-0.09-0.15-0.33-0.24-0.69-0.42z"></path>
 </svg>
 </a>
 <script>
@@ -563,20 +539,22 @@ accountStatus:"Hesab statusu",
 active:"● Aktiv",
 registrationDate:"Qeydiyyat tarixi",
 userId:"İstifadəçi ID",
-myProducts:"Məhsullarım",
-purchasedProducts:"Satın aldığınız premium xidmətlər burada görünür.",
 myOrders:"Sifarişlərim",
 ordersSubtitle:"Sifarişlərinizin vəziyyətini buradan izləyə bilərsiniz.",
+noOrders:"Hazırda sifarişiniz yoxdur.",
 orderNumber:"Sifariş",
-orderAmount:"Məbləğ",
-orderDate:"Tarix",
-waiting:"Cavab gözlənilir",
+orderDate:"Tarix:",
+orderStatus:"Status:",
+pending:"Cavab gözlənilir",
 confirmed:"Təsdiqləndi",
 processing:"Hazırlanır",
 completed:"Hazırdır",
 cancelled:"Ləğv edildi",
-noOrders:"Hazırda sifarişiniz yoxdur.",
-goChat:"💬 Çata keç",
+unknownStatus:"Status bilinmir",
+total:"Məbləğ:",
+chat:"💬 Çata keç",
+myProducts:"Məhsullarım",
+purchasedProducts:"Satın aldığınız premium xidmətlər burada görünür.",
 loading:"Yüklənir...",
 profileLoading:"Profil yüklənir...",
 noProducts:"Hazırda sifarişiniz yoxdur.",
@@ -598,20 +576,22 @@ accountStatus:"Статус аккаунта",
 active:"● Активен",
 registrationDate:"Дата регистрации",
 userId:"ID пользователя",
-myProducts:"Мои товары",
-purchasedProducts:"Здесь отображаются приобретённые вами премиум-услуги.",
 myOrders:"Мои заказы",
-ordersSubtitle:"Здесь вы можете отслеживать состояние ваших заказов.",
+ordersSubtitle:"Здесь вы можете отслеживать статус ваших заказов.",
+noOrders:"У вас пока нет заказов.",
 orderNumber:"Заказ",
-orderAmount:"Сумма",
-orderDate:"Дата",
-waiting:"Ожидается ответ",
+orderDate:"Дата:",
+orderStatus:"Статус:",
+pending:"Ожидается ответ",
 confirmed:"Подтверждено",
 processing:"Готовится",
 completed:"Готово",
 cancelled:"Отменено",
-noOrders:"У вас пока нет заказов.",
-goChat:"💬 Перейти в чат",
+unknownStatus:"Статус неизвестен",
+total:"Сумма:",
+chat:"💬 Перейти в чат",
+myProducts:"Мои товары",
+purchasedProducts:"Здесь отображаются приобретённые вами премиум-услуги.",
 loading:"Загрузка...",
 profileLoading:"Загрузка профиля...",
 noProducts:"У вас пока нет заказов.",
@@ -633,20 +613,22 @@ accountStatus:"Account status",
 active:"● Active",
 registrationDate:"Registration date",
 userId:"User ID",
-myProducts:"My Products",
-purchasedProducts:"Your purchased premium services will appear here.",
 myOrders:"My Orders",
 ordersSubtitle:"You can track the status of your orders here.",
+noOrders:"You have no orders yet.",
 orderNumber:"Order",
-orderAmount:"Amount",
-orderDate:"Date",
-waiting:"Waiting for response",
+orderDate:"Date:",
+orderStatus:"Status:",
+pending:"Waiting for response",
 confirmed:"Confirmed",
 processing:"Preparing",
 completed:"Ready",
 cancelled:"Cancelled",
-noOrders:"You have no orders yet.",
-goChat:"💬 Open Chat",
+unknownStatus:"Unknown status",
+total:"Total:",
+chat:"💬 Open chat",
+myProducts:"My Products",
+purchasedProducts:"Your purchased premium services will appear here.",
 loading:"Loading...",
 profileLoading:"Loading profile...",
 noProducts:"You have no orders yet.",
@@ -695,38 +677,30 @@ function getDateLocale(){
     return "az-AZ";
 }
 /* ==========================================
-   STATUS
+   SİFARİŞ STATUSU
 ========================================== */
-function getOrderStatusText(status){
-    const map={
-        pending:"waiting",
-        confirmed:"confirmed",
-        processing:"processing",
-        completed:"completed",
-        cancelled:"cancelled"
-    };
-    return t(
-        map[status] || "waiting"
-    );
-}
-function getOrderStatusClass(status){
-    if(status==="pending"){
-        return "status-pending";
+const orderStatusMap={
+    pending:{
+        text:"pending",
+        className:"status-pending"
+    },
+    confirmed:{
+        text:"confirmed",
+        className:"status-confirmed"
+    },
+    processing:{
+        text:"processing",
+        className:"status-processing"
+    },
+    completed:{
+        text:"completed",
+        className:"status-completed"
+    },
+    cancelled:{
+        text:"cancelled",
+        className:"status-cancelled"
     }
-    if(status==="confirmed"){
-        return "status-confirmed";
-    }
-    if(status==="processing"){
-        return "status-processing";
-    }
-    if(status==="completed"){
-        return "status-completed";
-    }
-    if(status==="cancelled"){
-        return "status-cancelled";
-    }
-    return "status-pending";
-}
+};
 /* ==========================================
    DİLİ SƏHİFƏYƏ TƏTBİQ ET
 ========================================== */
@@ -767,14 +741,6 @@ function applyLanguage(){
     ).textContent=
         t("userId");
     document.getElementById(
-        "myProducts"
-    ).textContent=
-        t("myProducts");
-    document.getElementById(
-        "productsSubtitle"
-    ).textContent=
-        t("purchasedProducts");
-    document.getElementById(
         "myOrders"
     ).textContent=
         t("myOrders");
@@ -783,13 +749,21 @@ function applyLanguage(){
     ).textContent=
         t("ordersSubtitle");
     document.getElementById(
-        "chatButton"
+        "myProducts"
     ).textContent=
-        t("goChat");
+        t("myProducts");
+    document.getElementById(
+        "productsSubtitle"
+    ).textContent=
+        t("purchasedProducts");
     document.getElementById(
         "accountActions"
     ).textContent=
         t("accountActions");
+    document.getElementById(
+        "chatButton"
+    ).textContent=
+        t("chat");
     document.getElementById(
         "homeButton"
     ).textContent=
@@ -870,109 +844,307 @@ window.supabase.createClient(
    PROFİL
 ========================================== */
 async function loadProfile(){
-    try{
-        const {
-            data,
-            error
-        } =
-        await supabaseClient
-            .auth
-            .getSession();
-        if(error){
-            console.error(error);
-            window.location.href=
-                "login.html";
-            return;
-        }
-        const session =
-            data.session;
-        if(!session){
-            window.location.href=
-                "login.html";
-            return;
-        }
-        const user =
-            session.user;
-        /* EMAIL */
-        document.getElementById(
-            "userEmail"
-        ).textContent=
-            user.email || "-";
-        document.getElementById(
-            "emailInfo"
-        ).textContent=
-            user.email || "-";
-        /* AVATAR */
-        if(user.email){
-            document.getElementById(
-                "avatar"
-            ).textContent=
-                user.email
-                    .charAt(0)
-                    .toUpperCase();
-        }
-        /* USER ID */
-        document.getElementById(
-            "userId"
-        ).textContent=
-            user.id;
-        /* QEYDİYYAT */
-        if(user.created_at){
-            window.profileCreatedAt =
-                user.created_at;
-            const date =
-                new Date(
-                    user.created_at
-                );
-            document.getElementById(
-                "createdDate"
-            ).textContent=
-                date.toLocaleDateString(
-                    getDateLocale(),
-                    {
-                        year:"numeric",
-                        month:"long",
-                        day:"numeric"
-                    }
-                );
-        }
-        /* MƏHSULLAR */
-        await loadMyProducts(
-            user.id
-        );
-        /* SİFARİŞLƏR */
-        await loadMyOrders(
-            user.id
-        );
-        /* GÖSTƏR */
-        document.getElementById(
-            "loading"
-        ).style.display=
-            "none";
-        document.getElementById(
-            "profileContent"
-        ).style.display=
-            "block";
-        applyLanguage();
-        /* REALTIME */
-        setupOrdersRealtime(
-            user.id
-        );
-    }catch(error){
-        console.error(
-            "PROFILE ERROR:",
-            error
-        );
-        document.getElementById(
-            "loading"
-        ).style.display=
-            "none";
-        document.getElementById(
-            "profileContent"
-        ).style.display=
-            "block";
-        applyLanguage();
+    const {
+        data,
+        error
+    } =
+    await supabaseClient
+        .auth
+        .getSession();
+    if(error){
+        console.error(error);
+        window.location.href=
+            "login.html";
+        return;
     }
+    const session =
+        data.session;
+    if(!session){
+        window.location.href=
+            "login.html";
+        return;
+    }
+    const user =
+        session.user;
+    /* EMAIL */
+    document.getElementById(
+        "userEmail"
+    ).textContent=
+        user.email || "-";
+    document.getElementById(
+        "emailInfo"
+    ).textContent=
+        user.email || "-";
+    /* AVATAR */
+    if(user.email){
+        document.getElementById(
+            "avatar"
+        ).textContent=
+            user.email
+                .charAt(0)
+                .toUpperCase();
+    }
+    /* USER ID */
+    document.getElementById(
+        "userId"
+    ).textContent=
+        user.id;
+    /* QEYDİYYAT TARİXİ */
+    if(user.created_at){
+        window.profileCreatedAt =
+            user.created_at;
+        const date =
+            new Date(
+                user.created_at
+            );
+        document.getElementById(
+            "createdDate"
+        ).textContent=
+            date.toLocaleDateString(
+                getDateLocale(),
+                {
+                    year:"numeric",
+                    month:"long",
+                    day:"numeric"
+                }
+            );
+    }
+    /*
+       VACİB:
+       SİFARİŞ VƏ MƏHSUL SORĞULARI
+       PROFİLİN AÇILMASINI BLOK ETMİR
+    */
+    await Promise.allSettled([
+        loadMyProducts(user.id),
+        loadMyOrders(user.id)
+    ]);
+    /* GÖSTƏR */
+    document.getElementById(
+        "loading"
+    ).style.display=
+        "none";
+    document.getElementById(
+        "profileContent"
+    ).style.display=
+        "block";
+    applyLanguage();
+    /* REALTIME SİFARİŞ STATUSU */
+    setupOrdersRealtime(user.id);
+}
+/* ==========================================
+   SİFARİŞLƏRİ YÜKLƏ
+========================================== */
+async function loadMyOrders(
+    userId
+){
+    const list =
+        document.getElementById(
+            "ordersList"
+        );
+    const {
+        data,
+        error
+    } =
+    await supabaseClient
+        .from("orders")
+        .select(
+            "id,user_id,total,status,created_at,updated_at"
+        )
+        .eq(
+            "user_id",
+            userId
+        )
+        .order(
+            "created_at",
+            {
+                ascending:false
+            }
+        )
+        .limit(50);
+    if(error){
+        console.error(
+            "ORDERS ERROR:",
+            error
+        );
+        list.innerHTML=`
+        <div class="empty">
+            ${t("error")}
+        </div>
+        `;
+        window.currentOrdersData=[];
+        return;
+    }
+    window.currentOrdersData =
+        data || [];
+    renderOrders(
+        window.currentOrdersData
+    );
+}
+/* ==========================================
+   SİFARİŞLƏRİ GÖSTƏR
+========================================== */
+function renderOrders(
+    data
+){
+    const list =
+        document.getElementById(
+            "ordersList"
+        );
+    if(!list){
+        return;
+    }
+    if(
+        !data ||
+        data.length===0
+    ){
+        list.innerHTML=`
+        <div class="empty">
+            ${t("noOrders")}
+            <br><br>
+            <a
+                href="chat.html"
+                class="btn btn-primary">
+                ${t("chat")}
+            </a>
+        </div>
+        `;
+        return;
+    }
+    list.innerHTML="";
+    data.forEach(
+        (order,index)=>{
+            const rawStatus =
+                String(
+                    order.status || ""
+                ).toLowerCase().trim();
+            const statusInfo =
+                orderStatusMap[
+                    rawStatus
+                ];
+            const statusText =
+                statusInfo
+                ?
+                t(
+                    statusInfo.text
+                )
+                :
+                t("unknownStatus");
+            const statusClass =
+                statusInfo
+                ?
+                statusInfo.className
+                :
+                "status-unknown";
+            const createdDate =
+                order.created_at
+                ?
+                new Date(
+                    order.created_at
+                ).toLocaleString(
+                    getDateLocale()
+                )
+                :
+                "-";
+            const updatedDate =
+                order.updated_at
+                ?
+                new Date(
+                    order.updated_at
+                ).toLocaleString(
+                    getDateLocale()
+                )
+                :
+                createdDate;
+            const orderDiv =
+                document.createElement(
+                    "div"
+                );
+            orderDiv.className=
+                "order-item";
+            orderDiv.innerHTML=`
+            <div class="order-top">
+                <div class="order-number">
+                    ${escapeHtml(
+                        t("orderNumber")
+                    )}
+                    #${escapeHtml(
+                        String(order.id)
+                    )}
+                </div>
+                <div class="order-price">
+                    ${escapeHtml(
+                        t("total")
+                    )}
+                    ${escapeHtml(
+                        String(
+                            order.total ?? 0
+                        )
+                    )}
+                    AZN
+                </div>
+            </div>
+            <div class="order-date">
+                ${escapeHtml(
+                    t("orderDate")
+                )}
+                ${escapeHtml(
+                    createdDate
+                )}
+            </div>
+            <div style="margin-bottom:8px;color:#777;font-size:12px;">
+                ${escapeHtml(
+                    t("orderStatus")
+                )}
+            </div>
+            <div class="order-status ${statusClass}">
+                ${escapeHtml(
+                    statusText
+                )}
+            </div>
+            <div
+                style="
+                    margin-top:12px;
+                    color:#555;
+                    font-size:11px;
+                "
+            >
+                ${escapeHtml(
+                    updatedDate
+                )}
+            </div>
+            `;
+            list.appendChild(
+                orderDiv
+            );
+        }
+    );
+}
+/* ==========================================
+   SİFARİŞ REALTIME
+========================================== */
+function setupOrdersRealtime(
+    userId
+){
+    supabaseClient
+        .channel(
+            "profile-orders-" + userId
+        )
+        .on(
+            "postgres_changes",
+            {
+                event:"*",
+                schema:"public",
+                table:"orders",
+                filter:
+                    "user_id=eq." + userId
+            },
+            function(){
+                loadMyOrders(
+                    userId
+                );
+            }
+        )
+        .subscribe();
 }
 /* ==========================================
    MƏHSULLAR
@@ -984,51 +1156,40 @@ async function loadMyProducts(
         document.getElementById(
             "productsList"
         );
-    try{
-        const {
-            data,
-            error
-        } =
-        await supabaseClient
-            .from("customer_products")
-            .select(
-                "id,product_name,account_info,status,created_at"
-            )
-            .eq(
-                "user_id",
-                userId
-            )
-            .order(
-                "created_at",
-                {
-                    ascending:false
-                }
-            );
-        if(error){
-            console.error(
-                "PRODUCT ERROR:",
-                error
-            );
-            list.innerHTML=`
-            <div class="empty">
-                ${t("error")}
-            </div>
-            `;
-            return;
-        }
-        window.currentProductsData =
-            data || [];
-        renderProducts(
-            window.currentProductsData
+    const {
+        data,
+        error
+    } =
+    await supabaseClient
+        .from("customer_products")
+        .select(
+            "id,product_name,account_info,status,created_at"
+        )
+        .eq(
+            "user_id",
+            userId
+        )
+        .order(
+            "created_at",
+            {
+                ascending:false
+            }
         );
-    }catch(error){
+    if(error){
         console.error(error);
         list.innerHTML=`
         <div class="empty">
             ${t("error")}
         </div>
         `;
+        window.currentProductsData=[];
+        return;
     }
+    window.currentProductsData =
+        data || [];
+    renderProducts(
+        window.currentProductsData
+    );
 }
 /* ==========================================
    MƏHSULLARI GÖSTƏR
@@ -1106,220 +1267,6 @@ function renderProducts(
             );
         }
     );
-}
-/* ==========================================
-   SİFARİŞLƏRİ YÜKLƏ
-========================================== */
-async function loadMyOrders(
-    userId
-){
-    const list =
-        document.getElementById(
-            "ordersList"
-        );
-    try{
-        const {
-            data,
-            error
-        } =
-        await supabaseClient
-            .from("orders")
-            .select(
-                "id,user_id,total,status,created_at,updated_at"
-            )
-            .eq(
-                "user_id",
-                userId
-            )
-            .order(
-                "created_at",
-                {
-                    ascending:false
-                }
-            )
-            .limit(50);
-        if(error){
-            console.error(
-                "ORDER ERROR:",
-                error
-            );
-            list.innerHTML=`
-            <div class="empty">
-                ${t("error")}
-            </div>
-            `;
-            return;
-        }
-        window.currentOrdersData =
-            data || [];
-        renderOrders(
-            window.currentOrdersData
-        );
-    }catch(error){
-        console.error(
-            "ORDER ERROR:",
-            error
-        );
-        list.innerHTML=`
-        <div class="empty">
-            ${t("error")}
-        </div>
-        `;
-    }
-}
-/* ==========================================
-   SİFARİŞLƏRİ GÖSTƏR
-========================================== */
-function renderOrders(
-    data
-){
-    const list =
-        document.getElementById(
-            "ordersList"
-        );
-    if(!list){
-        return;
-    }
-    if(
-        !data ||
-        data.length===0
-    ){
-        list.innerHTML=`
-        <div class="empty">
-            ${t("noOrders")}
-        </div>
-        `;
-        return;
-    }
-    list.innerHTML="";
-    data.forEach(
-        order=>{
-            const card =
-                document.createElement(
-                    "div"
-                );
-            card.className=
-                "order-status-card";
-            const date =
-                order.created_at
-                ?
-                new Date(
-                    order.created_at
-                ).toLocaleString(
-                    getDateLocale()
-                )
-                :
-                "-";
-            const updated =
-                order.updated_at
-                ?
-                new Date(
-                    order.updated_at
-                ).toLocaleString(
-                    getDateLocale()
-                )
-                :
-                date;
-            const statusText =
-                getOrderStatusText(
-                    order.status
-                );
-            const statusClass =
-                getOrderStatusClass(
-                    order.status
-                );
-            card.innerHTML=`
-            <div class="order-status-top">
-                <div class="order-number">
-                    ${escapeHtml(
-                        t("orderNumber")
-                    )}
-                    #${escapeHtml(
-                        order.id
-                    )}
-                </div>
-                <div
-                    class="order-status-badge ${statusClass}">
-                    ${escapeHtml(
-                        statusText
-                    )}
-                </div>
-            </div>
-            <div class="order-info">
-                <div class="order-info-box">
-                    <span>
-                        ${escapeHtml(
-                            t("orderAmount")
-                        )}
-                    </span>
-                    <strong>
-                        ${escapeHtml(
-                            order.total
-                        )} AZN
-                    </strong>
-                </div>
-                <div class="order-info-box">
-                    <span>
-                        ${escapeHtml(
-                            t("orderDate")
-                        )}
-                    </span>
-                    <strong>
-                        ${escapeHtml(
-                            date
-                        )}
-                    </strong>
-                </div>
-            </div>
-            `;
-            list.appendChild(
-                card
-            );
-        }
-    );
-}
-/* ==========================================
-   ORDERS REALTIME
-========================================== */
-function setupOrdersRealtime(
-    userId
-){
-    try{
-        if(
-            window.profileOrdersChannel
-        ){
-            supabaseClient
-                .removeChannel(
-                    window.profileOrdersChannel
-                );
-        }
-        window.profileOrdersChannel =
-            supabaseClient
-                .channel(
-                    "profile-orders-" + userId
-                )
-                .on(
-                    "postgres_changes",
-                    {
-                        event:"*",
-                        schema:"public",
-                        table:"orders",
-                        filter:
-                            "user_id=eq." + userId
-                    },
-                    function(){
-                        loadMyOrders(
-                            userId
-                        );
-                    }
-                )
-                .subscribe();
-    }catch(error){
-        console.error(
-            "ORDERS REALTIME ERROR:",
-            error
-        );
-    }
 }
 /* ==========================================
    HTML TƏHLÜKƏSİZLİYİ
