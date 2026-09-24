@@ -163,10 +163,6 @@ font-size:13px;
 margin-right:8px;
 }
 
-/* =========================
-ACCORDION
-========================= */
-
 .accordion-card > h2{
 padding:20px 24px;
 cursor:pointer;
@@ -200,10 +196,6 @@ border-top:1px solid #262626;
 .accordion-card.open .accordion-content{
 display:block;
 }
-
-/* =========================
-SUMMARY
-========================= */
 
 .order-summary{
 display:grid;
@@ -279,9 +271,7 @@ justify-content:center;
 font-weight:bold;
 }
 
-/* =========================
-NEW CHAT ALERT
-========================= */
+/* NEW CHAT ALERT */
 
 .new-chat-alert{
 position:fixed;
@@ -381,9 +371,7 @@ opacity:1;
 
 }
 
-/* =========================
-PRODUCT
-========================= */
+/* PRODUCT */
 
 .customer-info{
 background:#080808;
@@ -481,9 +469,7 @@ margin-top:-8px;
 margin-bottom:15px;
 }
 
-/* =========================
-GIVEN PRODUCTS
-========================= */
+/* GIVEN PRODUCTS */
 
 .product{
 background:#080808;
@@ -571,9 +557,7 @@ margin-top:12px;
 background:#991b1b;
 }
 
-/* =========================
-PRICE
-========================= */
+/* PRICE */
 
 .price-product{
 background:#080808;
@@ -642,9 +626,7 @@ border-color:#7f1d1d;
 color:#fca5a5;
 }
 
-/* =========================
-CHAT
-========================= */
+/* CHAT */
 
 .chat-layout{
 display:grid;
@@ -817,9 +799,7 @@ min-height:75px;
 margin-bottom:8px;
 }
 
-/* =========================
-ORDERS
-========================= */
+/* ORDERS */
 
 .orders-heading{
 display:flex;
@@ -1022,8 +1002,6 @@ Admin yoxlanılır...
 
 <div id="adminPanel">
 
-<!-- SİFARİŞ XÜLASƏSİ -->
-
 <div class="order-summary">
 
 <div class="summary-box">
@@ -1086,9 +1064,6 @@ class="notification-count"
 
 </div>
 
-
-<!-- 1 -->
-
 <div
 class="card accordion-card"
 id="priceSection"
@@ -1115,9 +1090,6 @@ Qiymətlər yüklənir...
 
 </div>
 </div>
-
-
-<!-- 2 -->
 
 <div
 class="card accordion-card"
@@ -1252,9 +1224,6 @@ Məhsulu müştəriyə əlavə et
 </div>
 </div>
 
-
-<!-- 3 -->
-
 <div
 class="card accordion-card"
 id="givenProductsSection"
@@ -1279,9 +1248,6 @@ Verilmiş məhsullar yüklənir...
 
 </div>
 </div>
-
-
-<!-- 4 -->
 
 <div
 class="card accordion-card"
@@ -1410,9 +1376,6 @@ Mesaj göndər
 </div>
 </div>
 
-
-<!-- 5 -->
-
 <div
 class="card accordion-card"
 id="ordersSection"
@@ -1453,9 +1416,6 @@ Sifarişlər yüklənir...
 </div>
 </main>
 
-
-<!-- YENİ CHAT MESAJI -->
-
 <button
 id="newChatAlert"
 class="new-chat-alert"
@@ -1493,7 +1453,6 @@ class="new-chat-alert-count"
 </div>
 
 </button>
-
 
 <script>
 
@@ -1563,25 +1522,57 @@ ADMIN
 
 async function checkAdmin(){
 
+const loading =
+document.getElementById("loading");
+
+const panel =
+document.getElementById("adminPanel");
+
 try{
 
-const {
-data:{
-session
-}
-}=
-await supabaseClient.auth.getSession();
+/*
+AUTH SESSION-U MAXIMUM 10 SANİYƏ GÖZLƏYİR.
+*/
+
+const sessionResult =
+await Promise.race([
+
+supabaseClient.auth.getSession(),
+
+new Promise(function(_,reject){
+
+setTimeout(function(){
+
+reject(
+new Error(
+"Session yoxlanışı vaxt aşımına uğradı."
+)
+);
+
+},10000);
+
+})
+
+]);
+
+const session =
+sessionResult?.data?.session;
 
 if(!session){
 
 window.location.href="login.html";
+
 return;
 
 }
 
+const userEmail =
+String(
+session.user?.email || ""
+).toLowerCase();
+
 if(
-(session.user.email||"")
-.toLowerCase()!==
+userEmail !==
 ADMIN_EMAIL.toLowerCase()
 ){
 
@@ -1592,35 +1583,183 @@ alert(
 await supabaseClient.auth.signOut();
 
 window.location.href="login.html";
+
 return;
 
 }
 
-document.getElementById(
-"loading"
-).style.display="none";
 
-document.getElementById(
-"adminPanel"
-).style.display="block";
+/*
+ADMIN TƏSDİQLƏNDİ.
+PANELİ DƏRHAL AÇIRIQ.
+*/
+
+loading.style.display="none";
+
+panel.style.display="block";
+
+
+/*
+MƏLUMATLARI AYRI-AYRI YÜKLƏYİRİK.
+BİR FUNKSİYADA XƏTA OLSA,
+DİGƏRLƏRİ DAYANMIR.
+*/
+
+try{
 
 await loadCustomers();
+
+}catch(error){
+
+console.error(
+"Customers loading error:",
+error
+);
+
+}
+
+
+try{
+
 await loadPrices();
+
+}catch(error){
+
+console.error(
+"Prices loading error:",
+error
+);
+
+}
+
+
+try{
+
 await loadProducts();
+
+}catch(error){
+
+console.error(
+"Products loading error:",
+error
+);
+
+}
+
+
+try{
+
 await loadChatCustomers();
+
+}catch(error){
+
+console.error(
+"Chat customers loading error:",
+error
+);
+
+}
+
+
+try{
+
 await loadOrders();
+
+}catch(error){
+
+console.error(
+"Orders loading error:",
+error
+);
+
+}
+
+
+try{
+
 await checkUnreadChatMessages();
+
+}catch(error){
+
+console.error(
+"Unread messages error:",
+error
+);
+
+}
+
+
+try{
 
 setupAdminRealtime();
 
 }catch(error){
 
-console.error(error);
+console.error(
+"Realtime setup error:",
+error
+);
 
-document.getElementById(
-"loading"
-).innerHTML=
-"Admin yoxlanılarkən xəta baş verdi.";
+}
+
+
+}catch(error){
+
+console.error(
+"Admin check error:",
+error
+);
+
+loading.innerHTML=`
+
+<div style="
+max-width:500px;
+margin:30px auto;
+padding:20px;
+background:#160909;
+border:1px solid #7f1d1d;
+border-radius:14px;
+color:#fff;
+">
+
+<div style="
+font-size:18px;
+font-weight:800;
+margin-bottom:10px;
+">
+Admin yoxlanılarkən xəta baş verdi.
+</div>
+
+<div style="
+font-size:13px;
+color:#aaa;
+line-height:1.5;
+">
+${escapeHtml(
+error?.message ||
+"Naməlum xəta"
+)}
+</div>
+
+<button
+onclick="location.reload()"
+style="
+margin-top:18px;
+background:#2563eb;
+color:#fff;
+border:0;
+padding:11px 17px;
+border-radius:9px;
+cursor:pointer;
+font-weight:700;
+"
+>
+Yenidən yoxla
+</button>
+
+</div>
+
+`;
 
 }
 
@@ -1652,6 +1791,8 @@ if(error){
 
 select.innerHTML=
 '<option value="">Müştərilər yüklənmədi</option>';
+
+console.error(error);
 
 return;
 
@@ -1699,6 +1840,7 @@ document.getElementById(
 if(!id){
 
 info.style.display="none";
+
 return;
 
 }
@@ -1900,22 +2042,40 @@ String(item.product_key||"")
 
 if(name===wanted)return true;
 
-if(wanted.includes("netflix")&&(name.includes("netflix")||key==="netflix"))
+if(
+wanted.includes("netflix") &&
+(name.includes("netflix")||key==="netflix")
+)
 return true;
 
-if(wanted.includes("youtube")&&(name.includes("youtube")||key==="youtube"))
+if(
+wanted.includes("youtube") &&
+(name.includes("youtube")||key==="youtube")
+)
 return true;
 
-if(wanted.includes("chatgpt")&&(name.includes("chatgpt")||key==="chatgpt"))
+if(
+wanted.includes("chatgpt") &&
+(name.includes("chatgpt")||key==="chatgpt")
+)
 return true;
 
-if(wanted.includes("gemini")&&(name.includes("gemini")||key==="gemini"))
+if(
+wanted.includes("gemini") &&
+(name.includes("gemini")||key==="gemini")
+)
 return true;
 
-if(wanted.includes("spotify")&&(name.includes("spotify")||key==="spotify"))
+if(
+wanted.includes("spotify") &&
+(name.includes("spotify")||key==="spotify")
+)
 return true;
 
-if(wanted.includes("canva")&&(name.includes("canva")||key==="canva"))
+if(
+wanted.includes("canva") &&
+(name.includes("canva")||key==="canva")
+)
 return true;
 
 return false;
@@ -2015,9 +2175,11 @@ DATE
 function addMonthsSafe(date,months){
 
 const d=new Date(date);
+
 const day=d.getDate();
 
 d.setDate(1);
+
 d.setMonth(
 d.getMonth()+Number(months)
 );
@@ -2081,6 +2243,7 @@ document.getElementById(
 if(!customerId){
 
 showMessage("Müştəri seçin.",true);
+
 return;
 
 }
@@ -2088,6 +2251,7 @@ return;
 if(!product){
 
 showMessage("Məhsul seçin.",true);
+
 return;
 
 }
@@ -2095,6 +2259,7 @@ return;
 if(!selectedDurationMonths){
 
 showMessage("Müddət seçin.",true);
+
 return;
 
 }
@@ -2116,13 +2281,6 @@ document.getElementById(
 );
 
 button.disabled=true;
-
-
-/*
-ƏSAS DÜZƏLİŞ:
-Seçilən 3 ay birbaşa INSERT zamanı
-duration_months-a yazılır.
-*/
 
 const startDate=new Date();
 
@@ -2172,11 +2330,6 @@ return;
 
 }
 
-
-/*
-Son aktiv sifarişi hazır edirik.
-*/
-
 const {
 data:orders
 }=
@@ -2218,7 +2371,6 @@ orders[0].id
 );
 
 }
-
 
 button.disabled=false;
 
@@ -2363,16 +2515,19 @@ const expired=
 end<new Date();
 
 let statusClass="active";
+
 let statusText="Aktiv";
 
 if(item.status==="cancelled"){
 
 statusClass="cancelled";
+
 statusText="Ləğv edilib";
 
 }else if(expired){
 
 statusClass="expired";
+
 statusText="Müddəti bitib";
 
 }
@@ -2462,6 +2617,7 @@ await supabaseClient
 if(error){
 
 alert(error.message);
+
 return;
 
 }
@@ -3055,6 +3211,7 @@ email
 ){
 
 selectedChatUserId=userId;
+
 selectedChatEmail=email;
 
 syncProductCustomer(userId);
@@ -3071,12 +3228,6 @@ document.getElementById(
 await loadChatMessages(userId);
 
 await loadChatOrderStatus(userId);
-
-/*
-Burada mesajlar oxunmuş edilir.
-Bundan sonra checkUnreadChatMessages()
-bildirişi söndürür.
-*/
 
 await markCustomerMessagesRead(userId);
 
@@ -3240,13 +3391,6 @@ return;
 
 }
 
-/*
-Əsas hissə:
-Bazadan yenidən yoxlayırıq.
-Oxunmamış mesaj qalmayıbsa
-sağdakı işıq dərhal sönür.
-*/
-
 await checkUnreadChatMessages();
 
 }
@@ -3261,6 +3405,7 @@ async function sendChatMessage(){
 if(!selectedChatUserId){
 
 alert("Əvvəlcə müştəri seçin.");
+
 return;
 
 }
@@ -3389,7 +3534,6 @@ newChatEmail,
 newChatUnreadCount
 );
 
-
 }
 
 
@@ -3430,7 +3574,9 @@ if(!alert)return;
 alert.classList.remove("show");
 
 newChatUserId=null;
+
 newChatEmail=null;
+
 newChatUnreadCount=0;
 
 }
@@ -3452,19 +3598,10 @@ newChatUserId;
 const email=
 newChatEmail;
 
-/*
-Chatı açırıq.
-*/
-
 await selectChatCustomer(
 userId,
 email
 );
-
-/*
-selectChatCustomer daxilində
-mesajlar artıq oxunmuş edilir.
-*/
 
 await checkUnreadChatMessages();
 
@@ -3534,6 +3671,7 @@ await getCustomerActiveOrder(userId);
 if(!order){
 
 statusBox.style.display="none";
+
 control.style.display="none";
 
 selectedChatOrderId=null;
@@ -3552,6 +3690,7 @@ select.value=
 order.status;
 
 statusBox.style.display="flex";
+
 control.style.display="block";
 
 }
@@ -3562,6 +3701,7 @@ async function updateChatOrderStatus(){
 if(!selectedChatOrderId){
 
 alert("Sifariş tapılmadı.");
+
 return;
 
 }
@@ -3592,6 +3732,7 @@ selectedChatOrderId
 if(error){
 
 alert(error.message);
+
 return;
 
 }
@@ -3601,6 +3742,7 @@ selectedChatUserId
 );
 
 await loadOrders();
+
 await loadChatCustomers();
 
 }
@@ -3899,11 +4041,13 @@ new Date().toISOString()
 if(error){
 
 alert(error.message);
+
 return;
 
 }
 
 await loadOrders();
+
 await loadChatCustomers();
 
 if(selectedChatUserId){
@@ -3925,6 +4069,7 @@ email
 if(!userId){
 
 alert("Müştəri tapılmadı.");
+
 return;
 
 }
@@ -3989,6 +4134,7 @@ table:"orders"
 async function(){
 
 await loadOrders();
+
 await loadChatCustomers();
 
 if(selectedChatUserId){
@@ -4025,7 +4171,10 @@ await loadProducts();
 MESSAGES
 ========================= */
 
-function showMessage(text,isError=false){
+function showMessage(
+text,
+isError=false
+){
 
 const box=
 document.getElementById(
