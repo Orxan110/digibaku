@@ -171,19 +171,29 @@ box-shadow:0 0 8px rgba(59,130,246,.6);
 flex-shrink:0;
 }
 
+.customer-order-status.pending .customer-order-status-dot{
+background:#f59e0b;
+box-shadow:0 0 8px rgba(245,158,11,.6);
+}
+
 .customer-order-status.confirmed .customer-order-status-dot{
 background:#22c55e;
 box-shadow:0 0 8px rgba(34,197,94,.6);
 }
 
-.customer-order-status.waiting .customer-order-status-dot{
-background:#f59e0b;
-box-shadow:0 0 8px rgba(245,158,11,.6);
-}
-
-.customer-order-status.preparing .customer-order-status-dot{
+.customer-order-status.processing .customer-order-status-dot{
 background:#3b82f6;
 box-shadow:0 0 8px rgba(59,130,246,.6);
+}
+
+.customer-order-status.completed .customer-order-status-dot{
+background:#22c55e;
+box-shadow:0 0 8px rgba(34,197,94,.6);
+}
+
+.customer-order-status.cancelled .customer-order-status-dot{
+background:#ef4444;
+box-shadow:0 0 8px rgba(239,68,68,.6);
 }
 
 .customer-order-status-text{color:#fff;}
@@ -201,6 +211,13 @@ background:#2563eb;
 color:#fff;
 font-size:10px;
 font-weight:900;
+}
+
+.customer-order-status-sub{
+font-size:10px;
+color:#777;
+margin-top:5px;
+padding-left:17px;
 }
 
 .customer-chat-messages{
@@ -685,9 +702,7 @@ Dünyanın ən çox istifadə olunan premium platformalarını bir araya gətir�
 
 <div class="product">
 <img class="product-image" src="canva.webp" alt="Canva Pro">
-
 <h3 data-i18n="canvaName">Canva Pro</h3>
-
 <p data-i18n="canvaDescription">Dizayn, təqdimat, poster və sosial media üçün premium Canva imkanları.</p>
 
 <div class="price" data-product-price="canva">
@@ -707,7 +722,6 @@ Dünyanın ən çox istifadə olunan premium platformalarını bir araya gətir�
 
 <section>
 <div class="container">
-
 <div class="section-title">
 <h2 data-i18n="whyUs">Niyə məhz biz?</h2>
 <p data-i18n="whyUsText">Premium xidmətlərə çıxışı daha sürətli, rahat və təhlükəsiz etmək üçün prosesi sadələşdirdik.</p>
@@ -751,7 +765,6 @@ Dünyanın ən çox istifadə olunan premium platformalarını bir araya gətir�
 
 <section id="compare">
 <div class="container">
-
 <div class="section-title">
 <h2 data-i18n="compareTitle">Müqayisə bələdçiləri</h2>
 <p data-i18n="compareSubtitle">İstifadə məqsədinizə uyğun premium xidməti daha rahat seçin.</p>
@@ -789,7 +802,6 @@ Dünyanın ən çox istifadə olunan premium platformalarını bir araya gətir�
 
 <section class="reviews" id="reviews">
 <div class="container">
-
 <div class="section-title">
 <h2 data-i18n="reviewsTitle">Müştəri rəyləri</h2>
 <p data-i18n="reviewsSubtitle">Müştərilərimizin təcrübəsi bizim üçün ən böyük motivasiyadır.</p>
@@ -819,7 +831,6 @@ Dünyanın ən çox istifadə olunan premium platformalarını bir araya gətir�
 
 <section id="blog">
 <div class="container">
-
 <div class="section-title">
 <h2 data-i18n="blogTitle">Bloq</h2>
 <p data-i18n="blogSubtitle">Premium xidmətlər haqqında faydalı məlumatlar</p>
@@ -848,7 +859,6 @@ Dünyanın ən çox istifadə olunan premium platformalarını bir araya gətir�
 
 <section>
 <div class="container">
-
 <div class="section-title">
 <h2 data-i18n="faqTitle">Tez-tez verilən suallar</h2>
 </div>
@@ -1053,7 +1063,7 @@ class="whatsapp-float"
 aria-label="WhatsApp dəstək">
 
 <svg viewBox="0 0 32 32">
-<path d="M16.002 0c-8.837 0-16 7.163-16 16 0 2.825.736 5.485 2.025 7.795l-2.025 7.395 7.575-1.985c2.22 1.21 4.795 1.9 7.425 1.9 8.837 0 16-7.163 16-16s-7.163-16-16-16zM16.002 29.337c-2.345 0-4.57-.63-6.505-1.725l-0.465-0.27-4.83 1.265 1.29-4.705-0.3-0.485c-1.215-1.95-1.855-4.22-1.855-6.557 0-7.36 5.99-13.35 13.35-13.35 7.36 0 13.35 5.99 13.35 13.35s-5.99 13.35-13.35 13.35zM22.56 19.32c-0.36-0.18-2.125-1.05-2.455-1.17s-0.57-0.18-0.81 0.18c-0.24 0.36-0.93 1.17-1.14 1.41s-0.42 0.27-0.78 0.09c-0.36-0.18-1.515-0.555-2.885-1.785-1.065-0.945-1.785-2.115-1.995-2.475s-0.03-0.555 0.15-0.735c0.15-0.15 0.36-0.39 0.54-0.585s0.24-0.33 0.36-0.555c0.12-0.225 0.06-0.42-0.03-0.585s-0.81-1.95-1.11-2.67c-0.285-0.69-0.585-0.6-0.81-0.615s-0.465-0.015-0.72-0.015c-0.255 0-0.66 0.09-1.005 0.465s-1.32 1.29-1.32 3.15 1.35 3.645 1.545 3.9c0.195 0.255 2.67 4.08 6.465 5.715 0.9 0.39 1.605 0.63 2.145 0.81 0.9 0.3 1.725 0.255 2.37 0.15 0.72-0.105 2.125-0.87 2.425-1.71s0.3-1.56 0.21-1.71c-0.09-0.15-0.33-0.24-0.69-0.42z"></path>
+<path d="M16.002 0c-8.837 0-16 7.163-16 16 0 2.825.736 5.485 2.025 7.795l-2.025 7.395 7.575-1.985c2.22 1.21 4.795 1.9 7.425 1.9 8.837 0 16-7.163 16-16s-7.163-16-16-16zM16.002 29.337c-2.345 0-4.57-.63-6.505-1.725l-0.465-0.27-4.83 1.265 1.29-4.705-0.3-0.485c-1.215-1.95-1.855-4.22-1.855-6.557 0-7.36 5.99-13.35 13.35-13.35 7.36 0 13.35 5.99 13.35 13.35s-5.99 13.35-13.35 13.35zM22.56 19.32c-0.36-0.18-2.125-1.05-2.455-1.17s-0.57-0.18-0.81 0.18c-0.24 0.36-0.93 1.17-1.14 1.41s-0.42 0.27-0.78 0.09c-0.36-0.18-1.515-0.555-2.885-1.785-1.065-0.945-1.785-2.115-1.995-2.475s-0.03-0.555 0.15-0.735c0.15-0.15 0.36-0.39 0.54-0.585s0.24-0.33 0.36-0.555c0.12-0.225 0.06-0.42-0.03-0.585s-0.81-1.95-1.11-2.67c-0.285-0.69-0.585-0.6-0.81-0.615s-0.465-0.015-0.72-0.015c-0.255 0-0.66 0.09-1.005 0.465s-1.32 1.29-1.32 3.15 1.35 3.645 1.545 3.9c0.195.255 2.67 4.08 6.465 5.715 0.9.39 1.605.63 2.145.81 0.9.3 1.725.255 2.37.15 0.72-0.105 2.125-0.87 2.425-1.71s0.3-1.56 0.21-1.71c-0.09-0.15-0.33-0.24-0.69-0.42z"></path>
 </svg>
 
 </a>
@@ -1594,81 +1604,117 @@ const CUSTOMER_CHAT_PRODUCT_ORDER=[
 
 /* =========================================================
    CUSTOMER ORDER STATUS SYSTEM
+   STATUS ARTIG ORDERS CEDVELINDEN OXUNUR
 ========================================================= */
 
 const CUSTOMER_ORDER_STATUS_MAP={
+
+pending:{
+text:"Cavab gözlənilir",
+className:"pending"
+},
+
 confirmed:{
 text:"Təsdiqləndi",
 className:"confirmed"
 },
-waiting:{
-text:"Cavab gözlənilir",
-className:"waiting"
-},
-preparing:{
+
+processing:{
 text:"Hazırlanır",
-className:"preparing"
+className:"processing"
+},
+
+completed:{
+text:"Hazırdır",
+className:"completed"
+},
+
+cancelled:{
+text:"Ləğv edildi",
+className:"cancelled"
 }
+
 };
 
-function getCustomerOrderStatusFromMessages(data){
+function getCustomerOrderStatusText(status){
 
-if(!data || !data.length)return null;
+const key=String(status || "")
+.trim()
+.toLowerCase();
 
-let latestStatus=null;
-
-data.forEach(function(item){
-
-if(item.sender_role!=="admin")return;
-
-const message=String(item.message || "").trim();
-
-const match=message.match(
-/^\[\[DIGIBAKU_STATUS:(confirmed|waiting|preparing)\]\]$/i
-);
-
-if(!match)return;
-
-const key=match[1].toLowerCase();
-
-if(!CUSTOMER_ORDER_STATUS_MAP[key])return;
-
-latestStatus={
-status:key,
-created_at:item.created_at,
-id:item.id
-};
-
-});
-
-return latestStatus;
+return CUSTOMER_ORDER_STATUS_MAP[key] || null;
 
 }
 
-function isCustomerOrderStatusMessage(message){
-
-return /^\[\[DIGIBAKU_STATUS:(confirmed|waiting|preparing)\]\]$/i
-.test(String(message || "").trim());
-
-}
-
-function renderCustomerOrderStatus(data){
+async function loadCustomerOrderStatus(){
 
 const box=document.getElementById("customerOrderStatus");
 
 if(!box)return;
 
-const latestStatus=getCustomerOrderStatusFromMessages(data);
-
-if(!latestStatus){
+if(!customerChatUserId){
 
 box.innerHTML="";
 return;
 
 }
 
+const {data,error}=await supabaseClient
+.from("orders")
+.select(`
+id,
+user_id,
+total,
+status,
+created_at,
+updated_at
+`)
+.eq("user_id",customerChatUserId)
+.order("created_at",{ascending:false})
+.limit(20);
+
+if(error){
+
+console.error(
+"CUSTOMER ORDER STATUS ERROR:",
+error
+);
+
+box.innerHTML="";
+return;
+
+}
+
+const orders=data || [];
+
+if(!orders.length){
+
+box.innerHTML="";
+return;
+
+}
+
+/*
+ Ən son yaradılmış sifariş əsas status kimi göstərilir.
+ Admin statusu dəyişəndə updated_at nəzərə alınır.
+*/
+
+orders.sort(function(a,b){
+
+const aDate=
+new Date(a.updated_at || a.created_at || 0).getTime();
+
+const bDate=
+new Date(b.updated_at || b.created_at || 0).getTime();
+
+return bDate-aDate;
+
+});
+
+const latestOrder=orders[0];
+
 const statusInfo=
-CUSTOMER_ORDER_STATUS_MAP[latestStatus.status];
+getCustomerOrderStatusText(latestOrder.status);
 
 if(!statusInfo){
 
@@ -1677,11 +1723,16 @@ return;
 
 }
 
-const count=
-data.filter(function(item){
+const activeOrderCount=
+orders.filter(function(order){
 
-return item.sender_role==="admin" &&
-isCustomerOrderStatusMessage(item.message);
+const status=
+String(order.status || "")
+.trim()
+.toLowerCase();
+
+return status!=="cancelled" &&
+status!=="completed";
 
 }).length;
 
@@ -1702,54 +1753,22 @@ ${escapeHtml(statusInfo.text)}
 </span>
 
 <span class="customer-order-status-count">
-${count}
+#${escapeHtml(String(latestOrder.id))}
 </span>
 
+</div>
+
+<div class="customer-order-status-sub">
+Sifariş #${escapeHtml(String(latestOrder.id))}
+${activeOrderCount>1
+?" • "+activeOrderCount+" aktiv sifariş"
+:""
+}
 </div>
 
 </div>
 
 `;
-
-}
-
-async function loadCustomerOrderStatus(){
-
-if(!customerChatUserId){
-
-const box=document.getElementById("customerOrderStatus");
-
-if(box)box.innerHTML="";
-
-return;
-
-}
-
-const {data,error}=await supabaseClient
-.from("messages")
-.select(`
-id,
-user_id,
-sender_role,
-message,
-created_at
-`)
-.eq("user_id",customerChatUserId)
-.eq("sender_role","admin")
-.order("created_at",{ascending:true});
-
-if(error){
-
-console.error(
-"CUSTOMER ORDER STATUS ERROR:",
-error
-);
-
-return;
-
-}
-
-renderCustomerOrderStatus(data || []);
 
 }
 
@@ -1775,7 +1794,7 @@ supabaseClient
 {
 event:"*",
 schema:"public",
-table:"messages",
+table:"orders",
 filter:"user_id=eq."+customerChatUserId
 },
 async function(){
@@ -2054,9 +2073,15 @@ return html;
 
 }
 
+/* =========================================================
+   YENI CHAT SIFARISI
+   ORDERS + MESSAGES
+========================================================= */
+
 async function sendCustomerChatPackage(slug,month,price){
 
-const {data:{session}}=await supabaseClient.auth.getSession();
+const {data:{session}}=
+await supabaseClient.auth.getSession();
 
 if(!session){
 
@@ -2077,7 +2102,18 @@ return;
 
 }
 
-const productName=product.product_name || slug;
+const productName=
+product.product_name || slug;
+
+const finalPrice=
+Number(price);
+
+if(!Number.isFinite(finalPrice) || finalPrice<=0){
+
+alert("Qiymət düzgün deyil.");
+return;
+
+}
 
 const message=
 "Salam, "
@@ -2087,16 +2123,69 @@ const message=
 +month
 +" ay\n"
 +"💰 Qiymət: "
-+Number(price).toFixed(2)
++finalPrice.toFixed(2)
 +" AZN";
 
-const buttons=document.querySelectorAll(".customer-chat-package");
+const buttons=
+document.querySelectorAll(".customer-chat-package");
 
 buttons.forEach(function(button){
 button.disabled=true;
 });
 
-const {error}=await supabaseClient
+/*
+ ƏVVƏLCƏ ORDERS CƏDVƏLİNDƏ SİFARİŞ YARADILIR.
+ orders sütunları:
+ id, user_id, total, status, created_at, updated_at
+
+ İlkin status:
+ confirmed = Təsdiqləndi
+*/
+
+const {data:orderData,error:orderError}=
+await supabaseClient
+.from("orders")
+.insert({
+user_id:customerChatUserId,
+total:finalPrice,
+status:"confirmed"
+})
+.select(`
+id,
+user_id,
+total,
+status,
+created_at,
+updated_at
+`)
+.single();
+
+if(orderError){
+
+console.error(
+"CREATE ORDER ERROR:",
+orderError
+);
+
+buttons.forEach(function(button){
+button.disabled=false;
+});
+
+alert(
+"Sifariş yaradılmadı: "
++orderError.message
+);
+
+return;
+
+}
+
+/*
+ Sifariş mesajı əvvəlki kimi messages cədvəlinə yazılır.
+*/
+
+const {error:messageError}=
+await supabaseClient
 .from("messages")
 .insert({
 user_id:customerChatUserId,
@@ -2109,28 +2198,44 @@ buttons.forEach(function(button){
 button.disabled=false;
 });
 
-if(error){
+if(messageError){
 
-console.error("CUSTOMER PACKAGE SEND ERROR:",error);
+console.error(
+"CUSTOMER PACKAGE MESSAGE ERROR:",
+messageError
+);
 
-alert("Mesaj göndərilmədi: "+error.message);
+alert(
+"Sifariş yaradıldı, lakin chat mesajı göndərilmədi: "
++messageError.message
+);
+
+await loadCustomerOrderStatus();
+
 return;
 
 }
 
 await loadCustomerChatMessages();
+await loadCustomerOrderStatus();
 
 }
+
+/* =========================================================
+   CHAT MESSAGES
+========================================================= */
 
 async function loadCustomerChatMessages(){
 
 if(!customerChatUserId)return;
 
-const messages=document.getElementById("customerChatMessages");
+const messages=
+document.getElementById("customerChatMessages");
 
 if(!messages)return;
 
-const {data,error}=await supabaseClient
+const {data,error}=
+await supabaseClient
 .from("messages")
 .select(`
 id,
@@ -2145,7 +2250,10 @@ created_at
 
 if(error){
 
-console.error("CHAT MESSAGES ERROR:",error);
+console.error(
+"CHAT MESSAGES ERROR:",
+error
+);
 
 messages.innerHTML=`
 <div class="customer-chat-empty">
@@ -2157,16 +2265,18 @@ return;
 
 }
 
-/*
- Status məlumatını ayrıca yuxarıda göstəririk.
-*/
-renderCustomerOrderStatus(data || []);
+const visibleMessages=
+(data || []).filter(function(item){
 
-const visibleMessages=(data || []).filter(function(item){
+/*
+ Artıq status mesajları istifadə olunmur.
+ Köhnə status markerləri varsa da müştəriyə göstərilmir.
+*/
 
 return !(
 item.sender_role==="admin" &&
-isCustomerOrderStatusMessage(item.message)
+/^\[\[DIGIBAKU_STATUS:(confirmed|waiting|preparing)\]\]$/i
+.test(String(item.message || "").trim())
 );
 
 });
@@ -2188,13 +2298,20 @@ let html="";
 
 visibleMessages.forEach(function(item){
 
-const role=item.sender_role==="customer"?"customer":"admin";
+const role=
+item.sender_role==="customer"
+?"customer"
+:"admin";
 
-const date=item.created_at
-?new Date(item.created_at).toLocaleTimeString("az-AZ",{
+const date=
+item.created_at
+?new Date(item.created_at).toLocaleTimeString(
+"az-AZ",
+{
 hour:"2-digit",
 minute:"2-digit"
-})
+}
+)
 :"";
 
 html+=`
@@ -2217,9 +2334,14 @@ messages.scrollTop=messages.scrollHeight;
 
 }
 
+/* =========================================================
+   NORMAL CHAT MESSAGE
+========================================================= */
+
 async function sendCustomerChatMessage(){
 
-const input=document.getElementById("customerChatInput");
+const input=
+document.getElementById("customerChatInput");
 
 if(!input)return;
 
@@ -2227,7 +2349,8 @@ const message=input.value.trim();
 
 if(!message)return;
 
-const {data:{session}}=await supabaseClient.auth.getSession();
+const {data:{session}}=
+await supabaseClient.auth.getSession();
 
 if(!session){
 
@@ -2238,11 +2361,13 @@ return;
 
 customerChatUserId=session.user.id;
 
-const sendButton=document.getElementById("customerChatSendButton");
+const sendButton=
+document.getElementById("customerChatSendButton");
 
 if(sendButton)sendButton.disabled=true;
 
-const {error}=await supabaseClient
+const {error}=
+await supabaseClient
 .from("messages")
 .insert({
 user_id:customerChatUserId,
@@ -2255,21 +2380,30 @@ if(sendButton)sendButton.disabled=false;
 
 if(error){
 
-console.error("SEND MESSAGE ERROR:",error);
+console.error(
+"SEND MESSAGE ERROR:",
+error
+);
 
-alert("Mesaj göndərilmədi: "+error.message);
+alert(
+"Mesaj göndərilmədi: "
++error.message
+);
+
 return;
 
 }
 
 input.value="";
+
 await loadCustomerChatMessages();
 
 }
 
 document.addEventListener("keydown",function(event){
 
-const input=document.getElementById("customerChatInput");
+const input=
+document.getElementById("customerChatInput");
 
 if(
 event.target===input &&
@@ -2278,31 +2412,46 @@ event.key==="Enter" &&
 ){
 
 event.preventDefault();
+
 sendCustomerChatMessage();
 
 }
 
 });
 
+/* =========================================================
+   READ / UNREAD
+========================================================= */
+
 async function markAdminMessagesRead(){
 
 if(!customerChatUserId)return;
 
-const {error}=await supabaseClient
+const {error}=
+await supabaseClient
 .from("messages")
-.update({is_read:true})
+.update({
+is_read:true
+})
 .eq("user_id",customerChatUserId)
 .eq("sender_role","admin")
-.eq("is_read",false)
-.not("message","like","[[DIGIBAKU_STATUS:%");
+.eq("is_read",false);
 
-if(error)console.error("MARK READ ERROR:",error);
+if(error){
+
+console.error(
+"MARK READ ERROR:",
+error
+);
+
+}
 
 }
 
 async function loadCustomerChatUnread(){
 
-const badge=document.getElementById("customerChatBadge");
+const badge=
+document.getElementById("customerChatBadge");
 
 if(!badge)return;
 
@@ -2313,32 +2462,41 @@ return;
 
 }
 
-const {data,error}=await supabaseClient
+const {data,error}=
+await supabaseClient
 .from("messages")
-.select("id,message",{count:"exact"})
+.select("id,message")
 .eq("user_id",customerChatUserId)
 .eq("sender_role","admin")
 .eq("is_read",false);
 
 if(error){
 
-console.error("UNREAD ERROR:",error);
+console.error(
+"UNREAD ERROR:",
+error
+);
+
 return;
 
 }
 
-const unreadNormalMessages=(data || []).filter(function(item){
+const unreadCount=
+(data || []).filter(function(item){
 
-return !isCustomerOrderStatusMessage(item.message);
+return !(
+/^\[\[DIGIBAKU_STATUS:(confirmed|waiting|preparing)\]\]$/i
+.test(String(item.message || "").trim())
+);
 
 }).length;
 
-if(unreadNormalMessages>0){
+if(unreadCount>0){
 
 badge.textContent=
-unreadNormalMessages>99
+unreadCount>99
 ?"99+"
-:String(unreadNormalMessages);
+:String(unreadCount);
 
 badge.style.display="flex";
 
@@ -2350,13 +2508,20 @@ badge.style.display="none";
 
 }
 
+/* =========================================================
+   CHAT REALTIME
+========================================================= */
+
 function setupCustomerChatRealtime(){
 
 if(!customerChatUserId)return;
 
 if(customerChatChannel){
 
-supabaseClient.removeChannel(customerChatChannel);
+supabaseClient.removeChannel(
+customerChatChannel
+);
+
 customerChatChannel=null;
 
 }
@@ -2375,11 +2540,12 @@ filter:"user_id=eq."+customerChatUserId
 async function(){
 
 await loadCustomerChatMessages();
-await loadCustomerOrderStatus();
 await loadCustomerChatUnread();
 
 if(customerChatOpen){
+
 await markAdminMessagesRead();
+
 }
 
 }
@@ -2392,7 +2558,10 @@ function setupCustomerChatPricesRealtime(){
 
 if(customerChatPricesChannel){
 
-supabaseClient.removeChannel(customerChatPricesChannel);
+supabaseClient.removeChannel(
+customerChatPricesChannel
+);
+
 customerChatPricesChannel=null;
 
 }
@@ -2418,6 +2587,52 @@ await loadCustomerChatPackages();
 }
 
 /* =========================================================
+   ORDERS REALTIME
+========================================================= */
+
+let customerOrdersChannel=null;
+
+function setupCustomerOrdersRealtime(){
+
+if(customerOrdersChannel){
+
+supabaseClient.removeChannel(
+customerOrdersChannel
+);
+
+customerOrdersChannel=null;
+
+}
+
+if(!customerChatUserId)return;
+
+customerOrdersChannel=
+supabaseClient
+.channel("customer-orders-"+customerChatUserId)
+.on(
+"postgres_changes",
+{
+event:"*",
+schema:"public",
+table:"orders",
+filter:"user_id=eq."+customerChatUserId
+},
+async function(payload){
+
+console.log(
+"Order status dəyişdi:",
+payload
+);
+
+await loadCustomerOrderStatus();
+
+}
+)
+.subscribe();
+
+}
+
+/* =========================================================
    INDEX PRODUCT PRICE SYSTEM
 ========================================================= */
 
@@ -2425,9 +2640,14 @@ let indexProductPricesChannel=null;
 
 function getIndexProductPrice(row,duration){
 
-const normal=Number(row["price_"+duration+"_month"]);
-const saleActive=row["sale_"+duration+"_active"]===true;
-const sale=Number(row["sale_"+duration+"_price"]);
+const normal=
+Number(row["price_"+duration+"_month"]);
+
+const saleActive=
+row["sale_"+duration+"_active"]===true;
+
+const sale=
+Number(row["sale_"+duration+"_price"]);
 
 if(
 saleActive &&
@@ -2493,7 +2713,8 @@ function updateIndexProductCard(card,row){
 
 if(!card || !row)return;
 
-const priceElement=card.querySelector(".price");
+const priceElement=
+card.querySelector(".price");
 
 if(!priceElement)return;
 
@@ -2514,7 +2735,8 @@ if(!priceData){
 
 for(const d of [1,2,3,12]){
 
-const found=getIndexProductPrice(row,d);
+const found=
+getIndexProductPrice(row,d);
 
 if(found){
 
@@ -2574,10 +2796,14 @@ ${durationText}
 }
 
 const orderButton=
-card.querySelector(".product-actions button:nth-child(2)");
+card.querySelector(
+".product-actions button:nth-child(2)"
+);
 
 const cartButton=
-card.querySelector(".product-actions button:nth-child(3)");
+card.querySelector(
+".product-actions button:nth-child(3)"
+);
 
 const productName=
 row.product_name || productKey;
@@ -2619,7 +2845,8 @@ async function loadIndexProductPrices(){
 
 try{
 
-const {data,error}=await supabaseClient
+const {data,error}=
+await supabaseClient
 .from("product_prices")
 .select(`
 id,
@@ -2674,7 +2901,9 @@ if(key)priceMap[key]=row;
 
 });
 
-document.querySelectorAll(".product").forEach(function(card){
+document
+.querySelectorAll(".product")
+.forEach(function(card){
 
 const link=
 card.querySelector(
@@ -2698,11 +2927,15 @@ decodeURIComponent(match[1])
 .trim()
 .toLowerCase();
 
-const row=priceMap[productKey];
+const row=
+priceMap[productKey];
 
 if(!row)return;
 
-updateIndexProductCard(card,row);
+updateIndexProductCard(
+card,
+row
+);
 
 });
 
@@ -2761,7 +2994,8 @@ document.addEventListener(
 "DOMContentLoaded",
 async function(){
 
-const lang=getLanguage();
+const lang=
+getLanguage();
 
 applyLanguage(lang);
 
@@ -2777,7 +3011,8 @@ await loadIndexProductPrices();
 
 setupIndexProductPricesRealtime();
 
-});
+}
+);
 
 </script>
 
