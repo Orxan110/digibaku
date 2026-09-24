@@ -385,6 +385,10 @@ textarea{
     margin-bottom:10px;
 }
 
+.order-item.archived-order{
+    opacity:.55;
+}
+
 .order-top{
     display:flex;
     align-items:flex-start;
@@ -474,6 +478,171 @@ textarea{
 
 .small-btn:hover{
     border-color:#268fff;
+}
+
+.search-tools{
+    display:grid;
+    grid-template-columns:minmax(220px,1.5fr) 180px 180px auto;
+    gap:8px;
+}
+
+.search-tools input,
+.search-tools select{
+    min-height:42px;
+}
+
+.filter-summary{
+    color:#78869a;
+    font-size:11px;
+    margin-top:10px;
+}
+
+.warning-card{
+    border:1px solid #624d13;
+    background:#191408;
+    color:#e7c85e;
+    border-radius:13px;
+    padding:13px;
+    margin-bottom:12px;
+}
+
+.warning-title{
+    font-weight:bold;
+    font-size:13px;
+    margin-bottom:7px;
+}
+
+.warning-item{
+    font-size:11px;
+    color:#bba969;
+    margin-top:5px;
+}
+
+.stats-extra-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
+    margin-top:12px;
+}
+
+.mini-stat{
+    border:1px solid #172130;
+    background:#090d14;
+    border-radius:15px;
+    padding:16px;
+}
+
+.mini-stat-value{
+    font-size:20px;
+    font-weight:800;
+}
+
+.mini-stat-label{
+    color:#748095;
+    font-size:11px;
+    margin-top:5px;
+}
+
+.sales-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+    padding:13px;
+    border:1px solid #172130;
+    background:#080c13;
+    border-radius:12px;
+    margin-bottom:8px;
+}
+
+.sales-name{
+    font-size:13px;
+    font-weight:bold;
+}
+
+.sales-sub{
+    color:#718096;
+    font-size:10px;
+    margin-top:4px;
+}
+
+.sales-number{
+    color:#55b1ff;
+    font-weight:bold;
+    white-space:nowrap;
+}
+
+.customer-profile{
+    border:1px solid #172130;
+    background:#080c13;
+    border-radius:14px;
+    padding:16px;
+}
+
+.customer-profile-head{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:15px;
+    margin-bottom:15px;
+}
+
+.customer-profile-name{
+    font-size:17px;
+    font-weight:800;
+}
+
+.customer-profile-email{
+    color:#718096;
+    font-size:11px;
+    margin-top:5px;
+}
+
+.profile-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:9px;
+    margin-bottom:14px;
+}
+
+.profile-stat{
+    border:1px solid #182230;
+    background:#060a10;
+    border-radius:10px;
+    padding:10px;
+}
+
+.profile-stat strong{
+    display:block;
+    font-size:15px;
+}
+
+.profile-stat span{
+    display:block;
+    color:#69768a;
+    font-size:9px;
+    margin-top:3px;
+}
+
+.notes-box{
+    margin-top:13px;
+}
+
+.notes-box textarea{
+    min-height:80px;
+}
+
+.note-saved{
+    color:#5bdaa1;
+    font-size:10px;
+    margin-top:5px;
+}
+
+.quick-actions{
+    display:flex;
+    flex-wrap:wrap;
+    gap:7px;
+    margin-top:12px;
 }
 
 /* =========================
@@ -927,6 +1096,83 @@ textarea{
     transform:translateY(0);
 }
 
+/* =========================
+   MODAL
+========================= */
+
+.modal{
+    position:fixed;
+    inset:0;
+    z-index:9000;
+    background:rgba(0,0,0,.72);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:18px;
+}
+
+.modal.active{
+    display:flex;
+}
+
+.modal-box{
+    width:min(620px,100%);
+    max-height:90vh;
+    overflow-y:auto;
+    background:#090d14;
+    border:1px solid #1a2738;
+    border-radius:18px;
+    padding:20px;
+    box-shadow:0 20px 70px rgba(0,0,0,.45);
+}
+
+.modal-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+    margin-bottom:16px;
+}
+
+.modal-title{
+    font-size:18px;
+    font-weight:800;
+}
+
+.modal-close{
+    width:35px;
+    height:35px;
+    border:1px solid #263346;
+    background:#0b1119;
+    color:#fff;
+    border-radius:9px;
+}
+
+.modal-section{
+    margin-top:15px;
+}
+
+.modal-section-title{
+    font-size:12px;
+    color:#8490a2;
+    margin-bottom:8px;
+}
+
+.modal-product{
+    border:1px solid #172130;
+    background:#080c13;
+    border-radius:10px;
+    padding:10px;
+    margin-bottom:7px;
+    font-size:12px;
+}
+
+.modal-product small{
+    display:block;
+    color:#68758a;
+    margin-top:4px;
+}
+
 @media(max-width:1100px){
 
     .chat-layout{
@@ -939,6 +1185,14 @@ textarea{
 
     .chat-order-list{
         max-height:350px;
+    }
+
+    .search-tools{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .stats-extra-grid{
+        grid-template-columns:repeat(2,1fr);
     }
 
 }
@@ -1016,6 +1270,14 @@ textarea{
         grid-template-columns:1fr 1fr;
     }
 
+    .stats-extra-grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .profile-grid{
+        grid-template-columns:1fr 1fr;
+    }
+
     .panel-head{
         align-items:flex-start;
     }
@@ -1044,6 +1306,10 @@ textarea{
 
     .chat-order-actions{
         grid-template-columns:1fr 1fr;
+    }
+
+    .search-tools{
+        grid-template-columns:1fr;
     }
 
 }
@@ -1174,7 +1440,7 @@ textarea{
 
         <div class="card">
 
-            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;">
 
                 <button class="secondary-btn" onclick="loadOrders()">
                     🔄 Yenilə
@@ -1192,6 +1458,47 @@ textarea{
                     Hazır
                 </button>
 
+                <button class="secondary-btn" onclick="toggleArchivedOrders()">
+                    🗄️ Arxiv
+                </button>
+
+            </div>
+
+            <div class="search-tools">
+
+                <input
+                    id="orderSearch"
+                    type="text"
+                    placeholder="🔎 Ad, email, məhsul və ya sifariş ID..."
+                    oninput="renderOrders()"
+                >
+
+                <input
+                    id="orderDateFrom"
+                    type="date"
+                    onchange="renderOrders()"
+                >
+
+                <input
+                    id="orderDateTo"
+                    type="date"
+                    onchange="renderOrders()"
+                >
+
+                <button
+                    class="secondary-btn"
+                    onclick="clearOrderSearch()"
+                >
+                    Təmizlə
+                </button>
+
+            </div>
+
+            <div
+                class="filter-summary"
+                id="orderFilterSummary"
+            >
+                Bütün sifarişlər
             </div>
 
         </div>
@@ -1343,6 +1650,8 @@ textarea{
 
         </div>
 
+        <div id="productExpiryWarnings"></div>
+
         <div class="card">
 
             <button
@@ -1457,6 +1766,8 @@ textarea{
 
         </div>
 
+        <div id="customerProfileArea"></div>
+
         <div id="customersList"></div>
 
     </section>
@@ -1502,6 +1813,60 @@ textarea{
                 <div class="stat-icon">💰</div>
                 <div class="stat-value" id="statRevenue">0 AZN</div>
                 <div class="stat-label">Ümumi qazanc</div>
+            </div>
+
+        </div>
+
+        <div class="stats-extra-grid">
+
+            <div class="mini-stat">
+                <div class="mini-stat-value" id="statWeekRevenue">
+                    0 AZN
+                </div>
+                <div class="mini-stat-label">
+                    Bu həftə qazanc
+                </div>
+            </div>
+
+            <div class="mini-stat">
+                <div class="mini-stat-value" id="statMonthRevenue">
+                    0 AZN
+                </div>
+                <div class="mini-stat-label">
+                    Bu ay qazanc
+                </div>
+            </div>
+
+            <div class="mini-stat">
+                <div class="mini-stat-value" id="statCompleted">
+                    0
+                </div>
+                <div class="mini-stat-label">
+                    Hazır sifarişlər
+                </div>
+            </div>
+
+            <div class="mini-stat">
+                <div class="mini-stat-value" id="statPending">
+                    0
+                </div>
+                <div class="mini-stat-label">
+                    Gözləyən sifarişlər
+                </div>
+            </div>
+
+        </div>
+
+        <div class="card" style="margin-top:15px;">
+
+            <div class="card-title">
+                📈 Məhsul satış statistikası
+            </div>
+
+            <div id="salesStatsList">
+                <div class="empty">
+                    Statistika yüklənir...
+                </div>
             </div>
 
         </div>
@@ -1604,6 +1969,41 @@ textarea{
 
 <div id="toast"></div>
 
+<div
+    class="modal"
+    id="customerModal"
+    onclick="closeCustomerModal(event)"
+>
+
+    <div
+        class="modal-box"
+        onclick="event.stopPropagation()"
+    >
+
+        <div class="modal-head">
+
+            <div
+                class="modal-title"
+                id="customerModalTitle"
+            >
+                Müştəri
+            </div>
+
+            <button
+                class="modal-close"
+                onclick="closeCustomerModal()"
+            >
+                ✕
+            </button>
+
+        </div>
+
+        <div id="customerModalContent"></div>
+
+    </div>
+
+</div>
+
 <script>
 
 const SUPABASE_URL =
@@ -1626,6 +2026,7 @@ let currentChatUser = null;
 let currentOrders = [];
 let currentOrderFilter = "all";
 let realtimeChannel = null;
+let showArchivedOrders = false;
 
 const PRICE_PRODUCTS = [
 
@@ -1701,6 +2102,382 @@ function toast(message){
 
 }
 
+function formatBakuDate(value){
+
+    if(!value){
+        return "-";
+    }
+
+    const date =
+        new Date(value);
+
+    if(Number.isNaN(date.getTime())){
+        return "-";
+    }
+
+    return new Intl.DateTimeFormat(
+        "az-AZ",
+        {
+            timeZone:"Asia/Baku",
+            day:"2-digit",
+            month:"2-digit",
+            year:"numeric",
+            hour:"2-digit",
+            minute:"2-digit",
+            second:"2-digit",
+            hour12:false
+        }
+    ).format(date);
+
+}
+
+function getLocalDateKey(date){
+
+    const d =
+        new Date(date);
+
+    return [
+        d.getFullYear(),
+        String(d.getMonth()+1).padStart(2,"0"),
+        String(d.getDate()).padStart(2,"0")
+    ].join("-");
+
+}
+
+function getStartOfWeek(){
+
+    const now =
+        new Date();
+
+    const day =
+        now.getDay();
+
+    const diff =
+        day === 0 ? 6 : day - 1;
+
+    return new Date(
+        now.getFullYear(),
+        now.getMonth(),
+        now.getDate() - diff,
+        0,0,0,0
+    );
+
+}
+
+function getStartOfMonth(){
+
+    const now =
+        new Date();
+
+    return new Date(
+        now.getFullYear(),
+        now.getMonth(),
+        1,
+        0,0,0,0
+    );
+
+}
+
+function getArchivedOrders(){
+
+    try{
+
+        return JSON.parse(
+            localStorage.getItem(
+                "digibaku_archived_orders"
+            ) || "[]"
+        );
+
+    }catch(error){
+
+        return [];
+
+    }
+
+}
+
+function setArchivedOrders(ids){
+
+    localStorage.setItem(
+        "digibaku_archived_orders",
+        JSON.stringify(ids)
+    );
+
+}
+
+function isOrderArchived(id){
+
+    return getArchivedOrders()
+        .includes(String(id));
+
+}
+
+function archiveOrder(id){
+
+    const ids =
+        getArchivedOrders();
+
+    const key =
+        String(id);
+
+    if(!ids.includes(key)){
+        ids.push(key);
+    }
+
+    setArchivedOrders(ids);
+
+    toast(
+        "Sifariş arxivə keçirildi."
+    );
+
+    renderOrders();
+
+}
+
+function restoreOrder(id){
+
+    const key =
+        String(id);
+
+    const ids =
+        getArchivedOrders()
+        .filter(item => item !== key);
+
+    setArchivedOrders(ids);
+
+    toast(
+        "Sifariş arxivdən çıxarıldı."
+    );
+
+    renderOrders();
+
+}
+
+function toggleArchivedOrders(){
+
+    showArchivedOrders =
+        !showArchivedOrders;
+
+    renderOrders();
+
+}
+
+function clearOrderSearch(){
+
+    const search =
+        document.getElementById(
+            "orderSearch"
+        );
+
+    const from =
+        document.getElementById(
+            "orderDateFrom"
+        );
+
+    const to =
+        document.getElementById(
+            "orderDateTo"
+        );
+
+    if(search){
+        search.value = "";
+    }
+
+    if(from){
+        from.value = "";
+    }
+
+    if(to){
+        to.value = "";
+    }
+
+    renderOrders();
+
+}
+
+function getCustomerNote(userId){
+
+    try{
+
+        const notes =
+            JSON.parse(
+                localStorage.getItem(
+                    "digibaku_customer_notes"
+                ) || "{}"
+            );
+
+        return notes[userId] || "";
+
+    }catch(error){
+
+        return "";
+
+    }
+
+}
+
+function saveCustomerNote(userId){
+
+    const textarea =
+        document.getElementById(
+            "customerNote"
+        );
+
+    if(!textarea){
+        return;
+    }
+
+    try{
+
+        const notes =
+            JSON.parse(
+                localStorage.getItem(
+                    "digibaku_customer_notes"
+                ) || "{}"
+            );
+
+        notes[userId] =
+            textarea.value.trim();
+
+        localStorage.setItem(
+            "digibaku_customer_notes",
+            JSON.stringify(notes)
+        );
+
+        toast(
+            "Müştəri qeydi yadda saxlanıldı."
+        );
+
+    }catch(error){
+
+        console.error(error);
+
+        toast(
+            "Qeydi yadda saxlamaq olmadı."
+        );
+
+    }
+
+}
+
+function parseProductDuration(productName){
+
+    if(!productName){
+        return null;
+    }
+
+    const match =
+        String(productName)
+        .match(/(\d+)\s*ay/i);
+
+    if(!match){
+        return null;
+    }
+
+    return Number(match[1]);
+
+}
+
+function productExpiryDate(createdAt, productName){
+
+    const months =
+        parseProductDuration(productName);
+
+    if(
+        !months ||
+        !createdAt
+    ){
+
+        return null;
+    }
+
+    const date =
+        new Date(createdAt);
+
+    if(Number.isNaN(date.getTime())){
+        return null;
+    }
+
+    date.setMonth(
+        date.getMonth() + months
+    );
+
+    return date;
+
+}
+
+function productDaysLeft(createdAt, productName){
+
+    const expiry =
+        productExpiryDate(
+            createdAt,
+            productName
+        );
+
+    if(!expiry){
+        return null;
+    }
+
+    const now =
+        new Date();
+
+    return Math.ceil(
+        (
+            expiry.getTime() -
+            now.getTime()
+        ) /
+        86400000
+    );
+
+}
+
+function showBrowserNotification(){
+
+    try{
+
+        if(
+            "Notification" in window &&
+            Notification.permission === "granted"
+        ){
+
+            new Notification(
+                "DigiBaku — Yeni sifariş",
+                {
+                    body:"Yeni sifariş daxil oldu."
+                }
+            );
+
+        }
+
+    }catch(error){
+
+        console.error(error);
+
+    }
+
+}
+
+async function requestNotifications(){
+
+    try{
+
+        if(
+            "Notification" in window &&
+            Notification.permission === "default"
+        ){
+
+            await Notification.requestPermission();
+
+        }
+
+    }catch(error){
+
+        console.error(error);
+
+    }
+
+}
+
 async function checkAuth(){
 
     try{
@@ -1713,7 +2490,7 @@ async function checkAuth(){
 
         if(error || !data.user){
 
-            location.href = "https://digibaku.com";
+            location.href = "login.html";
             return;
         }
 
@@ -1726,7 +2503,7 @@ async function checkAuth(){
 
             await supabaseClient.auth.signOut();
 
-            location.href = "https://digibaku.com";
+            location.href = "login.html";
             return;
         }
 
@@ -1743,11 +2520,13 @@ async function checkAuth(){
 
         setupRealtime();
 
+        requestNotifications();
+
     }catch(error){
 
         console.error(error);
 
-        location.href = "https://digibaku.com";
+        location.href = "login.html";
 
     }
 
@@ -2013,6 +2792,133 @@ function renderOrders(){
 
     }
 
+    const searchEl =
+        document.getElementById(
+            "orderSearch"
+        );
+
+    const fromEl =
+        document.getElementById(
+            "orderDateFrom"
+        );
+
+    const toEl =
+        document.getElementById(
+            "orderDateTo"
+        );
+
+    const search =
+        (
+            searchEl?.value ||
+            ""
+        )
+        .trim()
+        .toLowerCase();
+
+    const from =
+        fromEl?.value || "";
+
+    const to =
+        toEl?.value || "";
+
+    if(search){
+
+        list =
+            list.filter(order => {
+
+                const profile =
+                    order.profile || {};
+
+                const text = [
+                    order.id,
+                    order.total,
+                    profile.full_name,
+                    profile.email
+                ]
+                .join(" ")
+                .toLowerCase();
+
+                return text.includes(search);
+
+            });
+
+    }
+
+    if(from){
+
+        const start =
+            new Date(
+                from + "T00:00:00"
+            );
+
+        list =
+            list.filter(order => {
+
+                const date =
+                    new Date(
+                        order.created_at
+                    );
+
+                return date >= start;
+
+            });
+
+    }
+
+    if(to){
+
+        const end =
+            new Date(
+                to + "T23:59:59.999"
+            );
+
+        list =
+            list.filter(order => {
+
+                const date =
+                    new Date(
+                        order.created_at
+                    );
+
+                return date <= end;
+
+            });
+
+    }
+
+    if(showArchivedOrders){
+
+        list =
+            list.filter(order =>
+                isOrderArchived(order.id)
+            );
+
+    }else{
+
+        list =
+            list.filter(order =>
+                !isOrderArchived(order.id)
+            );
+
+    }
+
+    const summary =
+        document.getElementById(
+            "orderFilterSummary"
+        );
+
+    if(summary){
+
+        summary.textContent =
+            `${list.length} sifariş göstərilir` +
+            (
+                showArchivedOrders
+                ? " · Arxiv"
+                : ""
+            );
+
+    }
+
     if(!list.length){
 
         container.innerHTML =
@@ -2040,17 +2946,23 @@ function renderOrders(){
                 "Email yoxdur";
 
             const date =
-                order.created_at
-                ? new Date(order.created_at)
-                    .toLocaleString("az-AZ")
-                : "-";
+                formatBakuDate(
+                    order.created_at
+                );
 
             const status =
                 order.status || "pending";
 
+            const archived =
+                isOrderArchived(order.id);
+
             return `
 
-            <div class="order-item">
+            <div class="order-item ${
+                archived
+                ? "archived-order"
+                : ""
+            }">
 
                 <div class="order-top">
 
@@ -2092,6 +3004,13 @@ function renderOrders(){
 
                     <button
                         class="small-btn"
+                        onclick="openCustomerProfile('${escapeJs(order.user_id)}')"
+                    >
+                        👤 Müştəri
+                    </button>
+
+                    <button
+                        class="small-btn"
                         onclick="openOrderChat('${escapeJs(order.user_id)}')"
                     >
                         💬 Çata keç
@@ -2124,6 +3043,26 @@ function renderOrders(){
                     >
                         Ləğv et
                     </button>
+
+                    ${
+                        archived
+                        ? `
+                        <button
+                            class="success-btn"
+                            onclick="restoreOrder('${escapeJs(order.id)}')"
+                        >
+                            ↩ Arxivdən çıxar
+                        </button>
+                        `
+                        : `
+                        <button
+                            class="small-btn"
+                            onclick="archiveOrder('${escapeJs(order.id)}')"
+                        >
+                            🗄️ Arxivlə
+                        </button>
+                        `
+                    }
 
                 </div>
 
@@ -2502,11 +3441,9 @@ async function loadCustomerOrders(userId){
                 order.status || "pending";
 
             const date =
-                order.created_at
-                ? new Date(
+                formatBakuDate(
                     order.created_at
-                ).toLocaleString("az-AZ")
-                : "-";
+                );
 
             return `
 
@@ -2671,13 +3608,9 @@ function renderMessages(messages){
                 msg.sender_role === "admin";
 
             const time =
-                msg.created_at
-                ? new Date(
+                formatBakuDate(
                     msg.created_at
-                ).toLocaleString(
-                    "az-AZ"
-                )
-                : "";
+                );
 
             return `
 
@@ -3053,40 +3986,16 @@ async function savePrice(key){
 
 }
 
-function formatBakuDate(value){
-
-    if(!value){
-        return "-";
-    }
-
-    const date =
-        new Date(value);
-
-    if(Number.isNaN(date.getTime())){
-        return "-";
-    }
-
-    return new Intl.DateTimeFormat(
-        "az-AZ",
-        {
-            timeZone:"Asia/Baku",
-            day:"2-digit",
-            month:"2-digit",
-            year:"numeric",
-            hour:"2-digit",
-            minute:"2-digit",
-            second:"2-digit",
-            hour12:false
-        }
-    ).format(date);
-
-}
-
 async function loadProducts(){
 
     const container =
         document.getElementById(
             "productsList"
+        );
+
+    const warningContainer =
+        document.getElementById(
+            "productExpiryWarnings"
         );
 
     container.innerHTML =
@@ -3095,6 +4004,12 @@ async function loadProducts(){
                 Məhsullar yüklənir...
             </div>
         </div>`;
+
+    if(warningContainer){
+
+        warningContainer.innerHTML = "";
+
+    }
 
     const {
         data,
@@ -3166,6 +4081,77 @@ async function loadProducts(){
             result.data || [];
     }
 
+    const expiring =
+        products
+        .map(product => {
+
+            const days =
+                productDaysLeft(
+                    product.created_at,
+                    product.product_name
+                );
+
+            return {
+                ...product,
+                days
+            };
+
+        })
+        .filter(product =>
+            product.days !== null &&
+            product.days <= 7 &&
+            product.days >= 0
+        );
+
+    if(
+        warningContainer &&
+        expiring.length
+    ){
+
+        warningContainer.innerHTML = `
+
+        <div class="warning-card">
+
+            <div class="warning-title">
+                ⚠️ Müddəti yaxınlaşan məhsullar
+            </div>
+
+            ${
+                expiring.map(product => {
+
+                    const profile =
+                        profiles.find(
+                            p => p.id === product.user_id
+                        ) || {};
+
+                    return `
+                    <div class="warning-item">
+                        ${escapeHtml(
+                            product.product_name
+                        )}
+                        —
+                        ${escapeHtml(
+                            profile.full_name ||
+                            "Müştəri"
+                        )}
+                        —
+                        ${
+                            product.days === 0
+                            ? "Bu gün bitir"
+                            : product.days + " gün qalıb"
+                        }
+                    </div>
+                    `;
+
+                }).join("")
+            }
+
+        </div>
+
+        `;
+
+    }
+
     container.innerHTML =
         products.map(product => {
 
@@ -3178,6 +4164,40 @@ async function loadProducts(){
                 formatBakuDate(
                     product.created_at
                 );
+
+            const days =
+                productDaysLeft(
+                    product.created_at,
+                    product.product_name
+                );
+
+            let expiryText = "";
+
+            if(days !== null){
+
+                if(days < 0){
+
+                    expiryText =
+                        `Müddət bitib`;
+
+                }else if(days === 0){
+
+                    expiryText =
+                        `⚠️ Bu gün bitir`;
+
+                }else if(days <= 7){
+
+                    expiryText =
+                        `⚠️ ${days} gün qalıb`;
+
+                }else{
+
+                    expiryText =
+                        `${days} gün qalıb`;
+
+                }
+
+            }
 
             return `
 
@@ -3206,6 +4226,16 @@ async function loadProducts(){
                         ${escapeHtml(date)}
                     </small>
 
+                    ${
+                        expiryText
+                        ? `
+                        <small>
+                            ⏳ ${escapeHtml(expiryText)}
+                        </small>
+                        `
+                        : ""
+                    }
+
                     <small>
                         Status:
                         ${escapeHtml(
@@ -3222,6 +4252,13 @@ async function loadProducts(){
                         onclick="showAccountInfo('${escapeJs(product.account_info || "")}')"
                     >
                         👁 Bax
+                    </button>
+
+                    <button
+                        class="small-btn"
+                        onclick="openCustomerProfile('${escapeJs(product.user_id)}')"
+                    >
+                        👤 Müştəri
                     </button>
 
                     <button
@@ -3372,6 +4409,13 @@ async function loadCustomersPanel(){
 
                     <button
                         class="small-btn"
+                        onclick="openCustomerProfile('${escapeJs(customer.id)}')"
+                    >
+                        👤 Profil
+                    </button>
+
+                    <button
+                        class="small-btn"
                         onclick="openOrderChat('${escapeJs(customer.id)}')"
                     >
                         💬 Çat
@@ -3388,9 +4432,345 @@ async function loadCustomersPanel(){
 
 }
 
-async function prepareGiveProduct(){
+async function openCustomerProfile(userId){
+
+    if(!userId){
+        return;
+    }
+
+    const modal =
+        document.getElementById(
+            "customerModal"
+        );
+
+    const content =
+        document.getElementById(
+            "customerModalContent"
+        );
+
+    content.innerHTML =
+        `<div class="empty">
+            Müştəri məlumatları yüklənir...
+        </div>`;
+
+    modal.classList.add("active");
+
+    const [
+        profileResult,
+        ordersResult,
+        productsResult
+    ] =
+    await Promise.all([
+
+        supabaseClient
+        .from("profiles")
+        .select(
+            "id,email,full_name,created_at"
+        )
+        .eq("id",userId)
+        .maybeSingle(),
+
+        supabaseClient
+        .from("orders")
+        .select(
+            "id,total,status,created_at"
+        )
+        .eq("user_id",userId)
+        .order("created_at",{
+            ascending:false
+        }),
+
+        supabaseClient
+        .from("customer_products")
+        .select(
+            "id,product_name,status,created_at"
+        )
+        .eq("user_id",userId)
+        .order("created_at",{
+            ascending:false
+        })
+
+    ]);
+
+    const profile =
+        profileResult.data || {};
+
+    const orders =
+        ordersResult.data || [];
+
+    const products =
+        productsResult.data || [];
+
+    const completed =
+        orders.filter(
+            o => o.status === "completed"
+        );
+
+    const spent =
+        completed.reduce(
+            (sum,o) =>
+                sum +
+                Number(o.total || 0),
+            0
+        );
+
+    document.getElementById(
+        "customerModalTitle"
+    ).textContent =
+        profile.full_name ||
+        "Müştəri";
+
+    content.innerHTML = `
+
+        <div class="customer-profile">
+
+            <div class="customer-profile-head">
+
+                <div>
+
+                    <div class="customer-profile-name">
+                        ${escapeHtml(
+                            profile.full_name ||
+                            "Müştəri"
+                        )}
+                    </div>
+
+                    <div class="customer-profile-email">
+                        ${escapeHtml(
+                            profile.email || ""
+                        )}
+                    </div>
+
+                </div>
+
+                <button
+                    class="small-btn"
+                    onclick="openOrderChat('${escapeJs(userId)}');closeCustomerModal();"
+                >
+                    💬 Çata keç
+                </button>
+
+            </div>
+
+            <div class="profile-grid">
+
+                <div class="profile-stat">
+                    <strong>
+                        ${orders.length}
+                    </strong>
+                    <span>
+                        Sifariş
+                    </span>
+                </div>
+
+                <div class="profile-stat">
+                    <strong>
+                        ${products.length}
+                    </strong>
+                    <span>
+                        Aktiv məhsul
+                    </span>
+                </div>
+
+                <div class="profile-stat">
+                    <strong>
+                        ${formatMoney(spent)} AZN
+                    </strong>
+                    <span>
+                        Ümumi xərc
+                    </span>
+                </div>
+
+            </div>
+
+            <div class="modal-section">
+
+                <div class="modal-section-title">
+                    Qeydiyyat tarixi
+                </div>
+
+                <div class="modal-product">
+                    ${escapeHtml(
+                        formatBakuDate(
+                            profile.created_at
+                        )
+                    )}
+                </div>
+
+            </div>
+
+            <div class="modal-section">
+
+                <div class="modal-section-title">
+                    🛍️ Məhsullar
+                </div>
+
+                ${
+                    products.length
+                    ? products.map(product => `
+                        <div class="modal-product">
+
+                            <strong>
+                                ${escapeHtml(
+                                    product.product_name
+                                )}
+                            </strong>
+
+                            <small>
+                                ${escapeHtml(
+                                    product.status || ""
+                                )}
+                                ·
+                                ${escapeHtml(
+                                    formatBakuDate(
+                                        product.created_at
+                                    )
+                                )}
+                            </small>
+
+                        </div>
+                    `).join("")
+                    : `
+                    <div class="empty">
+                        Məhsul yoxdur.
+                    </div>
+                    `
+                }
+
+            </div>
+
+            <div class="modal-section">
+
+                <div class="modal-section-title">
+                    📦 Son sifarişlər
+                </div>
+
+                ${
+                    orders.length
+                    ? orders.slice(0,5).map(order => `
+                        <div class="modal-product">
+
+                            <strong>
+                                ${formatMoney(order.total)} AZN
+                            </strong>
+
+                            <small>
+                                ${escapeHtml(
+                                    STATUS_NAMES[
+                                        order.status
+                                    ] ||
+                                    order.status ||
+                                    ""
+                                )}
+                                ·
+                                ${escapeHtml(
+                                    formatBakuDate(
+                                        order.created_at
+                                    )
+                                )}
+                            </small>
+
+                        </div>
+                    `).join("")
+                    : `
+                    <div class="empty">
+                        Sifariş yoxdur.
+                    </div>
+                    `
+                }
+
+            </div>
+
+            <div class="notes-box">
+
+                <div class="modal-section-title">
+                    📝 Admin qeydi
+                </div>
+
+                <textarea
+                    id="customerNote"
+                    placeholder="Bu müştəri haqqında yalnız admin üçün qeyd..."
+                >${escapeHtml(
+                    getCustomerNote(userId)
+                )}</textarea>
+
+                <div style="margin-top:8px;">
+
+                    <button
+                        class="primary-btn"
+                        onclick="saveCustomerNote('${escapeJs(userId)}')"
+                    >
+                        💾 Qeydi yadda saxla
+                    </button>
+
+                </div>
+
+            </div>
+
+            <div class="quick-actions">
+
+                <button
+                    class="secondary-btn"
+                    onclick="openOrderChat('${escapeJs(userId)}');closeCustomerModal();"
+                >
+                    💬 Mesaj yaz
+                </button>
+
+                <button
+                    class="secondary-btn"
+                    onclick="openPanel('giveProductPanel');closeCustomerModal();prepareGiveProduct();setTimeout(()=>selectGiveCustomer('${escapeJs(userId)}'),500);"
+                >
+                    🎁 Məhsul ver
+                </button>
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+function selectGiveCustomer(userId){
 
     const select =
+        document.getElementById(
+            "giveUser"
+        );
+
+    if(select){
+
+        select.value =
+            userId;
+
+    }
+
+}
+
+function closeCustomerModal(event){
+
+    if(
+        event &&
+        event.target &&
+        event.target.id !==
+        "customerModal"
+    ){
+
+        return;
+
+    }
+
+    document
+        .getElementById(
+            "customerModal"
+        )
+        .classList.remove("active");
+
+}
+
+async function prepareGiveProduct(){
+
+    const userSelect =
         document.getElementById(
             "giveUser"
         );
@@ -3400,14 +4780,14 @@ async function prepareGiveProduct(){
             "giveProduct"
         );
 
-    select.innerHTML =
+    userSelect.innerHTML =
         `<option value="">
             Müştəri seç
         </option>`;
 
     productSelect.innerHTML =
         `<option value="">
-            Məhsul yüklənir...
+            Məhsul seç
         </option>`;
 
     const [
@@ -3439,7 +4819,8 @@ async function prepareGiveProduct(){
 
     }else{
 
-        (profilesResult.data || []).forEach(user => {
+        (profilesResult.data || [])
+        .forEach(user => {
 
             const option =
                 document.createElement("option");
@@ -3455,53 +4836,40 @@ async function prepareGiveProduct(){
                     user.email || ""
                 }`;
 
-            select.appendChild(option);
+            userSelect.appendChild(option);
 
         });
 
     }
 
-    if(pricesResult.error){
-
-        console.error(
-            pricesResult.error
-        );
-
-        productSelect.innerHTML =
-            `<option value="">
-                Məhsul seç
-            </option>`;
-
-        return;
-    }
-
-    const rows =
+    const priceRows =
         pricesResult.data || [];
-
-    productSelect.innerHTML =
-        `<option value="">
-            Məhsul seç
-        </option>`;
 
     PRICE_PRODUCTS.forEach(product => {
 
         const row =
-            rows.find(
+            priceRows.find(
                 item =>
-                item.product_key ===
-                product.key
+                    item.product_key ===
+                    product.key
             ) || {};
 
         product.months.forEach(month => {
 
             const normal =
-                row[`price_${month}_month`];
+                row[
+                    `price_${month}_month`
+                ];
 
             const sale =
-                row[`sale_${month}_price`];
+                row[
+                    `sale_${month}_price`
+                ];
 
             const saleActive =
-                !!row[`sale_${month}_active`];
+                !!row[
+                    `sale_${month}_active`
+                ];
 
             let priceText =
                 "Qiymət yoxdur";
@@ -3528,7 +4896,9 @@ async function prepareGiveProduct(){
             }
 
             const option =
-                document.createElement("option");
+                document.createElement(
+                    "option"
+                );
 
             option.value =
                 `${product.name} — ${month} ay`;
@@ -3536,7 +4906,9 @@ async function prepareGiveProduct(){
             option.textContent =
                 `${product.name} — ${month} ay — ${priceText}`;
 
-            productSelect.appendChild(option);
+            productSelect.appendChild(
+                option
+            );
 
         });
 
@@ -3687,21 +5059,11 @@ async function loadStats(){
         const orders =
             ordersResult.data || [];
 
-        /*
-         * Yalnız "Hazırdır" statusundakı
-         * sifarişlər qazanca daxil edilir.
-         */
-
         const completedOrders =
             orders.filter(
                 order =>
                     order.status === "completed"
             );
-
-        /*
-         * Ümumi qazanc:
-         * yalnız "Hazırdır" olan sifarişlər.
-         */
 
         const revenue =
             completedOrders.reduce(
@@ -3710,10 +5072,6 @@ async function loadStats(){
                     Number(order.total || 0),
                 0
             );
-
-        /*
-         * Bu günün başlanğıcı.
-         */
 
         const now =
             new Date();
@@ -3729,12 +5087,11 @@ async function loadStats(){
                 0
             );
 
-        /*
-         * Bu gün "Hazırdır" statusuna
-         * keçirilən sifarişlər.
-         *
-         * updated_at status dəyişəndə yenilənir.
-         */
+        const startOfWeek =
+            getStartOfWeek();
+
+        const startOfMonth =
+            getStartOfMonth();
 
         const todayCompletedOrders =
             completedOrders.filter(order => {
@@ -3752,9 +5109,31 @@ async function loadStats(){
 
             });
 
-        /*
-         * Bu gün qazanc.
-         */
+        const weekCompletedOrders =
+            completedOrders.filter(order => {
+
+                if(!order.updated_at){
+                    return false;
+                }
+
+                return new Date(
+                    order.updated_at
+                ) >= startOfWeek;
+
+            });
+
+        const monthCompletedOrders =
+            completedOrders.filter(order => {
+
+                if(!order.updated_at){
+                    return false;
+                }
+
+                return new Date(
+                    order.updated_at
+                ) >= startOfMonth;
+
+            });
 
         const todayRevenue =
             todayCompletedOrders.reduce(
@@ -3763,6 +5142,28 @@ async function loadStats(){
                     Number(order.total || 0),
                 0
             );
+
+        const weekRevenue =
+            weekCompletedOrders.reduce(
+                (sum,order) =>
+                    sum +
+                    Number(order.total || 0),
+                0
+            );
+
+        const monthRevenue =
+            monthCompletedOrders.reduce(
+                (sum,order) =>
+                    sum +
+                    Number(order.total || 0),
+                0
+            );
+
+        const pendingCount =
+            orders.filter(
+                order =>
+                    order.status === "pending"
+            ).length;
 
         document.getElementById(
             "statCustomers"
@@ -3786,11 +5187,162 @@ async function loadStats(){
             formatMoney(revenue) +
             " AZN";
 
+        document.getElementById(
+            "statWeekRevenue"
+        ).textContent =
+            formatMoney(weekRevenue) +
+            " AZN";
+
+        document.getElementById(
+            "statMonthRevenue"
+        ).textContent =
+            formatMoney(monthRevenue) +
+            " AZN";
+
+        document.getElementById(
+            "statCompleted"
+        ).textContent =
+            completedOrders.length;
+
+        document.getElementById(
+            "statPending"
+        ).textContent =
+            pendingCount;
+
+        await loadSalesStats();
+
     }catch(error){
 
         console.error(error);
 
     }
+
+}
+
+async function loadSalesStats(){
+
+    const container =
+        document.getElementById(
+            "salesStatsList"
+        );
+
+    if(!container){
+        return;
+    }
+
+    const {
+        data:orders,
+        error
+    } =
+    await supabaseClient
+    .from("orders")
+    .select(
+        "id,total,status,created_at"
+    );
+
+    if(error){
+
+        console.error(error);
+
+        container.innerHTML =
+            `<div class="empty">
+                Satış statistikası yüklənmədi.
+            </div>`;
+
+        return;
+    }
+
+    const completed =
+        (orders || [])
+        .filter(
+            order =>
+                order.status === "completed"
+        );
+
+    const sales = {};
+
+    completed.forEach(order => {
+
+        const product =
+            getOrderProductName(order);
+
+        if(!sales[product]){
+
+            sales[product] = {
+                count:0,
+                revenue:0
+            };
+
+        }
+
+        sales[product].count++;
+
+        sales[product].revenue +=
+            Number(order.total || 0);
+
+    });
+
+    const list =
+        Object.entries(sales)
+        .sort(
+            (a,b) =>
+                b[1].revenue -
+                a[1].revenue
+        );
+
+    if(!list.length){
+
+        container.innerHTML =
+            `<div class="empty">
+                Hələ tamamlanmış satış yoxdur.
+            </div>`;
+
+        return;
+    }
+
+    container.innerHTML =
+        list.map(([name,data]) => {
+
+            return `
+
+            <div class="sales-row">
+
+                <div>
+
+                    <div class="sales-name">
+                        ${escapeHtml(name)}
+                    </div>
+
+                    <div class="sales-sub">
+                        ${data.count} tamamlanmış satış
+                    </div>
+
+                </div>
+
+                <div class="sales-number">
+                    ${formatMoney(data.revenue)} AZN
+                </div>
+
+            </div>
+
+            `;
+
+        })
+        .join("");
+
+}
+
+function getOrderProductName(order){
+
+    if(
+        order.product_name
+    ){
+
+        return order.product_name;
+
+    }
+
+    return "Digər məhsullar";
 
 }
 
@@ -3816,7 +5368,19 @@ function setupRealtime(){
                 schema:"public",
                 table:"orders"
             },
-            async () => {
+            async payload => {
+
+                if(
+                    payload.eventType === "INSERT"
+                ){
+
+                    showBrowserNotification();
+
+                    toast(
+                        "🔔 Yeni sifariş daxil oldu."
+                    );
+
+                }
 
                 await updateBadges();
 
@@ -3844,6 +5408,18 @@ function setupRealtime(){
                     await loadCustomerOrders(
                         currentChatUser
                     );
+
+                }
+
+                if(
+                    document
+                    .getElementById(
+                        "statsPanel"
+                    )
+                    .classList.contains("active")
+                ){
+
+                    await loadStats();
 
                 }
 
