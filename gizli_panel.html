@@ -1456,6 +1456,10 @@ class="new-chat-alert-count"
 
 <script>
 
+/* =====================================================
+SUPABASE
+===================================================== */
+
 const SUPABASE_URL =
 "https://zeknhnkaicqkfzgnvycq.supabase.co";
 
@@ -1465,11 +1469,52 @@ const SUPABASE_KEY =
 const ADMIN_EMAIL =
 "zahidovorxan989@gmail.com";
 
-const supabaseClient =
+let supabaseClient = null;
+
+
+/* =====================================================
+SUPABASE INITIALIZATION
+ƏSAS DÜZƏLİŞ BURADADIR.
+CDN YÜKLƏNMƏDƏN createClient ÇAĞIRILMIR.
+===================================================== */
+
+async function initSupabase(){
+
+for(let i=0;i<100;i++){
+
+if(
+window.supabase &&
+typeof window.supabase.createClient==="function"
+){
+
+supabaseClient =
 window.supabase.createClient(
 SUPABASE_URL,
 SUPABASE_KEY
 );
+
+return true;
+
+}
+
+await new Promise(function(resolve){
+
+setTimeout(resolve,100);
+
+});
+
+}
+
+throw new Error(
+"Supabase kitabxanası yüklənmədi. İnternet bağlantısını və CDN bağlantısını yoxlayın."
+);
+
+}
+
+
+/* =====================================================
+VARIABLES
+===================================================== */
 
 let selectedChatUserId=null;
 let selectedChatEmail=null;
@@ -1487,9 +1532,9 @@ let selectedDurationMonths=null;
 let selectedDurationPrice=null;
 
 
-/* =========================
+/* =====================================================
 ACCORDION
-========================= */
+===================================================== */
 
 function toggleAdminSection(title){
 
@@ -1516,9 +1561,9 @@ section.classList.add("open");
 }
 
 
-/* =========================
+/* =====================================================
 ADMIN
-========================= */
+===================================================== */
 
 async function checkAdmin(){
 
@@ -1529,10 +1574,6 @@ const panel =
 document.getElementById("adminPanel");
 
 try{
-
-/*
-AUTH SESSION-U MAXIMUM 10 SANİYƏ GÖZLƏYİR.
-*/
 
 const sessionResult =
 await Promise.race([
@@ -1545,7 +1586,7 @@ setTimeout(function(){
 
 reject(
 new Error(
-"Session yoxlanışı vaxt aşımına uğradı."
+"Session yoxlanışı 10 saniyədən sonra dayandırıldı."
 )
 );
 
@@ -1588,22 +1629,10 @@ return;
 
 }
 
-
-/*
-ADMIN TƏSDİQLƏNDİ.
-PANELİ DƏRHAL AÇIRIQ.
-*/
-
 loading.style.display="none";
 
 panel.style.display="block";
 
-
-/*
-MƏLUMATLARI AYRI-AYRI YÜKLƏYİRİK.
-BİR FUNKSİYADA XƏTA OLSA,
-DİGƏRLƏRİ DAYANMIR.
-*/
 
 try{
 
@@ -1702,7 +1731,6 @@ error
 
 }
 
-
 }catch(error){
 
 console.error(
@@ -1715,25 +1743,27 @@ loading.innerHTML=`
 <div style="
 max-width:500px;
 margin:30px auto;
-padding:20px;
+padding:22px;
 background:#160909;
 border:1px solid #7f1d1d;
 border-radius:14px;
 color:#fff;
+text-align:left;
 ">
 
 <div style="
 font-size:18px;
 font-weight:800;
-margin-bottom:10px;
+margin-bottom:12px;
 ">
-Admin yoxlanılarkən xəta baş verdi.
+Admin səhifəsi açıla bilmədi
 </div>
 
 <div style="
 font-size:13px;
-color:#aaa;
-line-height:1.5;
+color:#fca5a5;
+line-height:1.6;
+word-break:break-word;
 ">
 ${escapeHtml(
 error?.message ||
@@ -1748,7 +1778,7 @@ margin-top:18px;
 background:#2563eb;
 color:#fff;
 border:0;
-padding:11px 17px;
+padding:12px 18px;
 border-radius:9px;
 cursor:pointer;
 font-weight:700;
@@ -1766,9 +1796,9 @@ Yenidən yoxla
 }
 
 
-/* =========================
+/* =====================================================
 CUSTOMERS
-========================= */
+===================================================== */
 
 async function loadCustomers(){
 
@@ -1823,7 +1853,6 @@ select.appendChild(option);
 
 }
 
-
 document
 .getElementById("customerSelect")
 .addEventListener(
@@ -1859,9 +1888,9 @@ info.style.display="block";
 );
 
 
-/* =========================
+/* =====================================================
 PRODUCT PRICE
-========================= */
+===================================================== */
 
 document
 .getElementById("productSelect")
@@ -2104,9 +2133,9 @@ normal;
 }
 
 
-/* =========================
+/* =====================================================
 DURATION
-========================= */
+===================================================== */
 
 function chooseDuration(months,price){
 
@@ -2168,9 +2197,9 @@ Number(option.dataset.price||0)
 );
 
 
-/* =========================
+/* =====================================================
 DATE
-========================= */
+===================================================== */
 
 function addMonthsSafe(date,months){
 
@@ -2219,9 +2248,9 @@ second:"2-digit"
 }
 
 
-/* =========================
+/* =====================================================
 ADD PRODUCT
-========================= */
+===================================================== */
 
 async function addProduct(){
 
@@ -2404,9 +2433,9 @@ await loadOrders();
 }
 
 
-/* =========================
+/* =====================================================
 PRODUCTS
-========================= */
+===================================================== */
 
 async function loadProducts(){
 
@@ -2627,9 +2656,9 @@ await loadProducts();
 }
 
 
-/* =========================
+/* =====================================================
 PRICES
-========================= */
+===================================================== */
 
 async function loadPrices(){
 
@@ -2950,9 +2979,9 @@ await loadPrices();
 }
 
 
-/* =========================
+/* =====================================================
 CHAT CUSTOMERS
-========================= */
+===================================================== */
 
 async function loadChatCustomers(){
 
@@ -3201,9 +3230,9 @@ return map[status]||status;
 }
 
 
-/* =========================
+/* =====================================================
 CHAT SELECT
-========================= */
+===================================================== */
 
 async function selectChatCustomer(
 userId,
@@ -3236,9 +3265,9 @@ await loadChatCustomers();
 }
 
 
-/* =========================
+/* =====================================================
 SYNC CUSTOMER
-========================= */
+===================================================== */
 
 function syncProductCustomer(userId){
 
@@ -3269,9 +3298,9 @@ new Event("change")
 }
 
 
-/* =========================
+/* =====================================================
 CHAT MESSAGES
-========================= */
+===================================================== */
 
 async function loadChatMessages(userId){
 
@@ -3362,9 +3391,9 @@ box.scrollHeight;
 }
 
 
-/* =========================
+/* =====================================================
 READ MESSAGE
-========================= */
+===================================================== */
 
 async function markCustomerMessagesRead(userId){
 
@@ -3396,9 +3425,9 @@ await checkUnreadChatMessages();
 }
 
 
-/* =========================
+/* =====================================================
 SEND MESSAGE
-========================= */
+===================================================== */
 
 async function sendChatMessage(){
 
@@ -3466,9 +3495,9 @@ selectedChatUserId
 }
 
 
-/* =========================
+/* =====================================================
 NEW CHAT ALERT
-========================= */
+===================================================== */
 
 async function checkUnreadChatMessages(){
 
@@ -3533,6 +3562,7 @@ showNewChatAlert(
 newChatEmail,
 newChatUnreadCount
 );
+
 
 }
 
@@ -3608,9 +3638,9 @@ await checkUnreadChatMessages();
 }
 
 
-/* =========================
+/* =====================================================
 CHAT ORDER
-========================= */
+===================================================== */
 
 async function getCustomerActiveOrder(userId){
 
@@ -3748,9 +3778,9 @@ await loadChatCustomers();
 }
 
 
-/* =========================
+/* =====================================================
 ORDERS
-========================= */
+===================================================== */
 
 async function loadOrders(){
 
@@ -4088,9 +4118,9 @@ behavior:"smooth"
 }
 
 
-/* =========================
+/* =====================================================
 REALTIME
-========================= */
+===================================================== */
 
 function setupAdminRealtime(){
 
@@ -4167,9 +4197,9 @@ await loadProducts();
 }
 
 
-/* =========================
+/* =====================================================
 MESSAGES
-========================= */
+===================================================== */
 
 function showMessage(
 text,
@@ -4231,9 +4261,9 @@ box.style.display="none";
 }
 
 
-/* =========================
+/* =====================================================
 ESCAPE
-========================= */
+===================================================== */
 
 function escapeHtml(value){
 
@@ -4247,9 +4277,9 @@ return String(value??"")
 }
 
 
-/* =========================
+/* =====================================================
 ORDERS SCROLL
-========================= */
+===================================================== */
 
 function scrollToOrders(){
 
@@ -4262,11 +4292,93 @@ behavior:"smooth"
 }
 
 
-/* =========================
+/* =====================================================
 START
-========================= */
+ƏSAS DÜZƏLİŞ:
+ƏVVƏL SUPABASE YÜKLƏNİR,
+SONRA ADMIN YOXLANIR.
+===================================================== */
 
-checkAdmin();
+window.addEventListener("load",async function(){
+
+const loading=
+document.getElementById("loading");
+
+try{
+
+loading.innerHTML=
+"Supabase bağlantısı yoxlanılır...";
+
+await initSupabase();
+
+loading.innerHTML=
+"Admin yoxlanılır...";
+
+await checkAdmin();
+
+}catch(error){
+
+console.error(
+"ADMIN START ERROR:",
+error
+);
+
+loading.innerHTML=`
+
+<div style="
+max-width:500px;
+margin:30px auto;
+padding:22px;
+background:#160909;
+border:1px solid #7f1d1d;
+border-radius:14px;
+color:#fff;
+text-align:left;
+">
+
+<div style="
+font-size:18px;
+font-weight:800;
+margin-bottom:12px;
+">
+Admin səhifəsi açıla bilmədi
+</div>
+
+<div style="
+color:#fca5a5;
+font-size:13px;
+line-height:1.6;
+word-break:break-word;
+">
+${escapeHtml(
+error?.message ||
+"Naməlum xəta"
+)}
+</div>
+
+<button
+onclick="location.reload()"
+style="
+margin-top:18px;
+background:#2563eb;
+color:#fff;
+border:0;
+padding:12px 18px;
+border-radius:9px;
+cursor:pointer;
+font-weight:700;
+"
+>
+Yenidən yoxla
+</button>
+
+</div>
+
+`;
+
+}
+
+});
 
 </script>
 
