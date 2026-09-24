@@ -353,6 +353,39 @@ color:#60a5fa;
 .chat-order-status-value.completed{color:#9ca3af}
 .chat-order-status-value.cancelled{color:#f87171}
 
+/* YENİ CHAT STATUS SEÇİMİ */
+
+.chat-order-status-control{
+padding:10px 15px;
+background:#0a0a0a;
+border-bottom:1px solid #222;
+}
+
+.chat-order-status-control label{
+margin-bottom:7px;
+font-size:12px;
+color:#777;
+}
+
+.chat-order-status-control select{
+margin:0;
+padding:10px 12px;
+font-size:13px;
+background:#111;
+border-color:#333;
+}
+
+.chat-status-save{
+margin-top:8px;
+background:#16a34a;
+padding:10px;
+font-size:13px;
+}
+
+.chat-status-save:disabled{
+opacity:.6;
+}
+
 .chat-box{
 display:flex;
 flex-direction:column;
@@ -719,6 +752,52 @@ class="chat-order-status-value"
 
 </div>
 
+<!-- YENİ STATUS İDARƏSİ -->
+
+<div
+id="chatOrderStatusControl"
+class="chat-order-status-control"
+style="display:none"
+>
+
+<label>
+Statusu dəyiş
+</label>
+
+<select id="chatOrderStatusSelect">
+
+<option value="pending">
+Cavab gözlənilir
+</option>
+
+<option value="confirmed">
+Təsdiqləndi
+</option>
+
+<option value="processing">
+Hazırlanır
+</option>
+
+<option value="completed">
+Hazırdır
+</option>
+
+<option value="cancelled">
+Ləğv edildi
+</option>
+
+</select>
+
+<button
+id="chatStatusSaveButton"
+class="chat-status-save"
+onclick="updateChatOrderStatus()"
+>
+Statusu yadda saxla
+</button>
+
+</div>
+
 <div
 id="chatMessages"
 class="chat-messages"
@@ -1028,12 +1107,9 @@ return;
 
 
 /*
-  VACİB:
-  Artıq sadəcə "son sifariş"i kor-koranə
-  confirmed etmirik.
-
-  Əvvəl həmin müştərinin aktiv gözləyən
-  sifarişlərini tapırıq.
+  ƏVVƏLKİ SİSTEM SAXLANILIR:
+  Müştəriyə məhsul verildikdə onun
+  pending sifarişi confirmed olur.
 */
 
 const {
@@ -1085,11 +1161,6 @@ new Date().toISOString()
 "id",
 orderToConfirm.id
 );
-
-/*
-  Burada konkret order.id istifadə olunur.
-  Başqa müştərinin sifarişinə toxunmur.
-*/
 
 if(updateError){
 
@@ -1872,11 +1943,6 @@ ordersError
 
 }else{
 
-/*
-  Hər user üçün ayrıca ən son sifariş.
-  Sifarişin ID-si də yadda saxlanılır.
-*/
-
 (orders || []).forEach(
 function(order){
 
@@ -2081,7 +2147,7 @@ confirmed:"Təsdiqləndi",
 
 processing:"Hazırlanır",
 
-completed:"Tamamlandı",
+completed:"Hazırdır",
 
 cancelled:"Ləğv edildi"
 
@@ -2095,7 +2161,6 @@ return statuses[status] ||
 
 /*
   Müştərinin konkret aktiv sifarişini tapır.
-  Əvvəl pending/confirmed/processing olan sifarişə üstünlük verir.
 */
 
 async function getCustomerActiveOrder(userId){
@@ -2150,10 +2215,6 @@ return data[0];
 
 }
 
-/*
-  Aktiv sifariş yoxdursa, son sifarişi göstər.
-*/
-
 const {
 data:lastOrders,
 error:lastError
@@ -2205,9 +2266,20 @@ document.getElementById(
 "chatOrderStatusValue"
 );
 
+const statusControl=
+document.getElementById(
+"chatOrderStatusControl"
+);
+
+const statusSelect=
+document.getElementById(
+"chatOrderStatusSelect"
+);
+
 if(
 !statusBox ||
-!statusValue
+!statusValue ||
+!statusControl
 ){
 
 return;
@@ -2217,6 +2289,7 @@ return;
 if(!userId){
 
 statusBox.style.display="none";
+statusControl.style.display="none";
 
 selectedChatOrderId=null;
 
@@ -2230,6 +2303,7 @@ await getCustomerActiveOrder(userId);
 if(!order){
 
 statusBox.style.display="none";
+statusControl.style.display="none";
 
 selectedChatOrderId=null;
 
@@ -2239,16 +2313,135 @@ return;
 
 selectedChatOrderId=order.id;
 
+const currentStatus=
+order.status || "pending";
+
 statusValue.textContent=
 getOrderStatusText(
-order.status || "pending"
+currentStatus
 );
 
 statusValue.className=
 "chat-order-status-value "+
-(order.status || "pending");
+currentStatus;
+
+if(statusSelect){
+
+statusSelect.value=currentStatus;
+
+}
 
 statusBox.style.display="flex";
+
+statusControl.style.display="block";
+
+}
+
+
+/* =====================================================
+CHATDAN STATUS DƏYİŞDİRMƏ
+===================================================== */
+
+async function updateChatOrderStatus(){
+
+if(!selectedChatOrderId){
+
+alert(
+"Bu müştərinin aktiv sifarişi tapılmadı."
+);
+
+return;
+
+}
+
+const select=
+document.getElementById(
+"chatOrderStatusSelect"
+);
+
+const button=
+document.getElementById(
+"chatStatusSaveButton"
+);
+
+if(!select || !button){
+
+return;
+
+}
+
+const status=select.value;
+
+const allowedStatuses=[
+"pending",
+"confirmed",
+"processing",
+"completed",
+"cancelled"
+];
+
+if(
+!allowedStatuses.includes(status)
+){
+
+alert(
+"Yanlış sifariş statusu."
+);
+
+return;
+
+}
+
+button.disabled=true;
+
+const {
+error
+} =
+await supabaseClient
+.from("orders")
+.update({
+
+status:status,
+
+updated_at:
+new Date().toISOString()
+
+})
+.eq(
+"id",
+selectedChatOrderId
+);
+
+button.disabled=false;
+
+if(error){
+
+console.error(
+"Chat status update error:",
+error
+);
+
+alert(
+"Sifariş statusu dəyişmədi: "+
+error.message
+);
+
+return;
+
+}
+
+/*
+  Dəyişiklikdən sonra həm admin,
+  həm də müştəri tərəfi yenilənir.
+*/
+
+await loadChatOrderStatus(
+selectedChatUserId
+);
+
+await loadOrders();
+
+await loadChatCustomers();
 
 }
 
@@ -2815,7 +3008,7 @@ ${status==="completed"
 ? "selected"
 : ""}
 >
-Tamamlandı
+Hazırdır
 </option>
 
 <option
@@ -2891,11 +3084,6 @@ alert(
 return;
 
 }
-
-/*
-  YALNIZ konkret order.id dəyişdirilir.
-  Başqa sifarişə və başqa müştəriyə toxunulmur.
-*/
 
 const {
 error
