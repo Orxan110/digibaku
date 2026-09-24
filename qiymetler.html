@@ -325,6 +325,357 @@ header{
   fill:#fff
 }
 
+/* CUSTOMER CHAT */
+
+.customer-chat-button{
+  position:fixed;
+  right:25px;
+  bottom:98px;
+  width:60px;
+  height:60px;
+  border:0;
+  border-radius:50%;
+  background:#2563eb;
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  box-shadow:0 5px 20px rgba(37,99,235,.45);
+  z-index:10000;
+  transition:.25s
+}
+
+.customer-chat-button:hover{
+  transform:scale(1.08);
+  background:#1d4ed8
+}
+
+.customer-chat-button svg{
+  width:30px;
+  height:30px;
+  fill:#fff
+}
+
+.customer-chat-unread{
+  position:absolute;
+  top:-3px;
+  right:-3px;
+  min-width:21px;
+  height:21px;
+  padding:0 5px;
+  border-radius:20px;
+  background:#ef4444;
+  color:#fff;
+  font-size:11px;
+  font-weight:900;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  border:2px solid #070707
+}
+
+.customer-chat-panel{
+  position:fixed;
+  right:25px;
+  bottom:170px;
+  width:370px;
+  max-width:calc(100vw - 30px);
+  height:560px;
+  max-height:calc(100vh - 190px);
+  background:#101010;
+  border:1px solid #292929;
+  border-radius:16px;
+  box-shadow:0 18px 55px rgba(0,0,0,.6);
+  z-index:10001;
+  display:none;
+  overflow:hidden;
+  flex-direction:column
+}
+
+.customer-chat-panel.open{
+  display:flex
+}
+
+.customer-chat-header{
+  background:#151515;
+  border-bottom:1px solid #282828;
+  padding:15px 16px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px
+}
+
+.customer-chat-header-left{
+  min-width:0
+}
+
+.customer-chat-header-title{
+  font-size:15px;
+  font-weight:900;
+  color:#fff
+}
+
+.customer-chat-status{
+  color:#22c55e;
+  font-size:11px;
+  margin-top:2px
+}
+
+.customer-chat-close{
+  border:0;
+  background:none;
+  color:#999;
+  cursor:pointer;
+  font-size:23px;
+  line-height:1
+}
+
+.customer-chat-close:hover{
+  color:#fff
+}
+
+.customer-order-status{
+  padding:10px 13px;
+  background:#0c0c0c;
+  border-bottom:1px solid #242424;
+  font-size:12px;
+  display:none
+}
+
+.customer-order-status.show{
+  display:block
+}
+
+.customer-order-status-title{
+  color:#888;
+  margin-bottom:3px
+}
+
+.customer-order-status-value{
+  display:inline-flex;
+  align-items:center;
+  padding:4px 8px;
+  border-radius:7px;
+  font-weight:800;
+  font-size:11px;
+  border:1px solid #333
+}
+
+.customer-order-status-value.pending{
+  color:#f59e0b;
+  background:rgba(245,158,11,.08);
+  border-color:rgba(245,158,11,.3)
+}
+
+.customer-order-status-value.confirmed{
+  color:#60a5fa;
+  background:rgba(96,165,250,.08);
+  border-color:rgba(96,165,250,.3)
+}
+
+.customer-order-status-value.processing{
+  color:#a78bfa;
+  background:rgba(167,139,250,.08);
+  border-color:rgba(167,139,250,.3)
+}
+
+.customer-order-status-value.completed{
+  color:#22c55e;
+  background:rgba(34,197,94,.08);
+  border-color:rgba(34,197,94,.3)
+}
+
+.customer-order-status-value.cancelled{
+  color:#ef4444;
+  background:rgba(239,68,68,.08);
+  border-color:rgba(239,68,68,.3)
+}
+
+.customer-chat-packages{
+  padding:10px 12px;
+  border-bottom:1px solid #242424;
+  background:#0d0d0d
+}
+
+.customer-chat-packages-title{
+  color:#888;
+  font-size:11px;
+  font-weight:700;
+  margin-bottom:7px
+}
+
+.customer-chat-package-list{
+  display:flex;
+  gap:6px;
+  overflow-x:auto;
+  padding-bottom:2px
+}
+
+.customer-chat-package{
+  min-width:105px;
+  border:1px solid #2b2b2b;
+  background:#151515;
+  color:#ddd;
+  border-radius:8px;
+  padding:7px 8px;
+  cursor:pointer;
+  text-align:left;
+  transition:.2s
+}
+
+.customer-chat-package:hover{
+  border-color:#2563eb;
+  background:#18243a
+}
+
+.customer-chat-package-name{
+  display:block;
+  color:#60a5fa;
+  font-size:11px;
+  font-weight:800;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis
+}
+
+.customer-chat-price-button{
+  display:block;
+  margin-top:3px;
+  font-size:10px;
+  color:#ccc
+}
+
+.customer-chat-price-old{
+  color:#777;
+  text-decoration:line-through;
+  margin-right:4px
+}
+
+.customer-chat-price-sale{
+  color:#22c55e;
+  font-weight:800
+}
+
+.customer-chat-sale-label{
+  color:#ef4444;
+  font-size:9px;
+  font-weight:900;
+  margin-left:3px
+}
+
+.customer-chat-messages{
+  flex:1;
+  overflow-y:auto;
+  padding:13px;
+  background:#090909
+}
+
+.customer-chat-empty{
+  color:#777;
+  text-align:center;
+  font-size:12px;
+  padding:35px 15px
+}
+
+.customer-chat-message{
+  display:flex;
+  margin-bottom:9px
+}
+
+.customer-chat-message.customer{
+  justify-content:flex-end
+}
+
+.customer-chat-message.admin{
+  justify-content:flex-start
+}
+
+.customer-chat-bubble{
+  max-width:82%;
+  padding:9px 11px;
+  border-radius:12px;
+  font-size:13px;
+  white-space:pre-wrap;
+  word-break:break-word
+}
+
+.customer-chat-message.customer .customer-chat-bubble{
+  background:#2563eb;
+  color:#fff;
+  border-bottom-right-radius:4px
+}
+
+.customer-chat-message.admin .customer-chat-bubble{
+  background:#191919;
+  border:1px solid #2a2a2a;
+  color:#eee;
+  border-bottom-left-radius:4px
+}
+
+.customer-chat-time{
+  display:block;
+  margin-top:4px;
+  font-size:9px;
+  opacity:.55;
+  text-align:right
+}
+
+.customer-chat-send{
+  padding:10px;
+  background:#111;
+  border-top:1px solid #292929;
+  display:flex;
+  gap:7px
+}
+
+.customer-chat-input{
+  flex:1;
+  min-width:0;
+  resize:none;
+  height:42px;
+  border:1px solid #303030;
+  background:#181818;
+  color:#fff;
+  border-radius:9px;
+  outline:none;
+  padding:10px;
+  font-size:13px
+}
+
+.customer-chat-input:focus{
+  border-color:#2563eb
+}
+
+.customer-chat-send-button{
+  width:44px;
+  height:42px;
+  border:0;
+  border-radius:9px;
+  background:#2563eb;
+  color:#fff;
+  cursor:pointer;
+  font-size:17px;
+  font-weight:bold
+}
+
+.customer-chat-send-button:hover{
+  background:#1d4ed8
+}
+
+.customer-chat-login{
+  padding:35px 20px;
+  text-align:center;
+  color:#aaa;
+  font-size:13px
+}
+
+.customer-chat-login a{
+  display:inline-block;
+  margin-top:12px
+}
+
 /* PAGE */
 
 main{
@@ -721,6 +1072,25 @@ footer{
 
   #cartModal{
     max-width:100%
+  }
+
+  .customer-chat-button{
+    right:15px;
+    bottom:92px
+  }
+
+  .customer-chat-panel{
+    right:15px;
+    bottom:162px;
+    width:calc(100vw - 30px);
+    max-width:none;
+    height:540px;
+    max-height:calc(100vh - 180px)
+  }
+
+  .whatsapp-float{
+    right:15px;
+    bottom:20px
   }
 }
 
@@ -1528,6 +1898,119 @@ Premium rəqəmsal xidmətlər. Bütün hüquqlar qorunur.
 
 </footer>
 
+<!-- CUSTOMER CHAT BUTTON -->
+
+<button
+id="customerChatButton"
+class="customer-chat-button"
+onclick="toggleCustomerChat()"
+aria-label="DigiBaku dəstək chatı"
+>
+
+<svg viewBox="0 0 24 24">
+<path d="M20 2H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h4l4 4 4-4h4c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 14H6v-2h12v2zm0-3H6v-2h12v2zm0-3H6V8h12v2z"></path>
+</svg>
+
+<span id="customerChatUnread" class="customer-chat-unread">
+0
+</span>
+
+</button>
+
+<!-- CUSTOMER CHAT PANEL -->
+
+<div id="customerChatPanel" class="customer-chat-panel">
+
+<div class="customer-chat-header">
+
+<div class="customer-chat-header-left">
+
+<div class="customer-chat-header-title">
+DigiBaku dəstək
+</div>
+
+<div class="customer-chat-status">
+● Onlayn dəstək
+</div>
+
+</div>
+
+<button
+class="customer-chat-close"
+onclick="toggleCustomerChat()"
+>
+✕
+</button>
+
+</div>
+
+<div
+id="customerOrderStatus"
+class="customer-order-status"
+>
+
+<div class="customer-order-status-title">
+📦 Sifariş statusu
+</div>
+
+<span
+id="customerOrderStatusValue"
+class="customer-order-status-value"
+>
+-
+</span>
+
+</div>
+
+<div
+id="customerChatPackages"
+class="customer-chat-packages"
+style="display:none"
+>
+
+<div class="customer-chat-packages-title">
+Paket seçib birbaşa sifariş göndər:
+</div>
+
+<div
+id="customerChatPackageList"
+class="customer-chat-package-list"
+>
+</div>
+
+</div>
+
+<div
+id="customerChatMessages"
+class="customer-chat-messages"
+>
+</div>
+
+<div
+id="customerChatSendArea"
+class="customer-chat-send"
+style="display:none"
+>
+
+<textarea
+id="customerChatInput"
+class="customer-chat-input"
+placeholder="Mesajınızı yazın..."
+rows="1"
+></textarea>
+
+<button
+id="customerChatSendButton"
+class="customer-chat-send-button"
+onclick="sendCustomerChatMessage()"
+>
+➤
+</button>
+
+</div>
+
+</div>
+
 <!-- WHATSAPP -->
 
 <a
@@ -1908,6 +2391,7 @@ function setLang(lang){
 
   updateCartUI();
   checkLogin();
+
 }
 
 /* SUPABASE */
@@ -2229,6 +2713,17 @@ async function logout(){
 supabaseClient.auth.onAuthStateChange(
   (event,session)=>{
     checkLogin();
+
+    if(session){
+      setTimeout(()=>{
+        loadCustomerChatUnread();
+        loadCustomerOrderStatus();
+      },100);
+    }else{
+      customerChatUserId=null;
+      customerChatOpen=false;
+      customerChatCleanupRealtime();
+    }
   }
 );
 
@@ -2343,6 +2838,997 @@ document.querySelectorAll(".product").forEach(card=>{
 
 });
 
+/* CUSTOMER CHAT */
+
+let customerChatUserId=null;
+let customerChatChannel=null;
+let customerChatPricesChannel=null;
+let customerOrderStatusChannel=null;
+let customerChatOpen=false;
+
+const CUSTOMER_ORDER_STATUS_MAP={
+  pending:{
+    text:"Cavab gözlənilir",
+    className:"pending"
+  },
+  confirmed:{
+    text:"Təsdiqləndi",
+    className:"confirmed"
+  },
+  processing:{
+    text:"Hazırlanır",
+    className:"processing"
+  },
+  completed:{
+    text:"Hazırdır",
+    className:"completed"
+  },
+  cancelled:{
+    text:"Ləğv edildi",
+    className:"cancelled"
+  }
+};
+
+function toggleCustomerChat(){
+
+  const panel=
+    document.getElementById(
+      "customerChatPanel"
+    );
+
+  if(!panel) return;
+
+  customerChatOpen=
+    !customerChatOpen;
+
+  panel.classList.toggle(
+    "open",
+    customerChatOpen
+  );
+
+  if(customerChatOpen){
+
+    loadCustomerChat();
+
+  }
+
+}
+
+async function loadCustomerChat(){
+
+  const {
+    data:{session}
+  }=
+    await supabaseClient.auth.getSession();
+
+  const messagesEl=
+    document.getElementById(
+      "customerChatMessages"
+    );
+
+  const sendArea=
+    document.getElementById(
+      "customerChatSendArea"
+    );
+
+  const packages=
+    document.getElementById(
+      "customerChatPackages"
+    );
+
+  if(!messagesEl) return;
+
+  if(!session){
+
+    messagesEl.innerHTML=`
+
+      <div class="customer-chat-login">
+
+        Chatdan istifadə etmək üçün əvvəlcə
+        hesabınıza daxil olun.
+
+        <br>
+
+        <a
+          href="login.html"
+          class="btn btn-primary"
+        >
+          Daxil ol
+        </a>
+
+      </div>
+
+    `;
+
+    if(sendArea){
+      sendArea.style.display="none";
+    }
+
+    if(packages){
+      packages.style.display="none";
+    }
+
+    return;
+
+  }
+
+  customerChatUserId=
+    session.user.id;
+
+  if(sendArea){
+    sendArea.style.display="flex";
+  }
+
+  if(packages){
+    packages.style.display="block";
+  }
+
+  await loadCustomerChatPackages();
+  await loadCustomerChatMessages();
+  await markAdminMessagesRead();
+  await loadCustomerChatUnread();
+  await loadCustomerOrderStatus();
+  setupCustomerChatRealtime();
+
+  setTimeout(()=>{
+    messagesEl.scrollTop=
+      messagesEl.scrollHeight;
+  },50);
+
+}
+
+async function loadCustomerChatMessages(){
+
+  if(!customerChatUserId) return;
+
+  const messagesEl=
+    document.getElementById(
+      "customerChatMessages"
+    );
+
+  if(!messagesEl) return;
+
+  const {
+    data,
+    error
+  }=
+    await supabaseClient
+      .from("messages")
+      .select(
+        "id,user_id,sender_role,message,is_read,created_at"
+      )
+      .eq(
+        "user_id",
+        customerChatUserId
+      )
+      .order(
+        "created_at",
+        {ascending:true}
+      );
+
+  if(error){
+
+    console.error(
+      "Customer chat messages error:",
+      error
+    );
+
+    messagesEl.innerHTML=`
+      <div class="customer-chat-empty">
+        Mesajlar yüklənmədi.
+      </div>
+    `;
+
+    return;
+  }
+
+  if(!data || data.length===0){
+
+    messagesEl.innerHTML=`
+      <div class="customer-chat-empty">
+        Salam! Sizə necə kömək edə bilərik?
+      </div>
+    `;
+
+    return;
+
+  }
+
+  let html="";
+
+  data.forEach(item=>{
+
+    const isCustomer=
+      item.sender_role==="customer";
+
+    const message=
+      String(item.message || "")
+        .replace(
+          /\[\[DIGIBAKU_STATUS:[^\]]+\]\]/g,
+          ""
+        )
+        .trim();
+
+    if(!message) return;
+
+    const date=
+      item.created_at
+        ? new Date(item.created_at)
+        : null;
+
+    const time=
+      date && !isNaN(date.getTime())
+        ? date.toLocaleTimeString(
+            "az-AZ",
+            {
+              hour:"2-digit",
+              minute:"2-digit"
+            }
+          )
+        : "";
+
+    html+=`
+
+      <div class="customer-chat-message ${
+        isCustomer
+          ? "customer"
+          : "admin"
+      }">
+
+        <div class="customer-chat-bubble">
+
+          ${escapeHtml(message)}
+
+          ${
+            time
+              ? `<span class="customer-chat-time">${time}</span>`
+              : ""
+          }
+
+        </div>
+
+      </div>
+
+    `;
+
+  });
+
+  if(!html){
+
+    html=`
+      <div class="customer-chat-empty">
+        Salam! Sizə necə kömək edə bilərik?
+      </div>
+    `;
+
+  }
+
+  messagesEl.innerHTML=html;
+
+  setTimeout(()=>{
+    messagesEl.scrollTop=
+      messagesEl.scrollHeight;
+  },20);
+
+}
+
+async function markAdminMessagesRead(){
+
+  if(!customerChatUserId) return;
+
+  const {
+    error
+  }=
+    await supabaseClient
+      .from("messages")
+      .update({
+        is_read:true
+      })
+      .eq(
+        "user_id",
+        customerChatUserId
+      )
+      .eq(
+        "sender_role",
+        "admin"
+      )
+      .eq(
+        "is_read",
+        false
+      );
+
+  if(error){
+    console.error(
+      "Mark admin messages read error:",
+      error
+    );
+  }
+
+}
+
+async function loadCustomerChatUnread(){
+
+  const button=
+    document.getElementById(
+      "customerChatUnread"
+    );
+
+  if(!button) return;
+
+  if(!customerChatUserId){
+
+    button.style.display="none";
+    return;
+
+  }
+
+  const {
+    count,
+    error
+  }=
+    await supabaseClient
+      .from("messages")
+      .select(
+        "id",
+        {
+          count:"exact",
+          head:true
+        }
+      )
+      .eq(
+        "user_id",
+        customerChatUserId
+      )
+      .eq(
+        "sender_role",
+        "admin"
+      )
+      .eq(
+        "is_read",
+        false
+      );
+
+  if(error){
+
+    console.error(
+      "Unread messages error:",
+      error
+    );
+
+    button.style.display="none";
+    return;
+
+  }
+
+  const unread=
+    Number(count || 0);
+
+  if(unread>0){
+
+    button.textContent=
+      unread>99
+        ? "99+"
+        : unread;
+
+    button.style.display=
+      "flex";
+
+  }else{
+
+    button.style.display=
+      "none";
+
+  }
+
+}
+
+async function sendCustomerChatMessage(){
+
+  if(!customerChatUserId){
+
+    await loadCustomerChat();
+    return;
+
+  }
+
+  const input=
+    document.getElementById(
+      "customerChatInput"
+    );
+
+  const button=
+    document.getElementById(
+      "customerChatSendButton"
+    );
+
+  if(!input) return;
+
+  const message=
+    input.value.trim();
+
+  if(!message) return;
+
+  if(button){
+    button.disabled=true;
+  }
+
+  const {
+    error
+  }=
+    await supabaseClient
+      .from("messages")
+      .insert({
+        user_id:customerChatUserId,
+        sender_role:"customer",
+        message:message,
+        is_read:false
+      });
+
+  if(button){
+    button.disabled=false;
+  }
+
+  if(error){
+
+    console.error(
+      "Send customer chat error:",
+      error
+    );
+
+    alert(
+      "Mesaj göndərilmədi: "+
+      error.message
+    );
+
+    return;
+
+  }
+
+  input.value="";
+
+  await loadCustomerChatMessages();
+  await loadCustomerChatUnread();
+
+}
+
+async function sendCustomerChatPackage(
+  slug,
+  month,
+  price
+){
+
+  if(!customerChatUserId){
+
+    await loadCustomerChat();
+    return;
+
+  }
+
+  const {
+    data,
+    error
+  }=
+    await supabaseClient
+      .from("product_prices")
+      .select(
+        "product_slug,product_name"
+      )
+      .eq(
+        "product_slug",
+        slug
+      )
+      .maybeSingle();
+
+  if(error){
+
+    console.error(
+      "Package product error:",
+      error
+    );
+
+  }
+
+  const productName=
+    data?.product_name ||
+    slug;
+
+  const message=
+`Salam, ${productName} paketini sifariş etmək istəyirəm.
+
+📦 Müddət: ${month} ay
+💰 Qiymət: ${Number(price).toFixed(2)} AZN`;
+
+  const {
+    error:insertError
+  }=
+    await supabaseClient
+      .from("messages")
+      .insert({
+        user_id:customerChatUserId,
+        sender_role:"customer",
+        message:message,
+        is_read:false
+      });
+
+  if(insertError){
+
+    console.error(
+      "Package chat order error:",
+      insertError
+    );
+
+    alert(
+      "Sifariş göndərilmədi: "+
+      insertError.message
+    );
+
+    return;
+
+  }
+
+  await loadCustomerChatMessages();
+  await loadCustomerChatUnread();
+
+}
+
+async function loadCustomerChatPackages(){
+
+  const wrapper=
+    document.getElementById(
+      "customerChatPackages"
+    );
+
+  const list=
+    document.getElementById(
+      "customerChatPackageList"
+    );
+
+  if(!wrapper || !list) return;
+
+  const {
+    data,
+    error
+  }=
+    await supabaseClient
+      .from("product_prices")
+      .select(`
+        product_slug,
+        product_name,
+        price_1_month,
+        price_2_month,
+        price_3_month,
+        price_12_month,
+        sale_1_active,
+        sale_2_active,
+        sale_3_active,
+        sale_12_active,
+        sale_1_price,
+        sale_2_price,
+        sale_3_price,
+        sale_12_price
+      `)
+      .order(
+        "id",
+        {ascending:true}
+      );
+
+  if(error){
+
+    console.error(
+      "Chat package load error:",
+      error
+    );
+
+    wrapper.style.display="none";
+    return;
+
+  }
+
+  if(!data || data.length===0){
+
+    wrapper.style.display="none";
+    return;
+
+  }
+
+  let html="";
+
+  data.forEach(product=>{
+
+    const slug=
+      product.product_slug ||
+      "";
+
+    const name=
+      product.product_name ||
+      slug;
+
+    const isCanva=
+      slug.toLowerCase()
+        .includes("canva");
+
+    const packages=
+      isCanva
+        ? [
+            {
+              month:12,
+              price:product.price_12_month,
+              saleActive:product.sale_12_active,
+              salePrice:product.sale_12_price
+            }
+          ]
+        : [
+            {
+              month:1,
+              price:product.price_1_month,
+              saleActive:product.sale_1_active,
+              salePrice:product.sale_1_price
+            },
+            {
+              month:2,
+              price:product.price_2_month,
+              saleActive:product.sale_2_active,
+              salePrice:product.sale_2_price
+            },
+            {
+              month:3,
+              price:product.price_3_month,
+              saleActive:product.sale_3_active,
+              salePrice:product.sale_3_price
+            }
+          ];
+
+    packages.forEach(pkg=>{
+
+      const regular=
+        Number(pkg.price);
+
+      const sale=
+        Number(pkg.salePrice);
+
+      if(
+        !Number.isFinite(regular) &&
+        !Number.isFinite(sale)
+      ){
+        return;
+      }
+
+      const activeSale=
+        pkg.saleActive===true &&
+        Number.isFinite(sale) &&
+        sale>0;
+
+      const finalPrice=
+        activeSale
+          ? sale
+          : regular;
+
+      if(!Number.isFinite(finalPrice)){
+        return;
+      }
+
+      const oldPrice=
+        activeSale
+          ? `
+            <span class="customer-chat-price-old">
+              ${regular.toFixed(2)} AZN
+            </span>
+          `
+          : "";
+
+      const saleLabel=
+        activeSale
+          ? `
+            <span class="customer-chat-sale-label">
+              ENDİRİM
+            </span>
+          `
+          : "";
+
+      html+=`
+
+        <button
+          type="button"
+          class="customer-chat-package"
+          onclick="sendCustomerChatPackage(
+            '${escapeHtml(slug).replace(/'/g,"&#039;")}',
+            ${pkg.month},
+            ${finalPrice}
+          )"
+        >
+
+          <span class="customer-chat-package-name">
+            ${escapeHtml(name)}
+          </span>
+
+          <span class="customer-chat-price-button">
+            ${pkg.month} ay
+          </span>
+
+          <span class="customer-chat-price-button">
+
+            ${oldPrice}
+
+            <span class="${
+              activeSale
+                ? "customer-chat-price-sale"
+                : ""
+            }">
+              ${finalPrice.toFixed(2)} AZN
+            </span>
+
+            ${saleLabel}
+
+          </span>
+
+        </button>
+
+      `;
+
+    });
+
+  });
+
+  if(!html){
+
+    wrapper.style.display="none";
+    return;
+
+  }
+
+  list.innerHTML=html;
+  wrapper.style.display="block";
+
+}
+
+async function loadCustomerOrderStatus(){
+
+  if(!customerChatUserId){
+
+    const {
+      data:{session}
+    }=
+      await supabaseClient.auth.getSession();
+
+    if(!session) return;
+
+    customerChatUserId=
+      session.user.id;
+
+  }
+
+  const statusBox=
+    document.getElementById(
+      "customerOrderStatus"
+    );
+
+  const statusValue=
+    document.getElementById(
+      "customerOrderStatusValue"
+    );
+
+  if(!statusBox || !statusValue) return;
+
+  const {
+    data,
+    error
+  }=
+    await supabaseClient
+      .from("orders")
+      .select(
+        "id,status,created_at,updated_at"
+      )
+      .eq(
+        "user_id",
+        customerChatUserId
+      )
+      .order(
+        "created_at",
+        {ascending:false}
+      )
+      .limit(1)
+      .maybeSingle();
+
+  if(error){
+
+    console.error(
+      "Customer order status error:",
+      error
+    );
+
+    statusBox.classList.remove("show");
+    return;
+
+  }
+
+  if(!data || !data.status){
+
+    statusBox.classList.remove("show");
+    return;
+
+  }
+
+  const status=
+    CUSTOMER_ORDER_STATUS_MAP[
+      data.status
+    ];
+
+  if(!status){
+
+    statusBox.classList.remove("show");
+    return;
+
+  }
+
+  statusValue.textContent=
+    status.text;
+
+  statusValue.className=
+    "customer-order-status-value "+
+    status.className;
+
+  statusBox.classList.add("show");
+
+}
+
+function setupCustomerChatRealtime(){
+
+  if(!customerChatUserId) return;
+
+  if(customerChatChannel){
+
+    supabaseClient.removeChannel(
+      customerChatChannel
+    );
+
+    customerChatChannel=null;
+
+  }
+
+  if(customerChatPricesChannel){
+
+    supabaseClient.removeChannel(
+      customerChatPricesChannel
+    );
+
+    customerChatPricesChannel=null;
+
+  }
+
+  if(customerOrderStatusChannel){
+
+    supabaseClient.removeChannel(
+      customerOrderStatusChannel
+    );
+
+    customerOrderStatusChannel=null;
+
+  }
+
+  const userId=
+    customerChatUserId;
+
+  customerChatChannel=
+    supabaseClient
+      .channel(
+        "customer-chat-"+userId
+      )
+      .on(
+        "postgres_changes",
+        {
+          event:"*",
+          schema:"public",
+          table:"messages",
+          filter:"user_id=eq."+userId
+        },
+        async function(){
+
+          await loadCustomerChatMessages();
+          await markAdminMessagesRead();
+          await loadCustomerChatUnread();
+
+        }
+      )
+      .subscribe();
+
+  customerChatPricesChannel=
+    supabaseClient
+      .channel(
+        "customer-chat-product-prices"
+      )
+      .on(
+        "postgres_changes",
+        {
+          event:"*",
+          schema:"public",
+          table:"product_prices"
+        },
+        async function(){
+
+          await loadCustomerChatPackages();
+
+        }
+      )
+      .subscribe();
+
+  customerOrderStatusChannel=
+    supabaseClient
+      .channel(
+        "customer-order-status-"+userId
+      )
+      .on(
+        "postgres_changes",
+        {
+          event:"*",
+          schema:"public",
+          table:"orders",
+          filter:"user_id=eq."+userId
+        },
+        async function(){
+
+          await loadCustomerOrderStatus();
+
+        }
+      )
+      .subscribe();
+
+}
+
+function customerChatCleanupRealtime(){
+
+  if(customerChatChannel){
+
+    supabaseClient.removeChannel(
+      customerChatChannel
+    );
+
+    customerChatChannel=null;
+
+  }
+
+  if(customerChatPricesChannel){
+
+    supabaseClient.removeChannel(
+      customerChatPricesChannel
+    );
+
+    customerChatPricesChannel=null;
+
+  }
+
+  if(customerOrderStatusChannel){
+
+    supabaseClient.removeChannel(
+      customerOrderStatusChannel
+    );
+
+    customerOrderStatusChannel=null;
+
+  }
+
+}
+
+document.addEventListener(
+  "keydown",
+  function(event){
+
+    if(
+      event.key==="Enter" &&
+      !event.shiftKey &&
+      document.activeElement &&
+      document.activeElement.id===
+        "customerChatInput"
+    ){
+
+      event.preventDefault();
+
+      sendCustomerChatMessage();
+
+    }
+
+  }
+);
+
 /* INIT */
 
 document.addEventListener(
@@ -2357,6 +3843,26 @@ document.addEventListener(
     updateCartCount();
     updateCartUI();
     checkLogin();
+
+    setTimeout(async()=>{
+
+      const {
+        data:{session}
+      }=
+        await supabaseClient.auth.getSession();
+
+      if(session){
+
+        customerChatUserId=
+          session.user.id;
+
+        await loadCustomerChatUnread();
+        await loadCustomerOrderStatus();
+        setupCustomerChatRealtime();
+
+      }
+
+    },300);
 
   }
 );
