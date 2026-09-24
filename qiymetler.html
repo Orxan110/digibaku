@@ -3,7 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>DigiBaku — Premium abunəlik qiymətləri Azərbaycanda</title>
+
 <meta name="description" content="DigiBaku-da Netflix, YouTube Premium, Spotify, ChatGPT və Google Gemini qiymətləri, paketlər və sifariş qaydaları.">
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -259,34 +261,6 @@ header{
 
 .mobile-language{
   display:none
-}
-
-@media(max-width:700px){
-  .mobile-language{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    gap:8px;
-    padding:10px 0;
-    border-top:1px solid #222;
-    background:#080808
-  }
-
-  .mobile-language button{
-    background:none;
-    border:0;
-    color:#777;
-    font-weight:bold;
-    cursor:pointer
-  }
-
-  .mobile-language button.active{
-    color:#3b82f6
-  }
-
-  .mobile-language span{
-    color:#333
-  }
 }
 
 .whatsapp-float{
@@ -649,447 +623,37 @@ footer{
   background:#030303
 }
 
-/* CUSTOMER CHAT */
+@media(max-width:700px){
 
-.customer-chat-button{
-  position:fixed;
-  right:25px;
-  bottom:98px;
-  width:60px;
-  height:60px;
-  border-radius:50%;
-  border:0;
-  background:#2563eb;
-  color:#fff;
-  cursor:pointer;
-  z-index:10000;
-  box-shadow:0 5px 20px rgba(37,99,235,.45);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:27px;
-  transition:.25s
-}
-
-.customer-chat-button:hover{
-  transform:scale(1.08);
-  background:#1d4ed8
-}
-
-.customer-chat-unread{
-  position:absolute;
-  top:-4px;
-  right:-4px;
-  min-width:21px;
-  height:21px;
-  padding:0 5px;
-  background:#ef4444;
-  color:#fff;
-  border-radius:50%;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  font-size:11px;
-  font-weight:900;
-  border:2px solid #070707
-}
-
-.customer-chat-panel{
-  position:fixed;
-  right:25px;
-  bottom:170px;
-  width:min(390px,calc(100vw - 30px));
-  height:min(650px,calc(100vh - 200px));
-  min-height:430px;
-  background:#101010;
-  border:1px solid #2b2b2b;
-  border-radius:18px;
-  z-index:9998;
-  display:none;
-  flex-direction:column;
-  overflow:hidden;
-  box-shadow:0 20px 60px rgba(0,0,0,.65)
-}
-
-.customer-chat-panel.open{
-  display:flex
-}
-
-.customer-chat-header{
-  min-height:64px;
-  background:#111827;
-  border-bottom:1px solid #263244;
-  padding:12px 14px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:10px
-}
-
-.customer-chat-title{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  min-width:0
-}
-
-.customer-chat-icon{
-  width:38px;
-  height:38px;
-  border-radius:50%;
-  background:#2563eb;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  flex-shrink:0
-}
-
-.customer-chat-title-text{
-  min-width:0
-}
-
-.customer-chat-title-text strong{
-  display:block;
-  font-size:14px;
-  color:#fff
-}
-
-.customer-chat-title-text small{
-  display:block;
-  color:#8da2c0;
-  font-size:11px;
-  margin-top:1px
-}
-
-.customer-chat-close{
-  width:34px;
-  height:34px;
-  border:0;
-  background:transparent;
-  color:#aaa;
-  font-size:22px;
-  cursor:pointer;
-  border-radius:8px
-}
-
-.customer-chat-close:hover{
-  background:#1b2433;
-  color:#fff
-}
-
-.customer-chat-status{
-  padding:9px 12px;
-  background:#0b0b0b;
-  border-bottom:1px solid #242424;
-  display:none
-}
-
-.customer-chat-status.show{
-  display:block
-}
-
-.customer-chat-status-box{
-  border:1px solid #303030;
-  border-radius:10px;
-  padding:9px 10px;
-  background:#151515;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:8px
-}
-
-.customer-chat-status-label{
-  color:#888;
-  font-size:11px;
-  font-weight:bold
-}
-
-.customer-chat-status-value{
-  font-size:12px;
-  font-weight:800;
-  padding:5px 8px;
-  border-radius:7px;
-  white-space:nowrap
-}
-
-.customer-chat-status-value.pending{
-  background:#3b2f0d;
-  color:#fbbf24;
-  border:1px solid #66500d
-}
-
-.customer-chat-status-value.confirmed{
-  background:#102d1d;
-  color:#4ade80;
-  border:1px solid #1d6338
-}
-
-.customer-chat-status-value.processing{
-  background:#10243b;
-  color:#60a5fa;
-  border:1px solid #214c7d
-}
-
-.customer-chat-status-value.completed{
-  background:#102d1d;
-  color:#4ade80;
-  border:1px solid #1d6338
-}
-
-.customer-chat-status-value.cancelled{
-  background:#351616;
-  color:#f87171;
-  border:1px solid #6b2525
-}
-
-.customer-chat-order{
-  display:none;
-  margin-top:7px;
-  color:#888;
-  font-size:10px
-}
-
-.customer-chat-order.show{
-  display:block
-}
-
-.customer-chat-packages{
-  padding:10px 12px;
-  background:#0c0c0c;
-  border-bottom:1px solid #242424;
-  max-height:145px;
-  overflow-y:auto
-}
-
-.customer-chat-packages-title{
-  color:#777;
-  font-size:10px;
-  font-weight:800;
-  text-transform:uppercase;
-  letter-spacing:.5px;
-  margin-bottom:7px
-}
-
-.customer-chat-package-list{
-  display:flex;
-  gap:6px;
-  overflow-x:auto;
-  padding-bottom:2px
-}
-
-.customer-chat-package{
-  flex:0 0 auto;
-  border:1px solid #2b2b2b;
-  background:#151515;
-  color:#ddd;
-  border-radius:9px;
-  padding:7px 9px;
-  cursor:pointer;
-  text-align:left;
-  min-width:108px
-}
-
-.customer-chat-package:hover{
-  border-color:#2563eb;
-  background:#172033
-}
-
-.customer-chat-package strong{
-  display:block;
-  color:#fff;
-  font-size:11px;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-  max-width:130px
-}
-
-.customer-chat-package span{
-  display:block;
-  color:#60a5fa;
-  font-size:10px;
-  margin-top:2px
-}
-
-.customer-chat-messages{
-  flex:1;
-  overflow-y:auto;
-  padding:14px 12px;
-  background:#090909;
-  display:flex;
-  flex-direction:column;
-  gap:8px
-}
-
-.customer-chat-empty{
-  color:#666;
-  text-align:center;
-  font-size:12px;
-  padding:35px 20px
-}
-
-.customer-chat-msg{
-  max-width:84%;
-  padding:9px 11px;
-  border-radius:12px;
-  font-size:13px;
-  line-height:1.45;
-  word-break:break-word
-}
-
-.customer-chat-msg.customer{
-  align-self:flex-end;
-  background:#2563eb;
-  color:#fff;
-  border-bottom-right-radius:4px
-}
-
-.customer-chat-msg.admin{
-  align-self:flex-start;
-  background:#1b1b1b;
-  color:#eee;
-  border:1px solid #2a2a2a;
-  border-bottom-left-radius:4px
-}
-
-.customer-chat-msg-time{
-  display:block;
-  font-size:9px;
-  opacity:.65;
-  margin-top:4px
-}
-
-.customer-chat-login{
-  display:none;
-  flex:1;
-  align-items:center;
-  justify-content:center;
-  padding:25px;
-  text-align:center;
-  background:#090909
-}
-
-.customer-chat-login.show{
-  display:flex
-}
-
-.customer-chat-login-box{
-  width:100%;
-  max-width:280px
-}
-
-.customer-chat-login-box .icon{
-  font-size:38px;
-  margin-bottom:8px
-}
-
-.customer-chat-login-box h3{
-  margin:0 0 7px;
-  font-size:17px
-}
-
-.customer-chat-login-box p{
-  margin:0 0 16px;
-  color:#888;
-  font-size:12px
-}
-
-.customer-chat-footer{
-  border-top:1px solid #242424;
-  background:#101010;
-  padding:9px;
-  display:none;
-  gap:7px
-}
-
-.customer-chat-footer.show{
-  display:flex
-}
-
-.customer-chat-input{
-  flex:1;
-  min-width:0;
-  border:1px solid #303030;
-  background:#171717;
-  color:#fff;
-  border-radius:9px;
-  outline:none;
-  padding:10px 11px;
-  font-size:13px
-}
-
-.customer-chat-input:focus{
-  border-color:#2563eb
-}
-
-.customer-chat-send{
-  width:42px;
-  height:42px;
-  border:0;
-  border-radius:9px;
-  background:#2563eb;
-  color:#fff;
-  cursor:pointer;
-  font-size:17px;
-  flex-shrink:0
-}
-
-.customer-chat-send:disabled{
-  opacity:.5;
-  cursor:not-allowed
-}
-
-.customer-chat-loading{
-  color:#777;
-  text-align:center;
-  font-size:11px;
-  padding:15px
-}
-
-.customer-chat-package-disabled{
-  opacity:.5;
-  pointer-events:none
-}
-
-@media(max-width:760px){
-
-  .customer-chat-button{
-    right:18px;
-    bottom:92px;
-    width:56px;
-    height:56px
+  .mobile-language{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:8px;
+    padding:10px 0;
+    border-top:1px solid #222;
+    background:#080808
   }
 
-  .customer-chat-panel{
-    right:10px;
-    bottom:155px;
-    width:calc(100vw - 20px);
-    height:calc(100vh - 185px);
-    min-height:400px;
-    border-radius:16px
+  .mobile-language button{
+    background:none;
+    border:0;
+    color:#777;
+    font-weight:bold;
+    cursor:pointer
   }
 
-}
-
-@media(max-width:430px){
-
-  .customer-chat-button{
-    right:15px;
-    bottom:88px
+  .mobile-language button.active{
+    color:#3b82f6
   }
 
-  .customer-chat-panel{
-    right:8px;
-    bottom:145px;
-    width:calc(100vw - 16px);
-    height:calc(100vh - 170px);
-    min-height:390px
+  .mobile-language span{
+    color:#333
   }
-
 }
 
 @media(max-width:1000px){
+
   .menu{
     display:none
   }
@@ -1151,6 +715,7 @@ footer{
 }
 
 @media(max-width:430px){
+
   .steps{
     grid-template-columns:1fr
   }
@@ -1171,7 +736,9 @@ DigiBaku<span>.com</span>
 <nav class="menu">
 
 <a href="index.html#home" data-i18n="home">Ana səhifə</a>
+
 <a href="index.html#products" data-i18n="products">Məhsullar</a>
+
 <a href="index.html#compare" data-i18n="compare">Müqayisə</a>
 
 <div class="about-dropdown">
@@ -1194,18 +761,38 @@ Haqqımızda
 
 </div>
 
-<a href="qiymetler.html" class="active" data-i18n="prices">Qiymətlər</a>
-<a href="index.html#blog" data-i18n="blog">Bloq</a>
-<a href="index.html#contact" data-i18n="contact">Əlaqə</a>
+<a href="qiymetler.html" class="active" data-i18n="prices">
+Qiymətlər
+</a>
+
+<a href="chat.html" data-i18n="chat">
+Chat
+</a>
+
+<a href="index.html#blog" data-i18n="blog">
+Bloq
+</a>
+
+<a href="index.html#contact" data-i18n="contact">
+Əlaqə
+</a>
 
 </nav>
 
 <div class="header-right">
 
 <button onclick="toggleCart()" class="btn cart-btn">
+
 🛒
-<span data-i18n="cart">Səbət</span>
-<span id="cartCount" class="cart-count">0</span>
+
+<span data-i18n="cart">
+Səbət
+</span>
+
+<span id="cartCount" class="cart-count">
+0
+</span>
+
 </button>
 
 <div class="auth" id="authArea">
@@ -1223,22 +810,31 @@ Qeydiyyat
 <div class="language-switcher">
 
 <button onclick="setLang('az')" id="langAZ">AZ</button>
+
 <span>|</span>
+
 <button onclick="setLang('ru')" id="langRU">RU</button>
+
 <span>|</span>
+
 <button onclick="setLang('en')" id="langEN">EN</button>
 
 </div>
 
 </div>
+
 </div>
 
 <div class="mobile-language">
 
 <button onclick="setLang('az')" id="mobileLangAZ">AZ</button>
+
 <span>|</span>
+
 <button onclick="setLang('ru')" id="mobileLangRU">RU</button>
+
 <span>|</span>
+
 <button onclick="setLang('en')" id="mobileLangEN">EN</button>
 
 </div>
@@ -1249,9 +845,13 @@ Qeydiyyat
 
 <div class="cart-header">
 
-<h2 data-i18n="yourCart">Səbətiniz</h2>
+<h2 data-i18n="yourCart">
+Səbətiniz
+</h2>
 
-<button onclick="toggleCart()" class="cart-close">✕</button>
+<button onclick="toggleCart()" class="cart-close">
+✕
+</button>
 
 </div>
 
@@ -1267,17 +867,26 @@ Səbətiniz boşdur
 
 <div class="cart-total-row">
 
-<span data-i18n="total">Ümumi məbləğ:</span>
+<span data-i18n="total">
+Ümumi məbləğ:
+</span>
 
-<span id="cartTotalPrice">0.00 AZN</span>
+<span id="cartTotalPrice">
+0.00 AZN
+</span>
 
 </div>
 
 <button onclick="checkoutCart()" class="btn btn-primary" style="width:100%;">
-<span data-i18n="confirmOrder">Sifarişi təsdiq et</span>
+
+<span data-i18n="confirmOrder">
+Sifarişi təsdiq et
+</span>
+
 </button>
 
 </div>
+
 </div>
 
 <main>
@@ -1286,15 +895,23 @@ Səbətiniz boşdur
 
 <div class="breadcrumbs">
 
-<a href="index.html" data-i18n="home">Ana səhifə</a>
+<a href="index.html" data-i18n="home">
+Ana səhifə
+</a>
+
 <span>›</span>
-<span data-i18n="prices">Qiymətlər</span>
+
+<span data-i18n="prices">
+Qiymətlər
+</span>
 
 </div>
 
 <section class="hero">
 
-<div class="eyebrow">DigiBaku</div>
+<div class="eyebrow">
+DigiBaku
+</div>
 
 <h1 data-i18n="title">
 Premium abunəlik qiymətləri Azərbaycanda
@@ -1312,13 +929,21 @@ Sifarişdən əvvəl cari başlanğıc qiymətini, paket müddətini və istifad
 Cari başlanğıc qiymətləri
 </a>
 
-<a href="#faq" data-i18n="faq">FAQ</a>
+<a href="#faq" data-i18n="faq">
+FAQ
+</a>
+
+<a href="chat.html" data-i18n="openChat">
+DigiBaku Chat
+</a>
 
 </div>
 
 <section id="price-table">
 
-<h2 data-i18n="packages">Cari paketlər</h2>
+<h2 data-i18n="packages">
+Cari paketlər
+</h2>
 
 <p class="section-intro" data-i18n="packagesIntro">
 DigiBaku-da hazırda satışda olan xidmətlər və onların qiymətləri.
@@ -1326,33 +951,62 @@ DigiBaku-da hazırda satışda olan xidmətlər və onların qiymətləri.
 
 <div class="products">
 
+<!-- NETFLIX -->
+
 <article class="product" id="netflix">
 
-<img class="product-img" src="netflix.webp" alt="Netflix 4K Premium Abunəliyi" onerror="this.style.display='none'">
+<img
+class="product-img"
+src="netflix.webp"
+alt="Netflix 4K Premium Abunəliyi"
+onerror="this.style.display='none'"
+>
 
 <div class="product-body">
 
-<h3 data-i18n="netflixTitle">Netflix 4K Premium Abunəliyi</h3>
+<h3 data-i18n="netflixTitle">
+Netflix 4K Premium Abunəliyi
+</h3>
 
 <p class="desc" data-i18n="netflixDesc">
 Netflix Premium abunəliyi ilə film və serialları Ultra HD keyfiyyətdə izləyin. Premium məzmunlara rahat şəkildə çıxış əldə edin.
 </p>
 
-<div class="duration-title" data-i18n="chooseDuration">Müddət seçin</div>
+<div class="duration-title" data-i18n="chooseDuration">
+Müddət seçin
+</div>
 
 <div class="duration-options">
 
-<button class="duration-option active" type="button" data-product="netflix" data-duration="1 ay" data-price="6.99 AZN">
+<button
+class="duration-option active"
+type="button"
+data-product="netflix"
+data-duration="1 ay"
+data-price="6.99 AZN"
+>
 <strong>1 ay</strong>
 <small>6.99 AZN</small>
 </button>
 
-<button class="duration-option" type="button" data-product="netflix" data-duration="2 ay" data-price="12.99 AZN">
+<button
+class="duration-option"
+type="button"
+data-product="netflix"
+data-duration="2 ay"
+data-price="12.99 AZN"
+>
 <strong>2 ay</strong>
 <small>12.99 AZN</small>
 </button>
 
-<button class="duration-option" type="button" data-product="netflix" data-duration="3 ay" data-price="20.99 AZN">
+<button
+class="duration-option"
+type="button"
+data-product="netflix"
+data-duration="3 ay"
+data-price="20.99 AZN"
+>
 <strong>3 ay</strong>
 <small>20.99 AZN</small>
 </button>
@@ -1360,225 +1014,14 @@ Netflix Premium abunəliyi ilə film və serialları Ultra HD keyfiyyətdə izl�
 </div>
 
 <div class="price-line">
-<span class="selected-price">6.99 AZN</span>
-<span class="selected-duration">1 ay</span>
-</div>
 
-<a class="btn btn-primary card-order order-btn" href="https://wa.me/994513626349" target="_blank" rel="noopener" data-i18n="order">
-Sifariş
-</a>
+<span class="selected-price">
+6.99 AZN
+</span>
 
-</div>
-</article>
-
-<article class="product" id="youtube">
-
-<img class="product-img" src="youtube.webp" alt="YouTube Premium" onerror="this.style.display='none'">
-
-<div class="product-body">
-
-<h3 data-i18n="youtubeTitle">YouTube Premium</h3>
-
-<p class="desc" data-i18n="youtubeDesc">
-YouTube Premium ilə videolara reklamsız baxın, musiqidən rahat istifadə edin.
-</p>
-
-<div class="duration-title" data-i18n="chooseDuration">Müddət seçin</div>
-
-<div class="duration-options">
-
-<button class="duration-option active" type="button" data-product="youtube" data-duration="1 ay" data-price="7.99 AZN">
-<strong>1 ay</strong>
-<small>7.99 AZN</small>
-</button>
-
-<button class="duration-option" type="button" data-product="youtube" data-duration="2 ay" data-price="14.99 AZN">
-<strong>2 ay</strong>
-<small>14.99 AZN</small>
-</button>
-
-<button class="duration-option" type="button" data-product="youtube" data-duration="3 ay" data-price="21.99 AZN">
-<strong>3 ay</strong>
-<small>21.99 AZN</small>
-</button>
-
-</div>
-
-<div class="price-line">
-<span class="selected-price">7.99 AZN</span>
-<span class="selected-duration">1 ay</span>
-</div>
-
-<a class="btn btn-primary card-order order-btn" href="https://wa.me/994513626349" target="_blank" rel="noopener" data-i18n="order">
-Sifariş
-</a>
-
-</div>
-</article>
-
-<article class="product" id="spotify">
-
-<img class="product-img" src="spotfiy.webp" alt="Spotify Premium" onerror="this.style.display='none'">
-
-<div class="product-body">
-
-<h3 data-i18n="spotifyTitle">Spotify Premium</h3>
-
-<p class="desc" data-i18n="spotifyDesc">
-Spotify Premium ilə musiqiləri reklamsız dinləyin.
-</p>
-
-<div class="duration-title" data-i18n="chooseDuration">Müddət seçin</div>
-
-<div class="duration-options">
-
-<button class="duration-option active" type="button" data-product="spotify" data-duration="1 ay" data-price="7.99 AZN">
-<strong>1 ay</strong>
-<small>7.99 AZN</small>
-</button>
-
-<button class="duration-option" type="button" data-product="spotify" data-duration="2 ay" data-price="14.99 AZN">
-<strong>2 ay</strong>
-<small>14.99 AZN</small>
-</button>
-
-<button class="duration-option" type="button" data-product="spotify" data-duration="3 ay" data-price="21.99 AZN">
-<strong>3 ay</strong>
-<small>21.99 AZN</small>
-</button>
-
-</div>
-
-<div class="price-line">
-<span class="selected-price">7.99 AZN</span>
-<span class="selected-duration">1 ay</span>
-</div>
-
-<a class="btn btn-primary card-order order-btn" href="https://wa.me/994513626349" target="_blank" rel="noopener" data-i18n="order">
-Sifariş
-</a>
-
-</div>
-</article>
-
-<article class="product" id="chatgpt">
-
-<img class="product-img" src="chatgpt.webp" alt="ChatGPT Plus" onerror="this.style.display='none'">
-
-<div class="product-body">
-
-<h3 data-i18n="chatgptTitle">ChatGPT Plus</h3>
-
-<p class="desc" data-i18n="chatgptDesc">
-ChatGPT Plus yazı, kod, araşdırma və gündəlik işlərdə süni intellekt imkanları.
-</p>
-
-<div class="duration-title" data-i18n="chooseDuration">Müddət seçin</div>
-
-<div class="duration-options">
-
-<button class="duration-option active" type="button" data-product="chatgpt" data-duration="1 ay" data-price="11.99 AZN">
-<strong>1 ay</strong>
-<small>11.99 AZN</small>
-</button>
-
-<button class="duration-option" type="button" data-product="chatgpt" data-duration="2 ay" data-price="22.99 AZN">
-<strong>2 ay</strong>
-<small>22.99 AZN</small>
-</button>
-
-<button class="duration-option" type="button" data-product="chatgpt" data-duration="3 ay" data-price="33.99 AZN">
-<strong>3 ay</strong>
-<small>33.99 AZN</small>
-</button>
-
-</div>
-
-<div class="price-line">
-<span class="selected-price">11.99 AZN</span>
-<span class="selected-duration">1 ay</span>
-</div>
-
-<a class="btn btn-primary card-order order-btn" href="https://wa.me/994513626349" target="_blank" rel="noopener" data-i18n="order">
-Sifariş
-</a>
-
-</div>
-</article>
-
-<article class="product" id="gemini">
-
-<img class="product-img" src="gemini.webp" alt="Google Gemini Premium" onerror="this.style.display='none'">
-
-<div class="product-body">
-
-<h3 data-i18n="geminiTitle">Google Gemini Premium</h3>
-
-<p class="desc" data-i18n="geminiDesc">
-Google Gemini Premium ilə süni intellekt imkanlarından, yazı, araşdırma və gündəlik işlərdə daha geniş istifadə edin.
-</p>
-
-<div class="duration-title" data-i18n="chooseDuration">Müddət seçin</div>
-
-<div class="duration-options">
-
-<button class="duration-option active" type="button" data-product="gemini" data-duration="1 ay" data-price="7.99 AZN">
-<strong>1 ay</strong>
-<small>7.99 AZN</small>
-</button>
-
-<button class="duration-option" type="button" data-product="gemini" data-duration="2 ay" data-price="18.99 AZN">
-<strong>2 ay</strong>
-<small>18.99 AZN</small>
-</button>
-
-<button class="duration-option" type="button" data-product="gemini" data-duration="3 ay" data-price="26.99 AZN">
-<strong>3 ay</strong>
-<small>26.99 AZN</small>
-</button>
-
-</div>
-
-<div class="price-line">
-<span class="selected-price">7.99 AZN</span>
-<span class="selected-duration">1 ay</span>
-</div>
-
-<a class="btn btn-primary card-order order-btn" href="https://wa.me/994513626349" target="_blank" rel="noopener" data-i18n="order">
-Sifariş
-</a>
-
-</div>
-</article>
-
-<article class="product" id="canva">
-
-<img class="product-img" src="canva.webp" alt="Canva Pro" onerror="this.style.display='none'">
-
-<div class="product-body">
-
-<h3 data-i18n="canvaTitle">Canva Pro</h3>
-
-<p class="desc" data-i18n="canvaDesc">
-Dizayn, təqdimat, poster və sosial media üçün premium Canva imkanları.
-</p>
-
-<div class="duration-title" data-i18n="chooseDuration">Müddət seçin</div>
-
-<div class="duration-options">
-
-<div class="duration-option active" data-duration="12 ay" data-price="5.99 AZN">
-<strong data-i18n="canvaDuration">12 ay</strong>
-<small>5.99 AZN</small>
-</div>
-
-</div>
-
-<div class="price-line">
-
-<span class="selected-price">5.99 AZN</span>
-
-<span data-i18n="canvaDuration">12 ay</span>
+<span class="selected-duration">
+1 ay
+</span>
 
 </div>
 
@@ -1593,9 +1036,435 @@ Sifariş
 </a>
 
 </div>
+
+</article>
+
+<!-- YOUTUBE -->
+
+<article class="product" id="youtube">
+
+<img
+class="product-img"
+src="youtube.webp"
+alt="YouTube Premium"
+onerror="this.style.display='none'"
+>
+
+<div class="product-body">
+
+<h3 data-i18n="youtubeTitle">
+YouTube Premium
+</h3>
+
+<p class="desc" data-i18n="youtubeDesc">
+YouTube Premium ilə videolara reklamsız baxın, musiqidən rahat istifadə edin.
+</p>
+
+<div class="duration-title" data-i18n="chooseDuration">
+Müddət seçin
+</div>
+
+<div class="duration-options">
+
+<button
+class="duration-option active"
+type="button"
+data-product="youtube"
+data-duration="1 ay"
+data-price="7.99 AZN"
+>
+<strong>1 ay</strong>
+<small>7.99 AZN</small>
+</button>
+
+<button
+class="duration-option"
+type="button"
+data-product="youtube"
+data-duration="2 ay"
+data-price="14.99 AZN"
+>
+<strong>2 ay</strong>
+<small>14.99 AZN</small>
+</button>
+
+<button
+class="duration-option"
+type="button"
+data-product="youtube"
+data-duration="3 ay"
+data-price="21.99 AZN"
+>
+<strong>3 ay</strong>
+<small>21.99 AZN</small>
+</button>
+
+</div>
+
+<div class="price-line">
+
+<span class="selected-price">
+7.99 AZN
+</span>
+
+<span class="selected-duration">
+1 ay
+</span>
+
+</div>
+
+<a
+class="btn btn-primary card-order order-btn"
+href="https://wa.me/994513626349"
+target="_blank"
+rel="noopener"
+data-i18n="order"
+>
+Sifariş
+</a>
+
+</div>
+
+</article>
+
+<!-- SPOTIFY -->
+
+<article class="product" id="spotify">
+
+<img
+class="product-img"
+src="spotfiy.webp"
+alt="Spotify Premium"
+onerror="this.style.display='none'"
+>
+
+<div class="product-body">
+
+<h3 data-i18n="spotifyTitle">
+Spotify Premium
+</h3>
+
+<p class="desc" data-i18n="spotifyDesc">
+Spotify Premium ilə musiqiləri reklamsız dinləyin.
+</p>
+
+<div class="duration-title" data-i18n="chooseDuration">
+Müddət seçin
+</div>
+
+<div class="duration-options">
+
+<button
+class="duration-option active"
+type="button"
+data-product="spotify"
+data-duration="1 ay"
+data-price="7.99 AZN"
+>
+<strong>1 ay</strong>
+<small>7.99 AZN</small>
+</button>
+
+<button
+class="duration-option"
+type="button"
+data-product="spotify"
+data-duration="2 ay"
+data-price="14.99 AZN"
+>
+<strong>2 ay</strong>
+<small>14.99 AZN</small>
+</button>
+
+<button
+class="duration-option"
+type="button"
+data-product="spotify"
+data-duration="3 ay"
+data-price="21.99 AZN"
+>
+<strong>3 ay</strong>
+<small>21.99 AZN</small>
+</button>
+
+</div>
+
+<div class="price-line">
+
+<span class="selected-price">
+7.99 AZN
+</span>
+
+<span class="selected-duration">
+1 ay
+</span>
+
+</div>
+
+<a
+class="btn btn-primary card-order order-btn"
+href="https://wa.me/994513626349"
+target="_blank"
+rel="noopener"
+data-i18n="order"
+>
+Sifariş
+</a>
+
+</div>
+
+</article>
+
+<!-- CHATGPT -->
+
+<article class="product" id="chatgpt">
+
+<img
+class="product-img"
+src="chatgpt.webp"
+alt="ChatGPT Plus"
+onerror="this.style.display='none'"
+>
+
+<div class="product-body">
+
+<h3 data-i18n="chatgptTitle">
+ChatGPT Plus
+</h3>
+
+<p class="desc" data-i18n="chatgptDesc">
+ChatGPT Plus yazı, kod, araşdırma və gündəlik işlərdə süni intellekt imkanları.
+</p>
+
+<div class="duration-title" data-i18n="chooseDuration">
+Müddət seçin
+</div>
+
+<div class="duration-options">
+
+<button
+class="duration-option active"
+type="button"
+data-product="chatgpt"
+data-duration="1 ay"
+data-price="11.99 AZN"
+>
+<strong>1 ay</strong>
+<small>11.99 AZN</small>
+</button>
+
+<button
+class="duration-option"
+type="button"
+data-product="chatgpt"
+data-duration="2 ay"
+data-price="22.99 AZN"
+>
+<strong>2 ay</strong>
+<small>22.99 AZN</small>
+</button>
+
+<button
+class="duration-option"
+type="button"
+data-product="chatgpt"
+data-duration="3 ay"
+data-price="33.99 AZN"
+>
+<strong>3 ay</strong>
+<small>33.99 AZN</small>
+</button>
+
+</div>
+
+<div class="price-line">
+
+<span class="selected-price">
+11.99 AZN
+</span>
+
+<span class="selected-duration">
+1 ay
+</span>
+
+</div>
+
+<a
+class="btn btn-primary card-order order-btn"
+href="https://wa.me/994513626349"
+target="_blank"
+rel="noopener"
+data-i18n="order"
+>
+Sifariş
+</a>
+
+</div>
+
+</article>
+
+<!-- GEMINI -->
+
+<article class="product" id="gemini">
+
+<img
+class="product-img"
+src="gemini.webp"
+alt="Google Gemini Premium"
+onerror="this.style.display='none'"
+>
+
+<div class="product-body">
+
+<h3 data-i18n="geminiTitle">
+Google Gemini Premium
+</h3>
+
+<p class="desc" data-i18n="geminiDesc">
+Google Gemini Premium ilə süni intellekt imkanlarından, yazı, araşdırma və gündəlik işlərdə daha geniş istifadə edin.
+</p>
+
+<div class="duration-title" data-i18n="chooseDuration">
+Müddət seçin
+</div>
+
+<div class="duration-options">
+
+<button
+class="duration-option active"
+type="button"
+data-product="gemini"
+data-duration="1 ay"
+data-price="7.99 AZN"
+>
+<strong>1 ay</strong>
+<small>7.99 AZN</small>
+</button>
+
+<button
+class="duration-option"
+type="button"
+data-product="gemini"
+data-duration="2 ay"
+data-price="18.99 AZN"
+>
+<strong>2 ay</strong>
+<small>18.99 AZN</small>
+</button>
+
+<button
+class="duration-option"
+type="button"
+data-product="gemini"
+data-duration="3 ay"
+data-price="26.99 AZN"
+>
+<strong>3 ay</strong>
+<small>26.99 AZN</small>
+</button>
+
+</div>
+
+<div class="price-line">
+
+<span class="selected-price">
+7.99 AZN
+</span>
+
+<span class="selected-duration">
+1 ay
+</span>
+
+</div>
+
+<a
+class="btn btn-primary card-order order-btn"
+href="https://wa.me/994513626349"
+target="_blank"
+rel="noopener"
+data-i18n="order"
+>
+Sifariş
+</a>
+
+</div>
+
+</article>
+
+<!-- CANVA -->
+
+<article class="product" id="canva">
+
+<img
+class="product-img"
+src="canva.webp"
+alt="Canva Pro"
+onerror="this.style.display='none'"
+>
+
+<div class="product-body">
+
+<h3 data-i18n="canvaTitle">
+Canva Pro
+</h3>
+
+<p class="desc" data-i18n="canvaDesc">
+Dizayn, təqdimat, poster və sosial media üçün premium Canva imkanları.
+</p>
+
+<div class="duration-title" data-i18n="chooseDuration">
+Müddət seçin
+</div>
+
+<div class="duration-options">
+
+<div
+class="duration-option active"
+data-product="canva"
+data-duration="12 ay"
+data-price="5.99 AZN"
+>
+
+<strong data-i18n="canvaDuration">
+12 ay
+</strong>
+
+<small>
+5.99 AZN
+</small>
+
+</div>
+
+</div>
+
+<div class="price-line">
+
+<span class="selected-price">
+5.99 AZN
+</span>
+
+<span data-i18n="canvaDuration">
+12 ay
+</span>
+
+</div>
+
+<a
+class="btn btn-primary card-order order-btn"
+href="https://wa.me/994513626349"
+target="_blank"
+rel="noopener"
+data-i18n="order"
+>
+Sifariş
+</a>
+
+</div>
+
 </article>
 
 </div>
+
 </section>
 
 <section class="guide">
@@ -1610,31 +1479,53 @@ Xidməti seçin, müddəti və qiyməti yoxlayın, sonra WhatsApp vasitəsilə s
 
 <div class="steps">
 
-<div class="step"><b>01</b><span data-i18n="step1">Xidməti seçin</span></div>
-<div class="step"><b>02</b><span data-i18n="step2">Paket müddətini yoxlayın</span></div>
-<div class="step"><b>03</b><span data-i18n="step3">Qiyməti yoxlayın</span></div>
-<div class="step"><b>04</b><span data-i18n="step4">Sifariş verin</span></div>
+<div class="step">
+<b>01</b>
+<span data-i18n="step1">Xidməti seçin</span>
+</div>
+
+<div class="step">
+<b>02</b>
+<span data-i18n="step2">Paket müddətini yoxlayın</span>
+</div>
+
+<div class="step">
+<b>03</b>
+<span data-i18n="step3">Qiyməti yoxlayın</span>
+</div>
+
+<div class="step">
+<b>04</b>
+<span data-i18n="step4">Sifariş verin</span>
+</div>
 
 </div>
+
 </section>
 
 <section class="faq" id="faq">
 
-<h2 data-i18n="faqTitle">Ən çox verilən suallar</h2>
+<h2 data-i18n="faqTitle">
+Ən çox verilən suallar
+</h2>
 
 <div class="faq-item">
 
-<h3 data-i18n="q1">DigiBaku-da hansı xidmətlər satılır?</h3>
+<h3 data-i18n="q1">
+DigiBaku-da hansı xidmətlər satılır?
+</h3>
 
 <p data-i18n="a1">
-Hazırda Netflix, YouTube Premium, Spotify,Canva Pro, ChatGPT və Google Gemini xidmətləri satışdadır.
+Hazırda Netflix, YouTube Premium, Spotify, Canva Pro, ChatGPT və Google Gemini xidmətləri satışdadır.
 </p>
 
 </div>
 
 <div class="faq-item">
 
-<h3 data-i18n="q2">Sifarişi necə verə bilərəm?</h3>
+<h3 data-i18n="q2">
+Sifarişi necə verə bilərəm?
+</h3>
 
 <p data-i18n="a2">
 İstədiyiniz xidmətin “Sifariş” düyməsinə basın. Sifarişiniz birbaşa DigiBaku WhatsApp nömrəsinə göndəriləcək.
@@ -1644,7 +1535,9 @@ Hazırda Netflix, YouTube Premium, Spotify,Canva Pro, ChatGPT və Google Gemini 
 
 <div class="faq-item">
 
-<h3 data-i18n="q3">Qiymətlər dəyişə bilər?</h3>
+<h3 data-i18n="q3">
+Qiymətlər dəyişə bilər?
+</h3>
 
 <p data-i18n="a3">
 Bəli. Paket və kampaniyalara görə qiymətlər dəyişə bilər. Sifariş zamanı səhifədə göstərilən cari qiyməti əsas götürün.
@@ -1654,7 +1547,9 @@ Bəli. Paket və kampaniyalara görə qiymətlər dəyişə bilər. Sifariş zam
 
 <div class="faq-item">
 
-<h3 data-i18n="q4">Alternativ xidmətlər də satılır?</h3>
+<h3 data-i18n="q4">
+Alternativ xidmətlər də satılır?
+</h3>
 
 <p data-i18n="a4">
 Bu qiymət bələdçisində yalnız DigiBaku-da hazırda satışda olan xidmətlər göstərilir.
@@ -1665,7 +1560,10 @@ Bu qiymət bələdçisində yalnız DigiBaku-da hazırda satışda olan xidmətl
 </section>
 
 <div class="note" data-i18n="note">
-Qiymətlər DigiBaku-da hazırda satışda olan paketlərə əsaslanır. Sifarişdən əvvəl xidmət, müddət və qiyməti yoxlayın.
+
+Qiymətlər DigiBaku-da hazırda satışda olan paketlərə əsaslanır.
+Sifarişdən əvvəl xidmət, müddət və qiyməti yoxlayın.
+
 </div>
 
 <section class="guide" style="margin-top:18px">
@@ -1676,18 +1574,40 @@ DigiBaku üzrə keçidlər
 
 <div class="related">
 
-<a href="https://digibaku.com/product.html?product=netflix">Netflix qiyməti və paketləri</a>
-<a href="https://digibaku.com/product.html?product=youtube">YouTube Premium qiyməti və paketi</a>
-<a href="https://digibaku.com/product.html?product=spotify">Spotify Premium qiyməti və paketi</a>
-<a href="https://digibaku.com/product.html?product=chatgpt">ChatGPT Plus qiyməti və paketi</a>
-<a href="https://digibaku.com/product.html?product=gemini">Gemini Premium qiyməti və paketi</a>
-<a href="https://digibaku.com/product.html?product=canva">Canva Pro qiyməti və paketi</a>
+<a href="https://digibaku.com/product.html?product=netflix">
+Netflix qiyməti və paketləri
+</a>
+
+<a href="https://digibaku.com/product.html?product=youtube">
+YouTube Premium qiyməti və paketi
+</a>
+
+<a href="https://digibaku.com/product.html?product=spotify">
+Spotify Premium qiyməti və paketi
+</a>
+
+<a href="https://digibaku.com/product.html?product=chatgpt">
+ChatGPT Plus qiyməti və paketi
+</a>
+
+<a href="https://digibaku.com/product.html?product=gemini">
+Gemini Premium qiyməti və paketi
+</a>
+
+<a href="https://digibaku.com/product.html?product=canva">
+Canva Pro qiyməti və paketi
+</a>
+
+<a href="chat.html" data-i18n="chatLink">
+DigiBaku Chat
+</a>
 
 </div>
 
 </section>
 
 </div>
+
 </main>
 
 <footer>
@@ -1695,6 +1615,7 @@ DigiBaku üzrə keçidlər
 <div class="container">
 
 © 2026 DigiBaku.com —
+
 <span data-i18n="footer">
 Premium rəqəmsal xidmətlər. Bütün hüquqlar qorunur.
 </span>
@@ -1702,105 +1623,6 @@ Premium rəqəmsal xidmətlər. Bütün hüquqlar qorunur.
 </div>
 
 </footer>
-
-<button
-id="customerChatButton"
-class="customer-chat-button"
-onclick="toggleCustomerChat()"
-aria-label="DigiBaku chat"
->
-💬
-<span id="customerChatUnread" class="customer-chat-unread">0</span>
-</button>
-
-<div id="customerChatPanel" class="customer-chat-panel">
-
-<div class="customer-chat-header">
-
-<div class="customer-chat-title">
-
-<div class="customer-chat-icon">💬</div>
-
-<div class="customer-chat-title-text">
-
-<strong>DigiBaku Dəstək</strong>
-<small>Onlayn müştəri xidməti</small>
-
-</div>
-
-</div>
-
-<button class="customer-chat-close" onclick="toggleCustomerChat()">✕</button>
-
-</div>
-
-<div id="customerChatStatus" class="customer-chat-status">
-
-<div class="customer-chat-status-box">
-
-<span class="customer-chat-status-label">
-📦 Sifariş statusu
-</span>
-
-<span id="customerChatStatusValue" class="customer-chat-status-value">-</span>
-
-</div>
-
-<div id="customerChatOrder" class="customer-chat-order"></div>
-
-</div>
-
-<div id="customerChatPackages" class="customer-chat-packages" style="display:none">
-
-<div class="customer-chat-packages-title">
-Paket seç və sifariş göndər
-</div>
-
-<div id="customerChatPackageList" class="customer-chat-package-list"></div>
-
-</div>
-
-<div id="customerChatLogin" class="customer-chat-login">
-
-<div class="customer-chat-login-box">
-
-<div class="icon">🔐</div>
-
-<h3>Chat üçün daxil olun</h3>
-
-<p>
-Müştəri xidməti ilə yazışmaq və sifariş statusunu görmək üçün hesabınıza daxil olun.
-</p>
-
-<a href="login.html" class="btn btn-primary">Daxil ol</a>
-
-</div>
-
-</div>
-
-<div id="customerChatMessages" class="customer-chat-messages"></div>
-
-<div id="customerChatFooter" class="customer-chat-footer">
-
-<input
-id="customerChatInput"
-class="customer-chat-input"
-type="text"
-placeholder="Mesajınızı yazın..."
-autocomplete="off"
->
-
-<button
-id="customerChatSend"
-class="customer-chat-send"
-onclick="sendCustomerChatMessage()"
->
-➤
-</button>
-
-</div>
-
-</div>
 
 <a
 href="https://wa.me/994513626349?text=Salam%2C%20məlumat%20almaq%20istəyirəm"
@@ -1827,6 +1649,9 @@ products:"Məhsullar",
 compare:"Müqayisə",
 about:"Haqqımızda",
 prices:"Qiymətlər",
+chat:"Chat",
+chatLink:"DigiBaku Chat",
+openChat:"DigiBaku Chat",
 blog:"Bloq",
 contact:"Əlaqə",
 cart:"Səbət",
@@ -1870,7 +1695,7 @@ step3:"Qiyməti yoxlayın",
 step4:"Sifariş verin",
 faqTitle:"Ən çox verilən suallar",
 q1:"DigiBaku-da hansı xidmətlər satılır?",
-a1:"Hazırda Netflix, YouTube Premium, Spotify,Canva Pro, ChatGPT və Google Gemini xidmətləri satışdadır.",
+a1:"Hazırda Netflix, YouTube Premium, Spotify, Canva Pro, ChatGPT və Google Gemini xidmətləri satışdadır.",
 q2:"Sifarişi necə verə bilərəm?",
 a2:"İstədiyiniz xidmətin “Sifariş” düyməsinə basın. Sifarişiniz birbaşa DigiBaku WhatsApp nömrəsinə göndəriləcək.",
 q3:"Qiymətlər dəyişə bilər?",
@@ -1889,6 +1714,9 @@ products:"Products",
 compare:"Compare",
 about:"About us",
 prices:"Prices",
+chat:"Chat",
+chatLink:"DigiBaku Chat",
+openChat:"DigiBaku Chat",
 blog:"Blog",
 contact:"Contact",
 cart:"Cart",
@@ -1932,7 +1760,7 @@ step3:"Check the price",
 step4:"Place your order",
 faqTitle:"Frequently Asked Questions",
 q1:"Which services are sold by DigiBaku?",
-a1:"Netflix, YouTube Premium, Spotify, ChatGPT and Google Gemini are currently available for purchase.",
+a1:"Netflix, YouTube Premium, Spotify, Canva Pro, ChatGPT and Google Gemini are currently available for purchase.",
 q2:"How can I place an order?",
 a2:"Click the “Order” button for the service you want. Your order will be sent directly to DigiBaku's WhatsApp number.",
 q3:"Can prices change?",
@@ -1951,6 +1779,9 @@ products:"Товары",
 compare:"Сравнение",
 about:"О нас",
 prices:"Цены",
+chat:"Чат",
+chatLink:"DigiBaku Chat",
+openChat:"DigiBaku Chat",
 blog:"Блог",
 contact:"Контакты",
 cart:"Корзина",
@@ -1994,7 +1825,7 @@ step3:"Проверьте цену",
 step4:"Оформите заказ",
 faqTitle:"Часто задаваемые вопросы",
 q1:"Какие услуги продаёт DigiBaku?",
-a1:"Сейчас в продаже доступны Netflix, YouTube Premium, Spotify, ChatGPT и Google Gemini.",
+a1:"Сейчас в продаже доступны Netflix, YouTube Premium, Spotify, Canva Pro, ChatGPT и Google Gemini.",
 q2:"Как оформить заказ?",
 a2:"Нажмите кнопку «Заказать» у нужной услуги. Ваш заказ будет отправлен напрямую на WhatsApp DigiBaku.",
 q3:"Могут ли цены измениться?",
@@ -2016,12 +1847,16 @@ ru:["1 месяц","2 месяца","3 месяца"]
 };
 
 function getLanguage(){
+
   return localStorage.getItem("digi_language") || "az";
+
 }
 
 function setLang(lang){
 
-  if(!t[lang]) lang="az";
+  if(!t[lang]){
+    lang="az";
+  }
 
   document.documentElement.lang=lang;
 
@@ -2037,30 +1872,49 @@ function setLang(lang){
 
   ["az","ru","en"].forEach(code=>{
 
-    const d=document.getElementById("lang"+code.toUpperCase());
-    const m=document.getElementById("mobileLang"+code.toUpperCase());
+    const d=
+      document.getElementById(
+        "lang"+code.toUpperCase()
+      );
 
-    if(d) d.classList.toggle("active",code===lang);
-    if(m) m.classList.toggle("active",code===lang);
+    const m=
+      document.getElementById(
+        "mobileLang"+code.toUpperCase()
+      );
 
-  });
+    if(d){
+      d.classList.toggle(
+        "active",
+        code===lang
+      );
+    }
 
-  document.querySelectorAll(".duration-option").forEach((b,i)=>{
-
-    const card=b.closest(".product");
-    const strong=b.querySelector("strong");
-
-    if(strong){
-
-      if(card && card.id==="canva"){
-        strong.textContent=t[lang].canvaDuration;
-      }
-
+    if(m){
+      m.classList.toggle(
+        "active",
+        code===lang
+      );
     }
 
   });
 
-  localStorage.setItem("digi_language",lang);
+  document.querySelectorAll(".duration-option").forEach(b=>{
+
+    const card=b.closest(".product");
+
+    const strong=b.querySelector("strong");
+
+    if(strong && card && card.id==="canva"){
+      strong.textContent=
+        t[lang].canvaDuration;
+    }
+
+  });
+
+  localStorage.setItem(
+    "digi_language",
+    lang
+  );
 
   updateCartUI();
 
@@ -2068,13 +1922,6 @@ function setLang(lang){
     checkLogin();
   }
 
-  if(typeof loadCustomerChatPackages==="function"){
-    loadCustomerChatPackages();
-  }
-
-  if(typeof updateCustomerChatStatusText==="function"){
-    updateCustomerChatStatusText();
-  }
 }
 
 const SUPABASE_URL=
@@ -2092,15 +1939,23 @@ window.supabase.createClient(
 /* CART */
 
 let cart=
-JSON.parse(localStorage.getItem("digi_cart")) || [];
+JSON.parse(
+  localStorage.getItem("digi_cart")
+) || [];
 
 function saveCart(){
-  localStorage.setItem("digi_cart",JSON.stringify(cart));
+
+  localStorage.setItem(
+    "digi_cart",
+    JSON.stringify(cart)
+  );
+
 }
 
 function toggleCart(){
 
-  const modal=document.getElementById("cartModal");
+  const modal=
+    document.getElementById("cartModal");
 
   if(!modal) return;
 
@@ -2112,24 +1967,39 @@ function toggleCart(){
   if(modal.style.display==="block"){
     updateCartUI();
   }
+
 }
 
 function updateCartCount(){
 
-  const countEl=document.getElementById("cartCount");
+  const countEl=
+    document.getElementById("cartCount");
 
   if(countEl){
-    countEl.textContent=cart.length;
+    countEl.textContent=
+      cart.length;
   }
+
 }
 
 function updateCartUI(){
 
-  const list=document.getElementById("cartItemsList");
-  const totalPriceEl=document.getElementById("cartTotalPrice");
-  const lang=getLanguage();
+  const list=
+    document.getElementById(
+      "cartItemsList"
+    );
 
-  if(!list || !totalPriceEl) return;
+  const totalPriceEl=
+    document.getElementById(
+      "cartTotalPrice"
+    );
+
+  const lang=
+    getLanguage();
+
+  if(!list || !totalPriceEl){
+    return;
+  }
 
   if(cart.length===0){
 
@@ -2139,7 +2009,9 @@ function updateCartUI(){
         "Səbətiniz boşdur"
       }</p>`;
 
-    totalPriceEl.textContent="0.00 AZN";
+    totalPriceEl.textContent=
+      "0.00 AZN";
+
     return;
   }
 
@@ -2148,7 +2020,8 @@ function updateCartUI(){
 
   cart.forEach((item,index)=>{
 
-    const price=Number(item.price || 0);
+    const price=
+      Number(item.price || 0);
 
     total+=price;
 
@@ -2185,6 +2058,7 @@ function updateCartUI(){
 
   totalPriceEl.textContent=
     total.toFixed(2)+" AZN";
+
 }
 
 function removeFromCart(index){
@@ -2192,13 +2066,17 @@ function removeFromCart(index){
   cart.splice(index,1);
 
   saveCart();
+
   updateCartCount();
+
   updateCartUI();
+
 }
 
 function checkoutCart(){
 
-  const lang=getLanguage();
+  const lang=
+    getLanguage();
 
   if(cart.length===0){
 
@@ -2218,7 +2096,8 @@ function checkoutCart(){
 
   cart.forEach((item,index)=>{
 
-    const price=Number(item.price || 0);
+    const price=
+      Number(item.price || 0);
 
     message+=
       (index+1)+". "+
@@ -2228,16 +2107,19 @@ function checkoutCart(){
       " AZN\n";
 
     total+=price;
+
   });
 
   message+=
     "\n"+
-    (t[lang]?.total || "Ümumi məbləğ:")+
+    (t[lang]?.total ||
+      "Ümumi məbləğ:")+
     " "+
     total.toFixed(2)+
     " AZN";
 
-  const phone="994513626349";
+  const phone=
+    "994513626349";
 
   const whatsappUrl=
     "https://wa.me/"+
@@ -2248,16 +2130,21 @@ function checkoutCart(){
   cart=[];
 
   saveCart();
+
   updateCartCount();
+
   updateCartUI();
 
-  const modal=document.getElementById("cartModal");
+  const modal=
+    document.getElementById("cartModal");
 
   if(modal){
     modal.style.display="none";
   }
 
-  window.location.href=whatsappUrl;
+  window.location.href=
+    whatsappUrl;
+
 }
 
 function escapeHtml(text){
@@ -2268,6 +2155,7 @@ function escapeHtml(text){
     .replace(/>/g,"&gt;")
     .replace(/"/g,"&quot;")
     .replace(/'/g,"&#039;");
+
 }
 
 /* LOGIN */
@@ -2282,7 +2170,8 @@ async function checkLogin(){
   const authArea=
     document.getElementById("authArea");
 
-  const lang=getLanguage();
+  const lang=
+    getLanguage();
 
   if(!authArea) return;
 
@@ -2290,48 +2179,75 @@ async function checkLogin(){
 
     authArea.innerHTML="";
 
-    const profileButton=document.createElement("a");
+    const profileButton=
+      document.createElement("a");
 
-    profileButton.href="profile.html";
-    profileButton.className="btn btn-primary";
+    profileButton.href=
+      "profile.html";
+
+    profileButton.className=
+      "btn btn-primary";
+
     profileButton.textContent=
-      t[lang]?.profile || "Profil";
+      t[lang]?.profile ||
+      "Profil";
 
-    const email=document.createElement("span");
+    const email=
+      document.createElement("span");
 
-    email.className="user-email";
-    email.textContent=session.user.email || "";
+    email.className=
+      "user-email";
 
-    const logoutButton=document.createElement("button");
+    email.textContent=
+      session.user.email || "";
 
-    logoutButton.className="btn btn-dark";
+    const logoutButton=
+      document.createElement("button");
+
+    logoutButton.className=
+      "btn btn-dark";
+
     logoutButton.textContent=
-      t[lang]?.logout || "Çıxış";
+      t[lang]?.logout ||
+      "Çıxış";
 
-    logoutButton.onclick=logout;
+    logoutButton.onclick=
+      logout;
 
-    authArea.appendChild(profileButton);
-    authArea.appendChild(email);
-    authArea.appendChild(logoutButton);
+    authArea.appendChild(
+      profileButton
+    );
+
+    authArea.appendChild(
+      email
+    );
+
+    authArea.appendChild(
+      logoutButton
+    );
 
   }else{
 
     authArea.innerHTML=`
 
-      <a href="login.html" class="btn btn-dark">
+      <a
+        href="login.html"
+        class="btn btn-dark"
+      >
         ${t[lang]?.login || "Daxil ol"}
       </a>
 
-      <a href="login.html" class="btn btn-primary">
+      <a
+        href="login.html"
+        class="btn btn-primary"
+      >
         ${t[lang]?.register || "Qeydiyyat"}
       </a>
 
     `;
+
   }
 
-  if(typeof refreshCustomerChatAuth==="function"){
-    refreshCustomerChatAuth();
-  }
 }
 
 async function logout(){
@@ -2339,240 +2255,351 @@ async function logout(){
   await supabaseClient.auth.signOut();
 
   window.location.reload();
+
 }
 
 supabaseClient.auth.onAuthStateChange(
-  (event,session)=>{
-
+  ()=>{
     checkLogin();
-
-    if(typeof refreshCustomerChatAuth==="function"){
-      refreshCustomerChatAuth();
-    }
-
   }
 );
 
 /* PRODUCT SELECTION */
 
-document.querySelectorAll(".product").forEach(card=>{
+function setupProductSelection(){
 
-  const options=
-    card.querySelectorAll(".duration-option");
+  document
+    .querySelectorAll(".product")
+    .forEach(card=>{
 
-  const price=
-    card.querySelector(".selected-price");
+      const options=
+        card.querySelectorAll(
+          ".duration-option"
+        );
 
-  const duration=
-    card.querySelector(".selected-duration");
+      const price=
+        card.querySelector(
+          ".selected-price"
+        );
 
-  const order=
-    card.querySelector(".order-btn");
+      const duration=
+        card.querySelector(
+          ".selected-duration"
+        );
 
-  const productName=
-    card.querySelector("h3");
+      const order=
+        card.querySelector(
+          ".order-btn"
+        );
 
-  function updateOrder(){
+      const productName=
+        card.querySelector("h3");
 
-    const selected=
-      card.querySelector(".duration-option.active");
+      function updateOrder(){
 
-    if(!selected) return;
-
-    const idx=
-      [...options].indexOf(selected);
-
-    const lang=getLanguage();
-
-    const durationName=
-      card.id==="canva"
-        ? t[lang].canvaDuration
-        : (
-            t.durationNames[lang][idx] ||
-            selected.dataset.duration
+        const selected=
+          card.querySelector(
+            ".duration-option.active"
           );
 
-    const selectedPrice=
-      selected.dataset.price;
+        if(!selected) return;
 
-    if(duration){
-      duration.textContent=durationName;
-    }
+        const idx=
+          [...options].indexOf(
+            selected
+          );
 
-    if(price){
-      price.textContent=selectedPrice;
-    }
+        const lang=
+          getLanguage();
 
-    const names={
+        const durationName=
+          card.id==="canva"
+            ? t[lang].canvaDuration
+            : (
+                t.durationNames[lang][idx] ||
+                selected.dataset.duration
+              );
 
-      az:
-        `Salam DigiBaku, ${productName.textContent.trim()} sifarişi vermək istəyirəm. Müddət: ${durationName}. Qiymət: ${selectedPrice}.`,
+        const selectedPrice=
+          selected.dataset.price;
 
-      en:
-        `Hello DigiBaku, I would like to order ${productName.textContent.trim()}. Duration: ${durationName}. Price: ${selectedPrice}.`,
+        if(duration){
+          duration.textContent=
+            durationName;
+        }
 
-      ru:
-        `Здравствуйте, DigiBaku. Я хочу заказать ${productName.textContent.trim()}. Срок: ${durationName}. Цена: ${selectedPrice}.`
+        if(price){
+          price.textContent=
+            selectedPrice;
+        }
 
-    };
+        const names={
 
-    if(order){
+          az:
+            `Salam DigiBaku, ${productName.textContent.trim()} sifarişi vermək istəyirəm. Müddət: ${durationName}. Qiymət: ${selectedPrice}.`,
 
-      order.href=
-        "https://wa.me/994513626349?text="+
-        encodeURIComponent(names[lang] || names.az);
+          en:
+            `Hello DigiBaku, I would like to order ${productName.textContent.trim()}. Duration: ${durationName}. Price: ${selectedPrice}.`,
 
-    }
-  }
+          ru:
+            `Здравствуйте, DigiBaku. Я хочу заказать ${productName.textContent.trim()}. Срок: ${durationName}. Цена: ${selectedPrice}.`
 
-  options.forEach(option=>{
+        };
 
-    option.addEventListener("click",()=>{
+        if(order){
 
-      options.forEach(x=>
-        x.classList.remove("active")
-      );
+          order.href=
+            "https://wa.me/994513626349?text="+
+            encodeURIComponent(
+              names[lang] || names.az
+            );
 
-      option.classList.add("active");
+        }
+
+      }
+
+      options.forEach(option=>{
+
+        option.addEventListener(
+          "click",
+          ()=>{
+
+            options.forEach(x=>
+              x.classList.remove(
+                "active"
+              )
+            );
+
+            option.classList.add(
+              "active"
+            );
+
+            updateOrder();
+
+          }
+        );
+
+      });
 
       updateOrder();
 
     });
 
-  });
-
-  updateOrder();
-
-});
+}
 
 /* ==========================================================
-   ADMIN PANEL PRICE SYNC
+   GİZLİ ADMIN PANELDƏN QİYMƏT SİNXRONİZASİYASI
+
+   product_prices cədvəlində dəyişiklik olduqda
+   bu səhifə avtomatik yenilənir.
 ========================================================== */
 
 let adminPriceProducts=[];
 let adminPriceRealtimeChannel=null;
 
-function getLiveProductPrice(product,month){
+function getLiveProductPrice(
+  product,
+  month
+){
 
   const regular=
-    Number(product["price_"+month+"_month"] || 0);
+    Number(
+      product[
+        "price_"+month+"_month"
+      ] || 0
+    );
 
   const saleActive=
-    product["sale_"+month+"_active"] === true;
+    product[
+      "sale_"+month+"_active"
+    ] === true;
 
   const salePrice=
-    Number(product["sale_"+month+"_price"] || 0);
+    Number(
+      product[
+        "sale_"+month+"_price"
+      ] || 0
+    );
 
-  if(saleActive && salePrice>0){
+  if(
+    saleActive &&
+    salePrice>0
+  ){
+
     return salePrice;
+
   }
 
   return regular;
+
 }
 
-function findPageProductCard(productKey){
+function findPageProductCard(
+  productKey
+){
 
   const key=
-    String(productKey || "")
+    String(
+      productKey || ""
+    )
       .toLowerCase()
       .trim();
 
   let card=
     document.getElementById(key);
 
-  if(card) return card;
+  if(card){
+    return card;
+  }
 
   const aliases={
+
     "youtube-premium":"youtube",
     "youtube_premium":"youtube",
+
     "spotify-premium":"spotify",
     "spotify_premium":"spotify",
+
     "chatgpt-plus":"chatgpt",
     "chatgpt_plus":"chatgpt",
+
     "google-gemini":"gemini",
     "google_gemini":"gemini",
+
     "gemini-premium":"gemini",
     "gemini_premium":"gemini",
+
     "canva-pro":"canva",
     "canva_pro":"canva"
+
   };
 
   if(aliases[key]){
-    return document.getElementById(aliases[key]);
+
+    return document.getElementById(
+      aliases[key]
+    );
+
   }
 
   return null;
+
 }
 
-function updatePageProductPrice(product){
+function updatePageProductPrice(
+  product
+){
 
   if(!product) return;
 
   const card=
-    findPageProductCard(product.product_key);
+    findPageProductCard(
+      product.product_key
+    );
 
   if(!card) return;
 
   const options=
-    card.querySelectorAll(".duration-option");
+    card.querySelectorAll(
+      ".duration-option"
+    );
 
   if(!options.length) return;
 
   /* 1 AY */
 
-  if(Number(product.price_1_month)>0 && options[0]){
+  if(
+    Number(product.price_1_month)>0 &&
+    options[0]
+  ){
 
     const livePrice=
-      getLiveProductPrice(product,1);
+      getLiveProductPrice(
+        product,
+        1
+      );
 
     options[0].dataset.price=
-      livePrice.toFixed(2)+" AZN";
+      livePrice.toFixed(2)+
+      " AZN";
 
     const small=
-      options[0].querySelector("small");
+      options[0].querySelector(
+        "small"
+      );
 
     if(small){
+
       small.textContent=
-        livePrice.toFixed(2)+" AZN";
+        livePrice.toFixed(2)+
+        " AZN";
+
     }
+
   }
 
   /* 2 AY */
 
-  if(Number(product.price_2_month)>0 && options[1]){
+  if(
+    Number(product.price_2_month)>0 &&
+    options[1]
+  ){
 
     const livePrice=
-      getLiveProductPrice(product,2);
+      getLiveProductPrice(
+        product,
+        2
+      );
 
     options[1].dataset.price=
-      livePrice.toFixed(2)+" AZN";
+      livePrice.toFixed(2)+
+      " AZN";
 
     const small=
-      options[1].querySelector("small");
+      options[1].querySelector(
+        "small"
+      );
 
     if(small){
+
       small.textContent=
-        livePrice.toFixed(2)+" AZN";
+        livePrice.toFixed(2)+
+        " AZN";
+
     }
+
   }
 
   /* 3 AY */
 
-  if(Number(product.price_3_month)>0 && options[2]){
+  if(
+    Number(product.price_3_month)>0 &&
+    options[2]
+  ){
 
     const livePrice=
-      getLiveProductPrice(product,3);
+      getLiveProductPrice(
+        product,
+        3
+      );
 
     options[2].dataset.price=
-      livePrice.toFixed(2)+" AZN";
+      livePrice.toFixed(2)+
+      " AZN";
 
     const small=
-      options[2].querySelector("small");
+      options[2].querySelector(
+        "small"
+      );
 
     if(small){
+
       small.textContent=
-        livePrice.toFixed(2)+" AZN";
+        livePrice.toFixed(2)+
+        " AZN";
+
     }
+
   }
 
   /* CANVA 12 AY */
@@ -2586,45 +2613,70 @@ function updatePageProductPrice(product){
     const livePrice=
       product.sale_12_active &&
       Number(product.sale_12_price)>0
-        ? Number(product.sale_12_price)
-        : Number(product.price_12_month);
+
+        ? Number(
+            product.sale_12_price
+          )
+
+        : Number(
+            product.price_12_month
+          );
 
     options[0].dataset.price=
-      livePrice.toFixed(2)+" AZN";
+      livePrice.toFixed(2)+
+      " AZN";
 
     const small=
-      options[0].querySelector("small");
+      options[0].querySelector(
+        "small"
+      );
 
     if(small){
+
       small.textContent=
-        livePrice.toFixed(2)+" AZN";
+        livePrice.toFixed(2)+
+        " AZN";
+
     }
+
   }
 
-  /* AKTIV PAKET */
+  /* AKTİV PAKET */
 
   const selected=
-    card.querySelector(".duration-option.active");
+    card.querySelector(
+      ".duration-option.active"
+    );
 
   const selectedPrice=
-    card.querySelector(".selected-price");
+    card.querySelector(
+      ".selected-price"
+    );
 
-  if(selected && selectedPrice){
+  if(
+    selected &&
+    selectedPrice
+  ){
 
     selectedPrice.textContent=
       selected.dataset.price || "";
+
   }
 
-  /* WHATSAPP LINK */
+  /* WHATSAPP SİFARİŞ LINKİ */
 
   const order=
-    card.querySelector(".order-btn");
+    card.querySelector(
+      ".order-btn"
+    );
 
   const productName=
     card.querySelector("h3");
 
   const duration=
-    card.querySelector(".selected-duration");
+    card.querySelector(
+      ".selected-duration"
+    );
 
   if(
     order &&
@@ -2633,7 +2685,8 @@ function updatePageProductPrice(product){
     selected
   ){
 
-    const lang=getLanguage();
+    const lang=
+      getLanguage();
 
     const price=
       selected.dataset.price || "";
@@ -2653,14 +2706,20 @@ function updatePageProductPrice(product){
 
     order.href=
       "https://wa.me/994513626349?text="+
-      encodeURIComponent(names[lang] || names.az);
+      encodeURIComponent(
+        names[lang] || names.az
+      );
 
   }
+
 }
 
 async function loadAdminPrices(){
 
-  const {data,error}=
+  const {
+    data,
+    error
+  }=
     await supabaseClient
       .from("product_prices")
       .select(`
@@ -2680,7 +2739,10 @@ async function loadAdminPrices(){
         sale_12_price,
         sale_12_active
       `)
-      .order("id",{ascending:true});
+      .order(
+        "id",
+        {ascending:true}
+      );
 
   if(error){
 
@@ -2690,13 +2752,20 @@ async function loadAdminPrices(){
     );
 
     return;
+
   }
 
-  adminPriceProducts=data || [];
+  adminPriceProducts=
+    data || [];
 
-  adminPriceProducts.forEach(product=>{
-    updatePageProductPrice(product);
-  });
+  adminPriceProducts.forEach(
+    product=>{
+      updatePageProductPrice(
+        product
+      );
+    }
+  );
+
 }
 
 function setupAdminPriceRealtime(){
@@ -2704,1053 +2773,19 @@ function setupAdminPriceRealtime(){
   if(adminPriceRealtimeChannel){
 
     try{
+
       supabaseClient.removeChannel(
         adminPriceRealtimeChannel
       );
+
     }catch(e){}
 
   }
 
   adminPriceRealtimeChannel=
     supabaseClient
-      .channel("qiymetler-admin-price-sync")
-      .on(
-        "postgres_changes",
-        {
-          event:"*",
-          schema:"public",
-          table:"product_prices"
-        },
-        async function(){
-
-          await loadAdminPrices();
-
-          if(
-            typeof loadCustomerChatPackages==="function"
-          ){
-            await loadCustomerChatPackages();
-          }
-
-        }
-      )
-      .subscribe();
-}
-
-/* ==========================================================
-   CUSTOMER CHAT
-========================================================== */
-
-let customerChatUserId=null;
-let customerChatOpen=false;
-let customerChatMessagesChannel=null;
-let customerChatOrderChannel=null;
-let customerChatPricesChannel=null;
-let customerChatOrderId=null;
-let customerChatProducts=[];
-
-const CUSTOMER_ORDER_STATUS_MAP={
-
-  pending:{
-    text:"Təsdiqləndi — cavab gözlənilir",
-    className:"pending"
-  },
-
-  confirmed:{
-    text:"Təsdiqləndi — cavab gözlənilir",
-    className:"confirmed"
-  },
-
-  processing:{
-    text:"Hazırlanır",
-    className:"processing"
-  },
-
-  completed:{
-    text:"Hazırdır",
-    className:"completed"
-  },
-
-  cancelled:{
-    text:"Ləğv edildi",
-    className:"cancelled"
-  }
-
-};
-
-function toggleCustomerChat(){
-
-  const panel=
-    document.getElementById("customerChatPanel");
-
-  if(!panel) return;
-
-  customerChatOpen=!customerChatOpen;
-
-  panel.classList.toggle(
-    "open",
-    customerChatOpen
-  );
-
-  if(customerChatOpen){
-    loadCustomerChat();
-  }
-}
-
-async function getCustomerChatSession(){
-
-  const {
-    data:{session}
-  }=
-    await supabaseClient.auth.getSession();
-
-  return session || null;
-}
-
-async function refreshCustomerChatAuth(){
-
-  const session=
-    await getCustomerChatSession();
-
-  const login=
-    document.getElementById("customerChatLogin");
-
-  const messages=
-    document.getElementById("customerChatMessages");
-
-  const footer=
-    document.getElementById("customerChatFooter");
-
-  const packages=
-    document.getElementById("customerChatPackages");
-
-  if(!login || !messages || !footer) return;
-
-  if(!session){
-
-    customerChatUserId=null;
-
-    login.classList.add("show");
-    messages.style.display="none";
-    footer.classList.remove("show");
-
-    if(packages){
-      packages.style.display="none";
-    }
-
-    const status=
-      document.getElementById("customerChatStatus");
-
-    if(status){
-      status.classList.remove("show");
-    }
-
-    stopCustomerChatRealtime();
-
-    return;
-  }
-
-  customerChatUserId=
-    session.user.id;
-
-  login.classList.remove("show");
-  messages.style.display="flex";
-  footer.classList.add("show");
-
-  if(packages){
-    packages.style.display="block";
-  }
-
-  await loadCustomerChat();
-}
-
-async function loadCustomerChat(){
-
-  const session=
-    await getCustomerChatSession();
-
-  if(!session){
-
-    await refreshCustomerChatAuth();
-    return;
-  }
-
-  customerChatUserId=
-    session.user.id;
-
-  const messages=
-    document.getElementById(
-      "customerChatMessages"
-    );
-
-  if(messages){
-
-    messages.innerHTML=
-      `<div class="customer-chat-loading">
-        Yüklənir...
-      </div>`;
-  }
-
-  await loadCustomerChatPackages();
-  await loadCustomerChatMessages();
-  await loadCustomerOrderStatus();
-  await markCustomerChatMessagesRead();
-  await loadCustomerChatUnread();
-
-  setupCustomerChatRealtime();
-}
-
-async function loadCustomerChatPackages(){
-
-  const list=
-    document.getElementById(
-      "customerChatPackageList"
-    );
-
-  if(!list) return;
-
-  list.innerHTML=
-    `<div class="customer-chat-loading">
-      Paketlər yüklənir...
-    </div>`;
-
-  const {data,error}=
-    await supabaseClient
-      .from("product_prices")
-      .select(`
-        id,
-        product_key,
-        product_name,
-        price_1_month,
-        price_2_month,
-        price_3_month,
-        sale_1_active,
-        sale_2_active,
-        sale_3_active,
-        sale_1_price,
-        sale_2_price,
-        sale_3_price,
-        price_12_month,
-        sale_12_price,
-        sale_12_active
-      `)
-      .order("id",{ascending:true});
-
-  if(error){
-
-    console.error(
-      "Customer chat packages error:",
-      error
-    );
-
-    list.innerHTML=
-      `<div class="customer-chat-loading">
-        Paketlər yüklənmədi
-      </div>`;
-
-    return;
-  }
-
-  customerChatProducts=data || [];
-
-  if(customerChatProducts.length===0){
-
-    list.innerHTML=
-      `<div class="customer-chat-loading">
-        Hazırda paket yoxdur
-      </div>`;
-
-    return;
-  }
-
-  renderCustomerChatPackages();
-}
-
-function renderCustomerChatPackages(){
-
-  const list=
-    document.getElementById(
-      "customerChatPackageList"
-    );
-
-  if(!list) return;
-
-  const lang=getLanguage();
-
-  let html="";
-
-  customerChatProducts.forEach(product=>{
-
-    const packages=[];
-
-    if(Number(product.price_1_month)>0){
-
-      const price=
-        product.sale_1_active &&
-        Number(product.sale_1_price)>0
-          ? Number(product.sale_1_price)
-          : Number(product.price_1_month);
-
-      packages.push({
-        duration:
-          t.durationNames[lang][0] || "1 ay",
-        price
-      });
-    }
-
-    if(Number(product.price_2_month)>0){
-
-      const price=
-        product.sale_2_active &&
-        Number(product.sale_2_price)>0
-          ? Number(product.sale_2_price)
-          : Number(product.price_2_month);
-
-      packages.push({
-        duration:
-          t.durationNames[lang][1] || "2 ay",
-        price
-      });
-    }
-
-    if(Number(product.price_3_month)>0){
-
-      const price=
-        product.sale_3_active &&
-        Number(product.sale_3_price)>0
-          ? Number(product.sale_3_price)
-          : Number(product.price_3_month);
-
-      packages.push({
-        duration:
-          t.durationNames[lang][2] || "3 ay",
-        price
-      });
-    }
-
-    if(Number(product.price_12_month)>0){
-
-      const price=
-        product.sale_12_active &&
-        Number(product.sale_12_price)>0
-          ? Number(product.sale_12_price)
-          : Number(product.price_12_month);
-
-      packages.push({
-        duration:
-          t[lang].canvaDuration || "12 ay",
-        price
-      });
-    }
-
-    packages.forEach(pkg=>{
-
-      html+=`
-
-        <button
-          type="button"
-          class="customer-chat-package"
-          onclick="sendCustomerChatPackage(
-            '${escapeJs(product.product_key || "")}',
-            '${escapeJs(product.product_name || "")}',
-            '${escapeJs(pkg.duration)}',
-            ${Number(pkg.price)}
-          )"
-        >
-
-          <strong>
-            ${escapeHtml(product.product_name || "")}
-          </strong>
-
-          <span>
-            ${escapeHtml(pkg.duration)}
-            —
-            ${Number(pkg.price).toFixed(2)} AZN
-          </span>
-
-        </button>
-
-      `;
-    });
-
-  });
-
-  list.innerHTML=
-    html ||
-    `<div class="customer-chat-loading">
-      Hazırda paket yoxdur
-    </div>`;
-}
-
-function escapeJs(text){
-
-  return String(text)
-    .replace(/\\/g,"\\\\")
-    .replace(/'/g,"\\'")
-    .replace(/"/g,"&quot;")
-    .replace(/\n/g,"\\n")
-    .replace(/\r/g,"\\r");
-}
-
-/* ==========================================================
-   DÜZƏLDİLDİ:
-   orders.duration INTEGER-dir.
-   Ekrandakı "2 ay" kimi mətn bazaya 2 kimi yazılır.
-========================================================== */
-
-async function sendCustomerChatPackage(
-  productKey,
-  productName,
-  duration,
-  price
-){
-
-  const session=
-    await getCustomerChatSession();
-
-  if(!session){
-
-    alert(
-      "Paket seçmək üçün əvvəlcə hesabınıza daxil olun."
-    );
-
-    window.location.href="login.html";
-    return;
-  }
-
-  if(!productName || !duration){
-
-    alert("Paket məlumatı düzgün deyil.");
-    return;
-  }
-
-  const numericPrice=
-    Number(price || 0);
-
-  if(!numericPrice){
-
-    alert("Bu paket üçün qiymət tapılmadı.");
-    return;
-  }
-
-  /*
-    "1 ay"  -> 1
-    "2 ay"  -> 2
-    "3 ay"  -> 3
-    "12 ay" -> 12
-  */
-
-  const durationMatch=
-    String(duration).match(/\d+/);
-
-  const numericDuration=
-    durationMatch
-      ? parseInt(durationMatch[0],10)
-      : 0;
-
-  if(!numericDuration){
-
-    alert("Paket müddəti düzgün deyil.");
-    return;
-  }
-
-  const buttons=
-    document.querySelectorAll(
-      ".customer-chat-package"
-    );
-
-  buttons.forEach(button=>{
-    button.disabled=true;
-    button.classList.add(
-      "customer-chat-package-disabled"
-    );
-  });
-
-  try{
-
-    const orderMessage=
-      `Paket seçildi: ${productName} — ${duration} — ${numericPrice.toFixed(2)} AZN`;
-
-    const {data:order,error:orderError}=
-      await supabaseClient
-        .from("orders")
-        .insert({
-          user_id:session.user.id,
-          product_name:productName,
-
-          /* VACİB: integer göndərilir */
-          duration:numericDuration,
-
-          status:"confirmed"
-        })
-        .select()
-        .single();
-
-    if(orderError){
-
-      console.error(
-        "Customer order create error:",
-        orderError
-      );
-
-      throw orderError;
-    }
-
-    customerChatOrderId=
-      order?.id || null;
-
-    const {data:message,error:messageError}=
-      await supabaseClient
-        .from("messages")
-        .insert({
-          user_id:session.user.id,
-          sender_role:"customer",
-          message:orderMessage,
-          is_read:true
-        })
-        .select()
-        .single();
-
-    if(messageError){
-
-      console.error(
-        "Customer package message error:",
-        messageError
-      );
-
-      await loadCustomerOrderStatus();
-
-      throw messageError;
-    }
-
-    if(order?.id && message?.id){
-
-      const {error:updateOrderError}=
-        await supabaseClient
-          .from("orders")
-          .update({
-            message_id:message.id
-          })
-          .eq("id",order.id);
-
-      if(updateOrderError){
-
-        console.warn(
-          "message_id update warning:",
-          updateOrderError
-        );
-      }
-    }
-
-    await loadCustomerChatMessages();
-    await loadCustomerOrderStatus();
-    await loadCustomerChatUnread();
-
-    const messagesBox=
-      document.getElementById(
-        "customerChatMessages"
-      );
-
-    if(messagesBox){
-
-      messagesBox.scrollTop=
-        messagesBox.scrollHeight;
-    }
-
-  }catch(error){
-
-    console.error(
-      "Customer package send error:",
-      error
-    );
-
-    alert(
-      "Paket sifarişi göndərilmədi: "+
-      (error.message || "Xəta baş verdi")
-    );
-
-  }finally{
-
-    buttons.forEach(button=>{
-      button.disabled=false;
-      button.classList.remove(
-        "customer-chat-package-disabled"
-      );
-    });
-  }
-}
-
-async function loadCustomerChatMessages(){
-
-  if(!customerChatUserId) return;
-
-  const messagesBox=
-    document.getElementById(
-      "customerChatMessages"
-    );
-
-  if(!messagesBox) return;
-
-  const {data,error}=
-    await supabaseClient
-      .from("messages")
-      .select(`
-        id,
-        user_id,
-        sender_role,
-        message,
-        is_read,
-        created_at
-      `)
-      .eq("user_id",customerChatUserId)
-      .order("created_at",{ascending:true});
-
-  if(error){
-
-    console.error(
-      "Customer messages load error:",
-      error
-    );
-
-    messagesBox.innerHTML=
-      `<div class="customer-chat-empty">
-        Mesajlar yüklənmədi.
-      </div>`;
-
-    return;
-  }
-
-  if(!data || data.length===0){
-
-    messagesBox.innerHTML=
-      `<div class="customer-chat-empty">
-        Salam! 👋<br>
-        Aşağıdan paket seçə və ya mesaj yaza bilərsiniz.
-      </div>`;
-
-    return;
-  }
-
-  let html="";
-
-  data.forEach(row=>{
-
-    if(
-      String(row.message || "")
-        .includes("[[DIGIBAKU_STATUS:")
-    ){
-      return;
-    }
-
-    const role=
-      row.sender_role==="admin"
-        ? "admin"
-        : "customer";
-
-    const time=
-      row.created_at
-        ? new Date(row.created_at)
-            .toLocaleString("az-AZ",{
-              day:"2-digit",
-              month:"2-digit",
-              hour:"2-digit",
-              minute:"2-digit"
-            })
-        : "";
-
-    html+=`
-
-      <div class="customer-chat-msg ${role}">
-
-        ${escapeHtml(row.message || "")}
-
-        <span class="customer-chat-msg-time">
-          ${escapeHtml(time)}
-        </span>
-
-      </div>
-
-    `;
-  });
-
-  if(!html){
-
-    html=
-      `<div class="customer-chat-empty">
-        Salam! 👋<br>
-        Aşağıdan paket seçə və ya mesaj yaza bilərsiniz.
-      </div>`;
-  }
-
-  messagesBox.innerHTML=html;
-
-  messagesBox.scrollTop=
-    messagesBox.scrollHeight;
-}
-
-async function sendCustomerChatMessage(){
-
-  const input=
-    document.getElementById(
-      "customerChatInput"
-    );
-
-  const sendButton=
-    document.getElementById(
-      "customerChatSend"
-    );
-
-  if(!input) return;
-
-  const message=
-    input.value.trim();
-
-  if(!message) return;
-
-  const session=
-    await getCustomerChatSession();
-
-  if(!session){
-
-    alert(
-      "Mesaj göndərmək üçün əvvəlcə daxil olun."
-    );
-
-    window.location.href="login.html";
-    return;
-  }
-
-  if(sendButton){
-    sendButton.disabled=true;
-  }
-
-  try{
-
-    const {error}=
-      await supabaseClient
-        .from("messages")
-        .insert({
-          user_id:session.user.id,
-          sender_role:"customer",
-          message:message,
-          is_read:true
-        });
-
-    if(error){
-      throw error;
-    }
-
-    input.value="";
-
-    await loadCustomerChatMessages();
-
-  }catch(error){
-
-    alert(
-      "Mesaj göndərilmədi: "+
-      (error.message || "Xəta baş verdi")
-    );
-
-  }finally{
-
-    if(sendButton){
-      sendButton.disabled=false;
-    }
-
-    input.focus();
-  }
-}
-
-async function loadCustomerOrderStatus(){
-
-  if(!customerChatUserId) return;
-
-  const statusBox=
-    document.getElementById(
-      "customerChatStatus"
-    );
-
-  const statusValue=
-    document.getElementById(
-      "customerChatStatusValue"
-    );
-
-  const orderInfo=
-    document.getElementById(
-      "customerChatOrder"
-    );
-
-  if(!statusBox || !statusValue) return;
-
-  const {data,error}=
-    await supabaseClient
-      .from("orders")
-      .select(`
-        id,
-        product_name,
-        duration,
-        status,
-        created_at,
-        updated_at
-      `)
-      .eq("user_id",customerChatUserId)
-      .order("created_at",{ascending:false})
-      .limit(1);
-
-  if(error){
-
-    console.error(
-      "Customer order status error:",
-      error
-    );
-
-    statusBox.classList.remove("show");
-    return;
-  }
-
-  const order=
-    data && data.length
-      ? data[0]
-      : null;
-
-  if(!order){
-
-    customerChatOrderId=null;
-
-    statusBox.classList.remove("show");
-
-    return;
-  }
-
-  customerChatOrderId=order.id;
-
-  const status=
-    order.status || "confirmed";
-
-  const mapped=
-    CUSTOMER_ORDER_STATUS_MAP[status] ||
-    CUSTOMER_ORDER_STATUS_MAP.confirmed;
-
-  statusValue.textContent=
-    mapped.text;
-
-  statusValue.className=
-    "customer-chat-status-value "+
-    mapped.className;
-
-  statusBox.classList.add("show");
-
-  if(orderInfo){
-
-    orderInfo.classList.add("show");
-
-    /*
-      Bazada duration = 2
-      Müştəriyə isə "2 ay" göstərilir.
-    */
-
-    const durationNumber=
-      Number(order.duration || 0);
-
-    const durationText=
-      durationNumber > 0
-        ? durationNumber+" ay"
-        : "";
-
-    orderInfo.textContent=
-      `${order.product_name || "Sifariş"} · ${durationText}`;
-  }
-}
-
-function updateCustomerChatStatusText(){
-
-  if(customerChatUserId){
-    loadCustomerOrderStatus();
-  }
-}
-
-async function markCustomerChatMessagesRead(){
-
-  if(!customerChatUserId) return;
-
-  const {error}=
-    await supabaseClient
-      .from("messages")
-      .update({
-        is_read:true
-      })
-      .eq("user_id",customerChatUserId)
-      .eq("sender_role","admin")
-      .eq("is_read",false);
-
-  if(error){
-
-    console.warn(
-      "Mark customer messages read warning:",
-      error
-    );
-  }
-}
-
-async function loadCustomerChatUnread(){
-
-  if(!customerChatUserId){
-
-    updateCustomerChatUnreadCount(0);
-    return;
-  }
-
-  const {count,error}=
-    await supabaseClient
-      .from("messages")
-      .select("id",{count:"exact",head:true})
-      .eq("user_id",customerChatUserId)
-      .eq("sender_role","admin")
-      .eq("is_read",false);
-
-  if(error){
-
-    console.error(
-      "Unread count error:",
-      error
-    );
-
-    return;
-  }
-
-  updateCustomerChatUnreadCount(
-    Number(count || 0)
-  );
-}
-
-function updateCustomerChatUnreadCount(count){
-
-  const badge=
-    document.getElementById(
-      "customerChatUnread"
-    );
-
-  if(!badge) return;
-
-  const n=Number(count || 0);
-
-  if(n>0){
-
-    badge.style.display="flex";
-
-    badge.textContent=
-      n>99 ? "99+" : String(n);
-
-  }else{
-
-    badge.style.display="none";
-    badge.textContent="0";
-  }
-}
-
-function stopCustomerChatRealtime(){
-
-  if(customerChatMessagesChannel){
-
-    try{
-      supabaseClient.removeChannel(
-        customerChatMessagesChannel
-      );
-    }catch(e){}
-
-    customerChatMessagesChannel=null;
-  }
-
-  if(customerChatOrderChannel){
-
-    try{
-      supabaseClient.removeChannel(
-        customerChatOrderChannel
-      );
-    }catch(e){}
-
-    customerChatOrderChannel=null;
-  }
-
-  if(customerChatPricesChannel){
-
-    try{
-      supabaseClient.removeChannel(
-        customerChatPricesChannel
-      );
-    }catch(e){}
-
-    customerChatPricesChannel=null;
-  }
-}
-
-function setupCustomerChatRealtime(){
-
-  if(!customerChatUserId) return;
-
-  stopCustomerChatRealtime();
-
-  customerChatMessagesChannel=
-    supabaseClient
       .channel(
-        "prices-customer-messages-"+customerChatUserId
-      )
-      .on(
-        "postgres_changes",
-        {
-          event:"*",
-          schema:"public",
-          table:"messages",
-          filter:
-            "user_id=eq."+customerChatUserId
-        },
-        async function(payload){
-
-          await loadCustomerChatMessages();
-          await loadCustomerChatUnread();
-
-          if(
-            payload.eventType==="INSERT" &&
-            payload.new &&
-            payload.new.sender_role==="admin"
-          ){
-
-            if(customerChatOpen){
-
-              await markCustomerChatMessagesRead();
-              await loadCustomerChatUnread();
-
-            }
-          }
-        }
-      )
-      .subscribe();
-
-  customerChatOrderChannel=
-    supabaseClient
-      .channel(
-        "prices-customer-orders-"+customerChatUserId
-      )
-      .on(
-        "postgres_changes",
-        {
-          event:"*",
-          schema:"public",
-          table:"orders",
-          filter:
-            "user_id=eq."+customerChatUserId
-        },
-        async function(){
-
-          await loadCustomerOrderStatus();
-
-        }
-      )
-      .subscribe();
-
-  customerChatPricesChannel=
-    supabaseClient
-      .channel(
-        "prices-customer-product-prices"
+        "qiymetler-admin-price-sync"
       )
       .on(
         "postgres_changes",
@@ -3761,32 +2796,24 @@ function setupCustomerChatRealtime(){
         },
         async function(){
 
-          await loadCustomerChatPackages();
+          console.log(
+            "Qiymət dəyişdi — qiymetler.html yenilənir"
+          );
+
           await loadAdminPrices();
 
         }
       )
-      .subscribe();
+      .subscribe(
+        status=>{
+          console.log(
+            "Qiymət realtime status:",
+            status
+          );
+        }
+      );
+
 }
-
-document.addEventListener(
-  "keydown",
-  function(event){
-
-    if(
-      event.key==="Enter" &&
-      document.activeElement &&
-      document.activeElement.id===
-        "customerChatInput"
-    ){
-
-      event.preventDefault();
-
-      sendCustomerChatMessage();
-
-    }
-  }
-);
 
 /* INIT */
 
@@ -3794,11 +2821,15 @@ document.addEventListener(
   "DOMContentLoaded",
   async function(){
 
-    const lang=getLanguage();
+    const lang=
+      getLanguage();
 
     setLang(lang);
 
+    setupProductSelection();
+
     updateCartCount();
+
     updateCartUI();
 
     await checkLogin();
@@ -3806,8 +2837,6 @@ document.addEventListener(
     await loadAdminPrices();
 
     setupAdminPriceRealtime();
-
-    await refreshCustomerChatAuth();
 
   }
 );
