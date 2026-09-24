@@ -344,6 +344,79 @@ font-weight:bold;
 flex-shrink:0;
 }
 
+/* YENİ STATUS */
+
+.order-status-badge{
+background:#2563eb;
+color:#fff;
+border-radius:20px;
+padding:3px 7px;
+font-size:10px;
+font-weight:bold;
+white-space:nowrap;
+flex-shrink:0;
+}
+
+.order-status-badge.pending{
+background:#ca8a04;
+}
+
+.order-status-badge.confirmed{
+background:#16a34a;
+}
+
+.order-status-badge.processing{
+background:#2563eb;
+}
+
+.order-status-badge.completed{
+background:#4b5563;
+}
+
+.order-status-badge.cancelled{
+background:#991b1b;
+}
+
+.chat-order-status{
+padding:10px 15px;
+background:#0d0d0d;
+border-bottom:1px solid #222;
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:10px;
+font-size:13px;
+}
+
+.chat-order-status-label{
+color:#888;
+}
+
+.chat-order-status-value{
+font-weight:bold;
+color:#60a5fa;
+}
+
+.chat-order-status-value.pending{
+color:#facc15;
+}
+
+.chat-order-status-value.confirmed{
+color:#4ade80;
+}
+
+.chat-order-status-value.processing{
+color:#60a5fa;
+}
+
+.chat-order-status-value.completed{
+color:#9ca3af;
+}
+
+.chat-order-status-value.cancelled{
+color:#f87171;
+}
+
 .chat-box{
 display:flex;
 flex-direction:column;
@@ -533,8 +606,6 @@ Admin yoxlanılır...
 
 <div id="adminPanel">
 
-<!-- QİYMƏTLƏR -->
-
 <div class="card">
 
 <h2>Qiymət və Endirimlər</h2>
@@ -552,9 +623,6 @@ Qiymətlər yüklənir...
 <div id="priceMessage" class="price-message"></div>
 
 </div>
-
-
-<!-- MƏHSUL VERİLMƏSİ -->
 
 <div class="card">
 
@@ -637,9 +705,6 @@ Məhsulu müştəriyə əlavə et
 
 </div>
 
-
-<!-- VERİLMİŞ MƏHSULLAR -->
-
 <div class="card">
 
 <h2>Verilmiş məhsullar</h2>
@@ -649,9 +714,6 @@ Yüklənir...
 </div>
 
 </div>
-
-
-<!-- CHAT -->
 
 <div class="card">
 
@@ -682,6 +744,25 @@ id="chatHeader"
 class="chat-header"
 >
 Müştəri seçin
+</div>
+
+<div
+id="chatOrderStatus"
+class="chat-order-status"
+style="display:none"
+>
+
+<span class="chat-order-status-label">
+📦 Sifariş statusu
+</span>
+
+<span
+id="chatOrderStatusValue"
+class="chat-order-status-value"
+>
+-
+</span>
+
 </div>
 
 <div
@@ -717,9 +798,6 @@ Mesaj göndər
 
 </div>
 
-
-<!-- SİFARİŞLƏR -->
-
 <div class="card">
 
 <h2>📦 Sifarişlər</h2>
@@ -741,7 +819,6 @@ Sifarişlər yüklənir...
 </div>
 </div>
 </main>
-
 
 <script>
 
@@ -765,9 +842,7 @@ let selectedChatEmail = null;
 let adminRealtimeChannel = null;
 
 
-/* =====================================================
-   ADMIN CHECK
-===================================================== */
+/* ADMIN CHECK */
 
 async function checkAdmin(){
 
@@ -824,9 +899,7 @@ document.getElementById("loading").innerHTML =
 }
 
 
-/* =====================================================
-   CUSTOMER LIST
-===================================================== */
+/* CUSTOMER LIST */
 
 async function loadCustomers(){
 
@@ -872,9 +945,7 @@ select.appendChild(option);
 }
 
 
-/* =====================================================
-   CUSTOMER CHANGE
-===================================================== */
+/* CUSTOMER CHANGE */
 
 document
 .getElementById("customerSelect")
@@ -911,9 +982,7 @@ info.style.display="block";
 );
 
 
-/* =====================================================
-   ADD PRODUCT
-===================================================== */
+/* ADD PRODUCT */
 
 async function addProduct(){
 
@@ -1002,6 +1071,61 @@ return;
 
 }
 
+
+/* SON AKTİV SİFARİŞİ TƏSDİQLƏ */
+
+const {
+data:latestOrders,
+error:latestOrderError
+} =
+await supabaseClient
+.from("orders")
+.select(
+"id,status,created_at,updated_at"
+)
+.eq(
+"user_id",
+customerId
+)
+.order(
+"created_at",
+{ascending:false}
+)
+.limit(1);
+
+if(
+!latestOrderError &&
+latestOrders &&
+latestOrders.length>0
+){
+
+const latestOrder=
+latestOrders[0];
+
+if(
+latestOrder.status !== "completed" &&
+latestOrder.status !== "cancelled"
+){
+
+await supabaseClient
+.from("orders")
+.update({
+
+status:"confirmed",
+
+updated_at:
+new Date().toISOString()
+
+})
+.eq(
+"id",
+latestOrder.id
+);
+
+}
+
+}
+
 document.getElementById(
 "accountInfo"
 ).value="";
@@ -1011,17 +1135,27 @@ document.getElementById(
 ).value="";
 
 showMessage(
-"Məhsul müştəriyə uğurla əlavə edildi."
+"Məhsul müştəriyə uğurla əlavə edildi və sifariş təsdiqləndi."
 );
 
 await loadProducts();
+await loadOrders();
+await loadChatCustomers();
+
+if(
+selectedChatUserId===customerId
+){
+
+await loadChatOrderStatus(
+customerId
+);
+
+}
 
 }
 
 
-/* =====================================================
-   LOAD PRODUCTS
-===================================================== */
+/* LOAD PRODUCTS */
 
 async function loadProducts(){
 
@@ -1126,9 +1260,7 @@ Sil
 }
 
 
-/* =====================================================
-   DELETE PRODUCT
-===================================================== */
+/* DELETE PRODUCT */
 
 async function deleteProduct(id){
 
@@ -1164,9 +1296,7 @@ await loadProducts();
 }
 
 
-/* =====================================================
-   PRICE FUNCTIONS
-===================================================== */
+/* PRICE FUNCTIONS */
 
 async function loadPrices(){
 
@@ -1369,10 +1499,6 @@ Qiymətləri yadda saxla
 }
 
 
-/* =====================================================
-   PRICE MONTH HTML
-===================================================== */
-
 function createPriceMonth(
 item,
 month,
@@ -1487,10 +1613,6 @@ ${active ? "Aktiv" : "Deaktiv"}
 }
 
 
-/* =====================================================
-   SAVE NORMAL PRICE
-===================================================== */
-
 async function savePrice(id){
 
 const price1 =
@@ -1596,10 +1718,6 @@ await loadPrices();
 }
 
 
-/* =====================================================
-   SAVE CANVA PRICE
-===================================================== */
-
 async function saveCanvaPrice(id){
 
 const price12 =
@@ -1661,9 +1779,7 @@ await loadPrices();
 
 
 /* =====================================================
-   CHAT CUSTOMERS
-   YENİ VERSİYA:
-   MESAJ YAZAN MÜŞTƏRİ AVTOMATİK GÖRÜNÜR
+CHAT CUSTOMERS + ORDER STATUS
 ===================================================== */
 
 async function loadChatCustomers(){
@@ -1674,9 +1790,6 @@ document.getElementById(
 );
 
 if(!box) return;
-
-
-/* BÜTÜN CHAT MESAJLARI */
 
 const {
 data:messages,
@@ -1708,9 +1821,6 @@ return;
 
 }
 
-
-/* MESAJ YAZAN MÜŞTƏRİ ID-LƏRİ */
-
 const userIds=[
 ...new Set(
 (messages || [])
@@ -1721,10 +1831,8 @@ return item.user_id;
 )
 ];
 
-
-/* PROFİLLƏR */
-
 let profiles={};
+let latestOrders={};
 
 if(userIds.length>0){
 
@@ -1756,10 +1864,47 @@ profiles[customer.id]=customer;
 }
 );
 
+const {
+data:orders,
+error:ordersError
+} =
+await supabaseClient
+.from("orders")
+.select(
+"id,user_id,status,created_at,updated_at"
+)
+.in("user_id",userIds)
+.order(
+"created_at",
+{ascending:false}
+);
+
+if(ordersError){
+
+console.error(
+"Chat orders error:",
+ordersError
+);
+
+}else{
+
+(orders || []).forEach(
+function(order){
+
+if(
+!latestOrders[order.user_id]
+){
+
+latestOrders[order.user_id]=
+order;
+
 }
 
+});
 
-/* MÜŞTƏRİLƏRİ YIĞ */
+}
+
+}
 
 const customerMap={};
 
@@ -1784,9 +1929,6 @@ unread:0
 
 }
 
-
-/* OXUNMAMIŞ MÜŞTƏRİ MESAJI */
-
 if(
 item.sender_role==="customer" &&
 item.is_read===false
@@ -1799,12 +1941,8 @@ customerMap[item.user_id].unread++;
 }
 );
 
-
 const customers=
 Object.values(customerMap);
-
-
-/* HEÇ MESAJ YOXDUR */
 
 if(customers.length===0){
 
@@ -1815,9 +1953,6 @@ return;
 
 }
 
-
-/* ƏN SON MESAJ YUXARIDA */
-
 customers.sort(
 function(a,b){
 
@@ -1826,9 +1961,6 @@ new Date(a.last_created_at);
 
 }
 );
-
-
-/* HTML */
 
 box.innerHTML=
 customers.map(
@@ -1845,12 +1977,10 @@ customer.full_name ||
 email ||
 "Müştəri";
 
-
 const active=
 selectedChatUserId===item.user_id
 ? "active"
 : "";
-
 
 const lastMessage=
 item.last_message.length>35
@@ -1859,6 +1989,31 @@ item.last_message.substring(0,35)+"..."
 :
 item.last_message;
 
+const order=
+latestOrders[item.user_id];
+
+const status=
+order
+?
+order.status || "pending"
+:
+"";
+
+const statusText=
+getOrderStatusText(status);
+
+const statusBadge=
+order
+?
+`
+<span
+class="order-status-badge ${escapeHtml(status)}"
+>
+${escapeHtml(statusText)}
+</span>
+`
+:
+"";
 
 return `
 
@@ -1893,6 +2048,16 @@ ${escapeHtml(lastMessage)}
 
 </span>
 
+<span
+style="
+display:flex;
+align-items:center;
+gap:5px;
+"
+>
+
+${statusBadge}
+
 ${
 item.unread>0
 ?
@@ -1900,6 +2065,8 @@ item.unread>0
 :
 ""
 }
+
+</span>
 
 </div>
 
@@ -1913,9 +2080,121 @@ item.unread>0
 }
 
 
-/* =====================================================
-   SELECT CHAT CUSTOMER
-===================================================== */
+/* STATUS TEXT */
+
+function getOrderStatusText(status){
+
+const statuses={
+
+pending:"Cavab gözlənilir",
+
+confirmed:"Təsdiqləndi",
+
+processing:"Hazırlanır",
+
+completed:"Tamamlandı",
+
+cancelled:"Ləğv edildi"
+
+};
+
+return statuses[status] ||
+"Cavab gözlənilir";
+
+}
+
+
+/* CHAT STATUS */
+
+async function loadChatOrderStatus(userId){
+
+const statusBox=
+document.getElementById(
+"chatOrderStatus"
+);
+
+const statusValue=
+document.getElementById(
+"chatOrderStatusValue"
+);
+
+if(
+!statusBox ||
+!statusValue
+){
+
+return;
+
+}
+
+if(!userId){
+
+statusBox.style.display="none";
+
+return;
+
+}
+
+const {
+data,
+error
+} =
+await supabaseClient
+.from("orders")
+.select(
+"id,status,total,created_at,updated_at"
+)
+.eq(
+"user_id",
+userId
+)
+.order(
+"created_at",
+{ascending:false}
+)
+.limit(1);
+
+if(error){
+
+console.error(
+"Chat order status error:",
+error
+);
+
+statusBox.style.display="none";
+
+return;
+
+}
+
+if(
+!data ||
+data.length===0
+){
+
+statusBox.style.display="none";
+
+return;
+
+}
+
+const order=data[0];
+
+statusValue.textContent=
+getOrderStatusText(
+order.status || "pending"
+);
+
+statusValue.className=
+"chat-order-status-value "+
+(order.status || "pending");
+
+statusBox.style.display="flex";
+
+}
+
+
+/* SELECT CHAT */
 
 async function selectChatCustomer(
 userId,
@@ -1944,6 +2223,10 @@ await loadChatMessages(
 userId
 );
 
+await loadChatOrderStatus(
+userId
+);
+
 await markCustomerMessagesRead(
 userId
 );
@@ -1953,9 +2236,7 @@ await loadChatCustomers();
 }
 
 
-/* =====================================================
-   LOAD CHAT MESSAGES
-===================================================== */
+/* LOAD CHAT */
 
 async function loadChatMessages(
 userId
@@ -2040,7 +2321,6 @@ minute:"2-digit"
 :
 "";
 
-
 return `
 
 <div class="chat-msg ${role}">
@@ -2062,16 +2342,13 @@ ${escapeHtml(time)}
 }
 ).join("");
 
-
 box.scrollTop=
 box.scrollHeight;
 
 }
 
 
-/* =====================================================
-   MARK CUSTOMER MESSAGES READ
-===================================================== */
+/* READ */
 
 async function markCustomerMessagesRead(
 userId
@@ -2110,9 +2387,7 @@ error
 }
 
 
-/* =====================================================
-   SEND ADMIN CHAT MESSAGE
-===================================================== */
+/* SEND CHAT */
 
 async function sendChatMessage(){
 
@@ -2189,9 +2464,7 @@ selectedChatUserId
 }
 
 
-/* =====================================================
-   ENTER SEND
-===================================================== */
+/* ENTER SEND */
 
 document.addEventListener(
 "keydown",
@@ -2220,9 +2493,7 @@ sendChatMessage();
 );
 
 
-/* =====================================================
-   ORDERS
-===================================================== */
+/* ORDERS */
 
 async function loadOrders(){
 
@@ -2275,7 +2546,6 @@ return;
 
 }
 
-
 const userIds=[
 ...new Set(
 orders
@@ -2287,7 +2557,6 @@ return order.user_id;
 .filter(Boolean)
 )
 ];
-
 
 let profiles={};
 
@@ -2326,7 +2595,6 @@ profiles[customer.id]=customer;
 
 }
 
-
 box.innerHTML=
 orders.map(
 function(order){
@@ -2360,7 +2628,6 @@ order.created_at
 ).toLocaleString("az-AZ")
 :
 "";
-
 
 return `
 
@@ -2397,53 +2664,36 @@ ${escapeHtml(total)} AZN
 
 </div>
 
-
 <div class="order-info">
 
 <div>
-
 <strong>Müştəri:</strong>
-
 ${escapeHtml(name)}
-
 </div>
 
 <div>
-
 <strong>Email:</strong>
-
 ${escapeHtml(email)}
-
 </div>
 
 <div>
-
 <strong>Məbləğ:</strong>
-
 ${escapeHtml(total)} AZN
-
 </div>
 
 <div>
-
 <strong>Tarix:</strong>
-
 ${escapeHtml(date)}
-
 </div>
 
 <div>
-
 <strong>User ID:</strong>
-
 ${escapeHtml(
 String(order.user_id || "")
 )}
-
 </div>
 
 </div>
-
 
 <div class="order-actions">
 
@@ -2465,7 +2715,16 @@ ${status==="pending"
 ? "selected"
 : ""}
 >
-Gözləyir
+Cavab gözlənilir
+</option>
+
+<option
+value="confirmed"
+${status==="confirmed"
+? "selected"
+: ""}
+>
+Təsdiqləndi
 </option>
 
 <option
@@ -2497,7 +2756,6 @@ Ləğv edildi
 
 </select>
 
-
 <button
 class="order-chat"
 onclick="
@@ -2524,9 +2782,7 @@ String(order.user_id || "")
 }
 
 
-/* =====================================================
-   UPDATE ORDER STATUS
-===================================================== */
+/* UPDATE STATUS */
 
 async function updateOrderStatus(
 orderId,
@@ -2579,12 +2835,20 @@ return;
 
 await loadOrders();
 
+await loadChatCustomers();
+
+if(selectedChatUserId){
+
+await loadChatOrderStatus(
+selectedChatUserId
+);
+
+}
+
 }
 
 
-/* =====================================================
-   ORDER TO CHAT
-===================================================== */
+/* ORDER TO CHAT */
 
 async function openOrderChat(
 userId,
@@ -2635,6 +2899,10 @@ await loadChatMessages(
 userId
 );
 
+await loadChatOrderStatus(
+userId
+);
+
 await markCustomerMessagesRead(
 userId
 );
@@ -2653,9 +2921,7 @@ block:"center"
 }
 
 
-/* =====================================================
-   REALTIME
-===================================================== */
+/* REALTIME */
 
 function setupAdminRealtime(){
 
@@ -2709,6 +2975,16 @@ async function(){
 
 await loadOrders();
 
+await loadChatCustomers();
+
+if(selectedChatUserId){
+
+await loadChatOrderStatus(
+selectedChatUserId
+);
+
+}
+
 }
 )
 
@@ -2726,9 +3002,7 @@ status
 }
 
 
-/* =====================================================
-   HELPERS
-===================================================== */
+/* HELPERS */
 
 function calculateSalePercent(
 normal,
@@ -2846,9 +3120,7 @@ box.style.display="none";
 }
 
 
-/* =====================================================
-   START
-===================================================== */
+/* START */
 
 checkAdmin();
 
