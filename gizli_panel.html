@@ -174,7 +174,7 @@ color:#777;
 padding:15px 0;
 }
 
-/* QİYMƏT VƏ ENDİRİMLƏR */
+/* QİYMƏT */
 
 .price-product{
 background:#080808;
@@ -251,40 +251,6 @@ background:#16a34a;
 margin-top:8px;
 }
 
-.save-price:hover{
-background:#15803d;
-}
-
-.price-message{
-display:none;
-padding:13px;
-border-radius:10px;
-margin-top:15px;
-background:#0b2b1d;
-border:1px solid #166534;
-color:#86efac;
-line-height:1.5;
-}
-
-.price-message.error{
-background:#2b0b0b;
-border-color:#7f1d1d;
-color:#fca5a5;
-}
-
-/* CANVA */
-
-.canva-price{
-border-color:#3b82f6;
-}
-
-.canva-title{
-color:#60a5fa;
-font-weight:bold;
-font-size:16px;
-margin-bottom:14px;
-}
-
 /* CHAT */
 
 .chat-layout{
@@ -344,8 +310,6 @@ font-weight:bold;
 flex-shrink:0;
 }
 
-/* YENİ STATUS */
-
 .order-status-badge{
 background:#2563eb;
 color:#fff;
@@ -357,25 +321,11 @@ white-space:nowrap;
 flex-shrink:0;
 }
 
-.order-status-badge.pending{
-background:#ca8a04;
-}
-
-.order-status-badge.confirmed{
-background:#16a34a;
-}
-
-.order-status-badge.processing{
-background:#2563eb;
-}
-
-.order-status-badge.completed{
-background:#4b5563;
-}
-
-.order-status-badge.cancelled{
-background:#991b1b;
-}
+.order-status-badge.pending{background:#ca8a04}
+.order-status-badge.confirmed{background:#16a34a}
+.order-status-badge.processing{background:#2563eb}
+.order-status-badge.completed{background:#4b5563}
+.order-status-badge.cancelled{background:#991b1b}
 
 .chat-order-status{
 padding:10px 15px;
@@ -397,25 +347,11 @@ font-weight:bold;
 color:#60a5fa;
 }
 
-.chat-order-status-value.pending{
-color:#facc15;
-}
-
-.chat-order-status-value.confirmed{
-color:#4ade80;
-}
-
-.chat-order-status-value.processing{
-color:#60a5fa;
-}
-
-.chat-order-status-value.completed{
-color:#9ca3af;
-}
-
-.chat-order-status-value.cancelled{
-color:#f87171;
-}
+.chat-order-status-value.pending{color:#facc15}
+.chat-order-status-value.confirmed{color:#4ade80}
+.chat-order-status-value.processing{color:#60a5fa}
+.chat-order-status-value.completed{color:#9ca3af}
+.chat-order-status-value.cancelled{color:#f87171}
 
 .chat-box{
 display:flex;
@@ -550,7 +486,34 @@ background:#374151;
 background:#4b5563;
 }
 
-/* MOBILE */
+.order-current-status{
+display:inline-block;
+padding:5px 9px;
+border-radius:20px;
+font-size:11px;
+font-weight:bold;
+margin-bottom:10px;
+}
+
+.order-current-status.pending{
+background:#ca8a04;
+}
+
+.order-current-status.confirmed{
+background:#16a34a;
+}
+
+.order-current-status.processing{
+background:#2563eb;
+}
+
+.order-current-status.completed{
+background:#4b5563;
+}
+
+.order-current-status.cancelled{
+background:#991b1b;
+}
 
 @media(max-width:600px){
 
@@ -635,11 +598,7 @@ Müştəriyə ödənişdən sonra məhsul ver
 <label>Müştəri</label>
 
 <select id="customerSelect">
-
-<option value="">
-Müştəri seçin...
-</option>
-
+<option value="">Müştəri seçin...</option>
 </select>
 
 <div
@@ -652,9 +611,7 @@ style="display:none"
 
 <select id="productSelect">
 
-<option value="">
-Məhsul seçin...
-</option>
+<option value="">Məhsul seçin...</option>
 
 <option value="Netflix Premium">
 Netflix Premium
@@ -739,10 +696,7 @@ Müştərilər yüklənir...
 
 <div class="chat-box">
 
-<div
-id="chatHeader"
-class="chat-header"
->
+<div id="chatHeader" class="chat-header">
 Müştəri seçin
 </div>
 
@@ -839,6 +793,7 @@ const ADMIN_EMAIL =
 
 let selectedChatUserId = null;
 let selectedChatEmail = null;
+let selectedChatOrderId = null;
 let adminRealtimeChannel = null;
 
 
@@ -1055,9 +1010,9 @@ status:"active"
 
 });
 
-button.disabled=false;
-
 if(error){
+
+button.disabled=false;
 
 console.error(error);
 
@@ -1072,20 +1027,31 @@ return;
 }
 
 
-/* SON AKTİV SİFARİŞİ TƏSDİQLƏ */
+/*
+  VACİB:
+  Artıq sadəcə "son sifariş"i kor-koranə
+  confirmed etmirik.
+
+  Əvvəl həmin müştərinin aktiv gözləyən
+  sifarişlərini tapırıq.
+*/
 
 const {
-data:latestOrders,
-error:latestOrderError
+data:pendingOrders,
+error:pendingOrderError
 } =
 await supabaseClient
 .from("orders")
 .select(
-"id,status,created_at,updated_at"
+"id,status,total,created_at,updated_at"
 )
 .eq(
 "user_id",
 customerId
+)
+.eq(
+"status",
+"pending"
 )
 .order(
 "created_at",
@@ -1094,19 +1060,17 @@ customerId
 .limit(1);
 
 if(
-!latestOrderError &&
-latestOrders &&
-latestOrders.length>0
+!pendingOrderError &&
+pendingOrders &&
+pendingOrders.length>0
 ){
 
-const latestOrder=
-latestOrders[0];
+const orderToConfirm =
+pendingOrders[0];
 
-if(
-latestOrder.status !== "completed" &&
-latestOrder.status !== "cancelled"
-){
-
+const {
+error:updateError
+} =
 await supabaseClient
 .from("orders")
 .update({
@@ -1119,12 +1083,33 @@ new Date().toISOString()
 })
 .eq(
 "id",
-latestOrder.id
+orderToConfirm.id
+);
+
+/*
+  Burada konkret order.id istifadə olunur.
+  Başqa müştərinin sifarişinə toxunmur.
+*/
+
+if(updateError){
+
+console.error(
+"Order confirm error:",
+updateError
 );
 
 }
 
+}else if(pendingOrderError){
+
+console.error(
+"Pending order search error:",
+pendingOrderError
+);
+
 }
+
+button.disabled=false;
 
 document.getElementById(
 "accountInfo"
@@ -1135,7 +1120,7 @@ document.getElementById(
 ).value="";
 
 showMessage(
-"Məhsul müştəriyə uğurla əlavə edildi və sifariş təsdiqləndi."
+"Məhsul müştəriyə uğurla əlavə edildi."
 );
 
 await loadProducts();
@@ -1421,7 +1406,6 @@ Endirimi aktiv et
 
 <span
 class="sale-percent"
-id="sale12percent_${item.id}"
 >
 ${calculateSalePercent(
 Number(price12),
@@ -1888,6 +1872,11 @@ ordersError
 
 }else{
 
+/*
+  Hər user üçün ayrıca ən son sifariş.
+  Sifarişin ID-si də yadda saxlanılır.
+*/
+
 (orders || []).forEach(
 function(order){
 
@@ -2104,6 +2093,104 @@ return statuses[status] ||
 }
 
 
+/*
+  Müştərinin konkret aktiv sifarişini tapır.
+  Əvvəl pending/confirmed/processing olan sifarişə üstünlük verir.
+*/
+
+async function getCustomerActiveOrder(userId){
+
+if(!userId){
+
+return null;
+
+}
+
+const {
+data,
+error
+} =
+await supabaseClient
+.from("orders")
+.select(
+"id,user_id,total,status,created_at,updated_at"
+)
+.eq(
+"user_id",
+userId
+)
+.in(
+"status",
+[
+"pending",
+"confirmed",
+"processing"
+]
+)
+.order(
+"created_at",
+{ascending:false}
+)
+.limit(1);
+
+if(error){
+
+console.error(
+"Active order error:",
+error
+);
+
+return null;
+
+}
+
+if(data && data.length>0){
+
+return data[0];
+
+}
+
+/*
+  Aktiv sifariş yoxdursa, son sifarişi göstər.
+*/
+
+const {
+data:lastOrders,
+error:lastError
+} =
+await supabaseClient
+.from("orders")
+.select(
+"id,user_id,total,status,created_at,updated_at"
+)
+.eq(
+"user_id",
+userId
+)
+.order(
+"created_at",
+{ascending:false}
+)
+.limit(1);
+
+if(lastError){
+
+console.error(
+"Last order error:",
+lastError
+);
+
+return null;
+
+}
+
+return lastOrders && lastOrders.length>0
+? lastOrders[0]
+: null;
+
+}
+
+
 /* CHAT STATUS */
 
 async function loadChatOrderStatus(userId){
@@ -2131,54 +2218,26 @@ if(!userId){
 
 statusBox.style.display="none";
 
+selectedChatOrderId=null;
+
 return;
 
 }
 
-const {
-data,
-error
-} =
-await supabaseClient
-.from("orders")
-.select(
-"id,status,total,created_at,updated_at"
-)
-.eq(
-"user_id",
-userId
-)
-.order(
-"created_at",
-{ascending:false}
-)
-.limit(1);
+const order=
+await getCustomerActiveOrder(userId);
 
-if(error){
-
-console.error(
-"Chat order status error:",
-error
-);
+if(!order){
 
 statusBox.style.display="none";
 
-return;
-
-}
-
-if(
-!data ||
-data.length===0
-){
-
-statusBox.style.display="none";
+selectedChatOrderId=null;
 
 return;
 
 }
 
-const order=data[0];
+selectedChatOrderId=order.id;
 
 statusValue.textContent=
 getOrderStatusText(
@@ -2203,6 +2262,7 @@ email
 
 selectedChatUserId=userId;
 selectedChatEmail=email;
+selectedChatOrderId=null;
 
 const header=
 document.getElementById(
@@ -2493,7 +2553,9 @@ sendChatMessage();
 );
 
 
-/* ORDERS */
+/* =====================================================
+ORDERS
+===================================================== */
 
 async function loadOrders(){
 
@@ -2664,6 +2726,18 @@ ${escapeHtml(total)} AZN
 
 </div>
 
+<div>
+
+<span
+class="order-current-status ${escapeHtml(status)}"
+>
+${escapeHtml(
+getOrderStatusText(status)
+)}
+</span>
+
+</div>
+
 <div class="order-info">
 
 <div>
@@ -2699,11 +2773,10 @@ String(order.user_id || "")
 
 <select
 class="order-status"
+data-order-id="${escapeHtml(String(order.id))}"
 onchange="
 updateOrderStatus(
-'${escapeHtml(
-String(order.id)
-)}',
+this.dataset.orderId,
 this.value
 )
 "
@@ -2758,12 +2831,12 @@ Ləğv edildi
 
 <button
 class="order-chat"
+data-user-id="${escapeHtml(String(order.user_id || ""))}"
+data-email="${escapeHtml(email)}"
 onclick="
 openOrderChat(
-'${escapeHtml(
-String(order.user_id || "")
-)}',
-'${escapeHtml(email)}'
+this.dataset.userId,
+this.dataset.email
 )
 "
 >
@@ -2798,6 +2871,31 @@ alert(
 return;
 
 }
+
+const allowedStatuses=[
+"pending",
+"confirmed",
+"processing",
+"completed",
+"cancelled"
+];
+
+if(
+!allowedStatuses.includes(status)
+){
+
+alert(
+"Yanlış sifariş statusu."
+);
+
+return;
+
+}
+
+/*
+  YALNIZ konkret order.id dəyişdirilir.
+  Başqa sifarişə və başqa müştəriyə toxunulmur.
+*/
 
 const {
 error
@@ -2867,6 +2965,7 @@ return;
 
 selectedChatUserId=userId;
 selectedChatEmail=email || "";
+selectedChatOrderId=null;
 
 const header=
 document.getElementById(
@@ -2956,6 +3055,10 @@ await loadChatCustomers();
 if(selectedChatUserId){
 
 await loadChatMessages(
+selectedChatUserId
+);
+
+await loadChatOrderStatus(
 selectedChatUserId
 );
 
