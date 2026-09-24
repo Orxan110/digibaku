@@ -9,11 +9,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-*{
-box-sizing:border-box;
-margin:0;
-padding:0;
-}
+*{box-sizing:border-box;margin:0;padding:0}
 
 body{
 font-family:Arial,sans-serif;
@@ -49,9 +45,7 @@ font-weight:900;
 color:#3b82f6;
 }
 
-.logo span{
-color:#fff;
-}
+.logo span{color:#fff}
 
 .back{
 color:#aaa;
@@ -59,9 +53,7 @@ text-decoration:none;
 font-size:14px;
 }
 
-main{
-padding:30px 0 60px;
-}
+main{padding:30px 0 60px}
 
 .card{
 background:#101010;
@@ -71,9 +63,7 @@ margin-bottom:20px;
 overflow:hidden;
 }
 
-h2{
-font-size:21px;
-}
+h2{font-size:21px}
 
 .subtitle{
 color:#888;
@@ -89,9 +79,7 @@ font-weight:bold;
 margin-bottom:7px;
 }
 
-input,
-select,
-textarea{
+input,select,textarea{
 width:100%;
 padding:14px;
 margin-bottom:16px;
@@ -131,9 +119,7 @@ padding:70px 20px;
 color:#888;
 }
 
-#adminPanel{
-display:none;
-}
+#adminPanel{display:none}
 
 .message{
 display:none;
@@ -163,7 +149,7 @@ font-size:13px;
 margin-right:8px;
 }
 
-.accordion-card > h2{
+.accordion-card>h2{
 padding:20px 24px;
 cursor:pointer;
 display:flex;
@@ -172,20 +158,16 @@ user-select:none;
 transition:.2s;
 }
 
-.accordion-card > h2:hover{
-background:#151515;
-}
+.accordion-card>h2:hover{background:#151515}
 
-.accordion-card > h2::after{
+.accordion-card>h2::after{
 content:"＋";
 margin-left:auto;
 font-size:23px;
 color:#60a5fa;
 }
 
-.accordion-card.open > h2::after{
-content:"−";
-}
+.accordion-card.open>h2::after{content:"−"}
 
 .accordion-content{
 display:none;
@@ -193,9 +175,7 @@ padding:20px 24px 24px;
 border-top:1px solid #262626;
 }
 
-.accordion-card.open .accordion-content{
-display:block;
-}
+.accordion-card.open .accordion-content{display:block}
 
 .order-summary{
 display:grid;
@@ -214,9 +194,7 @@ align-items:center;
 gap:12px;
 }
 
-.summary-icon{
-font-size:25px;
-}
+.summary-icon{font-size:25px}
 
 .summary-label{
 font-size:12px;
@@ -245,9 +223,7 @@ align-items:center;
 gap:12px;
 }
 
-.notification-mail{
-font-size:27px;
-}
+.notification-mail{font-size:27px}
 
 .notification-title{
 font-weight:bold;
@@ -271,8 +247,6 @@ justify-content:center;
 font-weight:bold;
 }
 
-/* NEW CHAT ALERT */
-
 .new-chat-alert{
 position:fixed;
 right:20px;
@@ -294,9 +268,7 @@ cursor:pointer;
 animation:chatAlertPulse 1.1s infinite;
 }
 
-.new-chat-alert.show{
-display:flex;
-}
+.new-chat-alert.show{display:flex}
 
 .new-chat-alert-left{
 display:flex;
@@ -353,25 +325,19 @@ flex-shrink:0;
 }
 
 @keyframes chatAlertPulse{
-
 0%{
 box-shadow:0 0 0 0 rgba(37,99,235,.75);
 opacity:1;
 }
-
 50%{
 box-shadow:0 0 0 9px rgba(37,99,235,0);
 opacity:.72;
 }
-
 100%{
 box-shadow:0 0 0 0 rgba(37,99,235,0);
 opacity:1;
 }
-
 }
-
-/* PRODUCT */
 
 .customer-info{
 background:#080808;
@@ -392,9 +358,7 @@ padding:15px;
 margin-bottom:16px;
 }
 
-.product-price-panel.visible{
-display:block;
-}
+.product-price-panel.visible{display:block}
 
 .product-price-title{
 font-size:14px;
@@ -417,9 +381,7 @@ cursor:pointer;
 transition:.2s;
 }
 
-.duration-option:hover{
-border-color:#2563eb;
-}
+.duration-option:hover{border-color:#2563eb}
 
 .duration-option.active{
 border-color:#2563eb;
@@ -447,9 +409,7 @@ margin-top:12px;
 display:none;
 }
 
-.selected-price.show{
-display:block;
-}
+.selected-price.show{display:block}
 
 .selected-price-title{
 font-size:12px;
@@ -468,8 +428,6 @@ color:#777;
 margin-top:-8px;
 margin-bottom:15px;
 }
-
-/* GIVEN PRODUCTS */
 
 .product{
 background:#080808;
@@ -557,8 +515,6 @@ margin-top:12px;
 background:#991b1b;
 }
 
-/* PRICE */
-
 .price-product{
 background:#080808;
 border:1px solid #252525;
@@ -626,8 +582,6 @@ border-color:#7f1d1d;
 color:#fca5a5;
 }
 
-/* CHAT */
-
 .chat-layout{
 display:grid;
 grid-template-columns:260px 1fr;
@@ -648,9 +602,7 @@ border-bottom:1px solid #222;
 cursor:pointer;
 }
 
-.chat-customer:hover{
-background:#151515;
-}
+.chat-customer:hover{background:#151515}
 
 .chat-customer.active{
 background:#172554;
@@ -691,25 +643,11 @@ font-weight:bold;
 white-space:nowrap;
 }
 
-.order-status-badge.pending{
-background:#ca8a04;
-}
-
-.order-status-badge.confirmed{
-background:#16a34a;
-}
-
-.order-status-badge.processing{
-background:#2563eb;
-}
-
-.order-status-badge.completed{
-background:#4b5563;
-}
-
-.order-status-badge.cancelled{
-background:#991b1b;
-}
+.order-status-badge.pending{background:#ca8a04}
+.order-status-badge.confirmed{background:#16a34a}
+.order-status-badge.processing{background:#2563eb}
+.order-status-badge.completed{background:#4b5563}
+.order-status-badge.cancelled{background:#991b1b}
 
 .chat-box{
 display:flex;
@@ -741,9 +679,7 @@ border-bottom:1px solid #222;
 justify-content:space-between;
 }
 
-.chat-order-status-value{
-font-weight:bold;
-}
+.chat-order-status-value{font-weight:bold}
 
 .chat-status-save{
 margin-top:8px;
@@ -799,8 +735,6 @@ min-height:75px;
 margin-bottom:8px;
 }
 
-/* ORDERS */
-
 .orders-heading{
 display:flex;
 align-items:center;
@@ -826,9 +760,7 @@ padding:16px;
 margin-bottom:12px;
 }
 
-.order-card.new-order{
-border-color:#854d0e;
-}
+.order-card.new-order{border-color:#854d0e}
 
 .new-label{
 display:inline-block;
@@ -868,9 +800,7 @@ line-height:1.7;
 margin-bottom:12px;
 }
 
-.order-info strong{
-color:#ddd;
-}
+.order-info strong{color:#ddd}
 
 .order-actions{
 display:grid;
@@ -878,13 +808,9 @@ grid-template-columns:1fr 1fr;
 gap:10px;
 }
 
-.order-status{
-margin:0;
-}
+.order-status{margin:0}
 
-.order-chat{
-background:#374151;
-}
+.order-chat{background:#374151}
 
 .order-current-status{
 display:inline-block;
@@ -895,25 +821,11 @@ font-weight:bold;
 margin-bottom:10px;
 }
 
-.order-current-status.pending{
-background:#ca8a04;
-}
-
-.order-current-status.confirmed{
-background:#16a34a;
-}
-
-.order-current-status.processing{
-background:#2563eb;
-}
-
-.order-current-status.completed{
-background:#4b5563;
-}
-
-.order-current-status.cancelled{
-background:#991b1b;
-}
+.order-current-status.pending{background:#ca8a04}
+.order-current-status.confirmed{background:#16a34a}
+.order-current-status.processing{background:#2563eb}
+.order-current-status.completed{background:#4b5563}
+.order-current-status.cancelled{background:#991b1b}
 
 .empty{
 color:#777;
@@ -931,35 +843,25 @@ line-height:1.5;
 
 @media(max-width:600px){
 
-.container{
-width:94%;
-}
+.container{width:94%}
 
-.order-summary{
-grid-template-columns:1fr;
-}
+.order-summary{grid-template-columns:1fr}
 
-.duration-grid{
-grid-template-columns:1fr;
-}
+.duration-grid{grid-template-columns:1fr}
 
 .price-row{
 grid-template-columns:1fr;
 gap:0;
 }
 
-.chat-layout{
-grid-template-columns:1fr;
-}
+.chat-layout{grid-template-columns:1fr}
 
 .chat-customers{
 max-height:230px;
 overflow-y:auto;
 }
 
-.order-actions{
-grid-template-columns:1fr;
-}
+.order-actions{grid-template-columns:1fr}
 
 .orders-heading{
 flex-direction:column;
@@ -993,11 +895,10 @@ DigiBaku<span>.com</span>
 </header>
 
 <main>
-
 <div class="container">
 
 <div id="loading" class="loading">
-Admin yoxlanılır...
+Supabase bağlantısı yoxlanılır...
 </div>
 
 <div id="adminPanel">
@@ -1009,14 +910,9 @@ Admin yoxlanılır...
 <div class="summary-icon">📦</div>
 
 <div>
-<div class="summary-label">
-Aktiv sifarişlər
-</div>
+<div class="summary-label">Aktiv sifarişlər</div>
 
-<div
-id="activeOrderCount"
-class="summary-value"
->
+<div id="activeOrderCount" class="summary-value">
 0
 </div>
 </div>
@@ -1032,9 +928,7 @@ onclick="scrollToOrders()"
 
 <div class="notification-left">
 
-<div class="notification-mail">
-✉️
-</div>
+<div class="notification-mail">✉️</div>
 
 <div>
 
@@ -1042,10 +936,7 @@ onclick="scrollToOrders()"
 Yeni sifariş
 </div>
 
-<div
-id="newOrderNotificationText"
-class="notification-text"
->
+<div id="newOrderNotificationText" class="notification-text">
 0 yeni sifariş
 </div>
 
@@ -1053,10 +944,7 @@ class="notification-text"
 
 </div>
 
-<div
-id="newOrderCount"
-class="notification-count"
->
+<div id="newOrderCount" class="notification-count">
 0
 </div>
 
@@ -1064,10 +952,7 @@ class="notification-count"
 
 </div>
 
-<div
-class="card accordion-card"
-id="priceSection"
->
+<div class="card accordion-card" id="priceSection">
 
 <h2 onclick="toggleAdminSection(this)">
 <span class="section-number">1</span>
@@ -1081,9 +966,7 @@ Məhsulların qiymətlərini və endirimlərini buradan idarə et.
 </p>
 
 <div id="pricesList">
-<div class="empty">
-Qiymətlər yüklənir...
-</div>
+<div class="empty">Qiymətlər yüklənir...</div>
 </div>
 
 <div id="priceMessage" class="price-message"></div>
@@ -1091,10 +974,7 @@ Qiymətlər yüklənir...
 </div>
 </div>
 
-<div
-class="card accordion-card"
-id="giveProductSection"
->
+<div class="card accordion-card" id="giveProductSection">
 
 <h2 onclick="toggleAdminSection(this)">
 <span class="section-number">2</span>
@@ -1110,78 +990,41 @@ Müştəriyə Məhsul Ver
 <label>Müştəri</label>
 
 <select id="customerSelect">
-<option value="">
-Müştəri seçin...
-</option>
+<option value="">Müştəri seçin...</option>
 </select>
 
-<div
-id="selectedCustomer"
-class="customer-info"
-style="display:none"
-></div>
+<div id="selectedCustomer" class="customer-info" style="display:none"></div>
 
 <label>Məhsul</label>
 
 <select id="productSelect">
 
-<option value="">
-Məhsul seçin...
-</option>
+<option value="">Məhsul seçin...</option>
 
-<option value="Netflix Premium">
-Netflix Premium
-</option>
-
-<option value="YouTube Premium">
-YouTube Premium
-</option>
-
-<option value="ChatGPT Plus">
-ChatGPT Plus
-</option>
-
-<option value="Google Gemini Premium">
-Google Gemini Premium
-</option>
-
-<option value="Spotify Premium">
-Spotify Premium
-</option>
-
-<option value="Canva Premium">
-Canva Premium
-</option>
+<option value="Netflix Premium">Netflix Premium</option>
+<option value="YouTube Premium">YouTube Premium</option>
+<option value="ChatGPT Plus">ChatGPT Plus</option>
+<option value="Google Gemini Premium">Google Gemini Premium</option>
+<option value="Spotify Premium">Spotify Premium</option>
+<option value="Canva Premium">Canva Premium</option>
 
 </select>
 
-<div
-id="productPricePanel"
-class="product-price-panel"
->
+<div id="productPricePanel" class="product-price-panel">
 
 <div class="product-price-title">
 Məhsul üçün mövcud müddətlər və qiymətlər
 </div>
 
-<div
-id="durationOptions"
-class="duration-grid"
-></div>
+<div id="durationOptions" class="duration-grid"></div>
 
-<div
-id="selectedPrice"
-class="selected-price"
->
+<div id="selectedPrice" class="selected-price">
 
 <div class="selected-price-title">
 Seçilmiş paket
 </div>
 
-<div
-id="selectedPriceValue"
-class="selected-price-value"
->
+<div id="selectedPriceValue" class="selected-price-value">
 0.00 AZN
 </div>
 
@@ -1192,30 +1035,21 @@ class="selected-price-value"
 <label>Müddət</label>
 
 <select id="durationSelect">
-
-<option value="">
-Əvvəlcə məhsul seçin...
-</option>
-
+<option value="">Əvvəlcə məhsul seçin...</option>
 </select>
 
 <div class="duration-help">
 Seçdiyin müddət məhsula dəqiq saxlanılır.
 </div>
 
-<label>
-Müştəriyə veriləcək hesab məlumatı
-</label>
+<label>Müştəriyə veriləcək hesab məlumatı</label>
 
 <textarea
 id="accountInfo"
 placeholder="Email, şifrə və ya digər hesab məlumatı..."
 ></textarea>
 
-<button
-id="addButton"
-onclick="addProduct()"
->
+<button id="addButton" onclick="addProduct()">
 Məhsulu müştəriyə əlavə et
 </button>
 
@@ -1224,10 +1058,7 @@ Məhsulu müştəriyə əlavə et
 </div>
 </div>
 
-<div
-class="card accordion-card"
-id="givenProductsSection"
->
+<div class="card accordion-card" id="givenProductsSection">
 
 <h2 onclick="toggleAdminSection(this)">
 <span class="section-number">3</span>
@@ -1241,18 +1072,13 @@ Müştərilərə verilmiş məhsullara bax.
 </p>
 
 <div id="productsList">
-<div class="empty">
-Verilmiş məhsullar yüklənir...
-</div>
+<div class="empty">Verilmiş məhsullar yüklənir...</div>
 </div>
 
 </div>
 </div>
 
-<div
-class="card accordion-card"
-id="chatSection"
->
+<div class="card accordion-card" id="chatSection">
 
 <h2 onclick="toggleAdminSection(this)">
 <span class="section-number">4</span>
@@ -1270,68 +1096,38 @@ Müştərilərlə birbaşa yazış.
 <div class="chat-customers">
 
 <div id="chatCustomers">
-<div class="empty">
-Müştərilər yüklənir...
-</div>
+<div class="empty">Müştərilər yüklənir...</div>
 </div>
 
 </div>
 
 <div class="chat-box">
 
-<div
-id="chatHeader"
-class="chat-header"
->
+<div id="chatHeader" class="chat-header">
 Müştəri seçin
 </div>
 
-<div
-id="chatOrderStatus"
-class="chat-order-status"
->
+<div id="chatOrderStatus" class="chat-order-status">
 
-<span>
-📦 Sifariş statusu
-</span>
+<span>📦 Sifariş statusu</span>
 
-<span
-id="chatOrderStatusValue"
-class="chat-order-status-value"
->
+<span id="chatOrderStatusValue" class="chat-order-status-value">
 -
 </span>
 
 </div>
 
-<div
-id="chatOrderStatusControl"
-class="chat-order-status-control"
->
+<div id="chatOrderStatusControl" class="chat-order-status-control">
 
 <label>Statusu dəyiş</label>
 
 <select id="chatOrderStatusSelect">
 
-<option value="pending">
-Cavab gözlənilir
-</option>
-
-<option value="confirmed">
-Təsdiqləndi
-</option>
-
-<option value="processing">
-Hazırlanır
-</option>
-
-<option value="completed">
-Hazırdır
-</option>
-
-<option value="cancelled">
-Ləğv edildi
-</option>
+<option value="pending">Cavab gözlənilir</option>
+<option value="confirmed">Təsdiqləndi</option>
+<option value="processing">Hazırlanır</option>
+<option value="completed">Hazırdır</option>
+<option value="cancelled">Ləğv edildi</option>
 
 </select>
 
@@ -1344,13 +1140,12 @@ Statusu yadda saxla
 
 </div>
 
-<div
-id="chatMessages"
-class="chat-messages"
->
+<div id="chatMessages" class="chat-messages">
+
 <div class="empty">
 Mesajları görmək üçün müştəri seçin.
 </div>
+
 </div>
 
 <div class="chat-send">
@@ -1376,10 +1171,7 @@ Mesaj göndər
 </div>
 </div>
 
-<div
-class="card accordion-card"
-id="ordersSection"
->
+<div class="card accordion-card" id="ordersSection">
 
 <h2 onclick="toggleAdminSection(this)">
 <span class="section-number">5</span>
@@ -1394,19 +1186,14 @@ id="ordersSection"
 Müştərilərin bütün sifarişlərini idarə et.
 </p>
 
-<div
-id="activeOrderBadge"
-class="active-order-badge"
->
+<div id="activeOrderBadge" class="active-order-badge">
 Aktiv: 0
 </div>
 
 </div>
 
 <div id="ordersList">
-<div class="empty">
-Sifarişlər yüklənir...
-</div>
+<div class="empty">Sifarişlər yüklənir...</div>
 </div>
 
 </div>
@@ -1434,10 +1221,7 @@ onclick="openNewChatAlert()"
 Yeni mesaj
 </div>
 
-<div
-id="newChatAlertName"
-class="new-chat-alert-name"
->
+<div id="newChatAlertName" class="new-chat-alert-name">
 Müştəri
 </div>
 
@@ -1445,10 +1229,7 @@ Müştəri
 
 </div>
 
-<div
-id="newChatAlertCount"
-class="new-chat-alert-count"
->
+<div id="newChatAlertCount" class="new-chat-alert-count">
 0
 </div>
 
@@ -1469,45 +1250,54 @@ const SUPABASE_KEY =
 const ADMIN_EMAIL =
 "zahidovorxan989@gmail.com";
 
-let supabaseClient = null;
+let supabaseClient=null;
 
 
 /* =====================================================
 SUPABASE INITIALIZATION
-ƏSAS DÜZƏLİŞ BURADADIR.
-CDN YÜKLƏNMƏDƏN createClient ÇAĞIRILMIR.
+ƏSAS DÜZƏLİŞ:
+SUPABASE AUTH LOCK PROBLEMİNİN QARŞISI ALINIR
 ===================================================== */
 
 async function initSupabase(){
 
-for(let i=0;i<100;i++){
-
 if(
-window.supabase &&
-typeof window.supabase.createClient==="function"
+!window.supabase ||
+typeof window.supabase.createClient!=="function"
 ){
 
-supabaseClient =
+throw new Error(
+"Supabase kitabxanası yüklənmədi."
+);
+
+}
+
+supabaseClient=
 window.supabase.createClient(
 SUPABASE_URL,
-SUPABASE_KEY
+SUPABASE_KEY,
+{
+auth:{
+autoRefreshToken:true,
+persistSession:true,
+detectSessionInUrl:true,
+
+/*
+Safari / iPhone / GitHub Pages
+üçün navigator.locks problemi
+olmasın deyə birbaşa icra edilir.
+*/
+lock:async function(name,acquireTimeout,fn){
+
+return await fn();
+
+}
+
+}
+}
 );
 
 return true;
-
-}
-
-await new Promise(function(resolve){
-
-setTimeout(resolve,100);
-
-});
-
-}
-
-throw new Error(
-"Supabase kitabxanası yüklənmədi. İnternet bağlantısını və CDN bağlantısını yoxlayın."
-);
 
 }
 
@@ -1530,6 +1320,25 @@ let priceDataCache=[];
 
 let selectedDurationMonths=null;
 let selectedDurationPrice=null;
+
+
+/* =====================================================
+TIMEOUT HELPER
+===================================================== */
+
+function timeoutPromise(ms,message){
+
+return new Promise(function(_,reject){
+
+setTimeout(function(){
+
+reject(new Error(message));
+
+},ms);
+
+});
+
+}
 
 
 /* =====================================================
@@ -1562,179 +1371,158 @@ section.classList.add("open");
 
 
 /* =====================================================
-ADMIN
+ADMIN CHECK
 ===================================================== */
 
 async function checkAdmin(){
 
-const loading =
+const loading=
 document.getElementById("loading");
 
-const panel =
+const panel=
 document.getElementById("adminPanel");
 
 try{
 
-const sessionResult =
+loading.innerHTML=
+"Admin hesabı yoxlanılır...";
+
+
+/*
+Əvvəl session yoxlanılır.
+15 saniyədən çox gözləməyə icazə verilmir.
+*/
+
+const result=
 await Promise.race([
 
 supabaseClient.auth.getSession(),
 
-new Promise(function(_,reject){
-
-setTimeout(function(){
-
-reject(
-new Error(
-"Session yoxlanışı 10 saniyədən sonra dayandırıldı."
+timeoutPromise(
+15000,
+"Supabase session yoxlanışı vaxt aşımına uğradı. Login sessiyası tapılmadı və ya Supabase bağlantısı cavab vermədi."
 )
-);
-
-},10000);
-
-})
 
 ]);
 
-const session =
-sessionResult?.data?.session;
+const session=
+result &&
+result.data &&
+result.data.session
+?
+result.data.session
+:
+null;
+
 
 if(!session){
 
-window.location.href="login.html";
+loading.innerHTML=
+"Admin sessiyası tapılmadı. Login səhifəsinə keçilir...";
+
+setTimeout(function(){
+
+window.location.replace("login.html");
+
+},700);
 
 return;
 
 }
 
-const userEmail =
+
+const userEmail=
 String(
-session.user?.email || ""
+session.user &&
+session.user.email
+?
+session.user.email
+:
+""
 ).toLowerCase();
 
-if(
-userEmail !==
-ADMIN_EMAIL.toLowerCase()
-){
+
+if(userEmail!==ADMIN_EMAIL.toLowerCase()){
 
 alert(
 "Bu səhifəyə giriş icazəniz yoxdur."
 );
 
-await supabaseClient.auth.signOut();
+try{
+await Promise.race([
+supabaseClient.auth.signOut(),
+timeoutPromise(5000,"signOut timeout")
+]);
+}catch(e){
+console.error(e);
+}
 
-window.location.href="login.html";
+window.location.replace("login.html");
 
 return;
 
 }
 
-loading.style.display="none";
 
+/*
+ADMIN TƏSDİQLƏNDİ
+*/
+
+loading.style.display="none";
 panel.style.display="block";
 
 
-try{
+/*
+Məlumatların heç biri admin panelinin
+açılmasına mane olmur.
+*/
 
+try{
 await loadCustomers();
-
 }catch(error){
-
-console.error(
-"Customers loading error:",
-error
-);
-
+console.error("Customers loading error:",error);
 }
 
-
 try{
-
 await loadPrices();
-
 }catch(error){
-
-console.error(
-"Prices loading error:",
-error
-);
-
+console.error("Prices loading error:",error);
 }
 
-
 try{
-
 await loadProducts();
-
 }catch(error){
-
-console.error(
-"Products loading error:",
-error
-);
-
+console.error("Products loading error:",error);
 }
 
-
 try{
-
 await loadChatCustomers();
-
 }catch(error){
-
-console.error(
-"Chat customers loading error:",
-error
-);
-
+console.error("Chat customers loading error:",error);
 }
 
-
 try{
-
 await loadOrders();
-
 }catch(error){
-
-console.error(
-"Orders loading error:",
-error
-);
-
+console.error("Orders loading error:",error);
 }
 
-
 try{
-
 await checkUnreadChatMessages();
-
 }catch(error){
-
-console.error(
-"Unread messages error:",
-error
-);
-
+console.error("Unread messages error:",error);
 }
-
 
 try{
-
 setupAdminRealtime();
-
 }catch(error){
-
-console.error(
-"Realtime setup error:",
-error
-);
-
+console.error("Realtime setup error:",error);
 }
 
 }catch(error){
 
 console.error(
-"Admin check error:",
+"ADMIN CHECK ERROR:",
 error
 );
 
@@ -1766,7 +1554,10 @@ line-height:1.6;
 word-break:break-word;
 ">
 ${escapeHtml(
-error?.message ||
+error&&error.message
+?
+error.message
+:
 "Naməlum xəta"
 )}
 </div>
@@ -1841,9 +1632,7 @@ option.value=customer.id;
 option.textContent=
 customer.full_name
 ?
-customer.full_name+
-" — "+
-customer.email
+customer.full_name+" — "+customer.email
 :
 customer.email;
 
@@ -2074,38 +1863,32 @@ if(name===wanted)return true;
 if(
 wanted.includes("netflix") &&
 (name.includes("netflix")||key==="netflix")
-)
-return true;
+)return true;
 
 if(
 wanted.includes("youtube") &&
 (name.includes("youtube")||key==="youtube")
-)
-return true;
+)return true;
 
 if(
 wanted.includes("chatgpt") &&
 (name.includes("chatgpt")||key==="chatgpt")
-)
-return true;
+)return true;
 
 if(
 wanted.includes("gemini") &&
 (name.includes("gemini")||key==="gemini")
-)
-return true;
+)return true;
 
 if(
 wanted.includes("spotify") &&
 (name.includes("spotify")||key==="spotify")
-)
-return true;
+)return true;
 
 if(
 wanted.includes("canva") &&
 (name.includes("canva")||key==="canva")
-)
-return true;
+)return true;
 
 return false;
 
@@ -2151,16 +1934,14 @@ document
 
 option.classList.toggle(
 "active",
-Number(option.dataset.months)===
-Number(months)
+Number(option.dataset.months)===Number(months)
 );
 
 });
 
 document.getElementById(
 "durationSelect"
-).value=
-String(months);
+).value=String(months);
 
 document.getElementById(
 "selectedPrice"
@@ -2272,7 +2053,6 @@ document.getElementById(
 if(!customerId){
 
 showMessage("Müştəri seçin.",true);
-
 return;
 
 }
@@ -2280,7 +2060,6 @@ return;
 if(!product){
 
 showMessage("Məhsul seçin.",true);
-
 return;
 
 }
@@ -2288,7 +2067,6 @@ return;
 if(!selectedDurationMonths){
 
 showMessage("Müddət seçin.",true);
-
 return;
 
 }
@@ -2320,7 +2098,6 @@ selectedDurationMonths
 );
 
 const {
-data,
 error
 }=
 await supabaseClient
@@ -2341,9 +2118,7 @@ Number(selectedDurationMonths),
 expires_at:
 expiryDate.toISOString()
 
-})
-.select("*")
-.single();
+});
 
 if(error){
 
@@ -2376,9 +2151,7 @@ await supabaseClient
 )
 .order(
 "created_at",
-{
-ascending:false
-}
+{ascending:false}
 )
 .limit(1);
 
@@ -2394,10 +2167,7 @@ updated_at:
 new Date().toISOString()
 
 })
-.eq(
-"id",
-orders[0].id
-);
+.eq("id",orders[0].id);
 
 }
 
@@ -2453,9 +2223,7 @@ await supabaseClient
 .select("*")
 .order(
 "created_at",
-{
-ascending:false
-}
+{ascending:false}
 );
 
 if(error){
@@ -2471,7 +2239,7 @@ return;
 
 }
 
-if(!data?.length){
+if(!data||!data.length){
 
 box.innerHTML=
 '<div class="empty">Hələ məhsul yoxdur.</div>';
@@ -2482,9 +2250,7 @@ return;
 
 const ids=[
 ...new Set(
-data
-.map(x=>x.user_id)
-.filter(Boolean)
+data.map(x=>x.user_id).filter(Boolean)
 )
 ];
 
@@ -2530,8 +2296,7 @@ new Date(item.created_at)
 new Date();
 
 const duration=
-Number(item.duration_months)||
-1;
+Number(item.duration_months)||1;
 
 const end=
 item.expires_at
@@ -2540,23 +2305,19 @@ new Date(item.expires_at)
 :
 addMonthsSafe(start,duration);
 
-const expired=
-end<new Date();
+const expired=end<new Date();
 
 let statusClass="active";
-
 let statusText="Aktiv";
 
 if(item.status==="cancelled"){
 
 statusClass="cancelled";
-
 statusText="Ləğv edilib";
 
 }else if(expired){
 
 statusClass="expired";
-
 statusText="Müddəti bitib";
 
 }
@@ -2646,7 +2407,6 @@ await supabaseClient
 if(error){
 
 alert(error.message);
-
 return;
 
 }
@@ -2691,7 +2451,7 @@ return;
 
 priceDataCache=data||[];
 
-if(!data?.length){
+if(!data||!data.length){
 
 box.innerHTML=
 '<div class="empty">Qiymət yoxdur.</div>';
@@ -2790,9 +2550,7 @@ ${escapeHtml(item.product_name)}
 </h3>
 
 ${createPriceMonth(item,1,"1 ay")}
-
 ${createPriceMonth(item,2,"2 ay")}
-
 ${createPriceMonth(item,3,"3 ay")}
 
 <button
@@ -3001,9 +2759,7 @@ await supabaseClient
 )
 .order(
 "created_at",
-{
-ascending:false
-}
+{ascending:false}
 );
 
 if(error){
@@ -3063,9 +2819,7 @@ await supabaseClient
 .in("user_id",ids)
 .order(
 "created_at",
-{
-ascending:false
-}
+{ascending:false}
 );
 
 (orders||[]).forEach(function(order){
@@ -3106,8 +2860,7 @@ customerMap[item.user_id].unread++;
 
 });
 
-const list=
-Object.values(customerMap);
+const list=Object.values(customerMap);
 
 list.sort(function(a,b){
 
@@ -3156,11 +2909,11 @@ ${escapeHtml(name)}
 
 <span>
 ${escapeHtml(
-item.last_message.length>35
+(item.last_message||"").length>35
 ?
 item.last_message.substring(0,35)+"..."
 :
-item.last_message
+(item.last_message||"")
 )}
 </span>
 
@@ -3234,13 +2987,9 @@ return map[status]||status;
 CHAT SELECT
 ===================================================== */
 
-async function selectChatCustomer(
-userId,
-email
-){
+async function selectChatCustomer(userId,email){
 
 selectedChatUserId=userId;
-
 selectedChatEmail=email;
 
 syncProductCustomer(userId);
@@ -3255,11 +3004,8 @@ document.getElementById(
 "💬 "+(email||"Müştəri");
 
 await loadChatMessages(userId);
-
 await loadChatOrderStatus(userId);
-
 await markCustomerMessagesRead(userId);
-
 await loadChatCustomers();
 
 }
@@ -3321,9 +3067,7 @@ await supabaseClient
 .eq("user_id",userId)
 .order(
 "created_at",
-{
-ascending:true
-}
+{ascending:true}
 );
 
 if(error){
@@ -3339,7 +3083,7 @@ return;
 
 }
 
-if(!data?.length){
+if(!data||!data.length){
 
 box.innerHTML=
 '<div class="empty">Hələ mesaj yoxdur.</div>';
@@ -3385,8 +3129,7 @@ minute:"2-digit"
 
 }).join("");
 
-box.scrollTop=
-box.scrollHeight;
+box.scrollTop=box.scrollHeight;
 
 }
 
@@ -3434,7 +3177,6 @@ async function sendChatMessage(){
 if(!selectedChatUserId){
 
 alert("Əvvəlcə müştəri seçin.");
-
 return;
 
 }
@@ -3514,9 +3256,7 @@ await supabaseClient
 .eq("is_read",false)
 .order(
 "created_at",
-{
-ascending:false
-}
+{ascending:false}
 );
 
 if(error){
@@ -3533,16 +3273,13 @@ return;
 if(!data||!data.length){
 
 hideNewChatAlert();
-
 return;
 
 }
 
-newChatUnreadCount=
-data.length;
+newChatUnreadCount=data.length;
 
-newChatUserId=
-data[0].user_id;
+newChatUserId=data[0].user_id;
 
 const {
 data:profile
@@ -3563,14 +3300,10 @@ newChatEmail,
 newChatUnreadCount
 );
 
-
 }
 
 
-function showNewChatAlert(
-name,
-count
-){
+function showNewChatAlert(name,count){
 
 const alert=
 document.getElementById(
@@ -3604,9 +3337,7 @@ if(!alert)return;
 alert.classList.remove("show");
 
 newChatUserId=null;
-
 newChatEmail=null;
-
 newChatUnreadCount=0;
 
 }
@@ -3622,11 +3353,8 @@ if(!newChatUserId)return;
 
 }
 
-const userId=
-newChatUserId;
-
-const email=
-newChatEmail;
+const userId=newChatUserId;
+const email=newChatEmail;
 
 await selectChatCustomer(
 userId,
@@ -3656,17 +3384,11 @@ await supabaseClient
 .eq("user_id",userId)
 .order(
 "created_at",
-{
-ascending:false
-}
+{ascending:false}
 )
 .limit(1);
 
-if(error){
-
-return null;
-
-}
+if(error)return null;
 
 return data?.[0]||null;
 
@@ -3701,26 +3423,21 @@ await getCustomerActiveOrder(userId);
 if(!order){
 
 statusBox.style.display="none";
-
 control.style.display="none";
-
 selectedChatOrderId=null;
 
 return;
 
 }
 
-selectedChatOrderId=
-order.id;
+selectedChatOrderId=order.id;
 
 value.textContent=
 getOrderStatusText(order.status);
 
-select.value=
-order.status;
+select.value=order.status;
 
 statusBox.style.display="flex";
-
 control.style.display="block";
 
 }
@@ -3731,7 +3448,6 @@ async function updateChatOrderStatus(){
 if(!selectedChatOrderId){
 
 alert("Sifariş tapılmadı.");
-
 return;
 
 }
@@ -3762,7 +3478,6 @@ selectedChatOrderId
 if(error){
 
 alert(error.message);
-
 return;
 
 }
@@ -3772,7 +3487,6 @@ selectedChatUserId
 );
 
 await loadOrders();
-
 await loadChatCustomers();
 
 }
@@ -3800,9 +3514,7 @@ await supabaseClient
 )
 .order(
 "created_at",
-{
-ascending:false
-}
+{ascending:false}
 );
 
 if(error){
@@ -3827,9 +3539,7 @@ const activeStatuses=[
 const activeCount=
 (orders||[]).filter(function(order){
 
-return activeStatuses.includes(
-order.status
-);
+return activeStatuses.includes(order.status);
 
 }).length;
 
@@ -3842,8 +3552,7 @@ return order.status==="pending";
 
 document.getElementById(
 "activeOrderCount"
-).textContent=
-activeCount;
+).textContent=activeCount;
 
 document.getElementById(
 "activeOrderBadge"
@@ -3864,15 +3573,14 @@ newCount>0
 
 document.getElementById(
 "newOrderCount"
-).textContent=
-newCount;
+).textContent=newCount;
 
 document.getElementById(
 "newOrderNotificationText"
 ).textContent=
 newCount+" yeni sifariş";
 
-if(!orders?.length){
+if(!orders||!orders.length){
 
 box.innerHTML=
 '<div class="empty">Hələ sifariş yoxdur.</div>';
@@ -3883,9 +3591,7 @@ return;
 
 const ids=[
 ...new Set(
-orders
-.map(x=>x.user_id)
-.filter(Boolean)
+orders.map(x=>x.user_id).filter(Boolean)
 )
 ];
 
@@ -3931,11 +3637,7 @@ return `
 
 <div
 class="order-card ${
-status==="pending"
-?
-"new-order"
-:
-""
+status==="pending"?"new-order":""
 }"
 >
 
@@ -4048,10 +3750,7 @@ onclick="openOrderChat('${escapeHtml(String(order.user_id||""))}','${escapeHtml(
 }
 
 
-async function updateOrderStatus(
-orderId,
-status
-){
+async function updateOrderStatus(orderId,status){
 
 const {
 error
@@ -4071,13 +3770,11 @@ new Date().toISOString()
 if(error){
 
 alert(error.message);
-
 return;
 
 }
 
 await loadOrders();
-
 await loadChatCustomers();
 
 if(selectedChatUserId){
@@ -4091,15 +3788,11 @@ selectedChatUserId
 }
 
 
-async function openOrderChat(
-userId,
-email
-){
+async function openOrderChat(userId,email){
 
 if(!userId){
 
 alert("Müştəri tapılmadı.");
-
 return;
 
 }
@@ -4139,17 +3832,29 @@ table:"messages"
 },
 async function(){
 
+try{
 await loadChatCustomers();
+}catch(e){
+console.error(e);
+}
 
 if(selectedChatUserId){
 
+try{
 await loadChatMessages(
 selectedChatUserId
 );
+}catch(e){
+console.error(e);
+}
 
 }
 
+try{
 await checkUnreadChatMessages();
+}catch(e){
+console.error(e);
+}
 
 }
 )
@@ -4163,15 +3868,27 @@ table:"orders"
 },
 async function(){
 
+try{
 await loadOrders();
+}catch(e){
+console.error(e);
+}
 
+try{
 await loadChatCustomers();
+}catch(e){
+console.error(e);
+}
 
 if(selectedChatUserId){
 
+try{
 await loadChatOrderStatus(
 selectedChatUserId
 );
+}catch(e){
+console.error(e);
+}
 
 }
 
@@ -4187,12 +3904,23 @@ table:"customer_products"
 },
 async function(){
 
+try{
 await loadProducts();
+}catch(e){
+console.error(e);
+}
 
 }
 )
 
-.subscribe();
+.subscribe(function(status){
+
+console.log(
+"Admin realtime status:",
+status
+);
+
+});
 
 }
 
@@ -4201,10 +3929,7 @@ await loadProducts();
 MESSAGES
 ===================================================== */
 
-function showMessage(
-text,
-isError=false
-){
+function showMessage(text,isError=false){
 
 const box=
 document.getElementById(
@@ -4231,10 +3956,7 @@ box.style.display="none";
 }
 
 
-function showPriceMessage(
-text,
-isError=false
-){
+function showPriceMessage(text,isError=false){
 
 const box=
 document.getElementById(
@@ -4293,13 +4015,39 @@ behavior:"smooth"
 
 
 /* =====================================================
-START
-ƏSAS DÜZƏLİŞ:
-ƏVVƏL SUPABASE YÜKLƏNİR,
-SONRA ADMIN YOXLANIR.
+GLOBAL ERROR HANDLING
 ===================================================== */
 
-window.addEventListener("load",async function(){
+window.addEventListener(
+"error",
+function(event){
+
+console.error(
+"GLOBAL ERROR:",
+event.error||event.message
+);
+
+}
+);
+
+window.addEventListener(
+"unhandledrejection",
+function(event){
+
+console.error(
+"UNHANDLED PROMISE:",
+event.reason
+);
+
+}
+);
+
+
+/* =====================================================
+START
+===================================================== */
+
+async function startAdmin(){
 
 const loading=
 document.getElementById("loading");
@@ -4309,12 +4057,57 @@ try{
 loading.innerHTML=
 "Supabase bağlantısı yoxlanılır...";
 
-await initSupabase();
+
+/*
+CDN hazırdırsa dərhal,
+hazır deyilsə maksimum 10 saniyə gözləyir.
+*/
+
+let tries=0;
+
+while(
+(
+!window.supabase ||
+typeof window.supabase.createClient!=="function"
+)
+&&
+tries<100
+){
+
+await new Promise(function(resolve){
+
+setTimeout(resolve,100);
+
+});
+
+tries++;
+
+}
+
+if(
+!window.supabase ||
+typeof window.supabase.createClient!=="function"
+){
+
+throw new Error(
+"Supabase kitabxanası yüklənmədi. CDN bağlantısını yoxlayın."
+);
+
+}
+
 
 loading.innerHTML=
-"Admin yoxlanılır...";
+"Supabase bağlantısı qurulur...";
+
+await initSupabase();
+
+
+loading.innerHTML=
+"Admin hesabı yoxlanılır...";
+
 
 await checkAdmin();
+
 
 }catch(error){
 
@@ -4351,7 +4144,10 @@ line-height:1.6;
 word-break:break-word;
 ">
 ${escapeHtml(
-error?.message ||
+error&&error.message
+?
+error.message
+:
 "Naməlum xəta"
 )}
 </div>
@@ -4378,7 +4174,30 @@ Yenidən yoxla
 
 }
 
-});
+}
+
+
+/*
+DOM hazır olduqdan sonra başlayır.
+window.load gözlənilmir.
+Bu da səhifənin "Admin yoxlanılır..."
+mərhələsində ilişməsinin qarşısını alır.
+*/
+
+if(
+document.readyState==="loading"
+){
+
+document.addEventListener(
+"DOMContentLoaded",
+startAdmin
+);
+
+}else{
+
+startAdmin();
+
+}
 
 </script>
 
