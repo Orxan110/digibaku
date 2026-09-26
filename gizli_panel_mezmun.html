@@ -2,9 +2,9 @@
 <html lang="az">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>DigiBaku — Məhsul İdarəetmə Paneli</title>
+<title>DigiBaku — Gizli Admin Panel</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -17,7 +17,7 @@
 
 body{
     font-family:Arial,Helvetica,sans-serif;
-    background:#05070b;
+    background:#07111f;
     color:#fff;
     min-height:100vh;
 }
@@ -26,477 +26,356 @@ button,
 input,
 textarea,
 select{
-    font-family:inherit;
+    font:inherit;
 }
 
 button{
     cursor:pointer;
 }
 
-.container{
-    width:94%;
-    max-width:1400px;
-    margin:auto;
-}
-
-/* HEADER */
-
-header{
+.header{
     position:sticky;
     top:0;
-    z-index:1000;
-    background:rgba(5,7,11,.96);
-    backdrop-filter:blur(15px);
-    border-bottom:1px solid #20252f;
+    z-index:50;
+    background:#0b1728;
+    border-bottom:1px solid rgba(255,255,255,.08);
+    padding:15px 20px;
 }
 
 .header-inner{
-    min-height:70px;
+    max-width:1250px;
+    margin:auto;
     display:flex;
     align-items:center;
     justify-content:space-between;
-    gap:20px;
+    gap:15px;
 }
 
 .logo{
-    color:#3b82f6;
-    font-size:25px;
-    font-weight:900;
+    font-size:21px;
+    font-weight:800;
+    color:#25a7ff;
 }
 
 .logo span{
     color:#fff;
 }
 
-.header-actions{
+.header-right{
     display:flex;
-    gap:8px;
+    align-items:center;
+    gap:10px;
 }
 
-.btn{
+.admin-email{
+    color:#9fb0c5;
+    font-size:13px;
+}
+
+.logout{
     border:0;
+    background:#e53935;
+    color:#fff;
+    padding:9px 14px;
     border-radius:9px;
-    padding:11px 16px;
-    font-size:14px;
     font-weight:700;
-    transition:.2s;
 }
 
-.btn-primary{
-    background:#2563eb;
-    color:#fff;
-}
-
-.btn-primary:hover{
-    background:#1d4ed8;
-}
-
-.btn-dark{
-    background:#12161d;
-    color:#fff;
-    border:1px solid #2a303a;
-}
-
-.btn-dark:hover{
-    background:#1b2028;
-}
-
-.btn-danger{
-    background:#3a1115;
-    color:#ff7d86;
-    border:1px solid #63242a;
-}
-
-.btn-danger:hover{
-    background:#52151b;
-}
-
-/* MAIN */
-
-main{
-    padding:30px 0 70px;
+.container{
+    width:min(1250px,calc(100% - 30px));
+    margin:25px auto 60px;
 }
 
 .page-title{
-    margin-bottom:25px;
-}
-
-.page-title h1{
-    font-size:30px;
     margin-bottom:7px;
+    font-size:29px;
 }
 
-.page-title p{
-    color:#8f98a8;
-}
-
-/* TOP ACTIONS */
-
-.top-actions{
-    display:flex;
-    flex-wrap:wrap;
-    gap:10px;
+.page-subtitle{
+    color:#8fa3ba;
     margin-bottom:25px;
 }
 
-/* PRODUCT GRID */
+.message{
+    display:none;
+    padding:13px 15px;
+    border-radius:10px;
+    margin-bottom:18px;
+    font-weight:600;
+}
 
-.products-grid{
+.message.success{
+    display:block;
+    background:rgba(0,200,120,.12);
+    border:1px solid rgba(0,200,120,.35);
+    color:#55e6a2;
+}
+
+.message.error{
+    display:block;
+    background:rgba(255,60,60,.12);
+    border:1px solid rgba(255,60,60,.35);
+    color:#ff8585;
+}
+
+.products{
     display:grid;
-    grid-template-columns:repeat(3,1fr);
+    grid-template-columns:repeat(2,minmax(0,1fr));
     gap:18px;
 }
 
 .product-card{
-    background:#0d1118;
-    border:1px solid #242b36;
-    border-radius:15px;
+    background:#0d1b2d;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:17px;
     overflow:hidden;
-    transition:.2s;
 }
 
-.product-card:hover{
-    border-color:#2563eb;
-    transform:translateY(-2px);
+.product-top{
+    padding:17px 18px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+    border-bottom:1px solid rgba(255,255,255,.07);
 }
 
-.product-image{
-    width:100%;
-    height:180px;
-    object-fit:cover;
-    background:#080b10;
-    display:block;
+.product-title{
+    font-size:19px;
+    font-weight:800;
 }
 
-.product-body{
-    padding:18px;
-}
-
-.product-body h3{
-    font-size:20px;
-    margin-bottom:8px;
-}
-
-.product-slug{
-    color:#60a5fa;
+.product-key{
+    color:#6f87a2;
     font-size:12px;
-    margin-bottom:10px;
-}
-
-.product-desc{
-    color:#9ca5b4;
-    font-size:14px;
-    line-height:1.55;
-    min-height:45px;
+    margin-top:4px;
 }
 
 .status{
-    display:inline-flex;
-    margin-top:14px;
-    padding:5px 9px;
-    border-radius:7px;
-    font-size:11px;
-    font-weight:700;
+    border:0;
+    border-radius:20px;
+    padding:7px 11px;
+    font-size:12px;
+    font-weight:800;
 }
 
 .status.active{
-    background:#0c3020;
-    color:#4ade80;
+    background:rgba(0,210,130,.12);
+    color:#52e5a0;
 }
 
-.status.passive{
-    background:#32151a;
-    color:#fb7185;
+.status.off{
+    background:rgba(255,70,70,.12);
+    color:#ff7f7f;
 }
 
-.card-actions{
-    display:flex;
-    gap:8px;
-    margin-top:16px;
+.body{
+    padding:18px;
 }
 
-.card-actions button{
-    flex:1;
+.section{
+    margin-bottom:20px;
 }
 
-/* EDITOR */
-
-.editor{
-    display:none;
-    background:#0b0f15;
-    border:1px solid #27303c;
-    border-radius:16px;
-    padding:24px;
-    margin-bottom:25px;
+.section:last-child{
+    margin-bottom:0;
 }
 
-.editor.show{
-    display:block;
-}
-
-.editor-head{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:15px;
-    margin-bottom:25px;
-}
-
-.editor-head h2{
-    font-size:23px;
-}
-
-.form-grid{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:18px;
-}
-
-.field{
-    display:flex;
-    flex-direction:column;
-    gap:7px;
-}
-
-.field.full{
-    grid-column:1/-1;
-}
-
-.field label{
+.section-title{
+    color:#25a7ff;
     font-size:13px;
-    color:#aeb7c5;
-    font-weight:700;
-}
-
-.field input,
-.field textarea,
-.field select{
-    width:100%;
-    background:#070a0f;
-    border:1px solid #29313d;
-    color:#fff;
-    border-radius:9px;
-    padding:12px;
-    outline:none;
-}
-
-.field input:focus,
-.field textarea:focus,
-.field select:focus{
-    border-color:#2563eb;
-}
-
-.field textarea{
-    min-height:120px;
-    resize:vertical;
-}
-
-textarea.large{
-    min-height:220px;
-}
-
-/* PRICE */
-
-.price-section{
-    margin-top:25px;
-    border-top:1px solid #252c36;
-    padding-top:22px;
-}
-
-.price-section h3{
-    margin-bottom:15px;
-}
-
-.price-grid{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:12px;
-}
-
-.price-box{
-    background:#080b10;
-    border:1px solid #252c36;
-    border-radius:10px;
-    padding:14px;
-}
-
-.price-box h4{
-    color:#60a5fa;
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:.5px;
     margin-bottom:10px;
 }
 
-.price-box input{
+label{
+    display:block;
+    color:#9fb1c7;
+    font-size:12px;
+    margin-bottom:6px;
+}
+
+input,
+textarea,
+select{
     width:100%;
-    margin-bottom:8px;
-    background:#10151d;
+    background:#081522;
     color:#fff;
-    border:1px solid #29313d;
-    border-radius:7px;
-    padding:10px;
+    border:1px solid #23364d;
+    border-radius:9px;
+    outline:none;
+    padding:11px 12px;
 }
 
-/* LISTS */
-
-.dynamic-section{
-    margin-top:25px;
-    border-top:1px solid #252c36;
-    padding-top:22px;
+input:focus,
+textarea:focus,
+select:focus{
+    border-color:#1d9bf0;
 }
 
-.dynamic-head{
+textarea{
+    min-height:85px;
+    resize:vertical;
+}
+
+.grid-2{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+}
+
+.grid-3{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+}
+
+.price-box{
+    background:#081522;
+    border:1px solid #1e3044;
+    border-radius:12px;
+    padding:13px;
+}
+
+.price-title{
+    font-weight:800;
+    margin-bottom:10px;
+    font-size:14px;
+}
+
+.discount-row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+    margin-top:9px;
+}
+
+.switch-row{
     display:flex;
     align-items:center;
     justify-content:space-between;
-    margin-bottom:14px;
-}
-
-.dynamic-list{
-    display:flex;
-    flex-direction:column;
-    gap:12px;
-}
-
-.dynamic-item{
-    background:#080b10;
-    border:1px solid #252c36;
-    border-radius:10px;
-    padding:14px;
-}
-
-.dynamic-item-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr auto;
     gap:10px;
-    align-items:start;
+    margin-top:10px;
 }
 
-.dynamic-item textarea{
-    min-height:90px;
+.switch{
+    position:relative;
+    width:43px;
+    height:23px;
+    flex:none;
 }
 
-.dynamic-item input,
-.dynamic-item textarea{
-    width:100%;
-    background:#10151d;
-    border:1px solid #29313d;
-    color:#fff;
-    border-radius:7px;
-    padding:10px;
-}
-
-.remove-item{
-    background:#351116;
-    border:1px solid #64252d;
-    color:#ff8b95;
-    border-radius:7px;
-    padding:9px 11px;
-}
-
-/* SAVE */
-
-.editor-footer{
-    margin-top:25px;
-    display:flex;
-    justify-content:flex-end;
-    gap:10px;
-}
-
-/* MESSAGE */
-
-.message{
+.switch input{
     display:none;
-    position:fixed;
-    right:20px;
-    bottom:20px;
-    z-index:9999;
-    padding:14px 18px;
+}
+
+.slider{
+    position:absolute;
+    inset:0;
+    border-radius:20px;
+    background:#26394e;
+    transition:.2s;
+}
+
+.slider:before{
+    content:"";
+    position:absolute;
+    width:17px;
+    height:17px;
+    left:3px;
+    top:3px;
+    border-radius:50%;
+    background:#fff;
+    transition:.2s;
+}
+
+.switch input:checked + .slider{
+    background:#1597ed;
+}
+
+.switch input:checked + .slider:before{
+    transform:translateX(20px);
+}
+
+.actions{
+    padding:15px 18px;
+    background:#0a1625;
+    border-top:1px solid rgba(255,255,255,.07);
+    display:flex;
+    gap:10px;
+}
+
+.save{
+    flex:1;
+    border:0;
     border-radius:10px;
-    background:#101820;
-    border:1px solid #293746;
+    padding:12px;
+    background:#1597ed;
     color:#fff;
-    box-shadow:0 10px 40px rgba(0,0,0,.4);
+    font-weight:800;
 }
 
-.message.show{
-    display:block;
+.save:hover{
+    background:#087fce;
 }
 
-.message.success{
-    border-color:#166534;
+.reset{
+    border:1px solid #30465e;
+    background:transparent;
+    color:#b7c6d7;
+    border-radius:10px;
+    padding:12px 15px;
 }
 
-.message.error{
-    border-color:#7f1d1d;
-}
-
-/* EMPTY */
-
-.empty{
-    background:#0d1118;
-    border:1px dashed #303846;
-    border-radius:14px;
-    padding:45px;
+.loading{
     text-align:center;
-    color:#8f98a8;
+    padding:50px;
+    color:#8fa3ba;
+    grid-column:1/-1;
 }
 
-/* RESPONSIVE */
-
-@media(max-width:1050px){
-    .products-grid{
-        grid-template-columns:repeat(2,1fr);
-    }
-
-    .price-grid{
-        grid-template-columns:repeat(2,1fr);
+@media(max-width:850px){
+    .products{
+        grid-template-columns:1fr;
     }
 }
 
-@media(max-width:700px){
+@media(max-width:600px){
     .container{
-        width:92%;
+        width:min(100% - 20px,1250px);
+        margin-top:18px;
+    }
+
+    .header{
+        padding:12px 10px;
     }
 
     .header-inner{
-        min-height:62px;
-    }
-
-    .logo{
-        font-size:21px;
-    }
-
-    .header-actions .btn{
-        padding:9px 10px;
-        font-size:12px;
-    }
-
-    .products-grid{
-        grid-template-columns:1fr;
-    }
-
-    .form-grid{
-        grid-template-columns:1fr;
-    }
-
-    .field.full{
-        grid-column:auto;
-    }
-
-    .price-grid{
-        grid-template-columns:1fr;
-    }
-
-    .dynamic-item-grid{
-        grid-template-columns:1fr;
-    }
-
-    .editor-head{
         align-items:flex-start;
         flex-direction:column;
     }
 
-    .card-actions{
-        flex-direction:column;
+    .header-right{
+        width:100%;
+        justify-content:space-between;
+    }
+
+    .grid-2,
+    .grid-3{
+        grid-template-columns:1fr;
+    }
+
+    .product-top{
+        align-items:flex-start;
+    }
+
+    .admin-email{
+        max-width:65%;
+        overflow:hidden;
+        text-overflow:ellipsis;
+        white-space:nowrap;
     }
 }
 </style>
@@ -504,927 +383,672 @@ textarea.large{
 
 <body>
 
-<header>
-<div class="container header-inner">
+<header class="header">
+    <div class="header-inner">
+        <div class="logo">DigiBaku<span> — Admin</span></div>
 
-<div class="logo">
-    DigiBaku<span>.com</span>
-</div>
-
-<div class="header-actions">
-    <a href="index.html" class="btn btn-dark">Sayta bax</a>
-    <button class="btn btn-primary" onclick="openNewProduct()">＋ Yeni məhsul</button>
-    <button class="btn btn-dark" onclick="loadProducts()">↻ Yenilə</button>
-</div>
-
-</div>
+        <div class="header-right">
+            <div class="admin-email" id="adminEmail"></div>
+            <button class="logout" id="logoutBtn">Çıxış</button>
+        </div>
+    </div>
 </header>
 
-<main>
-<div class="container">
+<main class="container">
 
-<div class="page-title">
-    <h1>Sayt Məhsulları</h1>
-    <p>
-        Məhsulların saytda görünən bütün məlumatlarını bir yerdən idarə et.
+    <h1 class="page-title">Məhsullar</h1>
+
+    <p class="page-subtitle">
+        Məhsul məlumatlarını və qiymətləri buradan dəyiş. Saxladıqdan sonra
+        mərkəzi Supabase məlumatı bütün sayt səhifələrində istifadə oluna bilər.
     </p>
-</div>
 
-<div id="editor" class="editor">
+    <div id="message" class="message"></div>
 
-<div class="editor-head">
-    <h2 id="editorTitle">Yeni məhsul</h2>
-    <button class="btn btn-dark" onclick="closeEditor()">✕ Bağla</button>
-</div>
+    <div id="products" class="products">
+        <div class="loading">Məhsullar yüklənir...</div>
+    </div>
 
-<input type="hidden" id="productId">
-
-<div class="form-grid">
-
-<div class="field">
-<label>Məhsul adı</label>
-<input id="name" placeholder="Məsələn: Netflix 4K Premium Azərbaycan Abunəliyi">
-</div>
-
-<div class="field">
-<label>Slug / açar</label>
-<input id="slug" placeholder="netflix">
-</div>
-
-<div class="field">
-<label>Şəkil</label>
-<input id="image" placeholder="netflix.webp">
-</div>
-
-<div class="field">
-<label>Aktivlik</label>
-<select id="active">
-<option value="true">Aktiv</option>
-<option value="false">Passiv</option>
-</select>
-</div>
-
-<div class="field full">
-<label>Saytda qısa açıqlama</label>
-<textarea id="shortDescription"></textarea>
-</div>
-
-<div class="field full">
-<label>Məhsul səhifəsinin tam açıqlaması</label>
-<textarea id="fullDescription" class="large"></textarea>
-</div>
-
-<div class="field full">
-<label>Məhsul səhifəsinin əsas başlığı</label>
-<input id="pageTitle">
-</div>
-
-<div class="field full">
-<label>Üstünlüklər / xüsusiyyətlər — hər sətir bir xüsusiyyət</label>
-<textarea id="featuresText" class="large"></textarea>
-</div>
-
-</div>
-
-<div class="price-section">
-
-<h3>Qiymətlər</h3>
-
-<div class="price-grid">
-
-<div class="price-box">
-<h4>1 AY</h4>
-<input id="price1" type="number" step="0.01" placeholder="Normal qiymət">
-<input id="sale1" type="number" step="0.01" placeholder="Endirim qiyməti">
-</div>
-
-<div class="price-box">
-<h4>2 AY</h4>
-<input id="price2" type="number" step="0.01" placeholder="Normal qiymət">
-<input id="sale2" type="number" step="0.01" placeholder="Endirim qiyməti">
-</div>
-
-<div class="price-box">
-<h4>3 AY</h4>
-<input id="price3" type="number" step="0.01" placeholder="Normal qiymət">
-<input id="sale3" type="number" step="0.01" placeholder="Endirim qiyməti">
-</div>
-
-<div class="price-box">
-<h4>12 AY</h4>
-<input id="price12" type="number" step="0.01" placeholder="Normal qiymət">
-<input id="sale12" type="number" step="0.01" placeholder="Endirim qiyməti">
-</div>
-
-</div>
-</div>
-
-<div class="dynamic-section">
-
-<div class="dynamic-head">
-<h3>Məhsula aid FAQ</h3>
-<button class="btn btn-dark" onclick="addFaq()">＋ FAQ əlavə et</button>
-</div>
-
-<div id="faqList" class="dynamic-list"></div>
-
-</div>
-
-<div class="dynamic-section">
-
-<div class="dynamic-head">
-<h3>Məhsul səhifəsində əlavə bölmələr</h3>
-<button class="btn btn-dark" onclick="addSection()">＋ Bölmə əlavə et</button>
-</div>
-
-<div id="sectionList" class="dynamic-list"></div>
-
-</div>
-
-<div class="dynamic-section">
-
-<div class="dynamic-head">
-<h3>SEO</h3>
-</div>
-
-<div class="form-grid">
-
-<div class="field full">
-<label>SEO Title</label>
-<input id="seoTitle">
-</div>
-
-<div class="field full">
-<label>SEO Description</label>
-<textarea id="seoDescription"></textarea>
-</div>
-
-</div>
-
-</div>
-
-<div class="editor-footer">
-
-<button class="btn btn-dark" onclick="closeEditor()">
-Ləğv et
-</button>
-
-<button class="btn btn-primary" onclick="saveProduct()">
-💾 Yadda saxla
-</button>
-
-</div>
-
-</div>
-
-<div id="productsGrid" class="products-grid"></div>
-
-</div>
 </main>
 
-<div id="message" class="message"></div>
-
 <script>
-
 const SUPABASE_URL =
-"https://zeknhnkaicqkfzgnvycq.supabase.co";
+    "https://zeknhnkaicqkfzgnvycq.supabase.co";
 
 const SUPABASE_KEY =
-"sb_publishable_jHvCp9fXBA_BwFqrXYpwlw_VC6C1OQk";
+    "sb_publishable_jHvCp9fXBA_BwFqrXYpwlw_VC6C1OQk";
 
 const supabaseClient =
-window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
-);
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
 
 const ADMIN_EMAIL =
-"zahidovorxan989@gmail.com";
+    "zahidovorxan989@gmail.com";
 
-let products = [];
-let editingProduct = null;
+let productsData = [];
+let pricesData = [];
 
-/* =========================
-   AUTH
-========================= */
-
-async function checkAdmin(){
-
-    const {
-        data:{session}
-    } = await supabaseClient.auth.getSession();
-
-    if(!session){
-
-        window.location.href =
-        "login.html";
-
-        return false;
-    }
-
-    const email =
-    (session.user.email || "").toLowerCase();
-
-    if(email !== ADMIN_EMAIL.toLowerCase()){
-
-        document.body.innerHTML = `
-        <div style="
-        min-height:100vh;
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        background:#05070b;
-        color:white;
-        font-family:Arial;
-        text-align:center;
-        padding:30px;
-        ">
-        <div>
-        <h2>Giriş icazəsi yoxdur</h2>
-        <p style="color:#999;margin-top:10px">
-        Bu panel yalnız administrator üçündür.
-        </p>
-        </div>
-        </div>
-        `;
-
-        return false;
-    }
-
-    return true;
-}
-
-/* =========================
-   MESSAGE
-========================= */
+const productsEl = document.getElementById("products");
+const messageEl = document.getElementById("message");
+const adminEmailEl = document.getElementById("adminEmail");
 
 function showMessage(text,type="success"){
-
-    const el =
-    document.getElementById("message");
-
-    el.textContent = text;
-
-    el.className =
-    "message show " + type;
+    messageEl.textContent = text;
+    messageEl.className = "message " + type;
 
     setTimeout(()=>{
-        el.className = "message";
-    },3000);
+        messageEl.className = "message";
+    },3500);
 }
-
-/* =========================
-   HELPERS
-========================= */
 
 function esc(value){
+    if(value === null || value === undefined) return "";
 
-    return String(value ?? "")
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
+    return String(value)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
 }
 
-function safeJson(value){
-
-    if(!value || typeof value !== "object")
-        return {};
-
-    return value;
+function numberValue(value){
+    const n = Number(value);
+    return Number.isFinite(n) ? n : 0;
 }
 
-/* =========================
-   LOAD PRODUCTS
-========================= */
-
-async function loadProducts(){
-
-    const grid =
-    document.getElementById("productsGrid");
-
-    grid.innerHTML = `
-        <div class="empty">
-            Məhsullar yüklənir...
-        </div>
-    `;
-
-    const {
-        data,
-        error
-    } =
-    await supabaseClient
-    .from("site_products")
-    .select("*")
-    .order("sort_order",{ascending:true})
-    .order("created_at",{ascending:true});
-
-    if(error){
-
-        console.error(error);
-
-        grid.innerHTML = `
-        <div class="empty">
-            Məhsullar yüklənmədi.<br><br>
-            ${esc(error.message)}
-        </div>
-        `;
-
-        return;
-    }
-
-    products = data || [];
-
-    renderProducts();
+function getPrice(productKey){
+    return pricesData.find(
+        x => x.product_key === productKey
+    ) || {
+        product_key:productKey,
+        price_1_month:0,
+        price_2_month:0,
+        price_3_month:0,
+        sale_1_active:false,
+        sale_2_active:false,
+        sale_3_active:false,
+        sale_1_price:0,
+        sale_2_price:0,
+        sale_3_price:0,
+        price_12_month:0,
+        sale_12_price:0,
+        sale_12_active:false
+    };
 }
 
-/* =========================
-   RENDER
-========================= */
+function priceInput(value){
+    return numberValue(value).toFixed(2);
+}
 
-function renderProducts(){
+function productCard(product){
 
-    const grid =
-    document.getElementById("productsGrid");
+    const p = getPrice(product.product_key);
 
-    if(!products.length){
+    const active = product.active !== false;
 
-        grid.innerHTML = `
-        <div class="empty">
-            Hələ məhsul yoxdur.<br><br>
-            "＋ Yeni məhsul" düyməsi ilə məhsul əlavə edə bilərsən.
+    return `
+    <article class="product-card"
+        data-key="${esc(product.product_key)}">
+
+        <div class="product-top">
+
+            <div>
+                <div class="product-title">
+                    ${esc(product.name_az || product.product_key)}
+                </div>
+
+                <div class="product-key">
+                    ${esc(product.product_key)}
+                </div>
+            </div>
+
+            <button
+                type="button"
+                class="status ${active ? "active" : "off"}"
+                onclick="toggleActive('${esc(product.product_key)}')">
+
+                ${active ? "AKTİV" : "PASSİV"}
+
+            </button>
+
         </div>
-        `;
 
-        return;
-    }
+        <div class="body">
 
-    grid.innerHTML =
-    products.map(product => {
+            <div class="section">
 
-        const content =
-        safeJson(product.content);
-
-        const shortDescription =
-        content.shortDescription ||
-        product.description ||
-        "";
-
-        return `
-        <div class="product-card">
-
-            <img
-                class="product-image"
-                src="${esc(product.image || "")}"
-                onerror="this.style.display='none'"
-                alt="${esc(product.name || "")}"
-            >
-
-            <div class="product-body">
-
-                <h3>
-                    ${esc(product.name || "Adsız məhsul")}
-                </h3>
-
-                <div class="product-slug">
-                    ${esc(product.slug || "")}
+                <div class="section-title">
+                    Məhsul məlumatları
                 </div>
 
-                <div class="product-desc">
-                    ${esc(shortDescription)}
+                <div class="grid-2">
+
+                    <div>
+                        <label>Azərbaycan adı</label>
+
+                        <input
+                            data-field="name_az"
+                            value="${esc(product.name_az)}">
+                    </div>
+
+                    <div>
+                        <label>English name</label>
+
+                        <input
+                            data-field="name_en"
+                            value="${esc(product.name_en)}">
+                    </div>
+
+                    <div>
+                        <label>Русское название</label>
+
+                        <input
+                            data-field="name_ru"
+                            value="${esc(product.name_ru)}">
+                    </div>
+
+                    <div>
+                        <label>Şəkil yolu</label>
+
+                        <input
+                            data-field="image"
+                            value="${esc(product.image)}"
+                            placeholder="netflix.webp">
+                    </div>
+
                 </div>
 
-                <div class="status ${
-                    product.active === false
-                    ? "passive"
-                    : "active"
-                }">
-                    ${
-                        product.active === false
-                        ? "PASSİV"
-                        : "AKTİV"
-                    }
+            </div>
+
+            <div class="section">
+
+                <div class="section-title">
+                    Təsvir
                 </div>
 
-                <div class="card-actions">
+                <div class="grid-2">
 
-                    <button
-                        class="btn btn-primary"
-                        onclick="editProduct('${product.id}')"
-                    >
-                        Redaktə
-                    </button>
+                    <div>
+                        <label>AZ təsvir</label>
 
-                    <button
-                        class="btn btn-danger"
-                        onclick="deleteProduct('${product.id}')"
-                    >
-                        Sil
-                    </button>
+                        <textarea data-field="description_az">${esc(product.description_az)}</textarea>
+                    </div>
+
+                    <div>
+                        <label>EN description</label>
+
+                        <textarea data-field="description_en">${esc(product.description_en)}</textarea>
+                    </div>
+
+                    <div>
+                        <label>RU описание</label>
+
+                        <textarea data-field="description_ru">${esc(product.description_ru)}</textarea>
+                    </div>
+
+                    <div>
+                        <label>Sıralama</label>
+
+                        <input
+                            type="number"
+                            data-field="sort_order"
+                            value="${numberValue(product.sort_order)}">
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="section">
+
+                <div class="section-title">
+                    Qiymətlər
+                </div>
+
+                <div class="grid-3">
+
+                    ${priceBox(
+                        "1 ay",
+                        "1",
+                        p.price_1_month,
+                        p.sale_1_active,
+                        p.sale_1_price
+                    )}
+
+                    ${priceBox(
+                        "2 ay",
+                        "2",
+                        p.price_2_month,
+                        p.sale_2_active,
+                        p.sale_2_price
+                    )}
+
+                    ${priceBox(
+                        "3 ay",
+                        "3",
+                        p.price_3_month,
+                        p.sale_3_active,
+                        p.sale_3_price
+                    )}
+
+                </div>
+
+            </div>
+
+            <div class="section">
+
+                <div class="section-title">
+                    12 ay
+                </div>
+
+                <div class="price-box">
+
+                    <div class="price-title">
+                        12 aylıq qiymət
+                    </div>
+
+                    <input
+                        type="number"
+                        step="0.01"
+                        data-price="price_12_month"
+                        value="${priceInput(p.price_12_month)}">
+
+                    <div class="switch-row">
+
+                        <span>12 ay endirimi</span>
+
+                        <label class="switch">
+                            <input
+                                type="checkbox"
+                                data-price-toggle="sale_12_active"
+                                ${p.sale_12_active ? "checked" : ""}>
+                            <span class="slider"></span>
+                        </label>
+
+                    </div>
+
+                    <div class="discount-row">
+
+                        <div>
+                            <label>12 ay endirim qiyməti</label>
+
+                            <input
+                                type="number"
+                                step="0.01"
+                                data-price="sale_12_price"
+                                value="${priceInput(p.sale_12_price)}">
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="section">
+
+                <div class="section-title">
+                    SEO
+                </div>
+
+                <div class="grid-2">
+
+                    <div>
+                        <label>SEO Title AZ</label>
+                        <input
+                            data-field="seo_title_az"
+                            value="${esc(product.seo_title_az)}">
+                    </div>
+
+                    <div>
+                        <label>SEO Description AZ</label>
+                        <textarea data-field="seo_description_az">${esc(product.seo_description_az)}</textarea>
+                    </div>
+
+                    <div>
+                        <label>SEO Title EN</label>
+                        <input
+                            data-field="seo_title_en"
+                            value="${esc(product.seo_title_en)}">
+                    </div>
+
+                    <div>
+                        <label>SEO Title RU</label>
+                        <input
+                            data-field="seo_title_ru"
+                            value="${esc(product.seo_title_ru)}">
+                    </div>
 
                 </div>
 
             </div>
 
         </div>
+
+        <div class="actions">
+
+            <button
+                class="reset"
+                type="button"
+                onclick="reloadProducts()">
+                Yenilə
+            </button>
+
+            <button
+                class="save"
+                type="button"
+                onclick="saveProduct('${esc(product.product_key)}')">
+                💾 Yadda saxla
+            </button>
+
+        </div>
+
+    </article>
+    `;
+}
+
+function priceBox(title,month,regular,discountActive,discountPrice){
+
+    return `
+    <div class="price-box">
+
+        <div class="price-title">
+            ${title}
+        </div>
+
+        <label>Normal qiymət</label>
+
+        <input
+            type="number"
+            step="0.01"
+            data-price="price_${month}_month"
+            value="${priceInput(regular)}">
+
+        <div class="switch-row">
+
+            <span>Endirim aktivdir</span>
+
+            <label class="switch">
+
+                <input
+                    type="checkbox"
+                    data-price-toggle="sale_${month}_active"
+                    ${discountActive ? "checked" : ""}>
+
+                <span class="slider"></span>
+
+            </label>
+
+        </div>
+
+        <div class="discount-row">
+
+            <div style="grid-column:1/-1">
+
+                <label>Endirim qiyməti</label>
+
+                <input
+                    type="number"
+                    step="0.01"
+                    data-price="sale_${month}_price"
+                    value="${priceInput(discountPrice)}">
+
+            </div>
+
+        </div>
+
+    </div>
+    `;
+}
+
+function renderProducts(){
+
+    if(!productsData.length){
+
+        productsEl.innerHTML = `
+            <div class="loading">
+                Məhsul tapılmadı.
+            </div>
         `;
 
-    }).join("");
-}
-
-/* =========================
-   NEW
-========================= */
-
-function openNewProduct(){
-
-    editingProduct = null;
-
-    document.getElementById("editorTitle")
-    .textContent = "Yeni məhsul";
-
-    document.getElementById("productId")
-    .value = "";
-
-    clearEditor();
-
-    document.getElementById("editor")
-    .classList.add("show");
-
-    window.scrollTo({
-        top:0,
-        behavior:"smooth"
-    });
-}
-
-function clearEditor(){
-
-    [
-        "name",
-        "slug",
-        "image",
-        "shortDescription",
-        "fullDescription",
-        "pageTitle",
-        "featuresText",
-        "seoTitle",
-        "seoDescription",
-        "price1",
-        "sale1",
-        "price2",
-        "sale2",
-        "price3",
-        "sale3",
-        "price12",
-        "sale12"
-    ].forEach(id=>{
-        const el =
-        document.getElementById(id);
-
-        if(el) el.value = "";
-    });
-
-    document.getElementById("active")
-    .value = "true";
-
-    document.getElementById("faqList")
-    .innerHTML = "";
-
-    document.getElementById("sectionList")
-    .innerHTML = "";
-}
-
-/* =========================
-   EDIT
-========================= */
-
-function editProduct(id){
-
-    const product =
-    products.find(p => String(p.id) === String(id));
-
-    if(!product)
         return;
+    }
 
-    editingProduct = product;
-
-    const content =
-    safeJson(product.content);
-
-    document.getElementById("editorTitle")
-    .textContent =
-    "Redaktə: " + (product.name || "");
-
-    document.getElementById("productId")
-    .value = product.id || "";
-
-    document.getElementById("name")
-    .value = product.name || "";
-
-    document.getElementById("slug")
-    .value = product.slug || "";
-
-    document.getElementById("image")
-    .value = product.image || "";
-
-    document.getElementById("active")
-    .value =
-    product.active === false
-    ? "false"
-    : "true";
-
-    document.getElementById("shortDescription")
-    .value =
-    content.shortDescription ||
-    product.description ||
-    "";
-
-    document.getElementById("fullDescription")
-    .value =
-    content.fullDescription || "";
-
-    document.getElementById("pageTitle")
-    .value =
-    content.pageTitle || "";
-
-    document.getElementById("featuresText")
-    .value =
-    Array.isArray(content.features)
-    ? content.features.join("\n")
-    : "";
-
-    document.getElementById("price1")
-    .value =
-    content.prices?.["1"]?.normal ?? "";
-
-    document.getElementById("sale1")
-    .value =
-    content.prices?.["1"]?.sale ?? "";
-
-    document.getElementById("price2")
-    .value =
-    content.prices?.["2"]?.normal ?? "";
-
-    document.getElementById("sale2")
-    .value =
-    content.prices?.["2"]?.sale ?? "";
-
-    document.getElementById("price3")
-    .value =
-    content.prices?.["3"]?.normal ?? "";
-
-    document.getElementById("sale3")
-    .value =
-    content.prices?.["3"]?.sale ?? "";
-
-    document.getElementById("price12")
-    .value =
-    content.prices?.["12"]?.normal ?? "";
-
-    document.getElementById("sale12")
-    .value =
-    content.prices?.["12"]?.sale ?? "";
-
-    document.getElementById("seoTitle")
-    .value =
-    content.seo?.title || "";
-
-    document.getElementById("seoDescription")
-    .value =
-    content.seo?.description || "";
-
-    document.getElementById("faqList")
-    .innerHTML = "";
-
-    const faqs =
-    Array.isArray(content.faq)
-    ? content.faq
-    : [];
-
-    faqs.forEach(item=>{
-        addFaq(
-            item.question || "",
-            item.answer || ""
-        );
-    });
-
-    document.getElementById("sectionList")
-    .innerHTML = "";
-
-    const sections =
-    Array.isArray(content.sections)
-    ? content.sections
-    : [];
-
-    sections.forEach(item=>{
-        addSection(
-            item.title || "",
-            item.text || ""
-        );
-    });
-
-    document.getElementById("editor")
-    .classList.add("show");
-
-    window.scrollTo({
-        top:0,
-        behavior:"smooth"
-    });
+    productsEl.innerHTML =
+        productsData
+        .sort((a,b)=>
+            numberValue(a.sort_order) -
+            numberValue(b.sort_order)
+        )
+        .map(productCard)
+        .join("");
 }
 
-/* =========================
-   FAQ
-========================= */
+async function loadProducts(){
 
-function addFaq(question="",answer=""){
+    productsEl.innerHTML =
+        `<div class="loading">Məhsullar yüklənir...</div>`;
 
-    const list =
-    document.getElementById("faqList");
+    const [
+        productsResult,
+        pricesResult
+    ] = await Promise.all([
 
-    const div =
-    document.createElement("div");
+        supabaseClient
+            .from("products")
+            .select("*")
+            .order("sort_order",{ascending:true}),
 
-    div.className = "dynamic-item";
+        supabaseClient
+            .from("product_prices")
+            .select("*")
 
-    div.innerHTML = `
-        <div class="dynamic-item-grid">
+    ]);
 
-            <input
-                class="faq-question-input"
-                placeholder="Sual"
-                value="${esc(question)}"
-            >
+    if(productsResult.error){
+        console.error(productsResult.error);
 
-            <textarea
-                class="faq-answer-input"
-                placeholder="Cavab"
-            >${esc(answer)}</textarea>
-
-            <button
-                class="remove-item"
-                onclick="this.closest('.dynamic-item').remove()"
-            >
-                Sil
-            </button>
-
-        </div>
-    `;
-
-    list.appendChild(div);
-}
-
-/* =========================
-   SECTIONS
-========================= */
-
-function addSection(title="",text=""){
-
-    const list =
-    document.getElementById("sectionList");
-
-    const div =
-    document.createElement("div");
-
-    div.className = "dynamic-item";
-
-    div.innerHTML = `
-        <div class="dynamic-item-grid">
-
-            <input
-                class="section-title-input"
-                placeholder="Bölmənin adı"
-                value="${esc(title)}"
-            >
-
-            <textarea
-                class="section-text-input"
-                placeholder="Bölmə mətni"
-            >${esc(text)}</textarea>
-
-            <button
-                class="remove-item"
-                onclick="this.closest('.dynamic-item').remove()"
-            >
-                Sil
-            </button>
-
-        </div>
-    `;
-
-    list.appendChild(div);
-}
-
-/* =========================
-   COLLECT FAQ
-========================= */
-
-function collectFaq(){
-
-    return [...document.querySelectorAll("#faqList .dynamic-item")]
-    .map(item=>({
-
-        question:
-        item.querySelector(".faq-question-input")?.value.trim() || "",
-
-        answer:
-        item.querySelector(".faq-answer-input")?.value.trim() || ""
-
-    }))
-    .filter(item =>
-        item.question ||
-        item.answer
-    );
-}
-
-/* =========================
-   COLLECT SECTIONS
-========================= */
-
-function collectSections(){
-
-    return [...document.querySelectorAll("#sectionList .dynamic-item")]
-    .map(item=>({
-
-        title:
-        item.querySelector(".section-title-input")?.value.trim() || "",
-
-        text:
-        item.querySelector(".section-text-input")?.value.trim() || ""
-
-    }))
-    .filter(item =>
-        item.title ||
-        item.text
-    );
-}
-
-/* =========================
-   SAVE
-========================= */
-
-async function saveProduct(){
-
-    const name =
-    document.getElementById("name")
-    .value.trim();
-
-    const slug =
-    document.getElementById("slug")
-    .value.trim();
-
-    if(!name){
-
-        showMessage(
-            "Məhsul adı yazılmalıdır.",
-            "error"
-        );
+        productsEl.innerHTML = `
+            <div class="loading">
+                products cədvəli oxunmadı.<br><br>
+                ${esc(productsResult.error.message)}
+            </div>
+        `;
 
         return;
     }
 
-    if(!slug){
+    if(pricesResult.error){
+        console.error(pricesResult.error);
 
         showMessage(
-            "Slug yazılmalıdır.",
+            "Qiymətlər oxunmadı: " +
+            pricesResult.error.message,
             "error"
         );
-
-        return;
     }
 
-    const features =
-    document.getElementById("featuresText")
-    .value
-    .split("\n")
-    .map(x=>x.trim())
-    .filter(Boolean);
+    productsData = productsResult.data || [];
+    pricesData = pricesResult.data || [];
 
-    const content = {
+    renderProducts();
+}
 
-        shortDescription:
-        document.getElementById("shortDescription")
-        .value.trim(),
+function getCard(productKey){
 
-        fullDescription:
-        document.getElementById("fullDescription")
-        .value.trim(),
+    return document.querySelector(
+        `.product-card[data-key="${CSS.escape(productKey)}"]`
+    );
+}
 
-        pageTitle:
-        document.getElementById("pageTitle")
-        .value.trim(),
+function collectProduct(card){
 
-        features,
+    const data = {};
 
-        prices:{
+    card
+        .querySelectorAll("[data-field]")
+        .forEach(el=>{
+            const field = el.dataset.field;
 
-            "1":{
-                normal:
-                numberOrNull("price1"),
-                sale:
-                numberOrNull("sale1")
-            },
-
-            "2":{
-                normal:
-                numberOrNull("price2"),
-                sale:
-                numberOrNull("sale2")
-            },
-
-            "3":{
-                normal:
-                numberOrNull("price3"),
-                sale:
-                numberOrNull("sale3")
-            },
-
-            "12":{
-                normal:
-                numberOrNull("price12"),
-                sale:
-                numberOrNull("sale12")
+            if(field === "sort_order"){
+                data[field] =
+                    parseInt(el.value || "0",10);
+            }else{
+                data[field] = el.value;
             }
+        });
 
-        },
+    return data;
+}
 
-        faq:
-        collectFaq(),
+function collectPrices(card){
 
-        sections:
-        collectSections(),
+    const data = {};
 
-        seo:{
-            title:
-            document.getElementById("seoTitle")
-            .value.trim(),
+    card
+        .querySelectorAll("[data-price]")
+        .forEach(el=>{
 
-            description:
-            document.getElementById("seoDescription")
-            .value.trim()
-        }
+            data[el.dataset.price] =
+                parseFloat(el.value || "0");
 
+        });
+
+    card
+        .querySelectorAll("[data-price-toggle]")
+        .forEach(el=>{
+
+            data[el.dataset.priceToggle] =
+                el.checked;
+
+        });
+
+    return data;
+}
+
+async function saveProduct(productKey){
+
+    const card = getCard(productKey);
+
+    if(!card) return;
+
+    const productFields =
+        collectProduct(card);
+
+    const priceFields =
+        collectPrices(card);
+
+    const existingProduct =
+        productsData.find(
+            x => x.product_key === productKey
+        );
+
+    if(!existingProduct){
+        showMessage(
+            "Məhsul tapılmadı.",
+            "error"
+        );
+        return;
+    }
+
+    const productUpdate = {
+        ...productFields,
+        updated_at:new Date().toISOString()
     };
 
-    const payload = {
-
-        name,
-
-        slug,
-
-        image:
-        document.getElementById("image")
-        .value.trim(),
-
-        description:
-        content.shortDescription,
-
-        content,
-
-        active:
-        document.getElementById("active")
-        .value === "true"
-
-    };
-
-    const id =
-    document.getElementById("productId")
-    .value;
-
-    let result;
-
-    if(id){
-
-        result =
+    const productResult =
         await supabaseClient
-        .from("site_products")
-        .update(payload)
-        .eq("id",id);
+        .from("products")
+        .update(productUpdate)
+        .eq("product_key",productKey);
+
+    if(productResult.error){
+
+        console.error(productResult.error);
+
+        showMessage(
+            "Məhsul yadda saxlanmadı: " +
+            productResult.error.message,
+            "error"
+        );
+
+        return;
+    }
+
+    const priceExists =
+        pricesData.some(
+            x => x.product_key === productKey
+        );
+
+    let priceResult;
+
+    if(priceExists){
+
+        priceResult =
+            await supabaseClient
+            .from("product_prices")
+            .update(priceFields)
+            .eq("product_key",productKey);
 
     }else{
 
-        const maxSort =
-        products.length
-        ? Math.max(
-            ...products.map(p =>
-                Number(p.sort_order || 0)
-            )
-        ) + 1
-        : 1;
+        priceResult =
+            await supabaseClient
+            .from("product_prices")
+            .insert({
+                product_key:productKey,
+                product_name:productFields.name_az,
+                ...priceFields
+            });
 
-        payload.sort_order = maxSort;
-
-        result =
-        await supabaseClient
-        .from("site_products")
-        .insert(payload);
     }
+
+    if(priceResult.error){
+
+        console.error(priceResult.error);
+
+        showMessage(
+            "Məhsul yadda saxlandı, amma qiymətlər yadda saxlanmadı: " +
+            priceResult.error.message,
+            "error"
+        );
+
+        return;
+    }
+
+    showMessage(
+        productFields.name_az +
+        " uğurla yadda saxlanıldı."
+    );
+
+    await loadProducts();
+}
+
+async function toggleActive(productKey){
+
+    const product =
+        productsData.find(
+            x => x.product_key === productKey
+        );
+
+    if(!product) return;
+
+    const result =
+        await supabaseClient
+        .from("products")
+        .update({
+            active:!product.active,
+            updated_at:new Date().toISOString()
+        })
+        .eq("product_key",productKey);
 
     if(result.error){
 
-        console.error(result.error);
-
         showMessage(
+            "Status dəyişmədi: " +
             result.error.message,
             "error"
         );
@@ -1432,126 +1056,89 @@ async function saveProduct(){
         return;
     }
 
-    showMessage(
-        "Məhsul yadda saxlanıldı."
-    );
-
-    closeEditor();
-
     await loadProducts();
 }
 
-/* =========================
-   NUMBER
-========================= */
-
-function numberOrNull(id){
-
-    const value =
-    document.getElementById(id)
-    .value.trim();
-
-    if(value === "")
-        return null;
-
-    const n =
-    Number(value);
-
-    return Number.isFinite(n)
-    ? n
-    : null;
+async function reloadProducts(){
+    await loadProducts();
+    showMessage("Məlumat yeniləndi.");
 }
 
-/* =========================
-   DELETE
-========================= */
-
-async function deleteProduct(id){
-
-    const product =
-    products.find(p =>
-        String(p.id) === String(id)
-    );
-
-    if(!product)
-        return;
-
-    const ok =
-    confirm(
-        `"${product.name}" məhsulunu tam silmək istəyirsən?`
-    );
-
-    if(!ok)
-        return;
+async function checkAdmin(){
 
     const {
+        data,
         error
-    } =
-    await supabaseClient
-    .from("site_products")
-    .delete()
-    .eq("id",id);
+    } = await supabaseClient.auth.getSession();
 
-    if(error){
+    if(error || !data.session){
 
-        console.error(error);
+        window.location.href =
+            "login.html";
 
-        showMessage(
-            error.message,
-            "error"
-        );
-
-        return;
+        return false;
     }
 
-    showMessage(
-        "Məhsul silindi."
-    );
+    const email =
+        data.session.user.email;
 
-    await loadProducts();
+    if(
+        !email ||
+        email.toLowerCase() !==
+        ADMIN_EMAIL.toLowerCase()
+    ){
+
+        await supabaseClient.auth.signOut();
+
+        alert("Bu panelə giriş icazəniz yoxdur.");
+
+        window.location.href =
+            "login.html";
+
+        return false;
+    }
+
+    adminEmailEl.textContent = email;
+
+    return true;
 }
 
-/* =========================
-   CLOSE
-========================= */
-
-function closeEditor(){
-
-    document.getElementById("editor")
-    .classList.remove("show");
-
-    editingProduct = null;
-}
-
-/* =========================
-   LOGOUT
-========================= */
-
-async function logout(){
+document
+.getElementById("logoutBtn")
+.addEventListener("click",async()=>{
 
     await supabaseClient.auth.signOut();
 
     window.location.href =
-    "login.html";
-}
+        "login.html";
 
-/* =========================
-   START
-========================= */
+});
 
-document.addEventListener(
-"DOMContentLoaded",
-async ()=>{
+supabaseClient.auth.onAuthStateChange(
+    async(event,session)=>{
 
-    const ok =
-    await checkAdmin();
+        if(
+            event === "SIGNED_OUT"
+        ){
 
-    if(!ok)
-        return;
+            window.location.href =
+                "login.html";
+
+        }
+
+    }
+);
+
+(async()=>{
+
+    const allowed =
+        await checkAdmin();
+
+    if(!allowed) return;
 
     await loadProducts();
 
-});
+})();
 </script>
 
 </body>
