@@ -9,11 +9,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-}
+*{box-sizing:border-box;margin:0;padding:0}
 
 body{
     min-height:100vh;
@@ -22,13 +18,8 @@ body{
     font-family:Arial,Helvetica,sans-serif;
 }
 
-button,input,textarea,select{
-    font:inherit;
-}
-
-button{
-    cursor:pointer;
-}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
 
 .header{
     position:sticky;
@@ -55,17 +46,14 @@ button{
     font-weight:800;
 }
 
-.logo span{
-    color:#168cff;
-}
+.logo span{color:#168cff}
 
 .header-actions{
     display:flex;
     gap:9px;
 }
 
-.header-btn,
-.secondary{
+.header-btn,.secondary{
     border:1px solid #27384f;
     background:#0d141f;
     color:#fff;
@@ -73,23 +61,18 @@ button{
     padding:10px 14px;
 }
 
-.header-btn:hover,
-.secondary:hover{
+.header-btn:hover,.secondary:hover{
     border-color:#168cff;
 }
 
-.logout{
-    color:#ff7070;
-}
+.logout{color:#ff7070}
 
 .container{
     width:min(1200px,calc(100% - 30px));
     margin:25px auto 60px;
 }
 
-.page-title{
-    margin-bottom:20px;
-}
+.page-title{margin-bottom:20px}
 
 .page-title h1{
     font-size:27px;
@@ -124,17 +107,10 @@ button{
     gap:10px;
 }
 
-.panel-head h2{
-    font-size:17px;
-}
+.panel-head h2{font-size:17px}
+.panel-head small{color:#7e8ca0}
 
-.panel-head small{
-    color:#7e8ca0;
-}
-
-.panel-body{
-    padding:18px;
-}
+.panel-body{padding:18px}
 
 .form-grid{
     display:grid;
@@ -148,9 +124,7 @@ button{
     gap:7px;
 }
 
-.field.full{
-    grid-column:1/-1;
-}
+.field.full{grid-column:1/-1}
 
 .field label{
     font-size:13px;
@@ -200,9 +174,7 @@ button{
     color:#168cff;
 }
 
-.price-item input{
-    margin-bottom:7px;
-}
+.price-item input{margin-bottom:7px}
 
 .actions{
     display:flex;
@@ -220,9 +192,7 @@ button{
     font-weight:700;
 }
 
-.primary:hover{
-    background:#0879e6;
-}
+.primary:hover{background:#0879e6}
 
 .danger{
     border:1px solid #57252b;
@@ -296,9 +266,7 @@ button{
     font-size:13px;
 }
 
-.product-info{
-    padding:15px;
-}
+.product-info{padding:15px}
 
 .product-info h3{
     font-size:16px;
@@ -377,9 +345,7 @@ button{
     border-radius:14px;
 }
 
-.hidden{
-    display:none!important;
-}
+.hidden{display:none!important}
 
 .preview{
     border:1px solid #17263a;
@@ -408,9 +374,7 @@ button{
     object-fit:cover;
 }
 
-.preview-content{
-    padding:14px;
-}
+.preview-content{padding:14px}
 
 .preview-content h3{
     font-size:16px;
@@ -457,47 +421,19 @@ button{
 }
 
 @media(max-width:900px){
-    .top-grid{
-        grid-template-columns:1fr;
-    }
-
-    .products{
-        grid-template-columns:repeat(2,1fr);
-    }
-
-    .price-box{
-        grid-template-columns:1fr 1fr;
-    }
+    .top-grid{grid-template-columns:1fr}
+    .products{grid-template-columns:repeat(2,1fr)}
+    .price-box{grid-template-columns:1fr 1fr}
 }
 
 @media(max-width:620px){
-    .header-inner{
-        align-items:flex-start;
-    }
-
-    .header-actions{
-        flex-direction:column;
-    }
-
-    .form-grid{
-        grid-template-columns:1fr;
-    }
-
-    .field.full{
-        grid-column:auto;
-    }
-
-    .price-box{
-        grid-template-columns:1fr;
-    }
-
-    .products{
-        grid-template-columns:1fr;
-    }
-
-    .page-title h1{
-        font-size:23px;
-    }
+    .header-inner{align-items:flex-start}
+    .header-actions{flex-direction:column}
+    .form-grid{grid-template-columns:1fr}
+    .field.full{grid-column:auto}
+    .price-box{grid-template-columns:1fr}
+    .products{grid-template-columns:1fr}
+    .page-title h1{font-size:23px}
 }
 </style>
 </head>
@@ -525,41 +461,27 @@ Digi<span>Baku</span> — Sayt Məhsulları
 </div>
 </header>
 
-
 <main class="container">
 
 <div class="page-title">
-
 <h1>📦 Məhsul idarəetməsi</h1>
 
 <p>
 Yeni məhsulları buradan əlavə et.
 Saytdakı mövcud məhsullara və Chat / WhatsApp hissəsinə toxunulmur.
 </p>
-
 </div>
-
 
 <div id="status" class="status"></div>
 
-
 <div class="top-grid">
-
 
 <section class="panel">
 
 <div class="panel-head">
-
-<h2 id="formTitle">
-➕ Yeni məhsul
-</h2>
-
-<small id="editingText">
-Yeni əlavə
-</small>
-
+<h2 id="formTitle">➕ Yeni məhsul</h2>
+<small id="editingText">Yeni əlavə</small>
 </div>
-
 
 <div class="panel-body">
 
@@ -567,12 +489,9 @@ Yeni əlavə
 
 <input type="hidden" id="productId">
 
-
 <div class="form-grid">
 
-
 <div class="field full">
-
 <label>Məhsul adı *</label>
 
 <input
@@ -581,9 +500,7 @@ type="text"
 placeholder="Netflix 4K Premium Azərbaycan Abunəliyi"
 required
 >
-
 </div>
-
 
 <div class="field">
 
@@ -598,22 +515,18 @@ required
 
 </div>
 
-
 <div class="field">
 
 <label>Əsas müddət</label>
 
 <select id="duration">
-
 <option value="1 ay">1 ay</option>
 <option value="2 ay">2 ay</option>
 <option value="3 ay">3 ay</option>
 <option value="12 ay">12 ay</option>
-
 </select>
 
 </div>
-
 
 <div class="field full">
 
@@ -627,7 +540,6 @@ placeholder="https://.../netflix.webp"
 
 </div>
 
-
 <div class="field full">
 
 <label>Qısa açıqlama</label>
@@ -639,16 +551,13 @@ placeholder="Netflix Azərbaycan — film və serialları yüksək keyfiyyətdə
 
 </div>
 
-
 <div class="field full">
 
 <label>Qiymətlər</label>
 
 <div class="price-box">
 
-
 <div class="price-item">
-
 <strong>1 AY</strong>
 
 <input
@@ -666,12 +575,9 @@ step="0.01"
 min="0"
 placeholder="Endirimli"
 >
-
 </div>
 
-
 <div class="price-item">
-
 <strong>2 AY</strong>
 
 <input
@@ -689,12 +595,9 @@ step="0.01"
 min="0"
 placeholder="Endirimli"
 >
-
 </div>
 
-
 <div class="price-item">
-
 <strong>3 AY</strong>
 
 <input
@@ -712,12 +615,9 @@ step="0.01"
 min="0"
 placeholder="Endirimli"
 >
-
 </div>
 
-
 <div class="price-item">
-
 <strong>12 AY</strong>
 
 <input
@@ -735,12 +635,10 @@ step="0.01"
 min="0"
 placeholder="Endirimli"
 >
-
 </div>
 
 </div>
 </div>
-
 
 <div class="field full">
 
@@ -754,7 +652,6 @@ placeholder="Netflix Azərbaycan abunəliyi necə alınır?"
 
 </div>
 
-
 <div class="field full">
 
 <label>FAQ cavabı</label>
@@ -765,7 +662,6 @@ placeholder="Netflix Premium Azərbaycan abunəliyini DigiBaku üzərindən sifa
 ></textarea>
 
 </div>
-
 
 <div class="field full">
 
@@ -779,7 +675,6 @@ placeholder="Netflix 4K Premium Azərbaycan Abunəliyi | DigiBaku"
 
 </div>
 
-
 <div class="field full">
 
 <label>SEO Description</label>
@@ -790,7 +685,6 @@ placeholder="Netflix Azərbaycan Premium abunəliyi və qiymətləri. DigiBaku.c
 ></textarea>
 
 </div>
-
 
 <div class="field full">
 
@@ -812,7 +706,6 @@ Məhsul aktiv olsun
 
 </div>
 
-
 <div class="actions">
 
 <button
@@ -822,7 +715,6 @@ id="saveBtn"
 >
 💾 Məhsulu yadda saxla
 </button>
-
 
 <button
 type="button"
@@ -838,20 +730,14 @@ Ləğv et
 </form>
 
 </div>
-
 </section>
-
 
 <section class="panel">
 
 <div class="panel-head">
-
 <h2>👁️ Məhsul kartının görünüşü</h2>
-
 <small>Önizləmə</small>
-
 </div>
-
 
 <div class="panel-body">
 
@@ -860,7 +746,6 @@ Ləğv et
 <div class="preview-title">
 Saytda təxminən bu formada görünəcək:
 </div>
-
 
 <div class="preview-card">
 
@@ -879,18 +764,15 @@ Məhsul şəkli
 
 </div>
 
-
 <div class="preview-content">
 
 <h3 id="previewName">
 Netflix 4K Premium Azərbaycan Abunəliyi
 </h3>
 
-
 <p id="previewDescription">
 Netflix Azərbaycan — film və serialları yüksək keyfiyyətdə izləmək üçün Netflix Premium abunəliyi.
 </p>
-
 
 <div class="preview-prices">
 
@@ -912,42 +794,28 @@ Netflix Azərbaycan — film və serialları yüksək keyfiyyətdə izləmək ü
 
 </div>
 
-
 <div class="preview-buttons">
-
 <span>Ətraflı bax</span>
 <span>Sifariş et</span>
 <span>Səbətə at</span>
-
 </div>
 
 </div>
-
 </div>
-
 </div>
-
 </div>
-
 </section>
 
 </div>
-
 
 <section class="panel">
 
 <div class="panel-head">
 
 <div>
-
 <h2>🛍️ Əlavə edilmiş məhsullar</h2>
-
-<small id="productCount">
-Yüklənir...
-</small>
-
+<small id="productCount">Yüklənir...</small>
 </div>
-
 
 <button
 class="secondary"
@@ -957,7 +825,6 @@ onclick="loadProducts()"
 </button>
 
 </div>
-
 
 <div class="panel-body">
 
@@ -970,11 +837,9 @@ Məhsullar yüklənir...
 </div>
 
 </div>
-
 </section>
 
 </main>
-
 
 <script>
 
@@ -985,26 +850,17 @@ Məhsullar yüklənir...
 const SUPABASE_URL =
 "https://zeknhnkaicqkfzgnvycq.supabase.co";
 
-
-/*
-   DÜZGÜN KEY
-   SON K BÖYÜKDÜR
-*/
-
 const SUPABASE_KEY =
-"sb_publishable_jHvCp9fXBA_BwFqrXYpwlw_VC6C1OQK";
-
+"sb_publishable_jHvCp9fXBA_BwFqrXYpwlw_VC6C1OQk";
 
 const ADMIN_EMAIL =
 "zahidovorxan989@gmail.com";
-
 
 const supabaseClient =
 window.supabase.createClient(
     SUPABASE_URL,
     SUPABASE_KEY
 );
-
 
 let products=[];
 
@@ -1020,11 +876,20 @@ try{
 const {data,error} =
 await supabaseClient.auth.getSession();
 
-if(
-error ||
-!data ||
-!data.session
-){
+if(error){
+
+console.error("Auth error:",error);
+
+showStatus(
+error.message ||
+"Supabase bağlantı xətası.",
+"error"
+);
+
+return false;
+}
+
+if(!data || !data.session){
 
 window.location.replace(
 "https://digibaku.com"
@@ -1033,10 +898,8 @@ window.location.replace(
 return false;
 }
 
-
 const email =
 data.session.user.email;
-
 
 if(
 !email ||
@@ -1053,19 +916,19 @@ window.location.replace(
 return false;
 }
 
-
 return true;
 
 }catch(error){
 
 console.error(error);
 
-window.location.replace(
-"https://digibaku.com"
+showStatus(
+error.message ||
+"Admin yoxlanışı zamanı xəta baş verdi.",
+"error"
 );
 
 return false;
-
 }
 
 }
@@ -1107,12 +970,6 @@ el.textContent=message;
 
 el.className =
 "status "+type;
-
-setTimeout(()=>{
-
-el.className="status";
-
-},4500);
 
 }
 
@@ -1203,35 +1060,28 @@ const name =
 document.getElementById("name").value ||
 "Netflix 4K Premium Azərbaycan Abunəliyi";
 
-
 const description =
 document.getElementById("description").value ||
 "Netflix Azərbaycan — film və serialları yüksək keyfiyyətdə izləmək üçün Netflix Premium abunəliyi.";
 
-
 const image =
 document.getElementById("image").value;
-
 
 const normal =
 parseFloat(
 document.getElementById("price1Normal").value
 ) || 9.99;
 
-
 const sale =
 parseFloat(
 document.getElementById("price1Sale").value
 ) || 6.99;
 
-
 const duration =
 document.getElementById("duration").value ||
 "1 ay";
 
-
 let discount="";
-
 
 if(
 normal>0 &&
@@ -1246,46 +1096,38 @@ Math.round(
 
 }
 
-
 document.getElementById(
 "previewName"
 ).textContent=name;
 
-
 document.getElementById(
 "previewDescription"
 ).textContent=description;
-
 
 document.getElementById(
 "previewNormal"
 ).textContent =
 normal.toFixed(2)+" AZN";
 
-
 document.getElementById(
 "previewSale"
 ).textContent =
 sale.toFixed(2)+" AZN";
-
 
 document.getElementById(
 "previewDiscount"
 ).textContent =
 discount ? "-"+discount+"%" : "";
 
-
 document.getElementById(
 "previewDuration"
 ).textContent =
 "/ "+duration;
 
-
 const box =
 document.getElementById(
 "previewImageBox"
 );
-
 
 if(image){
 
@@ -1334,30 +1176,24 @@ async function saveProduct(event){
 
 event.preventDefault();
 
-
 const btn =
 document.getElementById("saveBtn");
-
 
 btn.disabled=true;
 
 btn.textContent=
 "⏳ Saxlanılır...";
 
-
 try{
 
 const id =
 document.getElementById("productId").value;
 
-
 const name =
 document.getElementById("name").value.trim();
 
-
 const slug =
 document.getElementById("slug").value.trim();
-
 
 if(!name || !slug){
 
@@ -1367,62 +1203,45 @@ throw new Error(
 
 }
 
-
-/* 1 AY */
-
 const p1n =
 parseFloat(
 document.getElementById("price1Normal").value
 ) || 0;
-
 
 const p1s =
 parseFloat(
 document.getElementById("price1Sale").value
 ) || 0;
 
-
-/* 2 AY */
-
 const p2n =
 parseFloat(
 document.getElementById("price2Normal").value
 ) || 0;
-
 
 const p2s =
 parseFloat(
 document.getElementById("price2Sale").value
 ) || 0;
 
-
-/* 3 AY */
-
 const p3n =
 parseFloat(
 document.getElementById("price3Normal").value
 ) || 0;
-
 
 const p3s =
 parseFloat(
 document.getElementById("price3Sale").value
 ) || 0;
 
-
-/* 12 AY */
-
 const p12n =
 parseFloat(
 document.getElementById("price12Normal").value
 ) || 0;
 
-
 const p12s =
 parseFloat(
 document.getElementById("price12Sale").value
 ) || 0;
-
 
 let discount=0;
 
@@ -1439,29 +1258,16 @@ Math.round(
 
 }
 
-
-/*
-   Həm yeni qiymət sütunları,
-   həm də köhnə sistem üçün
-   normal_price / sale_price saxlanılır.
-*/
-
 const product={
 
 name:name,
-
 slug:slug,
 
 image:
-document.getElementById(
-"image"
-).value.trim(),
+document.getElementById("image").value.trim(),
 
 description:
-document.getElementById(
-"description"
-).value.trim(),
-
+document.getElementById("description").value.trim(),
 
 price_1_normal:p1n,
 price_1_sale:p1s,
@@ -1475,61 +1281,38 @@ price_3_sale:p3s,
 price_12_normal:p12n,
 price_12_sale:p12s,
 
-
 normal_price:p1n,
-
 sale_price:p1s,
 
 discount_percent:discount,
 
 duration:
-document.getElementById(
-"duration"
-).value,
-
+document.getElementById("duration").value,
 
 faq_question:
-document.getElementById(
-"faqQuestion"
-).value.trim(),
-
+document.getElementById("faqQuestion").value.trim(),
 
 faq_answer:
-document.getElementById(
-"faqAnswer"
-).value.trim(),
-
+document.getElementById("faqAnswer").value.trim(),
 
 seo_title:
-document.getElementById(
-"seoTitle"
-).value.trim(),
-
+document.getElementById("seoTitle").value.trim(),
 
 seo_description:
-document.getElementById(
-"seoDescription"
-).value.trim(),
-
+document.getElementById("seoDescription").value.trim(),
 
 active:
-document.getElementById(
-"active"
-).checked,
-
+document.getElementById("active").checked,
 
 sort_order:
 products.length,
-
 
 updated_at:
 new Date().toISOString()
 
 };
 
-
 let result;
-
 
 if(id){
 
@@ -1548,7 +1331,6 @@ await supabaseClient
 
 }
 
-
 if(result.error){
 
 if(
@@ -1562,9 +1344,7 @@ throw new Error(
 }
 
 throw result.error;
-
 }
-
 
 showStatus(
 id
@@ -1575,11 +1355,9 @@ id
 "success"
 );
 
-
 resetForm();
 
 await loadProducts();
-
 
 }catch(error){
 
@@ -1590,7 +1368,6 @@ error.message ||
 "Məhsulu yadda saxlamaq mümkün olmadı.",
 "error"
 );
-
 
 }finally{
 
@@ -1613,13 +1390,13 @@ async function loadProducts(){
 const container =
 document.getElementById("products");
 
-
 container.innerHTML=`
 <div class="empty">
 Məhsullar yüklənir...
 </div>
 `;
 
+try{
 
 const {
 data,
@@ -1637,7 +1414,6 @@ await supabaseClient
 {ascending:true}
 );
 
-
 if(error){
 
 console.error(
@@ -1645,11 +1421,9 @@ console.error(
 error
 );
 
-
 document.getElementById(
 "productCount"
 ).textContent="Xəta";
-
 
 container.innerHTML=`
 <div class="empty">
@@ -1666,18 +1440,14 @@ ${escapeHTML(error.message)}
 `;
 
 return;
-
 }
 
-
 products=data || [];
-
 
 document.getElementById(
 "productCount"
 ).textContent =
 products.length+" məhsul";
-
 
 if(!products.length){
 
@@ -1688,14 +1458,32 @@ Hələ heç bir yeni məhsul əlavə edilməyib.
 `;
 
 return;
-
 }
-
 
 container.innerHTML =
 products
 .map(productCard)
 .join("");
+
+}catch(error){
+
+console.error(error);
+
+document.getElementById(
+"productCount"
+).textContent="Xəta";
+
+container.innerHTML=`
+<div class="empty">
+Məhsulları yükləmək mümkün olmadı.
+<br><br>
+<strong>
+${escapeHTML(error.message)}
+</strong>
+</div>
+`;
+
+}
 
 }
 
@@ -1723,18 +1511,37 @@ onerror="this.style.display='none'"
 </div>
 `;
 
-
 const normal =
 Number(
-product.normal_price || 0
+product.price_1_normal ??
+product.normal_price ??
+0
 ).toFixed(2);
-
 
 const sale =
 Number(
-product.sale_price || 0
+product.price_1_sale ??
+product.sale_price ??
+0
 ).toFixed(2);
 
+let discount =
+Number(product.discount_percent || 0);
+
+if(
+discount===0 &&
+Number(normal)>0 &&
+Number(sale)>0 &&
+Number(sale)<Number(normal)
+){
+
+discount =
+Math.round(
+((Number(normal)-Number(sale))/
+Number(normal))*100
+);
+
+}
 
 return `
 
@@ -1744,25 +1551,20 @@ return `
 ${image}
 </div>
 
-
 <div class="product-info">
 
 <h3>
 ${escapeHTML(product.name)}
 </h3>
 
-
 <div class="product-description">
-${escapeHTML(
-product.description || ""
-)}
+${escapeHTML(product.description || "")}
 </div>
-
 
 <div class="product-price">
 
 ${
-normal>0
+Number(normal)>0
 ?
 `
 <span class="old-price">
@@ -1772,9 +1574,8 @@ ${normal} AZN
 :""
 }
 
-
 ${
-sale>0
+Number(sale)>0
 ?
 `
 <span class="new-price">
@@ -1784,27 +1585,22 @@ ${sale} AZN
 :""
 }
 
-
 ${
-product.discount_percent>0
+discount>0
 ?
 `
 <span class="discount">
--${product.discount_percent}%
+-${discount}%
 </span>
 `
 :""
 }
 
-
 <span class="duration">
-/ ${escapeHTML(
-product.duration || ""
-)}
+/ ${escapeHTML(product.duration || "")}
 </span>
 
 </div>
-
 
 <div>
 
@@ -1826,7 +1622,6 @@ DEAKTİV
 
 </div>
 
-
 <div class="card-actions">
 
 <button
@@ -1835,7 +1630,6 @@ onclick="editProduct(${product.id})"
 >
 ✏️ Redaktə
 </button>
-
 
 <button
 class="danger"
@@ -1867,132 +1661,111 @@ item =>
 Number(item.id)===Number(id)
 );
 
-
 if(!product)return;
-
 
 document.getElementById(
 "productId"
 ).value=product.id;
 
-
 document.getElementById(
 "name"
 ).value=product.name || "";
-
 
 document.getElementById(
 "slug"
 ).value=product.slug || "";
 
-
 document.getElementById(
 "image"
 ).value=product.image || "";
-
 
 document.getElementById(
 "description"
 ).value=product.description || "";
 
-
-/* Qiymətlər */
-
 document.getElementById(
 "price1Normal"
 ).value =
-product.price_1_normal ?? product.normal_price ?? "";
-
+product.price_1_normal ??
+product.normal_price ??
+"";
 
 document.getElementById(
 "price1Sale"
 ).value =
-product.price_1_sale ?? product.sale_price ?? "";
-
+product.price_1_sale ??
+product.sale_price ??
+"";
 
 document.getElementById(
 "price2Normal"
 ).value =
 product.price_2_normal ?? "";
 
-
 document.getElementById(
 "price2Sale"
 ).value =
 product.price_2_sale ?? "";
-
 
 document.getElementById(
 "price3Normal"
 ).value =
 product.price_3_normal ?? "";
 
-
 document.getElementById(
 "price3Sale"
 ).value =
 product.price_3_sale ?? "";
-
 
 document.getElementById(
 "price12Normal"
 ).value =
 product.price_12_normal ?? "";
 
-
 document.getElementById(
 "price12Sale"
 ).value =
 product.price_12_sale ?? "";
-
 
 document.getElementById(
 "duration"
 ).value =
 product.duration || "1 ay";
 
-
 document.getElementById(
 "active"
 ).checked =
 product.active !== false;
-
 
 document.getElementById(
 "faqQuestion"
 ).value =
 product.faq_question || "";
 
-
 document.getElementById(
 "faqAnswer"
 ).value =
 product.faq_answer || "";
-
 
 document.getElementById(
 "seoTitle"
 ).value =
 product.seo_title || "";
 
-
 document.getElementById(
 "seoDescription"
 ).value =
 product.seo_description || "";
-
 
 document.getElementById(
 "formTitle"
 ).textContent =
 "✏️ Məhsulu redaktə et";
 
-
 document.getElementById(
 "editingText"
 ).textContent =
 "Redaktə rejimi";
-
 
 document.getElementById(
 "cancelBtn"
@@ -2000,15 +1773,12 @@ document.getElementById(
 "hidden"
 );
 
-
 document.getElementById(
 "saveBtn"
 ).textContent =
 "💾 Dəyişiklikləri saxla";
 
-
 updatePreview();
-
 
 window.scrollTo({
 top:0,
@@ -2030,9 +1800,7 @@ item =>
 Number(item.id)===Number(id)
 );
 
-
 if(!product)return;
-
 
 if(
 !confirm(
@@ -2040,13 +1808,11 @@ if(
 )
 )return;
 
-
 const {error} =
 await supabaseClient
 .from("site_products")
 .delete()
 .eq("id",id);
-
 
 if(error){
 
@@ -2057,15 +1823,12 @@ error.message,
 );
 
 return;
-
 }
-
 
 showStatus(
 "Məhsul silindi.",
 "success"
 );
-
 
 await loadProducts();
 
@@ -2082,33 +1845,27 @@ document
 .getElementById("productForm")
 .reset();
 
-
 document.getElementById(
 "productId"
 ).value="";
-
 
 document.getElementById(
 "active"
 ).checked=true;
 
-
 document.getElementById(
 "duration"
 ).value="1 ay";
-
 
 document.getElementById(
 "formTitle"
 ).textContent=
 "➕ Yeni məhsul";
 
-
 document.getElementById(
 "editingText"
 ).textContent=
 "Yeni əlavə";
-
 
 document.getElementById(
 "cancelBtn"
@@ -2116,12 +1873,10 @@ document.getElementById(
 "hidden"
 );
 
-
 document.getElementById(
 "saveBtn"
 ).textContent=
 "💾 Məhsulu yadda saxla";
-
 
 updatePreview();
 
@@ -2143,7 +1898,6 @@ return String(value ?? "")
 
 }
 
-
 function escapeAttribute(value){
 
 return String(value ?? "")
@@ -2164,16 +1918,13 @@ async function init(){
 const allowed =
 await checkAdmin();
 
-
 if(!allowed)return;
-
 
 await loadProducts();
 
 updatePreview();
 
 }
-
 
 init();
 
