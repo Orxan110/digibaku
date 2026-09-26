@@ -1,0 +1,1837 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>DigiBaku — Sayt Məzmunu</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    min-height:100vh;
+    font-family:Arial,Helvetica,sans-serif;
+    background:#05070b;
+    color:#fff;
+}
+
+button,
+input,
+textarea,
+select{
+    font:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+.header{
+    position:sticky;
+    top:0;
+    z-index:50;
+    background:rgba(5,7,11,.95);
+    backdrop-filter:blur(12px);
+    border-bottom:1px solid #172033;
+}
+
+.header-inner{
+    max-width:1200px;
+    margin:auto;
+    padding:18px 20px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+}
+
+.logo{
+    font-size:22px;
+    font-weight:800;
+    color:#fff;
+}
+
+.logo span{
+    color:#168cff;
+}
+
+.header-right{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.back-btn,
+.logout-btn{
+    border:1px solid #1b2b44;
+    background:#0b111c;
+    color:#dbe8ff;
+    padding:10px 14px;
+    border-radius:10px;
+    transition:.2s;
+}
+
+.back-btn:hover,
+.logout-btn:hover{
+    background:#101b2c;
+    border-color:#1677d2;
+}
+
+.container{
+    width:min(1200px,calc(100% - 30px));
+    margin:30px auto 60px;
+}
+
+.page-title{
+    margin-bottom:22px;
+}
+
+.page-title h1{
+    font-size:30px;
+    margin-bottom:7px;
+}
+
+.page-title p{
+    color:#8492a8;
+    font-size:14px;
+}
+
+.tabs{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-bottom:20px;
+}
+
+.tab{
+    border:1px solid #17263d;
+    background:#0a101a;
+    color:#b9c7db;
+    padding:12px 17px;
+    border-radius:11px;
+    font-weight:700;
+    transition:.2s;
+}
+
+.tab:hover{
+    border-color:#1677d2;
+}
+
+.tab.active{
+    background:#0b5db7;
+    border-color:#168cff;
+    color:#fff;
+}
+
+.panel{
+    display:none;
+}
+
+.panel.active{
+    display:block;
+}
+
+.card{
+    background:#090e17;
+    border:1px solid #172238;
+    border-radius:16px;
+    padding:20px;
+    margin-bottom:16px;
+}
+
+.card-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+    margin-bottom:18px;
+}
+
+.card-head h2{
+    font-size:18px;
+}
+
+.card-head p{
+    color:#718098;
+    font-size:13px;
+    margin-top:5px;
+}
+
+.save-btn{
+    background:#087df0;
+    color:#fff;
+    border:none;
+    border-radius:10px;
+    padding:11px 18px;
+    font-weight:800;
+}
+
+.save-btn:hover{
+    background:#096dcc;
+}
+
+.field{
+    margin-bottom:15px;
+}
+
+.field:last-child{
+    margin-bottom:0;
+}
+
+.field label{
+    display:block;
+    color:#b8c6da;
+    font-size:13px;
+    font-weight:700;
+    margin-bottom:7px;
+}
+
+.field input,
+.field textarea,
+.field select{
+    width:100%;
+    background:#060a11;
+    color:#fff;
+    border:1px solid #1a2a42;
+    border-radius:10px;
+    padding:12px 13px;
+    outline:none;
+}
+
+.field input:focus,
+.field textarea:focus,
+.field select:focus{
+    border-color:#168cff;
+}
+
+.field textarea{
+    min-height:110px;
+    resize:vertical;
+    line-height:1.5;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:15px;
+}
+
+.product-box{
+    background:#070c14;
+    border:1px solid #172238;
+    border-radius:14px;
+    padding:17px;
+    margin-bottom:14px;
+}
+
+.product-title{
+    font-size:17px;
+    font-weight:800;
+    margin-bottom:15px;
+    color:#fff;
+}
+
+.status{
+    position:fixed;
+    right:20px;
+    bottom:20px;
+    z-index:100;
+    padding:13px 17px;
+    border-radius:11px;
+    background:#0d1725;
+    border:1px solid #24405f;
+    color:#dceaff;
+    display:none;
+    box-shadow:0 10px 35px rgba(0,0,0,.4);
+}
+
+.status.show{
+    display:block;
+}
+
+.status.success{
+    border-color:#1c9c63;
+}
+
+.status.error{
+    border-color:#d34b5f;
+}
+
+.loading{
+    text-align:center;
+    padding:50px 20px;
+    color:#8390a5;
+}
+
+@media(max-width:800px){
+
+    .grid{
+        grid-template-columns:1fr;
+    }
+
+    .card-head{
+        align-items:flex-start;
+        flex-direction:column;
+    }
+
+    .save-btn{
+        width:100%;
+    }
+
+    .header-inner{
+        align-items:flex-start;
+        flex-direction:column;
+    }
+
+    .header-right{
+        width:100%;
+    }
+
+    .back-btn,
+    .logout-btn{
+        flex:1;
+    }
+
+    .page-title h1{
+        font-size:25px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header class="header">
+    <div class="header-inner">
+
+        <div class="logo">
+            Digi<span>Baku</span>
+        </div>
+
+        <div class="header-right">
+
+            <button class="back-btn" onclick="goBack()">
+                ← Gizli panel
+            </button>
+
+            <button class="logout-btn" onclick="logout()">
+                Çıxış
+            </button>
+
+        </div>
+
+    </div>
+</header>
+
+
+<main class="container">
+
+    <div class="page-title">
+
+        <h1>📝 Sayt Məzmunu</h1>
+
+        <p>
+            DigiBaku saytının müxtəlif səhifələrində görünən
+            mətnləri bir yerdən idarə et.
+        </p>
+
+    </div>
+
+
+    <div class="tabs">
+
+        <button class="tab active" data-tab="home">
+            🏠 Ana səhifə
+        </button>
+
+        <button class="tab" data-tab="prices">
+            💰 Qiymətlər
+        </button>
+
+        <button class="tab" data-tab="faq">
+            ❓ FAQ
+        </button>
+
+        <button class="tab" data-tab="products">
+            📦 Məhsullar
+        </button>
+
+        <button class="tab" data-tab="seo">
+            🔍 SEO
+        </button>
+
+    </div>
+
+
+    <!-- ANA SƏHİFƏ -->
+
+    <section class="panel active" id="home">
+
+        <div class="card">
+
+            <div class="card-head">
+
+                <div>
+                    <h2>🏠 Ana səhifə</h2>
+
+                    <p>
+                        index.html-də istifadə olunacaq əsas mətnlər.
+                    </p>
+                </div>
+
+                <button
+                    class="save-btn"
+                    onclick="savePage('home')"
+                >
+                    Yadda saxla
+                </button>
+
+            </div>
+
+
+            <div class="field">
+
+                <label>Əsas başlıq</label>
+
+                <input
+                    id="home_hero_title"
+                    placeholder="Digital hesabların etibarlı tək ünvanı"
+                >
+
+            </div>
+
+
+            <div class="field">
+
+                <label>Əsas açıqlama</label>
+
+                <textarea
+                    id="home_hero_description"
+                    placeholder="Ana səhifənin əsas açıqlaması..."
+                ></textarea>
+
+            </div>
+
+
+            <div class="grid">
+
+                <div class="field">
+
+                    <label>Əsas düymə</label>
+
+                    <input
+                        id="home_primary_button"
+                        placeholder="Məhsullara bax"
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>İkinci düymə</label>
+
+                    <input
+                        id="home_secondary_button"
+                        placeholder="Bizimlə əlaqə"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <div class="field">
+
+                <label>Haqqımızda başlığı</label>
+
+                <input
+                    id="home_about_title"
+                    placeholder="DigiBaku haqqında"
+                >
+
+            </div>
+
+
+            <div class="field">
+
+                <label>Haqqımızda mətni</label>
+
+                <textarea
+                    id="home_about_text"
+                    placeholder="DigiBaku haqqında məlumat..."
+                ></textarea>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- QİYMƏTLƏR -->
+
+    <section class="panel" id="prices">
+
+        <div class="card">
+
+            <div class="card-head">
+
+                <div>
+                    <h2>💰 Qiymətlər səhifəsi</h2>
+
+                    <p>
+                        qiymetler.html-də görünəcək mətnlər.
+                    </p>
+                </div>
+
+                <button
+                    class="save-btn"
+                    onclick="savePage('prices')"
+                >
+                    Yadda saxla
+                </button>
+
+            </div>
+
+
+            <div class="field">
+
+                <label>Səhifə başlığı</label>
+
+                <input
+                    id="prices_title"
+                    placeholder="Məhsullar və qiymətlər"
+                >
+
+            </div>
+
+
+            <div class="field">
+
+                <label>Səhifə açıqlaması</label>
+
+                <textarea
+                    id="prices_description"
+                    placeholder="Qiymətlər səhifəsinin açıqlaması..."
+                ></textarea>
+
+            </div>
+
+
+            <div class="grid">
+
+                <div class="field">
+
+                    <label>Endirim başlığı</label>
+
+                    <input
+                        id="prices_discount_title"
+                        placeholder="Xüsusi endirimlər"
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>Əlaqə düyməsi</label>
+
+                    <input
+                        id="prices_contact_button"
+                        placeholder="Sifariş et"
+                    >
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- FAQ -->
+
+    <section class="panel" id="faq">
+
+        <div class="card">
+
+            <div class="card-head">
+
+                <div>
+                    <h2>❓ FAQ</h2>
+
+                    <p>
+                        faq.html üçün sual və cavabları idarə et.
+                    </p>
+                </div>
+
+                <button
+                    class="save-btn"
+                    onclick="saveFAQ()"
+                >
+                    FAQ-ları yadda saxla
+                </button>
+
+            </div>
+
+
+            <div id="faqList"></div>
+
+        </div>
+
+    </section>
+
+
+    <!-- MƏHSULLAR -->
+
+    <section class="panel" id="products">
+
+        <div class="card">
+
+            <div class="card-head">
+
+                <div>
+                    <h2>📦 Məhsul məzmunları</h2>
+
+                    <p>
+                        Netflix, YouTube, ChatGPT, Gemini,
+                        Spotify və Canva məlumatlarını idarə et.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div id="productsList">
+
+                <div class="loading">
+                    Məhsullar yüklənir...
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- SEO -->
+
+    <section class="panel" id="seo">
+
+        <div class="card">
+
+            <div class="card-head">
+
+                <div>
+                    <h2>🔍 SEO</h2>
+
+                    <p>
+                        Sayt səhifələrinin SEO başlıq və
+                        açıqlamalarını idarə et.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div id="seoList"></div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<div
+    class="status"
+    id="status"
+></div>
+
+
+<script>
+
+const SUPABASE_URL =
+    "https://zeknhnkaicqkfzgnvycq.supabase.co";
+
+const SUPABASE_KEY =
+    "sb_publishable_jHvCp9fXBA_BwFqrXYpwlw_VC6C1OQk";
+
+const ADMIN_EMAIL =
+    "zahidovorxan989@gmail.com";
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
+
+
+/* ================================
+   MƏHSULLAR
+================================ */
+
+const PRODUCTS = [
+
+    {
+        key:"netflix",
+        name:"Netflix"
+    },
+
+    {
+        key:"youtube",
+        name:"YouTube Premium"
+    },
+
+    {
+        key:"chatgpt",
+        name:"ChatGPT Plus"
+    },
+
+    {
+        key:"gemini",
+        name:"Google Gemini Premium"
+    },
+
+    {
+        key:"spotify",
+        name:"Spotify Premium"
+    },
+
+    {
+        key:"canva",
+        name:"Canva Premium"
+    }
+
+];
+
+
+/* ================================
+   FAQ
+================================ */
+
+const FAQ_COUNT = 8;
+
+
+/* ================================
+   SEO
+================================ */
+
+const SEO_PAGES = [
+
+    {
+        key:"index",
+        name:"Ana səhifə"
+    },
+
+    {
+        key:"qiymetler",
+        name:"Qiymətlər"
+    },
+
+    {
+        key:"faq",
+        name:"FAQ"
+    },
+
+    {
+        key:"netflix",
+        name:"Netflix"
+    },
+
+    {
+        key:"youtube",
+        name:"YouTube Premium"
+    },
+
+    {
+        key:"chatgpt",
+        name:"ChatGPT Plus"
+    },
+
+    {
+        key:"gemini",
+        name:"Google Gemini Premium"
+    },
+
+    {
+        key:"spotify",
+        name:"Spotify Premium"
+    },
+
+    {
+        key:"canva",
+        name:"Canva Premium"
+    }
+
+];
+
+
+/* ================================
+   ADMIN YOXLAMASI
+================================ */
+
+async function checkAdmin(){
+
+    try{
+
+        const {
+            data,
+            error
+        } = await supabaseClient.auth.getSession();
+
+
+        /*
+           Login yoxdur
+           → birbaşa DigiBaku
+        */
+
+        if(
+            error ||
+            !data ||
+            !data.session
+        ){
+
+            window.location.replace(
+                "https://digibaku.com"
+            );
+
+            return false;
+        }
+
+
+        const email =
+            data.session.user.email;
+
+
+        /*
+           Yalnız admin email
+        */
+
+        if(
+            !email ||
+            email.toLowerCase() !==
+            ADMIN_EMAIL.toLowerCase()
+        ){
+
+            /*
+               Başqa istifadəçini çıxart
+            */
+
+            await supabaseClient.auth.signOut();
+
+
+            /*
+               DigiBaku saytına göndər
+            */
+
+            window.location.replace(
+                "https://digibaku.com"
+            );
+
+            return false;
+        }
+
+
+        return true;
+
+    }catch(error){
+
+        console.error(error);
+
+        window.location.replace(
+            "https://digibaku.com"
+        );
+
+        return false;
+    }
+
+}
+
+
+/* ================================
+   STATUS
+================================ */
+
+function showStatus(
+    message,
+    type="success"
+){
+
+    const box =
+        document.getElementById("status");
+
+    box.textContent =
+        message;
+
+    box.className =
+        "status show " + type;
+
+    clearTimeout(
+        window.statusTimer
+    );
+
+    window.statusTimer =
+        setTimeout(()=>{
+
+            box.className =
+                "status";
+
+        },3000);
+
+}
+
+
+/* ================================
+   TABLAR
+================================ */
+
+document
+.querySelectorAll(".tab")
+.forEach(button=>{
+
+    button.addEventListener(
+        "click",
+        ()=>{
+
+            document
+            .querySelectorAll(".tab")
+            .forEach(x =>
+                x.classList.remove("active")
+            );
+
+            document
+            .querySelectorAll(".panel")
+            .forEach(x =>
+                x.classList.remove("active")
+            );
+
+
+            button.classList.add(
+                "active"
+            );
+
+
+            const id =
+                button.dataset.tab;
+
+
+            document
+            .getElementById(id)
+            .classList.add("active");
+
+        }
+    );
+
+});
+
+
+/* ================================
+   MƏLUMAT YAZ
+================================ */
+
+async function saveContent(
+    page,
+    section,
+    key,
+    value
+){
+
+    const {
+        error
+    } = await supabaseClient
+        .from("site_content")
+        .upsert({
+
+            page:page,
+
+            section:section,
+
+            content_key:key,
+
+            content_value:value || "",
+
+            updated_at:
+                new Date().toISOString()
+
+        },{
+            onConflict:
+                "page,section,content_key"
+        });
+
+
+    if(error){
+
+        console.error(error);
+
+        throw error;
+    }
+
+}
+
+
+/* ================================
+   MƏLUMAT OXU
+================================ */
+
+async function loadContent(){
+
+    const {
+        data,
+        error
+    } = await supabaseClient
+        .from("site_content")
+        .select("*");
+
+
+    if(error){
+
+        console.error(error);
+
+        showStatus(
+            "Məzmun yüklənmədi.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    const map = {};
+
+
+    (data || []).forEach(row=>{
+
+        const id =
+            `${row.page}_${row.section}_${row.content_key}`;
+
+        map[id] =
+            row.content_value || "";
+
+    });
+
+
+    window.siteContentMap =
+        map;
+
+
+    fillHome(map);
+
+    fillPrices(map);
+
+    fillFAQ(map);
+
+    fillProducts(map);
+
+    fillSEO(map);
+
+}
+
+
+/* ================================
+   VALUE
+================================ */
+
+function getValue(
+    map,
+    page,
+    section,
+    key
+){
+
+    return map[
+        `${page}_${section}_${key}`
+    ] || "";
+
+}
+
+
+/* ================================
+   HOME
+================================ */
+
+function fillHome(map){
+
+    document
+    .getElementById("home_hero_title")
+    .value =
+        getValue(
+            map,
+            "home",
+            "main",
+            "hero_title"
+        );
+
+
+    document
+    .getElementById("home_hero_description")
+    .value =
+        getValue(
+            map,
+            "home",
+            "main",
+            "hero_description"
+        );
+
+
+    document
+    .getElementById("home_primary_button")
+    .value =
+        getValue(
+            map,
+            "home",
+            "main",
+            "primary_button"
+        );
+
+
+    document
+    .getElementById("home_secondary_button")
+    .value =
+        getValue(
+            map,
+            "home",
+            "main",
+            "secondary_button"
+        );
+
+
+    document
+    .getElementById("home_about_title")
+    .value =
+        getValue(
+            map,
+            "home",
+            "about",
+            "title"
+        );
+
+
+    document
+    .getElementById("home_about_text")
+    .value =
+        getValue(
+            map,
+            "home",
+            "about",
+            "text"
+        );
+
+}
+
+
+/* ================================
+   SAVE HOME / PRICES
+================================ */
+
+async function savePage(page){
+
+    try{
+
+        if(page === "home"){
+
+            await saveContent(
+                "home",
+                "main",
+                "hero_title",
+                document
+                .getElementById(
+                    "home_hero_title"
+                ).value
+            );
+
+
+            await saveContent(
+                "home",
+                "main",
+                "hero_description",
+                document
+                .getElementById(
+                    "home_hero_description"
+                ).value
+            );
+
+
+            await saveContent(
+                "home",
+                "main",
+                "primary_button",
+                document
+                .getElementById(
+                    "home_primary_button"
+                ).value
+            );
+
+
+            await saveContent(
+                "home",
+                "main",
+                "secondary_button",
+                document
+                .getElementById(
+                    "home_secondary_button"
+                ).value
+            );
+
+
+            await saveContent(
+                "home",
+                "about",
+                "title",
+                document
+                .getElementById(
+                    "home_about_title"
+                ).value
+            );
+
+
+            await saveContent(
+                "home",
+                "about",
+                "text",
+                document
+                .getElementById(
+                    "home_about_text"
+                ).value
+            );
+
+        }
+
+
+        if(page === "prices"){
+
+            await saveContent(
+                "prices",
+                "main",
+                "title",
+                document
+                .getElementById(
+                    "prices_title"
+                ).value
+            );
+
+
+            await saveContent(
+                "prices",
+                "main",
+                "description",
+                document
+                .getElementById(
+                    "prices_description"
+                ).value
+            );
+
+
+            await saveContent(
+                "prices",
+                "main",
+                "discount_title",
+                document
+                .getElementById(
+                    "prices_discount_title"
+                ).value
+            );
+
+
+            await saveContent(
+                "prices",
+                "main",
+                "contact_button",
+                document
+                .getElementById(
+                    "prices_contact_button"
+                ).value
+            );
+
+        }
+
+
+        showStatus(
+            "Məlumatlar yadda saxlanıldı ✓"
+        );
+
+
+        await loadContent();
+
+    }catch(error){
+
+        console.error(error);
+
+        showStatus(
+            "Yadda saxlamaq mümkün olmadı.",
+            "error"
+        );
+
+    }
+
+}
+
+
+/* ================================
+   PRICES
+================================ */
+
+function fillPrices(map){
+
+    document
+    .getElementById("prices_title")
+    .value =
+        getValue(
+            map,
+            "prices",
+            "main",
+            "title"
+        );
+
+
+    document
+    .getElementById("prices_description")
+    .value =
+        getValue(
+            map,
+            "prices",
+            "main",
+            "description"
+        );
+
+
+    document
+    .getElementById("prices_discount_title")
+    .value =
+        getValue(
+            map,
+            "prices",
+            "main",
+            "discount_title"
+        );
+
+
+    document
+    .getElementById("prices_contact_button")
+    .value =
+        getValue(
+            map,
+            "prices",
+            "main",
+            "contact_button"
+        );
+
+}
+
+
+/* ================================
+   FAQ
+================================ */
+
+function fillFAQ(map){
+
+    const container =
+        document.getElementById(
+            "faqList"
+        );
+
+
+    let html = "";
+
+
+    for(
+        let i = 1;
+        i <= FAQ_COUNT;
+        i++
+    ){
+
+        html += `
+
+        <div class="product-box">
+
+            <div class="product-title">
+                Sual ${i}
+            </div>
+
+            <div class="field">
+
+                <label>Sual</label>
+
+                <input
+                    id="faq_${i}_question"
+                    value="${escapeHtml(
+                        getValue(
+                            map,
+                            "faq",
+                            "item_"+i,
+                            "question"
+                        )
+                    )}"
+                    placeholder="FAQ sualı..."
+                >
+
+            </div>
+
+
+            <div class="field">
+
+                <label>Cavab</label>
+
+                <textarea
+                    id="faq_${i}_answer"
+                    placeholder="FAQ cavabı..."
+                >${escapeHtml(
+                    getValue(
+                        map,
+                        "faq",
+                        "item_"+i,
+                        "answer"
+                    )
+                )}</textarea>
+
+            </div>
+
+        </div>
+
+        `;
+
+    }
+
+
+    container.innerHTML =
+        html;
+
+}
+
+
+/* ================================
+   FAQ SAVE
+================================ */
+
+async function saveFAQ(){
+
+    try{
+
+        for(
+            let i = 1;
+            i <= FAQ_COUNT;
+            i++
+        ){
+
+            await saveContent(
+                "faq",
+                "item_"+i,
+                "question",
+                document
+                .getElementById(
+                    `faq_${i}_question`
+                ).value
+            );
+
+
+            await saveContent(
+                "faq",
+                "item_"+i,
+                "answer",
+                document
+                .getElementById(
+                    `faq_${i}_answer`
+                ).value
+            );
+
+        }
+
+
+        showStatus(
+            "FAQ-lar yadda saxlanıldı ✓"
+        );
+
+
+        await loadContent();
+
+    }catch(error){
+
+        console.error(error);
+
+        showStatus(
+            "FAQ-ları yadda saxlamaq mümkün olmadı.",
+            "error"
+        );
+
+    }
+
+}
+
+
+/* ================================
+   PRODUCTS
+================================ */
+
+function fillProducts(map){
+
+    const container =
+        document.getElementById(
+            "productsList"
+        );
+
+
+    let html = "";
+
+
+    PRODUCTS.forEach(product=>{
+
+        html += `
+
+        <div class="product-box">
+
+            <div class="product-title">
+                ${product.name}
+            </div>
+
+
+            <div class="field">
+
+                <label>Məhsul adı</label>
+
+                <input
+                    id="product_${product.key}_title"
+                    value="${escapeHtml(
+                        getValue(
+                            map,
+                            "product",
+                            product.key,
+                            "title"
+                        )
+                    )}"
+                    placeholder="${product.name}"
+                >
+
+            </div>
+
+
+            <div class="field">
+
+                <label>Məhsul açıqlaması</label>
+
+                <textarea
+                    id="product_${product.key}_description"
+                    placeholder="Məhsul haqqında açıqlama..."
+                >${escapeHtml(
+                    getValue(
+                        map,
+                        "product",
+                        product.key,
+                        "description"
+                    )
+                )}</textarea>
+
+            </div>
+
+
+            <div class="field">
+
+                <label>Məhsul üstünlükləri</label>
+
+                <textarea
+                    id="product_${product.key}_features"
+                    placeholder="Məhsul üstünlükləri..."
+                >${escapeHtml(
+                    getValue(
+                        map,
+                        "product",
+                        product.key,
+                        "features"
+                    )
+                )}</textarea>
+
+            </div>
+
+
+            <button
+                class="save-btn"
+                onclick="saveProduct('${product.key}')"
+            >
+                ${product.name} — yadda saxla
+            </button>
+
+        </div>
+
+        `;
+
+    });
+
+
+    container.innerHTML =
+        html;
+
+}
+
+
+/* ================================
+   PRODUCT SAVE
+================================ */
+
+async function saveProduct(key){
+
+    try{
+
+        await saveContent(
+            "product",
+            key,
+            "title",
+            document
+            .getElementById(
+                `product_${key}_title`
+            ).value
+        );
+
+
+        await saveContent(
+            "product",
+            key,
+            "description",
+            document
+            .getElementById(
+                `product_${key}_description`
+            ).value
+        );
+
+
+        await saveContent(
+            "product",
+            key,
+            "features",
+            document
+            .getElementById(
+                `product_${key}_features`
+            ).value
+        );
+
+
+        showStatus(
+            "Məhsul məlumatları yadda saxlanıldı ✓"
+        );
+
+
+        await loadContent();
+
+    }catch(error){
+
+        console.error(error);
+
+        showStatus(
+            "Məhsulu yadda saxlamaq mümkün olmadı.",
+            "error"
+        );
+
+    }
+
+}
+
+
+/* ================================
+   SEO
+================================ */
+
+function fillSEO(map){
+
+    const container =
+        document.getElementById(
+            "seoList"
+        );
+
+
+    let html = "";
+
+
+    SEO_PAGES.forEach(page=>{
+
+        html += `
+
+        <div class="product-box">
+
+            <div class="product-title">
+                ${page.name}
+            </div>
+
+
+            <div class="field">
+
+                <label>SEO Title</label>
+
+                <input
+                    id="seo_${page.key}_title"
+                    value="${escapeHtml(
+                        getValue(
+                            map,
+                            "seo",
+                            page.key,
+                            "title"
+                        )
+                    )}"
+                    placeholder="SEO title..."
+                >
+
+            </div>
+
+
+            <div class="field">
+
+                <label>Meta Description</label>
+
+                <textarea
+                    id="seo_${page.key}_description"
+                    placeholder="Meta description..."
+                >${escapeHtml(
+                    getValue(
+                        map,
+                        "seo",
+                        page.key,
+                        "description"
+                    )
+                )}</textarea>
+
+            </div>
+
+
+            <button
+                class="save-btn"
+                onclick="saveSEO('${page.key}')"
+            >
+                SEO-nu yadda saxla
+            </button>
+
+        </div>
+
+        `;
+
+    });
+
+
+    container.innerHTML =
+        html;
+
+}
+
+
+/* ================================
+   SEO SAVE
+================================ */
+
+async function saveSEO(key){
+
+    try{
+
+        await saveContent(
+            "seo",
+            key,
+            "title",
+            document
+            .getElementById(
+                `seo_${key}_title`
+            ).value
+        );
+
+
+        await saveContent(
+            "seo",
+            key,
+            "description",
+            document
+            .getElementById(
+                `seo_${key}_description`
+            ).value
+        );
+
+
+        showStatus(
+            "SEO məlumatları yadda saxlanıldı ✓"
+        );
+
+
+        await loadContent();
+
+    }catch(error){
+
+        console.error(error);
+
+        showStatus(
+            "SEO məlumatlarını yadda saxlamaq mümkün olmadı.",
+            "error"
+        );
+
+    }
+
+}
+
+
+/* ================================
+   HTML ESCAPE
+================================ */
+
+function escapeHtml(value){
+
+    return String(value || "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+}
+
+
+/* ================================
+   GERI
+================================ */
+
+function goBack(){
+
+    window.location.href =
+        "gizli_panel.html";
+
+}
+
+
+/* ================================
+   LOGOUT
+================================ */
+
+async function logout(){
+
+    await supabaseClient.auth.signOut();
+
+    window.location.replace(
+        "https://digibaku.com"
+    );
+
+}
+
+
+/* ================================
+   BAŞLAT
+================================ */
+
+(async function(){
+
+    const isAdmin =
+        await checkAdmin();
+
+    if(!isAdmin){
+
+        return;
+    }
+
+    await loadContent();
+
+})();
+
+</script>
+
+</body>
+</html>
