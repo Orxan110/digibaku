@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>DigiBaku — Məhsul İdarəetmə</title>
+<title>DigiBaku — Sayt Məhsulları</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -24,10 +24,7 @@ body{
     font-family:Arial,Helvetica,sans-serif;
 }
 
-button,
-input,
-textarea,
-select{
+button,input,textarea,select{
     font:inherit;
 }
 
@@ -52,7 +49,6 @@ button{
 .logo{
     font-size:21px;
     font-weight:800;
-    color:#fff;
 }
 
 .logo span{
@@ -61,7 +57,6 @@ button{
 
 .header-right{
     display:flex;
-    align-items:center;
     gap:10px;
 }
 
@@ -114,11 +109,6 @@ button{
     padding:12px 18px;
     border-radius:11px;
     font-weight:700;
-    box-shadow:0 8px 25px rgba(0,112,255,.22);
-}
-
-.primary-btn:hover{
-    filter:brightness(1.08);
 }
 
 .secondary-btn{
@@ -204,12 +194,10 @@ button{
     border:1px solid #192536;
     border-radius:16px;
     overflow:hidden;
-    transition:.2s;
 }
 
 .product-card:hover{
     border-color:#28527f;
-    transform:translateY(-2px);
 }
 
 .product-image{
@@ -327,12 +315,13 @@ button{
     color:#ff8795;
 }
 
-.empty{
+.empty,
+.loading{
     padding:50px 20px;
     text-align:center;
+    color:#65748a;
     border:1px dashed #253246;
     border-radius:15px;
-    color:#65748a;
 }
 
 /* FORM */
@@ -354,7 +343,6 @@ button{
     display:flex;
     align-items:center;
     justify-content:space-between;
-    gap:15px;
     margin-bottom:20px;
 }
 
@@ -409,7 +397,6 @@ button{
 .field textarea:focus,
 .field select:focus{
     border-color:#167cff;
-    box-shadow:0 0 0 3px rgba(22,124,255,.08);
 }
 
 .field textarea{
@@ -473,7 +460,6 @@ button{
     display:flex;
     justify-content:flex-end;
     gap:10px;
-    margin-top:5px;
 }
 
 .save-btn{
@@ -493,13 +479,8 @@ button{
     border-radius:10px;
 }
 
-.loading{
-    text-align:center;
-    padding:50px;
-    color:#738197;
-}
-
 @media(max-width:950px){
+
     .products-grid{
         grid-template-columns:repeat(2,1fr);
     }
@@ -510,22 +491,19 @@ button{
 }
 
 @media(max-width:650px){
+
     .header{
         padding:0 15px;
     }
 
-    .header-right .header-btn:first-child{
-        display:none;
-    }
-
     .container{
-        width:min(100% - 20px,1250px);
+        width:calc(100% - 20px);
         margin-top:20px;
     }
 
     .top{
-        align-items:stretch;
         flex-direction:column;
+        align-items:stretch;
     }
 
     .top-actions{
@@ -563,129 +541,269 @@ button{
         grid-template-columns:1fr 1fr;
     }
 }
-
-@media(max-width:400px){
-    .price-grid{
-        grid-template-columns:1fr;
-    }
-}
 </style>
 </head>
 
 <body>
 
 <header class="header">
-    <div class="logo">DigiBaku<span>.com</span></div>
+
+    <div class="logo">
+        DigiBaku<span>.com</span>
+    </div>
 
     <div class="header-right">
-        <button class="header-btn" onclick="goAdmin()">← Gizli panel</button>
-        <button class="header-btn" onclick="logout()">Çıxış</button>
+
+        <button
+            class="header-btn"
+            onclick="goAdmin()"
+        >
+            ← Gizli panel
+        </button>
+
+        <button
+            class="header-btn"
+            onclick="logout()"
+        >
+            Çıxış
+        </button>
+
     </div>
+
 </header>
+
 
 <main class="container">
 
     <div class="top">
+
         <div>
             <h1>Sayt Məhsulları</h1>
-            <p>Bütün məhsulların mərkəzi idarəetmə sistemi.</p>
+
+            <p>
+                Bütün məhsulların mərkəzi idarəetmə sistemi.
+            </p>
         </div>
 
         <div class="top-actions">
-            <button class="secondary-btn" onclick="loadProducts()">↻ Yenilə</button>
-            <button class="primary-btn" onclick="openNewProduct()">＋ Yeni məhsul</button>
+
+            <button
+                class="secondary-btn"
+                onclick="loadProducts()"
+            >
+                ↻ Yenilə
+            </button>
+
+            <button
+                class="primary-btn"
+                onclick="openNewProduct()"
+            >
+                ＋ Yeni məhsul
+            </button>
+
         </div>
+
     </div>
 
-    <div id="notice" class="notice"></div>
+
+    <div
+        id="notice"
+        class="notice"
+    ></div>
+
 
     <div class="stats">
-        <div class="stat">
-            <div class="stat-title">ÜMUMİ MƏHSUL</div>
-            <div class="stat-value" id="totalProducts">0</div>
-        </div>
 
         <div class="stat">
-            <div class="stat-title">AKTİV</div>
-            <div class="stat-value" id="activeProducts">0</div>
+            <div class="stat-title">
+                ÜMUMİ MƏHSUL
+            </div>
+
+            <div
+                class="stat-value"
+                id="totalProducts"
+            >
+                0
+            </div>
         </div>
 
+
         <div class="stat">
-            <div class="stat-title">DEAKTİV</div>
-            <div class="stat-value" id="inactiveProducts">0</div>
+            <div class="stat-title">
+                AKTİV
+            </div>
+
+            <div
+                class="stat-value"
+                id="activeProducts"
+            >
+                0
+            </div>
         </div>
+
+
+        <div class="stat">
+            <div class="stat-title">
+                DEAKTİV
+            </div>
+
+            <div
+                class="stat-value"
+                id="inactiveProducts"
+            >
+                0
+            </div>
+        </div>
+
     </div>
+
 
     <!-- FORM -->
 
-    <section id="formWrap" class="form-wrap">
+    <section
+        id="formWrap"
+        class="form-wrap"
+    >
 
         <div class="form-title">
-            <h2 id="formTitle">Yeni məhsul</h2>
-            <button class="close-form" onclick="closeForm()">×</button>
+
+            <h2 id="formTitle">
+                Yeni məhsul
+            </h2>
+
+            <button
+                class="close-form"
+                onclick="closeForm()"
+            >
+                ×
+            </button>
+
         </div>
+
 
         <form id="productForm">
 
-            <input type="hidden" id="editId">
+            <input
+                type="hidden"
+                id="editId"
+            >
+
 
             <div class="form-grid">
 
                 <div class="field">
-                    <label>Məhsul adı</label>
+
+                    <label>
+                        Məhsul adı
+                    </label>
+
                     <input
                         id="name"
                         type="text"
                         placeholder="Netflix 4K Premium Azərbaycan Abunəliyi"
                         required
                     >
+
                 </div>
 
+
                 <div class="field">
-                    <label>Slug</label>
+
+                    <label>
+                        Slug
+                    </label>
+
                     <input
                         id="slug"
                         type="text"
                         placeholder="netflix"
                         required
                     >
+
                 </div>
 
+
                 <div class="field full">
-                    <label>Şəkil yolu / URL</label>
+
+                    <label>
+                        Şəkil yolu / URL
+                    </label>
+
                     <input
                         id="image"
                         type="text"
                         placeholder="netflix.webp"
                     >
+
                 </div>
 
-                <div class="field">
-                    <label>Əsas müddət</label>
-                    <select id="duration">
-                        <option value="1 ay">1 ay</option>
-                        <option value="2 ay">2 ay</option>
-                        <option value="3 ay">3 ay</option>
-                        <option value="12 ay">12 ay</option>
-                    </select>
-                </div>
 
                 <div class="field">
-                    <label>Aktivlik</label>
 
-                    <label class="checkbox" style="margin-top:8px;">
-                        <input id="active" type="checkbox" checked>
-                        Məhsul saytda aktiv görünsün
+                    <label>
+                        Əsas müddət
                     </label>
+
+                    <select id="duration">
+
+                        <option value="1 ay">
+                            1 ay
+                        </option>
+
+                        <option value="2 ay">
+                            2 ay
+                        </option>
+
+                        <option value="3 ay">
+                            3 ay
+                        </option>
+
+                        <option value="12 ay">
+                            12 ay
+                        </option>
+
+                    </select>
+
                 </div>
+
+
+                <div class="field">
+
+                    <label>
+                        Aktivlik
+                    </label>
+
+                    <label
+                        class="checkbox"
+                        style="margin-top:8px;"
+                    >
+
+                        <input
+                            id="active"
+                            type="checkbox"
+                            checked
+                        >
+
+                        Məhsul saytda aktiv görünsün
+
+                    </label>
+
+                </div>
+
 
                 <div class="field full">
-                    <label>Məhsul açıqlaması</label>
+
+                    <label>
+                        Məhsul açıqlaması
+                    </label>
+
                     <textarea
                         id="description"
                         placeholder="Məhsul haqqında məlumat..."
                     ></textarea>
+
                 </div>
+
 
                 <!-- QİYMƏTLƏR -->
 
@@ -695,10 +813,14 @@ button{
                         Məhsul qiymətləri
                     </div>
 
+
                     <div class="price-grid">
 
                         <div class="price-box">
-                            <div class="price-box-title">1 AY</div>
+
+                            <div class="price-box-title">
+                                1 AY
+                            </div>
 
                             <input
                                 id="price1Normal"
@@ -713,10 +835,15 @@ button{
                                 step="0.01"
                                 placeholder="Endirimli"
                             >
+
                         </div>
 
+
                         <div class="price-box">
-                            <div class="price-box-title">2 AY</div>
+
+                            <div class="price-box-title">
+                                2 AY
+                            </div>
 
                             <input
                                 id="price2Normal"
@@ -731,10 +858,15 @@ button{
                                 step="0.01"
                                 placeholder="Endirimli"
                             >
+
                         </div>
 
+
                         <div class="price-box">
-                            <div class="price-box-title">3 AY</div>
+
+                            <div class="price-box-title">
+                                3 AY
+                            </div>
 
                             <input
                                 id="price3Normal"
@@ -749,10 +881,15 @@ button{
                                 step="0.01"
                                 placeholder="Endirimli"
                             >
+
                         </div>
 
+
                         <div class="price-box">
-                            <div class="price-box-title">12 AY</div>
+
+                            <div class="price-box-title">
+                                12 AY
+                            </div>
 
                             <input
                                 id="price12Normal"
@@ -767,50 +904,78 @@ button{
                                 step="0.01"
                                 placeholder="Endirimli"
                             >
+
                         </div>
 
                     </div>
+
                 </div>
+
 
                 <!-- FAQ -->
 
                 <div class="field">
-                    <label>FAQ sualı</label>
+
+                    <label>
+                        FAQ sualı
+                    </label>
+
                     <input
                         id="faqQuestion"
                         type="text"
-                        placeholder="Netflix nədir?"
+                        placeholder="Netflix Premium nədir?"
                     >
+
                 </div>
 
+
                 <div class="field">
-                    <label>FAQ cavabı</label>
+
+                    <label>
+                        FAQ cavabı
+                    </label>
+
                     <textarea
                         id="faqAnswer"
                         placeholder="FAQ cavabı..."
                     ></textarea>
+
                 </div>
+
 
                 <!-- SEO -->
 
                 <div class="field">
-                    <label>SEO Title</label>
+
+                    <label>
+                        SEO Title
+                    </label>
+
                     <input
                         id="seoTitle"
                         type="text"
                         placeholder="Netflix 4K Premium Azərbaycan Abunəliyi | DigiBaku"
                     >
+
                 </div>
 
+
                 <div class="field">
-                    <label>SEO Description</label>
+
+                    <label>
+                        SEO Description
+                    </label>
+
                     <textarea
                         id="seoDescription"
                         placeholder="Google üçün məhsul açıqlaması..."
                     ></textarea>
+
                 </div>
 
+
                 <div class="form-actions">
+
                     <button
                         type="button"
                         class="cancel-btn"
@@ -825,47 +990,66 @@ button{
                     >
                         Yadda saxla
                     </button>
+
                 </div>
 
             </div>
 
         </form>
+
     </section>
+
 
     <!-- PRODUCTS -->
 
     <div class="products-header">
-        <h2>Məhsullar</h2>
-        <span id="productCountText">0 məhsul</span>
+
+        <h2>
+            Məhsullar
+        </h2>
+
+        <span id="productCountText">
+            0 məhsul
+        </span>
+
     </div>
 
-    <div id="productsContainer" class="products-grid">
-        <div class="loading">Məhsullar yüklənir...</div>
+
+    <div
+        id="productsContainer"
+        class="products-grid"
+    >
+
+        <div class="loading">
+            Məhsullar yüklənir...
+        </div>
+
     </div>
 
 </main>
 
+
 <script>
 
 const SUPABASE_URL =
-    "https://zeknhnkaicqkfzgnvycq.supabase.co";
+"https://zeknhnkaicqkfzgnvycq.supabase.co";
 
 const SUPABASE_KEY =
-    "sb_publishable_jHvCp9fXBA_BwFqrXYpwlw_VC6C1OQk";
+"sb_publishable_jHvCp9fXBA_BwFqrXYpwlw_VC6C1OQk";
 
 const ADMIN_EMAIL =
-    "zahidovorxan989@gmail.com";
+"zahidovorxan989@gmail.com";
 
 const supabaseClient =
-    window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_KEY
-    );
+window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+);
 
 
-/* =========================================================
+/* =====================================================
    İLK 6 MƏHSUL
-   ========================================================= */
+   ===================================================== */
 
 const INITIAL_PRODUCTS = [
 
@@ -875,19 +1059,18 @@ const INITIAL_PRODUCTS = [
         image:"netflix.webp",
         description:"Netflix Premium 4K Azərbaycan abunəliyi ilə film və serialları yüksək görüntü keyfiyyətində izləyin.",
         duration:"1 ay",
-        price1Normal:7,
-        price1Sale:7,
-        price2Normal:13,
-        price2Sale:13,
-        price3Normal:20.99,
-        price3Sale:20.99,
-        price12Normal:null,
-        price12Sale:null,
-        faqQuestion:"Netflix Premium Azərbaycan abunəliyi nədir?",
-        faqAnswer:"Netflix Premium ilə Netflix platformasında premium məzmunlardan istifadə edə bilərsiniz.",
+
+        p1:7,
+        p2:13,
+        p3:20.99,
+
+        faqQ:"Netflix Premium Azərbaycan abunəliyi nədir?",
+        faqA:"Netflix Premium ilə Netflix platformasında premium məzmunlardan istifadə edə bilərsiniz.",
+
         seoTitle:"Netflix 4K Premium Azərbaycan Abunəliyi | DigiBaku",
         seoDescription:"Netflix 4K Premium Azərbaycan abunəliyi. Netflix Premium paketlərini DigiBaku.com vasitəsilə əldə edin."
     },
+
 
     {
         name:"YouTube Premium Azərbaycan Abunəliyi",
@@ -895,19 +1078,18 @@ const INITIAL_PRODUCTS = [
         image:"youtube.webp",
         description:"YouTube Premium Azərbaycan abunəliyi ilə reklamsız videolardan və digər premium imkanlardan istifadə edin.",
         duration:"1 ay",
-        price1Normal:8,
-        price1Sale:8,
-        price2Normal:14,
-        price2Sale:14,
-        price3Normal:21.99,
-        price3Sale:21.99,
-        price12Normal:null,
-        price12Sale:null,
-        faqQuestion:"YouTube Premium nə verir?",
-        faqAnswer:"YouTube Premium reklamsız izləmə və digər premium imkanlardan istifadə etməyə imkan verir.",
+
+        p1:8,
+        p2:14,
+        p3:21.99,
+
+        faqQ:"YouTube Premium nə verir?",
+        faqA:"YouTube Premium reklamsız izləmə və digər premium imkanlardan istifadə etməyə imkan verir.",
+
         seoTitle:"YouTube Premium Azərbaycan Abunəliyi | DigiBaku",
         seoDescription:"YouTube Premium Azərbaycan abunəliyini DigiBaku.com vasitəsilə əldə edin."
     },
+
 
     {
         name:"ChatGPT Plus Azərbaycan Abunəliyi",
@@ -915,19 +1097,18 @@ const INITIAL_PRODUCTS = [
         image:"chatgpt.webp",
         description:"ChatGPT Plus Azərbaycan abunəliyi ilə süni intellekt imkanlarından premium səviyyədə istifadə edin.",
         duration:"1 ay",
-        price1Normal:12,
-        price1Sale:12,
-        price2Normal:22.99,
-        price2Sale:22.99,
-        price3Normal:33.99,
-        price3Sale:33.99,
-        price12Normal:null,
-        price12Sale:null,
-        faqQuestion:"ChatGPT Plus nədir?",
-        faqAnswer:"ChatGPT Plus premium ChatGPT imkanlarından istifadə üçün təqdim olunan abunəlikdir.",
+
+        p1:12,
+        p2:22.99,
+        p3:33.99,
+
+        faqQ:"ChatGPT Plus nədir?",
+        faqA:"ChatGPT Plus premium ChatGPT imkanlarından istifadə üçün təqdim olunan abunəlikdir.",
+
         seoTitle:"ChatGPT Plus Azərbaycan Abunəliyi | DigiBaku",
         seoDescription:"ChatGPT Plus Azərbaycan abunəliyini DigiBaku.com vasitəsilə əldə edin."
     },
+
 
     {
         name:"Google Gemini Premium Azərbaycan Abunəliyi",
@@ -935,19 +1116,18 @@ const INITIAL_PRODUCTS = [
         image:"gemini.avif",
         description:"Google Gemini Premium Azərbaycan abunəliyi ilə Google-un süni intellekt imkanlarından istifadə edin.",
         duration:"1 ay",
-        price1Normal:8,
-        price1Sale:8,
-        price2Normal:15,
-        price2Sale:15,
-        price3Normal:22,
-        price3Sale:22,
-        price12Normal:null,
-        price12Sale:null,
-        faqQuestion:"Google Gemini Premium nədir?",
-        faqAnswer:"Google Gemini Premium süni intellekt imkanlarından premium səviyyədə istifadə üçün təqdim olunur.",
+
+        p1:8,
+        p2:15,
+        p3:22,
+
+        faqQ:"Google Gemini Premium nədir?",
+        faqA:"Google Gemini Premium süni intellekt imkanlarından premium səviyyədə istifadə üçün təqdim olunur.",
+
         seoTitle:"Google Gemini Premium Azərbaycan Abunəliyi | DigiBaku",
         seoDescription:"Google Gemini Premium Azərbaycan abunəliyini DigiBaku.com vasitəsilə əldə edin."
     },
+
 
     {
         name:"Spotify Premium Azərbaycan Abunəliyi",
@@ -955,19 +1135,18 @@ const INITIAL_PRODUCTS = [
         image:"spotfiy.webp",
         description:"Spotify Premium Azərbaycan abunəliyi ilə musiqilərdən premium imkanlarla istifadə edin.",
         duration:"1 ay",
-        price1Normal:8,
-        price1Sale:8,
-        price2Normal:15,
-        price2Sale:15,
-        price3Normal:22,
-        price3Sale:22,
-        price12Normal:null,
-        price12Sale:null,
-        faqQuestion:"Spotify Premium nədir?",
-        faqAnswer:"Spotify Premium musiqi xidmətinin premium imkanlarından istifadə etməyə imkan verir.",
+
+        p1:8,
+        p2:15,
+        p3:22,
+
+        faqQ:"Spotify Premium nədir?",
+        faqA:"Spotify Premium musiqi xidmətinin premium imkanlarından istifadə etməyə imkan verir.",
+
         seoTitle:"Spotify Premium Azərbaycan Abunəliyi | DigiBaku",
         seoDescription:"Spotify Premium Azərbaycan abunəliyini DigiBaku.com vasitəsilə əldə edin."
     },
+
 
     {
         name:"Canva Pro Azərbaycan Abunəliyi",
@@ -975,16 +1154,12 @@ const INITIAL_PRODUCTS = [
         image:"canva.webp",
         description:"Canva Pro Azərbaycan abunəliyi ilə dizayn alətlərindən və premium resurslardan istifadə edin.",
         duration:"12 ay",
-        price1Normal:null,
-        price1Sale:null,
-        price2Normal:null,
-        price2Sale:null,
-        price3Normal:null,
-        price3Sale:null,
-        price12Normal:5.99,
-        price12Sale:5.99,
-        faqQuestion:"Canva Pro Azərbaycan abunəliyi nədir?",
-        faqAnswer:"Canva Pro premium dizayn alətləri və resurslarından istifadə etməyə imkan verir.",
+
+        p12:5.99,
+
+        faqQ:"Canva Pro Azərbaycan abunəliyi nədir?",
+        faqA:"Canva Pro premium dizayn alətləri və resurslarından istifadə etməyə imkan verir.",
+
         seoTitle:"Canva Pro Azərbaycan Abunəliyi | DigiBaku",
         seoDescription:"Canva Pro Azərbaycan abunəliyini DigiBaku.com vasitəsilə əldə edin."
     }
@@ -992,23 +1167,20 @@ const INITIAL_PRODUCTS = [
 ];
 
 
-/* =========================================================
-   GLOBAL
-   ========================================================= */
-
-let products = [];
-let editingId = null;
+let products=[];
+let editingId=null;
 
 
-/* =========================================================
+/* =====================================================
    AUTH
-   ========================================================= */
+   ===================================================== */
 
 async function checkAdmin(){
 
     const {
         data:{session}
-    } = await supabaseClient.auth.getSession();
+    } =
+    await supabaseClient.auth.getSession();
 
     if(
         !session ||
@@ -1016,7 +1188,8 @@ async function checkAdmin(){
         session.user.email !== ADMIN_EMAIL
     ){
 
-        window.location.href = "login.html";
+        window.location.href="login.html";
+
         return false;
     }
 
@@ -1024,34 +1197,34 @@ async function checkAdmin(){
 }
 
 
-/* =========================================================
-   NOTICE
-   ========================================================= */
+/* =====================================================
+   MESAJ
+   ===================================================== */
 
 function showNotice(message,type="success"){
 
     const box =
         document.getElementById("notice");
 
-    box.className =
-        "notice " + type;
+    box.className=
+        "notice "+type;
 
-    box.textContent =
+    box.textContent=
         message;
 
     setTimeout(()=>{
         box.className="notice";
-    },4000);
+    },5000);
 }
 
 
-/* =========================================================
-   ESCAPE
-   ========================================================= */
+/* =====================================================
+   HTML ESCAPE
+   ===================================================== */
 
 function escapeHtml(value){
 
-    if(value === null || value === undefined)
+    if(value===null || value===undefined)
         return "";
 
     return String(value)
@@ -1063,13 +1236,13 @@ function escapeHtml(value){
 }
 
 
-/* =========================================================
+/* =====================================================
    SLUG
-   ========================================================= */
+   ===================================================== */
 
 function makeSlug(text){
 
-    return String(text || "")
+    return String(text||"")
         .toLowerCase()
         .trim()
         .replace(/ə/g,"e")
@@ -1084,42 +1257,81 @@ function makeSlug(text){
 }
 
 
-/* =========================================================
-   İLK 6 MƏHSULU BİR DƏFƏLİK YARAT
-   ========================================================= */
+/* =====================================================
+   İLKİN MƏHSUL KÖÇÜRÜLMƏSİ
+   ===================================================== */
 
 async function initializeProducts(){
 
-    const initialized =
-        localStorage.getItem(
-            "digibaku_products_initialized_v1"
-        );
+    const key=
+        "digibaku_products_seeded_v3";
 
-    if(initialized === "yes"){
-        return;
-    }
-
-    const {
-        data,
-        error
-    } = await supabaseClient
-        .from("site_products")
-        .select("id");
-
-    if(error){
-        console.error(error);
-        return;
-    }
 
     /*
-      Əgər artıq məhsullar varsa,
-      seed etmə.
+      Əgər bu brauzerdə artıq ilkin köçürmə
+      edilibsə, bir daha heç nə yaratmırıq.
     */
 
-    if(data && data.length > 0){
+    if(
+        localStorage.getItem(key)==="yes"
+    ){
+
+        return;
+    }
+
+
+    /*
+      Hazırda bazada olan məhsulları götür.
+    */
+
+    const {
+        data:existing,
+        error:existingError
+    } =
+    await supabaseClient
+        .from("site_products")
+        .select("id,slug");
+
+
+    if(existingError){
+
+        console.error(existingError);
+
+        showNotice(
+            "Mövcud məhsullar oxunmadı: "+
+            existingError.message,
+            "error"
+        );
+
+        return;
+    }
+
+
+    const existingSlugs=
+        new Set(
+            (existing||[])
+                .map(p=>String(p.slug||"").toLowerCase())
+                .filter(Boolean)
+        );
+
+
+    /*
+      Bazada olmayan 6 məhsulu tap.
+    */
+
+    const missing=
+        INITIAL_PRODUCTS.filter(
+            p=>
+                !existingSlugs.has(
+                    p.slug.toLowerCase()
+                )
+        );
+
+
+    if(!missing.length){
 
         localStorage.setItem(
-            "digibaku_products_initialized_v1",
+            key,
             "yes"
         );
 
@@ -1127,57 +1339,95 @@ async function initializeProducts(){
     }
 
 
-    const rows =
-        INITIAL_PRODUCTS.map((p,index)=>({
+    /*
+      Mövcud məhsulların davamından sort order.
+    */
+
+    let order=
+        (existing||[]).length+1;
+
+
+    const rows=
+        missing.map(p=>({
 
             name:p.name,
+
             slug:p.slug,
+
             image:p.image,
+
             description:p.description,
 
-            price_1_normal:p.price1Normal,
-            price_1_sale:p.price1Sale,
 
-            price_2_normal:p.price2Normal,
-            price_2_sale:p.price2Sale,
+            price_1_normal:
+                p.p1 ?? null,
 
-            price_3_normal:p.price3Normal,
-            price_3_sale:p.price3Sale,
+            price_1_sale:
+                p.p1 ?? null,
 
-            price_12_normal:p.price12Normal,
-            price_12_sale:p.price12Sale,
+
+            price_2_normal:
+                p.p2 ?? null,
+
+            price_2_sale:
+                p.p2 ?? null,
+
+
+            price_3_normal:
+                p.p3 ?? null,
+
+            price_3_sale:
+                p.p3 ?? null,
+
+
+            price_12_normal:
+                p.p12 ?? null,
+
+            price_12_sale:
+                p.p12 ?? null,
+
 
             normal_price:
-                p.price1Normal ??
-                p.price12Normal,
+                p.p1 ??
+                p.p12 ??
+                null,
+
 
             sale_price:
-                p.price1Sale ??
-                p.price12Sale,
+                p.p1 ??
+                p.p12 ??
+                null,
+
 
             discount_percent:0,
 
-            duration:p.duration,
+            duration:p.duration||"1 ay",
 
-            faq_question:p.faqQuestion,
-            faq_answer:p.faqAnswer,
+            faq_question:p.faqQ,
+
+            faq_answer:p.faqA,
 
             seo_title:p.seoTitle,
+
             seo_description:p.seoDescription,
 
             active:true,
 
-            sort_order:index + 1,
+            sort_order:order++,
 
-            created_at:new Date().toISOString(),
-            updated_at:new Date().toISOString()
+            created_at:
+                new Date().toISOString(),
+
+            updated_at:
+                new Date().toISOString()
 
         }));
 
 
     const {
         error:insertError
-    } = await supabaseClient
+    } =
+    await supabaseClient
         .from("site_products")
         .insert(rows);
 
@@ -1187,7 +1437,7 @@ async function initializeProducts(){
         console.error(insertError);
 
         showNotice(
-            "Məhsulların ilkin yaradılması zamanı xəta baş verdi: " +
+            "Məhsullar əlavə olunmadı: "+
             insertError.message,
             "error"
         );
@@ -1197,32 +1447,41 @@ async function initializeProducts(){
 
 
     localStorage.setItem(
-        "digibaku_products_initialized_v1",
+        key,
         "yes"
     );
 
+
+    showNotice(
+        missing.length+
+        " məhsul mərkəzi sistemə əlavə edildi."
+    );
 }
 
 
-/* =========================================================
+/* =====================================================
    MƏHSULLARI YÜKLƏ
-   ========================================================= */
+   ===================================================== */
 
 async function loadProducts(){
 
-    const container =
+    const container=
         document.getElementById(
             "productsContainer"
         );
 
-    container.innerHTML =
-        `<div class="loading">Məhsullar yüklənir...</div>`;
+
+    container.innerHTML=
+        `<div class="loading">
+            Məhsullar yüklənir...
+        </div>`;
 
 
     const {
         data,
         error
-    } = await supabaseClient
+    } =
+    await supabaseClient
         .from("site_products")
         .select("*")
         .order("sort_order",{ascending:true})
@@ -1233,9 +1492,9 @@ async function loadProducts(){
 
         console.error(error);
 
-        container.innerHTML =
+        container.innerHTML=
             `<div class="empty">
-                Məhsullar yüklənmədi.<br>
+                Məhsullar yüklənmədi.<br><br>
                 ${escapeHtml(error.message)}
             </div>`;
 
@@ -1243,8 +1502,7 @@ async function loadProducts(){
     }
 
 
-    products =
-        data || [];
+    products=data||[];
 
 
     updateStats();
@@ -1253,53 +1511,55 @@ async function loadProducts(){
 }
 
 
-/* =========================================================
-   STATISTIKA
-   ========================================================= */
+/* =====================================================
+   STATİSTİKA
+   ===================================================== */
 
 function updateStats(){
 
-    const total =
+    const total=
         products.length;
 
-    const active =
+
+    const active=
         products.filter(
-            p => p.active !== false
+            p=>p.active!==false
         ).length;
 
-    const inactive =
-        total - active;
+
+    const inactive=
+        total-active;
 
 
     document.getElementById(
         "totalProducts"
-    ).textContent = total;
+    ).textContent=total;
 
 
     document.getElementById(
         "activeProducts"
-    ).textContent = active;
+    ).textContent=active;
 
 
     document.getElementById(
         "inactiveProducts"
-    ).textContent = inactive;
+    ).textContent=inactive;
 
 
     document.getElementById(
         "productCountText"
-    ).textContent =
-        total + " məhsul";
+    ).textContent=
+        total+" məhsul";
 }
 
 
-/* =========================================================
+/* =====================================================
    MƏHSULLARI GÖSTƏR
-   ========================================================= */
+   ===================================================== */
 
 function renderProducts(){
 
-    const container =
+    const container=
         document.getElementById(
             "productsContainer"
         );
@@ -1307,53 +1567,92 @@ function renderProducts(){
 
     if(!products.length){
 
-        container.innerHTML =
+        container.innerHTML=
             `<div class="empty">
                 Hazırda məhsul yoxdur.<br><br>
-                “＋ Yeni məhsul” düyməsi ilə məhsul əlavə edə bilərsən.
+                “＋ Yeni məhsul” düyməsi ilə əlavə et.
             </div>`;
 
         return;
     }
 
 
-    container.innerHTML =
-        products.map(product => {
+    container.innerHTML=
+        products.map(product=>{
 
-            const image =
-                product.image
-                ? `<img src="${escapeHtml(product.image)}"
+            const active=
+                product.active!==false;
+
+
+            let image="";
+
+            if(product.image){
+
+                image=
+                    `<img
+                        src="${escapeHtml(product.image)}"
                         alt="${escapeHtml(product.name)}"
-                        onerror="this.style.display='none'">`
-                : `<div class="no-image">Şəkil yoxdur</div>`;
+                        onerror="this.style.display='none'"
+                    >`;
+
+            }else{
+
+                image=
+                    `<div class="no-image">
+                        Şəkil yoxdur
+                    </div>`;
+            }
 
 
-            const active =
-                product.active !== false;
+            const prices=[];
 
 
-            const prices = [];
+            if(product.price_1_normal!=null){
 
-
-            if(product.price_1_normal != null)
                 prices.push(
-                    `1 ay: ${product.price_1_sale ?? product.price_1_normal} AZN`
+                    `1 ay: ${
+                        product.price_1_sale ??
+                        product.price_1_normal
+                    } AZN`
                 );
 
-            if(product.price_2_normal != null)
+            }
+
+
+            if(product.price_2_normal!=null){
+
                 prices.push(
-                    `2 ay: ${product.price_2_sale ?? product.price_2_normal} AZN`
+                    `2 ay: ${
+                        product.price_2_sale ??
+                        product.price_2_normal
+                    } AZN`
                 );
 
-            if(product.price_3_normal != null)
+            }
+
+
+            if(product.price_3_normal!=null){
+
                 prices.push(
-                    `3 ay: ${product.price_3_sale ?? product.price_3_normal} AZN`
+                    `3 ay: ${
+                        product.price_3_sale ??
+                        product.price_3_normal
+                    } AZN`
                 );
 
-            if(product.price_12_normal != null)
+            }
+
+
+            if(product.price_12_normal!=null){
+
                 prices.push(
-                    `12 ay: ${product.price_12_sale ?? product.price_12_normal} AZN`
+                    `12 ay: ${
+                        product.price_12_sale ??
+                        product.price_12_normal
+                    } AZN`
                 );
+
+            }
 
 
             return `
@@ -1364,6 +1663,7 @@ function renderProducts(){
                         ${image}
                     </div>
 
+
                     <div class="product-body">
 
                         <div class="product-top">
@@ -1372,31 +1672,52 @@ function renderProducts(){
                                 ${escapeHtml(product.name)}
                             </div>
 
-                            <span class="badge ${active ? "active":"inactive"}">
-                                ${active ? "AKTİV":"DEAKTİV"}
+                            <span class="badge ${
+                                active
+                                ?"active"
+                                :"inactive"
+                            }">
+                                ${
+                                    active
+                                    ?"AKTİV"
+                                    :"DEAKTİV"
+                                }
                             </span>
 
                         </div>
 
+
                         <div class="slug">
-                            /${escapeHtml(product.slug || "")}
+                            /${escapeHtml(product.slug||"")}
                         </div>
 
+
                         <div class="description">
-                            ${escapeHtml(product.description || "Açıqlama əlavə edilməyib.")}
+                            ${
+                                escapeHtml(
+                                    product.description ||
+                                    "Açıqlama əlavə edilməyib."
+                                )
+                            }
                         </div>
+
 
                         <div class="price-row">
 
                             ${
                                 prices.length
-                                ? prices.map(p =>
-                                    `<div class="price">${escapeHtml(p)}</div>`
+                                ? prices.map(price=>
+                                    `<div class="price">
+                                        ${escapeHtml(price)}
+                                    </div>`
                                   ).join("")
-                                : `<div class="price">Qiymət əlavə edilməyib</div>`
+                                : `<div class="price">
+                                    Qiymət yoxdur
+                                  </div>`
                             }
 
                         </div>
+
 
                         <div class="card-actions">
 
@@ -1406,6 +1727,7 @@ function renderProducts(){
                             >
                                 ✎ Dəyiş
                             </button>
+
 
                             <button
                                 class="delete-btn"
@@ -1426,18 +1748,13 @@ function renderProducts(){
 }
 
 
-/* =========================================================
+/* =====================================================
    YENİ MƏHSUL
-   ========================================================= */
+   ===================================================== */
 
 function openNewProduct(){
 
-    editingId = null;
-
-    document.getElementById(
-        "formTitle"
-    ).textContent =
-        "Yeni məhsul";
+    editingId=null;
 
 
     document.getElementById(
@@ -1446,13 +1763,19 @@ function openNewProduct(){
 
 
     document.getElementById(
-        "active"
-    ).checked = true;
+        "editId"
+    ).value="";
 
 
     document.getElementById(
-        "editId"
-    ).value = "";
+        "active"
+    ).checked=true;
+
+
+    document.getElementById(
+        "formTitle"
+    ).textContent=
+        "Yeni məhsul";
 
 
     document.getElementById(
@@ -1467,13 +1790,13 @@ function openNewProduct(){
 }
 
 
-/* =========================================================
+/* =====================================================
    FORMU BAĞLA
-   ========================================================= */
+   ===================================================== */
 
 function closeForm(){
 
-    editingId = null;
+    editingId=null;
 
     document.getElementById(
         "formWrap"
@@ -1485,149 +1808,132 @@ function closeForm(){
 }
 
 
-/* =========================================================
-   MƏHSULU REDAKTƏ ET
-   ========================================================= */
+/* =====================================================
+   REDAKTƏ
+   ===================================================== */
 
 function editProduct(id){
 
-    const product =
+    const product=
         products.find(
-            p => String(p.id) === String(id)
+            p=>String(p.id)===String(id)
         );
 
 
     if(!product){
+
         showNotice(
             "Məhsul tapılmadı.",
             "error"
         );
+
         return;
     }
 
 
-    editingId =
-        product.id;
+    editingId=product.id;
 
 
     document.getElementById(
         "formTitle"
-    ).textContent =
+    ).textContent=
         "Məhsulu dəyiş";
 
 
     document.getElementById(
         "editId"
-    ).value =
-        product.id;
+    ).value=product.id;
 
 
     document.getElementById(
         "name"
-    ).value =
-        product.name || "";
+    ).value=product.name||"";
 
 
     document.getElementById(
         "slug"
-    ).value =
-        product.slug || "";
+    ).value=product.slug||"";
 
 
     document.getElementById(
         "image"
-    ).value =
-        product.image || "";
+    ).value=product.image||"";
 
 
     document.getElementById(
         "duration"
-    ).value =
-        product.duration || "1 ay";
+    ).value=product.duration||"1 ay";
 
 
     document.getElementById(
         "description"
-    ).value =
-        product.description || "";
+    ).value=product.description||"";
 
 
     document.getElementById(
         "price1Normal"
-    ).value =
-        product.price_1_normal ?? "";
+    ).value=product.price_1_normal??"";
 
 
     document.getElementById(
         "price1Sale"
-    ).value =
-        product.price_1_sale ?? "";
+    ).value=product.price_1_sale??"";
 
 
     document.getElementById(
         "price2Normal"
-    ).value =
-        product.price_2_normal ?? "";
+    ).value=product.price_2_normal??"";
 
 
     document.getElementById(
         "price2Sale"
-    ).value =
-        product.price_2_sale ?? "";
+    ).value=product.price_2_sale??"";
 
 
     document.getElementById(
         "price3Normal"
-    ).value =
-        product.price_3_normal ?? "";
+    ).value=product.price_3_normal??"";
 
 
     document.getElementById(
         "price3Sale"
-    ).value =
-        product.price_3_sale ?? "";
+    ).value=product.price_3_sale??"";
 
 
     document.getElementById(
         "price12Normal"
-    ).value =
-        product.price_12_normal ?? "";
+    ).value=product.price_12_normal??"";
 
 
     document.getElementById(
         "price12Sale"
-    ).value =
-        product.price_12_sale ?? "";
+    ).value=product.price_12_sale??"";
 
 
     document.getElementById(
         "faqQuestion"
-    ).value =
-        product.faq_question || "";
+    ).value=product.faq_question||"";
 
 
     document.getElementById(
         "faqAnswer"
-    ).value =
-        product.faq_answer || "";
+    ).value=product.faq_answer||"";
 
 
     document.getElementById(
         "seoTitle"
-    ).value =
-        product.seo_title || "";
+    ).value=product.seo_title||"";
 
 
     document.getElementById(
         "seoDescription"
-    ).value =
-        product.seo_description || "";
+    ).value=product.seo_description||"";
 
 
     document.getElementById(
         "active"
-    ).checked =
-        product.active !== false;
+    ).checked=
+        product.active!==false;
 
 
     document.getElementById(
@@ -1642,80 +1948,76 @@ function editProduct(id){
 }
 
 
-/* =========================================================
-   BOŞ DƏYƏRİ NULL ET
-   ========================================================= */
+/* =====================================================
+   NUMBER
+   ===================================================== */
 
 function numberOrNull(value){
 
-    if(
-        value === null ||
-        value === undefined ||
-        value === ""
-    ){
+    if(value==="" || value==null)
         return null;
-    }
 
-    const n =
+    const number=
         Number(value);
 
-    return Number.isFinite(n)
-        ? n
-        : null;
+    return Number.isFinite(number)
+        ?number
+        :null;
 }
 
 
-/* =========================================================
-   MƏHSULU YADDA SAXLA
-   ========================================================= */
+/* =====================================================
+   YADDA SAXLA
+   ===================================================== */
 
 async function saveProduct(event){
 
     event.preventDefault();
 
 
-    const name =
+    const name=
         document.getElementById(
             "name"
         ).value.trim();
 
 
-    let slug =
+    const slug=
         document.getElementById(
             "slug"
-        ).value.trim();
-
-
-    if(!slug){
-        slug = makeSlug(name);
-    }
+        ).value.trim() ||
+        makeSlug(name);
 
 
     if(!name){
+
         showNotice(
             "Məhsul adını yaz.",
             "error"
         );
+
         return;
     }
 
 
     if(!slug){
+
         showNotice(
-            "Slug düzgün deyil.",
+            "Slug yazılmalıdır.",
             "error"
         );
+
         return;
     }
 
 
     /*
-      Eyni slug yoxlaması
+      Slug təkrarlanmasın.
     */
 
     const {
         data:duplicate
-    } = await supabaseClient
+    } =
+    await supabaseClient
         .from("site_products")
         .select("id,slug")
         .eq("slug",slug)
@@ -1724,11 +2026,12 @@ async function saveProduct(event){
 
     if(
         duplicate &&
-        String(duplicate.id) !== String(editingId)
+        String(duplicate.id)!==
+        String(editingId)
     ){
 
         showNotice(
-            "Bu slug artıq istifadə olunur.",
+            "Bu slug artıq mövcuddur.",
             "error"
         );
 
@@ -1736,7 +2039,7 @@ async function saveProduct(event){
     }
 
 
-    const price1Normal =
+    const p1=
         numberOrNull(
             document.getElementById(
                 "price1Normal"
@@ -1744,7 +2047,7 @@ async function saveProduct(event){
         );
 
 
-    const price1Sale =
+    const p1sale=
         numberOrNull(
             document.getElementById(
                 "price1Sale"
@@ -1752,7 +2055,7 @@ async function saveProduct(event){
         );
 
 
-    const price2Normal =
+    const p2=
         numberOrNull(
             document.getElementById(
                 "price2Normal"
@@ -1760,7 +2063,7 @@ async function saveProduct(event){
         );
 
 
-    const price2Sale =
+    const p2sale=
         numberOrNull(
             document.getElementById(
                 "price2Sale"
@@ -1768,7 +2071,7 @@ async function saveProduct(event){
         );
 
 
-    const price3Normal =
+    const p3=
         numberOrNull(
             document.getElementById(
                 "price3Normal"
@@ -1776,7 +2079,7 @@ async function saveProduct(event){
         );
 
 
-    const price3Sale =
+    const p3sale=
         numberOrNull(
             document.getElementById(
                 "price3Sale"
@@ -1784,7 +2087,7 @@ async function saveProduct(event){
         );
 
 
-    const price12Normal =
+    const p12=
         numberOrNull(
             document.getElementById(
                 "price12Normal"
@@ -1792,7 +2095,7 @@ async function saveProduct(event){
         );
 
 
-    const price12Sale =
+    const p12sale=
         numberOrNull(
             document.getElementById(
                 "price12Sale"
@@ -1800,41 +2103,45 @@ async function saveProduct(event){
         );
 
 
-    let normalPrice =
-        price1Normal ??
-        price2Normal ??
-        price3Normal ??
-        price12Normal;
-
-
-    let salePrice =
-        price1Sale ??
-        price2Sale ??
-        price3Sale ??
-        price12Sale;
-
-
-    if(
+    const duration=
         document.getElementById(
             "duration"
-        ).value === "12 ay"
-    ){
+        ).value;
 
-        normalPrice =
-            price12Normal ??
+
+    let normalPrice=
+        p1 ??
+        p2 ??
+        p3 ??
+        p12 ??
+        null;
+
+
+    let salePrice=
+        p1sale ??
+        p2sale ??
+        p3sale ??
+        p12sale ??
+        null;
+
+
+    if(duration==="12 ay"){
+
+        normalPrice=
+            p12 ??
             normalPrice;
 
-        salePrice =
-            price12Sale ??
+        salePrice=
+            p12sale ??
             salePrice;
     }
 
 
-    const payload = {
+    const payload={
 
-        name,
+        name:name,
 
-        slug,
+        slug:slug,
 
         image:
             document.getElementById(
@@ -1847,48 +2154,26 @@ async function saveProduct(event){
             ).value.trim() || null,
 
 
-        price_1_normal:
-            price1Normal,
+        price_1_normal:p1,
+        price_1_sale:p1sale,
 
-        price_1_sale:
-            price1Sale,
+        price_2_normal:p2,
+        price_2_sale:p2sale,
 
+        price_3_normal:p3,
+        price_3_sale:p3sale,
 
-        price_2_normal:
-            price2Normal,
-
-        price_2_sale:
-            price2Sale,
-
-
-        price_3_normal:
-            price3Normal,
-
-        price_3_sale:
-            price3Sale,
+        price_12_normal:p12,
+        price_12_sale:p12sale,
 
 
-        price_12_normal:
-            price12Normal,
+        normal_price:normalPrice,
 
-        price_12_sale:
-            price12Sale,
-
-
-        normal_price:
-            normalPrice,
-
-        sale_price:
-            salePrice,
-
+        sale_price:salePrice,
 
         discount_percent:0,
 
-
-        duration:
-            document.getElementById(
-                "duration"
-            ).value,
+        duration:duration,
 
 
         faq_question:
@@ -1927,34 +2212,27 @@ async function saveProduct(event){
     };
 
 
-    /*
-      YENİ MƏHSUL
-    */
-
     if(!editingId){
 
-        /*
-          Növbəti sıra
-        */
-
-        const maxOrder =
+        const maxOrder=
             products.reduce(
-                (max,p) =>
+                (max,p)=>
                     Math.max(
                         max,
-                        Number(p.sort_order || 0)
+                        Number(p.sort_order||0)
                     ),
                 0
             );
 
 
-        payload.sort_order =
-            maxOrder + 1;
+        payload.sort_order=
+            maxOrder+1;
 
 
         const {
             error
-        } = await supabaseClient
+        } =
+        await supabaseClient
             .from("site_products")
             .insert(payload);
 
@@ -1964,7 +2242,7 @@ async function saveProduct(event){
             console.error(error);
 
             showNotice(
-                "Məhsul əlavə edilmədi: " +
+                "Məhsul əlavə edilmədi: "+
                 error.message,
                 "error"
             );
@@ -1974,21 +2252,15 @@ async function saveProduct(event){
 
 
         showNotice(
-            "Yeni məhsul uğurla əlavə edildi."
+            "Yeni məhsul əlavə edildi."
         );
 
-    }
-
-
-    /*
-      MÖVCUD MƏHSUL
-    */
-
-    else{
+    }else{
 
         const {
             error
-        } = await supabaseClient
+        } =
+        await supabaseClient
             .from("site_products")
             .update(payload)
             .eq("id",editingId);
@@ -1999,7 +2271,7 @@ async function saveProduct(event){
             console.error(error);
 
             showNotice(
-                "Məhsul dəyişdirilmədi: " +
+                "Məhsul dəyişdirilmədi: "+
                 error.message,
                 "error"
             );
@@ -2009,7 +2281,7 @@ async function saveProduct(event){
 
 
         showNotice(
-            "Məhsul uğurla yeniləndi."
+            "Məhsul yeniləndi."
         );
     }
 
@@ -2020,37 +2292,36 @@ async function saveProduct(event){
 }
 
 
-/* =========================================================
-   MƏHSULU SİL
-   ========================================================= */
+/* =====================================================
+   SİL
+   ===================================================== */
 
 async function deleteProduct(id){
 
-    const product =
+    const product=
         products.find(
-            p => String(p.id) === String(id)
+            p=>String(p.id)===String(id)
         );
 
 
-    if(!product){
+    if(!product)
         return;
-    }
 
 
-    const confirmed =
+    const confirmed=
         confirm(
-            `"${product.name}" məhsulunu silmək istəyirsən?\n\nBu əməliyyatdan sonra məhsul mərkəzi sistemdən silinəcək.`
+            `"${product.name}" məhsulunu silmək istəyirsən?\n\nMəhsul mərkəzi sistemdən silinəcək.`
         );
 
 
-    if(!confirmed){
+    if(!confirmed)
         return;
-    }
 
 
     const {
         error
-    } = await supabaseClient
+    } =
+    await supabaseClient
         .from("site_products")
         .delete()
         .eq("id",id);
@@ -2061,7 +2332,7 @@ async function deleteProduct(id){
         console.error(error);
 
         showNotice(
-            "Məhsul silinmədi: " +
+            "Məhsul silinmədi: "+
             error.message,
             "error"
         );
@@ -2070,21 +2341,16 @@ async function deleteProduct(id){
     }
 
 
-    /*
-      Əgər silinən məhsul
-      redaktə olunan məhsuldursa,
-      formu bağla.
-    */
-
     if(
-        String(editingId) === String(id)
+        String(editingId)===
+        String(id)
     ){
         closeForm();
     }
 
 
     showNotice(
-        "Məhsul uğurla silindi."
+        "Məhsul silindi."
     );
 
 
@@ -2092,68 +2358,57 @@ async function deleteProduct(id){
 }
 
 
-/* =========================================================
-   ADMINƏ QAYIT
-   ========================================================= */
+/* =====================================================
+   SLUG AUTO
+   ===================================================== */
 
-function goAdmin(){
+document.getElementById(
+    "name"
+).addEventListener(
+    "input",
+    function(){
 
-    window.location.href =
-        "gizli_panel.html";
-}
-
-
-/* =========================================================
-   ÇIXIŞ
-   ========================================================= */
-
-async function logout(){
-
-    await supabaseClient.auth.signOut();
-
-    window.location.href =
-        "login.html";
-}
-
-
-/* =========================================================
-   AUTO SLUG
-   ========================================================= */
-
-document.getElementById("name")
-    .addEventListener("input",function(){
-
-        if(editingId){
+        if(editingId)
             return;
-        }
 
-        const slug =
-            document.getElementById("slug");
+        const slug=
+            document.getElementById(
+                "slug"
+            );
+
 
         if(
             !slug.dataset.manual
         ){
-            slug.value =
-                makeSlug(this.value);
+
+            slug.value=
+                makeSlug(
+                    this.value
+                );
         }
 
-    });
+    }
+);
 
 
-document.getElementById("slug")
-    .addEventListener("input",function(){
+document.getElementById(
+    "slug"
+).addEventListener(
+    "input",
+    function(){
 
-        this.dataset.manual =
-            this.value.length
-            ? "true"
-            : "";
+        this.dataset.manual=
+            this.value
+            ?"yes"
+            :"";
 
-    });
+    }
+);
 
 
-/* =========================================================
-   FORM SUBMIT
-   ========================================================= */
+/* =====================================================
+   FORM
+   ===================================================== */
 
 document.getElementById(
     "productForm"
@@ -2163,33 +2418,51 @@ document.getElementById(
 );
 
 
-/* =========================================================
+/* =====================================================
+   NAVİQASİYA
+   ===================================================== */
+
+function goAdmin(){
+
+    window.location.href=
+        "gizli_panel.html";
+}
+
+
+async function logout(){
+
+    await supabaseClient.auth.signOut();
+
+    window.location.href=
+        "login.html";
+}
+
+
+/* =====================================================
    START
-   ========================================================= */
+   ===================================================== */
 
 document.addEventListener(
     "DOMContentLoaded",
     async function(){
 
-        const allowed =
+        const allowed=
             await checkAdmin();
 
-        if(!allowed){
+
+        if(!allowed)
             return;
-        }
 
 
         /*
-          İlk açılışda mövcud 6 məhsulu
-          site_products-a köçürür.
+          Əvvəl çatışmayan məhsulları yaradırıq.
         */
 
         await initializeProducts();
 
 
         /*
-          Daha sonra bütün məhsulları
-          eyni mənbədən oxuyur.
+          Sonra bütün məhsulları oxuyuruq.
         */
 
         await loadProducts();
