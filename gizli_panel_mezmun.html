@@ -16,16 +16,15 @@
 }
 
 body{
-    font-family:Arial,Helvetica,sans-serif;
+    min-height:100vh;
     background:#07111f;
     color:#fff;
-    min-height:100vh;
+    font-family:Arial,Helvetica,sans-serif;
 }
 
 button,
 input,
-textarea,
-select{
+textarea{
     font:inherit;
 }
 
@@ -36,15 +35,16 @@ button{
 .header{
     position:sticky;
     top:0;
-    z-index:50;
+    z-index:100;
     background:#0b1728;
     border-bottom:1px solid rgba(255,255,255,.08);
-    padding:15px 20px;
 }
 
 .header-inner{
     max-width:1250px;
     margin:auto;
+    padding:14px 20px;
+
     display:flex;
     align-items:center;
     justify-content:space-between;
@@ -68,7 +68,7 @@ button{
 }
 
 .admin-email{
-    color:#9fb0c5;
+    color:#94a9bf;
     font-size:13px;
 }
 
@@ -83,17 +83,18 @@ button{
 
 .container{
     width:min(1250px,calc(100% - 30px));
-    margin:25px auto 60px;
+    margin:28px auto 70px;
 }
 
 .page-title{
-    margin-bottom:7px;
     font-size:29px;
+    margin-bottom:7px;
 }
 
 .page-subtitle{
-    color:#8fa3ba;
+    color:#91a5bb;
     margin-bottom:25px;
+    line-height:1.6;
 }
 
 .message{
@@ -101,20 +102,20 @@ button{
     padding:13px 15px;
     border-radius:10px;
     margin-bottom:18px;
-    font-weight:600;
+    font-weight:700;
 }
 
 .message.success{
     display:block;
-    background:rgba(0,200,120,.12);
-    border:1px solid rgba(0,200,120,.35);
-    color:#55e6a2;
+    background:rgba(0,210,130,.10);
+    border:1px solid rgba(0,210,130,.35);
+    color:#54e3a0;
 }
 
 .message.error{
     display:block;
-    background:rgba(255,60,60,.12);
-    border:1px solid rgba(255,60,60,.35);
+    background:rgba(255,70,70,.10);
+    border:1px solid rgba(255,70,70,.35);
     color:#ff8585;
 }
 
@@ -133,10 +134,13 @@ button{
 
 .product-top{
     padding:17px 18px;
+    background:#0b1829;
+
     display:flex;
     align-items:center;
     justify-content:space-between;
     gap:15px;
+
     border-bottom:1px solid rgba(255,255,255,.07);
 }
 
@@ -146,7 +150,7 @@ button{
 }
 
 .product-key{
-    color:#6f87a2;
+    color:#6d849e;
     font-size:12px;
     margin-top:4px;
 }
@@ -154,19 +158,20 @@ button{
 .status{
     border:0;
     border-radius:20px;
-    padding:7px 11px;
+    padding:7px 12px;
     font-size:12px;
     font-weight:800;
+    white-space:nowrap;
 }
 
 .status.active{
     background:rgba(0,210,130,.12);
-    color:#52e5a0;
+    color:#54e3a0;
 }
 
 .status.off{
     background:rgba(255,70,70,.12);
-    color:#ff7f7f;
+    color:#ff8585;
 }
 
 .body{
@@ -174,7 +179,7 @@ button{
 }
 
 .section{
-    margin-bottom:20px;
+    margin-bottom:22px;
 }
 
 .section:last-child{
@@ -192,27 +197,25 @@ button{
 
 label{
     display:block;
-    color:#9fb1c7;
+    color:#9db0c4;
     font-size:12px;
     margin-bottom:6px;
 }
 
 input,
-textarea,
-select{
+textarea{
     width:100%;
     background:#081522;
     color:#fff;
-    border:1px solid #23364d;
+    border:1px solid #24394f;
     border-radius:9px;
     outline:none;
     padding:11px 12px;
 }
 
 input:focus,
-textarea:focus,
-select:focus{
-    border-color:#1d9bf0;
+textarea:focus{
+    border-color:#1597ed;
 }
 
 textarea{
@@ -234,22 +237,19 @@ textarea{
 
 .price-box{
     background:#081522;
-    border:1px solid #1e3044;
+    border:1px solid #1d3045;
     border-radius:12px;
     padding:13px;
 }
 
 .price-title{
+    font-size:14px;
     font-weight:800;
     margin-bottom:10px;
-    font-size:14px;
 }
 
-.discount-row{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:8px;
-    margin-top:9px;
+.price-box input{
+    margin-bottom:8px;
 }
 
 .switch-row{
@@ -257,14 +257,15 @@ textarea{
     align-items:center;
     justify-content:space-between;
     gap:10px;
-    margin-top:10px;
+    margin-top:8px;
 }
 
 .switch{
     position:relative;
+    display:block;
     width:43px;
     height:23px;
-    flex:none;
+    margin:0;
 }
 
 .switch input{
@@ -275,7 +276,7 @@ textarea{
     position:absolute;
     inset:0;
     border-radius:20px;
-    background:#26394e;
+    background:#263a50;
     transition:.2s;
 }
 
@@ -303,6 +304,7 @@ textarea{
     padding:15px 18px;
     background:#0a1625;
     border-top:1px solid rgba(255,255,255,.07);
+
     display:flex;
     gap:10px;
 }
@@ -321,7 +323,7 @@ textarea{
     background:#087fce;
 }
 
-.reset{
+.reload{
     border:1px solid #30465e;
     background:transparent;
     color:#b7c6d7;
@@ -330,29 +332,24 @@ textarea{
 }
 
 .loading{
+    grid-column:1/-1;
     text-align:center;
     padding:50px;
     color:#8fa3ba;
-    grid-column:1/-1;
 }
 
 @media(max-width:850px){
+
     .products{
         grid-template-columns:1fr;
     }
+
 }
 
 @media(max-width:600px){
-    .container{
-        width:min(100% - 20px,1250px);
-        margin-top:18px;
-    }
-
-    .header{
-        padding:12px 10px;
-    }
 
     .header-inner{
+        padding:12px;
         align-items:flex-start;
         flex-direction:column;
     }
@@ -360,6 +357,22 @@ textarea{
     .header-right{
         width:100%;
         justify-content:space-between;
+    }
+
+    .admin-email{
+        max-width:70%;
+        overflow:hidden;
+        text-overflow:ellipsis;
+        white-space:nowrap;
+    }
+
+    .container{
+        width:calc(100% - 20px);
+        margin-top:18px;
+    }
+
+    .page-title{
+        font-size:25px;
     }
 
     .grid-2,
@@ -371,12 +384,10 @@ textarea{
         align-items:flex-start;
     }
 
-    .admin-email{
-        max-width:65%;
-        overflow:hidden;
-        text-overflow:ellipsis;
-        white-space:nowrap;
+    .product-title{
+        font-size:17px;
     }
+
 }
 </style>
 </head>
@@ -384,67 +395,116 @@ textarea{
 <body>
 
 <header class="header">
+
     <div class="header-inner">
-        <div class="logo">DigiBaku<span> — Admin</span></div>
+
+        <div class="logo">
+            DigiBaku <span>— Admin</span>
+        </div>
 
         <div class="header-right">
-            <div class="admin-email" id="adminEmail"></div>
-            <button class="logout" id="logoutBtn">Çıxış</button>
+
+            <div
+                class="admin-email"
+                id="adminEmail">
+            </div>
+
+            <button
+                class="logout"
+                id="logoutBtn">
+                Çıxış
+            </button>
+
         </div>
+
     </div>
+
 </header>
+
 
 <main class="container">
 
-    <h1 class="page-title">Məhsullar</h1>
+    <h1 class="page-title">
+        Məhsullar
+    </h1>
 
     <p class="page-subtitle">
-        Məhsul məlumatlarını və qiymətləri buradan dəyiş. Saxladıqdan sonra
-        mərkəzi Supabase məlumatı bütün sayt səhifələrində istifadə oluna bilər.
+        Buradan məhsul məlumatlarını və qiymətləri dəyiş.
+        Yadda saxladıqdan sonra məlumatlar Supabase-də mərkəzi olaraq yenilənir.
     </p>
 
-    <div id="message" class="message"></div>
+    <div
+        id="message"
+        class="message">
+    </div>
 
-    <div id="products" class="products">
-        <div class="loading">Məhsullar yüklənir...</div>
+    <div
+        id="products"
+        class="products">
+
+        <div class="loading">
+            Məhsullar yüklənir...
+        </div>
+
     </div>
 
 </main>
 
+
 <script>
+
 const SUPABASE_URL =
-    "https://zeknhnkaicqkfzgnvycq.supabase.co";
+"https://zeknhnkaicqkfzgnvycq.supabase.co";
 
 const SUPABASE_KEY =
-    "sb_publishable_jHvCp9fXBA_BwFqrXYpwlw_VC6C1OQk";
+"sb_publishable_jHvCp9fXBA_BwFqrXYpwlw_VC6C1OQk";
 
 const supabaseClient =
-    window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_KEY
-    );
+window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+);
 
 const ADMIN_EMAIL =
-    "zahidovorxan989@gmail.com";
+"zahidovorxan989@gmail.com";
 
 let productsData = [];
 let pricesData = [];
 
-const productsEl = document.getElementById("products");
-const messageEl = document.getElementById("message");
-const adminEmailEl = document.getElementById("adminEmail");
+const productsEl =
+document.getElementById("products");
+
+const messageEl =
+document.getElementById("message");
+
+const adminEmailEl =
+document.getElementById("adminEmail");
+
 
 function showMessage(text,type="success"){
+
     messageEl.textContent = text;
-    messageEl.className = "message " + type;
+
+    messageEl.className =
+        "message " + type;
 
     setTimeout(()=>{
-        messageEl.className = "message";
-    },3500);
+
+        messageEl.className =
+            "message";
+
+    },4000);
 }
 
+
 function esc(value){
-    if(value === null || value === undefined) return "";
+
+    if(
+        value === null ||
+        value === undefined
+    ){
+        return "";
+    }
 
     return String(value)
         .replaceAll("&","&amp;")
@@ -454,69 +514,196 @@ function esc(value){
         .replaceAll("'","&#039;");
 }
 
-function numberValue(value){
-    const n = Number(value);
-    return Number.isFinite(n) ? n : 0;
+
+function num(value){
+
+    const n =
+        Number(value);
+
+    return Number.isFinite(n)
+        ? n
+        : 0;
 }
 
+
+function money(value){
+
+    return num(value).toFixed(2);
+}
+
+
 function getPrice(productKey){
-    return pricesData.find(
-        x => x.product_key === productKey
-    ) || {
+
+    const found =
+        pricesData.find(
+            item =>
+                item.product_key === productKey
+        );
+
+    if(found){
+        return found;
+    }
+
+    return {
+
         product_key:productKey,
+
         price_1_month:0,
         price_2_month:0,
         price_3_month:0,
+
         sale_1_active:false,
         sale_2_active:false,
         sale_3_active:false,
+
         sale_1_price:0,
         sale_2_price:0,
         sale_3_price:0,
+
         price_12_month:0,
         sale_12_price:0,
         sale_12_active:false
     };
 }
 
-function priceInput(value){
-    return numberValue(value).toFixed(2);
-}
 
-function productCard(product){
-
-    const p = getPrice(product.product_key);
-
-    const active = product.active !== false;
+function createPriceBox(
+    title,
+    month,
+    price,
+    saleActive,
+    salePrice
+){
 
     return `
-    <article class="product-card"
-        data-key="${esc(product.product_key)}">
+
+    <div class="price-box">
+
+        <div class="price-title">
+            ${title}
+        </div>
+
+        <label>
+            Normal qiymət
+        </label>
+
+        <input
+            type="number"
+            step="0.01"
+            data-price="price_${month}_month"
+            value="${money(price)}"
+        >
+
+        <div class="switch-row">
+
+            <span>
+                Endirim aktivdir
+            </span>
+
+            <label class="switch">
+
+                <input
+                    type="checkbox"
+                    data-price-toggle="sale_${month}_active"
+                    ${saleActive ? "checked" : ""}
+                >
+
+                <span class="slider"></span>
+
+            </label>
+
+        </div>
+
+        <div style="margin-top:10px">
+
+            <label>
+                Endirim qiyməti
+            </label>
+
+            <input
+                type="number"
+                step="0.01"
+                data-price="sale_${month}_price"
+                value="${money(salePrice)}"
+            >
+
+        </div>
+
+    </div>
+
+    `;
+}
+
+
+function createProductCard(product){
+
+    const p =
+        getPrice(
+            product.product_key
+        );
+
+    const active =
+        product.active !== false;
+
+    return `
+
+    <article
+        class="product-card"
+        data-key="${esc(product.product_key)}"
+    >
 
         <div class="product-top">
 
             <div>
+
                 <div class="product-title">
-                    ${esc(product.name_az || product.product_key)}
+
+                    ${esc(
+                        product.name_az ||
+                        product.product_key
+                    )}
+
                 </div>
 
                 <div class="product-key">
-                    ${esc(product.product_key)}
+
+                    ${esc(
+                        product.product_key
+                    )}
+
                 </div>
+
             </div>
 
             <button
                 type="button"
-                class="status ${active ? "active" : "off"}"
-                onclick="toggleActive('${esc(product.product_key)}')">
+                class="status ${
+                    active
+                    ? "active"
+                    : "off"
+                }"
+                onclick="
+                    toggleActive(
+                        '${esc(product.product_key)}'
+                    )
+                "
+            >
 
-                ${active ? "AKTİV" : "PASSİV"}
+                ${
+                    active
+                    ? "AKTİV"
+                    : "PASSİV"
+                }
 
             </button>
 
         </div>
 
+
         <div class="body">
+
+
+            <!-- MƏHSUL -->
 
             <div class="section">
 
@@ -526,81 +713,154 @@ function productCard(product){
 
                 <div class="grid-2">
 
+
                     <div>
-                        <label>Azərbaycan adı</label>
+
+                        <label>
+                            Azərbaycan adı
+                        </label>
 
                         <input
                             data-field="name_az"
-                            value="${esc(product.name_az)}">
+                            value="${esc(
+                                product.name_az
+                            )}"
+                        >
+
                     </div>
 
+
                     <div>
-                        <label>English name</label>
+
+                        <label>
+                            English name
+                        </label>
 
                         <input
                             data-field="name_en"
-                            value="${esc(product.name_en)}">
+                            value="${esc(
+                                product.name_en
+                            )}"
+                        >
+
                     </div>
 
+
                     <div>
-                        <label>Русское название</label>
+
+                        <label>
+                            Русское название
+                        </label>
 
                         <input
                             data-field="name_ru"
-                            value="${esc(product.name_ru)}">
+                            value="${esc(
+                                product.name_ru
+                            )}"
+                        >
+
                     </div>
 
+
                     <div>
-                        <label>Şəkil yolu</label>
+
+                        <label>
+                            Şəkil
+                        </label>
 
                         <input
                             data-field="image"
-                            value="${esc(product.image)}"
-                            placeholder="netflix.webp">
+                            value="${esc(
+                                product.image
+                            )}"
+                            placeholder="netflix.webp"
+                        >
+
                     </div>
 
-                </div>
-
-            </div>
-
-            <div class="section">
-
-                <div class="section-title">
-                    Təsvir
-                </div>
-
-                <div class="grid-2">
 
                     <div>
-                        <label>AZ təsvir</label>
 
-                        <textarea data-field="description_az">${esc(product.description_az)}</textarea>
-                    </div>
-
-                    <div>
-                        <label>EN description</label>
-
-                        <textarea data-field="description_en">${esc(product.description_en)}</textarea>
-                    </div>
-
-                    <div>
-                        <label>RU описание</label>
-
-                        <textarea data-field="description_ru">${esc(product.description_ru)}</textarea>
-                    </div>
-
-                    <div>
-                        <label>Sıralama</label>
+                        <label>
+                            Sıralama
+                        </label>
 
                         <input
                             type="number"
                             data-field="sort_order"
-                            value="${numberValue(product.sort_order)}">
+                            value="${num(
+                                product.sort_order
+                            )}"
+                        >
+
                     </div>
 
                 </div>
 
             </div>
+
+
+            <!-- TƏSVİR -->
+
+            <div class="section">
+
+                <div class="section-title">
+                    Təsvirlər
+                </div>
+
+                <div class="grid-2">
+
+
+                    <div>
+
+                        <label>
+                            Azərbaycan təsviri
+                        </label>
+
+                        <textarea
+                            data-field="description_az"
+                        >${esc(
+                            product.description_az
+                        )}</textarea>
+
+                    </div>
+
+
+                    <div>
+
+                        <label>
+                            English description
+                        </label>
+
+                        <textarea
+                            data-field="description_en"
+                        >${esc(
+                            product.description_en
+                        )}</textarea>
+
+                    </div>
+
+
+                    <div>
+
+                        <label>
+                            Русское описание
+                        </label>
+
+                        <textarea
+                            data-field="description_ru"
+                        >${esc(
+                            product.description_ru
+                        )}</textarea>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- QİYMƏTLƏR -->
 
             <div class="section">
 
@@ -610,7 +870,8 @@ function productCard(product){
 
                 <div class="grid-3">
 
-                    ${priceBox(
+
+                    ${createPriceBox(
                         "1 ay",
                         "1",
                         p.price_1_month,
@@ -618,7 +879,8 @@ function productCard(product){
                         p.sale_1_price
                     )}
 
-                    ${priceBox(
+
+                    ${createPriceBox(
                         "2 ay",
                         "2",
                         p.price_2_month,
@@ -626,7 +888,8 @@ function productCard(product){
                         p.sale_2_price
                     )}
 
-                    ${priceBox(
+
+                    ${createPriceBox(
                         "3 ay",
                         "3",
                         p.price_3_month,
@@ -638,55 +901,79 @@ function productCard(product){
 
             </div>
 
+
+            <!-- 12 AY -->
+
             <div class="section">
 
                 <div class="section-title">
-                    12 ay
+                    12 aylıq qiymət
                 </div>
 
                 <div class="price-box">
 
-                    <div class="price-title">
-                        12 aylıq qiymət
-                    </div>
+                    <label>
+                        Normal qiymət
+                    </label>
 
                     <input
                         type="number"
                         step="0.01"
                         data-price="price_12_month"
-                        value="${priceInput(p.price_12_month)}">
+                        value="${money(
+                            p.price_12_month
+                        )}"
+                    >
+
 
                     <div class="switch-row">
 
-                        <span>12 ay endirimi</span>
+                        <span>
+                            12 ay endirimi
+                        </span>
 
                         <label class="switch">
+
                             <input
                                 type="checkbox"
                                 data-price-toggle="sale_12_active"
-                                ${p.sale_12_active ? "checked" : ""}>
+                                ${
+                                    p.sale_12_active
+                                    ? "checked"
+                                    : ""
+                                }
+                            >
+
                             <span class="slider"></span>
+
                         </label>
 
                     </div>
 
-                    <div class="discount-row">
 
-                        <div>
-                            <label>12 ay endirim qiyməti</label>
+                    <div style="margin-top:10px">
 
-                            <input
-                                type="number"
-                                step="0.01"
-                                data-price="sale_12_price"
-                                value="${priceInput(p.sale_12_price)}">
-                        </div>
+                        <label>
+                            Endirim qiyməti
+                        </label>
+
+                        <input
+                            type="number"
+                            step="0.01"
+                            data-price="sale_12_price"
+                            value="${money(
+                                p.sale_12_price
+                            )}"
+                        >
 
                     </div>
 
                 </div>
 
             </div>
+
+
+            <!-- SEO -->
 
             <div class="section">
 
@@ -696,30 +983,67 @@ function productCard(product){
 
                 <div class="grid-2">
 
+
                     <div>
-                        <label>SEO Title AZ</label>
+
+                        <label>
+                            SEO Title AZ
+                        </label>
+
                         <input
                             data-field="seo_title_az"
-                            value="${esc(product.seo_title_az)}">
+                            value="${esc(
+                                product.seo_title_az
+                            )}"
+                        >
+
                     </div>
 
-                    <div>
-                        <label>SEO Description AZ</label>
-                        <textarea data-field="seo_description_az">${esc(product.seo_description_az)}</textarea>
-                    </div>
 
                     <div>
-                        <label>SEO Title EN</label>
+
+                        <label>
+                            SEO Description AZ
+                        </label>
+
+                        <textarea
+                            data-field="seo_description_az"
+                        >${esc(
+                            product.seo_description_az
+                        )}</textarea>
+
+                    </div>
+
+
+                    <div>
+
+                        <label>
+                            SEO Title EN
+                        </label>
+
                         <input
                             data-field="seo_title_en"
-                            value="${esc(product.seo_title_en)}">
+                            value="${esc(
+                                product.seo_title_en
+                            )}"
+                        >
+
                     </div>
 
+
                     <div>
-                        <label>SEO Title RU</label>
+
+                        <label>
+                            SEO Title RU
+                        </label>
+
                         <input
                             data-field="seo_title_ru"
-                            value="${esc(product.seo_title_ru)}">
+                            value="${esc(
+                                product.seo_title_ru
+                            )}"
+                        >
+
                     </div>
 
                 </div>
@@ -728,81 +1052,36 @@ function productCard(product){
 
         </div>
 
+
         <div class="actions">
 
             <button
-                class="reset"
                 type="button"
-                onclick="reloadProducts()">
+                class="reload"
+                onclick="loadProducts()"
+            >
                 Yenilə
             </button>
 
             <button
-                class="save"
                 type="button"
-                onclick="saveProduct('${esc(product.product_key)}')">
+                class="save"
+                onclick="
+                    saveProduct(
+                        '${esc(product.product_key)}'
+                    )
+                "
+            >
                 💾 Yadda saxla
             </button>
 
         </div>
 
     </article>
+
     `;
 }
 
-function priceBox(title,month,regular,discountActive,discountPrice){
-
-    return `
-    <div class="price-box">
-
-        <div class="price-title">
-            ${title}
-        </div>
-
-        <label>Normal qiymət</label>
-
-        <input
-            type="number"
-            step="0.01"
-            data-price="price_${month}_month"
-            value="${priceInput(regular)}">
-
-        <div class="switch-row">
-
-            <span>Endirim aktivdir</span>
-
-            <label class="switch">
-
-                <input
-                    type="checkbox"
-                    data-price-toggle="sale_${month}_active"
-                    ${discountActive ? "checked" : ""}>
-
-                <span class="slider"></span>
-
-            </label>
-
-        </div>
-
-        <div class="discount-row">
-
-            <div style="grid-column:1/-1">
-
-                <label>Endirim qiyməti</label>
-
-                <input
-                    type="number"
-                    step="0.01"
-                    data-price="sale_${month}_price"
-                    value="${priceInput(discountPrice)}">
-
-            </div>
-
-        </div>
-
-    </div>
-    `;
-}
 
 function renderProducts(){
 
@@ -817,65 +1096,95 @@ function renderProducts(){
         return;
     }
 
+    productsData.sort(
+        (a,b)=>
+            num(a.sort_order) -
+            num(b.sort_order)
+    );
+
     productsEl.innerHTML =
         productsData
-        .sort((a,b)=>
-            numberValue(a.sort_order) -
-            numberValue(b.sort_order)
-        )
-        .map(productCard)
+        .map(createProductCard)
         .join("");
 }
 
+
 async function loadProducts(){
 
-    productsEl.innerHTML =
-        `<div class="loading">Məhsullar yüklənir...</div>`;
+    productsEl.innerHTML = `
+        <div class="loading">
+            Məhsullar yüklənir...
+        </div>
+    `;
 
-    const [
-        productsResult,
-        pricesResult
-    ] = await Promise.all([
 
-        supabaseClient
-            .from("products")
-            .select("*")
-            .order("sort_order",{ascending:true}),
+    const productsResult =
+        await supabaseClient
+        .from("products")
+        .select("*")
+        .order(
+            "sort_order",
+            {
+                ascending:true
+            }
+        );
 
-        supabaseClient
-            .from("product_prices")
-            .select("*")
-
-    ]);
 
     if(productsResult.error){
-        console.error(productsResult.error);
+
+        console.error(
+            productsResult.error
+        );
 
         productsEl.innerHTML = `
             <div class="loading">
-                products cədvəli oxunmadı.<br><br>
-                ${esc(productsResult.error.message)}
+
+                <b>products cədvəlində xəta:</b>
+
+                <br><br>
+
+                ${esc(
+                    productsResult.error.message
+                )}
+
             </div>
         `;
 
         return;
     }
 
+
+    const pricesResult =
+        await supabaseClient
+        .from("product_prices")
+        .select("*");
+
+
     if(pricesResult.error){
-        console.error(pricesResult.error);
+
+        console.error(
+            pricesResult.error
+        );
 
         showMessage(
             "Qiymətlər oxunmadı: " +
             pricesResult.error.message,
             "error"
         );
+
     }
 
-    productsData = productsResult.data || [];
-    pricesData = pricesResult.data || [];
+
+    productsData =
+        productsResult.data || [];
+
+    pricesData =
+        pricesResult.data || [];
+
 
     renderProducts();
 }
+
 
 function getCard(productKey){
 
@@ -884,56 +1193,86 @@ function getCard(productKey){
     );
 }
 
+
 function collectProduct(card){
 
     const data = {};
 
     card
-        .querySelectorAll("[data-field]")
-        .forEach(el=>{
-            const field = el.dataset.field;
+    .querySelectorAll("[data-field]")
+    .forEach(el=>{
 
-            if(field === "sort_order"){
-                data[field] =
-                    parseInt(el.value || "0",10);
-            }else{
-                data[field] = el.value;
-            }
-        });
+        const field =
+            el.dataset.field;
+
+        if(
+            field === "sort_order"
+        ){
+
+            data[field] =
+                parseInt(
+                    el.value || "0",
+                    10
+                );
+
+        }else{
+
+            data[field] =
+                el.value;
+
+        }
+
+    });
 
     return data;
 }
+
 
 function collectPrices(card){
 
     const data = {};
 
     card
-        .querySelectorAll("[data-price]")
-        .forEach(el=>{
+    .querySelectorAll("[data-price]")
+    .forEach(el=>{
 
-            data[el.dataset.price] =
-                parseFloat(el.value || "0");
+        data[
+            el.dataset.price
+        ] =
+            parseFloat(
+                el.value || "0"
+            );
 
-        });
+    });
+
 
     card
-        .querySelectorAll("[data-price-toggle]")
-        .forEach(el=>{
+    .querySelectorAll(
+        "[data-price-toggle]"
+    )
+    .forEach(el=>{
 
-            data[el.dataset.priceToggle] =
-                el.checked;
+        data[
+            el.dataset.priceToggle
+        ] =
+            el.checked;
 
-        });
+    });
+
 
     return data;
 }
 
+
 async function saveProduct(productKey){
 
-    const card = getCard(productKey);
+    const card =
+        getCard(productKey);
 
-    if(!card) return;
+    if(!card){
+        return;
+    }
+
 
     const productFields =
         collectProduct(card);
@@ -941,33 +1280,29 @@ async function saveProduct(productKey){
     const priceFields =
         collectPrices(card);
 
-    const existingProduct =
-        productsData.find(
-            x => x.product_key === productKey
-        );
-
-    if(!existingProduct){
-        showMessage(
-            "Məhsul tapılmadı.",
-            "error"
-        );
-        return;
-    }
-
-    const productUpdate = {
-        ...productFields,
-        updated_at:new Date().toISOString()
-    };
 
     const productResult =
         await supabaseClient
         .from("products")
-        .update(productUpdate)
-        .eq("product_key",productKey);
+        .update({
+
+            ...productFields,
+
+            updated_at:
+                new Date().toISOString()
+
+        })
+        .eq(
+            "product_key",
+            productKey
+        );
+
 
     if(productResult.error){
 
-        console.error(productResult.error);
+        console.error(
+            productResult.error
+        );
 
         showMessage(
             "Məhsul yadda saxlanmadı: " +
@@ -978,20 +1313,30 @@ async function saveProduct(productKey){
         return;
     }
 
-    const priceExists =
+
+    const exists =
         pricesData.some(
-            x => x.product_key === productKey
+            x =>
+                x.product_key ===
+                productKey
         );
+
 
     let priceResult;
 
-    if(priceExists){
+
+    if(exists){
 
         priceResult =
             await supabaseClient
             .from("product_prices")
-            .update(priceFields)
-            .eq("product_key",productKey);
+            .update(
+                priceFields
+            )
+            .eq(
+                "product_key",
+                productKey
+            );
 
     }else{
 
@@ -999,16 +1344,25 @@ async function saveProduct(productKey){
             await supabaseClient
             .from("product_prices")
             .insert({
-                product_key:productKey,
-                product_name:productFields.name_az,
+
+                product_key:
+                    productKey,
+
+                product_name:
+                    productFields.name_az,
+
                 ...priceFields
+
             });
 
     }
 
+
     if(priceResult.error){
 
-        console.error(priceResult.error);
+        console.error(
+            priceResult.error
+        );
 
         showMessage(
             "Məhsul yadda saxlandı, amma qiymətlər yadda saxlanmadı: " +
@@ -1019,31 +1373,49 @@ async function saveProduct(productKey){
         return;
     }
 
+
     showMessage(
         productFields.name_az +
         " uğurla yadda saxlanıldı."
     );
 
+
     await loadProducts();
 }
+
 
 async function toggleActive(productKey){
 
     const product =
         productsData.find(
-            x => x.product_key === productKey
+            x =>
+                x.product_key ===
+                productKey
         );
 
-    if(!product) return;
+
+    if(!product){
+        return;
+    }
+
 
     const result =
         await supabaseClient
         .from("products")
         .update({
-            active:!product.active,
-            updated_at:new Date().toISOString()
+
+            active:
+                !product.active,
+
+            updated_at:
+                new Date().toISOString()
+
         })
-        .eq("product_key",productKey);
+        .eq(
+            "product_key",
+            productKey
+        );
+
 
     if(result.error){
 
@@ -1056,22 +1428,26 @@ async function toggleActive(productKey){
         return;
     }
 
+
     await loadProducts();
 }
 
-async function reloadProducts(){
-    await loadProducts();
-    showMessage("Məlumat yeniləndi.");
-}
 
 async function checkAdmin(){
 
     const {
         data,
         error
-    } = await supabaseClient.auth.getSession();
+    } =
+        await supabaseClient
+        .auth
+        .getSession();
 
-    if(error || !data.session){
+
+    if(
+        error ||
+        !data.session
+    ){
 
         window.location.href =
             "login.html";
@@ -1079,8 +1455,10 @@ async function checkAdmin(){
         return false;
     }
 
+
     const email =
         data.session.user.email;
+
 
     if(
         !email ||
@@ -1088,37 +1466,57 @@ async function checkAdmin(){
         ADMIN_EMAIL.toLowerCase()
     ){
 
-        await supabaseClient.auth.signOut();
+        await supabaseClient
+            .auth
+            .signOut();
 
-        alert("Bu panelə giriş icazəniz yoxdur.");
+
+        alert(
+            "Bu panelə giriş icazəniz yoxdur."
+        );
+
 
         window.location.href =
             "login.html";
 
+
         return false;
     }
 
-    adminEmailEl.textContent = email;
+
+    adminEmailEl.textContent =
+        email;
+
 
     return true;
 }
 
+
 document
 .getElementById("logoutBtn")
-.addEventListener("click",async()=>{
+.addEventListener(
+    "click",
+    async()=>{
 
-    await supabaseClient.auth.signOut();
+        await supabaseClient
+            .auth
+            .signOut();
 
-    window.location.href =
-        "login.html";
+        window.location.href =
+            "login.html";
 
-});
+    }
+);
 
-supabaseClient.auth.onAuthStateChange(
-    async(event,session)=>{
+
+supabaseClient
+.auth
+.onAuthStateChange(
+    async(event)=>{
 
         if(
-            event === "SIGNED_OUT"
+            event ===
+            "SIGNED_OUT"
         ){
 
             window.location.href =
@@ -1129,16 +1527,20 @@ supabaseClient.auth.onAuthStateChange(
     }
 );
 
+
 (async()=>{
 
     const allowed =
         await checkAdmin();
 
-    if(!allowed) return;
+    if(!allowed){
+        return;
+    }
 
     await loadProducts();
 
 })();
+
 </script>
 
 </body>
