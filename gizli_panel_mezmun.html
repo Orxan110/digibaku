@@ -2,1204 +2,505 @@
 <html lang="az">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>DigiBaku — Gizli Admin Panel</title>
-
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>DigiBaku Admin Panel</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-*{
-    box-sizing:border-box;
-}
-
-body{
-    margin:0;
-    font-family:Arial,Helvetica,sans-serif;
-    background:#f5f7fb;
-    color:#172033;
-}
-
-button,
-input,
-textarea,
-select{
-    font:inherit;
-}
-
-button{
-    cursor:pointer;
-}
-
-.header{
-    background:#111827;
-    color:#fff;
-    padding:18px 20px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:15px;
-    position:sticky;
-    top:0;
-    z-index:100;
-}
-
-.header h1{
-    margin:0;
-    font-size:20px;
-}
-
-.header small{
-    opacity:.7;
-}
-
-.logout{
-    border:0;
-    background:#ef4444;
-    color:#fff;
-    padding:10px 15px;
-    border-radius:9px;
-    font-weight:700;
-}
-
-.container{
-    max-width:1400px;
-    margin:auto;
-    padding:20px;
-}
-
-.dashboard{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-    gap:12px;
-    margin-bottom:20px;
-}
-
-.nav-btn{
-    border:1px solid #e5e7eb;
-    background:#fff;
-    border-radius:14px;
-    padding:17px 12px;
-    text-align:left;
-    font-weight:700;
-    color:#172033;
-    box-shadow:0 3px 12px rgba(0,0,0,.04);
-}
-
-.nav-btn:hover{
-    border-color:#2563eb;
-    transform:translateY(-1px);
-}
-
-.panel{
-    display:none;
-}
-
-.panel.active{
-    display:block;
-}
-
-.card{
-    background:#fff;
-    border-radius:16px;
-    padding:20px;
-    margin-bottom:16px;
-    box-shadow:0 5px 20px rgba(0,0,0,.06);
-    border:1px solid #e9edf3;
-}
-
-.card h2,
-.card h3{
-    margin-top:0;
-}
-
-.back-btn{
-    border:0;
-    background:#e5e7eb;
-    color:#111827;
-    padding:10px 15px;
-    border-radius:9px;
-    font-weight:700;
-    margin-bottom:15px;
-}
-
-.primary-btn{
-    background:#2563eb;
-    color:#fff;
-    border:0;
-    border-radius:9px;
-    padding:11px 16px;
-    font-weight:700;
-}
-
-.success-btn{
-    background:#16a34a;
-    color:#fff;
-    border:0;
-    border-radius:9px;
-    padding:10px 14px;
-    font-weight:700;
-}
-
-.warning-btn{
-    background:#f59e0b;
-    color:#fff;
-    border:0;
-    border-radius:9px;
-    padding:10px 14px;
-    font-weight:700;
-}
-
-.danger-btn{
-    background:#dc2626;
-    color:#fff;
-    border:0;
-    border-radius:9px;
-    padding:10px 14px;
-    font-weight:700;
-}
-
-.gray-btn{
-    background:#6b7280;
-    color:#fff;
-    border:0;
-    border-radius:9px;
-    padding:10px 14px;
-    font-weight:700;
-}
-
-.btn-row{
-    display:flex;
-    flex-wrap:wrap;
-    gap:8px;
-    margin-top:12px;
-}
-
-.grid-2{
-    display:grid;
-    grid-template-columns:repeat(2,minmax(0,1fr));
-    gap:16px;
-}
-
-.grid-3{
-    display:grid;
-    grid-template-columns:repeat(3,minmax(0,1fr));
-    gap:16px;
-}
-
-@media(max-width:800px){
-    .grid-2,
-    .grid-3{
-        grid-template-columns:1fr;
-    }
-}
-
-.form-group{
-    margin-bottom:14px;
-}
-
-.form-group label{
-    display:block;
-    font-weight:700;
-    margin-bottom:6px;
-}
-
-input,
-textarea,
-select{
-    width:100%;
-    border:1px solid #d7dce5;
-    border-radius:9px;
-    padding:11px 12px;
-    background:#fff;
-    color:#111827;
-    outline:none;
-}
-
-input:focus,
-textarea:focus,
-select:focus{
-    border-color:#2563eb;
-}
-
-textarea{
-    min-height:110px;
-    resize:vertical;
-}
-
-.duration-box{
-    display:flex;
-    flex-wrap:wrap;
-    gap:8px;
-}
-
-.duration-item{
-    border:1px solid #d7dce5;
-    padding:9px 12px;
-    border-radius:9px;
-    background:#fafafa;
-}
-
-.duration-item input{
-    width:auto;
-    margin-right:5px;
-}
-
-.product-list{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-    gap:15px;
-}
-
-.product-card{
-    border:1px solid #e2e8f0;
-    border-radius:14px;
-    padding:16px;
-    background:#fff;
-}
-
-.product-image{
-    width:100%;
-    height:150px;
-    object-fit:contain;
-    border-radius:10px;
-    background:#f8fafc;
-    margin-bottom:12px;
-}
-
-.product-image.empty{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    color:#94a3b8;
-}
-
-.product-card h3{
-    margin:5px 0 8px;
-}
-
-.meta{
-    color:#64748b;
-    font-size:13px;
-    line-height:1.6;
-}
-
-.badge{
-    display:inline-block;
-    padding:4px 8px;
-    border-radius:999px;
-    font-size:12px;
-    font-weight:700;
-    margin-right:5px;
-}
-
-.badge-green{
-    background:#dcfce7;
-    color:#166534;
-}
-
-.badge-red{
-    background:#fee2e2;
-    color:#991b1b;
-}
-
-.badge-blue{
-    background:#dbeafe;
-    color:#1d4ed8;
-}
-
-.empty{
-    padding:30px;
-    text-align:center;
-    color:#64748b;
-    border:1px dashed #cbd5e1;
-    border-radius:12px;
-}
-
-.table-wrap{
-    overflow:auto;
-}
-
-table{
-    width:100%;
-    border-collapse:collapse;
-    min-width:700px;
-}
-
-th,
-td{
-    border-bottom:1px solid #e5e7eb;
-    padding:11px 8px;
-    text-align:left;
-    vertical-align:top;
-}
-
-th{
-    background:#f8fafc;
-}
-
-.stat-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-    gap:14px;
-}
-
-.stat{
-    background:#fff;
-    border:1px solid #e5e7eb;
-    border-radius:14px;
-    padding:18px;
-}
-
-.stat strong{
-    display:block;
-    font-size:27px;
-    margin-top:7px;
-}
-
-.faq-item{
-    border:1px solid #e2e8f0;
-    border-radius:13px;
-    padding:16px;
-    margin-bottom:12px;
-}
-
-.faq-question{
-    font-size:17px;
-    font-weight:700;
-    margin-bottom:8px;
-}
-
-.faq-answer{
-    color:#475569;
-    white-space:pre-wrap;
-    line-height:1.6;
-}
-
-.submenu{
-    display:grid;
-    grid-template-columns:repeat(2,minmax(0,1fr));
-    gap:16px;
-}
-
-@media(max-width:700px){
-    .submenu{
-        grid-template-columns:1fr;
-    }
-}
-
-.submenu-card{
-    background:#fff;
-    border:1px solid #e2e8f0;
-    border-radius:16px;
-    padding:25px;
-    cursor:pointer;
-    transition:.15s;
-}
-
-.submenu-card:hover{
-    border-color:#2563eb;
-    box-shadow:0 6px 20px rgba(37,99,235,.1);
-}
-
-.submenu-card .icon{
-    font-size:35px;
-    margin-bottom:12px;
-}
-
-.submenu-card h3{
-    margin:0 0 8px;
-}
-
-.submenu-card p{
-    margin:0;
-    color:#64748b;
-    line-height:1.5;
-}
-
-.hidden{
-    display:none!important;
-}
-
-.status{
-    padding:10px 12px;
-    border-radius:9px;
-    margin-bottom:12px;
-    display:none;
-}
-
-.status.success{
-    display:block;
-    background:#dcfce7;
-    color:#166534;
-}
-
-.status.error{
-    display:block;
-    background:#fee2e2;
-    color:#991b1b;
-}
-
-.loading{
-    text-align:center;
-    padding:20px;
-    color:#64748b;
-}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f5f7fb;color:#172033}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+.header{background:#111827;color:#fff;padding:16px 20px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:20}
+.header h1{margin:0;font-size:20px}
+.header small{opacity:.65}
+.logout{background:#ef4444;color:white;border:0;border-radius:9px;padding:10px 15px;font-weight:bold}
+.container{max-width:1400px;margin:auto;padding:20px}
+.dashboard{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:20px}
+.nav-btn{background:white;border:1px solid #e5e7eb;border-radius:13px;padding:17px;text-align:left;font-weight:bold;box-shadow:0 3px 12px #00000009}
+.nav-btn:hover{border-color:#2563eb}
+.panel{display:none}
+.panel.active{display:block}
+.card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:20px;margin-bottom:16px;box-shadow:0 5px 20px #00000008}
+.card h2,.card h3{margin-top:0}
+.back{background:#e5e7eb;border:0;border-radius:9px;padding:10px 15px;font-weight:bold;margin-bottom:15px}
+.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:15px}
+@media(max-width:750px){.grid2{grid-template-columns:1fr}}
+label{display:block;font-weight:bold;margin-bottom:6px}
+.field{margin-bottom:14px}
+input,textarea,select{width:100%;padding:11px 12px;border:1px solid #d7dce5;border-radius:9px;background:white}
+textarea{min-height:110px;resize:vertical}
+.primary{background:#2563eb;color:#fff;border:0;border-radius:9px;padding:11px 16px;font-weight:bold}
+.success{background:#16a34a;color:#fff;border:0;border-radius:9px;padding:10px 14px;font-weight:bold}
+.warning{background:#f59e0b;color:#fff;border:0;border-radius:9px;padding:10px 14px;font-weight:bold}
+.danger{background:#dc2626;color:#fff;border:0;border-radius:9px;padding:10px 14px;font-weight:bold}
+.gray{background:#6b7280;color:#fff;border:0;border-radius:9px;padding:10px 14px;font-weight:bold}
+.btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.status{display:none;padding:10px 12px;border-radius:9px;margin-bottom:12px}
+.status.ok{display:block;background:#dcfce7;color:#166534}
+.status.err{display:block;background:#fee2e2;color:#991b1b}
+.submenu{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+@media(max-width:700px){.submenu{grid-template-columns:1fr}}
+.subcard{background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:25px;cursor:pointer}
+.subcard:hover{border-color:#2563eb}
+.subcard .icon{font-size:34px;margin-bottom:10px}
+.subcard h3{margin:0 0 7px}
+.subcard p{color:#64748b;margin:0;line-height:1.5}
+.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:15px}
+.product{border:1px solid #e2e8f0;border-radius:14px;padding:16px}
+.product img{width:100%;height:140px;object-fit:contain;background:#f8fafc;border-radius:9px}
+.badge{display:inline-block;padding:4px 8px;border-radius:999px;font-size:12px;font-weight:bold;margin:5px 4px 5px 0}
+.green{background:#dcfce7;color:#166534}
+.red{background:#fee2e2;color:#991b1b}
+.blue{background:#dbeafe;color:#1d4ed8}
+.meta{color:#64748b;font-size:13px;line-height:1.6}
+.faq{border:1px solid #e2e8f0;border-radius:13px;padding:16px;margin-bottom:12px}
+.faq q{font-weight:bold}
+.empty{text-align:center;padding:30px;color:#64748b;border:1px dashed #cbd5e1;border-radius:12px}
+.table{overflow:auto}
+table{width:100%;border-collapse:collapse;min-width:700px}
+th,td{padding:10px;border-bottom:1px solid #e5e7eb;text-align:left}
+th{background:#f8fafc}
+.statgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px}
+.stat{background:white;border:1px solid #e5e7eb;border-radius:14px;padding:18px}
+.stat strong{display:block;font-size:28px;margin-top:7px}
 </style>
 </head>
 
 <body>
 
-<div class="header">
-    <div>
-        <h1>🔐 DigiBaku Admin Panel</h1>
-        <small>Sayt idarəetmə sistemi</small>
-    </div>
-
-    <button class="logout" onclick="logout()">Çıxış</button>
+<header>
+<div>
+<h1>🔐 DigiBaku Admin Panel</h1>
+<small>Sayt idarəetmə sistemi</small>
 </div>
+<button class="logout" onclick="logout()">Çıxış</button>
+</header>
 
 <div class="container">
 
-    <!-- DASHBOARD -->
-    <div id="dashboard" class="dashboard">
+<div id="dashboard" class="dashboard">
+
+<button class="nav-btn" onclick="show('orders')">📦 Sifarişlər</button>
+<button class="nav-btn" onclick="show('messages')">💬 Mesajlar</button>
+<button class="nav-btn" onclick="show('prices')">💰 Qiymətlər</button>
+<button class="nav-btn" onclick="productsMenu()">🛍️ Sayt məhsulları</button>
+<button class="nav-btn" onclick="show('customerProducts')">👤 Müştəri məhsulları</button>
+<button class="nav-btn" onclick="faqMenu()">❓ FAQ</button>
+<button class="nav-btn" onclick="show('give')">🎁 Məhsul ver</button>
+<button class="nav-btn" onclick="show('customers')">👥 Müştərilər</button>
+<button class="nav-btn" onclick="show('stats')">📊 Statistika</button>
+<button class="nav-btn" onclick="show('settings')">⚙️ Ayarlar</button>
+
+</div>
+
+
+<!-- SİFARİŞLƏR -->
+<section id="orders" class="panel">
+<button class="back" onclick="home()">← Geri</button>
+<div class="card">
+<h2>📦 Sifarişlər</h2>
+<div class="table">
+<table>
+<thead><tr><th>ID</th><th>Müştəri</th><th>Məhsul</th><th>Məbləğ</th><th>Status</th><th>Tarix</th></tr></thead>
+<tbody id="ordersBody"><tr><td colspan="6">Yüklənir...</td></tr></tbody>
+</table>
+</div>
+</div>
+</section>
+
+
+<!-- MESAJLAR -->
+<section id="messages" class="panel">
+<button class="back" onclick="home()">← Geri</button>
+<div class="card">
+<h2>💬 Mesajlar</h2>
+<div id="messagesList">Yüklənir...</div>
+</div>
+</section>
+
+
+<!-- QİYMƏTLƏR -->
+<section id="prices" class="panel">
+<button class="back" onclick="home()">← Geri</button>
+<div class="card">
+<h2>💰 Mövcud qiymətlər</h2>
+<p class="meta">Bu bölmə mövcud <b>product_prices</b> məlumatlarını göstərir. Bu panel yeni məhsul əlavə edərkən qiymətləri avtomatik dəyişmir.</p>
+<div id="pricesList">Yüklənir...</div>
+</div>
+</section>
+
+
+<!-- MƏHSULLAR MENYUSU -->
+<section id="productsMenu" class="panel">
+<button class="back" onclick="home()">← Geri</button>
+<div class="card">
+<h2>🛍️ Məhsullar</h2>
+
+<div class="submenu">
+
+<div class="subcard" onclick="existingProducts()">
+<div class="icon">📦</div>
+<h3>Saytda hazırda olan məhsullar</h3>
+<p>Hazırda saytda olan məhsulların məlumatlarına bax, düzəliş et, aktiv/deaktiv et və sil.</p>
+</div>
+
+<div class="subcard" onclick="newProduct()">
+<div class="icon">➕</div>
+<h3>Yeni məhsul əlavə et</h3>
+<p>Sayta yeni məhsul əlavə etmək üçün ayrıca forma.</p>
+</div>
+
+</div>
+</div>
+</section>
+
+
+<!-- MÖVCUD MƏHSULLAR -->
+<section id="existingProducts" class="panel">
+<button class="back" onclick="productsMenu()">← Məhsullar</button>
+<div class="card">
+<h2>📦 Saytda hazırda olan məhsullar</h2>
+<p class="meta">Mövcud məhsullar birbaşa bazadan gətirilir. <b>Düzəlt</b> seçəndə bütün məlumatlar hazır formada açılır.</p>
+<div id="productsList">Yüklənir...</div>
+</div>
+</section>
+
+
+<!-- YENİ MƏHSUL -->
+<section id="newProduct" class="panel">
+<button class="back" onclick="productsMenu()">← Məhsullar</button>
+<div class="card">
+<h2>➕ Yeni məhsul əlavə et</h2>
+<div id="newProductStatus" class="status"></div>
+
+<form onsubmit="createProduct(event)">
+
+<div class="grid2">
+
+<div class="field">
+<label>Məhsul adı</label>
+<input id="npName" required>
+</div>
+
+<div class="field">
+<label>Product Key</label>
+<input id="npKey" placeholder="məs: amazon" required>
+</div>
 
-        <button class="nav-btn" onclick="showPanel('ordersPanel')">
-            📦 Sifarişlər
-        </button>
+<div class="field">
+<label>Slug</label>
+<input id="npSlug" placeholder="məs: amazon-premium" required>
+</div>
+
+<div class="field">
+<label>Kateqoriya</label>
+<input id="npCategory">
+</div>
 
-        <button class="nav-btn" onclick="showPanel('messagesPanel')">
-            💬 Mesajlar
-        </button>
+</div>
 
-        <button class="nav-btn" onclick="showPanel('pricesPanel')">
-            💰 Qiymətlər
-        </button>
+<div class="field">
+<label>Şəkil URL</label>
+<input id="npImage">
+</div>
 
-        <button class="nav-btn" onclick="showProductsMenu()">
-            🛍️ Sayt məhsulları
-        </button>
+<div class="field">
+<label>Açıqlama</label>
+<textarea id="npDescription"></textarea>
+</div>
 
-        <button class="nav-btn" onclick="showPanel('customerProductsPanel')">
-            👤 Müştəri məhsulları
-        </button>
+<div class="field">
+<label>Müddətlər</label>
 
-        <button class="nav-btn" onclick="showPanel('faqPanel')">
-            ❓ FAQ
-        </button>
+<label><input type="checkbox" class="npDuration" value="1" style="width:auto"> 1 ay</label>
+<label><input type="checkbox" class="npDuration" value="2" style="width:auto"> 2 ay</label>
+<label><input type="checkbox" class="npDuration" value="3" style="width:auto"> 3 ay</label>
+<label><input type="checkbox" class="npDuration" value="6" style="width:auto"> 6 ay</label>
+<label><input type="checkbox" class="npDuration" value="12" style="width:auto"> 12 ay</label>
+</div>
 
-        <button class="nav-btn" onclick="showPanel('giveProductPanel')">
-            🎁 Məhsul ver
-        </button>
+<div class="field">
+<label><input type="checkbox" id="npActive" checked style="width:auto"> Aktiv</label>
+</div>
 
-        <button class="nav-btn" onclick="showPanel('customersPanel')">
-            👥 Müştərilər
-        </button>
+<button class="primary">➕ Məhsulu əlavə et</button>
 
-        <button class="nav-btn" onclick="showPanel('statsPanel')">
-            📊 Statistika
-        </button>
+</form>
+</div>
+</section>
+
 
-        <button class="nav-btn" onclick="showPanel('settingsPanel')">
-            ⚙️ Ayarlar
-        </button>
+<!-- MÜŞTƏRİ MƏHSULLARI -->
+<section id="customerProducts" class="panel">
+<button class="back" onclick="home()">← Geri</button>
+<div class="card">
+<h2>👤 Müştəri məhsulları</h2>
+<div id="customerProductsList">Yüklənir...</div>
+</div>
+</section>
 
-    </div>
-
-
-    <!-- =========================
-         SİFARİŞLƏR
-    ========================== -->
-    <section id="ordersPanel" class="panel">
-
-        <button class="back-btn" onclick="goDashboard()">← Geri</button>
-
-        <div class="card">
-            <h2>📦 Sifarişlər</h2>
-
-            <div id="ordersStatus" class="status"></div>
-
-            <div class="table-wrap">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Müştəri</th>
-                            <th>Məhsul</th>
-                            <th>Məbləğ</th>
-                            <th>Status</th>
-                            <th>Tarix</th>
-                        </tr>
-                    </thead>
-
-                    <tbody id="ordersTableBody">
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-    </section>
-
-
-    <!-- =========================
-         MESAJLAR
-    ========================== -->
-    <section id="messagesPanel" class="panel">
-
-        <button class="back-btn" onclick="goDashboard()">← Geri</button>
-
-        <div class="card">
-            <h2>💬 Mesajlar</h2>
-
-            <div id="messagesList">
-                <div class="loading">Yüklənir...</div>
-            </div>
-        </div>
-
-    </section>
-
-
-    <!-- =========================
-         QİYMƏTLƏR
-    ========================== -->
-    <section id="pricesPanel" class="panel">
-
-        <button class="back-btn" onclick="goDashboard()">← Geri</button>
-
-        <div class="card">
-            <h2>💰 Qiymətlər</h2>
-
-            <div id="pricesStatus" class="status"></div>
-
-            <div id="pricesList">
-                <div class="loading">Yüklənir...</div>
-            </div>
-        </div>
-
-    </section>
-
-
-    <!-- =========================
-         MƏHSULLAR MENYUSU
-    ========================== -->
-    <section id="productsMenuPanel" class="panel">
-
-        <button class="back-btn" onclick="goDashboard()">← Geri</button>
-
-        <div class="card">
-
-            <h2>🛍️ Məhsullar</h2>
-
-            <p class="meta">
-                Buradan saytda olan məhsulları idarə edə və ayrıca yeni məhsul əlavə edə bilərsiniz.
-            </p>
-
-            <div class="submenu">
-
-                <div class="submenu-card" onclick="showExistingProducts()">
-                    <div class="icon">📦</div>
-
-                    <h3>Saytda hazırda olan məhsullar</h3>
-
-                    <p>
-                        Hazırda saytda mövcud olan məhsullara bax,
-                        məlumatlarını dəyiş və aktivliyini idarə et.
-                    </p>
-                </div>
-
-
-                <div class="submenu-card" onclick="showNewProductForm()">
-                    <div class="icon">➕</div>
-
-                    <h3>Yeni məhsul əlavə et</h3>
-
-                    <p>
-                        Sayta tamamilə yeni məhsul əlavə et.
-                    </p>
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- =========================
-         MÖVCUD SAYT MƏHSULLARI
-    ========================== -->
-    <section id="existingProductsPanel" class="panel">
-
-        <button class="back-btn" onclick="showProductsMenu()">← Məhsullar</button>
-
-        <div class="card">
-
-            <h2>📦 Saytda hazırda olan məhsullar</h2>
-
-            <p class="meta">
-                Bu siyahı birbaşa <b>site_products</b> cədvəlindən gəlir.
-                Mövcud məhsullar avtomatik yenidən yaradılmır.
-            </p>
-
-            <div id="existingProductsStatus" class="status"></div>
-
-            <div id="existingProductsList">
-                <div class="loading">Yüklənir...</div>
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- =========================
-         YENİ MƏHSUL
-    ========================== -->
-    <section id="newProductPanel" class="panel">
-
-        <button class="back-btn" onclick="showProductsMenu()">← Məhsullar</button>
-
-        <div class="card">
-
-            <h2>➕ Yeni məhsul əlavə et</h2>
-
-            <p class="meta">
-                Burada yalnız yeni məhsul yaradılır.
-                Mövcud <b>product_prices</b> məlumatlarına toxunulmur.
-            </p>
-
-            <div id="newProductStatus" class="status"></div>
-
-            <form id="newProductForm" onsubmit="createSiteProduct(event)">
-
-                <div class="grid-2">
-
-                    <div class="form-group">
-                        <label>Məhsul adı</label>
-                        <input id="newProductName" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Product Key</label>
-                        <input id="newProductKey" required placeholder="məs: amazon">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Slug</label>
-                        <input id="newProductSlug" required placeholder="məs: amazon-premium">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Kateqoriya</label>
-                        <input id="newProductCategory" placeholder="məs: Əyləncə">
-                    </div>
-
-                </div>
-
-
-                <div class="form-group">
-                    <label>Şəkil URL</label>
-                    <input id="newProductImage" placeholder="https://...">
-                </div>
-
-
-                <div class="form-group">
-                    <label>Açıqlama</label>
-                    <textarea id="newProductDescription"></textarea>
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>Müddətlər</label>
-
-                    <div class="duration-box">
-
-                        <label class="duration-item">
-                            <input type="checkbox" class="new-duration" value="1">
-                            1 ay
-                        </label>
-
-                        <label class="duration-item">
-                            <input type="checkbox" class="new-duration" value="2">
-                            2 ay
-                        </label>
-
-                        <label class="duration-item">
-                            <input type="checkbox" class="new-duration" value="3">
-                            3 ay
-                        </label>
-
-                        <label class="duration-item">
-                            <input type="checkbox" class="new-duration" value="6">
-                            6 ay
-                        </label>
-
-                        <label class="duration-item">
-                            <input type="checkbox" class="new-duration" value="12">
-                            12 ay
-                        </label>
-
-                    </div>
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>
-                        <input
-                            type="checkbox"
-                            id="newProductActive"
-                            checked
-                            style="width:auto"
-                        >
-                        Aktiv məhsul
-                    </label>
-
-                </div>
-
-
-                <button class="primary-btn" type="submit">
-                    Məhsulu əlavə et
-                </button>
-
-            </form>
-
-        </div>
-
-    </section>
-
-
-    <!-- =========================
-         MÜŞTƏRİ MƏHSULLARI
-    ========================== -->
-    <section id="customerProductsPanel" class="panel">
-
-        <button class="back-btn" onclick="goDashboard()">← Geri</button>
-
-        <div class="card">
-            <h2>👤 Müştəri məhsulları</h2>
-
-            <div id="customerProductsList">
-                <div class="loading">Yüklənir...</div>
-            </div>
-        </div>
-
-    </section>
-
-
-    <!-- =========================
-         FAQ
-    ========================== -->
-    <section id="faqPanel" class="panel">
-
-        <button class="back-btn" onclick="goDashboard()">← Geri</button>
-
-        <div class="card">
-
-            <h2>❓ FAQ idarəetməsi</h2>
-
-            <div class="submenu">
-
-                <div class="submenu-card" onclick="showExistingFaqs()">
-                    <div class="icon">📚</div>
-
-                    <h3>Mövcud FAQ-lar</h3>
-
-                    <p>
-                        Hazırda sistemdə olan FAQ-lara bax,
-                        düzəliş et, aktiv/deaktiv et və sil.
-                    </p>
-                </div>
-
-                <div class="submenu-card" onclick="showNewFaqForm()">
-                    <div class="icon">➕</div>
-
-                    <h3>Yeni FAQ əlavə et</h3>
-
-                    <p>
-                        Yeni məhsul FAQ-sı və ya ümumi FAQ əlavə et.
-                    </p>
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- =========================
-         FAQ MÖVCUD
-    ========================== -->
-    <section id="existingFaqPanel" class="panel">
-
-        <button class="back-btn" onclick="showPanel('faqPanel')">← FAQ</button>
-
-        <div class="card">
-
-            <h2>📚 Mövcud FAQ-lar</h2>
-
-            <div class="form-group">
-
-                <label>Məhsula görə filtr</label>
-
-                <select id="faqFilterProduct" onchange="loadFaqs()">
-                    <option value="">Hamısı</option>
-                </select>
-
-            </div>
-
-            <div id="faqStatus" class="status"></div>
-
-            <div id="faqList">
-                <div class="loading">Yüklənir...</div>
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- =========================
-         FAQ YENİ / REDAKTƏ
-    ========================== -->
-    <section id="newFaqPanel" class="panel">
-
-        <button class="back-btn" onclick="showPanel('faqPanel')">← FAQ</button>
-
-        <div class="card">
-
-            <h2 id="faqFormTitle">➕ Yeni FAQ əlavə et</h2>
-
-            <div id="faqFormStatus" class="status"></div>
-
-            <form id="faqForm" onsubmit="saveFaq(event)">
-
-                <input type="hidden" id="faqEditId">
-
-                <div class="form-group">
-
-                    <label>Məhsul</label>
-
-                    <select id="faqProductKey">
-
-                        <option value="">
-                            Ümumi FAQ
-                        </option>
-
-                    </select>
-
-                </div>
-
-
-                <div class="grid-2">
-
-                    <div class="form-group">
-
-                        <label>Dil</label>
-
-                        <select id="faqLanguage">
-
-                            <option value="az">Azərbaycan dili</option>
-                            <option value="tr">Türkcə</option>
-                            <option value="en">English</option>
-
-                        </select>
-
-                    </div>
-
-
-                    <div class="form-group">
-
-                        <label>Sıralama</label>
-
-                        <input
-                            type="number"
-                            id="faqSortOrder"
-                            value="0"
-                        >
-
-                    </div>
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>Sual</label>
-
-                    <input
-                        id="faqQuestion"
-                        required
-                    >
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>Cavab</label>
-
-                    <textarea
-                        id="faqAnswer"
-                        required
-                    ></textarea>
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>
-
-                        <input
-                            type="checkbox"
-                            id="faqActive"
-                            checked
-                            style="width:auto"
-                        >
-
-                        Aktiv FAQ
-
-                    </label>
-
-                </div>
-
-
-                <div class="btn-row">
-
-                    <button
-                        type="submit"
-                        class="primary-btn"
-                        id="faqSaveBtn"
-                    >
-                        FAQ əlavə et
-                    </button>
-
-                    <button
-                        type="button"
-                        class="gray-btn"
-                        onclick="resetFaqForm()"
-                    >
-                        Təmizlə
-                    </button>
-
-                </div>
-
-            </form>
-
-        </div>
-
-    </section>
-
-
-    <!-- =========================
-         MƏHSUL VER
-    ========================== -->
-    <section id="giveProductPanel" class="panel">
-
-        <button class="back-btn" onclick="goDashboard()">← Geri</button>
-
-        <div class="card">
-
-            <h2>🎁 Məhsul ver</h2>
-
-            <div id="giveProductStatus" class="status"></div>
-
-            <form onsubmit="giveProduct(event)">
-
-                <div class="form-group">
-                    <label>Müştəri emaili</label>
-                    <input id="giveCustomerEmail" type="email" required>
-                </div>
-
-                <div class="form-group">
-                    <label>Məhsul</label>
-                    <select id="giveProductKey" required>
-                        <option value="">Seçin</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label>Müddət</label>
-                    <select id="giveDuration">
-                        <option value="1">1 ay</option>
-                        <option value="2">2 ay</option>
-                        <option value="3">3 ay</option>
-                        <option value="6">6 ay</option>
-                        <option value="12">12 ay</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label>Qeyd</label>
-                    <textarea id="giveNote"></textarea>
-                </div>
-
-                <button class="success-btn" type="submit">
-                    Məhsulu ver
-                </button>
-
-            </form>
-
-        </div>
-
-    </section>
-
-
-    <!-- =========================
-         MÜŞTƏRİLƏR
-    ========================== -->
-    <section id="customersPanel" class="panel">
-
-        <button class="back-btn" onclick="goDashboard()">← Geri</button>
-
-        <div class="card">
-
-            <h2>👥 Müştərilər</h2>
-
-            <div id="customersList">
-                <div class="loading">Yüklənir...</div>
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- =========================
-         STATİSTİKA
-    ========================== -->
-    <section id="statsPanel" class="panel">
-
-        <button class="back-btn" onclick="goDashboard()">← Geri</button>
-
-        <div class="card">
-
-            <h2>📊 Statistika</h2>
-
-            <div id="statsGrid" class="stat-grid">
-
-                <div class="stat">
-                    Sifarişlər
-                    <strong id="statOrders">0</strong>
-                </div>
-
-                <div class="stat">
-                    Müştərilər
-                    <strong id="statCustomers">0</strong>
-                </div>
-
-                <div class="stat">
-                    Aktiv məhsullar
-                    <strong id="statProducts">0</strong>
-                </div>
-
-                <div class="stat">
-                    FAQ
-                    <strong id="statFaq">0</strong>
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- =========================
-         AYARLAR
-    ========================== -->
-    <section id="settingsPanel" class="panel">
-
-        <button class="back-btn" onclick="goDashboard()">← Geri</button>
-
-        <div class="card">
-
-            <h2>⚙️ Ayarlar</h2>
-
-            <p>
-                Admin email:
-                <b>zahidovorxan989@gmail.com</b>
-            </p>
-
-            <p class="meta">
-                Supabase bağlantısı aktivdir.
-            </p>
-
-        </div>
-
-    </section>
+
+<!-- FAQ MENYU -->
+<section id="faqMenu" class="panel">
+<button class="back" onclick="home()">← Geri</button>
+<div class="card">
+<h2>❓ FAQ idarəetməsi</h2>
+
+<div class="submenu">
+
+<div class="subcard" onclick="existingFaqs()">
+<div class="icon">📚</div>
+<h3>Mövcud FAQ-lar</h3>
+<p>Hazırda faq.html-də olan FAQ-lar burada hazır görünəcək. Düzəlt, sil və aktiv/deaktiv et.</p>
+</div>
+
+<div class="subcard" onclick="newFaq()">
+<div class="icon">➕</div>
+<h3>Yeni FAQ əlavə et</h3>
+<p>Yeni məhsul FAQ-sı və ya ümumi FAQ əlavə et.</p>
+</div>
+
+</div>
+</div>
+</section>
+
+
+<!-- MÖVCUD FAQ -->
+<section id="existingFaqs" class="panel">
+<button class="back" onclick="faqMenu()">← FAQ</button>
+
+<div class="card">
+<h2>📚 Mövcud FAQ-lar</h2>
+
+<div class="field">
+<label>Məhsula görə filtr</label>
+<select id="faqFilter" onchange="loadFaqs()">
+<option value="">Hamısı</option>
+</select>
+</div>
+
+<div id="faqStatus" class="status"></div>
+<div id="faqList">Yüklənir...</div>
+
+</div>
+</section>
+
+
+<!-- YENİ / REDAKTƏ FAQ -->
+<section id="newFaq" class="panel">
+<button class="back" onclick="faqMenu()">← FAQ</button>
+
+<div class="card">
+<h2 id="faqTitle">➕ Yeni FAQ əlavə et</h2>
+
+<div id="faqFormStatus" class="status"></div>
+
+<form onsubmit="saveFaq(event)">
+
+<input type="hidden" id="faqId">
+
+<div class="field">
+<label>Məhsul</label>
+<select id="faqProduct">
+<option value="">Ümumi FAQ</option>
+</select>
+</div>
+
+<div class="grid2">
+
+<div class="field">
+<label>Dil</label>
+<select id="faqLanguage">
+<option value="az">Azərbaycan dili</option>
+<option value="ru">Русский</option>
+<option value="en">English</option>
+</select>
+</div>
+
+<div class="field">
+<label>Sıralama</label>
+<input id="faqSort" type="number" value="0">
+</div>
+
+</div>
+
+<div class="field">
+<label>Sual</label>
+<input id="faqQuestion" required>
+</div>
+
+<div class="field">
+<label>Cavab</label>
+<textarea id="faqAnswer" required></textarea>
+</div>
+
+<div class="field">
+<label><input type="checkbox" id="faqActive" checked style="width:auto"> Aktiv FAQ</label>
+</div>
+
+<div class="btns">
+<button class="primary" id="faqSaveButton">💾 FAQ əlavə et</button>
+<button type="button" class="gray" onclick="resetFaq()">Təmizlə</button>
+</div>
+
+</form>
+</div>
+</section>
+
+
+<!-- MƏHSUL VER -->
+<section id="give" class="panel">
+<button class="back" onclick="home()">← Geri</button>
+<div class="card">
+<h2>🎁 Məhsul ver</h2>
+<form onsubmit="giveProduct(event)">
+
+<div class="field">
+<label>Müştəri emaili</label>
+<input id="giveEmail" type="email" required>
+</div>
+
+<div class="field">
+<label>Məhsul</label>
+<select id="giveProduct" required></select>
+</div>
+
+<div class="field">
+<label>Müddət</label>
+<select id="giveDuration">
+<option value="1">1 ay</option>
+<option value="2">2 ay</option>
+<option value="3">3 ay</option>
+<option value="6">6 ay</option>
+<option value="12">12 ay</option>
+</select>
+</div>
+
+<div class="field">
+<label>Qeyd</label>
+<textarea id="giveNote"></textarea>
+</div>
+
+<button class="success">🎁 Məhsulu ver</button>
+</form>
+</div>
+</section>
+
+
+<!-- MÜŞTƏRİLƏR -->
+<section id="customers" class="panel">
+<button class="back" onclick="home()">← Geri</button>
+<div class="card">
+<h2>👥 Müştərilər</h2>
+<div id="customersList">Yüklənir...</div>
+</div>
+</section>
+
+
+<!-- STATİSTİKA -->
+<section id="stats" class="panel">
+<button class="back" onclick="home()">← Geri</button>
+<div class="card">
+<h2>📊 Statistika</h2>
+
+<div class="statgrid">
+<div class="stat">Sifarişlər<strong id="stOrders">0</strong></div>
+<div class="stat">Müştərilər<strong id="stCustomers">0</strong></div>
+<div class="stat">Aktiv məhsullar<strong id="stProducts">0</strong></div>
+<div class="stat">FAQ<strong id="stFaq">0</strong></div>
+</div>
+
+</div>
+</section>
+
+
+<!-- AYARLAR -->
+<section id="settings" class="panel">
+<button class="back" onclick="home()">← Geri</button>
+<div class="card">
+<h2>⚙️ Ayarlar</h2>
+<p>Admin: <b>zahidovorxan989@gmail.com</b></p>
+</div>
+</section>
 
 </div>
 
 
 <script>
 
-/* =========================================================
-   SUPABASE
-========================================================= */
+const SUPABASE_URL="https://zeknhnkaicqkfzgnvycq.supabase.co";
+const SUPABASE_KEY="sb_publishable_jHvCp9fXBA_BwFqrXYpwlw_VC6C1OQk";
+const ADMIN_EMAIL="zahidovorxan989@gmail.com";
 
-const SUPABASE_URL =
-    "https://zeknhnkaicqkfzgnvycq.supabase.co";
-
-const SUPABASE_KEY =
-    "sb_publishable_jHvCp9fXBA_BwFqrXYpwlw_VC6C1OQk";
-
-const ADMIN_EMAIL =
-    "zahidovorxan989@gmail.com";
-
-const supabaseClient =
-    window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_KEY
-    );
+const supabaseClient=
+window.supabase.createClient(
+SUPABASE_URL,
+SUPABASE_KEY
+);
 
 
 /* =========================================================
-   PRICE PRODUCTS
-   Mövcud qiymət sistemi qorunur
+   FAQ-LAR — faq.html-dən hazır məlumatlar
 ========================================================= */
 
-const PRICE_PRODUCTS = [
+const EXISTING_FAQS=[
 
-    {
-        key:"netflix",
-        name:"Netflix Premium",
-        months:[1,2,3]
-    },
+{
+product_key:null,
+question:"Sifariş necə verilir?",
+answer:"Məhsulu seçirsiniz, paket müddətini yoxlayırsınız, sifarişi tamamlayırsınız və aktivləşdirmə məlumatı dəstək prosesi ilə təqdim olunur.",
+language:"az",
+sort_order:1
+},
 
-    {
-        key:"youtube",
-        name:"YouTube Premium",
-        months:[1,2,3]
-    },
+{
+product_key:null,
+question:"Qiyməti harada görürəm?",
+answer:"Qiymət məhsul kartında və məhsul səhifəsində göstərilir. Müddətə görə qiymət dəyişə bilər.",
+language:"az",
+sort_order:2
+},
 
-    {
-        key:"chatgpt",
-        name:"ChatGPT Plus",
-        months:[1,2,3]
-    },
+{
+product_key:null,
+question:"Telefondan sifariş verə bilərəm?",
+answer:"Bəli. Məhsul kartları və sifariş funksiyaları mobil ekranlar üçün uyğunlaşdırılıb.",
+language:"az",
+sort_order:3
+},
 
-    {
-        key:"gemini",
-        name:"Google Gemini Premium",
-        months:[1,2,3]
-    },
+{
+product_key:null,
+question:"Aktivləşdirmə nə qədər çəkir?",
+answer:"Ödəniş təsdiqləndikdən sonra məlumatlar qısa müddətdə təqdim olunur. Məhsuldan asılı olaraq dəqiq proses fərqlənə bilər.",
+language:"az",
+sort_order:4
+},
 
-    {
-        key:"spotify",
-        name:"Spotify Premium",
-        months:[1,2,3]
-    },
+{
+product_key:null,
+question:"Hesab məlumatlarını dəyişə bilərəm?",
+answer:"Məhsul qaydalarında icazə verilmirsə e-poçt, şifrə və təhlükəsizlik məlumatlarını dəyişməyin.",
+language:"az",
+sort_order:5
+},
 
-    {
-        key:"canva",
-        name:"Canva Premium",
-        months:[12]
-    }
+{
+product_key:null,
+question:"Problem yaranarsa nə etməliyəm?",
+answer:"Əlaqə kanalları vasitəsilə sifariş məlumatı ilə müraciət edin. Dəstək komandası statusu yoxlayacaq.",
+language:"az",
+sort_order:6
+},
+
+{
+product_key:"canva",
+question:"Canva Pro Azərbaycan Abunəliyi",
+answer:"Canva Pro Azərbaycan — dizayn, təqdimat, poster və sosial media üçün premium Canva imkanları təqdim edir.",
+language:"az",
+sort_order:7
+}
 
 ];
 
@@ -1208,1361 +509,303 @@ const PRICE_PRODUCTS = [
    NAVIGATION
 ========================================================= */
 
-function hideAllPanels(){
+function hidePanels(){
 
-    document
-        .querySelectorAll(".panel")
-        .forEach(panel=>{
-            panel.classList.remove("active");
-        });
+document.querySelectorAll(".panel")
+.forEach(x=>x.classList.remove("active"));
 
-    document
-        .getElementById("dashboard")
-        .style.display = "none";
-}
-
-
-function goDashboard(){
-
-    document
-        .querySelectorAll(".panel")
-        .forEach(panel=>{
-            panel.classList.remove("active");
-        });
-
-    document
-        .getElementById("dashboard")
-        .style.display = "grid";
-}
-
-
-function showPanel(id){
-
-    hideAllPanels();
-
-    const panel =
-        document.getElementById(id);
-
-    if(panel){
-        panel.classList.add("active");
-    }
-
-    if(id==="ordersPanel"){
-        loadOrders();
-    }
-
-    if(id==="messagesPanel"){
-        loadMessages();
-    }
-
-    if(id==="pricesPanel"){
-        loadPrices();
-    }
-
-    if(id==="customerProductsPanel"){
-        loadCustomerProducts();
-    }
-
-    if(id==="customersPanel"){
-        loadCustomers();
-    }
-
-    if(id==="statsPanel"){
-        loadStats();
-    }
-
-    if(id==="giveProductPanel"){
-        prepareGiveProduct();
-    }
-}
-
-
-/* =========================================================
-   PRODUCTS MENU
-========================================================= */
-
-function showProductsMenu(){
-
-    hideAllPanels();
-
-    document
-        .getElementById("productsMenuPanel")
-        .classList.add("active");
+document.getElementById("dashboard").style.display="none";
 
 }
 
+function home(){
 
-function showExistingProducts(){
+document.querySelectorAll(".panel")
+.forEach(x=>x.classList.remove("active"));
 
-    hideAllPanels();
-
-    document
-        .getElementById("existingProductsPanel")
-        .classList.add("active");
-
-    loadSiteProducts();
+document.getElementById("dashboard").style.display="grid";
 
 }
 
+function show(id){
 
-function showNewProductForm(){
+hidePanels();
 
-    hideAllPanels();
+document.getElementById(id).classList.add("active");
 
-    document
-        .getElementById("newProductPanel")
-        .classList.add("active");
+if(id==="orders")loadOrders();
+if(id==="messages")loadMessages();
+if(id==="prices")loadPrices();
+if(id==="customerProducts")loadCustomerProducts();
+if(id==="customers")loadCustomers();
+if(id==="stats")loadStats();
+if(id==="give")prepareGiveProduct();
 
-    resetNewProductForm();
+}
+
+function productsMenu(){
+
+hidePanels();
+
+document.getElementById("productsMenu").classList.add("active");
+
+}
+
+function existingProducts(){
+
+hidePanels();
+
+document.getElementById("existingProducts").classList.add("active");
+
+loadProducts();
+
+}
+
+function newProduct(){
+
+hidePanels();
+
+document.getElementById("newProduct").classList.add("active");
+
+resetNewProduct();
+
+}
+
+function faqMenu(){
+
+hidePanels();
+
+document.getElementById("faqMenu").classList.add("active");
+
+}
+
+async function existingFaqs(){
+
+hidePanels();
+
+document.getElementById("existingFaqs").classList.add("active");
+
+await seedExistingFaqs();
+await loadFaqProductOptions();
+await loadFaqs();
+
+}
+
+async function newFaq(){
+
+hidePanels();
+
+document.getElementById("newFaq").classList.add("active");
+
+await loadFaqProductOptions("faqProduct");
+
+resetFaq();
 
 }
 
 
 /* =========================================================
-   STATUS
+   FAQ-LARI BAZAYA HAZIR YERLƏŞDİR
 ========================================================= */
 
-function showStatus(id,message,type="success"){
+async function seedExistingFaqs(){
 
-    const el =
-        document.getElementById(id);
+try{
 
-    if(!el) return;
+const {data,error}=await supabaseClient
+.from("site_faqs")
+.select("id,question,product_key,language");
 
-    el.className =
-        "status " + type;
+if(error){
 
-    el.textContent =
-        message;
+console.error("FAQ yoxlama:",error);
+return;
 
 }
 
+for(const faq of EXISTING_FAQS){
 
-function clearStatus(id){
+const already=
+(data||[]).some(x=>
+String(x.question||"").trim()===
+faq.question &&
+(x.language||"az")===faq.language
+);
 
-    const el =
-        document.getElementById(id);
+if(already)continue;
 
-    if(!el) return;
+const {error:insertError}=
+await supabaseClient
+.from("site_faqs")
+.insert({
+product_key:faq.product_key,
+question:faq.question,
+answer:faq.answer,
+language:faq.language,
+active:true,
+sort_order:faq.sort_order,
+created_at:new Date().toISOString(),
+updated_at:new Date().toISOString()
+});
 
-    el.className =
-        "status";
+if(insertError){
+console.error("FAQ əlavə olunmadı:",insertError);
+}
 
-    el.textContent =
-        "";
+}
+
+}catch(e){
+
+console.error(e);
+
+}
 
 }
 
 
 /* =========================================================
-   AUTH
+   FAQ PRODUCT OPTIONS
 ========================================================= */
 
-async function checkAdmin(){
+async function loadFaqProductOptions(id="faqFilter"){
 
-    try{
+const select=document.getElementById(id);
 
-        const {
-            data:{
-                session
-            }
-        } =
-        await supabaseClient.auth.getSession();
+if(!select)return;
 
-        if(!session){
+const {data,error}=await supabaseClient
+.from("site_products")
+.select("product_key,name")
+.order("name");
 
-            document.body.innerHTML = `
-                <div style="
-                    padding:40px;
-                    text-align:center;
-                    font-family:Arial;
-                ">
-                    <h2>🔒 Giriş tələb olunur</h2>
-                    <p>Admin panelə daxil olmaq üçün əvvəlcə giriş edin.</p>
-                </div>
-            `;
+if(error){
 
-            return false;
-        }
-
-        if(
-            session.user.email &&
-            session.user.email.toLowerCase() !==
-            ADMIN_EMAIL.toLowerCase()
-        ){
-
-            document.body.innerHTML = `
-                <div style="
-                    padding:40px;
-                    text-align:center;
-                    font-family:Arial;
-                ">
-                    <h2>⛔ İcazə yoxdur</h2>
-                    <p>Bu hesab admin panel üçün nəzərdə tutulmayıb.</p>
-                </div>
-            `;
-
-            return false;
-        }
-
-        return true;
-
-    }catch(error){
-
-        console.error(error);
-
-        return true;
-    }
+console.error(error);
+return;
 
 }
 
+if(id==="faqFilter"){
 
-async function logout(){
+select.innerHTML='<option value="">Hamısı</option>';
 
-    await supabaseClient.auth.signOut();
+}else{
 
-    location.reload();
+select.innerHTML='<option value="">Ümumi FAQ</option>';
+
+}
+
+(data||[]).forEach(p=>{
+
+const o=document.createElement("option");
+
+o.value=p.product_key;
+o.textContent=p.name||p.product_key;
+
+select.appendChild(o);
+
+});
 
 }
 
 
 /* =========================================================
-   SITE PRODUCTS
+   FAQ LIST
 ========================================================= */
-
-async function loadSiteProducts(){
-
-    const list =
-        document.getElementById(
-            "existingProductsList"
-        );
-
-    list.innerHTML =
-        `<div class="loading">Yüklənir...</div>`;
-
-    const {
-        data,
-        error
-    } =
-    await supabaseClient
-        .from("site_products")
-        .select("*")
-        .order("created_at",{ascending:true});
-
-    if(error){
-
-        console.error(error);
-
-        list.innerHTML = `
-            <div class="empty">
-                Məhsullar yüklənmədi.<br>
-                ${escapeHtml(error.message)}
-            </div>
-        `;
-
-        return;
-    }
-
-    if(!data || !data.length){
-
-        list.innerHTML = `
-            <div class="empty">
-                Saytda hələ məhsul yoxdur.
-            </div>
-        `;
-
-        return;
-    }
-
-
-    list.innerHTML =
-        `<div class="product-list">
-            ${data.map(product =>
-                renderSiteProduct(product)
-            ).join("")}
-        </div>`;
-
-}
-
-
-function renderSiteProduct(product){
-
-    const durations =
-        Array.isArray(product.durations)
-            ? product.durations
-            : [];
-
-    const active =
-        product.active !== false;
-
-    const image =
-        product.image_url
-        ? `
-            <img
-                class="product-image"
-                src="${escapeAttr(product.image_url)}"
-                onerror="this.style.display='none'"
-            >
-        `
-        : `
-            <div class="product-image empty">
-                Şəkil yoxdur
-            </div>
-        `;
-
-    return `
-        <div class="product-card">
-
-            ${image}
-
-            <h3>
-                ${escapeHtml(product.name || "Adsız məhsul")}
-            </h3>
-
-            <div style="margin-bottom:8px">
-
-                <span class="badge ${active
-                    ? "badge-green"
-                    : "badge-red"}">
-
-                    ${active ? "Aktiv" : "Deaktiv"}
-
-                </span>
-
-                ${
-                    product.category
-                    ? `
-                    <span class="badge badge-blue">
-                        ${escapeHtml(product.category)}
-                    </span>
-                    `
-                    : ""
-                }
-
-            </div>
-
-
-            <div class="meta">
-
-                <b>Key:</b>
-                ${escapeHtml(product.product_key || "")}
-
-                <br>
-
-                <b>Slug:</b>
-                ${escapeHtml(product.slug || "")}
-
-                <br>
-
-                <b>Müddətlər:</b>
-                ${
-                    durations.length
-                    ? durations.join(", ") + " ay"
-                    : "Yoxdur"
-                }
-
-            </div>
-
-
-            <p>
-                ${escapeHtml(
-                    product.description || "Açıqlama yoxdur."
-                )}
-            </p>
-
-
-            <div class="btn-row">
-
-                <button
-                    class="primary-btn"
-                    onclick='editSiteProduct(${JSON.stringify(product)})'
-                >
-                    ✏️ Düzəlt
-                </button>
-
-                <button
-                    class="${active
-                        ? "warning-btn"
-                        : "success-btn"}"
-                    onclick="toggleSiteProduct('${escapeJs(product.id)}',${active})"
-                >
-                    ${active
-                        ? "⏸ Deaktiv et"
-                        : "▶️ Aktiv et"}
-                </button>
-
-                <button
-                    class="danger-btn"
-                    onclick="deleteSiteProduct('${escapeJs(product.id)}')"
-                >
-                    🗑️ Sil
-                </button>
-
-            </div>
-
-        </div>
-    `;
-}
-
-
-/* =========================================================
-   NEW PRODUCT
-========================================================= */
-
-function resetNewProductForm(){
-
-    const form =
-        document.getElementById(
-            "newProductForm"
-        );
-
-    if(form){
-        form.reset();
-    }
-
-    document
-        .getElementById("newProductActive")
-        .checked = true;
-
-    clearStatus("newProductStatus");
-
-}
-
-
-function getSelectedDurations(selector){
-
-    return [
-        ...document.querySelectorAll(selector)
-    ]
-    .filter(el => el.checked)
-    .map(el => Number(el.value))
-    .filter(
-        (value,index,array) =>
-            array.indexOf(value) === index
-    );
-
-}
-
-
-async function createSiteProduct(event){
-
-    event.preventDefault();
-
-    clearStatus("newProductStatus");
-
-    const name =
-        document
-        .getElementById("newProductName")
-        .value.trim();
-
-    const key =
-        document
-        .getElementById("newProductKey")
-        .value.trim()
-        .toLowerCase();
-
-    const slug =
-        document
-        .getElementById("newProductSlug")
-        .value.trim()
-        .toLowerCase();
-
-    const category =
-        document
-        .getElementById("newProductCategory")
-        .value.trim();
-
-    const image =
-        document
-        .getElementById("newProductImage")
-        .value.trim();
-
-    const description =
-        document
-        .getElementById("newProductDescription")
-        .value.trim();
-
-    const active =
-        document
-        .getElementById("newProductActive")
-        .checked;
-
-    const durations =
-        getSelectedDurations(".new-duration");
-
-
-    if(!name || !key || !slug){
-
-        showStatus(
-            "newProductStatus",
-            "Məhsul adı, Product Key və Slug mütləqdir.",
-            "error"
-        );
-
-        return;
-    }
-
-
-    try{
-
-        /* KEY yoxla */
-
-        const {
-            data:keyExists,
-            error:keyError
-        } =
-        await supabaseClient
-            .from("site_products")
-            .select("id")
-            .eq("product_key",key)
-            .limit(1);
-
-        if(keyError) throw keyError;
-
-        if(keyExists && keyExists.length){
-
-            showStatus(
-                "newProductStatus",
-                "Bu Product Key artıq mövcuddur.",
-                "error"
-            );
-
-            return;
-        }
-
-
-        /* SLUG yoxla */
-
-        const {
-            data:slugExists,
-            error:slugError
-        } =
-        await supabaseClient
-            .from("site_products")
-            .select("id")
-            .eq("slug",slug)
-            .limit(1);
-
-        if(slugError) throw slugError;
-
-        if(slugExists && slugExists.length){
-
-            showStatus(
-                "newProductStatus",
-                "Bu Slug artıq mövcuddur.",
-                "error"
-            );
-
-            return;
-        }
-
-
-        /*
-         * VACİB:
-         * Burada product_prices yaradılmır.
-         * Mövcud qiymətlərə toxunulmur.
-         */
-
-        const {
-            error
-        } =
-        await supabaseClient
-            .from("site_products")
-            .insert({
-
-                product_key:key,
-
-                name:name,
-
-                slug:slug,
-
-                category:category,
-
-                image_url:image,
-
-                description:description,
-
-                active:active,
-
-                durations:durations
-
-            });
-
-
-        if(error) throw error;
-
-
-        showStatus(
-            "newProductStatus",
-            "Yeni məhsul uğurla əlavə edildi.",
-            "success"
-        );
-
-
-        document
-            .getElementById("newProductForm")
-            .reset();
-
-        document
-            .getElementById("newProductActive")
-            .checked = true;
-
-
-    }catch(error){
-
-        console.error(error);
-
-        showStatus(
-            "newProductStatus",
-            "Məhsul əlavə edilərkən xəta: " +
-            error.message,
-            "error"
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   EDIT PRODUCT
-========================================================= */
-
-function editSiteProduct(product){
-
-    hideAllPanels();
-
-    document
-        .getElementById("existingProductsPanel")
-        .classList.add("active");
-
-    const list =
-        document.getElementById(
-            "existingProductsList"
-        );
-
-
-    list.innerHTML = `
-
-        <div class="card">
-
-            <h3>✏️ Məhsulu düzəlt</h3>
-
-            <div id="editProductStatus" class="status"></div>
-
-            <div class="form-group">
-
-                <label>Məhsul adı</label>
-
-                <input
-                    id="editProductName"
-                    value="${escapeAttr(product.name || "")}"
-                >
-
-            </div>
-
-
-            <div class="grid-2">
-
-                <div class="form-group">
-
-                    <label>Product Key</label>
-
-                    <input
-                        id="editProductKey"
-                        value="${escapeAttr(product.product_key || "")}"
-                    >
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>Slug</label>
-
-                    <input
-                        id="editProductSlug"
-                        value="${escapeAttr(product.slug || "")}"
-                    >
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>Kateqoriya</label>
-
-                    <input
-                        id="editProductCategory"
-                        value="${escapeAttr(product.category || "")}"
-                    >
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>Şəkil URL</label>
-
-                    <input
-                        id="editProductImage"
-                        value="${escapeAttr(product.image_url || "")}"
-                    >
-
-                </div>
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label>Açıqlama</label>
-
-                <textarea id="editProductDescription">${escapeHtml(product.description || "")}</textarea>
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label>Müddətlər</label>
-
-                <div class="duration-box">
-
-                    ${[1,2,3,6,12].map(month => {
-
-                        const checked =
-                            Array.isArray(product.durations) &&
-                            product.durations.includes(month);
-
-                        return `
-                            <label class="duration-item">
-
-                                <input
-                                    type="checkbox"
-                                    class="edit-duration"
-                                    value="${month}"
-                                    ${checked ? "checked" : ""}
-                                >
-
-                                ${month} ay
-
-                            </label>
-                        `;
-
-                    }).join("")}
-
-                </div>
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label>
-
-                    <input
-                        type="checkbox"
-                        id="editProductActive"
-                        style="width:auto"
-                        ${product.active !== false ? "checked" : ""}
-                    >
-
-                    Aktiv məhsul
-
-                </label>
-
-            </div>
-
-
-            <div class="btn-row">
-
-                <button
-                    class="primary-btn"
-                    onclick="saveEditedSiteProduct('${escapeJs(product.id)}','${escapeJs(product.product_key || "")}')"
-                >
-                    💾 Yadda saxla
-                </button>
-
-                <button
-                    class="gray-btn"
-                    onclick="loadSiteProducts()"
-                >
-                    Ləğv et
-                </button>
-
-            </div>
-
-        </div>
-
-    `;
-
-}
-
-
-async function saveEditedSiteProduct(id,oldKey){
-
-    clearStatus("editProductStatus");
-
-
-    const name =
-        document
-        .getElementById("editProductName")
-        .value.trim();
-
-    const key =
-        document
-        .getElementById("editProductKey")
-        .value.trim()
-        .toLowerCase();
-
-    const slug =
-        document
-        .getElementById("editProductSlug")
-        .value.trim()
-        .toLowerCase();
-
-    const category =
-        document
-        .getElementById("editProductCategory")
-        .value.trim();
-
-    const image =
-        document
-        .getElementById("editProductImage")
-        .value.trim();
-
-    const description =
-        document
-        .getElementById("editProductDescription")
-        .value.trim();
-
-    const active =
-        document
-        .getElementById("editProductActive")
-        .checked;
-
-    const durations =
-        getSelectedDurations(".edit-duration");
-
-
-    if(!name || !key || !slug){
-
-        showStatus(
-            "editProductStatus",
-            "Ad, Product Key və Slug boş ola bilməz.",
-            "error"
-        );
-
-        return;
-    }
-
-
-    try{
-
-        /*
-         * Əgər key dəyişirsə, başqa məhsulda istifadə olunmadığını yoxla.
-         */
-
-        if(key !== oldKey){
-
-            const {
-                data,
-                error
-            } =
-            await supabaseClient
-                .from("site_products")
-                .select("id")
-                .eq("product_key",key)
-                .neq("id",id)
-                .limit(1);
-
-            if(error) throw error;
-
-            if(data && data.length){
-
-                showStatus(
-                    "editProductStatus",
-                    "Bu Product Key artıq başqa məhsulda istifadə olunur.",
-                    "error"
-                );
-
-                return;
-            }
-
-        }
-
-
-        /*
-         * Slug yoxla
-         */
-
-        const {
-            data:slugData,
-            error:slugError
-        } =
-        await supabaseClient
-            .from("site_products")
-            .select("id")
-            .eq("slug",slug)
-            .neq("id",id)
-            .limit(1);
-
-        if(slugError) throw slugError;
-
-        if(slugData && slugData.length){
-
-            showStatus(
-                "editProductStatus",
-                "Bu Slug artıq başqa məhsulda istifadə olunur.",
-                "error"
-            );
-
-            return;
-        }
-
-
-        /*
-         * Məhsulu yenilə
-         */
-
-        const {
-            error:updateError
-        } =
-        await supabaseClient
-            .from("site_products")
-            .update({
-
-                product_key:key,
-
-                name:name,
-
-                slug:slug,
-
-                category:category,
-
-                image_url:image,
-
-                description:description,
-
-                active:active,
-
-                durations:durations,
-
-                updated_at:new Date().toISOString()
-
-            })
-            .eq("id",id);
-
-
-        if(updateError) throw updateError;
-
-
-        /*
-         * Əgər key dəyişibsə, mövcud qiymət sətrinin
-         * əlaqəsini dəyiş.
-         *
-         * Yeni qiymət sətri yaradılmır.
-         * Köhnə qiymət silinmir.
-         */
-
-        if(oldKey && key !== oldKey){
-
-            await supabaseClient
-                .from("product_prices")
-                .update({
-                    product_key:key
-                })
-                .eq("product_key",oldKey);
-
-        }
-
-
-        /*
-         * FAQ-ların product_key əlaqəsini də dəyiş.
-         * FAQ-lar silinmir.
-         */
-
-        if(oldKey && key !== oldKey){
-
-            await supabaseClient
-                .from("site_faqs")
-                .update({
-                    product_key:key
-                })
-                .eq("product_key",oldKey);
-
-        }
-
-
-        showStatus(
-            "editProductStatus",
-            "Məhsul uğurla yeniləndi.",
-            "success"
-        );
-
-
-        setTimeout(()=>{
-            loadSiteProducts();
-        },700);
-
-
-    }catch(error){
-
-        console.error(error);
-
-        showStatus(
-            "editProductStatus",
-            "Yeniləmə zamanı xəta: " +
-            error.message,
-            "error"
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   PRODUCT ACTIVE / INACTIVE
-========================================================= */
-
-async function toggleSiteProduct(id,current){
-
-    const {
-        error
-    } =
-    await supabaseClient
-        .from("site_products")
-        .update({
-            active:!current,
-            updated_at:new Date().toISOString()
-        })
-        .eq("id",id);
-
-    if(error){
-
-        alert(
-            "Məhsulun statusu dəyişdirilmədi: " +
-            error.message
-        );
-
-        return;
-    }
-
-    loadSiteProducts();
-
-}
-
-
-/* =========================================================
-   DELETE SITE PRODUCT
-========================================================= */
-
-async function deleteSiteProduct(id){
-
-    const ok =
-        confirm(
-            "Bu sayt məhsulunu silmək istədiyinizə əminsiniz?\n\n" +
-            "Məhsulun özü silinəcək.\n" +
-            "Mövcud product_prices məlumatları silinməyəcək.\n" +
-            "FAQ məlumatları da avtomatik silinməyəcək."
-        );
-
-    if(!ok) return;
-
-
-    const {
-        error
-    } =
-    await supabaseClient
-        .from("site_products")
-        .delete()
-        .eq("id",id);
-
-
-    if(error){
-
-        alert(
-            "Məhsul silinmədi: " +
-            error.message
-        );
-
-        return;
-    }
-
-
-    loadSiteProducts();
-
-}
-
-
-/* =========================================================
-   FAQ
-========================================================= */
-
-function showExistingFaqs(){
-
-    hideAllPanels();
-
-    document
-        .getElementById("existingFaqPanel")
-        .classList.add("active");
-
-    loadFaqProductOptions();
-
-}
-
-
-function showNewFaqForm(){
-
-    hideAllPanels();
-
-    document
-        .getElementById("newFaqPanel")
-        .classList.add("active");
-
-    resetFaqForm();
-
-    loadFaqProductOptions("faqProductKey");
-
-}
-
-
-async function loadFaqProductOptions(selectId="faqFilterProduct"){
-
-    const select =
-        document.getElementById(selectId);
-
-    if(!select) return;
-
-
-    const {
-        data,
-        error
-    } =
-    await supabaseClient
-        .from("site_products")
-        .select("product_key,name")
-        .order("name");
-
-
-    if(error){
-
-        console.error(error);
-
-        return;
-    }
-
-
-    if(selectId==="faqFilterProduct"){
-
-        select.innerHTML =
-            `<option value="">Hamısı</option>`;
-
-    }else{
-
-        select.innerHTML =
-            `<option value="">Ümumi FAQ</option>`;
-
-    }
-
-
-    (data || []).forEach(product=>{
-
-        const option =
-            document.createElement("option");
-
-        option.value =
-            product.product_key || "";
-
-        option.textContent =
-            product.name ||
-            product.product_key;
-
-        select.appendChild(option);
-
-    });
-
-}
-
 
 async function loadFaqs(){
 
-    const list =
-        document.getElementById("faqList");
+const list=document.getElementById("faqList");
 
-    list.innerHTML =
-        `<div class="loading">Yüklənir...</div>`;
+list.innerHTML="Yüklənir...";
 
+const filter=
+document.getElementById("faqFilter").value;
 
-    const filter =
-        document
-        .getElementById("faqFilterProduct")
-        .value;
+let query=
+supabaseClient
+.from("site_faqs")
+.select("*")
+.order("sort_order",{ascending:true})
+.order("created_at",{ascending:true});
 
+if(filter)
+query=query.eq("product_key",filter);
 
-    let query =
-        supabaseClient
-            .from("site_faqs")
-            .select("*")
-            .order("sort_order",{ascending:true})
-            .order("created_at",{ascending:true});
+const {data,error}=await query;
 
+if(error){
 
-    if(filter){
+list.innerHTML=
+`<div class="empty">
+FAQ yüklənmədi.<br>${esc(error.message)}
+</div>`;
 
-        query =
-            query.eq(
-                "product_key",
-                filter
-            );
-
-    }
-
-
-    const {
-        data,
-        error
-    } =
-    await query;
-
-
-    if(error){
-
-        console.error(error);
-
-        list.innerHTML = `
-            <div class="empty">
-                FAQ-lar yüklənmədi.<br><br>
-                ${escapeHtml(error.message)}
-            </div>
-        `;
-
-        return;
-    }
-
-
-    if(!data || !data.length){
-
-        list.innerHTML = `
-            <div class="empty">
-                FAQ tapılmadı.
-            </div>
-        `;
-
-        return;
-    }
-
-
-    list.innerHTML =
-        data.map(faq => renderFaq(faq))
-        .join("");
+return;
 
 }
 
+if(!data||!data.length){
 
-function renderFaq(faq){
+list.innerHTML=
+`<div class="empty">FAQ yoxdur.</div>`;
 
-    const active =
-        faq.active !== false;
+return;
 
-    return `
+}
 
-        <div class="faq-item">
+list.innerHTML=
+data.map(faq=>`
 
-            <div style="margin-bottom:8px">
+<div class="faq">
 
-                <span class="badge ${active
-                    ? "badge-green"
-                    : "badge-red"}">
+<div>
+<span class="badge ${faq.active!==false?"green":"red"}">
+${faq.active!==false?"Aktiv":"Deaktiv"}
+</span>
 
-                    ${active
-                        ? "Aktiv"
-                        : "Deaktiv"}
+<span class="badge blue">
+${esc(faq.product_key||"Ümumi")}
+</span>
 
-                </span>
+<span class="badge">
+${esc(faq.language||"az")}
+</span>
+</div>
 
-                <span class="badge badge-blue">
+<h3>${esc(faq.question||"")}</h3>
 
-                    ${escapeHtml(
-                        faq.language || "az"
-                    )}
+<p>
+${esc(faq.answer||"")}
+</p>
 
-                </span>
+<div class="meta">
+Sıralama: ${Number(faq.sort_order||0)}
+</div>
 
-                <span class="badge">
+<div class="btns">
 
-                    ${escapeHtml(
-                        faq.product_key ||
-                        "Ümumi"
-                    )}
+<button class="primary"
+onclick='editFaq(${JSON.stringify(faq)})'>
+✏️ Düzəlt
+</button>
 
-                </span>
+<button
+class="${faq.active!==false?"warning":"success"}"
+onclick="toggleFaq('${js(faq.id)}',${faq.active!==false})">
+${faq.active!==false?"⏸ Deaktiv et":"▶️ Aktiv et"}
+</button>
 
-            </div>
+<button class="danger"
+onclick="deleteFaq('${js(faq.id)}')">
+🗑️ Sil
+</button>
 
+</div>
 
-            <div class="faq-question">
+</div>
 
-                ${escapeHtml(
-                    faq.question || ""
-                )}
-
-            </div>
-
-
-            <div class="faq-answer">
-
-                ${escapeHtml(
-                    faq.answer || ""
-                )}
-
-            </div>
-
-
-            <div class="meta" style="margin-top:10px">
-
-                Sıralama:
-                ${Number(faq.sort_order || 0)}
-
-            </div>
-
-
-            <div class="btn-row">
-
-                <button
-                    class="primary-btn"
-                    onclick='editFaq(${JSON.stringify(faq)})'
-                >
-                    ✏️ Düzəlt
-                </button>
-
-
-                <button
-                    class="${active
-                        ? "warning-btn"
-                        : "success-btn"}"
-                    onclick="toggleFaq('${escapeJs(faq.id)}',${active})"
-                >
-                    ${active
-                        ? "⏸ Deaktiv et"
-                        : "▶️ Aktiv et"}
-                </button>
-
-
-                <button
-                    class="danger-btn"
-                    onclick="deleteFaq('${escapeJs(faq.id)}')"
-                >
-                    🗑️ Sil
-                </button>
-
-            </div>
-
-        </div>
-
-    `;
+`).join("");
 
 }
 
@@ -2573,942 +816,803 @@ function renderFaq(faq){
 
 async function editFaq(faq){
 
-    hideAllPanels();
+hidePanels();
 
-    document
-        .getElementById("newFaqPanel")
-        .classList.add("active");
+document.getElementById("newFaq").classList.add("active");
 
+await loadFaqProductOptions("faqProduct");
 
-    await loadFaqProductOptions("faqProductKey");
+document.getElementById("faqTitle").textContent="✏️ FAQ-nı düzəlt";
 
-
-    document
-        .getElementById("faqFormTitle")
-        .textContent =
-        "✏️ FAQ-nı düzəlt";
-
-
-    document
-        .getElementById("faqEditId")
-        .value =
-        faq.id || "";
-
-
-    document
-        .getElementById("faqProductKey")
-        .value =
-        faq.product_key || "";
-
-
-    document
-        .getElementById("faqLanguage")
-        .value =
-        faq.language || "az";
-
-
-    document
-        .getElementById("faqSortOrder")
-        .value =
-        faq.sort_order || 0;
-
-
-    document
-        .getElementById("faqQuestion")
-        .value =
-        faq.question || "";
-
-
-    document
-        .getElementById("faqAnswer")
-        .value =
-        faq.answer || "";
-
-
-    document
-        .getElementById("faqActive")
-        .checked =
-        faq.active !== false;
-
-
-    document
-        .getElementById("faqSaveBtn")
-        .textContent =
-        "💾 FAQ-nı yadda saxla";
-
-
-    clearStatus("faqFormStatus");
+document.getElementById("faqId").value=faq.id||"";
+document.getElementById("faqProduct").value=faq.product_key||"";
+document.getElementById("faqLanguage").value=faq.language||"az";
+document.getElementById("faqSort").value=faq.sort_order||0;
+document.getElementById("faqQuestion").value=faq.question||"";
+document.getElementById("faqAnswer").value=faq.answer||"";
+document.getElementById("faqActive").checked=faq.active!==false;
+document.getElementById("faqSaveButton").textContent="💾 Yadda saxla";
 
 }
 
 
-async function saveFaq(event){
+/* =========================================================
+   FAQ SAVE
+========================================================= */
 
-    event.preventDefault();
+async function saveFaq(e){
 
-    clearStatus("faqFormStatus");
+e.preventDefault();
 
+const id=document.getElementById("faqId").value;
 
-    const id =
-        document
-        .getElementById("faqEditId")
-        .value.trim();
+const payload={
+product_key:
+document.getElementById("faqProduct").value||null,
 
+language:
+document.getElementById("faqLanguage").value,
 
-    const productKey =
-        document
-        .getElementById("faqProductKey")
-        .value.trim();
+sort_order:
+Number(document.getElementById("faqSort").value||0),
 
+question:
+document.getElementById("faqQuestion").value.trim(),
 
-    const language =
-        document
-        .getElementById("faqLanguage")
-        .value;
+answer:
+document.getElementById("faqAnswer").value.trim(),
 
+active:
+document.getElementById("faqActive").checked,
 
-    const sortOrder =
-        Number(
-            document
-            .getElementById("faqSortOrder")
-            .value || 0
-        );
+updated_at:
+new Date().toISOString()
+};
 
+if(!payload.question||!payload.answer){
 
-    const question =
-        document
-        .getElementById("faqQuestion")
-        .value.trim();
+setStatus(
+"faqFormStatus",
+"FAQ sualı və cavabı boş ola bilməz.",
+false
+);
 
-
-    const answer =
-        document
-        .getElementById("faqAnswer")
-        .value.trim();
-
-
-    const active =
-        document
-        .getElementById("faqActive")
-        .checked;
-
-
-    if(!question || !answer){
-
-        showStatus(
-            "faqFormStatus",
-            "Sual və cavab mütləqdir.",
-            "error"
-        );
-
-        return;
-    }
-
-
-    const payload = {
-
-        product_key:
-            productKey || null,
-
-        language:
-            language,
-
-        sort_order:
-            sortOrder,
-
-        question:
-            question,
-
-        answer:
-            answer,
-
-        active:
-            active,
-
-        updated_at:
-            new Date().toISOString()
-
-    };
-
-
-    try{
-
-        let error;
-
-
-        if(id){
-
-            const result =
-                await supabaseClient
-                    .from("site_faqs")
-                    .update(payload)
-                    .eq("id",id);
-
-            error =
-                result.error;
-
-        }else{
-
-            const result =
-                await supabaseClient
-                    .from("site_faqs")
-                    .insert({
-
-                        ...payload,
-
-                        created_at:
-                            new Date().toISOString()
-
-                    });
-
-            error =
-                result.error;
-
-        }
-
-
-        if(error) throw error;
-
-
-        showStatus(
-            "faqFormStatus",
-            id
-                ? "FAQ uğurla yeniləndi."
-                : "Yeni FAQ əlavə edildi.",
-            "success"
-        );
-
-
-        resetFaqForm();
-
-
-    }catch(error){
-
-        console.error(error);
-
-        showStatus(
-            "faqFormStatus",
-            "FAQ saxlanılmadı: " +
-            error.message,
-            "error"
-        );
-
-    }
+return;
 
 }
 
+let result;
 
-function resetFaqForm(){
+if(id){
 
-    document
-        .getElementById("faqForm")
-        .reset();
+result=await supabaseClient
+.from("site_faqs")
+.update(payload)
+.eq("id",id);
 
+}else{
 
-    document
-        .getElementById("faqEditId")
-        .value =
-        "";
-
-
-    document
-        .getElementById("faqFormTitle")
-        .textContent =
-        "➕ Yeni FAQ əlavə et";
-
-
-    document
-        .getElementById("faqSaveBtn")
-        .textContent =
-        "FAQ əlavə et";
-
-
-    document
-        .getElementById("faqActive")
-        .checked =
-        true;
-
-
-    document
-        .getElementById("faqSortOrder")
-        .value =
-        0;
-
-
-    clearStatus("faqFormStatus");
+result=await supabaseClient
+.from("site_faqs")
+.insert({
+...payload,
+created_at:new Date().toISOString()
+});
 
 }
 
+if(result.error){
+
+setStatus(
+"faqFormStatus",
+result.error.message,
+false
+);
+
+return;
+
+}
+
+setStatus(
+"faqFormStatus",
+id?"FAQ yeniləndi.":"Yeni FAQ əlavə edildi.",
+true
+);
+
+resetFaq();
+
+}
+
+function resetFaq(){
+
+document.getElementById("faqId").value="";
+document.getElementById("faqTitle").textContent="➕ Yeni FAQ əlavə et";
+document.getElementById("faqQuestion").value="";
+document.getElementById("faqAnswer").value="";
+document.getElementById("faqSort").value=0;
+document.getElementById("faqLanguage").value="az";
+document.getElementById("faqProduct").value="";
+document.getElementById("faqActive").checked=true;
+document.getElementById("faqSaveButton").textContent="💾 FAQ əlavə et";
+
+}
 
 async function toggleFaq(id,current){
 
-    const {
-        error
-    } =
-    await supabaseClient
-        .from("site_faqs")
-        .update({
+const {error}=await supabaseClient
+.from("site_faqs")
+.update({
+active:!current,
+updated_at:new Date().toISOString()
+})
+.eq("id",id);
 
-            active:!current,
+if(error){
 
-            updated_at:
-                new Date().toISOString()
+alert(error.message);
+return;
 
-        })
-        .eq("id",id);
+}
 
+loadFaqs();
 
-    if(error){
+}
 
-        alert(
-            "FAQ statusu dəyişdirilmədi: " +
-            error.message
-        );
+async function deleteFaq(id){
 
-        return;
-    }
+if(!confirm("Bu FAQ-nı silmək istəyirsiniz?"))return;
 
+const {error}=await supabaseClient
+.from("site_faqs")
+.delete()
+.eq("id",id);
 
-    loadFaqs();
+if(error){
+
+alert(error.message);
+return;
+
+}
+
+loadFaqs();
 
 }
 
 
-async function deleteFaq(id){
+/* =========================================================
+   SITE PRODUCTS
+========================================================= */
 
-    const ok =
-        confirm(
-            "Bu FAQ-nı silmək istədiyinizə əminsiniz?"
-        );
+async function loadProducts(){
 
-    if(!ok) return;
+const list=document.getElementById("productsList");
+
+list.innerHTML="Yüklənir...";
+
+const {data,error}=await supabaseClient
+.from("site_products")
+.select("*")
+.order("created_at",{ascending:true});
+
+if(error){
+
+list.innerHTML=
+`<div class="empty">${esc(error.message)}</div>`;
+
+return;
+
+}
+
+if(!data||!data.length){
+
+list.innerHTML=
+`<div class="empty">Saytda məhsul yoxdur.</div>`;
+
+return;
+
+}
+
+list.innerHTML=
+`<div class="products">
+${data.map(productCard).join("")}
+</div>`;
+
+}
+
+function productCard(p){
+
+const durations=
+Array.isArray(p.durations)?p.durations:[];
+
+return `
+
+<div class="product">
+
+${
+p.image_url
+?`<img src="${attr(p.image_url)}" onerror="this.style.display='none'">`
+:""
+}
+
+<h3>${esc(p.name||"Adsız məhsul")}</h3>
+
+<span class="badge ${p.active!==false?"green":"red"}">
+${p.active!==false?"Aktiv":"Deaktiv"}
+</span>
+
+${
+p.category
+?`<span class="badge blue">${esc(p.category)}</span>`
+:""
+}
+
+<div class="meta">
+
+<b>Product Key:</b> ${esc(p.product_key||"")}<br>
+<b>Slug:</b> ${esc(p.slug||"")}<br>
+<b>Müddətlər:</b> ${
+durations.length?durations.join(", ")+" ay":"Yoxdur"
+}
+
+</div>
+
+<p>${esc(p.description||"")}</p>
+
+<div class="btns">
+
+<button class="primary"
+onclick='editProduct(${JSON.stringify(p)})'>
+✏️ Düzəlt
+</button>
+
+<button
+class="${p.active!==false?"warning":"success"}"
+onclick="toggleProduct('${js(p.id)}',${p.active!==false})">
+${p.active!==false?"⏸ Deaktiv et":"▶️ Aktiv et"}
+</button>
+
+<button class="danger"
+onclick="deleteProduct('${js(p.id)}')">
+🗑️ Sil
+</button>
+
+</div>
+
+</div>
+
+`;
+
+}
 
 
-    const {
-        error
-    } =
-    await supabaseClient
-        .from("site_faqs")
-        .delete()
-        .eq("id",id);
+/* =========================================================
+   PRODUCT EDIT
+========================================================= */
+
+function editProduct(p){
+
+hidePanels();
+
+document.getElementById("existingProducts").classList.add("active");
+
+document.getElementById("productsList").innerHTML=`
+
+<div class="card">
+
+<h2>✏️ Məhsulu düzəlt</h2>
+
+<div id="editProductStatus" class="status"></div>
+
+<div class="grid2">
+
+<div class="field">
+<label>Məhsul adı</label>
+<input id="epName" value="${attr(p.name||"")}">
+</div>
+
+<div class="field">
+<label>Product Key</label>
+<input id="epKey" value="${attr(p.product_key||"")}">
+</div>
+
+<div class="field">
+<label>Slug</label>
+<input id="epSlug" value="${attr(p.slug||"")}">
+</div>
+
+<div class="field">
+<label>Kateqoriya</label>
+<input id="epCategory" value="${attr(p.category||"")}">
+</div>
+
+</div>
+
+<div class="field">
+<label>Şəkil URL</label>
+<input id="epImage" value="${attr(p.image_url||"")}">
+</div>
+
+<div class="field">
+<label>Açıqlama</label>
+<textarea id="epDescription">${esc(p.description||"")}</textarea>
+</div>
+
+<div class="field">
+
+<label>Müddətlər</label>
+
+${[1,2,3,6,12].map(m=>`
+
+<label>
+<input
+type="checkbox"
+class="epDuration"
+value="${m}"
+style="width:auto"
+${
+Array.isArray(p.durations)&&
+p.durations.includes(m)
+?"checked":""
+}>
+${m} ay
+</label>
+
+`).join("")}
+
+</div>
+
+<div class="field">
+<label>
+<input
+type="checkbox"
+id="epActive"
+style="width:auto"
+${p.active!==false?"checked":""}>
+Aktiv
+</label>
+</div>
+
+<div class="btns">
+
+<button class="primary"
+onclick="saveProduct('${js(p.id)}','${js(p.product_key||"")}')">
+💾 Yadda saxla
+</button>
+
+<button class="gray" onclick="loadProducts()">
+Ləğv et
+</button>
+
+</div>
+
+</div>
+
+`;
+
+}
 
 
-    if(error){
+async function saveProduct(id,oldKey){
 
-        alert(
-            "FAQ silinmədi: " +
-            error.message
-        );
+const key=
+document.getElementById("epKey").value.trim().toLowerCase();
 
-        return;
-    }
+const name=
+document.getElementById("epName").value.trim();
+
+const slug=
+document.getElementById("epSlug").value.trim().toLowerCase();
+
+const category=
+document.getElementById("epCategory").value.trim();
+
+const image=
+document.getElementById("epImage").value.trim();
+
+const description=
+document.getElementById("epDescription").value.trim();
+
+const active=
+document.getElementById("epActive").checked;
+
+const durations=
+[...document.querySelectorAll(".epDuration")]
+.filter(x=>x.checked)
+.map(x=>Number(x.value));
 
 
-    loadFaqs();
+if(!name||!key||!slug){
+
+setStatus(
+"editProductStatus",
+"Ad, Product Key və Slug mütləqdir.",
+false
+);
+
+return;
+
+}
+
+
+/* KEY təkrarı */
+
+const {data:keyData,error:keyError}=
+await supabaseClient
+.from("site_products")
+.select("id")
+.eq("product_key",key)
+.neq("id",id)
+.limit(1);
+
+if(keyError){
+
+setStatus("editProductStatus",keyError.message,false);
+return;
+
+}
+
+if(keyData&&keyData.length){
+
+setStatus(
+"editProductStatus",
+"Bu Product Key artıq istifadə olunur.",
+false
+);
+
+return;
+
+}
+
+
+/* SLUG təkrarı */
+
+const {data:slugData,error:slugError}=
+await supabaseClient
+.from("site_products")
+.select("id")
+.eq("slug",slug)
+.neq("id",id)
+.limit(1);
+
+if(slugError){
+
+setStatus("editProductStatus",slugError.message,false);
+return;
+
+}
+
+if(slugData&&slugData.length){
+
+setStatus(
+"editProductStatus",
+"Bu Slug artıq istifadə olunur.",
+false
+);
+
+return;
+
+}
+
+
+const {error}=await supabaseClient
+.from("site_products")
+.update({
+
+product_key:key,
+name:name,
+slug:slug,
+category:category,
+image_url:image,
+description:description,
+active:active,
+durations:durations,
+updated_at:new Date().toISOString()
+
+})
+.eq("id",id);
+
+
+if(error){
+
+setStatus(
+"editProductStatus",
+error.message,
+false
+);
+
+return;
+
+}
+
+
+/*
+Əgər Product Key dəyişibsə,
+mövcud qiymət sətrinin əlaqəsini dəyişirik.
+Yeni qiymət yaratmırıq və qiyməti silmirik.
+*/
+
+if(oldKey&&oldKey!==key){
+
+await supabaseClient
+.from("product_prices")
+.update({product_key:key})
+.eq("product_key",oldKey);
+
+
+/* FAQ əlaqəsi də qorunur */
+
+await supabaseClient
+.from("site_faqs")
+.update({product_key:key})
+.eq("product_key",oldKey);
+
+}
+
+
+setStatus(
+"editProductStatus",
+"Məhsul uğurla yeniləndi.",
+true
+);
+
+setTimeout(loadProducts,700);
+
+}
+
+
+/* =========================================================
+   NEW PRODUCT
+========================================================= */
+
+function resetNewProduct(){
+
+document.getElementById("npName").value="";
+document.getElementById("npKey").value="";
+document.getElementById("npSlug").value="";
+document.getElementById("npCategory").value="";
+document.getElementById("npImage").value="";
+document.getElementById("npDescription").value="";
+document.getElementById("npActive").checked=true;
+
+document.querySelectorAll(".npDuration")
+.forEach(x=>x.checked=false);
+
+}
+
+async function createProduct(e){
+
+e.preventDefault();
+
+const name=document.getElementById("npName").value.trim();
+const key=document.getElementById("npKey").value.trim().toLowerCase();
+const slug=document.getElementById("npSlug").value.trim().toLowerCase();
+const category=document.getElementById("npCategory").value.trim();
+const image=document.getElementById("npImage").value.trim();
+const description=document.getElementById("npDescription").value.trim();
+const active=document.getElementById("npActive").checked;
+
+const durations=
+[...document.querySelectorAll(".npDuration")]
+.filter(x=>x.checked)
+.map(x=>Number(x.value));
+
+
+const {data:keyData}=await supabaseClient
+.from("site_products")
+.select("id")
+.eq("product_key",key)
+.limit(1);
+
+if(keyData&&keyData.length){
+
+setStatus(
+"newProductStatus",
+"Bu Product Key artıq mövcuddur.",
+false
+);
+
+return;
+
+}
+
+const {data:slugData}=await supabaseClient
+.from("site_products")
+.select("id")
+.eq("slug",slug)
+.limit(1);
+
+if(slugData&&slugData.length){
+
+setStatus(
+"newProductStatus",
+"Bu Slug artıq mövcuddur.",
+false
+);
+
+return;
+
+}
+
+
+const {error}=await supabaseClient
+.from("site_products")
+.insert({
+
+product_key:key,
+name:name,
+slug:slug,
+category:category,
+image_url:image,
+description:description,
+active:active,
+durations:durations
+
+});
+
+
+if(error){
+
+setStatus(
+"newProductStatus",
+error.message,
+false
+);
+
+return;
+
+}
+
+
+/*
+ÇOX VACİB:
+Yeni məhsul üçün product_prices yaratmırıq.
+Mövcud qiymət sistemi olduğu kimi qalır.
+*/
+
+setStatus(
+"newProductStatus",
+"Yeni məhsul uğurla əlavə edildi.",
+true
+);
+
+resetNewProduct();
+
+}
+
+
+/* =========================================================
+   PRODUCT STATUS / DELETE
+========================================================= */
+
+async function toggleProduct(id,current){
+
+const {error}=await supabaseClient
+.from("site_products")
+.update({
+active:!current,
+updated_at:new Date().toISOString()
+})
+.eq("id",id);
+
+if(error){
+
+alert(error.message);
+return;
+
+}
+
+loadProducts();
+
+}
+
+
+async function deleteProduct(id){
+
+if(!confirm(
+"Bu məhsulu silmək istəyirsiniz?\n\n"+
+"Məhsul silinəcək, lakin product_prices və FAQ məlumatları avtomatik silinməyəcək."
+))return;
+
+const {error}=await supabaseClient
+.from("site_products")
+.delete()
+.eq("id",id);
+
+if(error){
+
+alert(error.message);
+return;
+
+}
+
+loadProducts();
 
 }
 
 
 /* =========================================================
    PRICES
-   Mövcud sistem qorunur
 ========================================================= */
 
 async function loadPrices(){
 
-    const list =
-        document.getElementById("pricesList");
+const box=document.getElementById("pricesList");
 
-    list.innerHTML =
-        `<div class="loading">Yüklənir...</div>`;
+const {data,error}=await supabaseClient
+.from("product_prices")
+.select("*")
+.order("product_name");
 
+if(error){
 
-    const {
-        data,
-        error
-    } =
-    await supabaseClient
-        .from("product_prices")
-        .select("*");
-
-
-    if(error){
-
-        list.innerHTML = `
-            <div class="empty">
-                Qiymətlər yüklənmədi.<br>
-                ${escapeHtml(error.message)}
-            </div>
-        `;
-
-        return;
-    }
-
-
-    if(!data || !data.length){
-
-        list.innerHTML = `
-            <div class="empty">
-                Qiymət məlumatı yoxdur.
-            </div>
-        `;
-
-        return;
-    }
-
-
-    list.innerHTML = `
-
-        <div class="table-wrap">
-
-            <table>
-
-                <thead>
-
-                    <tr>
-
-                        <th>Məhsul</th>
-
-                        <th>1 ay</th>
-
-                        <th>2 ay</th>
-
-                        <th>3 ay</th>
-
-                        <th>12 ay</th>
-
-                    </tr>
-
-                </thead>
-
-                <tbody>
-
-                    ${data.map(row => `
-
-                        <tr>
-
-                            <td>
-                                <b>
-                                    ${escapeHtml(
-                                        row.product_name ||
-                                        row.product_key ||
-                                        ""
-                                    )}
-                                </b>
-                            </td>
-
-
-                            <td>
-                                ${priceCell(
-                                    row.price_1_month,
-                                    row.sale_1_price,
-                                    row.sale_1_active
-                                )}
-                            </td>
-
-
-                            <td>
-                                ${priceCell(
-                                    row.price_2_month,
-                                    row.sale_2_price,
-                                    row.sale_2_active
-                                )}
-                            </td>
-
-
-                            <td>
-                                ${priceCell(
-                                    row.price_3_month,
-                                    row.sale_3_price,
-                                    row.sale_3_active
-                                )}
-                            </td>
-
-
-                            <td>
-                                ${priceCell(
-                                    row.price_12_month,
-                                    row.sale_12_price,
-                                    row.sale_12_active
-                                )}
-                            </td>
-
-                        </tr>
-
-                    `).join("")}
-
-                </tbody>
-
-            </table>
-
-        </div>
-    `;
+box.innerHTML=`<div class="empty">${esc(error.message)}</div>`;
+return;
 
 }
 
+if(!data||!data.length){
 
-function priceCell(price,sale,saleActive){
-
-    if(price === null || price === undefined){
-
-        return "—";
-
-    }
-
-    let html =
-        `${Number(price).toFixed(2)} AZN`;
-
-    if(
-        saleActive &&
-        sale !== null &&
-        sale !== undefined
-    ){
-
-        html += `
-            <br>
-            <b>
-                ${Number(sale).toFixed(2)} AZN
-            </b>
-        `;
-
-    }
-
-    return html;
+box.innerHTML='<div class="empty">Qiymət məlumatı yoxdur.</div>';
+return;
 
 }
 
+box.innerHTML=`
 
-/* =========================================================
-   GIVE PRODUCT
-========================================================= */
+<div class="table">
 
-async function prepareGiveProduct(){
+<table>
 
-    const select =
-        document.getElementById(
-            "giveProductKey"
-        );
+<thead>
+<tr>
+<th>Məhsul</th>
+<th>1 ay</th>
+<th>2 ay</th>
+<th>3 ay</th>
+<th>12 ay</th>
+</tr>
+</thead>
 
-    select.innerHTML =
-        `<option value="">Yüklənir...</option>`;
+<tbody>
 
+${data.map(p=>`
 
-    const {
-        data,
-        error
-    } =
-    await supabaseClient
-        .from("site_products")
-        .select("product_key,name,active")
-        .order("name");
+<tr>
 
+<td><b>${esc(p.product_name||p.product_key||"")}</b></td>
 
-    if(error){
+<td>${price(p.price_1_month,p.sale_1_price,p.sale_1_active)}</td>
 
-        select.innerHTML =
-            `<option value="">Xəta</option>`;
+<td>${price(p.price_2_month,p.sale_2_price,p.sale_2_active)}</td>
 
-        return;
-    }
+<td>${price(p.price_3_month,p.sale_3_price,p.sale_3_active)}</td>
 
+<td>${price(p.price_12_month,p.sale_12_price,p.sale_12_active)}</td>
 
-    select.innerHTML =
-        `<option value="">Seçin</option>`;
+</tr>
 
+`).join("")}
 
-    (data || [])
-    .filter(product => product.active !== false)
-    .forEach(product=>{
+</tbody>
 
-        const option =
-            document.createElement("option");
+</table>
 
-        option.value =
-            product.product_key;
+</div>
 
-        option.textContent =
-            product.name ||
-            product.product_key;
-
-        select.appendChild(option);
-
-    });
+`;
 
 }
 
+function price(normal,sale,active){
 
-async function giveProduct(event){
+if(normal===null||normal===undefined)return"—";
 
-    event.preventDefault();
+let x=Number(normal).toFixed(2)+" AZN";
 
-    clearStatus("giveProductStatus");
+if(active&&sale!==null&&sale!==undefined)
+x+="<br><b>"+Number(sale).toFixed(2)+" AZN</b>";
 
-
-    const email =
-        document
-        .getElementById("giveCustomerEmail")
-        .value.trim();
-
-
-    const productKey =
-        document
-        .getElementById("giveProductKey")
-        .value;
-
-
-    const duration =
-        Number(
-            document
-            .getElementById("giveDuration")
-            .value
-        );
-
-
-    const note =
-        document
-        .getElementById("giveNote")
-        .value.trim();
-
-
-    if(!email || !productKey){
-
-        showStatus(
-            "giveProductStatus",
-            "Email və məhsul seçilməlidir.",
-            "error"
-        );
-
-        return;
-    }
-
-
-    try{
-
-        const {
-            data:userData,
-            error:userError
-        } =
-        await supabaseClient
-            .from("customers")
-            .select("id,email")
-            .eq("email",email)
-            .limit(1);
-
-
-        if(userError) throw userError;
-
-
-        if(!userData || !userData.length){
-
-            showStatus(
-                "giveProductStatus",
-                "Bu email ilə müştəri tapılmadı.",
-                "error"
-            );
-
-            return;
-        }
-
-
-        const customer =
-            userData[0];
-
-
-        const startDate =
-            new Date();
-
-
-        const endDate =
-            new Date(startDate);
-
-
-        endDate.setMonth(
-            endDate.getMonth() + duration
-        );
-
-
-        const {
-            error
-        } =
-        await supabaseClient
-            .from("customer_products")
-            .insert({
-
-                customer_id:
-                    customer.id,
-
-                product_key:
-                    productKey,
-
-                status:
-                    "active",
-
-                start_date:
-                    startDate.toISOString(),
-
-                end_date:
-                    endDate.toISOString(),
-
-                note:
-                    note
-
-            });
-
-
-        if(error) throw error;
-
-
-        showStatus(
-            "giveProductStatus",
-            "Məhsul müştəriyə uğurla verildi.",
-            "success"
-        );
-
-
-    }catch(error){
-
-        console.error(error);
-
-        showStatus(
-            "giveProductStatus",
-            "Məhsul verilərkən xəta: " +
-            error.message,
-            "error"
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   CUSTOMER PRODUCTS
-========================================================= */
-
-async function loadCustomerProducts(){
-
-    const list =
-        document.getElementById(
-            "customerProductsList"
-        );
-
-
-    list.innerHTML =
-        `<div class="loading">Yüklənir...</div>`;
-
-
-    const {
-        data,
-        error
-    } =
-    await supabaseClient
-        .from("customer_products")
-        .select("*")
-        .order("id",{ascending:false})
-        .limit(100);
-
-
-    if(error){
-
-        list.innerHTML = `
-            <div class="empty">
-                ${escapeHtml(error.message)}
-            </div>
-        `;
-
-        return;
-    }
-
-
-    if(!data || !data.length){
-
-        list.innerHTML = `
-            <div class="empty">
-                Müştəri məhsulu yoxdur.
-            </div>
-        `;
-
-        return;
-    }
-
-
-    list.innerHTML = `
-
-        <div class="table-wrap">
-
-            <table>
-
-                <thead>
-
-                    <tr>
-
-                        <th>ID</th>
-                        <th>Müştəri</th>
-                        <th>Məhsul</th>
-                        <th>Status</th>
-                        <th>Başlanğıc</th>
-                        <th>Bitmə</th>
-
-                    </tr>
-
-                </thead>
-
-                <tbody>
-
-                    ${data.map(row => `
-
-                        <tr>
-
-                            <td>
-                                ${escapeHtml(String(row.id))}
-                            </td>
-
-                            <td>
-                                ${escapeHtml(
-                                    row.customer_id || ""
-                                )}
-                            </td>
-
-                            <td>
-                                ${escapeHtml(
-                                    row.product_key || ""
-                                )}
-                            </td>
-
-                            <td>
-                                ${escapeHtml(
-                                    row.status || ""
-                                )}
-                            </td>
-
-                            <td>
-                                ${formatDate(row.start_date)}
-                            </td>
-
-                            <td>
-                                ${formatDate(row.end_date)}
-                            </td>
-
-                        </tr>
-
-                    `).join("")}
-
-                </tbody>
-
-            </table>
-
-        </div>
-
-    `;
-
-}
-
-
-/* =========================================================
-   CUSTOMERS
-========================================================= */
-
-async function loadCustomers(){
-
-    const list =
-        document.getElementById(
-            "customersList"
-        );
-
-
-    list.innerHTML =
-        `<div class="loading">Yüklənir...</div>`;
-
-
-    const {
-        data,
-        error
-    } =
-    await supabaseClient
-        .from("customers")
-        .select("*")
-        .order("id",{ascending:false})
-        .limit(200);
-
-
-    if(error){
-
-        list.innerHTML = `
-            <div class="empty">
-                ${escapeHtml(error.message)}
-            </div>
-        `;
-
-        return;
-    }
-
-
-    if(!data || !data.length){
-
-        list.innerHTML = `
-            <div class="empty">
-                Müştəri yoxdur.
-            </div>
-        `;
-
-        return;
-    }
-
-
-    list.innerHTML = `
-
-        <div class="table-wrap">
-
-            <table>
-
-                <thead>
-
-                    <tr>
-                        <th>ID</th>
-                        <th>Email</th>
-                        <th>Ad</th>
-                        <th>Tarix</th>
-                    </tr>
-
-                </thead>
-
-                <tbody>
-
-                    ${data.map(row => `
-
-                        <tr>
-
-                            <td>
-                                ${escapeHtml(String(row.id))}
-                            </td>
-
-                            <td>
-                                ${escapeHtml(row.email || "")}
-                            </td>
-
-                            <td>
-                                ${escapeHtml(
-                                    row.name || ""
-                                )}
-                            </td>
-
-                            <td>
-                                ${formatDate(
-                                    row.created_at
-                                )}
-                            </td>
-
-                        </tr>
-
-                    `).join("")}
-
-                </tbody>
-
-            </table>
-
-        </div>
-
-    `;
+return x;
 
 }
 
@@ -3519,107 +1623,55 @@ async function loadCustomers(){
 
 async function loadOrders(){
 
-    const body =
-        document.getElementById(
-            "ordersTableBody"
-        );
+const body=document.getElementById("ordersBody");
 
+const {data,error}=await supabaseClient
+.from("orders")
+.select("*")
+.order("created_at",{ascending:false})
+.limit(200);
 
-    body.innerHTML =
-        `<tr>
-            <td colspan="6">Yüklənir...</td>
-        </tr>`;
+if(error){
 
+body.innerHTML=
+`<tr><td colspan="6">${esc(error.message)}</td></tr>`;
 
-    const {
-        data,
-        error
-    } =
-    await supabaseClient
-        .from("orders")
-        .select("*")
-        .order("created_at",{ascending:false})
-        .limit(200);
+return;
 
+}
 
-    if(error){
+if(!data||!data.length){
 
-        body.innerHTML = `
-            <tr>
-                <td colspan="6">
-                    ${escapeHtml(error.message)}
-                </td>
-            </tr>
-        `;
+body.innerHTML=
+`<tr><td colspan="6">Sifariş yoxdur.</td></tr>`;
 
-        return;
-    }
+return;
 
+}
 
-    if(!data || !data.length){
+body.innerHTML=data.map(o=>`
 
-        body.innerHTML = `
-            <tr>
-                <td colspan="6">
-                    Sifariş yoxdur.
-                </td>
-            </tr>
-        `;
+<tr>
 
-        return;
-    }
+<td>${esc(o.id||"")}</td>
 
+<td>${esc(o.email||o.customer_email||o.customer_id||"")}</td>
 
-    body.innerHTML =
-        data.map(order => `
+<td>${esc(o.product_name||o.product_key||"Digər məhsul")}</td>
 
-            <tr>
+<td>${
+o.total!==undefined&&o.total!==null
+?Number(o.total).toFixed(2)+" AZN"
+:"—"
+}</td>
 
-                <td>
-                    ${escapeHtml(
-                        String(order.id || "")
-                    )}
-                </td>
+<td>${esc(o.status||"")}</td>
 
-                <td>
-                    ${escapeHtml(
-                        order.email ||
-                        order.customer_email ||
-                        order.customer_id ||
-                        ""
-                    )}
-                </td>
+<td>${date(o.created_at)}</td>
 
-                <td>
-                    ${escapeHtml(
-                        order.product_name ||
-                        order.product_key ||
-                        "Digər məhsul"
-                    )}
-                </td>
+</tr>
 
-                <td>
-                    ${order.total !== undefined &&
-                      order.total !== null
-                        ? Number(order.total).toFixed(2) + " AZN"
-                        : "—"}
-                </td>
-
-                <td>
-                    ${escapeHtml(
-                        order.status || ""
-                    )}
-                </td>
-
-                <td>
-                    ${formatDate(
-                        order.created_at
-                    )}
-                </td>
-
-            </tr>
-
-        `).join("");
+`).join("");
 
 }
 
@@ -3630,93 +1682,273 @@ async function loadOrders(){
 
 async function loadMessages(){
 
-    const list =
-        document.getElementById(
-            "messagesList"
-        );
+const box=document.getElementById("messagesList");
+
+const {data,error}=await supabaseClient
+.from("messages")
+.select("*")
+.order("created_at",{ascending:false})
+.limit(100);
+
+if(error){
+
+box.innerHTML=
+`<div class="empty">${esc(error.message)}</div>`;
+return;
+
+}
+
+if(!data||!data.length){
+
+box.innerHTML=
+`<div class="empty">Mesaj yoxdur.</div>`;
+return;
+
+}
+
+box.innerHTML=data.map(m=>`
+
+<div class="faq">
+
+<b>${esc(m.name||m.email||"Müştəri")}</b>
+
+<div class="meta">${esc(m.email||"")}</div>
+
+<p>${esc(m.message||m.body||"")}</p>
+
+<div class="meta">${date(m.created_at)}</div>
+
+</div>
+
+`).join("");
+
+}
 
 
-    list.innerHTML =
-        `<div class="loading">Yüklənir...</div>`;
+/* =========================================================
+   CUSTOMER PRODUCTS
+========================================================= */
+
+async function loadCustomerProducts(){
+
+const box=document.getElementById("customerProductsList");
+
+const {data,error}=await supabaseClient
+.from("customer_products")
+.select("*")
+.order("id",{ascending:false})
+.limit(200);
+
+if(error){
+
+box.innerHTML=`<div class="empty">${esc(error.message)}</div>`;
+return;
+
+}
+
+if(!data||!data.length){
+
+box.innerHTML=`<div class="empty">Müştəri məhsulu yoxdur.</div>`;
+return;
+
+}
+
+box.innerHTML=`
+
+<div class="table">
+
+<table>
+
+<thead>
+<tr>
+<th>ID</th>
+<th>Müştəri</th>
+<th>Məhsul</th>
+<th>Status</th>
+<th>Başlanğıc</th>
+<th>Bitmə</th>
+</tr>
+</thead>
+
+<tbody>
+
+${data.map(x=>`
+
+<tr>
+<td>${esc(x.id)}</td>
+<td>${esc(x.customer_id||"")}</td>
+<td>${esc(x.product_key||"")}</td>
+<td>${esc(x.status||"")}</td>
+<td>${date(x.start_date)}</td>
+<td>${date(x.end_date)}</td>
+</tr>
+
+`).join("")}
+
+</tbody>
+
+</table>
+
+</div>
+
+`;
+
+}
 
 
-    /*
-     * Mövcud sistemdə messages cədvəli yoxdursa
-     * panel qırılmasın.
-     */
+/* =========================================================
+   CUSTOMERS
+========================================================= */
 
-    const {
-        data,
-        error
-    } =
-    await supabaseClient
-        .from("messages")
-        .select("*")
-        .order("created_at",{ascending:false})
-        .limit(100);
+async function loadCustomers(){
+
+const box=document.getElementById("customersList");
+
+const {data,error}=await supabaseClient
+.from("customers")
+.select("*")
+.order("id",{ascending:false})
+.limit(200);
+
+if(error){
+
+box.innerHTML=`<div class="empty">${esc(error.message)}</div>`;
+return;
+
+}
+
+if(!data||!data.length){
+
+box.innerHTML=`<div class="empty">Müştəri yoxdur.</div>`;
+return;
+
+}
+
+box.innerHTML=`
+
+<div class="table">
+
+<table>
+
+<thead>
+<tr>
+<th>ID</th>
+<th>Email</th>
+<th>Ad</th>
+<th>Tarix</th>
+</tr>
+</thead>
+
+<tbody>
+
+${data.map(x=>`
+
+<tr>
+<td>${esc(x.id)}</td>
+<td>${esc(x.email||"")}</td>
+<td>${esc(x.name||"")}</td>
+<td>${date(x.created_at)}</td>
+</tr>
+
+`).join("")}
+
+</tbody>
+
+</table>
+
+</div>
+
+`;
+
+}
 
 
-    if(error){
+/* =========================================================
+   GIVE PRODUCT
+========================================================= */
 
-        list.innerHTML = `
-            <div class="empty">
-                Mesaj sistemi üçün məlumat alınmadı.<br>
-                ${escapeHtml(error.message)}
-            </div>
-        `;
+async function prepareGiveProduct(){
 
-        return;
-    }
+const select=document.getElementById("giveProduct");
 
+const {data,error}=await supabaseClient
+.from("site_products")
+.select("product_key,name,active")
+.order("name");
 
-    if(!data || !data.length){
+if(error)return;
 
-        list.innerHTML = `
-            <div class="empty">
-                Mesaj yoxdur.
-            </div>
-        `;
+select.innerHTML='<option value="">Seçin</option>';
 
-        return;
-    }
+(data||[])
+.filter(x=>x.active!==false)
+.forEach(x=>{
 
+const o=document.createElement("option");
 
-    list.innerHTML =
-        data.map(message => `
+o.value=x.product_key;
+o.textContent=x.name||x.product_key;
 
-            <div class="faq-item">
+select.appendChild(o);
 
-                <b>
-                    ${escapeHtml(
-                        message.name ||
-                        message.email ||
-                        "Müştəri"
-                    )}
-                </b>
+});
 
-                <div class="meta">
-                    ${escapeHtml(
-                        message.email || ""
-                    )}
-                </div>
+}
 
-                <p>
-                    ${escapeHtml(
-                        message.message ||
-                        message.body ||
-                        ""
-                    )}
-                </p>
+async function giveProduct(e){
 
-                <div class="meta">
-                    ${formatDate(
-                        message.created_at
-                    )}
-                </div>
+e.preventDefault();
 
-            </div>
+const email=document.getElementById("giveEmail").value.trim();
+const key=document.getElementById("giveProduct").value;
+const duration=Number(document.getElementById("giveDuration").value);
+const note=document.getElementById("giveNote").value.trim();
 
-        `).join("");
+const {data:customer,error:cError}=await supabaseClient
+.from("customers")
+.select("id,email")
+.eq("email",email)
+.limit(1);
+
+if(cError){
+
+alert(cError.message);
+return;
+
+}
+
+if(!customer||!customer.length){
+
+alert("Bu email ilə müştəri tapılmadı.");
+return;
+
+}
+
+const start=new Date();
+const end=new Date(start);
+end.setMonth(end.getMonth()+duration);
+
+const {error}=await supabaseClient
+.from("customer_products")
+.insert({
+
+customer_id:customer[0].id,
+product_key:key,
+status:"active",
+start_date:start.toISOString(),
+end_date:end.toISOString(),
+note:note
+
+});
+
+if(error){
+
+alert(error.message);
+return;
+
+}
+
+alert("Məhsul müştəriyə verildi.");
 
 }
 
@@ -3727,62 +1959,77 @@ async function loadMessages(){
 
 async function loadStats(){
 
-    try{
+const orders=await supabaseClient
+.from("orders")
+.select("*",{count:"exact",head:true});
 
-        const orders =
-            await supabaseClient
-                .from("orders")
-                .select("*",{count:"exact",head:true});
+const customers=await supabaseClient
+.from("customers")
+.select("*",{count:"exact",head:true});
 
+const products=await supabaseClient
+.from("site_products")
+.select("*",{count:"exact",head:true})
+.eq("active",true);
 
-        const customers =
-            await supabaseClient
-                .from("customers")
-                .select("*",{count:"exact",head:true});
+const faq=await supabaseClient
+.from("site_faqs")
+.select("*",{count:"exact",head:true});
 
+document.getElementById("stOrders").textContent=orders.count||0;
+document.getElementById("stCustomers").textContent=customers.count||0;
+document.getElementById("stProducts").textContent=products.count||0;
+document.getElementById("stFaq").textContent=faq.count||0;
 
-        const products =
-            await supabaseClient
-                .from("site_products")
-                .select("*",{count:"exact",head:true})
-                .eq("active",true);
-
-
-        const faqs =
-            await supabaseClient
-                .from("site_faqs")
-                .select("*",{count:"exact",head:true});
+}
 
 
-        document
-            .getElementById("statOrders")
-            .textContent =
-            orders.count || 0;
+/* =========================================================
+   AUTH
+========================================================= */
 
+async function checkAdmin(){
 
-        document
-            .getElementById("statCustomers")
-            .textContent =
-            customers.count || 0;
+const {data:{session}}=
+await supabaseClient.auth.getSession();
 
+if(!session){
 
-        document
-            .getElementById("statProducts")
-            .textContent =
-            products.count || 0;
+document.body.innerHTML=`
+<div style="padding:50px;text-align:center;font-family:Arial">
+<h2>🔒 Giriş tələb olunur</h2>
+<p>Admin panelə daxil olmaq üçün hesabınıza giriş edin.</p>
+</div>
+`;
 
+return false;
 
-        document
-            .getElementById("statFaq")
-            .textContent =
-            faqs.count || 0;
+}
 
+if(
+session.user.email &&
+session.user.email.toLowerCase()!==ADMIN_EMAIL.toLowerCase()
+){
 
-    }catch(error){
+document.body.innerHTML=`
+<div style="padding:50px;text-align:center;font-family:Arial">
+<h2>⛔ İcazə yoxdur</h2>
+<p>Bu hesab admin panel üçün nəzərdə tutulmayıb.</p>
+</div>
+`;
 
-        console.error(error);
+return false;
 
-    }
+}
+
+return true;
+
+}
+
+async function logout(){
+
+await supabaseClient.auth.signOut();
+location.reload();
 
 }
 
@@ -3791,118 +2038,51 @@ async function loadStats(){
    HELPERS
 ========================================================= */
 
-function escapeHtml(value){
+function esc(x){
 
-    return String(value ?? "")
-        .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;")
-        .replace(/'/g,"&#039;");
-
-}
-
-
-function escapeAttr(value){
-
-    return escapeHtml(value);
+return String(x??"")
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;")
+.replace(/'/g,"&#039;");
 
 }
 
+function attr(x){
+return esc(x);
+}
 
-function escapeJs(value){
+function js(x){
 
-    return String(value ?? "")
-        .replace(/\\/g,"\\\\")
-        .replace(/'/g,"\\'")
-        .replace(/\n/g,"\\n")
-        .replace(/\r/g,"\\r");
+return String(x??"")
+.replace(/\\/g,"\\\\")
+.replace(/'/g,"\\'")
+.replace(/\n/g,"\\n")
+.replace(/\r/g,"\\r");
 
 }
 
+function date(x){
 
-function formatDate(value){
-
-    if(!value) return "—";
-
-    try{
-
-        return new Date(value)
-            .toLocaleString("az-AZ");
-
-    }catch{
-
-        return String(value);
-
-    }
-
-}
-
-
-/* =========================================================
-   REALTIME
-========================================================= */
+if(!x)return"—";
 
 try{
+return new Date(x).toLocaleString("az-AZ");
+}catch{
+return String(x);
+}
 
-    supabaseClient
-        .channel("admin-site-products")
-        .on(
-            "postgres_changes",
-            {
-                event:"*",
-                schema:"public",
-                table:"site_products"
-            },
-            ()=>{
-                const panel =
-                    document.getElementById(
-                        "existingProductsPanel"
-                    );
+}
 
-                if(
-                    panel &&
-                    panel.classList.contains("active")
-                ){
-                    loadSiteProducts();
-                }
-            }
-        )
-        .subscribe();
+function setStatus(id,text,ok){
 
+const x=document.getElementById(id);
 
-    supabaseClient
-        .channel("admin-faq")
-        .on(
-            "postgres_changes",
-            {
-                event:"*",
-                schema:"public",
-                table:"site_faqs"
-            },
-            ()=>{
-                const panel =
-                    document.getElementById(
-                        "existingFaqPanel"
-                    );
+if(!x)return;
 
-                if(
-                    panel &&
-                    panel.classList.contains("active")
-                ){
-                    loadFaqs();
-                }
-            }
-        )
-        .subscribe();
-
-
-}catch(error){
-
-    console.error(
-        "Realtime xətası:",
-        error
-    );
+x.className="status "+(ok?"ok":"err");
+x.textContent=text;
 
 }
 
@@ -3911,14 +2091,20 @@ try{
    START
 ========================================================= */
 
-(async function(){
+(async()=>{
 
-    const ok =
-        await checkAdmin();
+const ok=await checkAdmin();
 
-    if(!ok) return;
+if(!ok)return;
 
-    goDashboard();
+home();
+
+/*
+FAQ-ları panelin arxasında avtomatik hazırlayırıq.
+İstifadəçi FAQ bölməsinə girəndə hazır olacaqlar.
+*/
+
+await seedExistingFaqs();
 
 })();
 
