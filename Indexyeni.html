@@ -342,7 +342,6 @@ Dünyanın ən çox istifadə olunan premium platformalarını bir araya gətir�
 <p data-i18n="productsSubtitle">Premium rəqəmsal xidmətlərimizi kəşf edin.</p>
 </div>
 
-<!-- MƏHSULLAR ARTIK BURADA SUPABASE-DƏN GƏLİR -->
 <div class="products" id="productsGrid">
 <div class="loading-products">Məhsullar yüklənir...</div>
 </div>
@@ -1143,13 +1142,6 @@ let SITE_PRODUCTS=[];
 let PRICE_ROWS=[];
 let realtimeChannels=[];
 
-/*
-  Müddətləri müxtəlif Supabase formatlarından oxuyur:
-  [1,2,3]
-  "{1,2,3}"
-  "1,2,3"
-  "1"
-*/
 function parseDurations(value){
 
 if(Array.isArray(value)){
@@ -1187,9 +1179,6 @@ return str
 
 }
 
-/*
-  Məhsul açarı eyni formatda olsun.
-*/
 function normalizeKey(value){
 
 return String(value||"")
@@ -1198,9 +1187,6 @@ return String(value||"")
 
 }
 
-/*
-  Köhnə və yeni qiymət sistemlərini vahid formata çevirir.
-*/
 function normalizePriceRows(rows){
 
 const result=[];
@@ -1218,8 +1204,6 @@ row.product_slug
 );
 
 if(!key)return;
-
-/* YENİ SİSTEM */
 
 if(
 row.duration_months!==undefined &&
@@ -1270,8 +1254,6 @@ return;
 
 }
 
-/* KÖHNƏ SİSTEM */
-
 [1,2,3,12].forEach(month=>{
 
 const normal=
@@ -1319,13 +1301,6 @@ return result;
 
 }
 
-/*
-  Məhsulun hansı müddət üzrə göstəriləcəyini müəyyən edir.
-
-  1 ay varsa -> 1 ay
-  12 ay varsa -> 12 ay
-  əks halda ilk müddət
-*/
 function getProductDuration(product){
 
 const durations=
@@ -1343,10 +1318,6 @@ if(durations.length){
 return durations[0];
 }
 
-/*
-  Əgər admin paneldə durations boşdursa,
-  həmin məhsul üçün qiymət cədvəlindəki ilk müddəti tapırıq.
-*/
 const key=
 normalizeKey(product.product_key);
 
@@ -1368,9 +1339,6 @@ return 1;
 
 }
 
-/*
-  Qiymət sətrini tapır.
-*/
 function findPrice(product){
 
 const key=
@@ -1389,10 +1357,6 @@ if(row){
 return row;
 }
 
-/*
-  Əgər dəqiq müddət tapılmadısa,
-  məhsulun ilk mövcud qiymətini götürür.
-*/
 row=
 PRICE_ROWS.find(item=>
 normalizeKey(item.product_key)===key
@@ -1402,9 +1366,6 @@ return row || null;
 
 }
 
-/*
-  Qiyməti hesablayır.
-*/
 function calculateDisplayPrice(row){
 
 if(!row){
@@ -1472,9 +1433,6 @@ return null;
 
 }
 
-/*
-  Müddətin yazısı.
-*/
 function durationText(duration){
 
 duration=Number(duration);
@@ -1491,69 +1449,70 @@ return "/ "+duration+" ay";
 
 }
 
-/*
-  Məhsul adını tərcümə etməyə çalışır.
-  Admin paneldəki ad əsas götürülür.
-*/
+/* =========================================================
+   MƏHSUL DİLLƏRİ
+========================================================= */
+
 function getProductName(product){
 
-const key=
-normalizeKey(product.product_key);
-
 const lang=getLanguage();
 
-if(lang==="az"){
+if(lang==="ru"){
 
-return product.name ||
-key;
-
-}
-
-const translationKey=
-key+"Name";
-
-if(
-translations[lang] &&
-translations[lang][translationKey]
-){
-
-return translations[lang][translationKey];
+return product.name_ru ||
+product.name_az ||
+product.name ||
+product.product_key;
 
 }
 
-return product.name || key;
+if(lang==="en"){
+
+return product.name_en ||
+product.name_az ||
+product.name ||
+product.product_key;
 
 }
 
-/*
-  Məhsul açıqlaması.
-*/
+return product.name_az ||
+product.name ||
+product.product_key;
+
+}
+
 function getProductDescription(product){
 
-const key=
-normalizeKey(product.product_key);
-
 const lang=getLanguage();
 
-const translationKey=
-key+"Description";
+if(lang==="ru"){
 
-if(
-translations[lang] &&
-translations[lang][translationKey]
-){
-
-return translations[lang][translationKey];
+return product.description_ru ||
+product.description_az ||
+product.description ||
+"";
 
 }
 
-return product.description || "";
+if(lang==="en"){
+
+return product.description_en ||
+product.description_az ||
+product.description ||
+"";
 
 }
 
-/*
-  Məhsul şəkli.
-*/
+return product.description_az ||
+product.description ||
+"";
+
+}
+
+/* =========================================================
+   MƏHSUL ŞƏKLİ
+========================================================= */
+
 function getProductImage(product){
 
 return product.image_url ||
@@ -1562,9 +1521,10 @@ product.image ||
 
 }
 
-/*
-  HTML məhsul kartı yaradır.
-*/
+/* =========================================================
+   MƏHSUL KARTI
+========================================================= */
+
 function createProductCard(product){
 
 const key=
@@ -1723,9 +1683,6 @@ ${t("addCart")}
 
 }
 
-/*
-  JS string təhlükəsizliyi.
-*/
 function escapeJs(value){
 
 return String(value)
@@ -1737,9 +1694,6 @@ return String(value)
 
 }
 
-/*
-  Məhsul kartındakı sifariş.
-*/
 function orderProductFromCard(name,price){
 
 if(!price || Number(price)<=0){
@@ -1758,9 +1712,6 @@ orderNow(name,price);
 
 }
 
-/*
-  Səbətə əlavə.
-*/
 function cartProductFromCard(name,price){
 
 if(!price || Number(price)<=0){
@@ -1779,9 +1730,6 @@ addToCart(name,price);
 
 }
 
-/*
-  Bütün məhsulları ekrana çıxarır.
-*/
 function renderProducts(){
 
 const grid=
@@ -1873,14 +1821,6 @@ async function loadProductPrices(){
 
 try{
 
-/*
-  Burada artıq konkret sütun adları yazılmır.
-
-  select("*") istifadə etdiyimiz üçün:
-  - yeni struktur
-  - köhnə struktur
-  hər ikisi oxuna bilir.
-*/
 const {data,error}=
 await supabaseClient
 .from("product_prices")
@@ -1948,9 +1888,6 @@ function setupRealtime(){
 
 removeRealtimeChannels();
 
-/*
-  Məhsul dəyişəndə index dərhal yenilənir.
-*/
 const productsChannel=
 supabaseClient
 .channel("digibaku-site-products")
@@ -1974,9 +1911,6 @@ loadSiteProducts();
 )
 .subscribe();
 
-/*
-  Qiymət dəyişəndə index dərhal yenilənir.
-*/
 const pricesChannel=
 supabaseClient
 .channel("digibaku-product-prices")
