@@ -6,29 +6,194 @@
 <title>DigiBaku — Admin</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-*{box-sizing:border-box;margin:0;padding:0}body{min-height:100vh;background:#05070b;color:#fff;font-family:Arial,Helvetica,sans-serif}button,input,select,textarea{font:inherit}button{cursor:pointer}.hidden{display:none!important}
-#loadingScreen{min-height:100vh;display:flex;align-items:center;justify-content:center;color:#6da8ff;font-size:18px}#app{display:none;min-height:100vh}.container{width:min(1180px,94%);margin:auto;padding:25px 0 50px}
-.topbar,.panel-head,.dashboard-head{display:flex;align-items:center;justify-content:space-between;gap:15px}.topbar{margin-bottom:25px}.logo{font-size:25px;font-weight:800}.logo span{color:#168cff}.admin-text,.panel-subtitle{color:#778196;font-size:12px}
-.dashboard-title,.new-order-mail,.dash-btn,.card,.order-item,.product-item,.price-item,.customer-item,.stat-card,.mini-stat,.setting-row,.chat-users,.chat-box,.chat-orders{border:1px solid #151e2b;background:#090d14;border-radius:16px}
-.dashboard-title{flex:1;padding:20px}.dashboard-title h1{font-size:24px;margin-bottom:7px}.dashboard-title p{color:#778196;font-size:13px}
-.new-order-mail{width:285px;min-height:92px;color:#fff;display:flex;align-items:center;gap:13px;padding:15px 17px;text-align:left;background:linear-gradient(135deg,#07192d,#08111e);border-color:#1b5fa7}.new-order-mail.has-new{border-color:#168cff}.mail-icon{width:48px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:#0b2d4e;color:#40a7ff;font-size:25px}.mail-info{flex:1}.mail-info strong,.mail-info small{display:block}.mail-info small{color:#8290a5;font-size:12px;margin-top:5px}.mail-badge,.dash-badge{background:#168cff;border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:11px}.mail-badge{min-width:28px;height:28px;padding:0 8px}.dashboard-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-top:18px}.dash-btn{min-height:105px;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;position:relative;transition:.2s}.dash-btn:hover{border-color:#1f78c7;transform:translateY(-2px)}.dash-icon{font-size:26px}.dash-name{font-size:14px;font-weight:700}.dash-badge{position:absolute;top:10px;right:10px;min-width:21px;height:21px;padding:0 6px}
-.panel{display:none}.panel.active{display:block}.panel-head{margin-bottom:18px}.panel-title{font-size:22px;font-weight:800}.back-btn,.secondary-btn,.small-btn{border:1px solid #263346;background:#0b1119;color:#d7deea;border-radius:9px;padding:9px 12px}.card{padding:18px;margin-bottom:15px}.card-title{font-size:15px;font-weight:bold;margin-bottom:14px}.empty{text-align:center;padding:30px 15px;color:#687386;font-size:13px}
-.form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.field{display:flex;flex-direction:column;gap:7px}.field.full{grid-column:1/-1}.field label{font-size:12px;color:#8c98ab}
-input,select,textarea{width:100%;border:1px solid #1a2432;background:#060a10;color:#fff;border-radius:10px;padding:12px;outline:none}input:focus,select:focus,textarea:focus{border-color:#218bff}textarea{resize:vertical;min-height:100px}
-.primary-btn{border:0;background:#168cff;color:#fff;border-radius:10px;padding:12px 18px;font-weight:700}.danger-btn{border:0;background:#7d1d2c;color:#fff;border-radius:9px;padding:9px 12px}.success-btn{border:0;background:#087a4b;color:#fff;border-radius:9px;padding:9px 12px}
-.order-item,.product-item,.customer-item,.price-item{padding:14px;margin-bottom:9px}.order-top,.customer-item,.product-item,.price-head{display:flex;justify-content:space-between;gap:12px}.order-user,.customer-name{font-weight:bold;font-size:13px}.order-email,.customer-email,.product-info small,.price-key{color:#718096;font-size:11px;margin-top:4px}.order-price,.sales-number{color:#55b1ff;font-weight:bold}.order-meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.order-meta span{font-size:11px;color:#8995a8;background:#0d141e;padding:6px 8px;border-radius:7px}.status{padding:6px 9px;border-radius:7px;font-size:11px;font-weight:bold}.status-pending{background:#392d0c;color:#f3c95d}.status-confirmed{background:#102c45;color:#55b7ff}.status-processing{background:#252052;color:#a999ff}.status-completed{background:#0b3826;color:#5bdaa1}.status-cancelled{background:#3b151c;color:#ff8291}.order-actions,.product-actions,.quick-actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}
-.search-tools{display:grid;grid-template-columns:minmax(220px,1.5fr) 180px 180px auto;gap:8px}.filter-summary{color:#78869a;font-size:11px;margin-top:10px}.warning-card{border:1px solid #624d13;background:#191408;color:#e7c85e;border-radius:13px;padding:13px;margin-bottom:12px}.warning-item{font-size:11px;color:#bba969;margin-top:5px}
-.price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.price-box{background:#060a10;border:1px solid #182230;border-radius:10px;padding:10px}.price-box-title{color:#78869a;font-size:10px;margin-bottom:7px}.price-box input{padding:9px;margin-bottom:7px}.switch-row{display:flex;align-items:center;justify-content:space-between}.switch{width:38px;height:20px;position:relative}.switch input{display:none}.slider{position:absolute;inset:0;border-radius:20px;background:#222d3d}.slider:before{content:"";width:14px;height:14px;background:#fff;border-radius:50%;position:absolute;left:3px;top:3px;transition:.2s}.switch input:checked+.slider{background:#168cff}.switch input:checked+.slider:before{transform:translateX(18px)}
-.stats-grid,.stats-extra-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.stat-card,.mini-stat{padding:18px}.stat-value,.mini-stat-value{font-size:22px;font-weight:800}.stat-label,.mini-stat-label{color:#748095;font-size:11px;margin-top:5px}.sales-row{display:flex;justify-content:space-between;padding:13px;border:1px solid #172130;background:#080c13;border-radius:12px;margin-bottom:8px}
-.chat-layout{display:grid;grid-template-columns:290px minmax(0,1fr) 310px;gap:12px;min-height:600px}.chat-users,.chat-box,.chat-orders{overflow:hidden}.chat-user{padding:13px;border-bottom:1px solid #141c27;cursor:pointer;position:relative}.chat-user:hover,.chat-user.active{background:#0d1723}.chat-user-name{font-size:13px;font-weight:bold}.chat-user-email{font-size:11px;color:#68758a;margin-top:4px}.chat-unread{position:absolute;right:11px;top:13px;min-width:20px;height:20px;padding:0 5px;border-radius:15px;background:#168cff;font-size:10px;text-align:center}.chat-box{display:flex;flex-direction:column}.chat-header,.chat-orders-head{padding:13px 15px;border-bottom:1px solid #151e2b}.chat-header-name,.chat-orders-title{font-weight:bold;font-size:14px}.chat-header-email,.chat-orders-subtitle{color:#718096;font-size:11px;margin-top:3px}.messages{flex:1;min-height:430px;max-height:500px;overflow-y:auto;padding:15px}.msg{max-width:78%;padding:10px 12px;border-radius:12px;margin-bottom:9px;font-size:13px;line-height:1.4;word-break:break-word}.msg.admin{margin-left:auto;background:#0d4c82}.msg.customer{background:#151c27}.msg-time{display:block;font-size:9px;color:#8996a9;margin-top:5px}.chat-input{padding:12px;border-top:1px solid #151e2b;display:flex;gap:8px}.chat-input input{flex:1}.chat-order-list{max-height:600px;overflow:auto;padding:10px}.chat-order-card{border:1px solid #172130;background:#080c13;border-radius:12px;padding:11px;margin-bottom:9px}.chat-order-top{display:flex;justify-content:space-between}.chat-order-id,.chat-order-date{color:#69768a;font-size:10px}.chat-order-total{color:#55b1ff;font-weight:bold}.chat-order-actions{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:9px}
-.profile-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:14px}.profile-stat{border:1px solid #182230;background:#060a10;border-radius:10px;padding:10px}.profile-stat strong{display:block;font-size:15px}.profile-stat span{color:#69768a;font-size:9px}.setting-row{display:flex;justify-content:space-between;padding:15px 0;border-bottom:1px solid #151e2b;background:transparent;border-radius:0}
-#toast{position:fixed;right:20px;bottom:20px;z-index:9999;background:#101722;border:1px solid #263548;color:#fff;padding:12px 16px;border-radius:10px;font-size:12px;opacity:0;pointer-events:none;transform:translateY(10px);transition:.25s}#toast.show{opacity:1;transform:translateY(0)}
-.modal{position:fixed;inset:0;z-index:9000;background:#000b;display:none;align-items:center;justify-content:center;padding:18px}.modal.active{display:flex}.modal-box{width:min(620px,100%);max-height:90vh;overflow:auto;background:#090d14;border:1px solid #1a2738;border-radius:18px;padding:20px}.modal-head{display:flex;justify-content:space-between;margin-bottom:16px}.modal-close{background:#0b1119;color:#fff;border:1px solid #263346;border-radius:9px;padding:8px}.modal-product{border:1px solid #172130;background:#080c13;border-radius:10px;padding:10px;margin-bottom:7px;font-size:12px}.modal-product small{display:block;color:#68758a;margin-top:4px}
-.site-product{border:1px solid #172130;background:#080c13;border-radius:15px;padding:14px;margin-bottom:10px}.site-product-top{display:flex;gap:14px;align-items:flex-start}.site-product-img{width:70px;height:70px;object-fit:cover;border-radius:12px;background:#111827;border:1px solid #243043;flex:none}.site-product-main{flex:1;min-width:0}.site-product-name{font-weight:800;font-size:14px}.site-product-meta{color:#728096;font-size:10px;margin-top:4px}.site-product-desc{color:#9aa6b8;font-size:11px;line-height:1.45;margin-top:7px}.site-product-actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:11px}.site-edit{display:none;margin-top:12px;border-top:1px solid #182230;padding-top:12px}.site-edit.open{display:block}.central-note{border:1px solid #173b59;background:#071522;color:#7fb9e8;border-radius:12px;padding:12px;font-size:11px;line-height:1.5;margin-bottom:12px}.duration-list{display:flex;flex-wrap:wrap;gap:8px}.duration-option{display:flex;align-items:center;gap:6px;background:#080d14;border:1px solid #182230;padding:8px 10px;border-radius:9px;font-size:11px}.duration-option input{width:auto}
-.faq-item{border:1px solid #172130;background:#080c13;border-radius:13px;padding:14px;margin-bottom:9px}.faq-top{display:flex;justify-content:space-between;gap:12px}.faq-question{font-weight:800;font-size:13px}.faq-answer{font-size:11px;color:#8b97a9;line-height:1.5;margin-top:8px}.faq-meta{color:#657286;font-size:10px;margin-top:8px}.faq-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:11px}.faq-edit{display:none;border-top:1px solid #182230;margin-top:12px;padding-top:12px}.faq-edit.open{display:block}
-.subnav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:15px}.subnav button{border:1px solid #263346;background:#0b1119;color:#aeb8c8;border-radius:10px;padding:10px 13px}.subnav button.active{background:#12395d;border-color:#168cff;color:#fff}.subpanel{display:none}.subpanel.active{display:block}
-@media(max-width:900px){.dashboard-grid{grid-template-columns:repeat(2,1fr)}.stats-grid,.stats-extra-grid{grid-template-columns:repeat(2,1fr)}.chat-layout{grid-template-columns:1fr}.chat-users,.chat-orders{max-height:280px}.price-grid{grid-template-columns:repeat(2,1fr)}.search-tools{grid-template-columns:1fr 1fr}.new-order-mail{width:100%}.dashboard-head{flex-direction:column;align-items:stretch}}
-@media(max-width:600px){.container{width:94%;padding-top:15px}.dashboard-grid{grid-template-columns:1fr 1fr}.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.stats-grid,.stats-extra-grid,.price-grid{grid-template-columns:1fr}.search-tools{grid-template-columns:1fr}.panel-title{font-size:19px}.site-product-top{flex-direction:column}.site-product-img{width:60px;height:60px}}
+*{box-sizing:border-box;margin:0;padding:0}
+body{min-height:100vh;background:#05070b;color:#fff;font-family:Arial,Helvetica,sans-serif}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+.hidden{display:none!important}
+#loadingScreen{min-height:100vh;display:flex;align-items:center;justify-content:center;color:#6da8ff;font-size:18px}
+#app{display:none;min-height:100vh}
+.container{width:min(1180px,94%);margin:auto;padding:25px 0 50px}
+.topbar,.panel-head,.dashboard-head{display:flex;align-items:center;justify-content:space-between;gap:15px}
+.topbar{margin-bottom:25px}
+.logo{font-size:25px;font-weight:800}
+.logo span{color:#168cff}
+.admin-text,.panel-subtitle{color:#778196;font-size:12px}
+
+.dashboard-title,.new-order-mail,.dash-btn,.card,.order-item,.product-item,.price-item,.customer-item,.stat-card,.mini-stat,.setting-row,.chat-users,.chat-box,.chat-orders{
+border:1px solid #151e2b;background:#090d14;border-radius:16px
+}
+.dashboard-title{flex:1;padding:20px}
+.dashboard-title h1{font-size:24px;margin-bottom:7px}
+.dashboard-title p{color:#778196;font-size:13px}
+.new-order-mail{width:285px;min-height:92px;color:#fff;display:flex;align-items:center;gap:13px;padding:15px 17px;text-align:left;background:linear-gradient(135deg,#07192d,#08111e);border-color:#1b5fa7}
+.new-order-mail.has-new{border-color:#168cff}
+.mail-icon{width:48px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:#0b2d4e;color:#40a7ff;font-size:25px}
+.mail-info{flex:1}
+.mail-info strong,.mail-info small{display:block}
+.mail-info small{color:#8290a5;font-size:12px;margin-top:5px}
+.mail-badge,.dash-badge{background:#168cff;border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:11px}
+.mail-badge{min-width:28px;height:28px;padding:0 8px}
+.dashboard-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-top:18px}
+.dash-btn{min-height:105px;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;position:relative;transition:.2s}
+.dash-btn:hover{border-color:#1f78c7;transform:translateY(-2px)}
+.dash-icon{font-size:26px}
+.dash-name{font-size:14px;font-weight:700}
+.dash-badge{position:absolute;top:10px;right:10px;min-width:21px;height:21px;padding:0 6px}
+
+.panel{display:none}
+.panel.active{display:block}
+.panel-head{margin-bottom:18px}
+.panel-title{font-size:22px;font-weight:800}
+.back-btn,.secondary-btn,.small-btn{border:1px solid #263346;background:#0b1119;color:#d7deea;border-radius:9px;padding:9px 12px}
+.card{padding:18px;margin-bottom:15px}
+.card-title{font-size:15px;font-weight:bold;margin-bottom:14px}
+.empty{text-align:center;padding:30px 15px;color:#687386;font-size:13px}
+
+.form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.field{display:flex;flex-direction:column;gap:7px}
+.field.full{grid-column:1/-1}
+.field label{font-size:12px;color:#8c98ab}
+
+input,select,textarea{width:100%;border:1px solid #1a2432;background:#060a10;color:#fff;border-radius:10px;padding:12px;outline:none}
+input:focus,select:focus,textarea:focus{border-color:#218bff}
+textarea{resize:vertical;min-height:100px}
+
+.primary-btn{border:0;background:#168cff;color:#fff;border-radius:10px;padding:12px 18px;font-weight:700}
+.danger-btn{border:0;background:#7d1d2c;color:#fff;border-radius:9px;padding:9px 12px}
+.success-btn{border:0;background:#087a4b;color:#fff;border-radius:9px;padding:9px 12px}
+
+.order-item,.product-item,.customer-item,.price-item{padding:14px;margin-bottom:9px}
+.order-top,.customer-item,.product-item,.price-head{display:flex;justify-content:space-between;gap:12px}
+.order-user,.customer-name{font-weight:bold;font-size:13px}
+.order-email,.customer-email,.product-info small,.price-key{color:#718096;font-size:11px;margin-top:4px}
+.order-price,.sales-number{color:#55b1ff;font-weight:bold}
+.order-meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.order-meta span{font-size:11px;color:#8995a8;background:#0d141e;padding:6px 8px;border-radius:7px}
+.status{padding:6px 9px;border-radius:7px;font-size:11px;font-weight:bold}
+.status-pending{background:#392d0c;color:#f3c95d}
+.status-confirmed{background:#102c45;color:#55b7ff}
+.status-processing{background:#252052;color:#a999ff}
+.status-completed{background:#0b3826;color:#5bdaa1}
+.status-cancelled{background:#3b151c;color:#ff8291}
+.order-actions,.product-actions,.quick-actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}
+
+.search-tools{display:grid;grid-template-columns:minmax(220px,1.5fr) 180px 180px auto;gap:8px}
+.filter-summary{color:#78869a;font-size:11px;margin-top:10px}
+.warning-card{border:1px solid #624d13;background:#191408;color:#e7c85e;border-radius:13px;padding:13px;margin-bottom:12px}
+.warning-item{font-size:11px;color:#bba969;margin-top:5px}
+
+.price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.price-box{background:#060a10;border:1px solid #182230;border-radius:10px;padding:10px}
+.price-box-title{color:#78869a;font-size:10px;margin-bottom:7px}
+.price-box input{padding:9px;margin-bottom:7px}
+.switch-row{display:flex;align-items:center;justify-content:space-between}
+.switch{width:38px;height:20px;position:relative}
+.switch input{display:none}
+.slider{position:absolute;inset:0;border-radius:20px;background:#222d3d}
+.slider:before{content:"";width:14px;height:14px;background:#fff;border-radius:50%;position:absolute;left:3px;top:3px;transition:.2s}
+.switch input:checked+.slider{background:#168cff}
+.switch input:checked+.slider:before{transform:translateX(18px)}
+
+.stats-grid,.stats-extra-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.stat-card,.mini-stat{padding:18px}
+.stat-value,.mini-stat-value{font-size:22px;font-weight:800}
+.stat-label,.mini-stat-label{color:#748095;font-size:11px;margin-top:5px}
+.sales-row{display:flex;justify-content:space-between;padding:13px;border:1px solid #172130;background:#080c13;border-radius:12px;margin-bottom:8px}
+
+.chat-layout{display:grid;grid-template-columns:290px minmax(0,1fr) 310px;gap:12px;min-height:600px}
+.chat-users,.chat-box,.chat-orders{overflow:hidden}
+.chat-user{padding:13px;border-bottom:1px solid #141c27;cursor:pointer;position:relative}
+.chat-user:hover,.chat-user.active{background:#0d1723}
+.chat-user-name{font-size:13px;font-weight:bold}
+.chat-user-email{font-size:11px;color:#68758a;margin-top:4px}
+.chat-unread{position:absolute;right:11px;top:13px;min-width:20px;height:20px;padding:0 5px;border-radius:15px;background:#168cff;font-size:10px;text-align:center}
+.chat-box{display:flex;flex-direction:column}
+.chat-header,.chat-orders-head{padding:13px 15px;border-bottom:1px solid #151e2b}
+.chat-header-name,.chat-orders-title{font-weight:bold;font-size:14px}
+.chat-header-email,.chat-orders-subtitle{color:#718096;font-size:11px;margin-top:3px}
+.messages{flex:1;min-height:430px;max-height:500px;overflow-y:auto;padding:15px}
+.msg{max-width:78%;padding:10px 12px;border-radius:12px;margin-bottom:9px;font-size:13px;line-height:1.4;word-break:break-word}
+.msg.admin{margin-left:auto;background:#0d4c82}
+.msg.customer{background:#151c27}
+.msg-time{display:block;font-size:9px;color:#8996a9;margin-top:5px}
+.chat-input{padding:12px;border-top:1px solid #151e2b;display:flex;gap:8px}
+.chat-input input{flex:1}
+.chat-order-list{max-height:600px;overflow:auto;padding:10px}
+.chat-order-card{border:1px solid #172130;background:#080c13;border-radius:12px;padding:11px;margin-bottom:9px}
+.chat-order-top{display:flex;justify-content:space-between}
+.chat-order-id,.chat-order-date{color:#69768a;font-size:10px}
+.chat-order-total{color:#55b1ff;font-weight:bold}
+.chat-order-actions{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:9px}
+
+.profile-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:14px}
+.profile-stat{border:1px solid #182230;background:#060a10;border-radius:10px;padding:10px}
+.profile-stat strong{display:block;font-size:15px}
+.profile-stat span{color:#69768a;font-size:9px}
+.setting-row{display:flex;justify-content:space-between;padding:15px 0;border-bottom:1px solid #151e2b;background:transparent;border-radius:0}
+
+#toast{position:fixed;right:20px;bottom:20px;z-index:9999;background:#101722;border:1px solid #263548;color:#fff;padding:12px 16px;border-radius:10px;font-size:12px;opacity:0;pointer-events:none;transform:translateY(10px);transition:.25s}
+#toast.show{opacity:1;transform:translateY(0)}
+
+.modal{position:fixed;inset:0;z-index:9000;background:#000b;display:none;align-items:center;justify-content:center;padding:18px}
+.modal.active{display:flex}
+.modal-box{width:min(620px,100%);max-height:90vh;overflow:auto;background:#090d14;border:1px solid #1a2738;border-radius:18px;padding:20px}
+.modal-head{display:flex;justify-content:space-between;margin-bottom:16px}
+.modal-close{background:#0b1119;color:#fff;border:1px solid #263346;border-radius:9px;padding:8px}
+.modal-product{border:1px solid #172130;background:#080c13;border-radius:10px;padding:10px;margin-bottom:7px;font-size:12px}
+.modal-product small{display:block;color:#68758a;margin-top:4px}
+
+.site-product{border:1px solid #172130;background:#080c13;border-radius:15px;padding:14px;margin-bottom:10px}
+.site-product-top{display:flex;gap:14px;align-items:flex-start}
+.site-product-img{width:70px;height:70px;object-fit:cover;border-radius:12px;background:#111827;border:1px solid #243043;flex:none}
+.site-product-main{flex:1;min-width:0}
+.site-product-name{font-weight:800;font-size:14px}
+.site-product-meta{color:#728096;font-size:10px;margin-top:4px}
+.site-product-desc{color:#9aa6b8;font-size:11px;line-height:1.45;margin-top:7px}
+.site-product-actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:11px}
+.site-edit{display:none;margin-top:12px;border-top:1px solid #182230;padding-top:12px}
+.site-edit.open{display:block}
+.central-note{border:1px solid #173b59;background:#071522;color:#7fb9e8;border-radius:12px;padding:12px;font-size:11px;line-height:1.5;margin-bottom:12px}
+.duration-list{display:flex;flex-wrap:wrap;gap:8px}
+.duration-option{display:flex;align-items:center;gap:6px;background:#080d14;border:1px solid #182230;padding:8px 10px;border-radius:9px;font-size:11px}
+.duration-option input{width:auto}
+
+.faq-item{border:1px solid #172130;background:#080c13;border-radius:13px;padding:14px;margin-bottom:9px}
+.faq-top{display:flex;justify-content:space-between;gap:12px}
+.faq-question{font-weight:800;font-size:13px}
+.faq-answer{font-size:11px;color:#8b97a9;line-height:1.5;margin-top:8px}
+.faq-meta{color:#657286;font-size:10px;margin-top:8px}
+.faq-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:11px}
+.faq-edit{display:none;border-top:1px solid #182230;margin-top:12px;padding-top:12px}
+.faq-edit.open{display:block}
+
+.subnav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:15px}
+.subnav button{border:1px solid #263346;background:#0b1119;color:#aeb8c8;border-radius:10px;padding:10px 13px}
+.subnav button.active{background:#12395d;border-color:#168cff;color:#fff}
+.subpanel{display:none}
+.subpanel.active{display:block}
+
+@media(max-width:900px){
+.dashboard-grid{grid-template-columns:repeat(2,1fr)}
+.stats-grid,.stats-extra-grid{grid-template-columns:repeat(2,1fr)}
+.chat-layout{grid-template-columns:1fr}
+.chat-users,.chat-orders{max-height:280px}
+.price-grid{grid-template-columns:repeat(2,1fr)}
+.search-tools{grid-template-columns:1fr 1fr}
+.new-order-mail{width:100%}
+.dashboard-head{flex-direction:column;align-items:stretch}
+}
+@media(max-width:600px){
+.container{width:94%;padding-top:15px}
+.dashboard-grid{grid-template-columns:1fr 1fr}
+.form-grid{grid-template-columns:1fr}
+.field.full{grid-column:auto}
+.stats-grid,.stats-extra-grid,.price-grid{grid-template-columns:1fr}
+.search-tools{grid-template-columns:1fr}
+.panel-title{font-size:19px}
+.site-product-top{flex-direction:column}
+.site-product-img{width:60px;height:60px}
+}
 </style>
 </head>
 
@@ -104,6 +269,11 @@ input,select,textarea{width:100%;border:1px solid #1a2432;background:#060a10;col
 <div class="dash-name">Müştərilər</div>
 </button>
 
+<button class="dash-btn" onclick="openPanel('faqPanel')">
+<div class="dash-icon">❓</div>
+<div class="dash-name">FAQ</div>
+</button>
+
 <button class="dash-btn" onclick="openPanel('statsPanel')">
 <div class="dash-icon">📊</div>
 <div class="dash-name">Statistika</div>
@@ -117,8 +287,6 @@ input,select,textarea{width:100%;border:1px solid #1a2432;background:#060a10;col
 </div>
 </div>
 
-
-<!-- SİFARİŞLƏR -->
 
 <div id="ordersPanel" class="panel">
 
@@ -161,8 +329,6 @@ input,select,textarea{width:100%;border:1px solid #1a2432;background:#060a10;col
 
 </div>
 
-
-<!-- MESAJLAR -->
 
 <div id="messagesPanel" class="panel">
 
@@ -218,8 +384,6 @@ input,select,textarea{width:100%;border:1px solid #1a2432;background:#060a10;col
 </div>
 
 
-<!-- QİYMƏTLƏR -->
-
 <div id="pricesPanel" class="panel">
 
 <div class="panel-head">
@@ -240,8 +404,6 @@ input,select,textarea{width:100%;border:1px solid #1a2432;background:#060a10;col
 
 </div>
 
-
-<!-- SAYT MƏHSULLARI -->
 
 <div id="productsPanel" class="panel">
 
@@ -378,8 +540,6 @@ Yeni məhsul yalnız bu bölmədən yaradılır. Mövcud qiymət və FAQ məluma
 </div>
 
 
-<!-- MÜŞTƏRİ MƏHSULLARI -->
-
 <div id="customerProductsPanel" class="panel">
 
 <div class="panel-head">
@@ -396,8 +556,6 @@ Yeni məhsul yalnız bu bölmədən yaradılır. Mövcud qiymət və FAQ məluma
 
 </div>
 
-
-<!-- MƏHSUL VER -->
 
 <div id="giveProductPanel" class="panel">
 
@@ -441,8 +599,6 @@ Yeni məhsul yalnız bu bölmədən yaradılır. Mövcud qiymət və FAQ məluma
 </div>
 
 
-<!-- MÜŞTƏRİLƏR -->
-
 <div id="customersPanel" class="panel">
 
 <div class="panel-head">
@@ -460,7 +616,86 @@ Yeni məhsul yalnız bu bölmədən yaradılır. Mövcud qiymət və FAQ məluma
 </div>
 
 
-<!-- STATİSTİKA -->
+<div id="faqPanel" class="panel">
+
+<div class="panel-head">
+<div>
+<div class="panel-title">FAQ</div>
+<div class="panel-subtitle">Saytda olan FAQ-ları redaktə et, sil və yenisini əlavə et.</div>
+</div>
+<button class="back-btn" onclick="openPanel('dashboardPanel')">← Geri</button>
+</div>
+
+<div class="card">
+
+<div class="card-title">Yeni FAQ əlavə et</div>
+
+<div class="form-grid">
+
+<div class="field">
+<label>Məhsul</label>
+<select id="faqProductKey">
+<option value="">Ümumi FAQ</option>
+<option value="netflix">Netflix</option>
+<option value="youtube">YouTube Premium</option>
+<option value="chatgpt">ChatGPT Plus</option>
+<option value="gemini">Google Gemini Premium</option>
+<option value="spotify">Spotify Premium</option>
+<option value="canva">Canva Pro</option>
+</select>
+</div>
+
+<div class="field">
+<label>Dil</label>
+<select id="faqLanguage">
+<option value="az">Azərbaycan dili</option>
+</select>
+</div>
+
+<div class="field full">
+<label>Sual</label>
+<input id="faqQuestion" placeholder="FAQ sualı">
+</div>
+
+<div class="field full">
+<label>Cavab</label>
+<textarea id="faqAnswer" placeholder="FAQ cavabı"></textarea>
+</div>
+
+</div>
+
+<button class="primary-btn" style="margin-top:12px" onclick="createFaq()">➕ FAQ əlavə et</button>
+
+</div>
+
+<div class="card">
+
+<div class="card-title">Mövcud FAQ-lar</div>
+
+<div class="search-tools">
+
+<input id="faqSearch" placeholder="FAQ axtar..." oninput="filterFaqs()">
+
+<select id="faqFilterProduct" onchange="loadFaqs(this.value)">
+<option value="">Bütün FAQ-lar</option>
+<option value="netflix">Netflix</option>
+<option value="youtube">YouTube Premium</option>
+<option value="chatgpt">ChatGPT Plus</option>
+<option value="gemini">Google Gemini Premium</option>
+<option value="spotify">Spotify Premium</option>
+<option value="canva">Canva Pro</option>
+</select>
+
+<button class="secondary-btn" onclick="loadFaqs()">Yenilə</button>
+
+</div>
+
+<div id="faqList" style="margin-top:13px"></div>
+
+</div>
+
+</div>
+
 
 <div id="statsPanel" class="panel">
 
@@ -528,88 +763,6 @@ Yeni məhsul yalnız bu bölmədən yaradılır. Mövcud qiymət və FAQ məluma
 </div>
 
 
-<!-- FAQ -->
-
-<div id="faqPanel" class="panel">
-
-<div class="panel-head">
-<div>
-<div class="panel-title">FAQ</div>
-<div class="panel-subtitle">Saytda olan FAQ-ları redaktə et, sil və yenisini əlavə et.</div>
-</div>
-<button class="back-btn" onclick="openPanel('dashboardPanel')">← Geri</button>
-</div>
-
-<div class="card">
-
-<div class="card-title">Yeni FAQ əlavə et</div>
-
-<div class="form-grid">
-
-<div class="field">
-<label>Məhsul</label>
-<select id="faqProductKey">
-<option value="">Ümumi FAQ</option>
-<option value="netflix">Netflix</option>
-<option value="youtube">YouTube Premium</option>
-<option value="chatgpt">ChatGPT Plus</option>
-<option value="gemini">Google Gemini Premium</option>
-<option value="spotify">Spotify Premium</option>
-<option value="canva">Canva Pro</option>
-</select>
-</div>
-
-<div class="field">
-<label>Dil</label>
-<select id="faqLanguage">
-<option value="az">Azərbaycan dili</option>
-</select>
-</div>
-
-<div class="field full">
-<label>Sual</label>
-<input id="faqQuestion" placeholder="FAQ sualı">
-</div>
-
-<div class="field full">
-<label>Cavab</label>
-<textarea id="faqAnswer" placeholder="FAQ cavabı"></textarea>
-</div>
-
-</div>
-
-<button class="primary-btn" style="margin-top:12px" onclick="createFaq()">➕ FAQ əlavə et</button>
-
-</div>
-
-<div class="card">
-<div class="card-title">Mövcud FAQ-lar</div>
-
-<div class="search-tools">
-<input id="faqSearch" placeholder="FAQ axtar..." oninput="filterFaqs()">
-
-<select id="faqFilterProduct" onchange="loadFaqs(this.value)">
-<option value="">Bütün FAQ-lar</option>
-<option value="netflix">Netflix</option>
-<option value="youtube">YouTube Premium</option>
-<option value="chatgpt">ChatGPT Plus</option>
-<option value="gemini">Google Gemini Premium</option>
-<option value="spotify">Spotify Premium</option>
-<option value="canva">Canva Pro</option>
-</select>
-
-<button class="secondary-btn" onclick="loadFaqs()">Yenilə</button>
-</div>
-
-<div id="faqList" style="margin-top:13px"></div>
-
-</div>
-
-</div>
-
-
-<!-- AYARLAR -->
-
 <div id="settingsPanel" class="panel">
 
 <div class="panel-head">
@@ -655,17 +808,13 @@ Sayta keç
 </div>
 
 
-<!-- CUSTOMER MODAL -->
-
 <div id="customerModal" class="modal" onclick="closeCustomerModal(event)">
-
 <div class="modal-box">
 
 <div class="modal-head">
 <div>
 <div id="customerModalTitle" class="panel-title">Müştəri</div>
 </div>
-
 <button class="modal-close" onclick="closeCustomerModal()">✕</button>
 </div>
 
@@ -675,17 +824,13 @@ Sayta keç
 </div>
 
 
-<!-- ORDER MODAL -->
-
 <div id="orderModal" class="modal" onclick="closeOrderModal(event)">
-
 <div class="modal-box">
 
 <div class="modal-head">
 <div>
 <div id="orderModalTitle" class="panel-title">Sifariş</div>
 </div>
-
 <button class="modal-close" onclick="closeOrderModal()">✕</button>
 </div>
 
@@ -713,7 +858,6 @@ let currentChatUser=null;
 let realtimeChannel=null;
 let allOrders=[];
 let allFaqs=[];
-let currentFaqEdit=null;
 
 
 const STATUS_NAMES={
@@ -843,6 +987,7 @@ function openPanel(id){
 document.querySelectorAll(".panel").forEach(x=>x.classList.remove("active"));
 
 const el=document.getElementById(id);
+
 if(el)el.classList.add("active");
 
 if(id==="ordersPanel")loadOrders();
@@ -853,21 +998,23 @@ if(id==="customerProductsPanel")loadProducts();
 if(id==="customersPanel")loadCustomersPanel();
 if(id==="statsPanel")loadStats();
 if(id==="faqPanel")loadFaqs();
+
 }
 
 
 function showProductsSubPanel(id,button){
 
 document.querySelectorAll(".subpanel").forEach(x=>x.classList.remove("active"));
-
 document.querySelectorAll(".subnav button").forEach(x=>x.classList.remove("active"));
 
 const panel=document.getElementById(id);
+
 if(panel)panel.classList.add("active");
 
 if(button)button.classList.add("active");
 
 if(id==="existingProductsSubPanel")loadSiteProducts();
+
 }
 
 
@@ -881,9 +1028,11 @@ return;
 }
 
 if(data.user.email!==ADMIN_EMAIL){
+
 await supabaseClient.auth.signOut();
 location.href="https://digibaku.com";
 return;
+
 }
 
 document.getElementById("loadingScreen").style.display="none";
@@ -911,7 +1060,7 @@ document.getElementById("newOrderBadge").textContent=pending.length;
 
 document.getElementById("newOrderText").textContent=
 pending.length
-? `${pending.length} yeni sifariş gözləyir`
+?`${pending.length} yeni sifariş gözləyir`
 :"Yeni sifariş yoxdur";
 
 document.getElementById("newOrderMail").classList.toggle("has-new",pending.length>0);
@@ -947,8 +1096,7 @@ const {data,error}=await supabaseClient
 
 if(error){
 
-list.innerHTML=
-'<div class="card"><div class="empty">Sifarişlər yüklənmədi.</div></div>';
+list.innerHTML='<div class="card"><div class="empty">Sifarişlər yüklənmədi.</div></div>';
 
 return;
 
@@ -980,21 +1128,11 @@ String(x.product_name||"").toLowerCase().includes(q)
 
 }
 
-if(status){
-arr=arr.filter(x=>x.status===status);
-}
+if(status)arr=arr.filter(x=>x.status===status);
 
-if(sort==="old"){
-arr.sort((a,b)=>new Date(a.created_at)-new Date(b.created_at));
-}
-
-if(sort==="high"){
-arr.sort((a,b)=>Number(b.total||0)-Number(a.total||0));
-}
-
-if(sort==="low"){
-arr.sort((a,b)=>Number(a.total||0)-Number(b.total||0));
-}
+if(sort==="old")arr.sort((a,b)=>new Date(a.created_at)-new Date(b.created_at));
+if(sort==="high")arr.sort((a,b)=>Number(b.total||0)-Number(a.total||0));
+if(sort==="low")arr.sort((a,b)=>Number(a.total||0)-Number(b.total||0));
 
 document.getElementById("orderFilterSummary").textContent=
 `${arr.length} sifariş göstərilir`;
@@ -1010,8 +1148,7 @@ const list=document.getElementById("ordersList");
 
 if(!data.length){
 
-list.innerHTML=
-'<div class="card"><div class="empty">Sifariş yoxdur.</div></div>';
+list.innerHTML='<div class="card"><div class="empty">Sifariş yoxdur.</div></div>';
 
 return;
 
@@ -1208,9 +1345,11 @@ const {data:messages}=await supabaseClient
 const unread={};
 
 (messages||[]).forEach(m=>{
+
 if(m.sender_type==="customer"&&!m.read){
 unread[m.user_id]=(unread[m.user_id]||0)+1;
 }
+
 });
 
 list.innerHTML=profiles.map(p=>`
@@ -1883,14 +2022,6 @@ return;
 
 }
 
-
-/*
-Product key dəyişdirilərsə mövcud qiymət və FAQ sətirlərinin
-key-i uyğunlaşdırılır.
-
-Yeni qiymət və FAQ yaradılmır.
-*/
-
 if(old?.product_key&&old.product_key!==key){
 
 await supabaseClient
@@ -1939,7 +2070,7 @@ loadSiteProducts();
 async function deleteSiteProduct(id){
 
 if(!confirm(
-"Bu sayt məhsulunu silmək istəyirsən?\n\n" +
+"Bu sayt məhsulunu silmək istəyirsən?\n\n"+
 "Mövcud product_prices və site_faqs məlumatları SİLİNMƏYƏCƏK."
 ))return;
 
@@ -1954,11 +2085,6 @@ toast("Sayt məhsulu silinmədi.");
 return;
 
 }
-
-/*
-product_prices və site_faqs saxlanılır.
-Onlar yalnız ayrıca idarəetmə bölmələrindən silinir.
-*/
 
 toast("Sayt məhsulu silindi. Qiymət və FAQ məlumatları saxlanıldı.");
 
@@ -1977,8 +2103,11 @@ function clearNewSiteProductForm(){
 "newProductCategory",
 "newProductSlug"
 ].forEach(id=>{
+
 const el=document.getElementById(id);
+
 if(el)el.value="";
+
 });
 
 document.getElementById("newProductActive").value="true";
@@ -2049,11 +2178,6 @@ return;
 
 }
 
-/*
-Yeni məhsul əlavə ediləndə mövcud qiymət sisteminə
-avtomatik sətir və FAQ əlavə edilmir.
-*/
-
 clearNewSiteProductForm();
 
 toast("Yeni sayt məhsulu əlavə edildi.");
@@ -2074,8 +2198,7 @@ async function loadProducts(){
 
 const c=document.getElementById("customerProductsList");
 
-c.innerHTML=
-'<div class="empty">Məhsullar yüklənir...</div>';
+c.innerHTML='<div class="empty">Məhsullar yüklənir...</div>';
 
 const {data,error}=await supabaseClient
 .from("customer_products")
@@ -2084,8 +2207,7 @@ const {data,error}=await supabaseClient
 
 if(error){
 
-c.innerHTML=
-'<div class="empty">Məhsullar yüklənmədi.</div>';
+c.innerHTML='<div class="empty">Məhsullar yüklənmədi.</div>';
 
 return;
 
@@ -2154,14 +2276,13 @@ if(!error)loadProducts();
 }
 
 
-/* ===================== MÜŞTƏRİLƏR / VER ===================== */
+/* ===================== MÜŞTƏRİLƏR ===================== */
 
 async function loadCustomersPanel(){
 
 const c=document.getElementById("customersList");
 
-c.innerHTML=
-'<div class="card"><div class="empty">Müştərilər yüklənir...</div></div>';
+c.innerHTML='<div class="card"><div class="empty">Müştərilər yüklənir...</div></div>';
 
 let {data,error}=await supabaseClient
 .from("profiles")
@@ -2170,8 +2291,7 @@ let {data,error}=await supabaseClient
 
 if(error){
 
-c.innerHTML=
-'<div class="card"><div class="empty">Müştərilər yüklənmədi.</div></div>';
+c.innerHTML='<div class="card"><div class="empty">Müştərilər yüklənmədi.</div></div>';
 
 return;
 
@@ -2258,14 +2378,9 @@ let c=document.getElementById("customerModalContent");
 
 modal.classList.add("active");
 
-c.innerHTML=
-'<div class="empty">Müştəri məlumatları yüklənir...</div>';
+c.innerHTML='<div class="empty">Müştəri məlumatları yüklənir...</div>';
 
-let [
-pr,
-or,
-cp
-]=await Promise.all([
+let [pr,or,cp]=await Promise.all([
 
 supabaseClient
 .from("profiles")
@@ -2436,10 +2551,7 @@ let ps=document.getElementById("giveProduct");
 us.innerHTML='<option value="">Müştəri seç</option>';
 ps.innerHTML='<option value="">Məhsul seç</option>';
 
-let [
-pr,
-rr
-]=await Promise.all([
+let [pr,rr]=await Promise.all([
 
 supabaseClient
 .from("profiles")
@@ -2576,10 +2688,7 @@ n.getDate()-d+1
 
 async function loadStats(){
 
-let [
-pr,
-or
-]=await Promise.all([
+let [pr,or]=await Promise.all([
 
 supabaseClient
 .from("profiles")
@@ -2678,7 +2787,6 @@ revenue:0
 };
 
 s[n].count++;
-
 s[n].revenue+=Number(x.total||0);
 
 });
@@ -2854,8 +2962,7 @@ const list=document.getElementById("faqList");
 
 if(!data.length){
 
-list.innerHTML=
-'<div class="empty">FAQ yoxdur.</div>';
+list.innerHTML='<div class="empty">FAQ yoxdur.</div>';
 
 return;
 
