@@ -639,7 +639,7 @@ Məhsullar yüklənir...
 
 <br>
 
-<h3>Qiymətlər</h3>
+<h3 data-i18n="footerPrices">Qiymətlər</h3>
 
 <div id="footerPricesList">
 Qiymətlər yüklənir...
@@ -680,7 +680,7 @@ aria-label="WhatsApp dəstək">
 const SUPABASE_URL="https://zeknhnkaicqkfzgnvycq.supabase.co";
 const SUPABASE_KEY="sb_publishable_jHvCp9fXBA_BwFqrXYpwlw_VC6C1OQk";
 
-const supabaseClient =
+const supabaseClient=
 window.supabase.createClient(
 SUPABASE_URL,
 SUPABASE_KEY
@@ -732,6 +732,8 @@ year12:"/ 12 ay",
 noPrice:"Qiymət yoxdur",
 noProducts:"Hazırda aktiv məhsul yoxdur.",
 productsError:"Məhsullar yüklənərkən xəta baş verdi.",
+footerPrices:"Qiymətlər",
+
 whyUs:"Niyə məhz biz?",
 whyUsText:"Premium xidmətlərə çıxışı daha sürətli, rahat və təhlükəsiz etmək üçün prosesi sadələşdirdik.",
 fastActivation:"Sürətli aktivləşdirmə",
@@ -863,6 +865,8 @@ year12:"/ 12 месяцев",
 noPrice:"Цена отсутствует",
 noProducts:"Активных продуктов нет.",
 productsError:"Ошибка загрузки продуктов.",
+footerPrices:"Цены",
+
 whyUs:"Почему именно мы?",
 whyUsText:"Мы упростили процесс доступа к премиальным сервисам.",
 fastActivation:"Быстрая активация",
@@ -994,6 +998,8 @@ year12:"/ 12 months",
 noPrice:"Price unavailable",
 noProducts:"No active products.",
 productsError:"Error loading products.",
+footerPrices:"Prices",
+
 whyUs:"Why choose us?",
 whyUsText:"We simplified the process to make access to premium services easier.",
 fastActivation:"Fast activation",
@@ -1092,11 +1098,13 @@ return localStorage.getItem("digi_language") || "az";
 }
 
 function t(key){
+
 const lang=getLanguage();
 
 return translations[lang]?.[key] ||
 translations.az?.[key] ||
 key;
+
 }
 
 function setLanguage(lang){
@@ -1148,6 +1156,7 @@ document.title="DigiBaku Azərbaycan | Premium Rəqəmsal Xidmətlər və Abunə
 
 updateCartUI();
 checkLogin();
+renderFooterFromAdmin();
 
 }
 
@@ -1541,43 +1550,138 @@ return result;
 
 }
 
+/* =========================================================
+   DÜZƏLDİLMİŞ MÜDDƏT SEÇİMİ
+========================================================= */
+
 function getProductDuration(product){
-
-const durations=
-parseDurations(product.durations);
-
-if(durations.includes(1)){
-return 1;
-}
-
-if(durations.includes(12)){
-return 12;
-}
-
-if(durations.length){
-return durations[0];
-}
 
 const key=
 normalizeKey(product.product_key);
 
-const possible=
-PRICE_ROWS
-.filter(row=>
+const productDurations=
+parseDurations(product.durations);
+
+const rows=
+PRICE_ROWS.filter(row =>
 normalizeKey(row.product_key)===key
-)
-.sort((a,b)=>
-Number(a.duration_months)-
-Number(b.duration_months)
 );
 
-if(possible.length){
-return Number(possible[0].duration_months);
+function hasPrice(row){
+
+if(!row)return false;
+
+const normal=
+Number(row.normal_price||0);
+
+const sale=
+Number(row.sale_price||0);
+
+return normal>0 || sale>0;
+
+}
+
+/*
+   Admin paneldə 1 ay seçilib və
+   1 aylıq qiymət varsa → 1 ay.
+*/
+if(productDurations.includes(1)){
+
+const row1=
+rows.find(row =>
+Number(row.duration_months)===1
+);
+
+if(hasPrice(row1)){
+return 1;
+}
+
+}
+
+/*
+   1 aylıq qiymət yoxdursa və
+   12 aylıq qiymət varsa → 12 ay.
+*/
+if(productDurations.includes(12)){
+
+const row12=
+rows.find(row =>
+Number(row.duration_months)===12
+);
+
+if(hasPrice(row12)){
+return 12;
+}
+
+}
+
+/*
+   2 ay
+*/
+if(productDurations.includes(2)){
+
+const row2=
+rows.find(row =>
+Number(row.duration_months)===2
+);
+
+if(hasPrice(row2)){
+return 2;
+}
+
+}
+
+/*
+   3 ay
+*/
+if(productDurations.includes(3)){
+
+const row3=
+rows.find(row =>
+Number(row.duration_months)===3
+);
+
+if(hasPrice(row3)){
+return 3;
+}
+
+}
+
+/*
+   durations düzgün gəlməsə,
+   real qiyməti olan müddəti tap.
+*/
+for(const duration of [1,12,2,3]){
+
+const row=
+rows.find(item =>
+Number(item.duration_months)===duration
+);
+
+if(hasPrice(row)){
+return duration;
+}
+
+}
+
+if(rows.length){
+
+const first=
+rows.find(row=>hasPrice(row));
+
+if(first){
+return Number(first.duration_months);
+}
+
 }
 
 return 1;
 
 }
+
+/* =========================================================
+   DÜZƏLDİLMİŞ QİYMƏT TAPMA
+========================================================= */
 
 function findPrice(product){
 
@@ -1588,7 +1692,7 @@ const duration=
 Number(getProductDuration(product));
 
 let row=
-PRICE_ROWS.find(item=>
+PRICE_ROWS.find(item =>
 normalizeKey(item.product_key)===key &&
 Number(item.duration_months)===duration
 );
@@ -1598,11 +1702,15 @@ return row;
 }
 
 row=
-PRICE_ROWS.find(item=>
-normalizeKey(item.product_key)===key
+PRICE_ROWS.find(item =>
+normalizeKey(item.product_key)===key &&
+(
+Number(item.normal_price||0)>0 ||
+Number(item.sale_price||0)>0
+)
 );
 
-return row || null;
+return row||null;
 
 }
 
@@ -1620,14 +1728,11 @@ Number(row.sale_price||0);
 
 if(sale>0 && normal>0 && sale<normal){
 
-return {
+return{
 
 price:sale,
-
 normal:normal,
-
 sale:true,
-
 discount:
 Math.round(
 ((normal-sale)/normal)*100
@@ -1639,14 +1744,11 @@ Math.round(
 
 if(normal>0){
 
-return {
+return{
 
 price:normal,
-
 normal:normal,
-
 sale:false,
-
 discount:0
 
 };
@@ -1655,14 +1757,11 @@ discount:0
 
 if(sale>0){
 
-return {
+return{
 
 price:sale,
-
 normal:0,
-
 sale:false,
-
 discount:0
 
 };
@@ -1971,7 +2070,7 @@ addToCart(name,price);
 }
 
 /* =========================================================
-   FOOTER — ADMİNDƏN GƏLƏN MƏHSULLAR VƏ QİYMƏTLƏR
+   FOOTER — TAM DİNAMİK ADMİN SİSTEMİ
 ========================================================= */
 
 function renderFooterFromAdmin(){
@@ -1989,41 +2088,69 @@ if(!productText || !productList || !priceList){
 return;
 }
 
-if(!SITE_PRODUCTS.length){
+const activeProducts=
+SITE_PRODUCTS.filter(product=>
+!(
+product.active===false ||
+product.active==="false" ||
+product.active===0 ||
+product.active==="0"
+)
+);
 
-productText.textContent="";
-productList.innerHTML="";
-priceList.innerHTML="";
+if(!activeProducts.length){
+
+productText.textContent=
+t("noProducts");
+
+productList.innerHTML=
+`
+<span style="color:#777;font-size:14px">
+${escapeHtml(t("noProducts"))}
+</span>
+`;
+
+priceList.innerHTML=
+`
+<span style="color:#777;font-size:14px">
+${escapeHtml(t("noPrice"))}
+</span>
+`;
 
 return;
 
 }
 
-/* DigiBaku.com altındakı məhsul siyahısı */
-
+/*
+   DigiBaku.com altında olan məhsul adları
+   birbaşa Gizli Panel / site_products-dan gəlir.
+*/
 productText.textContent=
-SITE_PRODUCTS
+activeProducts
 .map(product=>getProductName(product))
+.filter(Boolean)
 .join(" • ");
 
 
-/* Məhsullar */
-
+/*
+   MƏHSULLAR
+   Bunlar LINK olacaq.
+*/
 productList.innerHTML=
-SITE_PRODUCTS
+activeProducts
 .map(product=>{
 
 const name=
 getProductName(product);
 
-const key=
-product.product_key ||
+const slug=
 product.slug ||
+product.product_key ||
 "";
 
-return `
+return`
 <a
-href="product.html?product=${encodeURIComponent(key)}">
+href="product.html?product=${encodeURIComponent(slug)}">
 ${escapeHtml(name)}
 </a>
 `;
@@ -2032,10 +2159,12 @@ ${escapeHtml(name)}
 .join("");
 
 
-/* Qiymətlər */
-
+/*
+   QİYMƏTLƏR
+   Bunlar sadə yazıdır, LINK DEYİL.
+*/
 priceList.innerHTML=
-SITE_PRODUCTS
+activeProducts
 .map(product=>{
 
 const name=
@@ -2048,7 +2177,33 @@ const price=
 calculateDisplayPrice(priceRow);
 
 if(!price){
-return "";
+
+return`
+<div style="
+display:block;
+margin-bottom:9px;
+line-height:1.45;
+">
+
+<span style="
+color:#888;
+font-size:14px;
+">
+${escapeHtml(name)}
+</span>
+
+<br>
+
+<span style="
+color:#777;
+font-size:12px;
+">
+${escapeHtml(t("noPrice"))}
+</span>
+
+</div>
+`;
+
 }
 
 const duration=
@@ -2056,18 +2211,38 @@ priceRow
 ?Number(priceRow.duration_months)
 :getProductDuration(product);
 
-return `
-<div style="margin-bottom:9px;">
-<span style="color:#888;font-size:14px;">
+return`
+<div style="
+display:block;
+margin-bottom:9px;
+line-height:1.45;
+">
+
+<span style="
+color:#888;
+font-size:14px;
+">
 ${escapeHtml(name)}
 </span>
+
 <br>
-<span style="color:#fff;font-weight:700;font-size:14px;">
+
+<span style="
+color:#fff;
+font-weight:700;
+font-size:14px;
+">
 ${price.price.toFixed(2)} AZN
 </span>
-<span style="color:#666;font-size:12px;margin-left:4px;">
+
+<span style="
+color:#666;
+font-size:12px;
+margin-left:4px;
+">
 ${escapeHtml(durationText(duration))}
 </span>
+
 </div>
 `;
 
@@ -2075,7 +2250,6 @@ ${escapeHtml(durationText(duration))}
 .join("");
 
 }
-
 
 /* =========================================================
    MƏHSULLARI GÖSTƏR
