@@ -2185,6 +2185,12 @@ supabaseClient.auth.onAuthStateChange(
 let siteProducts=[];
 let productPrices={};
 
+function priceKey(key){
+  return String(key ?? "")
+    .trim()
+    .toLowerCase();
+}
+
 function getProductName(product){
 
   const lang=
@@ -2284,20 +2290,21 @@ function getDurations(product){
 
     [1,2,3,12].forEach(month=>{
 
+      const row=
+        productPrices[
+          priceKey(product.product_key)
+        ];
+
       const price=
         Number(
-          productPrices[
-            String(product.product_key)
-          ]?.[
+          row?.[
             "price_"+month+"_month"
           ] || 0
         );
 
       const sale=
         Number(
-          productPrices[
-            String(product.product_key)
-          ]?.[
+          row?.[
             "sale_"+month+"_price"
           ] || 0
         );
@@ -2360,7 +2367,7 @@ function getPriceData(
 
   const row=
     productPrices[
-      String(productKey)
+      priceKey(productKey)
     ];
 
   if(!row){
@@ -2384,7 +2391,10 @@ function getPriceData(
   const saleActive=
     row[
       "sale_"+month+"_active"
-    ] === true;
+    ] === true ||
+    row[
+      "sale_"+month+"_active"
+    ] === "true";
 
   if(
     saleActive &&
@@ -2717,7 +2727,9 @@ function updateCard(
     card.dataset.productKey;
 
   const row=
-    productPrices[key];
+    productPrices[
+      priceKey(key)
+    ];
 
   const selected=
     card.querySelector(
@@ -2979,7 +2991,7 @@ async function loadProductPrices(){
   (data || []).forEach(row=>{
 
     productPrices[
-      String(row.product_key)
+      priceKey(row.product_key)
     ]=row;
 
   });
@@ -3088,6 +3100,11 @@ function renderFooter(){
 
       })
       .join("");
+
+  /*
+    BU HİSSƏ ARTİQ ADMIN PANELDƏKİ
+    AKTİV MƏHSULLARDAN AVTOMATİK GƏLİR.
+  */
 
   if(namesBox){
 
