@@ -4705,3 +4705,2302 @@ init();
 
 </body>
 </html>
+<!-- =========================================================
+     2-Cİ HİSSƏ
+     ========================================================= -->
+
+<script>
+
+/* =========================================================
+   FAQ — DÜZƏLDİLMİŞ VERSİYA
+   ========================================================= */
+
+async function loadProductFaq(){
+
+    if(!productKey)
+        return [];
+
+    const lang = getLanguage();
+
+    const {
+        data,
+        error
+    } = await supabaseClient
+        .from("site_faqs")
+        .select("*")
+        .eq("product_key", productKey)
+        .eq("language", lang)
+        .eq("active", true)
+        .order("sort_order", {
+            ascending: true
+        })
+        .order("created_at", {
+            ascending: true
+        });
+
+    if(error){
+
+        console.error(
+            "FAQ yüklənmə xətası:",
+            error
+        );
+
+        return [];
+
+    }
+
+    return data || [];
+
+}
+
+
+/* =========================================================
+   FAQ GÖSTƏR
+   ========================================================= */
+
+async function renderFaq(){
+
+    const faqList =
+        document.getElementById("faqList");
+
+    if(!faqList)
+        return;
+
+    const faqData =
+        await loadProductFaq();
+
+    faqList.innerHTML = "";
+
+    if(!faqData.length){
+
+        faqList.innerHTML = `
+            <div
+                style="
+                    background:#101010;
+                    border:1px solid #252525;
+                    border-radius:12px;
+                    padding:18px;
+                    color:#777;
+                ">
+                FAQ məlumatı yoxdur.
+            </div>
+        `;
+
+        return;
+
+    }
+
+    faqData.forEach(function(item){
+
+        const faqItem =
+            document.createElement("div");
+
+        faqItem.className =
+            "faq-item";
+
+        faqItem.innerHTML = `
+
+            <button
+                class="faq-question"
+                type="button">
+
+                <span>
+                    ${escapeHtml(
+                        item.question || ""
+                    )}
+                </span>
+
+                <span class="faq-plus">
+                    +
+                </span>
+
+            </button>
+
+            <div class="faq-answer">
+                ${escapeHtml(
+                    item.answer || ""
+                )}
+            </div>
+
+        `;
+
+        const question =
+            faqItem.querySelector(
+                ".faq-question"
+            );
+
+        const plus =
+            faqItem.querySelector(
+                ".faq-plus"
+            );
+
+        question.onclick = function(){
+
+            faqItem.classList.toggle(
+                "open"
+            );
+
+            plus.textContent =
+                faqItem.classList.contains(
+                    "open"
+                )
+                ? "−"
+                : "+";
+
+        };
+
+        faqList.appendChild(
+            faqItem
+        );
+
+    });
+
+}
+
+
+/* =========================================================
+   ESCAPE HTML
+   ========================================================= */
+
+function escapeHtml(value){
+
+    return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+/* =========================================================
+   SEO TITLE
+   ========================================================= */
+
+function getSeoTitle(){
+
+    if(!product){
+
+        return
+            "DigiBaku.com | Premium rəqəmsal xidmətlər";
+
+    }
+
+    const name =
+        getProductName();
+
+    const lang =
+        getLanguage();
+
+    if(lang === "ru"){
+
+        return (
+            name +
+            " — Продажа и цена | DigiBaku"
+        );
+
+    }
+
+    if(lang === "en"){
+
+        return (
+            name +
+            " — Sale & Price | DigiBaku"
+        );
+
+    }
+
+    return (
+        name +
+        " — Satış və Qiymət | DigiBaku"
+    );
+
+}
+
+
+/* =========================================================
+   SEO DESCRIPTION
+   ========================================================= */
+
+function getSeoDescription(){
+
+    if(!product){
+
+        return (
+            "DigiBaku.com — Azərbaycanda premium "
+            +
+            "rəqəmsal xidmətlər, satış, paketlər və qiymətlər."
+        );
+
+    }
+
+    const name =
+        getProductName();
+
+    const lang =
+        getLanguage();
+
+    if(lang === "ru"){
+
+        return (
+            name +
+            " — премиум цифровая услуга в Азербайджане. "
+            +
+            "Продажа, пакеты, цены и сроки на DigiBaku.com."
+        );
+
+    }
+
+    if(lang === "en"){
+
+        return (
+            name +
+            " — premium digital service in Azerbaijan. "
+            +
+            "Sale, packages, prices and durations on DigiBaku.com."
+        );
+
+    }
+
+    return (
+        name +
+        " — Azərbaycanda premium rəqəmsal xidmət. "
+        +
+        "Satış, paketlər, qiymətlər və müddət seçimləri DigiBaku.com-da."
+    );
+
+}
+
+
+/* =========================================================
+   SEO YENİLƏ
+   ========================================================= */
+
+function updateSEO(){
+
+    if(!product)
+        return;
+
+    const seoTitle =
+        getSeoTitle();
+
+    const seoDescription =
+        getSeoDescription();
+
+    const canonical =
+        "https://digibaku.com/product.html?product="
+        +
+        encodeURIComponent(
+            productKey
+        );
+
+    const rawImage =
+        product.image_url || "";
+
+    const image =
+        rawImage.startsWith("http")
+        ?
+        rawImage
+        :
+        "https://digibaku.com/"
+        +
+        rawImage.replace(
+            /^\//,
+            ""
+        );
+
+    document.title =
+        seoTitle;
+
+
+    /* META DESCRIPTION */
+
+    const description =
+        document.getElementById(
+            "metaDescription"
+        );
+
+    if(description){
+
+        description.content =
+            seoDescription;
+
+    }
+
+
+    /* CANONICAL */
+
+    const canonicalLink =
+        document.getElementById(
+            "canonicalLink"
+        );
+
+    if(canonicalLink){
+
+        canonicalLink.href =
+            canonical;
+
+    }
+
+
+    /* OPEN GRAPH */
+
+    const ogTitle =
+        document.getElementById(
+            "ogTitle"
+        );
+
+    if(ogTitle){
+
+        ogTitle.content =
+            seoTitle;
+
+    }
+
+
+    const ogDescription =
+        document.getElementById(
+            "ogDescription"
+        );
+
+    if(ogDescription){
+
+        ogDescription.content =
+            seoDescription;
+
+    }
+
+
+    const ogUrl =
+        document.getElementById(
+            "ogUrl"
+        );
+
+    if(ogUrl){
+
+        ogUrl.content =
+            canonical;
+
+    }
+
+
+    const ogImage =
+        document.getElementById(
+            "ogImage"
+        );
+
+    if(ogImage){
+
+        ogImage.content =
+            image;
+
+    }
+
+
+    /* TWITTER */
+
+    const twitterTitle =
+        document.getElementById(
+            "twitterTitle"
+        );
+
+    if(twitterTitle){
+
+        twitterTitle.content =
+            seoTitle;
+
+    }
+
+
+    const twitterDescription =
+        document.getElementById(
+            "twitterDescription"
+        );
+
+    if(twitterDescription){
+
+        twitterDescription.content =
+            seoDescription;
+
+    }
+
+
+    const twitterImage =
+        document.getElementById(
+            "twitterImage"
+        );
+
+    if(twitterImage){
+
+        twitterImage.content =
+            image;
+
+    }
+
+
+    /* PRODUCT SCHEMA */
+
+    const schema = {
+
+        "@context":
+            "https://schema.org",
+
+        "@type":
+            "Product",
+
+        "name":
+            getProductName(),
+
+        "description":
+            seoDescription,
+
+        "image":[
+            image
+        ],
+
+        "url":
+            canonical,
+
+        "brand":{
+            "@type":
+                "Brand",
+            "name":
+                "DigiBaku"
+        },
+
+        "offers":{
+            "@type":
+                "Offer",
+
+            "url":
+                canonical,
+
+            "priceCurrency":
+                "AZN",
+
+            "availability":
+                "https://schema.org/InStock"
+        }
+
+    };
+
+
+    const packages =
+        buildPackages();
+
+
+    if(packages.length){
+
+        const firstPrice =
+            getCurrentPackagePrice(
+                packages[0]
+            );
+
+        if(
+            firstPrice.price > 0
+        ){
+
+            schema.offers.price =
+                Number(
+                    firstPrice.price
+                ).toFixed(2);
+
+        }
+
+    }
+
+
+    const schemaElement =
+        document.getElementById(
+            "productSchema"
+        );
+
+    if(schemaElement){
+
+        schemaElement.textContent =
+            JSON.stringify(
+                schema
+            );
+
+    }
+
+}
+
+
+/* =========================================================
+   DİL
+   ========================================================= */
+
+function setLanguage(lang){
+
+    if(
+        !translations[lang]
+    ){
+
+        lang = "az";
+
+    }
+
+    localStorage.setItem(
+        "digi_language",
+        lang
+    );
+
+    applyLanguage();
+
+    checkLogin();
+
+}
+
+
+/* =========================================================
+   DİL TƏTBİQİ
+   ========================================================= */
+
+async function applyLanguage(){
+
+    const lang =
+        getLanguage();
+
+    document.documentElement.lang =
+        lang;
+
+
+    document
+        .querySelectorAll(
+            "[data-i18n]"
+        )
+        .forEach(
+            function(element){
+
+                const key =
+                    element.getAttribute(
+                        "data-i18n"
+                    );
+
+                element.textContent =
+                    t(key);
+
+            }
+        );
+
+
+    const cartTitle =
+        document.getElementById(
+            "cartTitle"
+        );
+
+    if(cartTitle)
+        cartTitle.textContent =
+            t("cartTitle");
+
+
+    const emptyCartText =
+        document.getElementById(
+            "emptyCartText"
+        );
+
+    if(emptyCartText)
+        emptyCartText.textContent =
+            t("emptyCart");
+
+
+    const totalText =
+        document.getElementById(
+            "totalText"
+        );
+
+    if(totalText)
+        totalText.textContent =
+            t("total");
+
+
+    const checkoutButton =
+        document.getElementById(
+            "checkoutButton"
+        );
+
+    if(checkoutButton)
+        checkoutButton.textContent =
+            t("checkout");
+
+
+    const premiumBadge =
+        document.getElementById(
+            "premiumBadge"
+        );
+
+    if(premiumBadge)
+        premiumBadge.textContent =
+            t("premiumService");
+
+
+    const packageTitle =
+        document.getElementById(
+            "packageTitle"
+        );
+
+    if(packageTitle)
+        packageTitle.textContent =
+            t("packageTitle");
+
+
+    const buyButton =
+        document.getElementById(
+            "buyButton"
+        );
+
+    if(buyButton)
+        buyButton.textContent =
+            t("buyNow");
+
+
+    const addCartButton =
+        document.getElementById(
+            "addCartButton"
+        );
+
+    if(addCartButton)
+        addCartButton.textContent =
+            t("addToCart");
+
+
+    const safetyText =
+        document.getElementById(
+            "safetyText"
+        );
+
+    if(safetyText)
+        safetyText.textContent =
+            t("safety");
+
+
+    const faqTitle =
+        document.getElementById(
+            "faqTitle"
+        );
+
+    if(faqTitle)
+        faqTitle.textContent =
+            t("faqTitle");
+
+
+    const faqSubtitle =
+        document.getElementById(
+            "faqSubtitle"
+        );
+
+    if(faqSubtitle)
+        faqSubtitle.textContent =
+            t("faqSubtitle");
+
+
+    const reviewsTitle =
+        document.getElementById(
+            "reviewsTitle"
+        );
+
+    if(reviewsTitle)
+        reviewsTitle.textContent =
+            t("reviewsTitle");
+
+
+    const reviewsSubtitle =
+        document.getElementById(
+            "reviewsSubtitle"
+        );
+
+    if(reviewsSubtitle)
+        reviewsSubtitle.textContent =
+            t("reviewsSubtitle");
+
+
+    const articlesTitle =
+        document.getElementById(
+            "articlesTitle"
+        );
+
+    if(articlesTitle)
+        articlesTitle.textContent =
+            t("articlesTitle");
+
+
+    const articlesSubtitle =
+        document.getElementById(
+            "articlesSubtitle"
+        );
+
+    if(articlesSubtitle)
+        articlesSubtitle.textContent =
+            t("articlesSubtitle");
+
+
+    const guidesTitle =
+        document.getElementById(
+            "guidesTitle"
+        );
+
+    if(guidesTitle)
+        guidesTitle.textContent =
+            t("guidesTitle");
+
+
+    const trustTitle =
+        document.getElementById(
+            "trustTitle"
+        );
+
+    if(trustTitle)
+        trustTitle.textContent =
+            t("trustTitle");
+
+
+    const trustSubtitle =
+        document.getElementById(
+            "trustSubtitle"
+        );
+
+    if(trustSubtitle)
+        trustSubtitle.textContent =
+            t("trustSubtitle");
+
+
+    const fastTitle =
+        document.getElementById(
+            "fastTitle"
+        );
+
+    if(fastTitle)
+        fastTitle.textContent =
+            t("fastTitle");
+
+
+    const fastText =
+        document.getElementById(
+            "fastText"
+        );
+
+    if(fastText)
+        fastText.textContent =
+            t("fastText");
+
+
+    const secureTitle =
+        document.getElementById(
+            "secureTitle"
+        );
+
+    if(secureTitle)
+        secureTitle.textContent =
+            t("secureTitle");
+
+
+    const secureText =
+        document.getElementById(
+            "secureText"
+        );
+
+    if(secureText)
+        secureText.textContent =
+            t("secureText");
+
+
+    const supportTitle =
+        document.getElementById(
+            "supportTitle"
+        );
+
+    if(supportTitle)
+        supportTitle.textContent =
+            t("supportTitle");
+
+
+    const supportText =
+        document.getElementById(
+            "supportText"
+        );
+
+    if(supportText)
+        supportText.textContent =
+            t("supportText");
+
+
+    const otherTitle =
+        document.getElementById(
+            "otherTitle"
+        );
+
+    if(otherTitle)
+        otherTitle.textContent =
+            t("otherTitle");
+
+
+    const otherSubtitle =
+        document.getElementById(
+            "otherSubtitle"
+        );
+
+    if(otherSubtitle)
+        otherSubtitle.textContent =
+            t("otherSubtitle");
+
+
+    const footerText =
+        document.getElementById(
+            "footerText"
+        );
+
+    if(footerText)
+        footerText.textContent =
+            t("footer");
+
+
+    ["az","ru","en"].forEach(
+        function(code){
+
+            const button =
+                document.getElementById(
+                    code+"Btn"
+                );
+
+            if(button)
+                button.classList.remove(
+                    "active"
+                );
+
+        }
+    );
+
+
+    const currentLanguageButton =
+        document.getElementById(
+            lang+"Btn"
+        );
+
+    if(currentLanguageButton)
+        currentLanguageButton.classList.add(
+            "active"
+        );
+
+
+    if(product){
+
+        const productName =
+            document.getElementById(
+                "productName"
+            );
+
+        if(productName)
+            productName.textContent =
+                getProductName();
+
+
+        const breadcrumb =
+            document.getElementById(
+                "breadcrumb"
+            );
+
+        if(breadcrumb)
+            breadcrumb.textContent =
+                getProductName();
+
+
+        const shortDescription =
+            document.getElementById(
+                "shortDescription"
+            );
+
+        if(shortDescription)
+            shortDescription.textContent =
+                getProductDescription();
+
+
+        const productImage =
+            document.getElementById(
+                "productImage"
+            );
+
+        if(productImage)
+            productImage.alt =
+                getProductName();
+
+    }
+
+
+    showPackages();
+
+    updateSelected();
+
+    updateSEO();
+
+    await renderFaq();
+
+    renderReviews();
+
+    renderArticles();
+
+    renderGuides();
+
+    renderOtherProducts();
+
+    updateCartUI();
+
+}
+
+
+/* =========================================================
+   MƏHSUL SƏHİFƏSİ
+   ========================================================= */
+
+async function renderProductPage(){
+
+    if(!product)
+        return;
+
+
+    const productName =
+        document.getElementById(
+            "productName"
+        );
+
+    if(productName)
+        productName.textContent =
+            getProductName();
+
+
+    const breadcrumb =
+        document.getElementById(
+            "breadcrumb"
+        );
+
+    if(breadcrumb)
+        breadcrumb.textContent =
+            getProductName();
+
+
+    const productImage =
+        document.getElementById(
+            "productImage"
+        );
+
+    if(productImage){
+
+        productImage.src =
+            getProductImage();
+
+        productImage.alt =
+            getProductName();
+
+    }
+
+
+    const shortDescription =
+        document.getElementById(
+            "shortDescription"
+        );
+
+    if(shortDescription)
+        shortDescription.textContent =
+            getProductDescription();
+
+
+    const rating =
+        document.getElementById(
+            "rating"
+        );
+
+    if(rating)
+        rating.textContent =
+            "5.0";
+
+
+    const content =
+        document.getElementById(
+            "content"
+        );
+
+    if(content)
+        content.innerHTML =
+            getDynamicContent();
+
+
+    showPackages();
+
+    updateSelected();
+
+    await renderFaq();
+
+    renderReviews();
+
+    renderArticles();
+
+    renderGuides();
+
+    renderOtherProducts();
+
+    updateSEO();
+
+}
+
+
+/* =========================================================
+   DİNAMİK MƏHSUL MƏTNİ
+   ========================================================= */
+
+function getDynamicContent(){
+
+    if(!product)
+        return "";
+
+
+    const name =
+        getProductName();
+
+    const description =
+        getProductDescription();
+
+    const lang =
+        getLanguage();
+
+
+    if(lang === "ru"){
+
+        return `
+
+            <h2>
+                ${escapeHtml(name)} — премиум услуга
+            </h2>
+
+            <p>
+                ${escapeHtml(description)}
+            </p>
+
+            <h2>
+                Продажа и цена
+            </h2>
+
+            <p>
+                ${escapeHtml(name)}
+                доступен для заказа на DigiBaku.com.
+                Актуальные пакеты, сроки и цены
+                отображаются непосредственно из
+                системы сайта.
+            </p>
+
+            <h2>
+                ${escapeHtml(name)} в Азербайджане
+            </h2>
+
+            <p>
+                Премиум цифровая услуга доступна
+                пользователям в Азербайджане.
+                Выберите подходящий пакет и срок,
+                затем оформите заказ.
+            </p>
+
+        `;
+
+    }
+
+
+    if(lang === "en"){
+
+        return `
+
+            <h2>
+                ${escapeHtml(name)} — premium service
+            </h2>
+
+            <p>
+                ${escapeHtml(description)}
+            </p>
+
+            <h2>
+                Sale and price
+            </h2>
+
+            <p>
+                ${escapeHtml(name)}
+                is available for order on DigiBaku.com.
+                Current packages, durations and prices
+                are displayed directly from the website
+                system.
+            </p>
+
+            <h2>
+                ${escapeHtml(name)} in Azerbaijan
+            </h2>
+
+            <p>
+                The premium digital service is available
+                for users in Azerbaijan.
+                Choose the package and duration that
+                suits you and place your order.
+            </p>
+
+        `;
+
+    }
+
+
+    return `
+
+        <h2>
+            ${escapeHtml(name)} — premium xidmət
+        </h2>
+
+        <p>
+            ${escapeHtml(description)}
+        </p>
+
+        <h2>
+            Satış və qiymət
+        </h2>
+
+        <p>
+            ${escapeHtml(name)}
+            DigiBaku.com-da satış üçün təqdim olunur.
+            Cari paketlər, müddətlər və qiymətlər
+            birbaşa saytın sistemindən göstərilir.
+        </p>
+
+        <h2>
+            ${escapeHtml(name)} Azərbaycan
+        </h2>
+
+        <p>
+            Premium rəqəmsal xidmət Azərbaycandakı
+            istifadəçilər üçün təqdim olunur.
+            Sizə uyğun paket və müddəti seçərək
+            sifariş yarada bilərsiniz.
+        </p>
+
+    `;
+
+}
+
+
+/* =========================================================
+   RƏYLƏR
+   ========================================================= */
+
+function renderReviews(){
+
+    const reviewsGrid =
+        document.getElementById(
+            "reviewsGrid"
+        );
+
+    if(!reviewsGrid)
+        return;
+
+
+    const name =
+        getProductName();
+
+    const lang =
+        getLanguage();
+
+
+    let text;
+    let role;
+
+
+    if(lang === "ru"){
+
+        text =
+            "Удобный сервис и простой процесс заказа.";
+
+        role =
+            name;
+
+    }
+    else if(lang === "en"){
+
+        text =
+            "Convenient service and simple ordering process.";
+
+        role =
+            name;
+
+    }
+    else{
+
+        text =
+            "Rahat xidmət və sadə sifariş prosesi.";
+
+        role =
+            name;
+
+    }
+
+
+    reviewsGrid.innerHTML = `
+
+        <div class="review-card">
+
+            <div class="review-stars">
+                ★★★★★
+            </div>
+
+            <div class="review-text">
+                ${escapeHtml(text)}
+            </div>
+
+            <div class="review-name">
+                Orxan
+            </div>
+
+            <div class="review-role">
+                ${escapeHtml(role)}
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   MƏQALƏLƏR
+   ========================================================= */
+
+function renderArticles(){
+
+    const articlesGrid =
+        document.getElementById(
+            "articlesGrid"
+        );
+
+    if(!articlesGrid)
+        return;
+
+
+    const name =
+        getProductName();
+
+    const lang =
+        getLanguage();
+
+
+    let title;
+    let text;
+
+
+    if(lang === "ru"){
+
+        title =
+            name +
+            " — информация";
+
+        text =
+            "Полезная информация о премиум-услуге.";
+
+    }
+    else if(lang === "en"){
+
+        title =
+            name +
+            " — information";
+
+        text =
+            "Useful information about the premium service.";
+
+    }
+    else{
+
+        title =
+            name +
+            " — məlumat";
+
+        text =
+            "Premium xidmət haqqında faydalı məlumat.";
+
+    }
+
+
+    articlesGrid.innerHTML = `
+
+        <div class="article-card">
+
+            <h3>
+                ${escapeHtml(title)}
+            </h3>
+
+            <p>
+                ${escapeHtml(text)}
+            </p>
+
+            <div class="article-date">
+                2026
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   BƏLƏDÇİLƏR
+   ========================================================= */
+
+function renderGuides(){
+
+    const guidesList =
+        document.getElementById(
+            "guidesList"
+        );
+
+    if(!guidesList)
+        return;
+
+
+    const name =
+        getProductName();
+
+    const lang =
+        getLanguage();
+
+
+    let text;
+
+
+    if(lang === "ru"){
+
+        text =
+            "Руководство по использованию "
+            +
+            name;
+
+    }
+    else if(lang === "en"){
+
+        text =
+            name +
+            " usage guide";
+
+    }
+    else{
+
+        text =
+            name +
+            " istifadə bələdçisi";
+
+    }
+
+
+    guidesList.innerHTML = `
+
+        <div class="guide-card">
+            ${escapeHtml(text)}
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   DİGƏR MƏHSULLARI YÜKLƏ
+   ========================================================= */
+
+async function loadOtherProducts(){
+
+    const {
+        data,
+        error
+    } =
+        await supabaseClient
+            .from("site_products")
+            .select("*")
+            .eq("active", true)
+            .order(
+                "created_at",
+                {
+                    ascending:true
+                }
+            );
+
+
+    if(error){
+
+        console.error(
+            "Digər məhsullar yüklənmədi:",
+            error
+        );
+
+        return;
+
+    }
+
+
+    siteProducts =
+        data || [];
+
+
+    renderOtherProducts();
+
+}
+
+
+/* =========================================================
+   DİGƏR MƏHSULLARI GÖSTƏR
+   ========================================================= */
+
+function renderOtherProducts(){
+
+    const grid =
+        document.getElementById(
+            "otherProductsGrid"
+        );
+
+    if(!grid)
+        return;
+
+
+    const list =
+        siteProducts.filter(
+            function(p){
+
+                return (
+                    p.product_key !== productKey &&
+                    p.active !== false
+                );
+
+            }
+        );
+
+
+    if(!list.length){
+
+        grid.innerHTML = "";
+
+        return;
+
+    }
+
+
+    grid.innerHTML =
+        list.map(
+            function(p){
+
+                const name =
+                    getSiteProductName(p);
+
+                const image =
+                    p.image_url || "";
+
+
+                return `
+
+                    <div class="other-card">
+
+                        <img
+                            src="${escapeHtml(image)}"
+                            alt="${escapeHtml(name)}"
+                        >
+
+                        <h3>
+                            ${escapeHtml(name)}
+                        </h3>
+
+                        <a
+                            href="product.html?product=${encodeURIComponent(
+                                p.product_key || ""
+                            )}"
+                        >
+                            ${t("viewDetails")}
+                        </a>
+
+                    </div>
+
+                `;
+
+            }
+        ).join("");
+
+}
+
+
+/* =========================================================
+   SAYT MƏHSUL ADI
+   ========================================================= */
+
+function getSiteProductName(p){
+
+    const lang =
+        getLanguage();
+
+
+    if(lang === "ru"){
+
+        return (
+            p.name_ru ||
+            p.name ||
+            p.name_az ||
+            ""
+        );
+
+    }
+
+
+    if(lang === "en"){
+
+        return (
+            p.name_en ||
+            p.name ||
+            p.name_az ||
+            ""
+        );
+
+    }
+
+
+    return (
+        p.name_az ||
+        p.name ||
+        p.name_ru ||
+        ""
+    );
+
+}
+
+
+/* =========================================================
+   REALTIME
+   ========================================================= */
+
+let productChannel = null;
+
+
+function setupProductRealtime(){
+
+    if(productChannel){
+
+        try{
+
+            supabaseClient.removeChannel(
+                productChannel
+            );
+
+        }
+        catch(error){
+
+            console.warn(error);
+
+        }
+
+        productChannel = null;
+
+    }
+
+
+    if(!productKey)
+        return;
+
+
+    productChannel =
+        supabaseClient
+            .channel(
+                "product-page-" +
+                productKey
+            )
+
+
+            /* SITE PRODUCTS */
+
+            .on(
+                "postgres_changes",
+                {
+                    event:"*",
+                    schema:"public",
+                    table:"site_products",
+                    filter:
+                        "product_key=eq." +
+                        productKey
+                },
+                async function(payload){
+
+                    if(
+                        payload.eventType ===
+                        "DELETE"
+                    ){
+
+                        showProductError();
+
+                        return;
+
+                    }
+
+
+                    if(payload.new){
+
+                        if(
+                            payload.new.active ===
+                            false
+                        ){
+
+                            showProductError();
+
+                            return;
+
+                        }
+
+
+                        product =
+                            payload.new;
+
+
+                        await loadProductPrices();
+
+                        await renderProductPage();
+
+                    }
+
+                }
+            )
+
+
+            /* PRODUCT PRICES */
+
+            .on(
+                "postgres_changes",
+                {
+                    event:"*",
+                    schema:"public",
+                    table:"product_prices",
+                    filter:
+                        "product_key=eq." +
+                        productKey
+                },
+                async function(payload){
+
+                    if(payload.new){
+
+                        productPriceData =
+                            payload.new;
+
+                        showPackages();
+
+                        updateSelected();
+
+                        updateSEO();
+
+                    }
+
+                }
+            )
+
+
+            /* FAQ */
+
+            .on(
+                "postgres_changes",
+                {
+                    event:"*",
+                    schema:"public",
+                    table:"site_faqs",
+                    filter:
+                        "product_key=eq." +
+                        productKey
+                },
+                async function(){
+
+                    await renderFaq();
+
+                }
+            )
+
+
+            .subscribe(
+                function(status){
+
+                    console.log(
+                        "Product realtime:",
+                        status
+                    );
+
+                }
+            );
+
+}
+
+
+/* =========================================================
+   CART
+   ========================================================= */
+
+let cart =
+    JSON.parse(
+        localStorage.getItem(
+            "digi_cart"
+        )
+    ) || [];
+
+
+/* =========================================================
+   CART AÇ / BAĞLA
+   ========================================================= */
+
+function toggleCart(){
+
+    const modal =
+        document.getElementById(
+            "cartModal"
+        );
+
+    if(!modal)
+        return;
+
+
+    if(
+        modal.style.display ===
+        "block"
+    ){
+
+        modal.style.display =
+            "none";
+
+    }
+    else{
+
+        modal.style.display =
+            "block";
+
+        updateCartUI();
+
+    }
+
+}
+
+
+/* =========================================================
+   CART-A ƏLAVƏ ET
+   ========================================================= */
+
+function addToCart(){
+
+    if(!product)
+        return;
+
+
+    const packages =
+        buildPackages();
+
+
+    if(!packages.length){
+
+        alert(
+            "Bu məhsul üçün qiymət yoxdur."
+        );
+
+        return;
+
+    }
+
+
+    const item =
+        packages[
+            selectedPackage
+        ];
+
+
+    const current =
+        getCurrentPackagePrice(
+            item
+        );
+
+
+    if(
+        !current.price ||
+        current.price <= 0
+    ){
+
+        alert(
+            "Bu məhsul üçün qiymət yoxdur."
+        );
+
+        return;
+
+    }
+
+
+    cart.push({
+
+        product_key:
+            product.product_key,
+
+        name:
+            getProductName()
+            +
+            " ("
+            +
+            getPackageName(item)
+            +
+            ")",
+
+        price:
+            current.price
+
+    });
+
+
+    localStorage.setItem(
+        "digi_cart",
+        JSON.stringify(cart)
+    );
+
+
+    updateCartCount();
+
+    alert(
+        t("cartProductAdded")
+    );
+
+}
+
+
+/* =========================================================
+   CART SAY
+   ========================================================= */
+
+function updateCartCount(){
+
+    const countEl =
+        document.getElementById(
+            "cartCount"
+        );
+
+
+    if(countEl){
+
+        countEl.textContent =
+            cart.length;
+
+    }
+
+}
+
+
+/* =========================================================
+   CART UI
+   ========================================================= */
+
+function updateCartUI(){
+
+    const list =
+        document.getElementById(
+            "cartItemsList"
+        );
+
+    const totalPriceEl =
+        document.getElementById(
+            "cartTotalPrice"
+        );
+
+
+    if(
+        !list ||
+        !totalPriceEl
+    )
+        return;
+
+
+    if(
+        cart.length === 0
+    ){
+
+        list.innerHTML = `
+
+            <p
+                style="
+                    color:#777;
+                    text-align:center;
+                "
+            >
+                ${t("emptyCart")}
+            </p>
+
+        `;
+
+
+        totalPriceEl.textContent =
+            "0.00 AZN";
+
+
+        return;
+
+    }
+
+
+    let html = "";
+
+    let total = 0;
+
+
+    cart.forEach(
+        function(item,index){
+
+            total +=
+                Number(
+                    item.price || 0
+                );
+
+
+            html += `
+
+                <div
+                    style="
+                        background:#080808;
+                        border:1px solid #222;
+                        border-radius:10px;
+                        padding:12px;
+                        margin-bottom:10px;
+                        display:flex;
+                        justify-content:space-between;
+                        align-items:center;
+                    "
+                >
+
+                    <div>
+
+                        <div
+                            style="
+                                font-weight:bold;
+                                color:#60a5fa;
+                                font-size:14px;
+                            "
+                        >
+                            ${escapeHtml(
+                                item.name
+                            )}
+                        </div>
+
+                        <div
+                            style="
+                                color:#888;
+                                font-size:12px;
+                                margin-top:4px;
+                            "
+                        >
+                            ${Number(
+                                item.price
+                            ).toFixed(2)}
+                            AZN
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        onclick="removeFromCart(${index})"
+                        style="
+                            background:none;
+                            border:none;
+                            color:#ef4444;
+                            cursor:pointer;
+                            font-size:13px;
+                        "
+                    >
+                        ${t("remove")}
+                    </button>
+
+                </div>
+
+            `;
+
+        }
+    );
+
+
+    list.innerHTML =
+        html;
+
+
+    totalPriceEl.textContent =
+        total.toFixed(2) +
+        " AZN";
+
+}
+
+
+/* =========================================================
+   CART-DAN SİL
+   ========================================================= */
+
+function removeFromCart(index){
+
+    cart.splice(
+        index,
+        1
+    );
+
+
+    localStorage.setItem(
+        "digi_cart",
+        JSON.stringify(cart)
+    );
+
+
+    updateCartCount();
+
+    updateCartUI();
+
+}
+
+
+/* =========================================================
+   İNDİ AL
+   ========================================================= */
+
+function buyNow(){
+
+    if(!product)
+        return;
+
+
+    const packages =
+        buildPackages();
+
+
+    if(!packages.length){
+
+        alert(
+            "Bu məhsul üçün qiymət yoxdur."
+        );
+
+        return;
+
+    }
+
+
+    const item =
+        packages[
+            selectedPackage
+        ];
+
+
+    const current =
+        getCurrentPackagePrice(
+            item
+        );
+
+
+    if(
+        !current.price ||
+        current.price <= 0
+    ){
+
+        alert(
+            "Bu məhsul üçün qiymət yoxdur."
+        );
+
+        return;
+
+    }
+
+
+    const phone =
+        "994513626349";
+
+
+    const message =
+        t("orderMessage")
+        +
+        t("productLabel")
+        +
+        " "
+        +
+        getProductName()
+        +
+        "\n"
+        +
+        t("periodLabel")
+        +
+        " "
+        +
+        getPackageName(item)
+        +
+        "\n"
+        +
+        t("priceLabel")
+        +
+        " "
+        +
+        current.price.toFixed(2)
+        +
+        " AZN";
+
+
+    window.location.href =
+        "https://wa.me/"
+        +
+        phone
+        +
+        "?text="
+        +
+        encodeURIComponent(
+            message
+        );
+
+}
+
+
+/* =========================================================
+   CART CHECKOUT
+   ========================================================= */
+
+function checkoutCart(){
+
+    if(
+        cart.length === 0
+    ){
+
+        alert(
+            t("emptyCartAlert")
+        );
+
+        return;
+
+    }
+
+
+    let message =
+        t("cartOrderMessage");
+
+
+    let total = 0;
+
+
+    cart.forEach(
+        function(item,index){
+
+            message +=
+                (
+                    index + 1
+                )
+                +
+                ". "
+                +
+                item.name
+                +
+                " - "
+                +
+                Number(
+                    item.price
+                ).toFixed(2)
+                +
+                " AZN\n";
+
+
+            total +=
+                Number(
+                    item.price || 0
+                );
+
+        }
+    );
+
+
+    message +=
+        "\n"
+        +
+        t("totalAmount")
+        +
+        " "
+        +
+        total.toFixed(2)
+        +
+        " AZN";
+
+
+    const phone =
+        "994513626349";
+
+
+    const whatsappUrl =
+        "https://wa.me/"
+        +
+        phone
+        +
+        "?text="
+        +
+        encodeURIComponent(
+            message
+        );
+
+
+    cart = [];
+
+
+    localStorage.removeItem(
+        "digi_cart"
+    );
+
+
+    updateCartCount();
+
+    toggleCart();
+
+
+    window.location.href =
+        whatsappUrl;
+
+}
+
+
+/* =========================================================
+   BAŞLANĞIC
+   ========================================================= */
+
+async function init(){
+
+    updateCartCount();
+
+    await checkLogin();
+
+    await loadCurrentProduct();
+
+    await loadOtherProducts();
+
+    await applyLanguage();
+
+}
+
+
+init();
+
+
+/* =========================================================
+   SƏHİFƏ BAĞLANANDA REALTIME TƏMİZLƏ
+   ========================================================= */
+
+window.addEventListener(
+    "beforeunload",
+    function(){
+
+        if(productChannel){
+
+            try{
+
+                supabaseClient.removeChannel(
+                    productChannel
+                );
+
+            }
+            catch(error){
+
+                console.warn(error);
+
+            }
+
+        }
+
+    }
+);
+
+</script>
