@@ -113,9 +113,17 @@ body{
   font-family:Arial,Helvetica,sans-serif;
   line-height:1.65
 }
-a{color:inherit;text-decoration:none}
-button{font-family:inherit}
-.container{width:min(1200px,calc(100% - 32px));margin:auto}
+a{
+  color:inherit;
+  text-decoration:none
+}
+button{
+  font-family:inherit
+}
+.container{
+  width:min(1200px,calc(100% - 32px));
+  margin:auto
+}
 header{
   position:sticky;
   top:0;
@@ -137,13 +145,19 @@ header{
   color:#3b82f6
 }
 .logo span{color:#fff}
-.menu{display:flex;gap:22px}
+.menu{
+  display:flex;
+  gap:22px
+}
 .menu a{
   color:#aaa;
   font-size:14px;
   transition:.2s
 }
-.menu a:hover,.menu a.active{color:#3b82f6}
+.menu a:hover,
+.menu a.active{
+  color:#3b82f6
+}
 .header-right{
   display:flex;
   align-items:center;
@@ -164,7 +178,10 @@ header{
   font-size:14px;
   transition:.2s
 }
-.btn-primary{background:#2563eb;color:#fff}
+.btn-primary{
+  background:#2563eb;
+  color:#fff
+}
 .btn-primary:hover{background:#1d4ed8}
 .btn-dark{
   background:#151515;
@@ -259,7 +276,9 @@ header{
   visibility:visible;
   transform:translateY(0)
 }
-.about-dropdown:hover .about-dropdown-arrow{color:#3b82f6}
+.about-dropdown:hover .about-dropdown-arrow{
+  color:#3b82f6
+}
 .about-dropdown-menu a{
   display:block;
   padding:10px 12px;
@@ -327,7 +346,9 @@ header{
   height:34px;
   fill:#fff
 }
-main{padding:52px 0 80px}
+main{
+  padding:52px 0 80px
+}
 .breadcrumbs{
   color:#777;
   font-size:13px;
@@ -438,7 +459,9 @@ h2{
   display:block;
   font-size:14px
 }
-.duration-option small{color:#999}
+.duration-option small{
+  color:#999
+}
 .price-old{
   color:#777 !important;
   text-decoration:line-through;
@@ -480,20 +503,63 @@ h2{
   font-weight:400;
   margin-left:7px
 }
-.price-line .price-old{font-size:14px !important}
-.price-line .discount-badge{font-size:10px !important}
+.price-line .price-old{
+  font-size:14px !important
+}
+.price-line .discount-badge{
+  font-size:10px !important
+}
 .btn.card-order{
   margin-top:17px;
   display:inline-flex
 }
-.guide,.faq,.note{
+
+/* YENİ ƏLAVƏ OLUNAN QİYMƏTLƏR SİYAHISI */
+.live-prices-list{
+  margin-top:24px;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:16px;
+  overflow:hidden
+}
+.live-price-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  padding:16px 20px;
+  border-top:1px solid var(--border)
+}
+.live-price-row:first-child{
+  border-top:0
+}
+.live-price-product{
+  font-weight:700;
+  color:#ddd
+}
+.live-price-value{
+  white-space:nowrap;
+  font-weight:800
+}
+.live-price-empty{
+  color:#777;
+  font-weight:400
+}
+
+.guide,
+.faq,
+.note{
   margin-top:30px;
   background:var(--card);
   border:1px solid var(--border);
   border-radius:16px;
   padding:25px
 }
-.guide p,.faq p,.note{color:var(--muted)}
+.guide p,
+.faq p,
+.note{
+  color:var(--muted)
+}
 .steps{
   display:grid;
   grid-template-columns:repeat(4,1fr);
@@ -638,7 +704,9 @@ footer{
   .mobile-language button.active{color:#3b82f6}
   .mobile-language span{color:#333}
 }
-@media(max-width:1000px){.menu{display:none}}
+@media(max-width:1000px){
+  .menu{display:none}
+}
 @media(max-width:760px){
   .nav{min-height:65px}
   .logo{font-size:22px}
@@ -662,6 +730,12 @@ footer{
   .steps{grid-template-columns:1fr 1fr}
   .related{grid-template-columns:1fr}
   #cartModal{max-width:100%}
+
+  .live-price-row{
+    align-items:flex-start;
+    flex-direction:column;
+    gap:5px
+  }
 }
 @media(max-width:430px){
   .steps{grid-template-columns:1fr}
@@ -670,7 +744,8 @@ footer{
     bottom:15px;
     gap:8px
   }
-  .chat-float,.whatsapp-float{
+  .chat-float,
+  .whatsapp-float{
     width:52px;
     height:52px
   }
@@ -720,21 +795,34 @@ Haqqımızda
 Qiymətlər
 </a>
 
-<a href="index.html#blog" data-i18n="blog">Bloq</a>
-<a href="index.html#contact" data-i18n="contact">Əlaqə</a>
+<a href="index.html#blog" data-i18n="blog">
+Bloq
+</a>
+
+<a href="index.html#contact" data-i18n="contact">
+Əlaqə
+</a>
 </nav>
 
 <div class="header-right">
 
 <button onclick="toggleCart()" class="btn cart-btn">
 🛒
-<span data-i18n="cart">Səbət</span>
-<span id="cartCount" class="cart-count">0</span>
+<span data-i18n="cart">
+Səbət
+</span>
+<span id="cartCount" class="cart-count">
+0
+</span>
 </button>
 
 <div class="auth" id="authArea">
-<a href="login.html" class="btn btn-dark" data-i18n="login">Daxil ol</a>
-<a href="login.html" class="btn btn-primary" data-i18n="register">Qeydiyyat</a>
+<a href="login.html" class="btn btn-dark" data-i18n="login">
+Daxil ol
+</a>
+<a href="login.html" class="btn btn-primary" data-i18n="register">
+Qeydiyyat
+</a>
 </div>
 
 <div class="language-switcher">
@@ -755,14 +843,20 @@ Qiymətlər
 <span>|</span>
 <button onclick="setLang('en')" id="mobileLangEN">EN</button>
 </div>
+
 </header>
 
 
 <div id="cartModal">
 
 <div class="cart-header">
-<h2 data-i18n="yourCart">Səbətiniz</h2>
-<button onclick="toggleCart()" class="cart-close">✕</button>
+<h2 data-i18n="yourCart">
+Səbətiniz
+</h2>
+
+<button onclick="toggleCart()" class="cart-close">
+✕
+</button>
 </div>
 
 <div id="cartItemsList">
@@ -774,12 +868,19 @@ Səbətiniz boşdur
 <div class="cart-total">
 
 <div class="cart-total-row">
-<span data-i18n="total">Ümumi məbləğ:</span>
-<span id="cartTotalPrice">0.00 AZN</span>
+<span data-i18n="total">
+Ümumi məbləğ:
+</span>
+
+<span id="cartTotalPrice">
+0.00 AZN
+</span>
 </div>
 
 <button onclick="checkoutCart()" class="btn btn-primary" style="width:100%;">
-<span data-i18n="confirmOrder">Sifarişi təsdiq et</span>
+<span data-i18n="confirmOrder">
+Sifarişi təsdiq et
+</span>
 </button>
 
 </div>
@@ -787,17 +888,29 @@ Səbətiniz boşdur
 
 
 <main>
+
 <div class="container">
 
 <div class="breadcrumbs">
-<a href="index.html" data-i18n="home">Ana səhifə</a>
+
+<a href="index.html" data-i18n="home">
+Ana səhifə
+</a>
+
 <span>›</span>
-<span data-i18n="prices">Qiymətlər</span>
+
+<span data-i18n="prices">
+Qiymətlər
+</span>
+
 </div>
+
 
 <section class="hero">
 
-<div class="eyebrow">DigiBaku</div>
+<div class="eyebrow">
+DigiBaku
+</div>
 
 <h1 data-i18n="title">
 Premium abunəlik qiymətləri Azərbaycanda
@@ -808,6 +921,7 @@ Sifarişdən əvvəl cari başlanğıc qiymətini, paket müddətini və istifad
 </p>
 
 </section>
+
 
 <div class="tabs">
 
@@ -833,7 +947,8 @@ DigiBaku-da hazırda satışda olan xidmətlər və onların qiymətləri.
 </p>
 
 
-<!-- YALNIZ BU HİSSƏ ARTİQ DİNAMİKDİR -->
+<!-- MƏHSULLAR ARTİQ BİRBAŞA GİZLİ PANELDƏKİ site_products CƏDVƏLİNDƏN GƏLİR -->
+
 <div class="products" id="dynamic-products">
 
 <div style="
@@ -843,6 +958,42 @@ padding:30px;
 color:#777;
 ">
 Məhsullar yüklənir...
+</div>
+
+</div>
+
+</section>
+
+
+<!-- YALNIZ 1 AYLIQ QİYMƏTLƏR -->
+
+<section
+id="live-price-list-section"
+style="margin-top:30px"
+>
+
+<h2 data-i18n="livePricesTitle">
+Qiymətlər
+</h2>
+
+<p
+class="section-intro"
+data-i18n="livePricesIntro"
+>
+Məhsulların 1 aylıq cari qiymətləri.
+</p>
+
+<div
+class="live-prices-list"
+id="live-price-list"
+>
+
+<div style="
+padding:25px;
+color:#777;
+text-align:center;
+">
+Qiymətlər yüklənir...
 </div>
 
 </div>
@@ -883,6 +1034,7 @@ Xidməti seçin, müddəti və qiyməti yoxlayın, sonra WhatsApp vasitəsilə s
 </div>
 
 </div>
+
 </section>
 
 
@@ -893,39 +1045,54 @@ Xidməti seçin, müddəti və qiyməti yoxlayın, sonra WhatsApp vasitəsilə s
 </h2>
 
 <div class="faq-item">
+
 <h3 data-i18n="q1">
 DigiBaku-da hansı xidmətlər satılır?
 </h3>
+
 <p data-i18n="a1">
 Hazırda Netflix, YouTube Premium, Spotify, Canva Pro, ChatGPT və Google Gemini xidmətləri satışdadır.
 </p>
+
 </div>
 
+
 <div class="faq-item">
+
 <h3 data-i18n="q2">
 Sifarişi necə verə bilərəm?
 </h3>
+
 <p data-i18n="a2">
 İstədiyiniz xidmətin “Sifariş” düyməsinə basın. Sifarişiniz birbaşa DigiBaku WhatsApp nömrəsinə göndəriləcək.
 </p>
+
 </div>
 
+
 <div class="faq-item">
+
 <h3 data-i18n="q3">
 Qiymətlər dəyişə bilər?
 </h3>
+
 <p data-i18n="a3">
 Bəli. Paket və kampaniyalara görə qiymətlər dəyişə bilər. Sifariş zamanı səhifədə göstərilən cari qiyməti əsas götürün.
 </p>
+
 </div>
 
+
 <div class="faq-item">
+
 <h3 data-i18n="q4">
 Alternativ xidmətlər də satılır?
 </h3>
+
 <p data-i18n="a4">
 Bu qiymət bələdçisində yalnız DigiBaku-da hazırda satışda olan xidmətlər göstərilir.
 </p>
+
 </div>
 
 </section>
@@ -970,6 +1137,7 @@ Canva Pro qiyməti və paketi
 </a>
 
 </div>
+
 </section>
 
 </div>
@@ -977,12 +1145,17 @@ Canva Pro qiyməti və paketi
 
 
 <footer>
+
 <div class="container">
-© 2026 DigiBaku.com —
+
+© 2026 DigiBaku.com.
+
 <span data-i18n="footer">
 Premium rəqəmsal xidmətlər. Bütün hüquqlar qorunur.
 </span>
+
 </div>
+
 </footer>
 
 
@@ -996,7 +1169,9 @@ title="DigiBaku Chat"
 >
 
 <svg viewBox="0 0 24 24">
+
 <path d="M4 4h16c1.1 0 2 .9 2 2v10c0 1.1-.9 2-2 2H9l-5 3v-3H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2zm0 2v10h2v1.47L8.3 16H20V6H4zm3 3h10v2H7V9zm0 4h7v2H7v-2z"></path>
+
 </svg>
 
 </a>
@@ -1011,7 +1186,9 @@ title="WhatsApp"
 >
 
 <svg viewBox="0 0 32 32">
-<path d="M16.002 0c-8.837 0-16 7.163-16 16 0 2.825.736 5.485 2.025 7.795l-2.025 7.395 7.575-1.985c2.22 1.21 4.795 1.9 7.425 1.9 8.837 0 16-7.163 16-16s-7.163-16-16-16zM16.002 29.337c-2.345 0-4.57-.63-6.505-1.725l-.465-.27-4.83 1.265 1.29-4.705-.3-.485c-1.215-1.95-1.855-4.22-1.855-6.557 0-7.36 5.99-13.35 13.35-13.35 7.36 0 13.35 5.99 13.35 13.35s-5.99 13.35-13.35 13.35zM22.56 19.32c-.36-.18-2.125-1.05-2.455-1.17s-.57-.18-.81.18c-.24.36-.93 1.17-1.14 1.41s-.42.27-.78.09c-.36-.18-1.515-.555-2.885-1.785-1.065-.945-1.785-2.115-1.995-2.475s-.03-.555.15-.735c.15-.15.36-.39.54-.585.12-.225.06-.42-.03-.585s-.81-1.95-1.11-2.67c-.285-.69-.585-.6-.81-.615s-.465-.015-.72-.015c-.255 0-.66.09-1.005.465s-1.32 1.29-1.32 3.15 1.35 3.645 1.545 3.9c.195.255 2.67 4.08 6.465 5.715.9.39 1.605.63 2.145.81.9.3 1.725.255 2.37.15.72-.105 2.125-.87 2.425-1.71s.3-1.56.21-1.71c-.09-.15-.33-.24-.69-.42z"></path>
+
+<path d="M16.002 0c-8.837 0-16 7.163-16 16 0 2.825.736 5.485 2.025 7.795l-2.025 7.395 7.575-1.985c2.22 1.21 4.795 1.9 7.425 1.9 8.837 0 16-7.163 16-16s-7.163-16-16-16zM16.002 29.337c-2.345 0-4.57-.63-6.505-1.725l-.465-.27-4.83 1.265 1.29-4.705-.3-.485c-1.215-1.95-1.855-4.22-1.855-6.557 0-7.36 5.99-13.35 13.35-13.35s13.35 5.99 13.35 13.35-5.99 13.35-13.35 13.35zM22.56 19.32c-.36-.18-2.125-1.05-2.455-1.17s-.57-.18-.81.18c-.24.36-.93 1.17-1.14 1.41s-.42.27-.78.09c-.36-.18-1.515-.555-2.885-1.785-1.065-.945-1.785-2.115-1.995-2.475s-.03-.555.15-.735c.15-.15.36-.39.54-.585.12-.225.06-.42-.03-.585s-.81-1.95-1.11-2.67c-.285-.69-.585-.6-.81-.615s-.465-.015-.72-.015c-.255 0-.66.09-1.005.465s-1.32 1.29-1.32 3.15 1.35 3.645 1.545 3.9c.195.255 2.67 4.08 6.465 5.715.9.39 1.605.63 2.145.81.9.3 1.725.255 2.37.15.72-.105 2.125-.87 2.425-1.71s.3-1.56.21-1.71c-.09-.15-.33-.24-.69-.42z"></path>
+
 </svg>
 
 </a>
@@ -1022,6 +1199,7 @@ title="WhatsApp"
 <script>
 
 const t={
+
 az:{
 home:"Ana səhifə",
 products:"Məhsullar",
@@ -1046,39 +1224,59 @@ currentPrices:"Cari başlanğıc qiymətləri",
 faq:"FAQ",
 packages:"Cari paketlər",
 packagesIntro:"DigiBaku-da hazırda satışda olan xidmətlər və onların qiymətləri.",
+
+livePricesTitle:"Qiymətlər",
+livePricesIntro:"Məhsulların 1 aylıq cari qiymətləri.",
+
 netflixTitle:"Netflix 4K Premium Azərbaycan Abunəliyi",
 netflixDesc:"Netflix Azərbaycan — film və serialları Ultra HD keyfiyyətdə izləmək üçün Netflix 4K Premium abunəliyi.",
+
 youtubeTitle:"YouTube Premium Azərbaycan Abunəliyi",
 youtubeDesc:"YouTube Premium Azərbaycan — videolara reklamsız baxın, musiqidən rahat istifadə edin.",
+
 spotifyTitle:"Spotify Premium Azərbaycan Abunəliyi",
 spotifyDesc:"Spotify Premium Azərbaycan — musiqiləri reklamsız dinləyin.",
+
 chatgptTitle:"ChatGPT Plus Azərbaycan Abunəliyi",
 chatgptDesc:"ChatGPT Plus Azərbaycan — yazı, kod, araşdırma və gündəlik işlər üçün premium süni intellekt xidməti.",
+
 geminiTitle:"Google Gemini Premium Azərbaycan Abunəliyi",
 geminiDesc:"Google Gemini Premium Azərbaycan — süni intellekt, yazı, araşdırma və gündəlik işlər üçün premium AI imkanları.",
+
 canvaTitle:"Canva Pro Azərbaycan Abunəliyi",
 canvaDesc:"Canva Pro Azərbaycan — dizayn, təqdimat, poster və sosial media üçün premium Canva imkanları.",
+
 canvaDuration:"12 ay",
 chooseDuration:"Müddət seçin",
 order:"Sifariş",
+
 guideTitle:"DigiBaku-da necə sifariş vermək olar?",
 guideIntro:"Xidməti seçin, müddəti və qiyməti yoxlayın, sonra WhatsApp vasitəsilə sifarişinizi göndərin.",
 step1:"Xidməti seçin",
 step2:"Paket müddətini yoxlayın",
 step3:"Qiyməti yoxlayın",
 step4:"Sifariş verin",
+
 faqTitle:"Ən çox verilən suallar",
+
 q1:"DigiBaku-da hansı xidmətlər satılır?",
 a1:"Hazırda Netflix, YouTube Premium, Spotify, Canva Pro, ChatGPT və Google Gemini xidmətləri satışdadır.",
+
 q2:"Sifarişi necə verə bilərəm?",
 a2:"İstədiyiniz xidmətin “Sifariş” düyməsinə basın. Sifarişiniz birbaşa DigiBaku WhatsApp nömrəsinə göndəriləcək.",
+
 q3:"Qiymətlər dəyişə bilər?",
 a3:"Bəli. Paket və kampaniyalara görə qiymətlər dəyişə bilər. Sifariş zamanı səhifədə göstərilən cari qiyməti əsas götürün.",
+
 q4:"Alternativ xidmətlər də satılır?",
 a4:"Bu qiymət bələdçisində yalnız DigiBaku-da hazırda satışda olan xidmətlər göstərilir.",
+
 note:"Qiymətlər DigiBaku-da hazırda satışda olan paketlərə əsaslanır. Sifarişdən əvvəl xidmət, müddət və qiyməti yoxlayın.",
+
 relatedTitle:"DigiBaku üzrə keçidlər",
+
 footer:"Premium rəqəmsal xidmətlər. Bütün hüquqlar qorunur.",
+
 emptyCartAlert:"Səbətiniz boşdur!"
 },
 
@@ -1106,39 +1304,59 @@ currentPrices:"Current Starting Prices",
 faq:"FAQ",
 packages:"Current Packages",
 packagesIntro:"Services currently available for purchase from DigiBaku and their prices.",
+
+livePricesTitle:"Prices",
+livePricesIntro:"Current 1-month prices of the products.",
+
 netflixTitle:"Netflix 4K Premium Subscription",
 netflixDesc:"Watch movies and series in Ultra HD with a Netflix Premium subscription and enjoy access to premium content.",
+
 youtubeTitle:"YouTube Premium",
 youtubeDesc:"Watch videos without ads and enjoy music comfortably with YouTube Premium.",
+
 spotifyTitle:"Spotify Premium",
 spotifyDesc:"Listen to music without ads with Spotify Premium.",
+
 chatgptTitle:"ChatGPT Plus",
 chatgptDesc:"ChatGPT Plus provides AI capabilities for writing, coding, research and everyday tasks.",
+
 geminiTitle:"Google Gemini Premium",
 geminiDesc:"Google Gemini Premium gives you expanded AI capabilities for writing, research and everyday tasks.",
+
 canvaTitle:"Canva Pro",
 canvaDesc:"Premium Canva features for design, presentations, posters and social media.",
+
 canvaDuration:"12 months",
 chooseDuration:"Choose a duration",
 order:"Order",
+
 guideTitle:"How to order from DigiBaku?",
 guideIntro:"Choose a service, check the duration and price, then place your order.",
 step1:"Choose a service",
 step2:"Check the package duration",
 step3:"Check the price",
 step4:"Place your order",
+
 faqTitle:"Frequently Asked Questions",
+
 q1:"Which services are sold by DigiBaku?",
 a1:"Netflix, YouTube Premium, Spotify, Canva Pro, ChatGPT and Google Gemini are currently available for purchase.",
+
 q2:"How can I place an order?",
 a2:"Click the “Order” button for the service you want. Your order will be sent directly to DigiBaku's WhatsApp number.",
+
 q3:"Can prices change?",
 a3:"Yes. Prices may change depending on packages and promotions. Use the current price shown on the page when ordering.",
+
 q4:"Are other services sold?",
 a4:"This price guide lists only the services currently available for purchase from DigiBaku.",
+
 note:"Prices are based on packages currently sold by DigiBaku. Check the service, duration and price before ordering.",
+
 relatedTitle:"DigiBaku Links",
+
 footer:"Premium digital services. All rights reserved.",
+
 emptyCartAlert:"Your cart is empty!"
 },
 
@@ -1160,55 +1378,77 @@ cartEmpty:"Ваша корзина пуста",
 total:"Итого:",
 confirmOrder:"Подтвердить заказ",
 remove:"Удалить",
+
 title:"Цены на премиум-подписки в Азербайджане",
+
 intro:"Перед заказом ознакомьтесь с ценами DigiBaku, сроками пакетов и информацией о заказе.",
+
 currentPrices:"Текущие цены",
 faq:"FAQ",
 packages:"Текущие пакеты",
 packagesIntro:"Услуги, доступные для покупки в DigiBaku, и их цены.",
+
+livePricesTitle:"Цены",
+livePricesIntro:"Текущие цены продуктов за 1 месяц.",
+
 netflixTitle:"Премиум-подписка Netflix 4K",
 netflixDesc:"Смотрите фильмы и сериалы в Ultra HD с подпиской Netflix Premium и получайте доступ к премиум-контенту.",
+
 youtubeTitle:"YouTube Premium",
 youtubeDesc:"Смотрите видео без рекламы и удобно слушайте музыку с YouTube Premium.",
+
 spotifyTitle:"Spotify Premium",
 spotifyDesc:"Слушайте музыку без рекламы с Spotify Premium.",
+
 chatgptTitle:"ChatGPT Plus",
 chatgptDesc:"ChatGPT Plus предоставляет возможности ИИ для написания текстов, программирования, исследований и повседневных задач.",
+
 geminiTitle:"Google Gemini Premium",
 geminiDesc:"Google Gemini Premium предоставляет расширенные возможности ИИ для написания текстов, исследований и повседневных задач.",
+
 canvaTitle:"Canva Pro",
 canvaDesc:"Премиальные возможности Canva для дизайна, презентаций, постеров и социальных сетей.",
+
 canvaDuration:"12 месяцев",
 chooseDuration:"Выберите срок",
 order:"Заказать",
+
 guideTitle:"Как заказать в DigiBaku?",
 guideIntro:"Выберите услугу, проверьте срок и цену, затем оформите заказ.",
 step1:"Выберите услугу",
 step2:"Проверьте срок пакета",
 step3:"Проверьте цену",
 step4:"Оформите заказ",
+
 faqTitle:"Часто задаваемые вопросы",
+
 q1:"Какие услуги продаёт DigiBaku?",
 a1:"Сейчас в продаже доступны Netflix, YouTube Premium, Spotify, Canva Pro, ChatGPT и Google Gemini.",
+
 q2:"Как оформить заказ?",
 a2:"Нажмите кнопку «Заказать» у нужной услуги. Ваш заказ будет отправлен напрямую на WhatsApp DigiBaku.",
+
 q3:"Могут ли цены измениться?",
 a3:"Да. Цены могут меняться в зависимости от пакета и акций. При заказе ориентируйтесь на текущую цену на странице.",
+
 q4:"Продаются ли другие услуги?",
 a4:"В этом ценовом гиде указаны только услуги, доступные для покупки в DigiBaku.",
-note:"Цены основаны на пакетах, которые сейчас продаёт DigiBaku. Перед заказом проверьте услугу, срок и цену.",
-relatedTitle:"Ссылки DigiBaku",
-footer:"Премиальные цифровые услуги. Все права защищены.",
-emptyCartAlert:"Ваша корзина пуста!"
-},
 
-durationNames:{
-az:["1 ay","2 ay","3 ay"],
-en:["1 month","2 months","3 months"],
-ru:["1 месяц","2 месяца","3 месяца"]
+note:"Цены основаны на пакетах, которые сейчас продаёт DigiBaku. Перед заказом проверьте услугу, срок и цену.",
+
+relatedTitle:"Ссылки DigiBaku",
+
+footer:"Премиальные цифровые услуги. Все права защищены.",
+
+emptyCartAlert:"Ваша корзина пуста!"
 }
+
 };
 
+
+/* =========================
+   DİL
+========================= */
 
 function getLanguage(){
   return localStorage.getItem("digi_language") || "az";
@@ -1224,12 +1464,15 @@ function setLang(lang){
   document.documentElement.lang=lang;
 
   document.querySelectorAll("[data-i18n]").forEach(e=>{
+
     const k=e.dataset.i18n;
 
     if(t[lang] && t[lang][k]){
       e.textContent=t[lang][k];
     }
+
   });
+
 
   ["az","ru","en"].forEach(code=>{
 
@@ -1259,16 +1502,20 @@ function setLang(lang){
 
   });
 
+
   localStorage.setItem(
     "digi_language",
     lang
   );
 
+
   updateCartUI();
+
 
   if(typeof checkLogin==="function"){
     checkLogin();
   }
+
 
   if(typeof renderLiveProducts==="function"){
     setTimeout(
@@ -1277,8 +1524,20 @@ function setLang(lang){
     );
   }
 
+
+  if(typeof renderLivePrices==="function"){
+    setTimeout(
+      renderLivePrices,
+      0
+    );
+  }
+
 }
 
+
+/* =========================
+   SUPABASE
+========================= */
 
 const SUPABASE_URL=
 "https://zeknhnkaicqkfzgnvycq.supabase.co";
@@ -1292,6 +1551,10 @@ window.supabase.createClient(
   SUPABASE_KEY
 );
 
+
+/* =========================
+   CART
+========================= */
 
 let cart=
 JSON.parse(
@@ -1361,6 +1624,7 @@ function updateCartUI(){
 
   if(!list || !totalPriceEl)return;
 
+
   if(cart.length===0){
 
     list.innerHTML=
@@ -1372,10 +1636,13 @@ function updateCartUI(){
       "0.00 AZN";
 
     return;
+
   }
+
 
   let html="";
   let total=0;
+
 
   cart.forEach((item,index)=>{
 
@@ -1384,7 +1651,9 @@ function updateCartUI(){
 
     total+=price;
 
+
     html+=`
+
       <div class="cart-item">
 
         <div>
@@ -1407,11 +1676,14 @@ function updateCartUI(){
         </button>
 
       </div>
+
     `;
 
   });
 
+
   list.innerHTML=html;
+
 
   totalPriceEl.textContent=
     total.toFixed(2)+" AZN";
@@ -1436,6 +1708,7 @@ function checkoutCart(){
 
   const lang=getLanguage();
 
+
   if(cart.length===0){
 
     alert(
@@ -1444,13 +1717,17 @@ function checkoutCart(){
     );
 
     return;
+
   }
+
 
   let message=
     "Salam DigiBaku.com!\n\n"+
     "Bu məhsulu sifariş etmək istəyirəm:\n\n";
 
+
   let total=0;
+
 
   cart.forEach((item,index)=>{
 
@@ -1468,6 +1745,7 @@ function checkoutCart(){
 
   });
 
+
   message+=
     "\n"+
     (t[lang]?.total ||
@@ -1476,14 +1754,17 @@ function checkoutCart(){
     total.toFixed(2)+
     " AZN";
 
+
   const phone=
     "994513626349";
+
 
   const whatsappUrl=
     "https://wa.me/"+
     phone+
     "?text="+
     encodeURIComponent(message);
+
 
   cart=[];
 
@@ -1493,6 +1774,7 @@ function checkoutCart(){
 
   updateCartUI();
 
+
   const modal=
     document.getElementById(
       "cartModal"
@@ -1501,6 +1783,7 @@ function checkoutCart(){
   if(modal){
     modal.style.display="none";
   }
+
 
   window.location.href=
     whatsappUrl;
@@ -1520,23 +1803,32 @@ function escapeHtml(text){
 }
 
 
+/* =========================
+   LOGIN
+========================= */
+
 async function checkLogin(){
 
   const {data:{session}}=
     await supabaseClient.auth.getSession();
+
 
   const authArea=
     document.getElementById(
       "authArea"
     );
 
+
   const lang=getLanguage();
 
+
   if(!authArea)return;
+
 
   if(session){
 
     authArea.innerHTML="";
+
 
     const profileButton=
       document.createElement("a");
@@ -1551,6 +1843,7 @@ async function checkLogin(){
       t[lang]?.profile ||
       "Profil";
 
+
     const email=
       document.createElement("span");
 
@@ -1559,6 +1852,7 @@ async function checkLogin(){
 
     email.textContent=
       session.user.email || "";
+
 
     const logoutButton=
       document.createElement("button");
@@ -1573,6 +1867,7 @@ async function checkLogin(){
     logoutButton.onclick=
       logout;
 
+
     authArea.appendChild(
       profileButton
     );
@@ -1585,9 +1880,11 @@ async function checkLogin(){
       logoutButton
     );
 
+
   }else{
 
     authArea.innerHTML=`
+
       <a href="login.html"
          class="btn btn-dark">
         ${t[lang]?.login || "Daxil ol"}
@@ -1597,6 +1894,7 @@ async function checkLogin(){
          class="btn btn-primary">
         ${t[lang]?.register || "Qeydiyyat"}
       </a>
+
     `;
 
   }
@@ -1621,19 +1919,27 @@ supabaseClient.auth.onAuthStateChange(
 
 
 /* =========================================================
-   YALNIZ DİNAMİK MƏHSUL + QİYMƏT SİSTEMİ
-   ========================================================= */
+   DİNAMİK MƏHSUL + QİYMƏT SİSTEMİ
+   GİZLİ PANEL:
+   site_products
+   product_prices
+========================================================= */
 
 let liveProducts=[];
 let livePrices={};
 let liveChannel=null;
 
 
+/* =========================
+   MƏHSUL ADI
+========================= */
+
 function liveProductName(product){
 
-  const lang=getLanguage();
+  const lang=
+    getLanguage();
 
-  return (
+  return(
     product["name_"+lang] ||
     product.name_az ||
     product.name ||
@@ -1644,11 +1950,16 @@ function liveProductName(product){
 }
 
 
+/* =========================
+   MƏHSUL AÇIQLAMASI
+========================= */
+
 function liveProductDescription(product){
 
-  const lang=getLanguage();
+  const lang=
+    getLanguage();
 
-  return (
+  return(
     product["description_"+lang] ||
     product.description_az ||
     product.description ||
@@ -1658,49 +1969,240 @@ function liveProductDescription(product){
 }
 
 
+/* =========================
+   MÜDDƏTLƏRİ DÜZGÜN OXU
+========================= */
+
 function liveProductDurations(product){
 
-  let d=product.durations;
+  let d=
+    product.durations;
+
+
+  /*
+    JSON stringdirsə aç
+  */
 
   if(typeof d==="string"){
 
-    try{
-      d=JSON.parse(d);
-    }catch(e){
+    const raw=
+      d.trim();
+
+    if(!raw){
+
       d=[];
+
+    }else{
+
+      try{
+
+        d=
+          JSON.parse(raw);
+
+      }catch(e){
+
+        /*
+          Məsələn:
+          1,2,3
+          1 ay,2 ay,3 ay
+          ["1","2","3"]
+        */
+
+        d=
+          raw
+            .split(/[,\n;|]+/)
+            .map(x=>
+              x.trim()
+            )
+            .filter(Boolean);
+
+      }
+
     }
 
   }
 
+
+  let result=[];
+
+
+  /*
+    Array
+  */
+
   if(Array.isArray(d)){
 
-    return d
-      .map(x=>Number(x))
-      .filter(x=>Number.isFinite(x) && x>0);
+    d.forEach(item=>{
+
+      const matches=
+        String(item).match(
+          /\d+/g
+        );
+
+      if(matches){
+
+        matches.forEach(number=>{
+
+          const n=
+            Number(number);
+
+          if(
+            Number.isFinite(n) &&
+            n>0 &&
+            !result.includes(n)
+          ){
+
+            result.push(n);
+
+          }
+
+        });
+
+      }
+
+    });
 
   }
 
-  if(d && typeof d==="object"){
 
-    return Object.keys(d)
-      .filter(k=>d[k])
-      .map(k=>
-        Number(
-          String(k).replace(/\D/g,"")
-        )
-      )
-      .filter(x=>Number.isFinite(x) && x>0);
+  /*
+    Object
+  */
+
+  if(
+    d &&
+    typeof d==="object" &&
+    !Array.isArray(d)
+  ){
+
+    Object.keys(d).forEach(key=>{
+
+      if(
+        d[key]===false ||
+        d[key]===null ||
+        d[key]===undefined
+      ){
+        return;
+      }
+
+      const matches=
+        String(key).match(
+          /\d+/g
+        );
+
+      if(matches){
+
+        matches.forEach(number=>{
+
+          const n=
+            Number(number);
+
+          if(
+            Number.isFinite(n) &&
+            n>0 &&
+            !result.includes(n)
+          ){
+
+            result.push(n);
+
+          }
+
+        });
+
+      }
+
+    });
 
   }
 
-  return [1,2,3];
+
+  /*
+    Əgər durations boşdursa,
+    qiymət cədvəlində olan
+    müddətlərdən avtomatik çıxar.
+  */
+
+  if(result.length===0){
+
+    const key=
+      String(
+        product.product_key || ""
+      );
+
+    const row=
+      livePrices[key];
+
+
+    if(row){
+
+      [1,2,3,12].forEach(month=>{
+
+        const normal=
+          Number(
+            row[
+              "price_"+month+"_month"
+            ] || 0
+          );
+
+        const sale=
+          Number(
+            row[
+              "sale_"+month+"_price"
+            ] || 0
+          );
+
+        if(
+          normal>0 ||
+          sale>0
+        ){
+
+          result.push(month);
+
+        }
+
+      });
+
+    }
+
+  }
+
+
+  /*
+    Yenə boşdursa 1 ay göstər.
+  */
+
+  if(result.length===0){
+
+    result=[1];
+
+  }
+
+
+  /*
+    1,2,3,12 ardıcıllığı
+  */
+
+  result=
+    [...new Set(result)]
+      .sort(
+        (a,b)=>a-b
+      );
+
+
+  return result;
 
 }
 
 
+/* =========================
+   MÜDDƏT YAZISI
+========================= */
+
 function liveDurationText(month){
 
-  const lang=getLanguage();
+  const lang=
+    getLanguage();
+
 
   if(lang==="en"){
 
@@ -1710,11 +2212,17 @@ function liveDurationText(month){
 
   }
 
+
   if(lang==="ru"){
 
-    if(month===1)return "1 месяц";
+    if(month===1){
+      return "1 месяц";
+    }
 
-    if(month>=2 && month<=4){
+    if(
+      month>=2 &&
+      month<=4
+    ){
       return month+" месяца";
     }
 
@@ -1722,19 +2230,31 @@ function liveDurationText(month){
 
   }
 
+
   return month+" ay";
 
 }
 
 
-function livePrice(productKey,month){
+/* =========================
+   QİYMƏTİ TAP
+========================= */
+
+function livePrice(
+  productKey,
+  month
+){
 
   const row=
     livePrices[
       String(productKey)
     ];
 
-  if(!row)return null;
+
+  if(!row){
+    return null;
+  }
+
 
   const normal=
     Number(
@@ -1743,6 +2263,7 @@ function livePrice(productKey,month){
       ]
     );
 
+
   const sale=
     Number(
       row[
@@ -1750,10 +2271,12 @@ function livePrice(productKey,month){
       ]
     );
 
+
   const saleActive=
     row[
       "sale_"+month+"_active"
     ]===true;
+
 
   if(
     saleActive &&
@@ -1764,51 +2287,70 @@ function livePrice(productKey,month){
     sale<normal
   ){
 
-    return {
-      normal,
+    return{
+
+      normal:normal,
+
       price:sale,
+
       sale:true,
-      discount:Math.round(
-        ((normal-sale)/normal)*100
-      )
+
+      discount:
+        Math.round(
+          ((normal-sale)/normal)*100
+        )
+
     };
 
   }
+
 
   if(
     Number.isFinite(normal) &&
     normal>0
   ){
 
-    return {
-      normal,
+    return{
+
+      normal:normal,
+
       price:normal,
+
       sale:false,
+
       discount:0
+
     };
 
   }
+
 
   return null;
 
 }
 
 
+/* =========================
+   QİYMƏT GÖRÜNÜŞÜ
+========================= */
+
 function livePriceHTML(price){
 
   if(!price){
 
-    return `
-      <span class="price-empty">
+    return`
+      <span class="live-price-empty">
         Qiymət yoxdur
       </span>
     `;
 
   }
 
+
   if(price.sale){
 
-    return `
+    return`
+
       <span class="price-old">
         ${price.normal.toFixed(2)} AZN
       </span>
@@ -1820,24 +2362,36 @@ function livePriceHTML(price){
       <span class="discount-badge">
         -${price.discount}%
       </span>
+
     `;
 
   }
 
-  return `
+
+  return`
+
     <span class="price-new">
       ${price.price.toFixed(2)} AZN
     </span>
+
   `;
 
 }
 
 
-function liveSelectedPriceHTML(price,month){
+/* =========================
+   SEÇİLMİŞ QİYMƏT
+========================= */
+
+function liveSelectedPriceHTML(
+  price,
+  month
+){
 
   if(price.sale){
 
-    return `
+    return`
+
       <span class="price-old">
         ${price.normal.toFixed(2)} AZN
       </span>
@@ -1855,11 +2409,14 @@ function liveSelectedPriceHTML(price,month){
           liveDurationText(month)
         )}
       </span>
+
     `;
 
   }
 
-  return `
+
+  return`
+
     <span class="selected-price">
       ${price.price.toFixed(2)} AZN
     </span>
@@ -1869,32 +2426,45 @@ function liveSelectedPriceHTML(price,month){
         liveDurationText(month)
       )}
     </span>
+
   `;
 
 }
 
 
-function createLiveProductCard(product){
+/* =========================
+   MƏHSUL KARTI
+========================= */
+
+function createLiveProductCard(
+  product
+){
 
   const key=
     String(
       product.product_key || ""
     );
 
+
   const name=
     liveProductName(product);
+
 
   const description=
     liveProductDescription(product);
 
+
   const image=
     product.image_url || "";
+
 
   const durations=
     liveProductDurations(product);
 
+
   const firstDuration=
     durations[0] || 1;
+
 
   const firstPrice=
     livePrice(
@@ -1902,7 +2472,8 @@ function createLiveProductCard(product){
       firstDuration
     );
 
-  return `
+
+  return`
 
   <article
     class="product"
@@ -1924,15 +2495,19 @@ function createLiveProductCard(product){
       ""
     }
 
+
     <div class="product-body">
+
 
       <h3>
         ${escapeHtml(name)}
       </h3>
 
+
       <p class="desc">
         ${escapeHtml(description)}
       </p>
+
 
       <div
         class="duration-title"
@@ -1940,6 +2515,7 @@ function createLiveProductCard(product){
       >
         Müddət seçin
       </div>
+
 
       <div class="duration-options">
 
@@ -1953,10 +2529,15 @@ function createLiveProductCard(product){
                   month
                 );
 
-              return `
+
+              return`
 
               <button
-                class="duration-option ${index===0?"active":""}"
+                class="duration-option ${
+                  index===0
+                    ? "active"
+                    : ""
+                }"
                 type="button"
                 data-product-key="${escapeHtml(key)}"
                 data-month="${month}"
@@ -1969,6 +2550,7 @@ function createLiveProductCard(product){
                 </strong>
 
                 <small>
+
                   ${
                     price
                     ?
@@ -1976,6 +2558,7 @@ function createLiveProductCard(product){
                     :
                     "Qiymət yoxdur"
                   }
+
                 </small>
 
               </button>
@@ -1987,6 +2570,7 @@ function createLiveProductCard(product){
         }
 
       </div>
+
 
       <div class="price-line">
 
@@ -2015,6 +2599,7 @@ function createLiveProductCard(product){
 
       </div>
 
+
       <a
         class="btn btn-primary card-order order-btn"
         href="https://wa.me/994513626349"
@@ -2023,6 +2608,7 @@ function createLiveProductCard(product){
       >
         Sifariş
       </a>
+
 
     </div>
 
@@ -2033,6 +2619,10 @@ function createLiveProductCard(product){
 }
 
 
+/* =========================
+   MƏHSULLARI GÖSTƏR
+========================= */
+
 function renderLiveProducts(){
 
   const box=
@@ -2040,7 +2630,9 @@ function renderLiveProducts(){
       "dynamic-products"
     );
 
+
   if(!box)return;
+
 
   if(!liveProducts.length){
 
@@ -2057,8 +2649,12 @@ function renderLiveProducts(){
 
     `;
 
+    renderLivePrices();
+
     return;
+
   }
+
 
   box.innerHTML=
     liveProducts
@@ -2068,10 +2664,18 @@ function renderLiveProducts(){
       )
       .join("");
 
+
   bindLiveProductCards();
+
+
+  renderLivePrices();
 
 }
 
+
+/* =========================
+   MƏHSUL KARTLARINDA SEÇİM
+========================= */
 
 function bindLiveProductCards(){
 
@@ -2084,6 +2688,7 @@ function bindLiveProductCards(){
       const key=
         card.dataset.liveProduct;
 
+
       const product=
         liveProducts.find(
           x=>
@@ -2091,17 +2696,21 @@ function bindLiveProductCards(){
             String(key)
         );
 
+
       if(!product)return;
+
 
       const buttons=
         card.querySelectorAll(
           ".duration-option"
         );
 
+
       const order=
         card.querySelector(
           ".order-btn"
         );
+
 
       const title=
         card.querySelector("h3");
@@ -2114,18 +2723,22 @@ function bindLiveProductCards(){
             ".duration-option.active"
           );
 
+
         if(!active)return;
+
 
         const month=
           Number(
             active.dataset.month || 1
           );
 
+
         const price=
           livePrice(
             key,
             month
           );
+
 
         const priceLine=
           card.querySelector(
@@ -2171,16 +2784,22 @@ function bindLiveProductCards(){
 
           }
 
+
           const lang=
             getLanguage();
 
+
           const productName=
             title
-            ? title.textContent.trim()
-            : liveProductName(product);
+            ?
+            title.textContent.trim()
+            :
+            liveProductName(product);
+
 
           const duration=
             liveDurationText(month);
+
 
           const selectedPrice=
             price.price.toFixed(2)+
@@ -2226,9 +2845,11 @@ function bindLiveProductCards(){
                 )
             );
 
+
             button.classList.add(
               "active"
             );
+
 
             updateSelected();
 
@@ -2245,9 +2866,108 @@ function bindLiveProductCards(){
 }
 
 
+/* =========================
+   1 AYLIQ QİYMƏTLƏR
+========================= */
+
+function renderLivePrices(){
+
+  const box=
+    document.getElementById(
+      "live-price-list"
+    );
+
+
+  if(!box)return;
+
+
+  if(!liveProducts.length){
+
+    box.innerHTML=`
+
+      <div style="
+        padding:25px;
+        color:#777;
+        text-align:center;
+      ">
+        Qiymət yoxdur.
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  let html="";
+
+
+  liveProducts.forEach(product=>{
+
+    const key=
+      String(
+        product.product_key || ""
+      );
+
+
+    const name=
+      liveProductName(product);
+
+
+    const price=
+      livePrice(
+        key,
+        1
+      );
+
+
+    html+=`
+
+      <div class="live-price-row">
+
+        <div class="live-price-product">
+          ${escapeHtml(name)}
+        </div>
+
+        <div class="live-price-value">
+
+          ${
+            price
+            ?
+            livePriceHTML(price)
+            :
+            `
+            <span class="live-price-empty">
+              Qiymət yoxdur
+            </span>
+            `
+          }
+
+        </div>
+
+      </div>
+
+    `;
+
+  });
+
+
+  box.innerHTML=html;
+
+}
+
+
+/* =========================
+   MƏHSULLARI SUPABASE-DƏN GƏTİR
+========================= */
+
 async function loadLiveProducts(){
 
-  const {data,error}=
+  const {
+    data,
+    error
+  }=
     await supabaseClient
       .from("site_products")
       .select("*")
@@ -2259,6 +2979,7 @@ async function loadLiveProducts(){
         }
       );
 
+
   if(error){
 
     console.error(
@@ -2267,22 +2988,33 @@ async function loadLiveProducts(){
     );
 
     return;
+
   }
+
 
   liveProducts=
     data || [];
+
 
   renderLiveProducts();
 
 }
 
 
+/* =========================
+   QİYMƏTLƏRİ SUPABASE-DƏN GƏTİR
+========================= */
+
 async function loadLivePrices(){
 
-  const {data,error}=
+  const {
+    data,
+    error
+  }=
     await supabaseClient
       .from("product_prices")
       .select("*");
+
 
   if(error){
 
@@ -2292,9 +3024,12 @@ async function loadLivePrices(){
     );
 
     return;
+
   }
 
+
   livePrices={};
+
 
   (data || []).forEach(
     row=>{
@@ -2306,10 +3041,15 @@ async function loadLivePrices(){
     }
   );
 
+
   renderLiveProducts();
 
 }
 
+
+/* =========================
+   REALTIME
+========================= */
 
 function setupLiveRealtime(){
 
@@ -2329,9 +3069,13 @@ function setupLiveRealtime(){
   liveChannel=
     supabaseClient
       .channel(
-        "digibaku-live-products-prices"
+        "digibaku-live-products-prices-v4"
       )
 
+
+      /*
+        GİZLİ PANELDƏ MƏHSUL ƏLAVƏ/SİL/DƏYİŞ
+      */
 
       .on(
         "postgres_changes",
@@ -2340,7 +3084,13 @@ function setupLiveRealtime(){
           schema:"public",
           table:"site_products"
         },
+
         async function(){
+
+          /*
+            Səhifə reload edilmir.
+            Sadəcə məhsullar yenidən oxunur.
+          */
 
           await loadLiveProducts();
 
@@ -2350,6 +3100,10 @@ function setupLiveRealtime(){
       )
 
 
+      /*
+        GİZLİ PANELDƏ QİYMƏT/ENDİRİM DƏYİŞ
+      */
+
       .on(
         "postgres_changes",
         {
@@ -2357,6 +3111,7 @@ function setupLiveRealtime(){
           schema:"public",
           table:"product_prices"
         },
+
         function(payload){
 
           const key=
@@ -2381,6 +3136,13 @@ function setupLiveRealtime(){
           }
 
 
+          /*
+            Həm məhsul kartı,
+            həm də aşağıdakı
+            1 aylıq qiymətlər
+            yenilənir.
+          */
+
           renderLiveProducts();
 
         }
@@ -2391,7 +3153,7 @@ function setupLiveRealtime(){
         status=>{
 
           console.log(
-            "DigiBaku canlı məhsul/qiymət:",
+            "DigiBaku məhsul/qiymət Realtime:",
             status
           );
 
@@ -2400,6 +3162,10 @@ function setupLiveRealtime(){
 
 }
 
+
+/* =========================
+   BAŞLANĞIC
+========================= */
 
 async function startLiveProductSystem(){
 
@@ -2411,6 +3177,10 @@ async function startLiveProductSystem(){
 
 }
 
+
+/* =========================
+   INIT
+========================= */
 
 document.addEventListener(
   "DOMContentLoaded",
