@@ -869,6 +869,62 @@ h1{
     background:#151515;
 }
 
+/* YALNIZ ADMIN FOOTER SISTEMI */
+
+.footer-admin{
+    width:100%;
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    gap:45px;
+    margin-top:25px;
+}
+
+.footer-column h3{
+    color:#fff;
+    font-size:16px;
+    margin-bottom:14px;
+}
+
+.footer-column p{
+    color:#666;
+    font-size:13px;
+    margin-bottom:7px;
+}
+
+.footer-product-link{
+    display:block;
+    color:#777;
+    font-size:13px;
+    margin-bottom:7px;
+    transition:.2s;
+}
+
+.footer-product-link:hover{
+    color:#60a5fa;
+}
+
+.footer-price-row{
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+    color:#777;
+    font-size:13px;
+    margin-bottom:7px;
+}
+
+.footer-price-row a{
+    color:#777;
+}
+
+.footer-price-row a:hover{
+    color:#60a5fa;
+}
+
+.footer-price-value{
+    color:#aaa;
+    white-space:nowrap;
+}
+
 footer{
     border-top:1px solid #222;
     padding:35px 0;
@@ -937,6 +993,10 @@ footer{
         grid-template-columns:1fr;
     }
 
+    .footer-admin{
+        grid-template-columns:1fr 1fr;
+    }
+
 }
 
 @media(max-width:700px){
@@ -992,6 +1052,11 @@ footer{
 
     .other-buttons{
         grid-template-columns:1fr;
+    }
+
+    .footer-admin{
+        grid-template-columns:1fr;
+        gap:25px;
     }
 
 }
@@ -1366,15 +1431,47 @@ id="otherProductsGrid">
 
 <div class="container footer">
 
-<div>
+<div style="width:100%;">
 
 <div class="logo">
 DigiBaku<span>.com</span>
 </div>
 
+<div class="footer-admin">
+
+<div class="footer-column">
+
+<h3 data-i18n="products">
+Məhsullar
+</h3>
+
+<div id="footerProductsList"></div>
+
+</div>
+
+<div class="footer-column">
+
+<h3 data-i18n="prices">
+Qiymətlər
+</h3>
+
+<div id="footerPricesList"></div>
+
+</div>
+
+<div class="footer-column">
+
+<h3>
+DigiBaku.com
+</h3>
+
 <p id="footerText">
 © 2026 DigiBaku.com. Bütün hüquqlar qorunur.
 </p>
+
+</div>
+
+</div>
 
 </div>
 
@@ -2103,6 +2200,7 @@ document.getElementById(lang+"Btn").classList.add("active");
 
 renderDynamicContent();
 renderOtherProducts();
+renderAdminFooter();
 updateCartUI();
 
 }
@@ -2670,6 +2768,15 @@ x=>x.product_key===p.product_key
 
 if(!row)return null;
 
+/*
+ƏVVƏL 1 AY,
+SONRA 2 AY,
+SONRA 3 AY,
+SONRA 12 AY.
+Beləliklə Canva kimi yalnız 12 aylıq
+qiyməti olan məhsulun da qiyməti çıxacaq.
+*/
+
 const durations=[1,2,3,12];
 
 for(const month of durations){
@@ -2748,6 +2855,7 @@ return;
 siteProducts=data||[];
 
 renderOtherProducts();
+renderAdminFooter();
 
 }catch(error){
 
@@ -2787,6 +2895,7 @@ return;
 allProductPrices=data||[];
 
 renderOtherProducts();
+renderAdminFooter();
 
 }catch(error){
 
@@ -2924,6 +3033,107 @@ onclick="addOtherProductToCart('${key}')">
 </div>
 
 `;
+
+});
+
+}
+
+/* =========================================================
+ADMIN FOOTER
+========================================================= */
+
+function renderAdminFooter(){
+
+const productsBox=
+document.getElementById("footerProductsList");
+
+const pricesBox=
+document.getElementById("footerPricesList");
+
+if(!productsBox || !pricesBox)return;
+
+const list=
+siteProducts.filter(
+p=>p.active!==false
+);
+
+productsBox.innerHTML="";
+pricesBox.innerHTML="";
+
+list.forEach(function(p){
+
+const key=
+String(p.product_key||"");
+
+const name=
+adminProductName(p);
+
+const price=
+getAdminProductPrice(p);
+
+/* MƏHSULLAR */
+
+productsBox.innerHTML+=`
+
+<a
+class="footer-product-link"
+href="product.html?product=${encodeURIComponent(key)}">
+
+${esc(name)}
+
+</a>
+
+`;
+
+/* QİYMƏTLƏR */
+
+if(price){
+
+pricesBox.innerHTML+=`
+
+<div class="footer-price-row">
+
+<a
+href="product.html?product=${encodeURIComponent(key)}">
+
+${esc(name)}
+
+</a>
+
+<span class="footer-price-value">
+
+${price.price.toFixed(2)} AZN
+
+</span>
+
+</div>
+
+`;
+
+}else{
+
+pricesBox.innerHTML+=`
+
+<div class="footer-price-row">
+
+<a
+href="product.html?product=${encodeURIComponent(key)}">
+
+${esc(name)}
+
+</a>
+
+<span class="footer-price-value">
+
+${t("noPrice")}
+
+</span>
+
+</div>
+
+`;
+
+}
 
 });
 
@@ -4081,6 +4291,8 @@ setupAllPricesRealtime();
 renderDynamicContent();
 
 renderOtherProducts();
+
+renderAdminFooter();
 
 }
 
