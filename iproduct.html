@@ -2,730 +2,150 @@
 <html lang="az">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
 <title id="seoTitle">DigiBaku.com | Premium xidmət</title>
 
-<meta id="metaDescription" name="description"
-content="DigiBaku.com — premium rəqəmsal xidmətlər və abunəliklər.">
-
+<meta id="metaDescription" name="description" content="DigiBaku.com — premium rəqəmsal xidmətlər və abunəliklər.">
 <meta name="robots" content="index, follow">
 
-<link id="canonicalLink" rel="canonical"
-href="https://digibaku.com/product.html">
+<link id="canonicalLink" rel="canonical" href="https://digibaku.com/product.html">
 
-<meta id="ogTitle" property="og:title"
-content="DigiBaku.com | Premium xidmət">
-
-<meta id="ogDescription" property="og:description"
-content="DigiBaku.com — premium rəqəmsal xidmətlər və abunəliklər.">
-
-<meta id="ogUrl" property="og:url"
-content="https://digibaku.com/product.html">
-
-<meta id="ogImage" property="og:image"
-content="https://digibaku.com/netflix.webp">
-
+<meta id="ogTitle" property="og:title" content="DigiBaku.com | Premium xidmət">
+<meta id="ogDescription" property="og:description" content="DigiBaku.com — premium rəqəmsal xidmətlər və abunəliklər.">
+<meta id="ogUrl" property="og:url" content="https://digibaku.com/product.html">
+<meta id="ogImage" property="og:image" content="https://digibaku.com/netflix.webp">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="DigiBaku.com">
 
 <meta name="twitter:card" content="summary_large_image">
-
-<meta id="twitterTitle" name="twitter:title"
-content="DigiBaku.com | Premium xidmət">
-
-<meta id="twitterDescription" name="twitter:description"
-content="DigiBaku.com — premium rəqəmsal xidmətlər və abunəliklər.">
-
-<meta id="twitterImage" name="twitter:image"
-content="https://digibaku.com/netflix.webp">
+<meta id="twitterTitle" name="twitter:title" content="DigiBaku.com | Premium xidmət">
+<meta id="twitterDescription" name="twitter:description" content="DigiBaku.com — premium rəqəmsal xidmətlər və abunəliklər.">
+<meta id="twitterImage" name="twitter:image" content="https://digibaku.com/netflix.webp">
 
 <script id="productSchema" type="application/ld+json">{}</script>
-
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-*{
-box-sizing:border-box;
-margin:0;
-padding:0;
-}
-
-body{
-font-family:Arial,sans-serif;
-background:#070707;
-color:white;
-line-height:1.6;
-}
-
-a{
-text-decoration:none;
-color:inherit;
-}
-
-.container{
-width:92%;
-max-width:1150px;
-margin:auto;
-}
-
-header{
-border-bottom:1px solid #222;
-background:#080808;
-position:sticky;
-top:0;
-z-index:1000;
-}
-
-.nav{
-height:72px;
-display:flex;
-align-items:center;
-justify-content:space-between;
-}
-
-.logo{
-font-size:25px;
-font-weight:900;
-color:#3b82f6;
-}
-
-.logo span{
-color:white;
-}
-
-.menu{
-display:flex;
-gap:25px;
-}
-
-.menu a{
-color:#aaa;
-font-size:14px;
-}
-
-.menu a:hover{
-color:white;
-}
-
-.nav-right{
-display:flex;
-align-items:center;
-gap:12px;
-}
-
-.language{
-display:flex;
-align-items:center;
-gap:4px;
-background:#151515;
-border:1px solid #333;
-border-radius:8px;
-padding:4px 6px;
-}
-
-.language button{
-background:none;
-border:none;
-color:#777;
-padding:5px 6px;
-font-size:11px;
-font-weight:bold;
-cursor:pointer;
-border-radius:5px;
-}
-
-.language button.active{
-color:#60a5fa;
-background:#0c172b;
-}
-
-.cart-btn{
-display:flex;
-align-items:center;
-gap:6px;
-background:#151515;
-border:1px solid #333;
-color:#fff;
-padding:10px 15px;
-border-radius:8px;
-font-weight:bold;
-cursor:pointer;
-}
-
-.cart-count{
-background:#ef4444;
-color:#fff;
-border-radius:50%;
-padding:2px 6px;
-font-size:11px;
-font-weight:bold;
-}
-
-.auth-links{
-display:flex;
-align-items:center;
-gap:10px;
-}
-
-.auth-links a{
-color:#aaa;
-font-size:14px;
-font-weight:600;
-}
-
-.auth-links a:hover{
-color:#fff;
-}
-
-.logout-btn{
-background:none;
-border:none;
-color:#aaa;
-font-size:14px;
-font-weight:600;
-cursor:pointer;
-font-family:inherit;
-padding:0;
-}
-
-.logout-btn:hover{
-color:#fff;
-}
-
-.user-email{
-color:#777;
-font-size:13px;
-}
-
-#cartModal{
-display:none;
-position:fixed;
-top:0;
-right:0;
-width:100%;
-max-width:400px;
-height:100vh;
-background:#101010;
-border-left:1px solid #262626;
-z-index:2000;
-padding:25px;
-box-sizing:border-box;
-overflow-y:auto;
-}
-
-.whatsapp-float{
-position:fixed;
-bottom:25px;
-right:25px;
-width:60px;
-height:60px;
-background:#25d366;
-color:#fff;
-border-radius:50%;
-display:flex;
-align-items:center;
-justify-content:center;
-box-shadow:0 4px 15px rgba(37,211,102,.4);
-z-index:9999;
-transition:.3s;
-}
-
-.whatsapp-float:hover{
-transform:scale(1.1);
-background:#20ba5a;
-}
-
-.whatsapp-float svg{
-width:34px;
-height:34px;
-fill:#fff;
-}
-
-.chat-float{
-position:fixed;
-bottom:25px;
-right:100px;
-width:60px;
-height:60px;
-background:#2563eb;
-color:#fff;
-border-radius:50%;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:28px;
-box-shadow:0 4px 15px rgba(37,99,235,.4);
-z-index:9999;
-transition:.3s;
-}
-
-.chat-float:hover{
-transform:scale(1.1);
-background:#1d4ed8;
-}
-
-main{
-padding:50px 0 90px;
-}
-
-.breadcrumb{
-color:#777;
-font-size:13px;
-margin-bottom:25px;
-}
-
-.breadcrumb a{
-color:#60a5fa;
-}
-
-.product{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:40px;
-}
-
-.image-box{
-background:#101010;
-border:1px solid #252525;
-border-radius:20px;
-min-height:500px;
-display:flex;
-align-items:center;
-justify-content:center;
-padding:40px;
-}
-
-.image-box img{
-width:100%;
-max-width:400px;
-max-height:400px;
-object-fit:contain;
-}
-
-.badge{
-display:inline-block;
-color:#60a5fa;
-background:#0c172b;
-border:1px solid #1d4ed8;
-border-radius:20px;
-padding:5px 12px;
-font-size:12px;
-font-weight:bold;
-margin-bottom:15px;
-}
-
-h1{
-font-size:38px;
-line-height:1.2;
-margin-bottom:12px;
-}
-
-.rating{
-color:#facc15;
-margin-bottom:18px;
-}
-
-.rating span{
-color:#777;
-}
-
-.short{
-color:#999;
-font-size:15px;
-margin-bottom:25px;
-}
-
-.package-title{
-font-size:15px;
-font-weight:bold;
-margin-bottom:12px;
-}
-
-.packages{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:10px;
-}
-
-.package{
-cursor:pointer;
-background:#101010;
-border:1px solid #333;
-border-radius:12px;
-padding:17px;
-transition:.2s;
-}
-
-.package:hover{
-border-color:#2563eb;
-}
-
-.package.active{
-background:#0b1830;
-border-color:#2563eb;
-box-shadow:0 0 0 1px #2563eb;
-}
-
-.package-name{
-display:block;
-font-size:14px;
-color:#aaa;
-}
-
-.package-price{
-display:block;
-font-size:21px;
-font-weight:bold;
-margin-top:4px;
-}
-
-.old-price{
-text-decoration:line-through;
-color:#666;
-font-size:13px;
-margin-right:5px;
-}
-
-.sale-price{
-color:#22c55e;
-font-weight:bold;
-}
-
-.discount-percent{
-display:inline-block;
-margin-left:6px;
-color:#fff;
-background:#ef4444;
-border-radius:5px;
-padding:2px 6px;
-font-size:11px;
-font-weight:bold;
-}
-
-.selected{
-margin-top:15px;
-background:#101010;
-border:1px solid #252525;
-border-radius:13px;
-padding:20px;
-}
-
-.selected-price{
-font-size:32px;
-font-weight:900;
-}
-
-.selected-period{
-color:#777;
-margin-left:7px;
-}
-
-.selected-old-price{
-display:block;
-text-decoration:line-through;
-color:#666;
-font-size:14px;
-margin-bottom:2px;
-}
-
-.buttons{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:10px;
-margin-top:15px;
-}
-
-.buy{
-border:none;
-background:#2563eb;
-color:white;
-border-radius:10px;
-padding:14px;
-font-size:15px;
-font-weight:bold;
-cursor:pointer;
-}
-
-.buy:hover{
-background:#1d4ed8;
-}
-
-.cart{
-border:1px solid #333;
-background:#151515;
-color:white;
-border-radius:10px;
-padding:14px;
-font-size:15px;
-font-weight:bold;
-cursor:pointer;
-}
-
-.cart:hover{
-border-color:#2563eb;
-}
-
-.safety{
-margin-top:15px;
-background:#0c170f;
-border:1px solid #1d3a25;
-color:#8dbd98;
-border-radius:10px;
-padding:13px;
-font-size:13px;
-}
-
-.description{
-max-width:850px;
-margin-top:65px;
-}
-
-.description h2{
-font-size:27px;
-margin:38px 0 12px;
-}
-
-.description h2:first-child{
-margin-top:0;
-}
-
-.description p{
-color:#aaa;
-margin-bottom:16px;
-}
-
-.description ul{
-color:#aaa;
-padding-left:22px;
-}
-
-.description li{
-margin-bottom:8px;
-}
-
-.info{
-background:#101010;
-border:1px solid #252525;
-border-radius:13px;
-padding:20px;
-margin:20px 0;
-}
-
-.faq-section,
-.reviews-section,
-.articles-section{
-margin-top:65px;
-padding-top:45px;
-border-top:1px solid #222;
-}
-
-.section-heading{
-margin-bottom:28px;
-}
-
-.section-heading h2{
-font-size:29px;
-margin-bottom:8px;
-}
-
-.section-heading p{
-color:#888;
-}
-
-.faq-list{
-display:flex;
-flex-direction:column;
-gap:10px;
-}
-
-.faq-item{
-background:#101010;
-border:1px solid #252525;
-border-radius:12px;
-overflow:hidden;
-}
-
-.faq-question{
-width:100%;
-border:none;
-background:transparent;
-color:white;
-padding:18px 20px;
-text-align:left;
-font-size:15px;
-font-weight:bold;
-cursor:pointer;
-display:flex;
-justify-content:space-between;
-align-items:center;
-}
-
-.faq-question:hover{
-background:#151515;
-}
-
-.faq-answer{
-display:none;
-padding:0 20px 18px;
-color:#999;
-font-size:14px;
-}
-
-.faq-item.open .faq-answer{
-display:block;
-}
-
-.faq-plus{
-color:#60a5fa;
-font-size:22px;
-}
-
-.reviews-grid,
-.articles-grid{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:15px;
-}
-
-.review-card,
-.article-card{
-background:#101010;
-border:1px solid #252525;
-border-radius:14px;
-padding:22px;
-}
-
-.review-stars{
-color:#facc15;
-letter-spacing:2px;
-margin-bottom:12px;
-}
-
-.review-text{
-color:#bbb;
-font-size:14px;
-margin-bottom:18px;
-}
-
-.review-name{
-font-weight:bold;
-}
-
-.review-role{
-color:#666;
-font-size:12px;
-margin-top:3px;
-}
-
-.article-card h3{
-font-size:16px;
-margin-bottom:9px;
-}
-
-.article-card p{
-color:#888;
-font-size:13px;
-margin-bottom:12px;
-}
-
-.article-date{
-color:#666;
-font-size:12px;
-}
-
-.guides-section{
-margin-top:35px;
-}
-
-.guides-title{
-font-size:20px;
-margin-bottom:15px;
-}
-
-.guides-list{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:10px;
-}
-
-.guide-card{
-background:#101010;
-border:1px solid #252525;
-border-radius:11px;
-padding:15px;
-color:#aaa;
-font-size:14px;
-}
-
-.trust{
-margin-top:60px;
-padding-top:45px;
-border-top:1px solid #222;
-}
-
-.trust-title{
-text-align:center;
-margin-bottom:30px;
-}
-
-.trust-title h2{
-font-size:29px;
-}
-
-.trust-title p{
-color:#888;
-}
-
-.trust-grid{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:15px;
-}
-
-.trust-card{
-background:#101010;
-border:1px solid #252525;
-border-radius:14px;
-padding:23px;
-}
-
-.trust-icon{
-font-size:25px;
-margin-bottom:10px;
-}
-
-.trust-card h3{
-margin-bottom:7px;
-}
-
-.trust-card p{
-color:#888;
-font-size:14px;
-}
-
-.other{
-margin-top:65px;
-}
-
-.other-title{
-text-align:center;
-margin-bottom:25px;
-}
-
-.other-title h2{
-font-size:29px;
-}
-
-.other-title p{
-color:#888;
-}
-
-.other-grid{
-display:grid;
-grid-template-columns:repeat(4,1fr);
-gap:15px;
-}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,sans-serif;background:#070707;color:#fff;line-height:1.6}
+a{text-decoration:none;color:inherit}
+.container{width:92%;max-width:1150px;margin:auto}
+
+header{border-bottom:1px solid #222;background:#080808;position:sticky;top:0;z-index:1000}
+.nav{height:72px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-size:25px;font-weight:900;color:#3b82f6}
+.logo span{color:#fff}
+.menu{display:flex;gap:25px}
+.menu a{color:#aaa;font-size:14px}
+.menu a:hover{color:#fff}
+.nav-right{display:flex;align-items:center;gap:12px}
+
+.language{display:flex;align-items:center;gap:4px;background:#151515;border:1px solid #333;border-radius:8px;padding:4px 6px}
+.language button{background:none;border:none;color:#777;padding:5px 6px;font-size:11px;font-weight:bold;cursor:pointer;border-radius:5px}
+.language button.active{color:#60a5fa;background:#0c172b}
+
+.cart-btn{display:flex;align-items:center;gap:6px;background:#151515;border:1px solid #333;color:#fff;padding:10px 15px;border-radius:8px;font-weight:bold;cursor:pointer}
+.cart-count{background:#ef4444;color:#fff;border-radius:50%;padding:2px 6px;font-size:11px;font-weight:bold}
+
+.auth-links{display:flex;align-items:center;gap:10px}
+.auth-links a,.logout-btn{color:#aaa;font-size:14px;font-weight:600}
+.logout-btn{background:none;border:none;cursor:pointer;font-family:inherit;padding:0}
+.user-email{color:#777;font-size:13px}
+
+#cartModal{display:none;position:fixed;top:0;right:0;width:100%;max-width:400px;height:100vh;background:#101010;border-left:1px solid #262626;z-index:2000;padding:25px;overflow-y:auto}
+
+.whatsapp-float,.chat-float{position:fixed;bottom:25px;width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;z-index:9999;transition:.3s}
+.whatsapp-float{right:25px;background:#25d366;box-shadow:0 4px 15px rgba(37,211,102,.4)}
+.chat-float{right:100px;background:#2563eb;font-size:28px;box-shadow:0 4px 15px rgba(37,99,235,.4)}
+.whatsapp-float:hover,.chat-float:hover{transform:scale(1.1)}
+.whatsapp-float svg{width:34px;height:34px;fill:#fff}
+
+main{padding:50px 0 90px}
+.breadcrumb{color:#777;font-size:13px;margin-bottom:25px}
+.breadcrumb a{color:#60a5fa}
+
+.product{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+.image-box{background:#101010;border:1px solid #252525;border-radius:20px;min-height:500px;display:flex;align-items:center;justify-content:center;padding:40px}
+.image-box img{width:100%;max-width:400px;max-height:400px;object-fit:contain}
+
+.badge{display:inline-block;color:#60a5fa;background:#0c172b;border:1px solid #1d4ed8;border-radius:20px;padding:5px 12px;font-size:12px;font-weight:bold;margin-bottom:15px}
+h1{font-size:38px;line-height:1.2;margin-bottom:12px}
+.rating{color:#facc15;margin-bottom:18px}
+.rating span{color:#777}
+.short{color:#999;font-size:15px;margin-bottom:25px}
+
+.package-title{font-size:15px;font-weight:bold;margin-bottom:12px}
+.packages{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.package{cursor:pointer;background:#101010;border:1px solid #333;border-radius:12px;padding:17px;transition:.2s}
+.package:hover{border-color:#2563eb}
+.package.active{background:#0b1830;border-color:#2563eb;box-shadow:0 0 0 1px #2563eb}
+.package-name{display:block;font-size:14px;color:#aaa}
+.package-price{display:block;font-size:21px;font-weight:bold;margin-top:4px}
+
+.old-price{text-decoration:line-through;color:#666;font-size:13px;margin-right:5px}
+.sale-price{color:#22c55e;font-weight:bold}
+.discount-percent{display:inline-block;margin-left:6px;color:#fff;background:#ef4444;border-radius:5px;padding:2px 6px;font-size:11px;font-weight:bold}
+
+.selected{margin-top:15px;background:#101010;border:1px solid #252525;border-radius:13px;padding:20px}
+.selected-price{font-size:32px;font-weight:900}
+.selected-period{color:#777;margin-left:7px}
+.selected-old-price{display:block;text-decoration:line-through;color:#666;font-size:14px}
+
+.buttons{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:15px}
+.buy{border:none;background:#2563eb;color:#fff;border-radius:10px;padding:14px;font-size:15px;font-weight:bold;cursor:pointer}
+.buy:hover{background:#1d4ed8}
+.cart{border:1px solid #333;background:#151515;color:#fff;border-radius:10px;padding:14px;font-size:15px;font-weight:bold;cursor:pointer}
+.cart:hover{border-color:#2563eb}
+
+.safety{margin-top:15px;background:#0c170f;border:1px solid #1d3a25;color:#8dbd98;border-radius:10px;padding:13px;font-size:13px}
+
+.description{max-width:850px;margin-top:65px}
+.description h2{font-size:27px;margin:38px 0 12px}
+.description p{color:#aaa;margin-bottom:16px}
+
+.faq-section,.reviews-section,.articles-section{margin-top:65px;padding-top:45px;border-top:1px solid #222}
+.section-heading{margin-bottom:28px}
+.section-heading h2{font-size:29px;margin-bottom:8px}
+.section-heading p{color:#888}
+
+.faq-list{display:flex;flex-direction:column;gap:10px}
+.faq-item{background:#101010;border:1px solid #252525;border-radius:12px;overflow:hidden}
+.faq-question{width:100%;border:none;background:transparent;color:#fff;padding:18px 20px;text-align:left;font-size:15px;font-weight:bold;cursor:pointer;display:flex;justify-content:space-between}
+.faq-question:hover{background:#151515}
+.faq-answer{display:none;padding:0 20px 18px;color:#999;font-size:14px}
+.faq-item.open .faq-answer{display:block}
+.faq-plus{color:#60a5fa;font-size:22px}
+
+.reviews-grid,.articles-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
+.review-card,.article-card{background:#101010;border:1px solid #252525;border-radius:14px;padding:22px}
+.review-stars{color:#facc15;letter-spacing:2px;margin-bottom:12px}
+.review-text{color:#bbb;font-size:14px;margin-bottom:18px}
+.review-name{font-weight:bold}
+.review-role,.article-date{color:#666;font-size:12px}
+.article-card h3{font-size:16px;margin-bottom:9px}
+.article-card p{color:#888;font-size:13px;margin-bottom:12px}
+
+.guides-section{margin-top:35px}
+.guides-title{font-size:20px;margin-bottom:15px}
+.guides-list{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.guide-card{background:#101010;border:1px solid #252525;border-radius:11px;padding:15px;color:#aaa;font-size:14px}
+
+.trust{margin-top:60px;padding-top:45px;border-top:1px solid #222}
+.trust-title{text-align:center;margin-bottom:30px}
+.trust-title h2{font-size:29px}
+.trust-title p{color:#888}
+.trust-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
+.trust-card{background:#101010;border:1px solid #252525;border-radius:14px;padding:23px}
+.trust-icon{font-size:25px;margin-bottom:10px}
+.trust-card h3{margin-bottom:7px}
+.trust-card p{color:#888;font-size:14px}
+
+.other{margin-top:65px}
+.other-title{text-align:center;margin-bottom:25px}
+.other-title h2{font-size:29px}
+.other-title p{color:#888}
+.other-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:15px}
 
 .other-card{
 background:#101010;
@@ -733,6 +153,8 @@ border:1px solid #252525;
 border-radius:14px;
 padding:18px;
 text-align:center;
+display:flex;
+flex-direction:column;
 }
 
 .other-card img{
@@ -744,196 +166,110 @@ margin-bottom:10px;
 
 .other-card h3{
 font-size:15px;
-margin-bottom:10px;
+margin-bottom:7px;
+min-height:45px;
+display:flex;
+align-items:center;
+justify-content:center;
 }
 
-.other-card a{
+.other-price{
+font-size:18px;
+font-weight:800;
+margin:4px 0 12px;
+color:#60a5fa;
+}
+
+.other-old-price{
+text-decoration:line-through;
+color:#666;
+font-size:12px;
+margin-right:5px;
+}
+
+.other-sale-price{
+color:#22c55e;
+font-size:18px;
+font-weight:800;
+}
+
+.other-discount{
+display:inline-block;
+margin-left:5px;
+color:#fff;
+background:#ef4444;
+border-radius:5px;
+padding:2px 5px;
+font-size:10px;
+font-weight:bold;
+}
+
+.other-buttons{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:7px;
+margin-top:auto;
+}
+
+.other-details{
 display:block;
-padding:9px;
+padding:10px 5px;
 border-radius:8px;
 border:1px solid #333;
 color:#60a5fa;
 font-size:13px;
+cursor:pointer;
 }
 
-.other-card a:hover{
-border-color:#2563eb;
-}
-
-/* FOOTER */
-
-footer{
-border-top:1px solid #222;
-padding:45px 0 25px;
-background:#030303;
-}
-
-.footer-grid{
-display:grid;
-grid-template-columns:1.5fr 1fr 1fr 1fr 1fr;
-gap:30px;
-}
-
-.footer-col h3{
-font-size:15px;
-margin-bottom:15px;
-}
-
-.footer-col p{
-color:#777;
-font-size:13px;
-line-height:1.7;
-}
-
-.footer-col a{
+.other-cart{
 display:block;
-color:#777;
-font-size:13px;
-margin-bottom:8px;
-}
-
-.footer-col a:hover{
-color:#60a5fa;
-}
-
-.footer-product{
-display:block;
-color:#777;
-font-size:13px;
-margin-bottom:8px;
-}
-
-.footer-product:hover{
-color:#60a5fa;
-}
-
-.footer-price{
-display:flex;
-justify-content:space-between;
-gap:8px;
-color:#777;
-font-size:13px;
-margin-bottom:9px;
-}
-
-.footer-price span:last-child{
-color:#60a5fa;
-white-space:nowrap;
-}
-
-.footer-bottom{
-border-top:1px solid #1c1c1c;
-margin-top:35px;
-padding-top:20px;
-color:#666;
-font-size:13px;
-text-align:center;
-}
-
-.about-dropdown{
-position:relative;
-display:inline-block;
-}
-
-.about-dropdown-menu{
-display:none;
-position:absolute;
-top:100%;
-left:0;
-min-width:190px;
-background:#111;
-border:1px solid #2a2a2a;
-border-radius:10px;
-padding:8px 0;
-z-index:9999;
-box-shadow:0 10px 25px rgba(0,0,0,.35);
-}
-
-.about-dropdown-menu a{
-display:block;
-padding:10px 15px;
+padding:10px 5px;
+border-radius:8px;
+border:1px solid #2563eb;
+background:#2563eb;
 color:#fff;
-text-decoration:none;
-white-space:nowrap;
+font-size:13px;
+font-weight:bold;
+cursor:pointer;
 }
 
-.about-dropdown-menu a:hover{
-background:#1d1d1d;
-}
+.other-cart:hover{background:#1d4ed8}
 
-.about-dropdown:hover .about-dropdown-menu{
-display:block;
-}
+footer{border-top:1px solid #222;padding:45px 0 25px;background:#030303}
+.footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr 1fr;gap:30px}
+.footer-col h3{font-size:15px;margin-bottom:15px}
+.footer-col p,.footer-col a,.footer-product{color:#777;font-size:13px}
+.footer-col a,.footer-product{display:block;margin-bottom:8px}
+.footer-col a:hover,.footer-product:hover{color:#60a5fa}
+.footer-price{display:flex;justify-content:space-between;gap:8px;color:#777;font-size:13px;margin-bottom:9px}
+.footer-price span:last-child{color:#60a5fa;white-space:nowrap}
+.footer-bottom{border-top:1px solid #1c1c1c;margin-top:35px;padding-top:20px;color:#666;font-size:13px;text-align:center}
+
+.about-dropdown{position:relative;display:inline-block}
+.about-dropdown-menu{display:none;position:absolute;top:100%;left:0;min-width:190px;background:#111;border:1px solid #2a2a2a;border-radius:10px;padding:8px 0;z-index:9999}
+.about-dropdown-menu a{display:block;padding:10px 15px;color:#fff}
+.about-dropdown-menu a:hover{background:#1d1d1d}
+.about-dropdown:hover .about-dropdown-menu{display:block}
 
 @media(max-width:850px){
-
-.product{
-grid-template-columns:1fr;
-}
-
-.other-grid{
-grid-template-columns:repeat(2,1fr);
-}
-
-.trust-grid,
-.reviews-grid,
-.articles-grid{
-grid-template-columns:1fr;
-}
-
-.footer-grid{
-grid-template-columns:repeat(2,1fr);
-}
-
+.product{grid-template-columns:1fr}
+.other-grid{grid-template-columns:repeat(2,1fr)}
+.trust-grid,.reviews-grid,.articles-grid{grid-template-columns:1fr}
+.footer-grid{grid-template-columns:repeat(2,1fr)}
 }
 
 @media(max-width:600px){
-
-.menu{
-display:none;
-}
-
-h1{
-font-size:30px;
-}
-
-.packages{
-grid-template-columns:1fr;
-}
-
-.buttons{
-grid-template-columns:1fr;
-}
-
-.other-grid{
-grid-template-columns:1fr;
-}
-
-.guides-list{
-grid-template-columns:1fr;
-}
-
-.image-box{
-min-height:330px;
-}
-
-.nav-right{
-gap:5px;
-}
-
-.language button{
-padding:5px 4px;
-}
-
-.cart-btn{
-padding:9px 10px;
-}
-
-.footer-grid{
-grid-template-columns:1fr;
-gap:25px;
-}
-
+.menu{display:none}
+h1{font-size:30px}
+.packages{grid-template-columns:1fr}
+.buttons{grid-template-columns:1fr}
+.other-grid{grid-template-columns:1fr}
+.guides-list{grid-template-columns:1fr}
+.image-box{min-height:330px}
+.nav-right{gap:5px}
+.language button{padding:5px 4px}
+.cart-btn{padding:9px 10px}
+.footer-grid{grid-template-columns:1fr;gap:25px}
 }
 </style>
 </head>
@@ -943,110 +279,50 @@ gap:25px;
 <header>
 <div class="container nav">
 
-<a href="index.html" class="logo">
-DigiBaku<span>.com</span>
-</a>
+<a href="index.html" class="logo">DigiBaku<span>.com</span></a>
 
 <nav class="menu">
-
 <a href="index.html" data-i18n="home">Ana səhifə</a>
-
-<a href="index.html#products" data-i18n="products">
-Məhsullar
-</a>
-
-<a href="index.html#compare" data-i18n="compare">
-Müqayisə
-</a>
+<a href="index.html#products" data-i18n="products">Məhsullar</a>
+<a href="index.html#compare" data-i18n="compare">Müqayisə</a>
 
 <div class="about-dropdown">
-
-<a href="https://digibaku.com/faq.html#about"
-data-i18n="about">
-Haqqımızda
-</a>
-
+<a href="https://digibaku.com/faq.html#about" data-i18n="about">Haqqımızda</a>
 <div class="about-dropdown-menu">
-
 <a href="https://digibaku.com/faq.html#faq">FAQ</a>
-
-<a href="https://digibaku.com/faq.html#how-it-works">
-Necə işləyir?
-</a>
-
-<a href="https://digibaku.com/faq.html#trust">
-Etibar
-</a>
-
-<a href="https://digibaku.com/faq.html#editorial-policy">
-Redaksiya siyasəti
-</a>
-
-<a href="https://digibaku.com/faq.html#terms">
-Şərtlər
-</a>
-
-<a href="https://digibaku.com/faq.html#reviews">
-Rəylər
-</a>
-
+<a href="https://digibaku.com/faq.html#how-it-works">Necə işləyir?</a>
+<a href="https://digibaku.com/faq.html#trust">Etibar</a>
+<a href="https://digibaku.com/faq.html#editorial-policy">Redaksiya siyasəti</a>
+<a href="https://digibaku.com/faq.html#terms">Şərtlər</a>
+<a href="https://digibaku.com/faq.html#reviews">Rəylər</a>
 </div>
 </div>
 
-<a href="qiymetler.html" data-i18n="prices">
-Qiymətlər
-</a>
-
-<a href="index.html#blog" data-i18n="blog">
-Bloq
-</a>
-
-<a href="index.html#contact" data-i18n="contact">
-Əlaqə
-</a>
-
+<a href="qiymetler.html" data-i18n="prices">Qiymətlər</a>
+<a href="index.html#blog" data-i18n="blog">Bloq</a>
+<a href="index.html#contact" data-i18n="contact">Əlaqə</a>
 </nav>
 
 <div class="nav-right">
 
 <button onclick="toggleCart()" class="cart-btn">
-🛒
-<span data-i18n="cart">Səbət</span>
+🛒 <span data-i18n="cart">Səbət</span>
 <span id="cartCount" class="cart-count">0</span>
 </button>
 
 <div class="auth-links" id="authArea">
-
-<a href="login.html" data-i18n="login">
-Daxil ol
-</a>
-
-<a href="login.html" data-i18n="register">
-Qeydiyyat
-</a>
-
+<a href="login.html" data-i18n="login">Daxil ol</a>
+<a href="login.html" data-i18n="register">Qeydiyyat</a>
 </div>
 
-<button id="logoutButton"
-class="logout-btn"
-data-i18n="logout"
-style="display:none;"
-onclick="logout()">
-Çıxış
-</button>
+<button id="logoutButton" class="logout-btn" style="display:none" onclick="logout()">Çıxış</button>
 
 <div class="language">
-
 <button id="azBtn" onclick="setLanguage('az')">AZ</button>
-
-<span style="color:#444;">|</span>
-
+<span style="color:#444">|</span>
 <button id="ruBtn" onclick="setLanguage('ru')">RU</button>
-
-<span style="color:#444;">|</span>
-
+<span style="color:#444">|</span>
 <button id="enBtn" onclick="setLanguage('en')">EN</button>
-
 </div>
 
 </div>
@@ -1055,141 +331,75 @@ onclick="logout()">
 
 <div id="cartModal">
 
-<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
-
-<h2 id="cartTitle" style="font-size:22px;color:#fff;">
-Səbətiniz
-</h2>
-
-<button onclick="toggleCart()"
-style="background:none;border:none;color:#aaa;font-size:22px;cursor:pointer;">
-✕
-</button>
-
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+<h2 id="cartTitle" style="font-size:22px">Səbətiniz</h2>
+<button onclick="toggleCart()" style="background:none;border:none;color:#aaa;font-size:22px;cursor:pointer">✕</button>
 </div>
 
-<div id="cartItemsList" style="margin-bottom:20px;">
-
-<p id="emptyCartText" style="color:#777;text-align:center;">
-Səbətiniz boşdur
-</p>
-
+<div id="cartItemsList">
+<p id="emptyCartText" style="color:#777;text-align:center">Səbətiniz boşdur</p>
 </div>
 
-<div style="border-top:1px solid #222;padding-top:15px;">
-
-<div style="display:flex;justify-content:space-between;margin-bottom:15px;font-weight:bold;">
-
-<span id="totalText">
-Ümumi məbləğ:
-</span>
-
-<span id="cartTotalPrice">
-0.00 AZN
-</span>
-
+<div style="border-top:1px solid #222;padding-top:15px">
+<div style="display:flex;justify-content:space-between;margin-bottom:15px;font-weight:bold">
+<span id="totalText">Ümumi məbləğ:</span>
+<span id="cartTotalPrice">0.00 AZN</span>
 </div>
 
-<button onclick="checkoutCart()"
-id="checkoutButton"
-style="width:100%;background:#2563eb;color:white;border:none;border-radius:9px;padding:12px;font-weight:bold;cursor:pointer;">
+<button onclick="checkoutCart()" id="checkoutButton"
+style="width:100%;background:#2563eb;color:#fff;border:none;border-radius:9px;padding:12px;font-weight:bold;cursor:pointer">
 Sifarişi Təsdiq Et
 </button>
-
 </div>
 </div>
 
 <main>
-
 <div class="container">
 
 <div class="breadcrumb">
-
-<a href="index.html" data-i18n="home">
-Ana səhifə
-</a>
-
+<a href="index.html" data-i18n="home">Ana səhifə</a>
 &nbsp; / &nbsp;
-
 <span id="breadcrumb">Məhsul</span>
-
 </div>
 
 <div class="product">
 
 <div class="image-box">
-
-<img id="productImage"
-src="netflix.webp"
-alt="Premium xidmət">
-
+<img id="productImage" src="netflix.webp" alt="Premium xidmət">
 </div>
 
 <div>
 
-<span class="badge" id="premiumBadge">
-Premium rəqəmsal xidmət
-</span>
+<span class="badge" id="premiumBadge">Premium rəqəmsal xidmət</span>
 
-<h1 id="productName">
-Məhsul
-</h1>
+<h1 id="productName">Məhsul</h1>
 
-<div class="rating">
-
-★★★★★
-
-<span id="rating">
-5.0 (1 rəy)
-</span>
-
-</div>
+<div class="rating">★★★★★ <span id="rating">5.0 (1 rəy)</span></div>
 
 <p class="short" id="shortDescription"></p>
 
-<div class="package-title" id="packageTitle">
-Müddət seçin
-</div>
-
+<div class="package-title" id="packageTitle">Müddət seçin</div>
 <div class="packages" id="packages"></div>
 
 <div class="selected">
 
-<span class="selected-old-price"
-id="selectedOldPrice"
-style="display:none;">
-</span>
+<span class="selected-old-price" id="selectedOldPrice" style="display:none"></span>
 
-<span class="selected-price"
-id="selectedPrice">
-Qiymət yoxdur
-</span>
+<span class="selected-price" id="selectedPrice">Qiymət yoxdur</span>
 
-<span class="selected-period"
-id="selectedPeriod">
-</span>
+<span class="selected-period" id="selectedPeriod"></span>
 
 </div>
 
 <div class="buttons">
 
-<button class="buy"
-onclick="buyNow()"
-id="buyButton">
-İndi al
-</button>
+<button class="buy" onclick="buyNow()" id="buyButton">İndi al</button>
 
-<button class="cart"
-onclick="addToCart()"
-id="addCartButton">
-Səbətə at
-</button>
+<button class="cart" onclick="addToCart()" id="addCartButton">Səbətə at</button>
 
 </div>
 
-<div class="safety" id="safetyText">
-🔒 Məlumatlarınız təhlükəsiz saxlanılır.
-</div>
+<div class="safety" id="safetyText">🔒 Məlumatlarınız təhlükəsiz saxlanılır.</div>
 
 </div>
 </div>
@@ -1199,122 +409,60 @@ Səbətə at
 <div id="content"></div>
 
 <div class="faq-section">
-
 <div class="section-heading">
-
 <h2 id="faqTitle">FAQ</h2>
-
-<p id="faqSubtitle">
-Məhsul, qiymət, aktivləşdirmə və istifadə ilə bağlı ən çox verilən suallara burada cavab tapın.
-</p>
-
+<p id="faqSubtitle">Məhsul, qiymət, aktivləşdirmə və istifadə ilə bağlı ən çox verilən suallara burada cavab tapın.</p>
 </div>
-
 <div class="faq-list" id="faqList"></div>
-
 </div>
 
 <div class="reviews-section">
-
 <div class="section-heading">
-
-<h2 id="reviewsTitle">
-Məhsul haqqında rəylər
-</h2>
-
-<p id="reviewsSubtitle">
-Müştərilərimizin DigiBaku.com xidmətləri haqqında fikirləri.
-</p>
-
+<h2 id="reviewsTitle">Məhsul haqqında rəylər</h2>
+<p id="reviewsSubtitle">Müştərilərimizin DigiBaku.com xidmətləri haqqında fikirləri.</p>
 </div>
-
 <div class="reviews-grid" id="reviewsGrid"></div>
-
 </div>
 
 <div class="articles-section">
-
 <div class="section-heading">
-
-<h2 id="articlesTitle">
-Faydalı oxu
-</h2>
-
-<p id="articlesSubtitle">
-Premium xidmət seçərkən sizə kömək edəcək məlumatlar.
-</p>
-
+<h2 id="articlesTitle">Faydalı oxu</h2>
+<p id="articlesSubtitle">Premium xidmət seçərkən sizə kömək edəcək məlumatlar.</p>
 </div>
 
 <div class="articles-grid" id="articlesGrid"></div>
 
 <div class="guides-section">
-
-<h3 class="guides-title" id="guidesTitle">
-Praktik bələdçilər
-</h3>
-
+<h3 class="guides-title" id="guidesTitle">Praktik bələdçilər</h3>
 <div class="guides-list" id="guidesList"></div>
-
 </div>
 </div>
 
 <div class="trust">
 
 <div class="trust-title">
-
-<h2 id="trustTitle">
-Etibar və sifariş axını
-</h2>
-
-<p id="trustSubtitle">
-DigiBaku.com-da sifariş prosesi sadə, rahat və sürətli şəkildə hazırlanıb.
-</p>
-
+<h2 id="trustTitle">Etibar və sifariş axını</h2>
+<p id="trustSubtitle">DigiBaku.com-da sifariş prosesi sadə, rahat və sürətli şəkildə hazırlanıb.</p>
 </div>
 
 <div class="trust-grid">
 
 <div class="trust-card">
-
 <div class="trust-icon">⚡</div>
-
-<h3 id="fastTitle">
-Sürətli aktivləşdirmə
-</h3>
-
-<p id="fastText">
-Sifarişiniz təsdiqləndikdən sonra seçdiyiniz premium xidmətin aktivləşdirilməsi üçün proses başladılır.
-</p>
-
+<h3 id="fastTitle">Sürətli aktivləşdirmə</h3>
+<p id="fastText">Sifarişiniz təsdiqləndikdən sonra seçdiyiniz premium xidmətin aktivləşdirilməsi üçün proses başladılır.</p>
 </div>
 
 <div class="trust-card">
-
 <div class="trust-icon">🔒</div>
-
-<h3 id="secureTitle">
-Təhlükəsiz sifariş
-</h3>
-
-<p id="secureText">
-Sifariş zamanı təqdim etdiyiniz məlumatların təhlükəsizliyinə diqqət yetiririk.
-</p>
-
+<h3 id="secureTitle">Təhlükəsiz sifariş</h3>
+<p id="secureText">Sifariş zamanı təqdim etdiyiniz məlumatların təhlükəsizliyinə diqqət yetiririk.</p>
 </div>
 
 <div class="trust-card">
-
 <div class="trust-icon">💬</div>
-
-<h3 id="supportTitle">
-Operativ dəstək
-</h3>
-
-<p id="supportText">
-Sifariş və istifadə ilə bağlı suallarınız yaranarsa, WhatsApp üzərindən bizimlə əlaqə saxlaya bilərsiniz.
-</p>
-
+<h3 id="supportTitle">Operativ dəstək</h3>
+<p id="supportText">Sifariş və istifadə ilə bağlı suallarınız yaranarsa, WhatsApp üzərindən bizimlə əlaqə saxlaya bilərsiniz.</p>
 </div>
 
 </div>
@@ -1323,15 +471,8 @@ Sifariş və istifadə ilə bağlı suallarınız yaranarsa, WhatsApp üzərind�
 <div class="other">
 
 <div class="other-title">
-
-<h2 id="otherTitle">
-Digər premium xidmətlər
-</h2>
-
-<p id="otherSubtitle">
-DigiBaku.com-da digər xidmətlərə də baxın.
-</p>
-
+<h2 id="otherTitle">Digər premium xidmətlər</h2>
+<p id="otherSubtitle">DigiBaku.com-da digər xidmətlərə də baxın.</p>
 </div>
 
 <div class="other-grid" id="otherProductsGrid"></div>
@@ -1340,184 +481,93 @@ DigiBaku.com-da digər xidmətlərə də baxın.
 
 </div>
 </div>
-
 </main>
 
 <footer>
-
 <div class="container">
 
 <div class="footer-grid">
 
 <div class="footer-col">
-
-<div class="logo">
-DigiBaku<span>.com</span>
-</div>
-
-<p id="footerDescription">
-Premium rəqəmsal xidmətlər bir platformada.
-</p>
-
+<div class="logo">DigiBaku<span>.com</span></div>
+<p id="footerDescription">Premium rəqəmsal xidmətlər bir platformada.</p>
 </div>
 
 <div class="footer-col">
-
-<h3 data-i18n="usefulLinks">
-Faydalı linklər
-</h3>
-
-<a href="index.html" data-i18n="home">
-Ana səhifə
-</a>
-
-<a href="index.html#products" data-i18n="products">
-Məhsullar
-</a>
-
-<a href="index.html#compare" data-i18n="compare">
-Müqayisə
-</a>
-
-<a href="https://digibaku.com/faq.html#about"
-data-i18n="about">
-Haqqımızda
-</a>
-
-<a href="index.html#reviews" data-i18n="reviews">
-Rəylər
-</a>
-
+<h3 data-i18n="usefulLinks">Faydalı linklər</h3>
+<a href="index.html" data-i18n="home">Ana səhifə</a>
+<a href="index.html#products" data-i18n="products">Məhsullar</a>
+<a href="index.html#compare" data-i18n="compare">Müqayisə</a>
+<a href="https://digibaku.com/faq.html#about" data-i18n="about">Haqqımızda</a>
+<a href="index.html#reviews" data-i18n="reviews">Rəylər</a>
 </div>
 
 <div class="footer-col">
-
-<h3 data-i18n="products">
-Məhsullar
-</h3>
-
+<h3 data-i18n="products">Məhsullar</h3>
 <div id="footerProducts"></div>
-
 </div>
 
 <div class="footer-col">
-
-<h3 data-i18n="prices">
-Qiymətlər
-</h3>
-
+<h3 data-i18n="prices">Qiymətlər</h3>
 <div id="footerPrices"></div>
-
 </div>
 
 <div class="footer-col">
-
-<h3 data-i18n="supportFooter">
-Dəstək
-</h3>
-
-<a href="https://wa.me/994513626349"
-target="_blank"
-data-i18n="contact">
-Əlaqə
-</a>
-
-<a href="index.html#blog"
-data-i18n="blog">
-Bloq
-</a>
-
-<a href="chat.html">
-Chat
-</a>
-
+<h3 data-i18n="supportFooter">Dəstək</h3>
+<a href="https://wa.me/994513626349" target="_blank" data-i18n="contact">Əlaqə</a>
+<a href="index.html#blog" data-i18n="blog">Bloq</a>
+<a href="chat.html">Chat</a>
 </div>
 
 </div>
 
-<div class="footer-bottom" id="footerText">
-© 2026 DigiBaku.com. Bütün hüquqlar qorunur.
-</div>
+<div class="footer-bottom" id="footerText">© 2026 DigiBaku.com. Bütün hüquqlar qorunur.</div>
 
 </div>
-
 </footer>
 
-<a href="chat.html"
-class="chat-float"
-aria-label="Çat">
-💬
-</a>
+<a href="chat.html" class="chat-float">💬</a>
 
 <a href="https://wa.me/994513626349?text=Salam%2C%20məlumat%20almaq%20istəyirəm"
-target="_blank"
-class="whatsapp-float"
-aria-label="WhatsApp dəstək">
+target="_blank" class="whatsapp-float">
 
 <svg viewBox="0 0 32 32">
-
-<path d="M16.002 0c-8.837 0-16 7.163-16 16 0 2.825.736 5.485 2.025 7.795l-2.025 7.395 7.575-1.985c2.22 1.21 4.795 1.9 7.425 1.9 8.837 0 16-7.163 16-16s-7.163-16-16-16zM16.002 29.337c-2.345 0-4.57-0.63-6.505-1.725l-0.465-0.27-4.83 1.265 1.29-4.705-0.3-0.485c-1.215-1.95-1.855-4.22-1.855-6.557 0-7.36 5.99-13.35 13.35-13.35 7.36 0 13.35 5.99 13.35 13.35s-5.99 13.35-13.35 13.35zM22.56 19.32c-0.36-0.18-2.125-1.05-2.455-1.17s-0.57-0.18-0.81 0.18c-0.24 0.36-0.93 1.17-1.14 1.41s-0.42 0.27-0.78 0.09c-0.36-0.18-1.515-0.555-2.885-1.785-1.065-0.945-1.785-2.115-1.995-2.475s-0.03-0.555 0.15-0.735c0.15-0.15 0.36-0.39 0.54-0.585s0.24-0.33 0.36-0.555c0.12-0.225 0.06-0.42-0.03-0.585s-0.81-1.95-1.11-2.67c-0.285-0.69-0.585-0.6-0.81-0.615s-0.465-0.015-0.72-0.015c-0.255 0-0.66 0.09-1.005 0.465s-1.32 1.29-1.32 3.15 1.35 3.645 1.545 3.9c0.195.255 2.67 4.08 6.465 5.715 0.9.39 1.605.63 2.145.81.9.3 1.725.255 2.37.15 0.72-0.105 2.125-0.87 2.425-1.71s0.3-1.56 0.21-1.71c-0.09-0.15-0.33-0.24-0.69-0.42z"></path>
-
+<path d="M16.002 0c-8.837 0-16 7.163-16 16 0 2.825.736 5.485 2.025 7.795l-2.025 7.395 7.575-1.985c2.22 1.21 4.795 1.9 7.425 1.9 8.837 0 16-7.163 16-16s-7.163-16-16-16zM16.002 29.337c-2.345 0-4.57-.63-6.505-1.725l-.465-.27-4.83 1.265 1.29-4.705-.3-.485c-1.215-1.95-1.855-4.22-1.855-6.557 0-7.36 5.99-13.35 13.35-13.35 7.36 0 13.35 5.99 13.35 13.35s-5.99 13.35-13.35 13.35zM22.56 19.32c-.36-.18-2.125-1.05-2.455-1.17s-.57-.18-.81.18c-.24.36-.93 1.17-1.14 1.41s-.42.27-.78.09c-.36-.18-1.515-.555-2.885-1.785-1.065-.945-1.785-2.115-1.995-2.475s-.03-.555.15-.735c.15-.15.36-.39.54-.585s.24-.33.36-.555c.12-.225.06-.42-.03-.585s-.81-1.95-1.11-2.67c-.285-.69-.585-.6-.81-.615s-.465-.015-.72-.015c-.255 0-.66.09-1.005.465s-1.32 1.29-1.32 3.15 1.35 3.645 1.545 3.9c.195.255 2.67 4.08 6.465 5.715.9.39 1.605.63 2.145.81.9.3 1.725.255 2.37.15.72-.105 2.125-.87 2.425-1.71s.3-1.56.21-1.71c-.09-.15-.33-.24-.69-.42z"></path>
 </svg>
 
 </a>
 
 <script>
-
 /* =========================================================
 SUPABASE
 ========================================================= */
 
-const SUPABASE_URL =
-"https://zeknhnkaicqkfzgnvycq.supabase.co";
+const SUPABASE_URL="https://zeknhnkaicqkfzgnvycq.supabase.co";
+const SUPABASE_KEY="sb_publishable_jHvCp9fXBA_BwFqrXYpwlw_VC6C1OQk";
 
-const SUPABASE_KEY =
-"sb_publishable_jHvCp9fXBA_BwFqrXYpwlw_VC6C1OQk";
-
-const supabaseClient =
+const supabaseClient=
 window.supabase.createClient(
 SUPABASE_URL,
 SUPABASE_KEY
 );
 
 /* =========================================================
-DİL
+LANGUAGE
 ========================================================= */
 
 const translations={
-
 az:{
-home:"Ana səhifə",
-products:"Məhsullar",
-about:"Haqqımızda",
-compare:"Müqayisə",
-prices:"Qiymətlər",
-blog:"Bloq",
-contact:"Əlaqə",
-login:"Daxil ol",
-register:"Qeydiyyat",
-profile:"Profil",
-logout:"Çıxış",
-reviews:"Rəylər",
-cart:"Səbət",
-cartTitle:"Səbətiniz",
-emptyCart:"Səbətiniz boşdur",
-total:"Ümumi məbləğ:",
-checkout:"Sifarişi Təsdiq Et",
-product:"Məhsul",
-premiumService:"Premium rəqəmsal xidmət",
-packageTitle:"Müddət seçin",
-buyNow:"İndi al",
-addToCart:"Səbətə at",
-safety:"🔒 Məlumatlarınız təhlükəsiz saxlanılır.",
-faqTitle:"FAQ",
+home:"Ana səhifə",products:"Məhsullar",about:"Haqqımızda",compare:"Müqayisə",
+prices:"Qiymətlər",blog:"Bloq",contact:"Əlaqə",login:"Daxil ol",
+register:"Qeydiyyat",profile:"Profil",logout:"Çıxış",reviews:"Rəylər",
+cart:"Səbət",cartTitle:"Səbətiniz",emptyCart:"Səbətiniz boşdur",
+total:"Ümumi məbləğ:",checkout:"Sifarişi Təsdiq Et",premiumService:"Premium rəqəmsal xidmət",
+packageTitle:"Müddət seçin",buyNow:"İndi al",addToCart:"Səbətə at",
+safety:"🔒 Məlumatlarınız təhlükəsiz saxlanılır.",faqTitle:"FAQ",
 faqSubtitle:"Məhsul, qiymət, aktivləşdirmə və istifadə ilə bağlı ən çox verilən suallara burada cavab tapın.",
-reviewsTitle:"Məhsul haqqında rəylər",
-reviewsSubtitle:"Müştərilərimizin DigiBaku.com xidmətləri haqqında fikirləri.",
-articlesTitle:"Faydalı oxu",
-articlesSubtitle:"Premium xidmət seçərkən sizə kömək edəcək məlumatlar.",
-guidesTitle:"Praktik bələdçilər",
-trustTitle:"Etibar və sifariş axını",
+reviewsTitle:"Məhsul haqqında rəylər",reviewsSubtitle:"Müştərilərimizin DigiBaku.com xidmətləri haqqında fikirləri.",
+articlesTitle:"Faydalı oxu",articlesSubtitle:"Premium xidmət seçərkən sizə kömək edəcək məlumatlar.",
+guidesTitle:"Praktik bələdçilər",trustTitle:"Etibar və sifariş axını",
 trustSubtitle:"DigiBaku.com-da sifariş prosesi sadə, rahat və sürətli şəkildə hazırlanıb.",
 fastTitle:"Sürətli aktivləşdirmə",
 fastText:"Sifarişiniz təsdiqləndikdən sonra seçdiyiniz premium xidmətin aktivləşdirilməsi üçün proses başladılır.",
@@ -1525,144 +575,68 @@ secureTitle:"Təhlükəsiz sifariş",
 secureText:"Sifariş zamanı təqdim etdiyiniz məlumatların təhlükəsizliyinə diqqət yetiririk.",
 supportTitle:"Operativ dəstək",
 supportText:"Sifariş və istifadə ilə bağlı suallarınız yaranarsa, WhatsApp üzərindən bizimlə əlaqə saxlaya bilərsiniz.",
-otherTitle:"Digər premium xidmətlər",
-otherSubtitle:"DigiBaku.com-da digər xidmətlərə də baxın.",
-viewDetails:"Ətraflı bax",
-usefulLinks:"Faydalı linklər",
-supportFooter:"Dəstək",
+otherTitle:"Digər premium xidmətlər",otherSubtitle:"DigiBaku.com-da digər xidmətlərə də baxın.",
+viewDetails:"Ətraflı bax",usefulLinks:"Faydalı linklər",supportFooter:"Dəstək",
 footer:"© 2026 DigiBaku.com. Bütün hüquqlar qorunur.",
 footerDescription:"Premium rəqəmsal xidmətlər bir platformada.",
-addedToCart:"Məhsul səbətə atıldı!",
-emptyCartAlert:"Səbətiniz boşdur!",
-remove:"Sil",
+cartProductAdded:"Məhsul səbətə atıldı!",emptyCartAlert:"Səbətiniz boşdur!",
+remove:"Sil",noPrice:"Qiymət yoxdur",
 orderMessage:"Salam DigiBaku.com!\n\nSifariş vermək istəyirəm.\n\n",
 cartOrderMessage:"Salam DigiBaku.com!\n\nSəbətdəki məhsulları sifariş etmək istəyirəm:\n\n",
-productLabel:"Məhsul:",
-periodLabel:"Müddət:",
-priceLabel:"Qiymət:",
-totalAmount:"Ümumi məbləğ:",
-cartProductAdded:"Məhsul səbətə atıldı!",
-noPrice:"Qiymət yoxdur"
+productLabel:"Məhsul:",periodLabel:"Müddət:",priceLabel:"Qiymət:",totalAmount:"Ümumi məbləğ:"
 },
-
 ru:{
-home:"Главная",
-products:"Товары",
-about:"О нас",
-compare:"Сравнение",
-prices:"Цены",
-blog:"Блог",
-contact:"Контакты",
-login:"Войти",
-register:"Регистрация",
-profile:"Профиль",
-logout:"Выйти",
-reviews:"Отзывы",
-cart:"Корзина",
-cartTitle:"Ваша корзина",
-emptyCart:"Ваша корзина пуста",
-total:"Общая сумма:",
-checkout:"Подтвердить заказ",
-product:"Товар",
-premiumService:"Премиум цифровая услуга",
-packageTitle:"Выберите срок",
-buyNow:"Купить сейчас",
-addToCart:"В корзину",
-safety:"🔒 Ваши данные хранятся в безопасности.",
-faqTitle:"FAQ",
-faqSubtitle:"Здесь вы найдёте ответы на самые часто задаваемые вопросы о товаре, цене, активации и использовании.",
-reviewsTitle:"Отзывы о товаре",
-reviewsSubtitle:"Мнения наших клиентов об услугах DigiBaku.com.",
-articlesTitle:"Полезно прочитать",
-articlesSubtitle:"Информация, которая поможет вам выбрать премиум-услугу.",
-guidesTitle:"Практические руководства",
-trustTitle:"Надёжность и процесс заказа",
-trustSubtitle:"Процесс заказа на DigiBaku.com разработан максимально просто, удобно и быстро.",
-fastTitle:"Быстрая активация",
-fastText:"После подтверждения вашего заказа начинается процесс активации выбранной премиум-услуги.",
-secureTitle:"Безопасный заказ",
-secureText:"Мы уделяем особое внимание безопасности информации, предоставленной вами при заказе.",
-supportTitle:"Оперативная поддержка",
-supportText:"Если у вас возникнут вопросы по заказу или использованию, вы можете связаться с нами через WhatsApp.",
-otherTitle:"Другие премиум-услуги",
-otherSubtitle:"Посмотрите другие услуги на DigiBaku.com.",
-viewDetails:"Подробнее",
-usefulLinks:"Полезные ссылки",
-supportFooter:"Поддержка",
+home:"Главная",products:"Товары",about:"О нас",compare:"Сравнение",prices:"Цены",
+blog:"Блог",contact:"Контакты",login:"Войти",register:"Регистрация",
+profile:"Профиль",logout:"Выйти",reviews:"Отзывы",cart:"Корзина",
+cartTitle:"Ваша корзина",emptyCart:"Ваша корзина пуста",total:"Общая сумма:",
+checkout:"Подтвердить заказ",premiumService:"Премиум цифровая услуга",
+packageTitle:"Выберите срок",buyNow:"Купить сейчас",addToCart:"В корзину",
+safety:"🔒 Ваши данные хранятся в безопасности.",faqTitle:"FAQ",
+faqSubtitle:"Ответы на часто задаваемые вопросы о товаре, цене, активации и использовании.",
+reviewsTitle:"Отзывы о товаре",reviewsSubtitle:"Мнения наших клиентов об услугах DigiBaku.com.",
+articlesTitle:"Полезно прочитать",articlesSubtitle:"Информация для выбора премиум-услуги.",
+guidesTitle:"Практические руководства",trustTitle:"Надёжность и процесс заказа",
+trustSubtitle:"Процесс заказа на DigiBaku.com простой, удобный и быстрый.",
+fastTitle:"Быстрая активация",fastText:"После подтверждения заказа начинается активация выбранной услуги.",
+secureTitle:"Безопасный заказ",secureText:"Мы уделяем внимание безопасности предоставленной информации.",
+supportTitle:"Оперативная поддержка",supportText:"Свяжитесь с нами через WhatsApp по вопросам заказа.",
+otherTitle:"Другие премиум-услуги",otherSubtitle:"Посмотрите другие услуги на DigiBaku.com.",
+viewDetails:"Подробнее",usefulLinks:"Полезные ссылки",supportFooter:"Поддержка",
 footer:"© 2026 DigiBaku.com. Все права защищены.",
 footerDescription:"Премиум цифровые услуги на одной платформе.",
-addedToCart:"Товар добавлен в корзину!",
-emptyCartAlert:"Ваша корзина пуста!",
-remove:"Удалить",
+cartProductAdded:"Товар добавлен в корзину!",emptyCartAlert:"Ваша корзина пуста!",
+remove:"Удалить",noPrice:"Цена отсутствует",
 orderMessage:"Здравствуйте, DigiBaku.com!\n\nЯ хочу оформить заказ.\n\n",
 cartOrderMessage:"Здравствуйте, DigiBaku.com!\n\nЯ хочу заказать товары из корзины:\n\n",
-productLabel:"Товар:",
-periodLabel:"Срок:",
-priceLabel:"Цена:",
-totalAmount:"Общая сумма:",
-cartProductAdded:"Товар добавлен в корзину!",
-noPrice:"Цена отсутствует"
+productLabel:"Товар:",periodLabel:"Срок:",priceLabel:"Цена:",totalAmount:"Общая сумма:"
 },
-
 en:{
-home:"Home",
-products:"Products",
-about:"About us",
-compare:"Compare",
-prices:"Prices",
-blog:"Blog",
-contact:"Contact",
-login:"Log in",
-register:"Register",
-profile:"Profile",
-logout:"Log out",
-reviews:"Reviews",
-cart:"Cart",
-cartTitle:"Your Cart",
-emptyCart:"Your cart is empty",
-total:"Total amount:",
-checkout:"Confirm Order",
-product:"Product",
-premiumService:"Premium digital service",
-packageTitle:"Choose duration",
-buyNow:"Buy now",
-addToCart:"Add to cart",
-safety:"🔒 Your information is stored securely.",
-faqTitle:"FAQ",
-faqSubtitle:"Find answers to the most frequently asked questions about the product, price, activation and usage here.",
-reviewsTitle:"Product reviews",
-reviewsSubtitle:"What our customers think about DigiBaku.com services.",
-articlesTitle:"Useful reading",
-articlesSubtitle:"Information that will help you choose a premium service.",
-guidesTitle:"Practical guides",
-trustTitle:"Trust and order process",
-trustSubtitle:"The ordering process at DigiBaku.com is designed to be simple, convenient and fast.",
-fastTitle:"Fast activation",
-fastText:"After your order is confirmed, the activation process for your selected premium service begins.",
-secureTitle:"Secure ordering",
-secureText:"We pay close attention to the security of the information you provide during the order process.",
-supportTitle:"Fast support",
-supportText:"If you have questions about your order or usage, you can contact us through WhatsApp.",
-otherTitle:"Other premium services",
-otherSubtitle:"Explore other services available on DigiBaku.com.",
-viewDetails:"View details",
-usefulLinks:"Useful links",
-supportFooter:"Support",
+home:"Home",products:"Products",about:"About us",compare:"Compare",prices:"Prices",
+blog:"Blog",contact:"Contact",login:"Log in",register:"Register",profile:"Profile",
+logout:"Log out",reviews:"Reviews",cart:"Cart",cartTitle:"Your Cart",
+emptyCart:"Your cart is empty",total:"Total amount:",checkout:"Confirm Order",
+premiumService:"Premium digital service",packageTitle:"Choose duration",
+buyNow:"Buy now",addToCart:"Add to cart",
+safety:"🔒 Your information is stored securely.",faqTitle:"FAQ",
+faqSubtitle:"Find answers to common questions about the product, price, activation and usage.",
+reviewsTitle:"Product reviews",reviewsSubtitle:"What our customers think about DigiBaku.com services.",
+articlesTitle:"Useful reading",articlesSubtitle:"Information that will help you choose a premium service.",
+guidesTitle:"Practical guides",trustTitle:"Trust and order process",
+trustSubtitle:"The ordering process at DigiBaku.com is simple, convenient and fast.",
+fastTitle:"Fast activation",fastText:"After your order is confirmed, activation begins.",
+secureTitle:"Secure ordering",secureText:"We pay close attention to information security.",
+supportTitle:"Fast support",supportText:"Contact us through WhatsApp if you have questions.",
+otherTitle:"Other premium services",otherSubtitle:"Explore other services available on DigiBaku.com.",
+viewDetails:"View details",usefulLinks:"Useful links",supportFooter:"Support",
 footer:"© 2026 DigiBaku.com. All rights reserved.",
 footerDescription:"Premium digital services on one platform.",
-addedToCart:"Product added to cart!",
-emptyCartAlert:"Your cart is empty!",
-remove:"Remove",
+cartProductAdded:"Product added to cart!",emptyCartAlert:"Your cart is empty!",
+remove:"Remove",noPrice:"No price",
 orderMessage:"Hello DigiBaku.com!\n\nI would like to place an order.\n\n",
 cartOrderMessage:"Hello DigiBaku.com!\n\nI would like to order the products in my cart:\n\n",
-productLabel:"Product:",
-periodLabel:"Duration:",
-priceLabel:"Price:",
-totalAmount:"Total amount:",
-cartProductAdded:"Product added to cart!",
-noPrice:"No price"
+productLabel:"Product:",periodLabel:"Duration:",priceLabel:"Price:",totalAmount:"Total amount:"
 }
-
 };
 
 function getLanguage(){
@@ -1670,270 +644,92 @@ return localStorage.getItem("digi_language")||"az";
 }
 
 function t(key){
-const lang=getLanguage();
-return translations[lang]?.[key]||
-translations.az[key]||
-key;
+const l=getLanguage();
+return translations[l]?.[key]||translations.az[key]||key;
 }
 
 /* =========================================================
 URL
 ========================================================= */
 
-const urlParams=
-new URLSearchParams(
-window.location.search
-);
-
-let productKey=
-(urlParams.get("product")||"netflix")
-.toLowerCase();
+const urlParams=new URLSearchParams(location.search);
+let productKey=(urlParams.get("product")||"netflix").toLowerCase();
 
 /* =========================================================
-LEGACY MƏHSUL MƏLUMATLARI
-Yeni məhsul üçün bunlar yalnız fallback-dir.
+LEGACY FALLBACK
 ========================================================= */
 
 const legacyProducts={
 
 netflix:{
 name:"Netflix 4K Premium Azərbaycan Abunəliyi",
-nameRu:"Netflix 4K Premium подписка",
-nameEn:"Netflix 4K Premium Subscription",
 image:"netflix.webp",
 rating:"4.0 (1 rəy)",
-ratingRu:"4.0 (1 отзыв)",
-ratingEn:"4.0 (1 review)",
 short:"Netflix Premium abunəliyi ilə film və serialları Ultra HD keyfiyyətdə izləyin.",
-shortRu:"С подпиской Netflix Premium смотрите фильмы и сериалы в качестве Ultra HD.",
-shortEn:"Watch movies and series in Ultra HD quality with Netflix Premium.",
-packages:[
-{name:"1 ay",nameRu:"1 месяц",nameEn:"1 month",duration:1,price:6.99},
-{name:"2 ay",nameRu:"2 месяца",nameEn:"2 months",duration:2,price:12.99},
-{name:"3 ay",nameRu:"3 месяца",nameEn:"3 months",duration:3,price:20.99}
-],
-contentAz:`<h2>Netflix Azərbaycan haqqında</h2><p>Netflix Azərbaycan istifadəçiləri üçün Netflix Premium xidməti film, serial və digər video məzmunlarını yüksək keyfiyyətdə izləmək imkanı təqdim edir.</p><h2>Netflix Premium 4K nədir?</h2><p>Netflix Premium 4K yüksək görüntü keyfiyyətində film və serial izləmək üçün istifadə olunan premium abunəlik paketidir.</p>`,
-contentRu:`<h2>О подписке Netflix Premium</h2><p>Netflix — это премиальная платформа для просмотра фильмов и сериалов.</p>`,
-contentEn:`<h2>About Netflix Premium</h2><p>Netflix is a premium platform used to watch movies and series.</p>`,
-faq:[["Netflix Premium abunəliyi neçəyədir?","Netflix Premium paketləri DigiBaku.com-da təqdim olunur."],["Netflix Premium nə üçün istifadə olunur?","Netflix Premium film və serialları izləmək üçün istifadə olunur."]],
-faqRu:[["Сколько стоит подписка Netflix Premium?","Netflix Premium доступен на DigiBaku.com."],["Для чего используется Netflix Premium?","Netflix Premium используется для просмотра фильмов и сериалов."]],
-faqEn:[["How much is Netflix Premium?","Netflix Premium is available on DigiBaku.com."],["What is Netflix Premium used for?","Netflix Premium is used to watch movies and series."]],
-reviews:[["Əla xidmət","Orxan","Netflix Premium"]],
-reviewsRu:[["Отличный сервис","Orxan","Netflix Premium"]],
-reviewsEn:[["Excellent service","Orxan","Netflix Premium"]],
-articles:[["Netflix Premium nədir?","18.05.2026"]],
-articlesRu:[["Что такое Netflix Premium?","18.05.2026"]],
-articlesEn:[["What is Netflix Premium?","18.05.2026"]],
-guides:["Netflix 4K üçün internet sürəti"],
-guidesRu:["Скорость интернета для Netflix 4K"],
-guidesEn:["Internet speed for Netflix 4K"]
+packages:[1,2,3]
 },
 
 youtube:{
 name:"YouTube Premium Azərbaycan Abunəliyi",
-nameRu:"YouTube Premium",
-nameEn:"YouTube Premium",
 image:"youtube.webp",
 rating:"5.0 (1 rəy)",
-ratingRu:"5.0 (1 отзыв)",
-ratingEn:"5.0 (1 review)",
 short:"YouTube Premium ilə videolara reklamsız baxın və YouTube Music-dən istifadə edin.",
-shortRu:"С YouTube Premium смотрите видео без рекламы и пользуйтесь YouTube Music.",
-shortEn:"Watch videos without ads and use YouTube Music with YouTube Premium.",
-packages:[
-{name:"1 ay",nameRu:"1 месяц",nameEn:"1 month",duration:1,price:7.99},
-{name:"2 ay",nameRu:"2 месяца",nameEn:"2 months",duration:2,price:14.99},
-{name:"3 ay",nameRu:"3 месяца",nameEn:"3 months",duration:3,price:21.99}
-],
-contentAz:`<h2>YouTube Premium haqqında</h2><p>Videolara reklamsız baxış və YouTube Music imkanları.</p>`,
-contentRu:`<h2>О YouTube Premium</h2><p>Просмотр видео без рекламы и возможности YouTube Music.</p>`,
-contentEn:`<h2>About YouTube Premium</h2><p>Ad-free video viewing and YouTube Music features.</p>`,
-faq:[["YouTube Premium neçəyədir?","Cari qiymət paketlər bölməsində göstərilir."]],
-faqRu:[["Сколько стоит YouTube Premium?","Текущая цена указана в разделе пакетов."]],
-faqEn:[["How much is YouTube Premium?","The current price is shown in the package section."]],
-reviews:[["Əla xidmətdir","Orxan","YouTube Premium"]],
-reviewsRu:[["Отличный сервис","Orxan","YouTube Premium"]],
-reviewsEn:[["Excellent service","Orxan","YouTube Premium"]],
-articles:[["YouTube Premium nədir?","18.05.2026"]],
-articlesRu:[["Что такое YouTube Premium?","18.05.2026"]],
-articlesEn:[["What is YouTube Premium?","18.05.2026"]],
-guides:["YouTube Premium istifadə qaydaları"],
-guidesRu:["Руководство по использованию YouTube Premium"],
-guidesEn:["YouTube Premium usage guide"]
+packages:[1,2,3]
 },
 
 chatgpt:{
 name:"ChatGPT Plus Azərbaycan Abunəliyi",
-nameRu:"ChatGPT Plus",
-nameEn:"ChatGPT Plus",
 image:"chatgpt.webp",
 rating:"5.0 (1 rəy)",
-ratingRu:"5.0 (1 отзыв)",
-ratingEn:"5.0 (1 review)",
 short:"ChatGPT Plus yazı, kod, araşdırma və gündəlik işlər üçün süni intellekt imkanları təqdim edir.",
-shortRu:"ChatGPT Plus предоставляет возможности искусственного интеллекта для текста, кода и исследований.",
-shortEn:"ChatGPT Plus provides AI capabilities for writing, coding and research.",
-packages:[
-{name:"1 ay",nameRu:"1 месяц",nameEn:"1 month",duration:1,price:11.99},
-{name:"2 ay",nameRu:"2 месяца",nameEn:"2 months",duration:2,price:22.99},
-{name:"3 ay",nameRu:"3 месяца",nameEn:"3 months",duration:3,price:33.99}
-],
-contentAz:`<h2>ChatGPT Plus haqqında</h2><p>Süni intellekt köməkçisi ilə işlərinizi sürətləndirin.</p>`,
-contentRu:`<h2>О ChatGPT Plus</h2><p>Ускорьте выполнение задач с помощью искусственного интеллекта.</p>`,
-contentEn:`<h2>About ChatGPT Plus</h2><p>Speed up your tasks with artificial intelligence.</p>`,
-faq:[["ChatGPT Plus neçəyədir?","Cari qiymət paketlər bölməsində göstərilir."]],
-faqRu:[["Сколько стоит ChatGPT Plus?","Текущая цена указана в разделе пакетов."]],
-faqEn:[["How much is ChatGPT Plus?","The current price is shown in the package section."]],
-reviews:[["Çox kömək edir","Orxan","ChatGPT Plus"]],
-reviewsRu:[["Очень помогает","Orxan","ChatGPT Plus"]],
-reviewsEn:[["Very helpful","Orxan","ChatGPT Plus"]],
-articles:[["ChatGPT Plus nədir?","18.05.2026"]],
-articlesRu:[["Что такое ChatGPT Plus?","18.05.2026"]],
-articlesEn:[["What is ChatGPT Plus?","18.05.2026"]],
-guides:["ChatGPT Plus istifadə bələdçisi"],
-guidesRu:["Руководство по использованию ChatGPT Plus"],
-guidesEn:["ChatGPT Plus usage guide"]
+packages:[1,2,3]
 },
 
 gemini:{
 name:"Google Gemini Premium Azərbaycan Abunəliyi",
-nameRu:"Google Gemini Premium",
-nameEn:"Google Gemini Premium",
 image:"gemini.avif",
 rating:"5.0 (1 rəy)",
-ratingRu:"5.0 (1 отзыв)",
-ratingEn:"5.0 (1 review)",
-short:"Google Gemini Premium süni intellektlə mətn, araşdırma, ideyalar və gündəlik işlər üçün imkanlar təqdim edir.",
-shortRu:"Google Gemini Premium предоставляет возможности искусственного интеллекта для текста, исследований и идей.",
-shortEn:"Google Gemini Premium provides AI capabilities for writing, research and ideas.",
-packages:[
-{name:"1 ay",nameRu:"1 месяц",nameEn:"1 month",duration:1,price:7.99},
-{name:"2 ay",nameRu:"2 месяца",nameEn:"2 months",duration:2,price:18.99},
-{name:"3 ay",nameRu:"3 месяца",nameEn:"3 months",duration:3,price:26.99}
-],
-contentAz:`<h2>Google Gemini Premium haqqında</h2><p>Google Gemini Premium süni intellekt imkanlarından istifadə edərək mətn yazmaq, məlumatları araşdırmaq və ideyalar yaratmaq üçün istifadə olunan premium xidmətdir.</p>`,
-contentRu:`<h2>О Google Gemini Premium</h2><p>Google Gemini Premium — премиальный сервис искусственного интеллекта.</p>`,
-contentEn:`<h2>About Google Gemini Premium</h2><p>Google Gemini Premium is a premium artificial intelligence service.</p>`,
-faq:[["Google Gemini Premium neçəyədir?","Cari qiymət paketlər bölməsində göstərilir."],["Google Gemini Premium nə üçün istifadə olunur?","Mətn, araşdırma və ideyalar üçün istifadə olunur."]],
-faqRu:[["Сколько стоит Google Gemini Premium?","Текущая цена указана в разделе пакетов."],["Для чего используется Google Gemini Premium?","Для текста, исследований и создания идей."]],
-faqEn:[["How much is Google Gemini Premium?","The current price is shown in the package section."],["What is Google Gemini Premium used for?","It can be used for writing, research and ideas."]],
-reviews:[["Çox faydalı süni intellekt xidməti","Orxan","Google Gemini Premium"]],
-reviewsRu:[["Очень полезный сервис искусственного интеллекта","Orxan","Google Gemini Premium"]],
-reviewsEn:[["Very useful AI service","Orxan","Google Gemini Premium"]],
-articles:[["Google Gemini Premium nədir?","18.05.2026"]],
-articlesRu:[["Что такое Google Gemini Premium?","18.05.2026"]],
-articlesEn:[["What is Google Gemini Premium?","18.05.2026"]],
-guides:["Google Gemini Premium istifadə bələdçisi"],
-guidesRu:["Руководство по использованию Google Gemini Premium"],
-guidesEn:["Google Gemini Premium usage guide"]
+short:"Google Gemini Premium süni intellektlə mətn, araşdırma və ideyalar üçün imkanlar təqdim edir.",
+packages:[1,2,3]
 },
 
 spotify:{
 name:"Spotify Premium Azərbaycan Abunəliyi",
-nameRu:"Spotify Premium",
-nameEn:"Spotify Premium",
 image:"spotfiy.webp",
 rating:"5.0 (1 rəy)",
-ratingRu:"5.0 (1 отзыв)",
-ratingEn:"5.0 (1 review)",
 short:"Spotify Premium ilə musiqiləri reklamsız dinləyin.",
-shortRu:"Слушайте музыку без рекламы с Spotify Premium.",
-shortEn:"Listen to music without ads with Spotify Premium.",
-packages:[
-{name:"1 ay",nameRu:"1 месяц",nameEn:"1 month",duration:1,price:7.99},
-{name:"2 ay",nameRu:"2 месяца",nameEn:"2 months",duration:2,price:14.99},
-{name:"3 ay",nameRu:"3 месяца",nameEn:"3 months",duration:3,price:21.99}
-],
-contentAz:`<h2>Spotify Premium haqqında</h2><p>Reklamsız musiqi və offline dinləmə imkanı.</p>`,
-contentRu:`<h2>О Spotify Premium</h2><p>Музыка без рекламы и возможность прослушивания офлайн.</p>`,
-contentEn:`<h2>About Spotify Premium</h2><p>Ad-free music and offline listening.</p>`,
-faq:[["Spotify Premium neçəyədir?","Cari qiymət paketlər bölməsində göstərilir."]],
-faqRu:[["Сколько стоит Spotify Premium?","Текущая цена указана в разделе пакетов."]],
-faqEn:[["How much is Spotify Premium?","The current price is shown in the package section."]],
-reviews:[["Çox rahat","Orxan","Spotify Premium"]],
-reviewsRu:[["Очень удобно","Orxan","Spotify Premium"]],
-reviewsEn:[["Very convenient","Orxan","Spotify Premium"]],
-articles:[["Spotify Premium nədir?","18.05.2026"]],
-articlesRu:[["Что такое Spotify Premium?","18.05.2026"]],
-articlesEn:[["What is Spotify Premium?","18.05.2026"]],
-guides:["Spotify Premium bələdçisi"],
-guidesRu:["Руководство Spotify Premium"],
-guidesEn:["Spotify Premium guide"]
+packages:[1,2,3]
 },
 
 canva:{
 name:"Canva Pro Azərbaycan Abunəliyi",
-nameRu:"Canva Pro",
-nameEn:"Canva Pro",
 image:"canva.webp",
 rating:"5.0 (1 rəy)",
-ratingRu:"5.0 (1 отзыв)",
-ratingEn:"5.0 (1 review)",
 short:"Canva Pro dizayn, təqdimat, poster və sosial media üçün premium imkanlar təqdim edir.",
-shortRu:"Canva Pro предоставляет премиальные возможности для дизайна.",
-shortEn:"Canva Pro provides premium features for design.",
-packages:[
-{name:"12 ay",nameRu:"12 месяцев",nameEn:"12 months",duration:12,price:5.99}
-],
-contentAz:`<h2>Canva Pro haqqında</h2><p>Canva Pro dizayn, təqdimat, poster və sosial media məzmunları hazırlamaq üçün premium imkanlar təqdim edir.</p>`,
-contentRu:`<h2>О Canva Pro</h2><p>Canva Pro предоставляет премиальные возможности для дизайна.</p>`,
-contentEn:`<h2>About Canva Pro</h2><p>Canva Pro provides premium features for design.</p>`,
-faq:[["Canva Pro neçəyədir?","Cari qiymət paketlər bölməsində göstərilir."],["Canva Pro nə üçün istifadə olunur?","Dizayn, təqdimat, poster və sosial media məzmunları üçün istifadə olunur."]],
-faqRu:[["Сколько стоит Canva Pro?","Текущая цена указана в разделе пакетов."],["Для чего используется Canva Pro?","Для дизайнов, презентаций, постеров и социальных сетей."]],
-faqEn:[["How much is Canva Pro?","The current price is shown in the package section."],["What is Canva Pro used for?","It is used for designs, presentations, posters and social media."]],
-reviews:[["Çox rahat dizayn xidməti","Orxan","Canva Pro"]],
-reviewsRu:[["Очень удобный сервис для дизайна","Orxan","Canva Pro"]],
-reviewsEn:[["Very convenient design service","Orxan","Canva Pro"]],
-articles:[["Canva Pro nədir?","18.05.2026"]],
-articlesRu:[["Что такое Canva Pro?","18.05.2026"]],
-articlesEn:[["What is Canva Pro?","18.05.2026"]],
-guides:["Canva Pro istifadə bələdçisi"],
-guidesRu:["Руководство по использованию Canva Pro"],
-guidesEn:["Canva Pro usage guide"]
+packages:[12]
 }
 
 };
 
-let legacyProduct=
-legacyProducts[productKey]||
-legacyProducts.netflix;
+let legacyProduct=legacyProducts[productKey]||legacyProducts.netflix;
 
 /* =========================================================
-ADMIN MƏHSUL DATA
+DATA
 ========================================================= */
 
 let siteProductData=null;
 let siteProducts=[];
 let allProductPrices=[];
 let productPriceData=null;
+let dynamicFaqs=[];
 let selectedPackage=0;
 
 const durationColumnMap={
-1:{
-normal:"price_1_month",
-active:"sale_1_active",
-sale:"sale_1_price"
-},
-2:{
-normal:"price_2_month",
-active:"sale_2_active",
-sale:"sale_2_price"
-},
-3:{
-normal:"price_3_month",
-active:"sale_3_active",
-sale:"sale_3_price"
-},
-12:{
-normal:"price_12_month",
-active:"sale_12_active",
-sale:"sale_12_price"
-}
+1:{normal:"price_1_month",sale:"sale_1_price",active:"sale_1_active"},
+2:{normal:"price_2_month",sale:"sale_2_price",active:"sale_2_active"},
+3:{normal:"price_3_month",sale:"sale_3_price",active:"sale_3_active"},
+12:{normal:"price_12_month",sale:"sale_12_price",active:"sale_12_active"}
 };
-
-/* =========================================================
-HELPER
-========================================================= */
 
 function esc(v){
 return String(v??"")
@@ -1945,47 +741,21 @@ return String(v??"")
 }
 
 function adminName(row,lang=getLanguage()){
-
 if(!row)return"";
-
-if(lang==="ru")
-return row.name_ru||row.name||row.name_az||"";
-
-if(lang==="en")
-return row.name_en||row.name||row.name_az||"";
-
+if(lang==="ru")return row.name_ru||row.name||row.name_az||"";
+if(lang==="en")return row.name_en||row.name||row.name_az||"";
 return row.name_az||row.name||"";
 }
 
 function adminDescription(row,lang=getLanguage()){
-
 if(!row)return"";
-
-if(lang==="ru")
-return row.description_ru||row.description||row.description_az||"";
-
-if(lang==="en")
-return row.description_en||row.description||row.description_az||"";
-
+if(lang==="ru")return row.description_ru||row.description||row.description_az||"";
+if(lang==="en")return row.description_en||row.description||row.description_az||"";
 return row.description_az||row.description||"";
 }
 
 function productImage(row){
-
-const raw=
-String(
-row?.image_url||
-row?.image||
-legacyProduct.image||
-""
-).trim();
-
-if(!raw)return"";
-
-if(/^https?:\/\//i.test(raw))
-return raw;
-
-return raw;
+return String(row?.image_url||legacyProduct.image||"").trim();
 }
 
 function getDurations(row){
@@ -1993,107 +763,118 @@ function getDurations(row){
 let d=row?.durations;
 
 if(typeof d==="string"){
-
-try{
-d=JSON.parse(d);
-}catch(e){
-
-try{
-d=JSON.parse(
-d.replace(/'/g,'"')
-);
-}catch(e2){
-d=null;
+try{d=JSON.parse(d)}
+catch(e){
+try{d=JSON.parse(d.replace(/'/g,'"'))}
+catch(e2){d=null}
 }
-
-}
-
 }
 
 let result=[];
 
 if(Array.isArray(d)){
-
-result=d
-.map(x=>Number(
-typeof x==="object"
-?(x.month||x.duration||x.value)
-:x
-))
+result=d.map(x=>Number(typeof x==="object"?(x.month||x.duration||x.value):x))
 .filter(x=>durationColumnMap[x]);
-
 }
 
-else if(d && typeof d==="object"){
-
-result=Object.keys(d)
-.map(x=>Number(x))
-.filter(x=>durationColumnMap[x]);
-
-}
-
-if(!result.length && productPriceData){
-
+if(!result.length&&productPriceData){
 [1,2,3,12].forEach(m=>{
-
 const c=durationColumnMap[m];
-
-if(
-productPriceData[c.normal]!==null &&
-productPriceData[c.normal]!==undefined
-){
-
-result.push(m);
-
-}
-
+if(productPriceData[c.normal]!=null||
+productPriceData[c.sale]!=null)result.push(m);
 });
-
 }
 
-if(!result.length && legacyProduct.packages){
-
-result=legacyProduct.packages
-.map(x=>Number(x.duration))
-.filter(x=>durationColumnMap[x]);
-
+if(!result.length&&row?.product_key===productKey&&legacyProduct.packages){
+result=legacyProduct.packages;
 }
 
-return [...new Set(result)].sort(
-(a,b)=>a-b
-);
+return [...new Set(result)].sort((a,b)=>a-b);
 }
 
 function durationText(month){
-
-const lang=getLanguage();
-
-if(lang==="ru")
-return month+" "+(
-month===1?"месяц":"месяцев"
-);
-
-if(lang==="en")
-return month+" "+(
-month===1?"month":"months"
-);
-
+const l=getLanguage();
+if(l==="ru")return month+" "+(month===1?"месяц":"месяцев");
+if(l==="en")return month+" "+(month===1?"month":"months");
 return month+" ay";
 }
 
-function packageName(month){
+function getProductName(){
+return siteProductData&&adminName(siteProductData)
+?adminName(siteProductData)
+:legacyProduct.name;
+}
 
-return durationText(month);
+function getProductShort(){
+return siteProductData&&adminDescription(siteProductData)
+?adminDescription(siteProductData)
+:legacyProduct.short;
+}
+
+function getPackages(){
+
+if(siteProductData){
+const d=getDurations(siteProductData);
+
+if(d.length){
+return d.map(month=>({
+duration:month,
+name:durationText(month),
+nameRu:durationText(month),
+nameEn:durationText(month),
+price:0
+}));
+}
+}
+
+return (legacyProduct.packages||[1]).map(month=>({
+duration:month,
+name:durationText(month),
+nameRu:durationText(month),
+nameEn:durationText(month),
+price:0
+}));
+}
+
+function getCurrentPackagePrice(item){
+
+const fallback=Number(item?.price||0);
+const map=durationColumnMap[item?.duration];
+
+if(!productPriceData||!map){
+return{price:fallback,normal:fallback,sale:false};
+}
+
+const normal=Number(productPriceData[map.normal]||0);
+const sale=Number(productPriceData[map.sale]||0);
+
+const active=
+productPriceData[map.active]===true||
+productPriceData[map.active]==="true"||
+productPriceData[map.active]===1;
+
+if(active&&sale>0){
+return{
+price:sale,
+normal:normal>0?normal:sale,
+sale:true
+};
+}
+
+return{
+price:normal||fallback,
+normal:normal||fallback,
+sale:false
+};
 }
 
 /* =========================================================
-ADMIN MƏHSULU YÜKLƏ
+LOAD CURRENT PRODUCT
 ========================================================= */
 
 async function loadCurrentSiteProduct(){
 
-const {data,error}=
-await supabaseClient
+const {data,error}=await supabaseClient
 .from("site_products")
 .select("*")
 .eq("product_key",productKey)
@@ -2101,584 +882,381 @@ await supabaseClient
 .maybeSingle();
 
 if(error){
-
-console.error(
-"Site product xətası:",
-error
-);
-
+console.error(error);
 return;
-
 }
 
 siteProductData=data||null;
 
-renderAll();
+if(siteProductData){
+const {data:price}=await supabaseClient
+.from("product_prices")
+.select("*")
+.eq("product_key",productKey)
+.maybeSingle();
 
+productPriceData=price||null;
+}
+
+renderAll();
 }
 
 /* =========================================================
-BÜTÜN MƏHSULLARI YÜKLƏ
+ALL PRODUCTS
 ========================================================= */
 
 async function loadAllSiteProducts(){
 
-const {data,error}=
-await supabaseClient
+const {data,error}=await supabaseClient
 .from("site_products")
 .select("*")
 .eq("active",true)
 .order("created_at",{ascending:true});
 
 if(error){
-
-console.error(
-"Məhsullar yüklənmədi:",
-error
-);
-
+console.error(error);
 return;
-
 }
 
 siteProducts=data||[];
 
 renderOtherProducts();
-
 renderFooter();
-
 }
 
 /* =========================================================
-BÜTÜN QİYMƏTLƏR
+ALL PRICES
 ========================================================= */
 
 async function loadAllPrices(){
 
-const {data,error}=
-await supabaseClient
+const {data,error}=await supabaseClient
 .from("product_prices")
 .select("*");
 
 if(error){
-
-console.error(
-"Qiymətlər yüklənmədi:",
-error
-);
-
+console.error(error);
 return;
-
 }
 
 allProductPrices=data||[];
 
-const current=
-allProductPrices.find(
-x=>x.product_key===productKey
+const current=allProductPrices.find(
+x=>String(x.product_key)===String(productKey)
 );
 
-if(current){
-productPriceData=current;
-}
+if(current)productPriceData=current;
 
 renderOtherProducts();
 renderFooter();
-
 renderAll();
-
 }
 
 /* =========================================================
-CURRENT PRODUCT PRICE
+FAQ
 ========================================================= */
-
-async function loadProductPrices(){
-
-const {data,error}=
-await supabaseClient
-.from("product_prices")
-.select("*")
-.eq("product_key",productKey)
-.maybeSingle();
-
-if(error){
-
-console.error(
-"Product qiymətləri yüklənmədi:",
-error
-);
-
-return;
-
-}
-
-productPriceData=data||null;
-
-renderAll();
-
-}
-
-/* =========================================================
-PACKAGE DATA
-========================================================= */
-
-function getPackages(){
-
-if(siteProductData){
-
-const durations=
-getDurations(siteProductData);
-
-if(durations.length){
-
-return durations.map(
-month=>({
-
-name:month+" ay",
-nameRu:month+" "+(
-month===1?"месяц":"месяцев"
-),
-nameEn:month+" "+
-(month===1?"month":"months"),
-duration:month,
-price:0
-
-})
-);
-
-}
-
-}
-
-return legacyProduct.packages||[];
-
-}
-
-function getCurrentPackagePrice(item){
-
-const fallback=
-Number(item?.price||0);
-
-if(
-!productPriceData ||
-!durationColumnMap[item.duration]
-){
-
-return{
-price:fallback,
-normal:fallback,
-sale:false
-};
-
-}
-
-const map=
-durationColumnMap[item.duration];
-
-const normalValue=
-Number(
-productPriceData[map.normal]||0
-);
-
-const saleValue=
-Number(
-productPriceData[map.sale]||0
-);
-
-const saleActive=
-productPriceData[map.active]===true;
-
-const normal=
-normalValue||fallback;
-
-if(
-saleActive &&
-saleValue>0
-){
-
-return{
-price:saleValue,
-normal:normal,
-sale:true
-};
-
-}
-
-return{
-price:normal,
-normal:normal,
-sale:false
-};
-
-}
-
-/* =========================================================
-PRODUCT NAME / DESC
-========================================================= */
-
-function getProductName(){
-
-if(siteProductData){
-
-const n=
-adminName(siteProductData);
-
-if(n)return n;
-
-}
-
-const lang=getLanguage();
-
-if(lang==="ru")
-return legacyProduct.nameRu;
-
-if(lang==="en")
-return legacyProduct.nameEn;
-
-return legacyProduct.name;
-}
-
-function getProductShort(){
-
-if(siteProductData){
-
-const d=
-adminDescription(siteProductData);
-
-if(d)return d;
-
-}
-
-const lang=getLanguage();
-
-if(lang==="ru")
-return legacyProduct.shortRu;
-
-if(lang==="en")
-return legacyProduct.shortEn;
-
-return legacyProduct.short;
-}
-
-function getProductContent(){
-
-if(siteProductData){
-
-const d=
-adminDescription(siteProductData);
-
-if(d){
-
-const name=
-getProductName();
-
-return`
-<h2>${esc(name)}</h2>
-<p>${esc(d)}</p>
-<h2>${esc(name)} haqqında</h2>
-<p>${esc(d)}</p>
-`;
-
-}
-
-}
-
-const lang=getLanguage();
-
-if(lang==="ru")
-return legacyProduct.contentRu;
-
-if(lang==="en")
-return legacyProduct.contentEn;
-
-return legacyProduct.contentAz;
-}
-
-function getProductRating(){
-
-const lang=getLanguage();
-
-if(lang==="ru")
-return legacyProduct.ratingRu;
-
-if(lang==="en")
-return legacyProduct.ratingEn;
-
-return legacyProduct.rating;
-}
-
-/* =========================================================
-FAQ — ADMIN PANEL
-========================================================= */
-
-let dynamicFaqs=[];
 
 async function loadProductFaqs(){
 
-const lang=getLanguage();
-
-const {data,error}=
-await supabaseClient
+const {data,error}=await supabaseClient
 .from("site_faqs")
 .select("*")
 .eq("product_key",productKey)
 .eq("active",true)
-.eq("language",lang)
+.eq("language",getLanguage())
 .order("sort_order",{ascending:true});
 
 if(error){
-
-console.error(
-"FAQ yüklənmədi:",
-error
-);
-
 dynamicFaqs=[];
-
 }else{
-
 dynamicFaqs=data||[];
-
 }
 
 renderFaq();
-
 }
-
-/* =========================================================
-FAQ RENDER
-========================================================= */
 
 function renderFaq(){
 
-const list=
-document.getElementById("faqList");
-
+const list=document.getElementById("faqList");
 if(!list)return;
-
-let data=[];
-
-if(dynamicFaqs.length){
-
-data=
-dynamicFaqs.map(x=>[
-x.question,
-x.answer
-]);
-
-}else{
-
-const lang=getLanguage();
-
-if(lang==="ru")
-data=legacyProduct.faqRu||[];
-
-else if(lang==="en")
-data=legacyProduct.faqEn||[];
-
-else
-data=legacyProduct.faq||[];
-
-}
 
 list.innerHTML="";
 
-data.forEach(item=>{
+const data=dynamicFaqs.length
+?dynamicFaqs.map(x=>[x.question,x.answer])
+:[["Bu məhsul necə alınır?","Müddəti seçin və sifariş düyməsindən istifadə edin."],
+["Qiymət necə müəyyən olunur?","Cari qiymət admin panelində müəyyən edilir."]];
 
-const div=
-document.createElement("div");
+data.forEach(x=>{
 
+const div=document.createElement("div");
 div.className="faq-item";
 
 div.innerHTML=`
-
 <button class="faq-question">
-
-<span>${esc(item[0])}</span>
-
+<span>${esc(x[0])}</span>
 <span class="faq-plus">+</span>
-
 </button>
-
-<div class="faq-answer">
-${item[1]}
-</div>
-
+<div class="faq-answer">${x[1]}</div>
 `;
 
-div.querySelector(
-".faq-question"
-).onclick=()=>{
-
+div.querySelector(".faq-question").onclick=()=>{
 div.classList.toggle("open");
-
-div.querySelector(
-".faq-plus"
-).textContent=
-div.classList.contains("open")
-?"−":"+";
-
+div.querySelector(".faq-plus").textContent=
+div.classList.contains("open")?"−":"+";
 };
 
 list.appendChild(div);
-
 });
-
 }
 
 /* =========================================================
-REVIEWS
+OTHER PRODUCTS — ADMIN PRICE + CART
 ========================================================= */
 
-function renderReviews(){
+function getOtherProductPrice(product){
 
-const grid=
-document.getElementById(
-"reviewsGrid"
+const row=allProductPrices.find(
+x=>String(x.product_key)===String(product.product_key)
 );
 
+if(!row){
+return{price:null,normal:null,sale:false,duration:null};
+}
+
+const months=[1,2,3,12];
+
+for(const month of months){
+
+const map=durationColumnMap[month];
+if(!map)continue;
+
+const normal=Number(row[map.normal]||0);
+const sale=Number(row[map.sale]||0);
+
+const active=
+row[map.active]===true||
+row[map.active]==="true"||
+row[map.active]===1;
+
+if(active&&sale>0){
+return{
+price:sale,
+normal:normal>0?normal:sale,
+sale:true,
+duration:month
+};
+}
+
+if(normal>0){
+return{
+price:normal,
+normal:normal,
+sale:false,
+duration:month
+};
+}
+}
+
+return{price:null,normal:null,sale:false,duration:null};
+}
+
+function addOtherProductToCart(productKeyToAdd,duration,price){
+
+price=Number(price);
+
+if(!price){
+alert(t("noPrice"));
+return;
+}
+
+const product=siteProducts.find(
+p=>String(p.product_key)===String(productKeyToAdd)
+);
+
+if(!product)return;
+
+cart.push({
+name:adminName(product)+" ("+durationText(duration)+")",
+price:price
+});
+
+localStorage.setItem("digi_cart",JSON.stringify(cart));
+
+updateCartCount();
+updateCartUI();
+
+alert(t("cartProductAdded"));
+}
+
+function renderOtherProducts(){
+
+const grid=document.getElementById("otherProductsGrid");
 if(!grid)return;
-
-const lang=getLanguage();
-
-let data=
-lang==="ru"
-?legacyProduct.reviewsRu
-:lang==="en"
-?legacyProduct.reviewsEn
-:legacyProduct.reviews;
 
 grid.innerHTML="";
 
-(data||[]).forEach(x=>{
+const products=siteProducts.filter(
+p=>String(p.product_key)!==String(productKey)
+);
+
+products.forEach(p=>{
+
+const name=adminName(p);
+const image=productImage(p);
+const pricing=getOtherProductPrice(p);
+
+let priceHTML="";
+
+if(pricing.price!==null){
+
+if(pricing.sale&&pricing.normal>pricing.price){
+
+const discount=Math.round(
+((pricing.normal-pricing.price)/pricing.normal)*100
+);
+
+priceHTML=`
+<div class="other-price">
+<span class="other-old-price">
+${pricing.normal.toFixed(2)} AZN
+</span>
+<span class="other-sale-price">
+${pricing.price.toFixed(2)} AZN
+</span>
+<span class="other-discount">
+-${discount}%
+</span>
+</div>
+`;
+
+}else{
+
+priceHTML=`
+<div class="other-price">
+${pricing.price.toFixed(2)} AZN
+</div>
+`;
+}
+
+}else{
+
+priceHTML=`
+<div class="other-price" style="color:#777;font-size:14px">
+${t("noPrice")}
+</div>
+`;
+}
+
+const cartButton=pricing.price!==null
+?`
+<button
+class="other-cart"
+onclick="addOtherProductToCart(
+'${esc(p.product_key)}',
+${pricing.duration},
+${pricing.price}
+)">
+🛒 ${t("addToCart")}
+</button>
+`
+:"";
 
 grid.innerHTML+=`
 
-<div class="review-card">
+<div class="other-card">
 
-<div class="review-stars">
-★★★★★
-</div>
+<img
+src="${esc(image)}"
+alt="${esc(name)}"
+loading="lazy"
+>
 
-<div class="review-text">
-${esc(x[0])}
-</div>
+<h3>${esc(name)}</h3>
 
-<div class="review-name">
-${esc(x[1])}
-</div>
+${priceHTML}
 
-<div class="review-role">
-${esc(x[2])}
+<div class="other-buttons">
+
+<a
+class="other-details"
+href="product.html?product=${encodeURIComponent(p.product_key)}">
+${t("viewDetails")}
+</a>
+
+${cartButton}
+
 </div>
 
 </div>
 
 `;
-
 });
-
 }
 
 /* =========================================================
-ARTICLES
+FOOTER PRICE
 ========================================================= */
 
-function renderArticles(){
+function footerPrice(product){
 
-const grid=
-document.getElementById(
-"articlesGrid"
+const row=allProductPrices.find(
+x=>String(x.product_key)===String(product.product_key)
 );
 
-if(!grid)return;
+if(!row)return null;
 
-const lang=getLanguage();
+for(const month of [1,2,3,12]){
 
-const data=
-lang==="ru"
-?legacyProduct.articlesRu
-:lang==="en"
-?legacyProduct.articlesEn
-:legacyProduct.articles;
+const map=durationColumnMap[month];
+if(!map)continue;
 
-grid.innerHTML="";
+const normal=Number(row[map.normal]||0);
+const sale=Number(row[map.sale]||0);
 
-(data||[]).forEach(x=>{
+const active=
+row[map.active]===true||
+row[map.active]==="true"||
+row[map.active]===1;
 
-grid.innerHTML+=`
-
-<div class="article-card">
-
-<h3>
-${esc(x[0])}
-</h3>
-
-<p>
-${getArticleDescription()}
-</p>
-
-<div class="article-date">
-${esc(x[1])}
-</div>
-
-</div>
-
-`;
-
-});
-
+if(active&&sale>0)return sale;
+if(normal>0)return normal;
 }
 
-function getArticleDescription(){
-
-const lang=getLanguage();
-
-if(lang==="ru")
-return"Полезная информация о премиум-услугах.";
-
-if(lang==="en")
-return"Useful information about premium services.";
-
-return"Premium xidmətlər haqqında faydalı məlumatlar.";
-
+return null;
 }
 
-/* =========================================================
-GUIDES
-========================================================= */
+function renderFooter(){
 
-function renderGuides(){
+const productBox=document.getElementById("footerProducts");
+const priceBox=document.getElementById("footerPrices");
 
-const list=
-document.getElementById(
-"guidesList"
-);
+if(!productBox||!priceBox)return;
 
-if(!list)return;
+productBox.innerHTML="";
+priceBox.innerHTML="";
 
-const lang=getLanguage();
+siteProducts.forEach(p=>{
 
-const data=
-lang==="ru"
-?legacyProduct.guidesRu
-:lang==="en"
-?legacyProduct.guidesEn
-:legacyProduct.guides;
+const name=adminName(p);
+const price=footerPrice(p);
 
-list.innerHTML="";
-
-(data||[]).forEach(x=>{
-
-list.innerHTML+=`
-<div class="guide-card">
-${esc(x)}
-</div>
+productBox.innerHTML+=`
+<a class="footer-product"
+href="product.html?product=${encodeURIComponent(p.product_key)}">
+${esc(name)}
+</a>
 `;
 
+priceBox.innerHTML+=`
+<div class="footer-price">
+<span>${esc(name)}</span>
+<span>
+${price!==null?price.toFixed(2)+" AZN":t("noPrice")}
+</span>
+</div>
+`;
 });
-
 }
 
 /* =========================================================
@@ -2686,219 +1264,158 @@ PACKAGES
 ========================================================= */
 
 function getPackageName(item){
-
-const lang=getLanguage();
-
-if(lang==="ru")
-return item.nameRu||durationText(item.duration);
-
-if(lang==="en")
-return item.nameEn||durationText(item.duration);
-
-return item.name||durationText(item.duration);
+return durationText(item.duration);
 }
 
 function renderPackagePrice(item){
 
-const current=
-getCurrentPackagePrice(item);
+const current=getCurrentPackagePrice(item);
 
-if(!current.price){
+if(!current.price)
+return `<span style="color:#777;font-size:15px">${t("noPrice")}</span>`;
 
-return`
-<span style="color:#777;font-size:15px;">
-${t("noPrice")}
-</span>
-`;
+if(current.sale&&current.normal>current.price){
 
-}
-
-if(
-current.sale &&
-current.normal>current.price
-){
-
-const discount=
-Math.round(
-((current.normal-current.price)/
-current.normal)*100
+const discount=Math.round(
+((current.normal-current.price)/current.normal)*100
 );
 
 return`
-
-<span class="old-price">
-${current.normal.toFixed(2)} AZN
-</span>
-
-<span class="sale-price">
-${current.price.toFixed(2)} AZN
-</span>
-
-<span class="discount-percent">
--${discount}%
-</span>
-
+<span class="old-price">${current.normal.toFixed(2)} AZN</span>
+<span class="sale-price">${current.price.toFixed(2)} AZN</span>
+<span class="discount-percent">-${discount}%</span>
 `;
-
 }
 
 return current.price.toFixed(2)+" AZN";
-
 }
 
 function showPackages(){
 
-const box=
-document.getElementById("packages");
-
+const box=document.getElementById("packages");
 if(!box)return;
 
-const packages=
-getPackages();
+const packages=getPackages();
 
-if(
-selectedPackage>=packages.length
-){
-
-selectedPackage=0;
-
-}
+if(selectedPackage>=packages.length)selectedPackage=0;
 
 box.innerHTML="";
 
-packages.forEach(
-(item,index)=>{
+packages.forEach((item,index)=>{
 
-const div=
-document.createElement("div");
+const div=document.createElement("div");
 
-div.className=
-"package"+
-(index===selectedPackage?" active":"");
+div.className="package"+(
+index===selectedPackage?" active":""
+);
 
 div.innerHTML=`
-
-<span class="package-name">
-${esc(getPackageName(item))}
-</span>
-
-<span class="package-price">
-${renderPackagePrice(item)}
-</span>
-
+<span class="package-name">${esc(getPackageName(item))}</span>
+<span class="package-price">${renderPackagePrice(item)}</span>
 `;
 
 div.onclick=()=>{
-
 selectedPackage=index;
-
 showPackages();
-
 updateSelected();
-
 updateSEO();
-
 };
 
 box.appendChild(div);
-
 });
-
 }
 
 function updateSelected(){
 
-const packages=
-getPackages();
+const packages=getPackages();
+const price=document.getElementById("selectedPrice");
+const old=document.getElementById("selectedOldPrice");
+const period=document.getElementById("selectedPeriod");
 
 if(!packages.length){
-
-document.getElementById(
-"selectedPrice"
-).textContent=
-t("noPrice");
-
+price.textContent=t("noPrice");
 return;
-
 }
 
-const item=
-packages[selectedPackage];
-
-const current=
-getCurrentPackagePrice(item);
-
-const price=
-document.getElementById(
-"selectedPrice"
-);
-
-const old=
-document.getElementById(
-"selectedOldPrice"
-);
+const item=packages[selectedPackage];
+const current=getCurrentPackagePrice(item);
 
 if(!current.price){
 
 price.textContent=t("noPrice");
-
 old.style.display="none";
-
+period.textContent="";
 return;
-
 }
 
-price.textContent=
-current.price.toFixed(2)+" AZN";
+price.textContent=current.price.toFixed(2)+" AZN";
+period.textContent=getPackageName(item);
 
-document.getElementById(
-"selectedPeriod"
-).textContent=
-getPackageName(item);
-
-if(
-current.sale &&
-current.normal>current.price
-){
+if(current.sale&&current.normal>current.price){
 
 old.style.display="block";
-
-old.textContent=
-current.normal.toFixed(2)+" AZN";
-
+old.textContent=current.normal.toFixed(2)+" AZN";
 price.style.color="#22c55e";
 
 }else{
 
 old.style.display="none";
-
 price.style.color="";
-
 }
-
 }
 
 /* =========================================================
-DİNAMİK MƏHSUL ŞƏKİLİ
+MAIN RENDER
 ========================================================= */
 
 function updateProductImage(){
 
-const img=
-document.getElementById(
-"productImage"
-);
-
+const img=document.getElementById("productImage");
 if(!img)return;
 
-img.src=
-productImage(
-siteProductData
-);
+img.src=productImage(siteProductData);
+img.alt=getProductName();
+}
 
-img.alt=
-getProductName();
+function renderReviews(){
 
+const grid=document.getElementById("reviewsGrid");
+if(!grid)return;
+
+grid.innerHTML=`
+<div class="review-card">
+<div class="review-stars">★★★★★</div>
+<div class="review-text">DigiBaku.com xidmətindən razıyam.</div>
+<div class="review-name">Orxan</div>
+<div class="review-role">${esc(getProductName())}</div>
+</div>
+`;
+}
+
+function renderArticles(){
+
+const grid=document.getElementById("articlesGrid");
+if(!grid)return;
+
+grid.innerHTML=`
+<div class="article-card">
+<h3>${esc(getProductName())}</h3>
+<p>Premium xidmət haqqında faydalı məlumatlar və istifadə məsləhətləri.</p>
+<div class="article-date">2026</div>
+</div>
+`;
+}
+
+function renderGuides(){
+
+const list=document.getElementById("guidesList");
+if(!list)return;
+
+list.innerHTML=`
+<div class="guide-card">
+${esc(getProductName())} istifadə bələdçisi
+</div>
+`;
 }
 
 /* =========================================================
@@ -2907,17 +1424,11 @@ SEO
 
 function updateSEO(){
 
-const name=
-getProductName();
+const name=getProductName();
+const description=getProductShort();
+const image=productImage(siteProductData);
 
-const description=
-getProductShort();
-
-const image=
-productImage(siteProductData);
-
-const imageUrl=
-/^https?:\/\//i.test(image)
+const imageUrl=/^https?:\/\//i.test(image)
 ?image
 :"https://digibaku.com/"+image;
 
@@ -2925,62 +1436,26 @@ const canonical=
 "https://digibaku.com/product.html?product="+
 encodeURIComponent(productKey);
 
-const title=
-name+
-" | DigiBaku";
+const title=name+" | DigiBaku";
 
 document.title=title;
 
-document.getElementById(
-"seoTitle"
-).textContent=title;
+document.getElementById("seoTitle").textContent=title;
+document.getElementById("metaDescription").content=description;
+document.getElementById("canonicalLink").href=canonical;
 
-document.getElementById(
-"metaDescription"
-).content=description;
+document.getElementById("ogTitle").content=title;
+document.getElementById("ogDescription").content=description;
+document.getElementById("ogUrl").content=canonical;
+document.getElementById("ogImage").content=imageUrl;
 
-document.getElementById(
-"canonicalLink"
-).href=canonical;
+document.getElementById("twitterTitle").content=title;
+document.getElementById("twitterDescription").content=description;
+document.getElementById("twitterImage").content=imageUrl;
 
-document.getElementById(
-"ogTitle"
-).content=title;
-
-document.getElementById(
-"ogDescription"
-).content=description;
-
-document.getElementById(
-"ogUrl"
-).content=canonical;
-
-document.getElementById(
-"ogImage"
-).content=imageUrl;
-
-document.getElementById(
-"twitterTitle"
-).content=title;
-
-document.getElementById(
-"twitterDescription"
-).content=description;
-
-document.getElementById(
-"twitterImage"
-).content=imageUrl;
-
-const packages=
-getPackages();
-
-const first=
-packages[0];
-
-const current=
-first?
-getCurrentPackagePrice(first):
-null;
+const packages=getPackages();
+const first=packages[0];
+const current=first?getCurrentPackagePrice(first):null;
 
 const schema={
 "@context":"https://schema.org",
@@ -2997,247 +1472,49 @@ const schema={
 }
 };
 
-if(current && current.price){
+if(current&&current.price)
+schema.offers.price=Number(current.price).toFixed(2);
 
-schema.offers.price=
-Number(current.price).toFixed(2);
-
-}
-
-document.getElementById(
-"productSchema"
-).textContent=
+document.getElementById("productSchema").textContent=
 JSON.stringify(schema);
-
 }
-
-/* =========================================================
-OTHER PRODUCTS — ADMIN PANEL
-========================================================= */
-
-function renderOtherProducts(){
-
-const grid=
-document.getElementById(
-"otherProductsGrid"
-);
-
-if(!grid)return;
-
-grid.innerHTML="";
-
-const products=
-siteProducts.filter(
-p=>p.product_key!==productKey
-);
-
-products.forEach(p=>{
-
-const name=
-adminName(p);
-
-const image=
-productImage(p);
-
-grid.innerHTML+=`
-
-<div class="other-card">
-
-<img
-src="${esc(image)}"
-alt="${esc(name)}"
->
-
-<h3>
-${esc(name)}
-</h3>
-
-<a href="product.html?product=${encodeURIComponent(p.product_key)}">
-${t("viewDetails")}
-</a>
-
-</div>
-
-`;
-
-});
-
-}
-
-/* =========================================================
-FOOTER
-========================================================= */
-
-function footerPrice(product){
-
-const row=
-allProductPrices.find(
-x=>x.product_key===product.product_key
-);
-
-if(!row)return null;
-
-const normal=
-Number(row.price_1_month||0);
-
-const sale=
-Number(row.sale_1_price||0);
-
-const active=
-row.sale_1_active===true;
-
-if(active && sale>0){
-
-return sale;
-
-}
-
-if(normal>0)return normal;
-
-/* Canva kimi yalnız başqa müddəti olan məhsullar */
-
-const durations=
-getDurations({
-durations:product.durations
-});
-
-for(const month of durations){
-
-const map=
-durationColumnMap[month];
-
-if(!map)continue;
-
-const p=
-Number(row[map.normal]||0);
-
-const s=
-Number(row[map.sale]||0);
-
-if(
-row[map.active]===true &&
-s>0
-){
-
-return s;
-
-}
-
-if(p>0)return p;
-
-}
-
-return null;
-
-}
-
-function renderFooter(){
-
-const productBox=
-document.getElementById(
-"footerProducts"
-);
-
-const priceBox=
-document.getElementById(
-"footerPrices"
-);
-
-if(!productBox||!priceBox)return;
-
-productBox.innerHTML="";
-
-priceBox.innerHTML="";
-
-siteProducts.forEach(p=>{
-
-const name=
-adminName(p);
-
-productBox.innerHTML+=`
-
-<a
-class="footer-product"
-href="product.html?product=${encodeURIComponent(p.product_key)}">
-${esc(name)}
-</a>
-
-`;
-
-const price=
-footerPrice(p);
-
-priceBox.innerHTML+=`
-
-<div class="footer-price">
-
-<span>
-${esc(name)}
-</span>
-
-<span>
-${
-price!==null
-?price.toFixed(2)+" AZN"
-:t("noPrice")
-}
-</span>
-
-</div>
-
-`;
-
-});
-
-}
-
-/* =========================================================
-DİNAMİK CONTENT
-========================================================= */
 
 function renderDynamicContent(){
 
-document.getElementById(
-"productName"
-).textContent=
-getProductName();
+document.getElementById("productName").textContent=getProductName();
+document.getElementById("breadcrumb").textContent=getProductName();
+document.getElementById("rating").textContent=legacyProduct.rating;
+document.getElementById("shortDescription").textContent=getProductShort();
 
-document.getElementById(
-"breadcrumb"
-).textContent=
-getProductName();
+let description=adminDescription(siteProductData);
 
-document.getElementById(
-"rating"
-).textContent=
-getProductRating();
+if(!description){
+description=
+getProductName()+
+" premium rəqəmsal xidməti haqqında ətraflı məlumat.";
+}
 
-document.getElementById(
-"shortDescription"
-).textContent=
-getProductShort();
-
-document.getElementById(
-"content"
-).innerHTML=
-getProductContent();
+document.getElementById("content").innerHTML=`
+<h2>${esc(getProductName())}</h2>
+<p>${esc(description)}</p>
+<h2>${esc(getProductName())} haqqında</h2>
+<p>${esc(description)}</p>
+`;
 
 updateProductImage();
-
 showPackages();
-
 updateSelected();
-
 renderReviews();
-
 renderArticles();
-
 renderGuides();
-
 renderFaq();
-
 updateSEO();
+}
 
+function renderAll(){
+renderDynamicContent();
+renderOtherProducts();
+renderFooter();
 }
 
 /* =========================================================
@@ -3250,423 +1527,193 @@ const lang=getLanguage();
 
 document.documentElement.lang=lang;
 
-document
-.querySelectorAll("[data-i18n]")
-.forEach(el=>{
-
-el.textContent=
-t(
-el.getAttribute("data-i18n")
-);
-
+document.querySelectorAll("[data-i18n]").forEach(el=>{
+el.textContent=t(el.getAttribute("data-i18n"));
 });
 
-document.getElementById(
-"cartTitle"
-).textContent=
-t("cartTitle");
+document.getElementById("cartTitle").textContent=t("cartTitle");
+document.getElementById("emptyCartText").textContent=t("emptyCart");
+document.getElementById("totalText").textContent=t("total");
+document.getElementById("checkoutButton").textContent=t("checkout");
+document.getElementById("premiumBadge").textContent=t("premiumService");
+document.getElementById("packageTitle").textContent=t("packageTitle");
+document.getElementById("buyButton").textContent=t("buyNow");
+document.getElementById("addCartButton").textContent=t("addToCart");
+document.getElementById("safetyText").textContent=t("safety");
 
-document.getElementById(
-"emptyCartText"
-).textContent=
-t("emptyCart");
-
-document.getElementById(
-"totalText"
-).textContent=
-t("total");
-
-document.getElementById(
-"checkoutButton"
-).textContent=
-t("checkout");
-
-document.getElementById(
-"premiumBadge"
-).textContent=
-t("premiumService");
-
-document.getElementById(
-"packageTitle"
-).textContent=
-t("packageTitle");
-
-document.getElementById(
-"buyButton"
-).textContent=
-t("buyNow");
-
-document.getElementById(
-"addCartButton"
-).textContent=
-t("addToCart");
-
-document.getElementById(
-"safetyText"
-).textContent=
-t("safety");
-
-document.getElementById(
-"faqTitle"
-).textContent=
-t("faqTitle");
-
-document.getElementById(
-"faqSubtitle"
-).textContent=
-t("faqSubtitle");
-
-document.getElementById(
-"reviewsTitle"
-).textContent=
-t("reviewsTitle");
-
-document.getElementById(
-"reviewsSubtitle"
-).textContent=
-t("reviewsSubtitle");
-
-document.getElementById(
-"articlesTitle"
-).textContent=
-t("articlesTitle");
-
-document.getElementById(
-"articlesSubtitle"
-).textContent=
-t("articlesSubtitle");
-
-document.getElementById(
-"guidesTitle"
-).textContent=
-t("guidesTitle");
-
-document.getElementById(
-"trustTitle"
-).textContent=
-t("trustTitle");
-
-document.getElementById(
-"trustSubtitle"
-).textContent=
-t("trustSubtitle");
-
-document.getElementById(
-"fastTitle"
-).textContent=
-t("fastTitle");
-
-document.getElementById(
-"fastText"
-).textContent=
-t("fastText");
-
-document.getElementById(
-"secureTitle"
-).textContent=
-t("secureTitle");
-
-document.getElementById(
-"secureText"
-).textContent=
-t("secureText");
-
-document.getElementById(
-"supportTitle"
-).textContent=
-t("supportTitle");
-
-document.getElementById(
-"supportText"
-).textContent=
-t("supportText");
-
-document.getElementById(
-"otherTitle"
-).textContent=
-t("otherTitle");
-
-document.getElementById(
-"otherSubtitle"
-).textContent=
-t("otherSubtitle");
-
-document.getElementById(
-"footerDescription"
-).textContent=
-t("footerDescription");
-
-document.getElementById(
-"footerText"
-).textContent=
-t("footer");
+document.getElementById("faqTitle").textContent=t("faqTitle");
+document.getElementById("faqSubtitle").textContent=t("faqSubtitle");
+document.getElementById("reviewsTitle").textContent=t("reviewsTitle");
+document.getElementById("reviewsSubtitle").textContent=t("reviewsSubtitle");
+document.getElementById("articlesTitle").textContent=t("articlesTitle");
+document.getElementById("articlesSubtitle").textContent=t("articlesSubtitle");
+document.getElementById("guidesTitle").textContent=t("guidesTitle");
+document.getElementById("trustTitle").textContent=t("trustTitle");
+document.getElementById("trustSubtitle").textContent=t("trustSubtitle");
+document.getElementById("fastTitle").textContent=t("fastTitle");
+document.getElementById("fastText").textContent=t("fastText");
+document.getElementById("secureTitle").textContent=t("secureTitle");
+document.getElementById("secureText").textContent=t("secureText");
+document.getElementById("supportTitle").textContent=t("supportTitle");
+document.getElementById("supportText").textContent=t("supportText");
+document.getElementById("otherTitle").textContent=t("otherTitle");
+document.getElementById("otherSubtitle").textContent=t("otherSubtitle");
+document.getElementById("footerDescription").textContent=t("footerDescription");
+document.getElementById("footerText").textContent=t("footer");
 
 ["az","ru","en"].forEach(x=>{
-document.getElementById(x+"Btn")
-.classList.remove("active");
+document.getElementById(x+"Btn").classList.remove("active");
 });
 
-document.getElementById(
-lang+"Btn"
-).classList.add("active");
+document.getElementById(lang+"Btn").classList.add("active");
 
-renderDynamicContent();
-
-renderOtherProducts();
-
-renderFooter();
-
+renderAll();
 loadProductFaqs();
-
 updateCartUI();
-
 }
-
-/* =========================================================
-LANGUAGE SET
-========================================================= */
 
 function setLanguage(lang){
 
-if(!translations[lang])
-lang="az";
+if(!translations[lang])lang="az";
 
-localStorage.setItem(
-"digi_language",
-lang
-);
+localStorage.setItem("digi_language",lang);
 
 applyLanguage();
-
 checkLogin();
-
 }
 
 /* =========================================================
-LOGIN
+AUTH
 ========================================================= */
 
 async function checkLogin(){
 
-const {
-data:{session},
-error
-}=
-await supabaseClient.auth.getSession();
+const {data,error}=await supabaseClient.auth.getSession();
 
-if(error){
+if(error)return;
 
-console.error(error);
-return;
+const authArea=document.getElementById("authArea");
+const logoutButton=document.getElementById("logoutButton");
 
-}
+if(!authArea||!logoutButton)return;
 
-const authArea=
-document.getElementById("authArea");
-
-const logoutButton=
-document.getElementById("logoutButton");
-
-if(!authArea||!logoutButton)
-return;
-
-if(session){
+if(data.session){
 
 authArea.innerHTML="";
 
-const profile=
-document.createElement("a");
-
+const profile=document.createElement("a");
 profile.href="profile.html";
+profile.textContent=t("profile");
 
-profile.textContent=
-t("profile");
-
-const email=
-document.createElement("span");
-
+const email=document.createElement("span");
 email.className="user-email";
-
-email.textContent=
-session.user.email||"";
+email.textContent=data.session.user.email||"";
 
 authArea.appendChild(profile);
-
 authArea.appendChild(email);
 
-logoutButton.style.display=
-"inline-block";
-
-logoutButton.textContent=
-t("logout");
+logoutButton.style.display="inline-block";
 
 }else{
 
 authArea.innerHTML=`
-
-<a href="login.html">
-${t("login")}
-</a>
-
-<a href="login.html">
-${t("register")}
-</a>
-
+<a href="login.html">${t("login")}</a>
+<a href="login.html">${t("register")}</a>
 `;
 
-logoutButton.style.display=
-"none";
-
+logoutButton.style.display="none";
 }
-
 }
 
 async function logout(){
-
 await supabaseClient.auth.signOut();
-
-window.location.reload();
-
+location.reload();
 }
 
-supabaseClient.auth.onAuthStateChange(
-()=>{
+supabaseClient.auth.onAuthStateChange(()=>{
 checkLogin();
-}
-);
+});
 
 /* =========================================================
 CART
 ========================================================= */
 
-let cart=
-JSON.parse(
-localStorage.getItem("digi_cart")
-)||[];
+let cart=JSON.parse(localStorage.getItem("digi_cart"))||[];
 
 function updateCartCount(){
 
-const el=
-document.getElementById(
-"cartCount"
-);
+const el=document.getElementById("cartCount");
 
-if(el)
-el.textContent=
-cart.length;
-
+if(el)el.textContent=cart.length;
 }
 
 function toggleCart(){
 
-const modal=
-document.getElementById(
-"cartModal"
-);
+const modal=document.getElementById("cartModal");
 
 if(!modal)return;
 
 modal.style.display=
-modal.style.display==="block"
-?"none"
-:"block";
+modal.style.display==="block"?"none":"block";
 
 if(modal.style.display==="block")
 updateCartUI();
-
 }
 
 function addToCart(){
 
-const packages=
-getPackages();
+const packages=getPackages();
 
-if(!packages.length)
-return;
+if(!packages.length)return;
 
-const item=
-packages[selectedPackage];
-
-const current=
-getCurrentPackagePrice(item);
+const item=packages[selectedPackage];
+const current=getCurrentPackagePrice(item);
 
 if(!current.price){
 
 alert(t("noPrice"));
-
 return;
-
 }
 
 cart.push({
-
-name:
-getProductName()+
-" ("+
-getPackageName(item)+
-")",
-
-price:
-current.price
-
+name:getProductName()+" ("+getPackageName(item)+")",
+price:current.price
 });
 
-localStorage.setItem(
-"digi_cart",
-JSON.stringify(cart)
-);
+localStorage.setItem("digi_cart",JSON.stringify(cart));
 
 updateCartCount();
-
 updateCartUI();
 
-alert(
-t("cartProductAdded")
-);
-
+alert(t("cartProductAdded"));
 }
 
 function updateCartUI(){
 
-const list=
-document.getElementById(
-"cartItemsList"
-);
+const list=document.getElementById("cartItemsList");
+const total=document.getElementById("cartTotalPrice");
 
-const total=
-document.getElementById(
-"cartTotalPrice"
-);
-
-if(!list||!total)
-return;
+if(!list||!total)return;
 
 if(!cart.length){
 
 list.innerHTML=`
-
-<p style="color:#777;text-align:center;">
+<p style="color:#777;text-align:center">
 ${t("emptyCart")}
 </p>
-
 `;
 
-total.textContent=
-"0.00 AZN";
-
+total.textContent="0.00 AZN";
 return;
-
 }
 
 let sum=0;
 
-list.innerHTML=
-cart.map((item,index)=>{
+list.innerHTML=cart.map((item,index)=>{
 
 sum+=Number(item.price||0);
 
 return`
-
 <div style="
 background:#080808;
 border:1px solid #222;
@@ -3679,61 +1726,37 @@ align-items:center;
 ">
 
 <div>
-
-<div style="
-font-weight:bold;
-color:#60a5fa;
-font-size:14px;
-">
+<div style="font-weight:bold;color:#60a5fa;font-size:14px">
 ${esc(item.name)}
 </div>
 
-<div style="
-color:#888;
-font-size:12px;
-margin-top:4px;
-">
+<div style="color:#888;font-size:12px;margin-top:4px">
 ${Number(item.price).toFixed(2)} AZN
 </div>
-
 </div>
 
 <button
 onclick="removeFromCart(${index})"
-style="
-background:none;
-border:none;
-color:#ef4444;
-cursor:pointer;
-font-size:13px;
-">
+style="background:none;border:none;color:#ef4444;cursor:pointer;font-size:13px">
 ${t("remove")}
 </button>
 
 </div>
-
 `;
 
 }).join("");
 
-total.textContent=
-sum.toFixed(2)+" AZN";
-
+total.textContent=sum.toFixed(2)+" AZN";
 }
 
 function removeFromCart(index){
 
 cart.splice(index,1);
 
-localStorage.setItem(
-"digi_cart",
-JSON.stringify(cart)
-);
+localStorage.setItem("digi_cart",JSON.stringify(cart));
 
 updateCartCount();
-
 updateCartUI();
-
 }
 
 function checkoutCart(){
@@ -3741,14 +1764,10 @@ function checkoutCart(){
 if(!cart.length){
 
 alert(t("emptyCartAlert"));
-
 return;
-
 }
 
-let message=
-t("cartOrderMessage");
-
+let message=t("cartOrderMessage");
 let total=0;
 
 cart.forEach((item,index)=>{
@@ -3760,32 +1779,23 @@ item.name+
 Number(item.price).toFixed(2)+
 " AZN\n";
 
-total+=
-Number(item.price||0);
-
+total+=Number(item.price||0);
 });
 
 message+=
 "\n"+
-t("totalAmount")+
-" "+
-total.toFixed(2)+
-" AZN";
+t("totalAmount")+" "+
+total.toFixed(2)+" AZN";
 
 cart=[];
-
-localStorage.removeItem(
-"digi_cart"
-);
+localStorage.removeItem("digi_cart");
 
 updateCartCount();
-
 toggleCart();
 
-window.location.href=
+location.href=
 "https://wa.me/994513626349?text="+
 encodeURIComponent(message);
-
 }
 
 /* =========================================================
@@ -3794,50 +1804,35 @@ BUY NOW
 
 function buyNow(){
 
-const packages=
-getPackages();
+const packages=getPackages();
 
-if(!packages.length)
-return;
+if(!packages.length)return;
 
-const item=
-packages[selectedPackage];
-
-const current=
-getCurrentPackagePrice(item);
+const item=packages[selectedPackage];
+const current=getCurrentPackagePrice(item);
 
 if(!current.price){
 
 alert(t("noPrice"));
-
 return;
-
 }
 
 const message=
 t("orderMessage")+
 "\n"+
-t("productLabel")+
-" "+
-getProductName()+
+t("productLabel")+" "+getProductName()+
 "\n"+
-t("periodLabel")+
-" "+
-getPackageName(item)+
+t("periodLabel")+" "+getPackageName(item)+
 "\n"+
-t("priceLabel")+
-" "+
-current.price.toFixed(2)+
-" AZN";
+t("priceLabel")+" "+current.price.toFixed(2)+" AZN";
 
-window.location.href=
+location.href=
 "https://wa.me/994513626349?text="+
 encodeURIComponent(message);
-
 }
 
 /* =========================================================
-REALTIME — MƏHSULLAR
+REALTIME PRODUCTS
 ========================================================= */
 
 let productRealtimeChannel=null;
@@ -3845,21 +1840,14 @@ let productRealtimeChannel=null;
 function setupProductRealtime(){
 
 if(productRealtimeChannel){
-
 try{
-supabaseClient.removeChannel(
-productRealtimeChannel
-);
+supabaseClient.removeChannel(productRealtimeChannel);
 }catch(e){}
-
 }
 
 productRealtimeChannel=
 supabaseClient
-.channel(
-"digibaku-product-page-live"
-)
-
+.channel("digibaku-product-page-live")
 .on(
 "postgres_changes",
 {
@@ -3867,42 +1855,23 @@ event:"*",
 schema:"public",
 table:"site_products"
 },
-async(payload)=>{
-
-console.log(
-"Admin məhsul dəyişdi:",
-payload.eventType
-);
+async payload=>{
 
 await loadAllSiteProducts();
 
 if(
-payload.eventType==="DELETE" &&
+payload.new?.product_key===productKey||
 payload.old?.product_key===productKey
 ){
-
-siteProductData=null;
-
-}
-
-if(
-payload.new?.product_key===productKey ||
-payload.old?.product_key===productKey
-){
-
 await loadCurrentSiteProduct();
-
 }
-
 }
 )
-
 .subscribe();
-
 }
 
 /* =========================================================
-REALTIME — QİYMƏTLƏR
+REALTIME PRICES
 ========================================================= */
 
 let priceRealtimeChannel=null;
@@ -3910,21 +1879,14 @@ let priceRealtimeChannel=null;
 function setupPriceRealtime(){
 
 if(priceRealtimeChannel){
-
 try{
-supabaseClient.removeChannel(
-priceRealtimeChannel
-);
+supabaseClient.removeChannel(priceRealtimeChannel);
 }catch(e){}
-
 }
 
 priceRealtimeChannel=
 supabaseClient
-.channel(
-"digibaku-price-page-live"
-)
-
+.channel("digibaku-price-page-live")
 .on(
 "postgres_changes",
 {
@@ -3932,35 +1894,29 @@ event:"*",
 schema:"public",
 table:"product_prices"
 },
-async(payload)=>{
-
-console.log(
-"Admin qiyməti dəyişdi:",
-payload.eventType
-);
+async payload=>{
 
 await loadAllPrices();
 
 if(
-payload.new?.product_key===productKey
+payload.new?.product_key===productKey||
+payload.old?.product_key===productKey
 ){
 
 productPriceData=
-payload.new;
+payload.eventType==="DELETE"
+?null
+:payload.new;
 
 renderAll();
-
 }
-
 }
 )
-
 .subscribe();
-
 }
 
 /* =========================================================
-REALTIME — FAQ
+REALTIME FAQ
 ========================================================= */
 
 let faqRealtimeChannel=null;
@@ -3968,21 +1924,14 @@ let faqRealtimeChannel=null;
 function setupFaqRealtime(){
 
 if(faqRealtimeChannel){
-
 try{
-supabaseClient.removeChannel(
-faqRealtimeChannel
-);
+supabaseClient.removeChannel(faqRealtimeChannel);
 }catch(e){}
-
 }
 
 faqRealtimeChannel=
 supabaseClient
-.channel(
-"digibaku-product-faq-live"
-)
-
+.channel("digibaku-product-faq-live")
 .on(
 "postgres_changes",
 {
@@ -3990,40 +1939,21 @@ event:"*",
 schema:"public",
 table:"site_faqs"
 },
-async(payload)=>{
+async payload=>{
 
 if(
-payload.new?.product_key===productKey ||
+payload.new?.product_key===productKey||
 payload.old?.product_key===productKey
 ){
-
 await loadProductFaqs();
-
 }
-
 }
 )
-
 .subscribe();
-
 }
 
 /* =========================================================
-RENDER ALL
-========================================================= */
-
-function renderAll(){
-
-renderDynamicContent();
-
-renderOtherProducts();
-
-renderFooter();
-
-}
-
-/* =========================================================
-BAŞLANĞIC
+INIT
 ========================================================= */
 
 async function init(){
@@ -4032,7 +1962,7 @@ updateCartCount();
 
 applyLanguage();
 
-checkLogin();
+await checkLogin();
 
 await loadCurrentSiteProduct();
 
@@ -4049,7 +1979,6 @@ setupPriceRealtime();
 setupFaqRealtime();
 
 renderAll();
-
 }
 
 init();
