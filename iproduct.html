@@ -9,1055 +9,694 @@
 <meta
 id="metaDescription"
 name="description"
-content="Netflix Azərbaycan — Netflix 4K Premium Azərbaycan abunəliyi, paketlər və qiymətlər. Netflix Premium xidmətini DigiBaku.com-da kəşf edin."
+content="Netflix Azərbaycan — 4K Premium abunəlik. DigiBaku-dan sərfəli qiymətə Netflix, YouTube Premium, ChatGPT Plus və digər rəqəmsal xidmətlər."
 >
 
 <meta name="robots" content="index, follow">
 
-<link
-id="canonicalLink"
-rel="canonical"
-href="https://digibaku.com/product.html?product=netflix"
->
+<link rel="canonical" id="canonicalUrl" href="https://digibaku.com/product.html">
 
-<meta
-id="ogTitle"
-property="og:title"
-content="Netflix 4K Premium Azərbaycan Abunəliyi | DigiBaku"
->
-
-<meta
-id="ogDescription"
-property="og:description"
-content="Netflix Azərbaycan — Netflix 4K Premium Azərbaycan abunəliyi, paketlər və qiymətlər."
->
-
-<meta
-id="ogUrl"
-property="og:url"
-content="https://digibaku.com/product.html?product=netflix"
->
-
-<meta
-id="ogImage"
-property="og:image"
-content="https://digibaku.com/netflix.webp"
->
-
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="DigiBaku.com">
+<meta property="og:type" content="product">
+<meta property="og:title" id="ogTitle" content="Netflix 4K Premium Azərbaycan Abunəliyi | DigiBaku">
+<meta property="og:description" id="ogDescription" content="Netflix 4K Premium Azərbaycan abunəliyi.">
+<meta property="og:url" id="ogUrl" content="https://digibaku.com/product.html">
+<meta property="og:site_name" content="DigiBaku">
+<meta property="og:image" content="https://digibaku.com/logo.png">
 
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" id="twitterTitle" content="Netflix 4K Premium Azərbaycan Abunəliyi | DigiBaku">
+<meta name="twitter:description" id="twitterDescription" content="Netflix 4K Premium Azərbaycan abunəliyi.">
+<meta name="twitter:image" content="https://digibaku.com/logo.png">
 
-<meta
-id="twitterTitle"
-name="twitter:title"
-content="Netflix 4K Premium Azərbaycan Abunəliyi | DigiBaku"
->
-
-<meta
-id="twitterDescription"
-name="twitter:description"
-content="Netflix Azərbaycan — Netflix 4K Premium Azərbaycan abunəliyi, paketlər və qiymətlər."
->
-
-<meta
-id="twitterImage"
-name="twitter:image"
-content="https://digibaku.com/netflix.webp"
->
-
-<script id="productSchema" type="application/ld+json">{}</script>
+<script type="application/ld+json" id="productSchema">
+{
+"@context":"https://schema.org",
+"@type":"Product",
+"name":"Netflix 4K Premium Azərbaycan Abunəliyi",
+"description":"Netflix 4K Premium Azərbaycan abunəliyi",
+"brand":{
+"@type":"Brand",
+"name":"Netflix"
+},
+"offers":{
+"@type":"Offer",
+"priceCurrency":"AZN",
+"price":"7",
+"availability":"https://schema.org/InStock",
+"url":"https://digibaku.com/product.html"
+}
+}
+</script>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 *{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
+box-sizing:border-box;
+margin:0;
+padding:0;
 }
 
 body{
-    font-family:Arial,sans-serif;
-    background:#070707;
-    color:white;
-    line-height:1.6;
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+background:#f5f7fb;
+color:#111827;
+line-height:1.5;
 }
 
 a{
-    text-decoration:none;
-    color:inherit;
+text-decoration:none;
+color:inherit;
 }
 
-.container{
-    width:92%;
-    max-width:1150px;
-    margin:auto;
+button{
+font-family:inherit;
 }
 
-header{
-    border-bottom:1px solid #222;
-    background:#080808;
-    position:sticky;
-    top:0;
-    z-index:1000;
+.header{
+position:sticky;
+top:0;
+z-index:1000;
+background:#fff;
+border-bottom:1px solid #e5e7eb;
 }
 
 .nav{
-    height:72px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
+max-width:1200px;
+margin:auto;
+height:70px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 20px;
 }
 
 .logo{
-    font-size:25px;
-    font-weight:900;
-    color:#3b82f6;
+font-size:24px;
+font-weight:800;
+color:#111827;
 }
 
 .logo span{
-    color:white;
+color:#2563eb;
 }
 
-.menu{
-    display:flex;
-    gap:25px;
+.nav-links{
+display:flex;
+align-items:center;
+gap:24px;
 }
 
-.menu a{
-    color:#aaa;
-    font-size:14px;
+.nav-links a{
+font-size:14px;
+font-weight:600;
+color:#4b5563;
 }
 
-.menu a:hover{
-    color:white;
-}
-
-.nav-right{
-    display:flex;
-    align-items:center;
-    gap:12px;
-}
-
-.language{
-    display:flex;
-    align-items:center;
-    gap:4px;
-    background:#151515;
-    border:1px solid #333;
-    border-radius:8px;
-    padding:4px 6px;
-}
-
-.language button{
-    background:none;
-    border:none;
-    color:#777;
-    padding:5px 6px;
-    font-size:11px;
-    font-weight:bold;
-    cursor:pointer;
-    border-radius:5px;
-}
-
-.language button.active{
-    color:#60a5fa;
-    background:#0c172b;
+.nav-links a:hover{
+color:#2563eb;
 }
 
 .cart-btn{
-    display:flex;
-    align-items:center;
-    gap:6px;
-    background:#151515;
-    border:1px solid #333;
-    color:#fff;
-    padding:10px 15px;
-    border-radius:8px;
-    font-weight:bold;
-    cursor:pointer;
-}
-
-.cart-count{
-    background:#ef4444;
-    color:#fff;
-    border-radius:50%;
-    padding:2px 6px;
-    font-size:11px;
-    font-weight:bold;
-}
-
-.auth-links{
-    display:flex;
-    align-items:center;
-    gap:10px;
-}
-
-.auth-links a{
-    color:#aaa;
-    font-size:14px;
-    font-weight:600;
-}
-
-.auth-links a:hover{
-    color:#fff;
-}
-
-.auth-links button{
-    background:none;
-    border:none;
-    color:#aaa;
-    font-size:14px;
-    font-weight:600;
-    cursor:pointer;
-    font-family:inherit;
-}
-
-.user-email{
-    color:#777;
-    font-size:13px;
-}
-
-.logout-btn{
-    background:none;
-    border:none;
-    color:#aaa;
-    font-size:14px;
-    font-weight:600;
-    cursor:pointer;
-    font-family:inherit;
-    padding:0;
-}
-
-.logout-btn:hover{
-    color:#fff;
-}
-
-#cartModal{
-    display:none;
-    position:fixed;
-    top:0;
-    right:0;
-    width:100%;
-    max-width:400px;
-    height:100vh;
-    background:#101010;
-    border-left:1px solid #262626;
-    z-index:2000;
-    padding:25px;
-    box-sizing:border-box;
-    overflow-y:auto;
-}
-
-.whatsapp-float{
-    position:fixed;
-    bottom:25px;
-    right:25px;
-    width:60px;
-    height:60px;
-    background:#25d366;
-    color:#fff;
-    border-radius:50%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    box-shadow:0 4px 15px rgba(37,211,102,.4);
-    z-index:9999;
-    transition:.3s;
-}
-
-.whatsapp-float:hover{
-    transform:scale(1.1);
-    background:#20ba5a;
-}
-
-.whatsapp-float svg{
-    width:34px;
-    height:34px;
-    fill:#fff;
-}
-
-.chat-float{
-    position:fixed;
-    bottom:25px;
-    right:100px;
-    width:60px;
-    height:60px;
-    background:#2563eb;
-    color:#fff;
-    border-radius:50%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:28px;
-    box-shadow:0 4px 15px rgba(37,99,235,.4);
-    z-index:9999;
-    transition:.3s;
-}
-
-.chat-float:hover{
-    transform:scale(1.1);
-    background:#1d4ed8;
-}
-
-main{
-    padding:50px 0 90px;
-}
-
-.breadcrumb{
-    color:#777;
-    font-size:13px;
-    margin-bottom:25px;
-}
-
-.breadcrumb a{
-    color:#60a5fa;
-}
-
-.product{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:40px;
-}
-
-.image-box{
-    background:#101010;
-    border:1px solid #252525;
-    border-radius:20px;
-    min-height:500px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding:40px;
-}
-
-.image-box img{
-    width:100%;
-    max-width:400px;
-    max-height:400px;
-    object-fit:contain;
-}
-
-.badge{
-    display:inline-block;
-    color:#60a5fa;
-    background:#0c172b;
-    border:1px solid #1d4ed8;
-    border-radius:20px;
-    padding:5px 12px;
-    font-size:12px;
-    font-weight:bold;
-    margin-bottom:15px;
-}
-
-h1{
-    font-size:38px;
-    line-height:1.2;
-    margin-bottom:12px;
-}
-
-.rating{
-    color:#facc15;
-    margin-bottom:18px;
-}
-
-.rating span{
-    color:#777;
-}
-
-.short{
-    color:#999;
-    font-size:15px;
-    margin-bottom:25px;
-}
-
-.package-title{
-    font-size:15px;
-    font-weight:bold;
-    margin-bottom:12px;
-}
-
-.packages{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:10px;
-}
-
-.package{
-    cursor:pointer;
-    background:#101010;
-    border:1px solid #333;
-    border-radius:12px;
-    padding:17px;
-    transition:.2s;
-}
-
-.package:hover{
-    border-color:#2563eb;
-}
-
-.package.active{
-    background:#0b1830;
-    border-color:#2563eb;
-    box-shadow:0 0 0 1px #2563eb;
-}
-
-.package-name{
-    display:block;
-    font-size:14px;
-    color:#aaa;
-}
-
-.package-price{
-    display:block;
-    font-size:21px;
-    font-weight:bold;
-    margin-top:4px;
-}
-
-.old-price{
-    text-decoration:line-through;
-    color:#666;
-    font-size:13px;
-    margin-right:5px;
-}
-
-.sale-price{
-    color:#22c55e;
-    font-weight:bold;
-}
-
-.discount-percent{
-    display:inline-block;
-    margin-left:6px;
-    color:#fff;
-    background:#ef4444;
-    border-radius:5px;
-    padding:2px 6px;
-    font-size:11px;
-    font-weight:bold;
-}
-
-.selected{
-    margin-top:15px;
-    background:#101010;
-    border:1px solid #252525;
-    border-radius:13px;
-    padding:20px;
-}
-
-.selected-price{
-    font-size:32px;
-    font-weight:900;
-}
-
-.selected-period{
-    color:#777;
-    margin-left:7px;
-}
-
-.selected-old-price{
-    display:block;
-    text-decoration:line-through;
-    color:#666;
-    font-size:14px;
-    margin-bottom:2px;
-}
-
-.buttons{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:10px;
-    margin-top:15px;
-}
-
-.buy{
-    border:none;
-    background:#2563eb;
-    color:white;
-    border-radius:10px;
-    padding:14px;
-    font-size:15px;
-    font-weight:bold;
-    cursor:pointer;
-}
-
-.buy:hover{
-    background:#1d4ed8;
-}
-
-.cart{
-    border:1px solid #333;
-    background:#151515;
-    color:white;
-    border-radius:10px;
-    padding:14px;
-    font-size:15px;
-    font-weight:bold;
-    cursor:pointer;
-}
-
-.cart:hover{
-    border-color:#2563eb;
-}
-
-.safety{
-    margin-top:15px;
-    background:#0c170f;
-    border:1px solid #1d3a25;
-    color:#8dbd98;
-    border-radius:10px;
-    padding:13px;
-    font-size:13px;
-}
-
-.description{
-    max-width:850px;
-    margin-top:65px;
-}
-
-.description h2{
-    font-size:27px;
-    margin:38px 0 12px;
-}
-
-.description h2:first-child{
-    margin-top:0;
-}
-
-.description p{
-    color:#aaa;
-    margin-bottom:16px;
-}
-
-.description ul{
-    color:#aaa;
-    padding-left:22px;
-}
-
-.description li{
-    margin-bottom:8px;
-}
-
-.info{
-    background:#101010;
-    border:1px solid #252525;
-    border-radius:13px;
-    padding:20px;
-    margin:20px 0;
-}
-
-.info strong{
-    display:block;
-    margin-bottom:5px;
-}
-
-.faq-section{
-    margin-top:65px;
-    padding-top:45px;
-    border-top:1px solid #222;
-}
-
-.section-heading{
-    margin-bottom:28px;
-}
-
-.section-heading h2{
-    font-size:29px;
-    margin-bottom:8px;
-}
-
-.section-heading p{
-    color:#888;
-}
-
-.faq-list{
-    display:flex;
-    flex-direction:column;
-    gap:10px;
-}
-
-.faq-item{
-    background:#101010;
-    border:1px solid #252525;
-    border-radius:12px;
-    overflow:hidden;
-}
-
-.faq-question{
-    width:100%;
-    border:none;
-    background:transparent;
-    color:white;
-    padding:18px 20px;
-    text-align:left;
-    font-size:15px;
-    font-weight:bold;
-    cursor:pointer;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-}
-
-.faq-question:hover{
-    background:#151515;
-}
-
-.faq-answer{
-    display:none;
-    padding:0 20px 18px;
-    color:#999;
-    font-size:14px;
-}
-
-.faq-item.open .faq-answer{
-    display:block;
-}
-
-.faq-plus{
-    color:#60a5fa;
-    font-size:22px;
-}
-
-.reviews-section{
-    margin-top:65px;
-    padding-top:45px;
-    border-top:1px solid #222;
-}
-
-.reviews-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:15px;
-}
-
-.review-card{
-    background:#101010;
-    border:1px solid #252525;
-    border-radius:14px;
-    padding:22px;
-}
-
-.review-stars{
-    color:#facc15;
-    letter-spacing:2px;
-    margin-bottom:12px;
-}
-
-.review-text{
-    color:#bbb;
-    font-size:14px;
-    margin-bottom:18px;
-}
-
-.review-name{
-    font-weight:bold;
-}
-
-.review-role{
-    color:#666;
-    font-size:12px;
-    margin-top:3px;
-}
-
-.articles-section{
-    margin-top:65px;
-    padding-top:45px;
-    border-top:1px solid #222;
-}
-
-.articles-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:15px;
-}
-
-.article-card{
-    background:#101010;
-    border:1px solid #252525;
-    border-radius:14px;
-    padding:20px;
-}
-
-.article-card h3{
-    font-size:16px;
-    margin-bottom:9px;
-}
-
-.article-card p{
-    color:#888;
-    font-size:13px;
-    margin-bottom:12px;
-}
-
-.article-date{
-    color:#666;
-    font-size:12px;
+border:0;
+background:#111827;
+color:#fff;
+border-radius:10px;
+padding:10px 15px;
+cursor:pointer;
+font-weight:700;
 }
 
-.guides-section{
-    margin-top:35px;
+.menu-btn{
+display:none;
+border:0;
+background:transparent;
+font-size:25px;
+cursor:pointer;
+}
+
+.container{
+max-width:1200px;
+margin:auto;
+padding:30px 20px;
+}
+
+.hero{
+background:#fff;
+border:1px solid #e5e7eb;
+border-radius:20px;
+padding:30px;
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:35px;
+margin-bottom:30px;
+}
+
+.product-image{
+width:100%;
+height:360px;
+border-radius:18px;
+background:#f3f4f6;
+display:flex;
+align-items:center;
+justify-content:center;
+overflow:hidden;
 }
 
-.guides-title{
-    font-size:20px;
-    margin-bottom:15px;
+.product-image img{
+width:100%;
+height:100%;
+object-fit:contain;
 }
 
-.guides-list{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:10px;
+.product-info{
+display:flex;
+flex-direction:column;
+justify-content:center;
 }
 
-.guide-card{
-    background:#101010;
-    border:1px solid #252525;
-    border-radius:11px;
-    padding:15px;
-    color:#aaa;
-    font-size:14px;
+.product-badge{
+display:inline-flex;
+width:max-content;
+background:#eef2ff;
+color:#4338ca;
+font-size:12px;
+font-weight:800;
+padding:6px 10px;
+border-radius:999px;
+margin-bottom:12px;
 }
 
-.trust{
-    margin-top:60px;
-    padding-top:45px;
-    border-top:1px solid #222;
+.product-title{
+font-size:36px;
+line-height:1.15;
+font-weight:800;
+margin-bottom:15px;
 }
 
-.trust-title{
-    text-align:center;
-    margin-bottom:30px;
+.product-description{
+font-size:16px;
+color:#6b7280;
+margin-bottom:20px;
 }
 
-.trust-title h2{
-    font-size:29px;
+.price-box{
+background:#f9fafb;
+border:1px solid #e5e7eb;
+border-radius:15px;
+padding:18px;
+margin-bottom:18px;
 }
 
-.trust-title p{
-    color:#888;
+.price-label{
+font-size:13px;
+color:#6b7280;
+margin-bottom:5px;
 }
 
-.trust-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:15px;
+.price{
+font-size:32px;
+font-weight:800;
+color:#111827;
 }
 
-.trust-card{
-    background:#101010;
-    border:1px solid #252525;
-    border-radius:14px;
-    padding:23px;
+.price span{
+font-size:14px;
+font-weight:500;
+color:#6b7280;
 }
 
-.trust-icon{
-    font-size:25px;
-    margin-bottom:10px;
+.plan-select{
+width:100%;
+padding:13px 14px;
+border:1px solid #d1d5db;
+border-radius:10px;
+background:#fff;
+font-size:15px;
+margin-bottom:15px;
+outline:none;
 }
 
-.trust-card h3{
-    margin-bottom:7px;
+.buy-btn{
+width:100%;
+border:0;
+border-radius:12px;
+padding:15px;
+background:#2563eb;
+color:#fff;
+font-size:16px;
+font-weight:800;
+cursor:pointer;
 }
 
-.trust-card p{
-    color:#888;
-    font-size:14px;
+.buy-btn:hover{
+background:#1d4ed8;
 }
 
-.other{
-    margin-top:65px;
+.features{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:15px;
+margin-bottom:30px;
 }
 
-.other-title{
-    text-align:center;
-    margin-bottom:25px;
+.feature{
+background:#fff;
+border:1px solid #e5e7eb;
+border-radius:15px;
+padding:20px;
 }
 
-.other-title h2{
-    font-size:29px;
+.feature-icon{
+font-size:24px;
+margin-bottom:8px;
 }
 
-.other-title p{
-    color:#888;
+.feature-title{
+font-weight:800;
+margin-bottom:4px;
 }
 
-.other-grid{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:15px;
+.feature-text{
+font-size:13px;
+color:#6b7280;
 }
 
-.other-card{
-    background:#101010;
-    border:1px solid #252525;
-    border-radius:14px;
-    padding:18px;
-    text-align:center;
+.section{
+margin-bottom:35px;
 }
 
-.other-card img{
-    width:100%;
-    height:110px;
-    object-fit:contain;
-    margin-bottom:10px;
+.section-title{
+font-size:25px;
+font-weight:800;
+margin-bottom:16px;
 }
-
-.other-card h3{
-    font-size:15px;
-    margin-bottom:8px;
-}
-
-.other-price{
-    font-size:18px;
-    font-weight:bold;
-    margin:8px 0 12px;
-}
-
-.other-old-price{
-    text-decoration:line-through;
-    color:#666;
-    font-size:12px;
-    margin-right:5px;
-}
-
-.other-sale-price{
-    color:#22c55e;
-    font-weight:bold;
-}
-
-.other-discount{
-    display:inline-block;
-    margin-left:5px;
-    color:#fff;
-    background:#ef4444;
-    border-radius:5px;
-    padding:2px 5px;
-    font-size:10px;
-    font-weight:bold;
-}
-
-.other-buttons{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:7px;
-    margin-top:10px;
-}
-
-.other-card a,
-.other-cart-btn{
-    display:block;
-    padding:9px;
-    border-radius:8px;
-    border:1px solid #333;
-    color:#60a5fa;
-    font-size:13px;
-    background:#101010;
-    cursor:pointer;
-    font-weight:bold;
-}
-
-.other-card a:hover,
-.other-cart-btn:hover{
-    border-color:#2563eb;
-}
-
-.other-cart-btn{
-    color:#fff;
-    background:#151515;
-}
-
-/* YALNIZ ADMIN FOOTER SISTEMI */
 
-.footer-admin{
-    width:100%;
-    display:grid;
-    grid-template-columns:1fr 1fr 1fr;
-    gap:45px;
-    margin-top:25px;
+.other-products{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:16px;
 }
 
-.footer-column h3{
-    color:#fff;
-    font-size:16px;
-    margin-bottom:14px;
+.product-card{
+background:#fff;
+border:1px solid #e5e7eb;
+border-radius:16px;
+padding:18px;
+transition:.2s;
 }
 
-.footer-column p{
-    color:#666;
-    font-size:13px;
-    margin-bottom:7px;
+.product-card:hover{
+transform:translateY(-2px);
+box-shadow:0 8px 25px rgba(0,0,0,.07);
 }
 
-.footer-product-link{
-    display:block;
-    color:#777;
-    font-size:13px;
-    margin-bottom:7px;
-    transition:.2s;
+.product-card-image{
+width:100%;
+height:150px;
+display:flex;
+align-items:center;
+justify-content:center;
+background:#f8fafc;
+border-radius:12px;
+overflow:hidden;
+margin-bottom:14px;
 }
 
-.footer-product-link:hover{
-    color:#60a5fa;
+.product-card-image img{
+width:100%;
+height:100%;
+object-fit:contain;
 }
 
-.footer-price-row{
-    display:flex;
-    justify-content:space-between;
-    gap:10px;
-    color:#777;
-    font-size:13px;
-    margin-bottom:7px;
+.product-card-title{
+font-size:16px;
+font-weight:800;
+margin-bottom:6px;
 }
 
-.footer-price-row a{
-    color:#777;
+.product-card-description{
+font-size:13px;
+color:#6b7280;
+min-height:40px;
+margin-bottom:10px;
 }
 
-.footer-price-row a:hover{
-    color:#60a5fa;
+.product-card-price{
+font-size:18px;
+font-weight:800;
+margin-bottom:12px;
 }
 
-.footer-price-value{
-    color:#aaa;
-    white-space:nowrap;
+.product-card-btn{
+display:block;
+width:100%;
+text-align:center;
+padding:10px;
+border-radius:9px;
+background:#111827;
+color:#fff;
+font-size:13px;
+font-weight:700;
 }
 
-footer{
-    border-top:1px solid #222;
-    padding:35px 0;
-    background:#030303;
+.empty-products{
+grid-column:1/-1;
+background:#fff;
+border:1px solid #e5e7eb;
+border-radius:15px;
+padding:25px;
+text-align:center;
+color:#6b7280;
 }
 
 .footer{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
+background:#111827;
+color:#fff;
+margin-top:40px;
 }
 
-.footer p{
-    color:#666;
-    font-size:13px;
+.footer-inner{
+max-width:1200px;
+margin:auto;
+padding:40px 20px;
+display:grid;
+grid-template-columns:2fr 1fr 1fr;
+gap:30px;
 }
 
-.about-dropdown{
-    position:relative;
-    display:inline-block;
+.footer-title{
+font-size:20px;
+font-weight:800;
+margin-bottom:10px;
 }
 
-.about-dropdown-menu{
-    display:none;
-    position:absolute;
-    top:100%;
-    left:0;
-    min-width:190px;
-    background:#111;
-    border:1px solid #2a2a2a;
-    border-radius:10px;
-    padding:8px 0;
-    z-index:9999;
-    box-shadow:0 10px 25px rgba(0,0,0,.35);
+.footer-text{
+font-size:13px;
+color:#9ca3af;
 }
 
-.about-dropdown-menu a{
-    display:block;
-    padding:10px 15px;
-    color:#fff;
-    text-decoration:none;
-    white-space:nowrap;
+.footer-links{
+display:flex;
+flex-direction:column;
+gap:8px;
 }
 
-.about-dropdown-menu a:hover{
-    background:#1d1d1d;
+.footer-links a{
+font-size:13px;
+color:#d1d5db;
 }
 
-.about-dropdown:hover .about-dropdown-menu{
-    display:block;
+.footer-bottom{
+border-top:1px solid #374151;
+padding:18px 20px;
+text-align:center;
+font-size:12px;
+color:#9ca3af;
 }
 
-@media(max-width:850px){
+.modal{
+display:none;
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.55);
+z-index:2000;
+align-items:center;
+justify-content:center;
+padding:20px;
+}
 
-    .product{
-        grid-template-columns:1fr;
-    }
+.modal.active{
+display:flex;
+}
 
-    .other-grid{
-        grid-template-columns:repeat(2,1fr);
-    }
+.modal-box{
+background:#fff;
+width:100%;
+max-width:520px;
+border-radius:18px;
+padding:25px;
+max-height:90vh;
+overflow:auto;
+}
 
-    .trust-grid,
-    .reviews-grid,
-    .articles-grid{
-        grid-template-columns:1fr;
-    }
+.modal-header{
+display:flex;
+align-items:center;
+justify-content:space-between;
+margin-bottom:20px;
+}
 
-    .footer-admin{
-        grid-template-columns:1fr 1fr;
-    }
+.modal-title{
+font-size:20px;
+font-weight:800;
+}
 
+.close-btn{
+border:0;
+background:#f3f4f6;
+width:36px;
+height:36px;
+border-radius:50%;
+cursor:pointer;
+font-size:18px;
+}
+
+.cart-item{
+display:flex;
+justify-content:space-between;
+gap:15px;
+padding:14px 0;
+border-bottom:1px solid #e5e7eb;
+}
+
+.cart-item-name{
+font-weight:700;
+}
+
+.cart-item-price{
+font-weight:800;
+white-space:nowrap;
+}
+
+.cart-total{
+display:flex;
+justify-content:space-between;
+font-size:18px;
+font-weight:800;
+padding:18px 0;
+}
+
+.checkout-btn{
+width:100%;
+padding:14px;
+border:0;
+border-radius:10px;
+background:#2563eb;
+color:#fff;
+font-weight:800;
+cursor:pointer;
+}
+
+.login-box{
+display:none;
+}
+
+.lang-select{
+border:1px solid #d1d5db;
+background:#fff;
+padding:8px 10px;
+border-radius:8px;
+font-size:13px;
+}
+
+@media(max-width:900px){
+
+.hero{
+grid-template-columns:1fr;
+}
+
+.other-products{
+grid-template-columns:repeat(2,1fr);
+}
+
+.features{
+grid-template-columns:1fr;
+}
+
+.footer-inner{
+grid-template-columns:1fr 1fr;
+}
+
+}
+
+@media(max-width:650px){
+
+.nav{
+height:60px;
+}
+
+.nav-links{
+display:none;
+position:absolute;
+top:60px;
+left:0;
+right:0;
+background:#fff;
+padding:15px 20px;
+border-bottom:1px solid #e5e7eb;
+flex-direction:column;
+align-items:flex-start;
+}
+
+.nav-links.active{
+display:flex;
+}
+
+.menu-btn{
+display:block;
+}
+
+.nav-right{
+display:flex;
+align-items:center;
+gap:8px;
+}
+
+.hero{
+padding:20px;
+}
+
+.product-image{
+height:280px;
+}
+
+.product-title{
+font-size:28px;
+}
+
+.other-products{
+grid-template-columns:1fr;
+}
+
+.footer-inner{
+grid-template-columns:1fr;
+}
+
+}
+
+.toast{
+position:fixed;
+right:20px;
+bottom:20px;
+background:#111827;
+color:#fff;
+padding:13px 17px;
+border-radius:10px;
+font-size:14px;
+z-index:5000;
+display:none;
+}
+
+.toast.show{
+display:block;
+}
+
+.loading{
+padding:30px;
+text-align:center;
+color:#6b7280;
+}
+
+.faq-item{
+background:#fff;
+border:1px solid #e5e7eb;
+border-radius:12px;
+margin-bottom:10px;
+overflow:hidden;
+}
+
+.faq-question{
+padding:16px;
+font-weight:700;
+cursor:pointer;
+display:flex;
+justify-content:space-between;
+}
+
+.faq-answer{
+display:none;
+padding:0 16px 16px;
+color:#6b7280;
+font-size:14px;
+}
+
+.faq-item.active .faq-answer{
+display:block;
+}
+
+.review-grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:15px;
+}
+
+.review-card{
+background:#fff;
+border:1px solid #e5e7eb;
+border-radius:15px;
+padding:18px;
+}
+
+.review-stars{
+margin-bottom:8px;
+}
+
+.review-text{
+font-size:14px;
+color:#4b5563;
+margin-bottom:10px;
+}
+
+.review-name{
+font-size:13px;
+font-weight:800;
+}
+
+.article-grid,
+.guide-grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:15px;
+}
+
+.article-card,
+.guide-card{
+background:#fff;
+border:1px solid #e5e7eb;
+border-radius:15px;
+padding:18px;
+}
+
+.article-title,
+.guide-title{
+font-weight:800;
+margin-bottom:8px;
+}
+
+.article-text,
+.guide-text{
+font-size:13px;
+color:#6b7280;
 }
 
 @media(max-width:700px){
 
-    .chat-float{
-        right:95px;
-        bottom:25px;
-    }
-
+.review-grid,
+.article-grid,
+.guide-grid{
+grid-template-columns:1fr;
 }
-
-@media(max-width:600px){
-
-    .menu{
-        display:none;
-    }
-
-    h1{
-        font-size:30px;
-    }
-
-    .packages{
-        grid-template-columns:1fr;
-    }
-
-    .buttons{
-        grid-template-columns:1fr;
-    }
-
-    .other-grid{
-        grid-template-columns:1fr;
-    }
-
-    .guides-list{
-        grid-template-columns:1fr;
-    }
-
-    .image-box{
-        min-height:330px;
-    }
-
-    .nav-right{
-        gap:5px;
-    }
-
-    .language button{
-        padding:5px 4px;
-    }
-
-    .cart-btn{
-        padding:9px 10px;
-    }
-
-    .other-buttons{
-        grid-template-columns:1fr;
-    }
-
-    .footer-admin{
-        grid-template-columns:1fr;
-        gap:25px;
-    }
 
 }
 </style>
@@ -1065,2231 +704,1253 @@ footer{
 
 <body>
 
-<header>
-<div class="container nav">
+<header class="header">
 
-<a href="index.html" class="logo">
-DigiBaku<span>.com</span>
+<div class="nav">
+
+<a href="/" class="logo">
+Digi<span>Baku</span>
 </a>
-
-<nav class="menu">
-
-<a href="index.html" data-i18n="home">Ana səhifə</a>
-<a href="index.html#products" data-i18n="products">Məhsullar</a>
-<a href="index.html#compare" data-i18n="compare">Müqayisə</a>
-
-<div class="about-dropdown">
-
-<a
-href="https://digibaku.com/faq.html#about"
-data-i18n="about">
-Haqqımızda
-</a>
-
-<div class="about-dropdown-menu">
-
-<a href="https://digibaku.com/faq.html#faq">FAQ</a>
-<a href="https://digibaku.com/faq.html#how-it-works">Necə işləyir?</a>
-<a href="https://digibaku.com/faq.html#trust">Etibar</a>
-<a href="https://digibaku.com/faq.html#editorial-policy">Redaksiya siyasəti</a>
-<a href="https://digibaku.com/faq.html#terms">Şərtlər</a>
-<a href="https://digibaku.com/faq.html#reviews">Rəylər</a>
-
-</div>
-</div>
-
-<a href="qiymetler.html" data-i18n="prices">Qiymətlər</a>
-<a href="index.html#blog" data-i18n="blog">Bloq</a>
-<a href="index.html#contact" data-i18n="contact">Əlaqə</a>
-
-</nav>
-
-<div class="nav-right">
-
-<button onclick="toggleCart()" class="cart-btn">
-🛒
-<span data-i18n="cart">Səbət</span>
-<span id="cartCount" class="cart-count">0</span>
-</button>
-
-<div class="auth-links" id="authArea">
-
-<a href="login.html" data-i18n="login">Daxil ol</a>
-<a href="login.html" data-i18n="register">Qeydiyyat</a>
-
-</div>
 
 <button
-id="logoutButton"
-class="logout-btn"
-data-i18n="logout"
-style="display:none;"
-onclick="logout()">
-Çıxış
+class="menu-btn"
+onclick="toggleMenu()"
+>
+☰
 </button>
 
-<div class="language">
+<div class="nav-links" id="navLinks">
 
-<button id="azBtn" onclick="setLanguage('az')">AZ</button>
+<a href="/">Ana səhifə</a>
+<a href="#products">Məhsullar</a>
+<a href="#faq">FAQ</a>
+<a href="#reviews">Rəylər</a>
 
-<span style="color:#444;">|</span>
+<select
+class="lang-select"
+id="languageSelect"
+onchange="changeLanguage(this.value)"
+>
+<option value="az">AZ</option>
+<option value="en">EN</option>
+<option value="tr">TR</option>
+<option value="ru">RU</option>
+</select>
 
-<button id="ruBtn" onclick="setLanguage('ru')">RU</button>
-
-<span style="color:#444;">|</span>
-
-<button id="enBtn" onclick="setLanguage('en')">EN</button>
+<button
+class="cart-btn"
+onclick="openCart()"
+>
+🛒 <span id="cartCount">0</span>
+</button>
 
 </div>
 
 </div>
-</div>
+
 </header>
 
-<div id="cartModal">
+<main class="container">
 
-<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+<section class="hero">
 
-<h2 id="cartTitle" style="font-size:22px;color:#fff;">
-Səbətiniz
-</h2>
-
-<button
-onclick="toggleCart()"
-style="background:none;border:none;color:#aaa;font-size:22px;cursor:pointer;">
-✕
-</button>
-
-</div>
-
-<div id="cartItemsList" style="margin-bottom:20px;">
-
-<p id="emptyCartText" style="color:#777;text-align:center;">
-Səbətiniz boşdur
-</p>
-
-</div>
-
-<div style="border-top:1px solid #222;padding-top:15px;">
-
-<div style="display:flex;justify-content:space-between;margin-bottom:15px;font-weight:bold;">
-
-<span id="totalText">Ümumi məbləğ:</span>
-
-<span id="cartTotalPrice">0.00 AZN</span>
-
-</div>
-
-<button
-onclick="checkoutCart()"
-id="checkoutButton"
-style="width:100%;background:#2563eb;color:white;border:none;border-radius:9px;padding:12px;font-weight:bold;cursor:pointer;">
-Sifarişi Təsdiq Et
-</button>
-
-</div>
-</div>
-
-<main>
-
-<div class="container">
-
-<div class="breadcrumb">
-
-<a href="index.html" data-i18n="home">
-Ana səhifə
-</a>
-
-&nbsp; / &nbsp;
-
-<span id="breadcrumb">Məhsul</span>
-
-</div>
-
-<div class="product">
-
-<div class="image-box">
+<div class="product-image">
 
 <img
 id="productImage"
-src="netflix.webp"
-alt="Netflix 4K Premium Azərbaycan Abunəliyi"
+src=""
+alt="Netflix 4K Premium"
 >
+
+</div>
+
+<div class="product-info">
+
+<span
+class="product-badge"
+id="productBadge"
+>
+Premium
+</span>
+
+<h1
+class="product-title"
+id="productTitle"
+>
+Netflix 4K Premium Azərbaycan Abunəliyi
+</h1>
+
+<p
+class="product-description"
+id="productDescription"
+>
+Netflix 4K Premium abunəliyindən rahat istifadə edin.
+</p>
+
+<div class="price-box">
+
+<div class="price-label">
+Qiymət
+</div>
+
+<div
+class="price"
+id="productPrice"
+>
+7 <span>AZN</span>
+</div>
+
+</div>
+
+<select
+class="plan-select"
+id="planSelect"
+onchange="updateSelectedPlan()"
+>
+<option value="30">30 gün</option>
+<option value="60">2 ay</option>
+<option value="90">3 ay</option>
+</select>
+
+<button
+class="buy-btn"
+onclick="addCurrentProductToCart()"
+>
+Səbətə əlavə et
+</button>
+
+</div>
+
+</section>
+
+<section class="features">
+
+<div class="feature">
+
+<div class="feature-icon">⚡</div>
+
+<div class="feature-title">
+Sürətli aktivasiya
+</div>
+
+<div class="feature-text">
+Sifarişiniz qısa müddətdə hazırlanır.
+</div>
+
+</div>
+
+<div class="feature">
+
+<div class="feature-icon">🔒</div>
+
+<div class="feature-title">
+Təhlükəsiz xidmət
+</div>
+
+<div class="feature-text">
+Rəqəmsal xidmətlər təhlükəsiz şəkildə təqdim olunur.
+</div>
+
+</div>
+
+<div class="feature">
+
+<div class="feature-icon">💬</div>
+
+<div class="feature-title">
+Dəstək
+</div>
+
+<div class="feature-text">
+Sualınız olduqda dəstək komandamızla əlaqə saxlaya bilərsiniz.
+</div>
+
+</div>
+
+</section>
+
+<section
+class="section"
+id="products"
+>
+
+<h2
+class="section-title"
+id="otherProductsTitle"
+>
+Digər premium xidmətlər
+</h2>
+
+<div
+class="other-products"
+id="otherProducts"
+>
+
+<div class="loading">
+Məhsullar yüklənir...
+</div>
+
+</div>
+
+</section>
+
+<section
+class="section"
+id="faq"
+>
+
+<h2 class="section-title">
+Tez-tez verilən suallar
+</h2>
+
+<div class="faq-item">
+
+<div
+class="faq-question"
+onclick="toggleFaq(this)"
+>
+Sifariş necə verilir?
+<span>+</span>
+</div>
+
+<div class="faq-answer">
+İstədiyiniz məhsulu seçib səbətə əlavə edin və sifarişi tamamlayın.
+</div>
+
+</div>
+
+<div class="faq-item">
+
+<div
+class="faq-question"
+onclick="toggleFaq(this)"
+>
+Məhsul nə vaxt aktiv olur?
+<span>+</span>
+</div>
+
+<div class="faq-answer">
+Ödəniş təsdiqləndikdən sonra sifarişiniz hazırlanır və sizə təqdim edilir.
+</div>
+
+</div>
+
+<div class="faq-item">
+
+<div
+class="faq-question"
+onclick="toggleFaq(this)"
+>
+Dəstək ala bilərəm?
+<span>+</span>
+</div>
+
+<div class="faq-answer">
+Bəli. Sifarişlə bağlı suallarınız üçün DigiBaku dəstək xidmətinə müraciət edə bilərsiniz.
+</div>
+
+</div>
+
+</section>
+
+<section
+class="section"
+id="reviews"
+>
+
+<h2 class="section-title">
+Müştəri rəyləri
+</h2>
+
+<div class="review-grid">
+
+<div class="review-card">
+
+<div class="review-stars">
+⭐⭐⭐⭐⭐
+</div>
+
+<div class="review-text">
+Sürətli və rahat xidmət. Sifarişim problemsiz aktiv oldu.
+</div>
+
+<div class="review-name">
+Müştəri
+</div>
+
+</div>
+
+<div class="review-card">
+
+<div class="review-stars">
+⭐⭐⭐⭐⭐
+</div>
+
+<div class="review-text">
+Qiymətlər münasibdir və xidmət sürətlidir.
+</div>
+
+<div class="review-name">
+Müştəri
+</div>
+
+</div>
+
+<div class="review-card">
+
+<div class="review-stars">
+⭐⭐⭐⭐⭐
+</div>
+
+<div class="review-text">
+Dəstək komandası tez cavab verdi.
+</div>
+
+<div class="review-name">
+Müştəri
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="section">
+
+<h2 class="section-title">
+Faydalı məqalələr
+</h2>
+
+<div class="article-grid">
+
+<div class="article-card">
+
+<div class="article-title">
+Netflix Premium necə istifadə olunur?
+</div>
+
+<div class="article-text">
+Netflix Premium xidmətindən istifadə haqqında ətraflı məlumat.
+</div>
+
+</div>
+
+<div class="article-card">
+
+<div class="article-title">
+YouTube Premium üstünlükləri
+</div>
+
+<div class="article-text">
+YouTube Premium ilə reklamsız video və digər imkanlardan istifadə edin.
+</div>
+
+</div>
+
+<div class="article-card">
+
+<div class="article-title">
+Rəqəmsal abunəliklər
+</div>
+
+<div class="article-text">
+Premium rəqəmsal xidmətlər haqqında faydalı məlumatlar.
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="section">
+
+<h2 class="section-title">
+Bələdçilər
+</h2>
+
+<div class="guide-grid">
+
+<div class="guide-card">
+
+<div class="guide-title">
+Netflix hesabına giriş
+</div>
+
+<div class="guide-text">
+Netflix hesabından istifadə qaydaları.
+</div>
+
+</div>
+
+<div class="guide-card">
+
+<div class="guide-title">
+YouTube Premium
+</div>
+
+<div class="guide-text">
+YouTube Premium istifadə təlimatı.
+</div>
+
+</div>
+
+<div class="guide-card">
+
+<div class="guide-title">
+ChatGPT Plus
+</div>
+
+<div class="guide-text">
+ChatGPT Plus xidmətindən istifadə haqqında məlumat.
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+</main>
+
+<footer class="footer">
+
+<div
+class="footer-inner"
+id="adminFooter"
+>
+
+<div>
+
+<div class="footer-title">
+DigiBaku
+</div>
+
+<div class="footer-text">
+Premium rəqəmsal xidmətlər.
+</div>
 
 </div>
 
 <div>
 
-<span class="badge" id="premiumBadge">
-Premium rəqəmsal xidmət
-</span>
-
-<h1 id="productName">
-Netflix 4K Premium Azərbaycan Abunəliyi
-</h1>
-
-<div class="rating">
-
-★★★★★
-
-<span id="rating">5.0 (1 rəy)</span>
-
-</div>
-
-<p class="short" id="shortDescription"></p>
-
-<div class="package-title" id="packageTitle">
-Müddət seçin
-</div>
-
-<div class="packages" id="packages"></div>
-
-<div class="selected">
-
-<span
-class="selected-old-price"
-id="selectedOldPrice"
-style="display:none;">
-</span>
-
-<span class="selected-price" id="selectedPrice">
-6.99 AZN
-</span>
-
-<span class="selected-period" id="selectedPeriod">
-1 ay
-</span>
-
-</div>
-
-<div class="buttons">
-
-<button
-class="buy"
-onclick="buyNow()"
-id="buyButton">
-İndi al
-</button>
-
-<button
-class="cart"
-onclick="addToCart()"
-id="addCartButton">
-Səbətə at
-</button>
-
-</div>
-
-<div class="safety" id="safetyText">
-🔒 Məlumatlarınız təhlükəsiz saxlanılır.
-</div>
-
-</div>
-</div>
-
-<div class="description">
-
-<div id="content"></div>
-
-<div class="faq-section">
-
-<div class="section-heading">
-
-<h2 id="faqTitle">FAQ</h2>
-
-<p id="faqSubtitle">
-Məhsul, qiymət, aktivləşdirmə və istifadə ilə bağlı ən çox verilən suallara burada cavab tapın.
-</p>
-
-</div>
-
-<div class="faq-list" id="faqList"></div>
-
-</div>
-
-<div class="reviews-section">
-
-<div class="section-heading">
-
-<h2 id="reviewsTitle">Məhsul haqqında rəylər</h2>
-
-<p id="reviewsSubtitle">
-Müştərilərimizin DigiBaku.com xidmətləri haqqında fikirləri.
-</p>
-
-</div>
-
-<div class="reviews-grid" id="reviewsGrid"></div>
-
-</div>
-
-<div class="articles-section">
-
-<div class="section-heading">
-
-<h2 id="articlesTitle">Faydalı oxu</h2>
-
-<p id="articlesSubtitle">
-Premium xidmət seçərkən sizə kömək edəcək məlumatlar.
-</p>
-
-</div>
-
-<div class="articles-grid" id="articlesGrid"></div>
-
-<div class="guides-section">
-
-<h3 class="guides-title" id="guidesTitle">
-Praktik bələdçilər
-</h3>
-
-<div class="guides-list" id="guidesList"></div>
-
-</div>
-</div>
-
-<div class="trust">
-
-<div class="trust-title">
-
-<h2 id="trustTitle">Etibar və sifariş axını</h2>
-
-<p id="trustSubtitle">
-DigiBaku.com-da sifariş prosesi sadə, rahat və sürətli şəkildə hazırlanıb.
-</p>
-
-</div>
-
-<div class="trust-grid">
-
-<div class="trust-card">
-
-<div class="trust-icon">⚡</div>
-
-<h3 id="fastTitle">Sürətli aktivləşdirmə</h3>
-
-<p id="fastText">
-Sifarişiniz təsdiqləndikdən sonra seçdiyiniz premium xidmətin aktivləşdirilməsi üçün proses başladılır.
-</p>
-
-</div>
-
-<div class="trust-card">
-
-<div class="trust-icon">🔒</div>
-
-<h3 id="secureTitle">Təhlükəsiz sifariş</h3>
-
-<p id="secureText">
-Sifariş zamanı təqdim etdiyiniz məlumatların təhlükəsizliyinə diqqət yetiririk.
-</p>
-
-</div>
-
-<div class="trust-card">
-
-<div class="trust-icon">💬</div>
-
-<h3 id="supportTitle">Operativ dəstək</h3>
-
-<p id="supportText">
-Sifariş və istifadə ilə bağlı suallarınız yaranarsa, WhatsApp üzərindən bizimlə əlaqə saxlaya bilərsiniz.
-</p>
-
-</div>
-
-</div>
-</div>
-
-<div class="other">
-
-<div class="other-title">
-
-<h2 id="otherTitle">
-Digər premium xidmətlər
-</h2>
-
-<p id="otherSubtitle">
-DigiBaku.com-da digər xidmətlərə də baxın.
-</p>
-
+<div class="footer-title">
+Məhsullar
 </div>
 
 <div
-class="other-grid"
-id="otherProductsGrid">
+class="footer-links"
+id="footerProducts"
+>
 </div>
 
 </div>
 
-</div>
-</div>
+<div>
 
-</main>
-
-<footer>
-
-<div class="container footer">
-
-<div style="width:100%;">
-
-<div class="logo">
-DigiBaku<span>.com</span>
+<div class="footer-title">
+Əlaqə
 </div>
 
-<div class="footer-admin">
+<div class="footer-links">
 
-<div class="footer-column">
-
-<h3 data-i18n="products">
-Məhsullar
-</h3>
-
-<div id="footerProductsList"></div>
-
-</div>
-
-<div class="footer-column">
-
-<h3 data-i18n="prices">
-Qiymətlər
-</h3>
-
-<div id="footerPricesList"></div>
-
-</div>
-
-<div class="footer-column">
-
-<h3>
+<a href="https://digibaku.com">
 DigiBaku.com
-</h3>
+</a>
 
-<p id="footerText">
-© 2026 DigiBaku.com. Bütün hüquqlar qorunur.
-</p>
-
-</div>
+<a href="mailto:info@digibaku.com">
+info@digibaku.com
+</a>
 
 </div>
 
 </div>
 
+</div>
+
+<div class="footer-bottom">
+© 2026 DigiBaku. Bütün hüquqlar qorunur.
 </div>
 
 </footer>
 
-<a
-href="chat.html"
-class="chat-float"
-aria-label="Çat">
-💬
-</a>
+<div
+class="modal"
+id="cartModal"
+>
 
-<a
-href="https://wa.me/994513626349?text=Salam%2C%20məlumat%20almaq%20istəyirəm"
-target="_blank"
-class="whatsapp-float"
-aria-label="WhatsApp dəstək">
+<div class="modal-box">
 
-<svg viewBox="0 0 32 32">
+<div class="modal-header">
 
-<path d="M16.002 0c-8.837 0-16 7.163-16 16 0 2.825.736 5.485 2.025 7.795l-2.025 7.395 7.575-1.985c2.22 1.21 4.795 1.9 7.425 1.9 8.837 0 16-7.163 16-16s-7.163-16-16-16zM16.002 29.337c-2.345 0-4.57-0.63-6.505-1.725l-0.465-0.27-4.83 1.265 1.29-4.705-0.3-0.485c-1.215-1.95-1.855-4.22-1.855-6.557 0-7.36 5.99-13.35 13.35-13.35 7.36 0 13.35 5.99 13.35 13.35s-5.99 13.35-13.35 13.35zM22.56 19.32c-0.36-0.18-2.125-1.05-2.455-1.17s-0.57-0.18-0.81 0.18c-0.24 0.36-0.93 1.17-1.14 1.41s-0.42 0.27-0.78 0.09c-0.36-0.18-1.515-0.555-2.885-1.785-1.065-0.945-1.785-2.115-1.995-2.475s-0.03-0.555 0.15-0.735c0.15-0.15 0.36-0.39 0.54-0.585s0.24-0.33 0.36-0.555c0.12-0.225 0.06-0.42-0.03-0.585s-0.81-1.95-1.11-2.67c-0.285-0.69-0.585-0.6-0.81-0.615s-0.465-0.015-0.72-0.015c-0.255 0-0.66 0.09-1.005 0.465s-1.32 1.29-1.32 3.15 1.35 3.645 1.545 3.9c0.195.255 2.67 4.08 6.465 5.715 0.9 0.39 1.605 0.63 2.145 0.81 0.9 0.3 1.725 0.255 2.37 0.15 0.72-0.105 2.125-0.87 2.425-1.71s0.3-1.56 0.21-1.71c-0.09-0.15-0.33-0.24-0.69-0.42z">
-</path>
+<div class="modal-title">
+Səbət
+</div>
 
-</svg>
+<button
+class="close-btn"
+onclick="closeCart()"
+>
+×
+</button>
 
-</a>
+</div>
+
+<div id="cartItems">
+</div>
+
+<div class="cart-total">
+
+<span>
+Cəmi
+</span>
+
+<span id="cartTotal">
+0 AZN
+</span>
+
+</div>
+
+<button
+class="checkout-btn"
+onclick="checkoutCart()"
+>
+Sifarişi tamamla
+</button>
+
+</div>
+
+</div>
+
+<div
+class="toast"
+id="toast"
+>
+Məhsul səbətə əlavə edildi
+</div>
 
 <script>
 
-/* =========================================================
-SUPABASE
-========================================================= */
+const SUPABASE_URL=
+"https://YOUR_SUPABASE_URL.supabase.co";
 
-const SUPABASE_URL =
-"https://zeknhnkaicqkfzgnvycq.supabase.co";
+const SUPABASE_ANON_KEY=
+"YOUR_SUPABASE_ANON_KEY";
 
-const SUPABASE_KEY =
-"sb_publishable_jHvCp9fXBA_BwFqrXYpwlw_VC6C1OQk";
-
-const supabaseClient =
-window.supabase.createClient(
+const supabaseClient=
+supabase.createClient(
 SUPABASE_URL,
-SUPABASE_KEY
+SUPABASE_ANON_KEY
 );
 
-/* =========================================================
-DİL
-========================================================= */
+let currentProductKey=
+new URLSearchParams(
+window.location.search
+).get("product") ||
+"netflix";
 
-const translations = {
+let siteProducts=[];
 
-az: {
+let allProductPrices=[];
 
-pageTitle:"DigiBaku.com | Premium xidmət",
+let currentProduct=null;
 
-home:"Ana səhifə",
-products:"Məhsullar",
-about:"Haqqımızda",
-compare:"Müqayisə",
-prices:"Qiymətlər",
-blog:"Bloq",
-contact:"Əlaqə",
-login:"Daxil ol",
-register:"Qeydiyyat",
-profile:"Profil",
-logout:"Çıxış",
-reviews:"Rəylər",
-
-cart:"Səbət",
-cartTitle:"Səbətiniz",
-emptyCart:"Səbətiniz boşdur",
-total:"Ümumi məbləğ:",
-checkout:"Sifarişi Təsdiq Et",
-
-product:"Məhsul",
-premiumService:"Premium rəqəmsal xidmət",
-packageTitle:"Müddət seçin",
-buyNow:"İndi al",
-addToCart:"Səbətə at",
-
-safety:"🔒 Məlumatlarınız təhlükəsiz saxlanılır.",
-
-faqTitle:"FAQ",
-
-faqSubtitle:
-"Məhsul, qiymət, aktivləşdirmə və istifadə ilə bağlı ən çox verilən suallara burada cavab tapın.",
-
-reviewsTitle:"Məhsul haqqında rəylər",
-
-reviewsSubtitle:
-"Müştərilərimizin DigiBaku.com xidmətləri haqqında fikirləri.",
-
-articlesTitle:"Faydalı oxu",
-
-articlesSubtitle:
-"Premium xidmət seçərkən sizə kömək edəcək məlumatlar.",
-
-guidesTitle:"Praktik bələdçilər",
-
-trustTitle:"Etibar və sifariş axını",
-
-trustSubtitle:
-"DigiBaku.com-da sifariş prosesi sadə, rahat və sürətli şəkildə hazırlanıb.",
-
-fastTitle:"Sürətli aktivləşdirmə",
-
-fastText:
-"Sifarişiniz təsdiqləndikdən sonra seçdiyiniz premium xidmətin aktivləşdirilməsi üçün proses başladılır.",
-
-secureTitle:"Təhlükəsiz sifariş",
-
-secureText:
-"Sifariş zamanı təqdim etdiyiniz məlumatların təhlükəsizliyinə diqqət yetiririk.",
-
-supportTitle:"Operativ dəstək",
-
-supportText:
-"Sifariş və istifadə ilə bağlı suallarınız yaranarsa, WhatsApp üzərindən bizimlə əlaqə saxlaya bilərsiniz.",
-
-otherTitle:"Digər premium xidmətlər",
-
-otherSubtitle:
-"DigiBaku.com-da digər xidmətlərə də baxın.",
-
-viewDetails:"Ətraflı bax",
-
-footer:"© 2026 DigiBaku.com. Bütün hüquqlar qorunur.",
-
-addedToCart:"Məhsul səbətə atıldı!",
-
-emptyCartAlert:"Səbətiniz boşdur!",
-
-remove:"Sil",
-
-orderMessage:
-"Salam DigiBaku.com!\n\nSifariş vermək istəyirəm.\n\n",
-
-cartOrderMessage:
-"Salam DigiBaku.com!\n\nSəbətdəki məhsulları sifariş etmək istəyirəm:\n\n",
-
-productLabel:"Məhsul:",
-periodLabel:"Müddət:",
-priceLabel:"Qiymət:",
-totalAmount:"Ümumi məbləğ:",
-cartProductAdded:"Məhsul səbətə atıldı!",
-noPrice:"Bu məhsul üçün qiymət yoxdur."
-
-},
-
-ru: {
-
-pageTitle:"DigiBaku.com | Премиум услуга",
-
-home:"Главная",
-products:"Товары",
-about:"О нас",
-compare:"Сравнение",
-prices:"Цены",
-blog:"Блог",
-contact:"Контакты",
-login:"Войти",
-register:"Регистрация",
-profile:"Профиль",
-logout:"Выйти",
-reviews:"Отзывы",
-
-cart:"Корзина",
-cartTitle:"Ваша корзина",
-emptyCart:"Ваша корзина пуста",
-total:"Общая сумма:",
-checkout:"Подтвердить заказ",
-
-product:"Товар",
-premiumService:"Премиум цифровая услуга",
-packageTitle:"Выберите срок",
-buyNow:"Купить сейчас",
-addToCart:"В корзину",
-
-safety:"🔒 Ваши данные хранятся в безопасности.",
-
-faqTitle:"FAQ",
-
-faqSubtitle:
-"Здесь вы найдёте ответы на самые часто задаваемые вопросы о товаре, цене, активации и использовании.",
-
-reviewsTitle:"Отзывы о товаре",
-
-reviewsSubtitle:
-"Мнения наших клиентов об услугах DigiBaku.com.",
-
-articlesTitle:"Полезно прочитать",
-
-articlesSubtitle:
-"Информация, которая поможет вам выбрать премиум-услугу.",
-
-guidesTitle:"Практические руководства",
-
-trustTitle:"Надёжность и процесс заказа",
-
-trustSubtitle:
-"Процесс заказа на DigiBaku.com разработан максимально просто, удобно и быстро.",
-
-fastTitle:"Быстрая активация",
-
-fastText:
-"После подтверждения вашего заказа начинается процесс активации выбранной премиум-услуги.",
-
-secureTitle:"Безопасный заказ",
-
-secureText:
-"Мы уделяем особое внимание безопасности информации, предоставленной вами при заказе.",
-
-supportTitle:"Оперативная поддержка",
-
-supportText:
-"Если у вас возникнут вопросы по заказу или использованию, вы можете связаться с нами через WhatsApp.",
-
-otherTitle:"Другие премиум-услуги",
-
-otherSubtitle:
-"Посмотрите другие услуги на DigiBaku.com.",
-
-viewDetails:"Подробнее",
-
-footer:"© 2026 DigiBaku.com. Все права защищены.",
-
-addedToCart:"Товар добавлен в корзину!",
-
-emptyCartAlert:"Ваша корзина пуста!",
-
-remove:"Удалить",
-
-orderMessage:
-"Здравствуйте, DigiBaku.com!\n\nЯ хочу оформить заказ.\n\n",
-
-cartOrderMessage:
-"Здравствуйте, DigiBaku.com!\n\nЯ хочу заказать товары из корзины:\n\n",
-
-productLabel:"Товар:",
-periodLabel:"Срок:",
-priceLabel:"Цена:",
-totalAmount:"Общая сумма:",
-cartProductAdded:"Товар добавлен в корзину!",
-noPrice:"Для этого товара нет цены."
-
-},
-
-en: {
-
-pageTitle:"DigiBaku.com | Premium service",
-
-home:"Home",
-products:"Products",
-about:"About us",
-compare:"Compare",
-prices:"Prices",
-blog:"Blog",
-contact:"Contact",
-login:"Log in",
-register:"Register",
-profile:"Profile",
-logout:"Log out",
-reviews:"Reviews",
-
-cart:"Cart",
-cartTitle:"Your Cart",
-emptyCart:"Your cart is empty",
-total:"Total amount:",
-checkout:"Confirm Order",
-
-product:"Product",
-premiumService:"Premium digital service",
-packageTitle:"Choose duration",
-buyNow:"Buy now",
-addToCart:"Add to cart",
-
-safety:"🔒 Your information is stored securely.",
-
-faqTitle:"FAQ",
-
-faqSubtitle:
-"Find answers to the most frequently asked questions about the product, price, activation and usage here.",
-
-reviewsTitle:"Product reviews",
-
-reviewsSubtitle:
-"What our customers think about DigiBaku.com services.",
-
-articlesTitle:"Useful reading",
-
-articlesSubtitle:
-"Information that will help you choose a premium service.",
-
-guidesTitle:"Practical guides",
-
-trustTitle:"Trust and order process",
-
-trustSubtitle:
-"The ordering process at DigiBaku.com is designed to be simple, convenient and fast.",
-
-fastTitle:"Fast activation",
-
-fastText:
-"After your order is confirmed, the activation process for your selected premium service begins.",
-
-secureTitle:"Secure ordering",
-
-secureText:
-"We pay close attention to the security of the information you provide during the order process.",
-
-supportTitle:"Fast support",
-
-supportText:
-"If you have questions about your order or usage, you can contact us through WhatsApp.",
-
-otherTitle:"Other premium services",
-
-otherSubtitle:
-"Explore other services available on DigiBaku.com.",
-
-viewDetails:"View details",
-
-footer:"© 2026 DigiBaku.com. All rights reserved.",
-
-addedToCart:"Product added to cart!",
-
-emptyCartAlert:"Your cart is empty!",
-
-remove:"Remove",
-
-orderMessage:
-"Hello DigiBaku.com!\n\nI would like to place an order.\n\n",
-
-cartOrderMessage:
-"Hello DigiBaku.com!\n\nI would like to order the products in my cart:\n\n",
-
-productLabel:"Product:",
-periodLabel:"Duration:",
-priceLabel:"Price:",
-totalAmount:"Total amount:",
-cartProductAdded:"Product added to cart!",
-noPrice:"There is no price for this product."
-
-}
-
-};
-
-function getLanguage(){
-return localStorage.getItem("digi_language") || "az";
-}
-
-function t(key){
-
-const lang=getLanguage();
-
-return translations[lang][key]
-|| translations.az[key]
-|| key;
-
-}
-
-/* =========================================================
-LOGIN
-========================================================= */
-
-async function checkLogin(){
-
-const {
-data:{session},
-error
-}=await supabaseClient.auth.getSession();
-
-if(error){
-console.error("Login session xətası:",error);
-return;
-}
-
-const authArea=
-document.getElementById("authArea");
-
-const logoutButton=
-document.getElementById("logoutButton");
-
-if(!authArea || !logoutButton)return;
-
-if(session){
-
-authArea.innerHTML="";
-
-const profileButton=
-document.createElement("a");
-
-profileButton.href="profile.html";
-profileButton.setAttribute("data-i18n","profile");
-profileButton.textContent=t("profile");
-
-const email=
-document.createElement("span");
-
-email.className="user-email";
-email.textContent=session.user.email || "";
-
-authArea.appendChild(profileButton);
-authArea.appendChild(email);
-
-logoutButton.style.display="inline-block";
-logoutButton.textContent=t("logout");
-
-}else{
-
-authArea.innerHTML=`
-
-<a href="login.html" data-i18n="login">
-${t("login")}
-</a>
-
-<a href="login.html" data-i18n="register">
-${t("register")}
-</a>
-
-`;
-
-logoutButton.style.display="none";
-
-}
-
-}
-
-async function logout(){
-
-await supabaseClient.auth.signOut();
-
-window.location.reload();
-
-}
-
-supabaseClient.auth.onAuthStateChange(
-()=>{
-checkLogin();
-}
+let cart=
+JSON.parse(
+localStorage.getItem("digibaku_cart") ||
+"[]"
 );
-
-/* =========================================================
-SEO
-========================================================= */
-
-const productSEO={
-
-netflix:{
-az:{
-title:"Netflix 4K Premium Azərbaycan Abunəliyi | DigiBaku",
-description:"Netflix Azərbaycan — Netflix 4K Premium Azərbaycan abunəliyi, paketlər və qiymətlər. Netflix Premium xidmətini DigiBaku.com-da kəşf edin."
-},
-ru:{
-title:"Netflix в Азербайджане | Netflix Premium 4K | DigiBaku",
-description:"Netflix Premium 4K в Азербайджане. Пакеты подписки, цены и информация о Netflix Premium на DigiBaku.com."
-},
-en:{
-title:"Netflix Azerbaijan | Netflix Premium 4K Subscription | DigiBaku",
-description:"Netflix Premium 4K subscription in Azerbaijan. Explore Netflix Premium packages and prices on DigiBaku.com."
-}
-},
-
-youtube:{
-az:{
-title:"YouTube Premium Azərbaycan Abunəliyi | DigiBaku",
-description:"YouTube Premium Azərbaycan — YouTube Premium Azərbaycan abunəliyi, reklamsız videolar, YouTube Music və premium imkanlar. Paketlər və qiymətlər DigiBaku.com-da."
-},
-ru:{
-title:"YouTube Premium Азербайджан | Подписка YouTube Premium | DigiBaku",
-description:"YouTube Premium в Азербайджане — просмотр видео без рекламы, YouTube Music и премиум-возможности."
-},
-en:{
-title:"YouTube Premium Azerbaijan | YouTube Premium Subscription | DigiBaku",
-description:"YouTube Premium in Azerbaijan — ad-free videos, YouTube Music and premium features. Explore packages and prices."
-}
-},
-
-chatgpt:{
-az:{
-title:"ChatGPT Plus Azərbaycan Abunəliyi | DigiBaku",
-description:"ChatGPT Plus Azərbaycan — ChatGPT Plus Azərbaycan abunəliyi, süni intellekt, yazı, kod, araşdırma və gündəlik işlər üçün premium imkanlar. Qiymətlər DigiBaku.com-da."
-},
-ru:{
-title:"ChatGPT Plus Азербайджан | Подписка ChatGPT Plus | DigiBaku",
-description:"ChatGPT Plus в Азербайджане — возможности искусственного интеллекта для текста, кода, исследований и повседневных задач."
-},
-en:{
-title:"ChatGPT Plus Azerbaijan | ChatGPT Plus Subscription | DigiBaku",
-description:"ChatGPT Plus in Azerbaijan — premium AI capabilities for writing, coding, research and everyday tasks."
-}
-},
-
-gemini:{
-az:{
-title:"Google Gemini Premium Azərbaycan Abunəliyi | DigiBaku",
-description:"Google Gemini Premium Azərbaycan — Google Gemini Premium Azərbaycan abunəliyi, süni intellekt, mətn, araşdırma və gündəlik işlər üçün premium imkanlar. DigiBaku.com."
-},
-ru:{
-title:"Google Gemini Premium Азербайджан | Подписка Gemini | DigiBaku",
-description:"Google Gemini Premium в Азербайджане — искусственный интеллект для текста, исследований, идей и повседневных задач."
-},
-en:{
-title:"Google Gemini Premium Azerbaijan | Gemini Subscription | DigiBaku",
-description:"Google Gemini Premium in Azerbaijan — AI capabilities for writing, research, ideas and everyday tasks."
-}
-},
-
-spotify:{
-az:{
-title:"Spotify Premium Azərbaycan Abunəliyi | DigiBaku",
-description:"Spotify Premium Azərbaycan — Spotify Premium Azərbaycan abunəliyi, reklamsız musiqi dinləmə və premium imkanlar. Spotify Premium paketləri və qiymətləri DigiBaku.com-da."
-},
-ru:{
-title:"Spotify Premium Азербайджан | Подписка Spotify | DigiBaku",
-description:"Spotify Premium в Азербайджане — музыка без рекламы и премиум-возможности. Пакеты и цены на DigiBaku.com."
-},
-en:{
-title:"Spotify Premium Azerbaijan | Spotify Subscription | DigiBaku",
-description:"Spotify Premium in Azerbaijan — ad-free music and premium features. Explore Spotify packages and prices on DigiBaku.com."
-}
-},
-
-canva:{
-az:{
-title:"Canva Pro Azərbaycan Abunəliyi | DigiBaku",
-description:"Canva Pro Azərbaycan — Canva Pro Azərbaycan abunəliyi, dizayn, təqdimat, poster və sosial media üçün premium imkanlar. Canva Pro 12 aylıq paket DigiBaku.com-da."
-},
-ru:{
-title:"Canva Pro Азербайджан | Подписка Canva Pro | DigiBaku",
-description:"Canva Pro в Азербайджане — премиум возможности для дизайна, презентаций, постеров и социальных сетей."
-},
-en:{
-title:"Canva Pro Azerbaijan | Canva Pro Subscription | DigiBaku",
-description:"Canva Pro in Azerbaijan — premium features for designs, presentations, posters and social media content."
-}
-}
-
-};
-
-function updateSEO(){
-
-const lang=getLanguage();
-
-const seo =
-productSEO[productKey] &&
-productSEO[productKey][lang]
-?
-productSEO[productKey][lang]
-:
-(
-productSEO[productKey]
-?
-productSEO[productKey].az
-:
-{
-title:getProductName()+" | DigiBaku",
-description:getProductShort()
-}
-);
-
-const canonical=
-"https://digibaku.com/product.html?product="+
-encodeURIComponent(productKey);
-
-const image=
-"https://digibaku.com/"+
-product.image;
-
-document.title=seo.title;
-
-const description=
-document.getElementById("metaDescription");
-
-if(description)description.content=seo.description;
-
-const canonicalLink=
-document.getElementById("canonicalLink");
-
-if(canonicalLink)canonicalLink.href=canonical;
-
-const ogTitle=document.getElementById("ogTitle");
-if(ogTitle)ogTitle.content=seo.title;
-
-const ogDescription=document.getElementById("ogDescription");
-if(ogDescription)ogDescription.content=seo.description;
-
-const ogUrl=document.getElementById("ogUrl");
-if(ogUrl)ogUrl.content=canonical;
-
-const ogImage=document.getElementById("ogImage");
-if(ogImage)ogImage.content=image;
-
-const twitterTitle=document.getElementById("twitterTitle");
-if(twitterTitle)twitterTitle.content=seo.title;
-
-const twitterDescription=document.getElementById("twitterDescription");
-if(twitterDescription)twitterDescription.content=seo.description;
-
-const twitterImage=document.getElementById("twitterImage");
-if(twitterImage)twitterImage.content=image;
-
-const productImage=
-document.getElementById("productImage");
-
-if(productImage){
-productImage.alt=getProductName();
-}
-
-const schema={
-"@context":"https://schema.org",
-"@type":"Product",
-"name":getProductName(),
-"description":seo.description,
-"image":[image],
-"url":canonical,
-"offers":{
-"@type":"Offer",
-"url":canonical,
-"priceCurrency":"AZN",
-"availability":"https://schema.org/InStock"
-}
-};
-
-const item=
-product.packages &&
-product.packages.length
-?
-product.packages[0]
-:null;
-
-if(item){
-
-const current=
-getCurrentPackagePrice(item);
-
-if(current && current.price){
-
-schema.offers.price=
-Number(current.price).toFixed(2);
-
-}
-
-}
-
-const schemaElement=
-document.getElementById("productSchema");
-
-if(schemaElement){
-schemaElement.textContent=
-JSON.stringify(schema);
-}
-
-}
-
-/* =========================================================
-DİL DƏYİŞ
-========================================================= */
-
-function setLanguage(lang){
-
-if(!translations[lang]){
-lang="az";
-}
-
-localStorage.setItem("digi_language",lang);
-
-applyLanguage();
-checkLogin();
-
-}
-
-function applyLanguage(){
-
-const lang=getLanguage();
-
-document.documentElement.lang=lang;
-
-document
-.querySelectorAll("[data-i18n]")
-.forEach(function(element){
-
-const key=
-element.getAttribute("data-i18n");
-
-element.textContent=t(key);
-
-});
-
-document.getElementById("cartTitle").textContent=t("cartTitle");
-document.getElementById("emptyCartText").textContent=t("emptyCart");
-document.getElementById("totalText").textContent=t("total");
-document.getElementById("checkoutButton").textContent=t("checkout");
-document.getElementById("breadcrumb").textContent=getProductName();
-document.getElementById("premiumBadge").textContent=t("premiumService");
-document.getElementById("packageTitle").textContent=t("packageTitle");
-document.getElementById("buyButton").textContent=t("buyNow");
-document.getElementById("addCartButton").textContent=t("addToCart");
-document.getElementById("safetyText").textContent=t("safety");
-document.getElementById("faqTitle").textContent=t("faqTitle");
-document.getElementById("faqSubtitle").textContent=t("faqSubtitle");
-document.getElementById("reviewsTitle").textContent=t("reviewsTitle");
-document.getElementById("reviewsSubtitle").textContent=t("reviewsSubtitle");
-document.getElementById("articlesTitle").textContent=t("articlesTitle");
-document.getElementById("articlesSubtitle").textContent=t("articlesSubtitle");
-document.getElementById("guidesTitle").textContent=t("guidesTitle");
-document.getElementById("trustTitle").textContent=t("trustTitle");
-document.getElementById("trustSubtitle").textContent=t("trustSubtitle");
-document.getElementById("fastTitle").textContent=t("fastTitle");
-document.getElementById("fastText").textContent=t("fastText");
-document.getElementById("secureTitle").textContent=t("secureTitle");
-document.getElementById("secureText").textContent=t("secureText");
-document.getElementById("supportTitle").textContent=t("supportTitle");
-document.getElementById("supportText").textContent=t("supportText");
-document.getElementById("otherTitle").textContent=t("otherTitle");
-document.getElementById("otherSubtitle").textContent=t("otherSubtitle");
-document.getElementById("footerText").textContent=t("footer");
-
-document.getElementById("azBtn").classList.remove("active");
-document.getElementById("ruBtn").classList.remove("active");
-document.getElementById("enBtn").classList.remove("active");
-
-document.getElementById(lang+"Btn").classList.add("active");
-
-renderDynamicContent();
-renderOtherProducts();
-renderAdminFooter();
-updateCartUI();
-
-}
-
-/* =========================================================
-LEGACY MƏHSULLAR
-========================================================= */
 
 const products={
 
 netflix:{
 name:"Netflix 4K Premium Azərbaycan Abunəliyi",
-nameRu:"Netflix 4K Premium подписка",
-nameEn:"Netflix 4K Premium Subscription",
-image:"netflix.webp",
-rating:"4.0 (1 rəy)",
-ratingRu:"4.0 (1 отзыв)",
-ratingEn:"4.0 (1 review)",
-
-short:"Netflix Premium abunəliyi ilə film və serialları Ultra HD keyfiyyətdə izləyin. Premium məzmunlara rahat şəkildə çıxış əldə edin.",
-shortRu:"С подпиской Netflix Premium смотрите фильмы и сериалы в качестве Ultra HD. Получите удобный доступ к премиум-контенту.",
-shortEn:"Watch movies and series in Ultra HD quality with Netflix Premium. Get convenient access to premium content.",
-
-packages:[
-{
-name:"1 ay",
-nameRu:"1 месяц",
-nameEn:"1 month",
-price:6.99,
-duration:1
-},
-{
-name:"2 ay",
-nameRu:"2 месяца",
-nameEn:"2 months",
-price:12.99,
-duration:2
-},
-{
-name:"3 ay",
-nameRu:"3 месяца",
-nameEn:"3 months",
-price:20.99,
-duration:3
-}
-],
-
-contentAz:`<h2>Netflix Azərbaycan haqqında</h2><p>Netflix Azərbaycan istifadəçiləri üçün Netflix Premium xidməti film, serial və digər video məzmunlarını yüksək keyfiyyətdə izləmək imkanı təqdim edir. Netflix Premium paketləri xüsusilə 4K Ultra HD keyfiyyətində görüntü əldə etmək istəyən istifadəçilər üçün nəzərdə tutulur.</p><h2>Netflix Premium 4K nədir?</h2><p>Netflix Premium 4K yüksək görüntü keyfiyyətində film və serial izləmək üçün istifadə olunan premium abunəlik paketidir.</p><h2>Netflix Azərbaycan qiyməti</h2><p>DigiBaku.com-da Netflix Premium üçün müxtəlif müddət seçimləri təqdim olunur. Cari qiymətlər paket seçimləri bölməsində göstərilir.</p><h2>Netflix Premium necə aktivləşdirilir?</h2><p>Netflix Premium sifarişi üçün uyğun müddəti seçin və “İndi al” düyməsinə klikləyin.</p>`,
-
-contentRu:`<h2>О подписке Netflix Premium</h2><p>Netflix — это премиальная платформа для просмотра фильмов, сериалов и различного видеоконтента.</p>`,
-
-contentEn:`<h2>About Netflix Premium subscription</h2><p>Netflix is a premium platform used to watch movies, series and various video content.</p>`,
-
-faq:[
-["Netflix Premium abunəliyi neçəyədir?","Netflix Premium paketləri DigiBaku.com-da 1 ay üçün 6.99 AZN-dir."],
-["Netflix Premium nə üçün istifadə olunur?","Netflix Premium film və serialları izləmək üçün istifadə olunur."]
-],
-
-faqRu:[
-["Сколько стоит подписка Netflix Premium?","Пакет Netflix Premium на DigiBaku.com стоит 6.99 AZN за 1 месяц."],
-["Для чего используется Netflix Premium?","Netflix Premium используется для просмотра фильмов и сериалов."]
-],
-
-faqEn:[
-["How much is Netflix Premium?","The Netflix Premium package on DigiBaku.com costs 6.99 AZN for 1 month."],
-["What is Netflix Premium used for?","Netflix Premium is used to watch movies and series."]
-],
-
-reviews:[
-["Əla xidmət","Orxan","Netflix Premium"]
-],
-
-reviewsRu:[
-["Отличный сервис","Orxan","Netflix Premium"]
-],
-
-reviewsEn:[
-["Excellent service","Orxan","Netflix Premium"]
-],
-
-articles:[
-["Netflix Premium nədir? Üstünlükləri","18.05.2026"]
-],
-
-articlesRu:[
-["Что такое Netflix Premium? Преимущества","18.05.2026"]
-],
-
-articlesEn:[
-["What is Netflix Premium? Benefits","18.05.2026"]
-],
-
-guides:[
-"Netflix 4K üçün internet sürəti"
-],
-
-guidesRu:[
-"Скорость интернета для Netflix 4K"
-],
-
-guidesEn:[
-"Internet speed for Netflix 4K"
+description:"Netflix 4K Premium abunəliyi.",
+image:"https://digibaku.com/images/netflix.png",
+plans:[
+{days:30,price:7},
+{days:60,price:13},
+{days:90,price:18}
 ]
-
 },
 
 youtube:{
-name:"YouTube Premium Azərbaycan Abunəliyi",
-nameRu:"YouTube Premium",
-nameEn:"YouTube Premium",
-image:"youtube.webp",
-rating:"5.0 (1 rəy)",
-ratingRu:"5.0 (1 отзыв)",
-ratingEn:"5.0 (1 review)",
-
-short:"YouTube Premium ilə videolara reklamsız baxın, musiqidən rahat istifadə edin.",
-shortRu:"С YouTube Premium смотрите видео без рекламы и удобно пользуйтесь музыкой.",
-shortEn:"Watch videos without ads and enjoy music conveniently with YouTube Premium.",
-
-packages:[
-{name:"1 ay",nameRu:"1 месяц",nameEn:"1 month",price:7.99,duration:1},
-{name:"2 ay",nameRu:"2 месяца",nameEn:"2 months",price:14.99,duration:2},
-{name:"3 ay",nameRu:"3 месяца",nameEn:"3 months",price:21.99,duration:3}
-],
-
-contentAz:`<h2>YouTube Premium haqqında</h2><p>Videolara reklamsız baxış və YouTube Music imkanları.</p>`,
-contentRu:`<h2>О YouTube Premium</h2><p>Просмотр видео без рекламы и возможности YouTube Music.</p>`,
-contentEn:`<h2>About YouTube Premium</h2><p>Ad-free video viewing and YouTube Music features.</p>`,
-
-faq:[["YouTube Premium neçəyədir?","1 ay üçün 7.99 AZN-dir."]],
-faqRu:[["Сколько стоит YouTube Premium?","Стоимость составляет 7.99 AZN за 1 месяц."]],
-faqEn:[["How much is YouTube Premium?","It costs 7.99 AZN for 1 month."]],
-
-reviews:[["Əla xidmətdir","Orxan","YouTube Premium"]],
-reviewsRu:[["Отличный сервис","Orxan","YouTube Premium"]],
-reviewsEn:[["Excellent service","Orxan","YouTube Premium"]],
-
-articles:[["YouTube Premium nədir?","18.05.2026"]],
-articlesRu:[["Что такое YouTube Premium?","18.05.2026"]],
-articlesEn:[["What is YouTube Premium?","18.05.2026"]],
-
-guides:["YouTube Premium istifadə qaydaları"],
-guidesRu:["Руководство по использованию YouTube Premium"],
-guidesEn:["YouTube Premium usage guide"]
-
+name:"YouTube Premium Azərbaycan",
+description:"YouTube Premium abunəliyi.",
+image:"https://digibaku.com/images/youtube.png",
+plans:[
+{days:30,price:8},
+{days:60,price:15},
+{days:90,price:22}
+]
 },
 
 chatgpt:{
-name:"ChatGPT Plus Azərbaycan Abunəliyi",
-nameRu:"ChatGPT Plus",
-nameEn:"ChatGPT Plus",
-image:"chatgpt.webp",
-rating:"5.0 (1 rəy)",
-ratingRu:"5.0 (1 отзыв)",
-ratingEn:"5.0 (1 review)",
-
-short:"ChatGPT Plus yazı, kod, araşdırma və gündəlik işlərdə süni intellekt imkanları.",
-shortRu:"ChatGPT Plus предоставляет возможности искусственного интеллекта для написания текстов, кода, исследований и повседневных задач.",
-shortEn:"ChatGPT Plus provides AI capabilities for writing, coding, research and everyday tasks.",
-
-packages:[
-{name:"1 ay",nameRu:"1 месяц",nameEn:"1 month",price:11.99,duration:1},
-{name:"2 ay",nameRu:"2 месяца",nameEn:"2 months",price:22.99,duration:2},
-{name:"3 ay",nameRu:"3 месяца",nameEn:"3 months",price:33.99,duration:3}
-],
-
-contentAz:`<h2>ChatGPT Plus haqqında</h2><p>Süni intellekt köməkçisi ilə işlərinizi sürətləndirin.</p>`,
-contentRu:`<h2>О ChatGPT Plus</h2><p>Ускорьте выполнение своих задач с помощью искусственного интеллекта.</p>`,
-contentEn:`<h2>About ChatGPT Plus</h2><p>Speed up your tasks with an artificial intelligence assistant.</p>`,
-
-faq:[["ChatGPT Plus neçəyədir?","1 ay üçün 11.99 AZN-dir."]],
-faqRu:[["Сколько стоит ChatGPT Plus?","Стоимость составляет 11.99 AZN за 1 месяц."]],
-faqEn:[["How much is ChatGPT Plus?","It costs 11.99 AZN for 1 month."]],
-
-reviews:[["Çox kömək edir","Orxan","ChatGPT Plus"]],
-reviewsRu:[["Очень помогает","Orxan","ChatGPT Plus"]],
-reviewsEn:[["Very helpful","Orxan","ChatGPT Plus"]],
-
-articles:[["ChatGPT Plus nədir?","18.05.2026"]],
-articlesRu:[["Что такое ChatGPT Plus?","18.05.2026"]],
-articlesEn:[["What is ChatGPT Plus?","18.05.2026"]],
-
-guides:["ChatGPT Plus istifadə bələdçisi"],
-guidesRu:["Руководство по использованию ChatGPT Plus"],
-guidesEn:["ChatGPT Plus usage guide"]
-
+name:"ChatGPT Plus Azərbaycan",
+description:"ChatGPT Plus abunəliyi.",
+image:"https://digibaku.com/images/chatgpt.png",
+plans:[
+{days:30,price:12},
+{days:60,price:23},
+{days:90,price:34}
+]
 },
 
 gemini:{
-name:"Google Gemini Premium Azərbaycan Abunəliyi",
-nameRu:"Google Gemini Premium",
-nameEn:"Google Gemini Premium",
-image:"gemini.avif",
-rating:"5.0 (1 rəy)",
-ratingRu:"5.0 (1 отзыв)",
-ratingEn:"5.0 (1 review)",
-
-short:"Google Gemini Premium süni intellektlə mətn, araşdırma, ideyalar və gündəlik işlər üçün geniş imkanlar təqdim edir.",
-shortRu:"Google Gemini Premium предоставляет широкие возможности искусственного интеллекта для работы с текстами, исследований, идей и повседневных задач.",
-shortEn:"Google Gemini Premium provides advanced AI capabilities for writing, research, ideas and everyday tasks.",
-
-packages:[
-{name:"1 ay",nameRu:"1 месяц",nameEn:"1 month",price:7.99,duration:1},
-{name:"2 ay",nameRu:"2 месяца",nameEn:"2 months",price:18.99,duration:2},
-{name:"3 ay",nameRu:"3 месяца",nameEn:"3 months",price:26.99,duration:3}
-],
-
-contentAz:`<h2>Google Gemini Premium haqqında</h2><p>Google Gemini Premium süni intellekt imkanlarından istifadə edərək mətn yazmaq, məlumatları araşdırmaq, ideyalar yaratmaq və gündəlik tapşırıqları daha rahat yerinə yetirmək üçün istifadə olunan premium xidmətdir.</p><p>Gemini ilə müxtəlif mövzularda suallar verə, mətnlər hazırlaya və məhsuldarlığınızı artıra bilərsiniz.</p>`,
-contentRu:`<h2>О Google Gemini Premium</h2><p>Google Gemini Premium — это премиальный сервис искусственного интеллекта для написания текстов, исследований, создания идей и выполнения повседневных задач.</p>`,
-contentEn:`<h2>About Google Gemini Premium</h2><p>Google Gemini Premium is a premium artificial intelligence service for writing, research, generating ideas and handling everyday tasks.</p>`,
-
-faq:[
-["Google Gemini Premium neçəyədir?","Google Gemini Premium DigiBaku.com-da 1 ay üçün 7.99 AZN-dən başlayır."],
-["Google Gemini Premium nə üçün istifadə olunur?","Gemini mətn yazmaq, məlumat axtarmaq, ideyalar yaratmaq və müxtəlif gündəlik tapşırıqları yerinə yetirmək üçün istifadə olunur."]
-],
-
-faqRu:[
-["Сколько стоит Google Gemini Premium?","Google Gemini Premium на DigiBaku.com стоит от 7.99 AZN за 1 месяц."],
-["Для чего используется Google Gemini Premium?","Gemini используется для написания текстов, поиска информации, создания идей и выполнения различных повседневных задач."]
-],
-
-faqEn:[
-["How much is Google Gemini Premium?","Google Gemini Premium on DigiBaku.com starts from 7.99 AZN for 1 month."],
-["What is Google Gemini Premium used for?","Gemini can be used for writing, research, generating ideas and handling various everyday tasks."]
-],
-
-reviews:[["Çox faydalı süni intellekt xidməti","Orxan","Google Gemini Premium"]],
-reviewsRu:[["Очень полезный сервис искусственного интеллекта","Orxan","Google Gemini Premium"]],
-reviewsEn:[["Very useful AI service","Orxan","Google Gemini Premium"]],
-
-articles:[["Google Gemini Premium nədir?","18.05.2026"]],
-articlesRu:[["Что такое Google Gemini Premium?","18.05.2026"]],
-articlesEn:[["What is Google Gemini Premium?","18.05.2026"]],
-
-guides:["Google Gemini Premium istifadə bələdçisi"],
-guidesRu:["Руководство по использованию Google Gemini Premium"],
-guidesEn:["Google Gemini Premium usage guide"]
-
+name:"Google Gemini Premium",
+description:"Google Gemini Premium abunəliyi.",
+image:"https://digibaku.com/images/gemini.png",
+plans:[
+{days:30,price:10},
+{days:60,price:19},
+{days:90,price:28}
+]
 },
 
 spotify:{
-name:"Spotify Premium Azərbaycan Abunəliyi",
-nameRu:"Spotify Premium",
-nameEn:"Spotify Premium",
-image:"spotfiy.webp",
-rating:"5.0 (1 rəy)",
-ratingRu:"5.0 (1 отзыв)",
-ratingEn:"5.0 (1 review)",
-
-short:"Spotify Premium ilə musiqiləri reklamsız dinləyin.",
-shortRu:"Слушайте музыку без рекламы с Spotify Premium.",
-shortEn:"Listen to music without ads with Spotify Premium.",
-
-packages:[
-{name:"1 ay",nameRu:"1 месяц",nameEn:"1 month",price:7.99,duration:1},
-{name:"2 ay",nameRu:"2 месяца",nameEn:"2 months",price:14.99,duration:2},
-{name:"3 ay",nameRu:"3 месяца",nameEn:"3 months",price:21.99,duration:3}
-],
-
-contentAz:`<h2>Spotify Premium haqqında</h2><p>Reklamsız musiqi və offline dinləmə imkanı.</p>`,
-contentRu:`<h2>О Spotify Premium</h2><p>Музыка без рекламы и возможность прослушивания офлайн.</p>`,
-contentEn:`<h2>About Spotify Premium</h2><p>Ad-free music and offline listening.</p>`,
-
-faq:[["Spotify Premium neçəyədir?","1 ay üçün 7.99 AZN-dir."]],
-faqRu:[["Сколько стоит Spotify Premium?","Стоимость составляет 7.99 AZN за 1 месяц."]],
-faqEn:[["How much is Spotify Premium?","It costs 7.99 AZN for 1 month."]],
-
-reviews:[["Çox rahat","Orxan","Spotify Premium"]],
-reviewsRu:[["Очень удобно","Orxan","Spotify Premium"]],
-reviewsEn:[["Very convenient","Orxan","Spotify Premium"]],
-
-articles:[["Spotify Premium nədir?","18.05.2026"]],
-articlesRu:[["Что такое Spotify Premium?","18.05.2026"]],
-articlesEn:[["What is Spotify Premium?","18.05.2026"]],
-
-guides:["Spotify Premium bələdçisi"],
-guidesRu:["Руководство Spotify Premium"],
-guidesEn:["Spotify Premium guide"]
-
+name:"Spotify Premium Azərbaycan",
+description:"Spotify Premium abunəliyi.",
+image:"https://digibaku.com/images/spotify.png",
+plans:[
+{days:30,price:8},
+{days:60,price:15},
+{days:90,price:22}
+]
 },
 
 canva:{
-name:"Canva Pro Azərbaycan Abunəliyi",
-nameRu:"Canva Pro",
-nameEn:"Canva Pro",
-image:"canva.webp",
-rating:"5.0 (1 rəy)",
-ratingRu:"5.0 (1 отзыв)",
-ratingEn:"5.0 (1 review)",
-
-short:"Canva Pro dizayn, təqdimat, poster və sosial media üçün premium imkanlar təqdim edir.",
-shortRu:"Canva Pro предоставляет премиальные возможности для дизайна, презентаций, постеров и социальных сетей.",
-shortEn:"Canva Pro provides premium features for design, presentations, posters and social media.",
-
-packages:[
-{name:"12 ay",nameRu:"12 месяцев",nameEn:"12 months",price:5.99,duration:12}
-],
-
-contentAz:`<h2>Canva Pro haqqında</h2><p>Canva Pro dizayn, təqdimat, poster və sosial media məzmunları hazırlamaq üçün premium imkanlar təqdim edən xidmətdir.</p><h2>Canva Pro nədir?</h2><p>Canva Pro ilə müxtəlif dizayn layihələri, təqdimatlar, posterlər və sosial media üçün vizual məzmunlar hazırlamaq mümkündür.</p><h2>Canva Pro qiyməti</h2><p>DigiBaku.com-da Canva Pro 12 aylıq paket olaraq 5.99 AZN qiymətinə təqdim olunur.</p>`,
-
-contentRu:`<h2>О Canva Pro</h2><p>Canva Pro предоставляет премиальные возможности для создания дизайнов, презентаций, постеров и контента для социальных сетей.</p>`,
-
-contentEn:`<h2>About Canva Pro</h2><p>Canva Pro provides premium features for creating designs, presentations, posters and social media content.</p>`,
-
-faq:[
-["Canva Pro neçəyədir?","Canva Pro 12 aylıq paket olaraq 5.99 AZN-dir."],
-["Canva Pro nə üçün istifadə olunur?","Canva Pro dizayn, təqdimat, poster və sosial media məzmunları hazırlamaq üçün istifadə olunur."]
-],
-
-faqRu:[
-["Сколько стоит Canva Pro?","Canva Pro на 12 месяцев стоит 5.99 AZN."],
-["Для чего используется Canva Pro?","Canva Pro используется для создания дизайнов, презентаций, постеров и контента для социальных сетей."]
-],
-
-faqEn:[
-["How much is Canva Pro?","Canva Pro for 12 months costs 5.99 AZN."],
-["What is Canva Pro used for?","Canva Pro is used to create designs, presentations, posters and social media content."]
-],
-
-reviews:[["Çox rahat dizayn xidməti","Orxan","Canva Pro"]],
-reviewsRu:[["Очень удобный сервис для дизайна","Orxan","Canva Pro"]],
-reviewsEn:[["Very convenient design service","Orxan","Canva Pro"]],
-
-articles:[["Canva Pro nədir?","18.05.2026"]],
-articlesRu:[["Что такое Canva Pro?","18.05.2026"]],
-articlesEn:[["What is Canva Pro?","18.05.2026"]],
-
-guides:["Canva Pro istifadə bələdçisi"],
-guidesRu:["Руководство по использованию Canva Pro"],
-guidesEn:["Canva Pro guide"]
-
+name:"Canva Pro Azərbaycan",
+description:"Canva Pro abunəliyi.",
+image:"https://digibaku.com/images/canva.png",
+plans:[
+{days:30,price:8},
+{days:60,price:15},
+{days:90,price:22}
+]
 }
 
 };
 
-/* =========================================================
-URL-DƏN MƏHSUL
-========================================================= */
+const translations={
 
-const urlParams=
-new URLSearchParams(
-window.location.search
-);
-
-let productKey=
-urlParams.get("product");
-
-if(!products[productKey]){
-productKey="netflix";
-}
-
-const product=
-products[productKey];
-
-let selectedPackage=0;
-
-/* =========================================================
-QİYMƏT SİSTEMİ
-========================================================= */
-
-let productPriceData=null;
-
-const durationColumnMap={
-
-1:{
-normal:"price_1_month",
-active:"sale_1_active",
-sale:"sale_1_price"
+az:{
+otherProducts:"Digər premium xidmətlər",
+cart:"Səbət",
+total:"Cəmi",
+add:"Səbətə əlavə et",
+days:"gün",
+month:"ay"
 },
 
-2:{
-normal:"price_2_month",
-active:"sale_2_active",
-sale:"sale_2_price"
+en:{
+otherProducts:"Other premium services",
+cart:"Cart",
+total:"Total",
+add:"Add to cart",
+days:"days",
+month:"month"
 },
 
-3:{
-normal:"price_3_month",
-active:"sale_3_active",
-sale:"sale_3_price"
+tr:{
+otherProducts:"Diğer premium hizmetler",
+cart:"Sepet",
+total:"Toplam",
+add:"Sepete ekle",
+days:"gün",
+month:"ay"
 },
 
-12:{
-normal:"price_12_month",
-active:"sale_12_active",
-sale:"sale_12_price"
+ru:{
+otherProducts:"Другие премиум услуги",
+cart:"Корзина",
+total:"Итого",
+add:"Добавить в корзину",
+days:"дней",
+month:"месяц"
 }
 
 };
 
-function saleIsActive(value){
+let currentLanguage=
+localStorage.getItem(
+"digibaku_language"
+) || "az";
 
-return value===true ||
-value==="true" ||
-value===1 ||
-value==="1";
+function toggleMenu(){
 
-}
-
-function getCurrentPackagePrice(item){
-
-if(
-!productPriceData ||
-!durationColumnMap[item.duration]
-){
-
-return{
-price:Number(item.price||0),
-normal:Number(item.price||0),
-sale:false
-};
-
-}
-
-const map=
-durationColumnMap[item.duration];
-
-const normal=
-Number(
-productPriceData[map.normal]||0
-);
-
-const salePrice=
-Number(
-productPriceData[map.sale]||0
-);
-
-const saleActive=
-saleIsActive(
-productPriceData[map.active]
-);
-
-if(
-saleActive &&
-salePrice>0
-){
-
-return{
-price:salePrice,
-normal:normal||Number(item.price||0),
-sale:true
-};
-
-}
-
-return{
-price:normal||Number(item.price||0),
-normal:normal||Number(item.price||0),
-sale:false
-};
-
-}
-
-function renderPackagePrice(item){
-
-const current=
-getCurrentPackagePrice(item);
-
-if(
-current.sale &&
-current.normal>current.price
-){
-
-const discountPercent=
-Math.round(
-(
-(current.normal-current.price)/
-current.normal
-)*100
-);
-
-return `
-
-<span class="old-price">
-${current.normal.toFixed(2)} AZN
-</span>
-
-<span class="sale-price">
-${current.price.toFixed(2)} AZN
-</span>
-
-<span class="discount-percent">
--${discountPercent}%
-</span>
-
-`;
-
-}
-
-return `${current.price.toFixed(2)} AZN`;
-
-}
-
-/* =========================================================
-ADMIN MƏHSULLARI
-========================================================= */
-
-let siteProducts=[];
-let allProductPrices=[];
-
-function esc(value){
-
-return String(value==null?"":value)
-.replace(/&/g,"&amp;")
-.replace(/</g,"&lt;")
-.replace(/>/g,"&gt;")
-.replace(/"/g,"&quot;")
-.replace(/'/g,"&#039;");
-
-}
-
-function adminProductName(p){
-
-const lang=getLanguage();
-
-if(lang==="ru"){
-return p.name_ru ||
-p.nameRu ||
-p.name_az ||
-p.name ||
-p.product_key;
-}
-
-if(lang==="en"){
-return p.name_en ||
-p.nameEn ||
-p.name_az ||
-p.name ||
-p.product_key;
-}
-
-return p.name_az ||
-p.name ||
-p.product_key;
-
-}
-
-function adminProductImage(p){
-
-if(p.image_url){
-return p.image_url;
-}
-
-const fallback={
-
-netflix:"netflix.webp",
-youtube:"youtube.webp",
-chatgpt:"chatgpt.webp",
-gemini:"gemini.avif",
-spotify:"spotfiy.webp",
-canva:"canva.webp"
-
-};
-
-return fallback[p.product_key] || "netflix.webp";
-
-}
-
-function getAdminProductPrice(p){
-
-const row=
-allProductPrices.find(
-x=>x.product_key===p.product_key
-);
-
-if(!row)return null;
-
-/*
-ƏVVƏL 1 AY,
-SONRA 2 AY,
-SONRA 3 AY,
-SONRA 12 AY.
-Beləliklə Canva kimi yalnız 12 aylıq
-qiyməti olan məhsulun da qiyməti çıxacaq.
-*/
-
-const durations=[1,2,3,12];
-
-for(const month of durations){
-
-const map=
-durationColumnMap[month];
-
-if(!map)continue;
-
-const normal=
-Number(row[map.normal]||0);
-
-const sale=
-Number(row[map.sale]||0);
-
-const active=
-saleIsActive(row[map.active]);
-
-if(
-active &&
-sale>0
-){
-
-return{
-price:sale,
-normal:normal||sale,
-sale:true,
-duration:month
-};
-
-}
-
-if(normal>0){
-
-return{
-price:normal,
-normal:normal,
-sale:false,
-duration:month
-};
-
-}
-
-}
-
-return null;
-
-}
-
-/* =========================================================
-ADMIN MƏHSULLARINI YÜKLƏ
-========================================================= */
-
-async function loadAllSiteProducts(){
-
-try{
-
-const {data,error}=
-await supabaseClient
-.from("site_products")
-.select("*")
-.eq("active",true)
-.order("created_at",{ascending:true});
-
-if(error){
-
-console.error(
-"Admin məhsulları yüklənmədi:",
-error
-);
-
-return;
-
-}
-
-siteProducts=data||[];
-
-renderOtherProducts();
-renderAdminFooter();
-
-}catch(error){
-
-console.error(
-"Admin məhsul sistemi:",
-error
-);
-
-}
-
-}
-
-/* =========================================================
-ADMIN QİYMƏTLƏRİ
-========================================================= */
-
-async function loadAllProductPrices(){
-
-try{
-
-const {data,error}=
-await supabaseClient
-.from("product_prices")
-.select("*");
-
-if(error){
-
-console.error(
-"Admin qiymətləri yüklənmədi:",
-error
-);
-
-return;
-
-}
-
-allProductPrices=data||[];
-
-renderOtherProducts();
-renderAdminFooter();
-
-}catch(error){
-
-console.error(
-"Admin qiymət sistemi:",
-error
-);
-
-}
-
-}
-
-/* =========================================================
-DİGƏR MƏHSULLAR
-========================================================= */
-
-function renderOtherProducts(){
-
-const grid=
+const nav=
 document.getElementById(
-"otherProductsGrid"
+"navLinks"
 );
 
-if(!grid)return;
-
-grid.innerHTML="";
-
-const list=
-siteProducts.filter(
-p=>
-p.product_key!==productKey &&
-p.active!==false
-);
-
-list.forEach(function(p){
-
-const name=
-adminProductName(p);
-
-const image=
-adminProductImage(p);
-
-const price=
-getAdminProductPrice(p);
-
-let priceHTML=`
-<div class="other-price">
-${t("noPrice")}
-</div>
-`;
-
-if(price){
-
-if(
-price.sale &&
-price.normal>price.price
-){
-
-const discount=
-Math.round(
-(
-(price.normal-price.price)/
-price.normal
-)*100
-);
-
-priceHTML=`
-
-<div class="other-price">
-
-<span class="other-old-price">
-${price.normal.toFixed(2)} AZN
-</span>
-
-<span class="other-sale-price">
-${price.price.toFixed(2)} AZN
-</span>
-
-<span class="other-discount">
--${discount}%
-</span>
-
-</div>
-
-`;
-
-}else{
-
-priceHTML=`
-
-<div class="other-price">
-${price.price.toFixed(2)} AZN
-</div>
-
-`;
-
-}
-
-}
-
-const key=
-esc(p.product_key);
-
-grid.innerHTML+=`
-
-<div class="other-card">
-
-<img
-src="${esc(image)}"
-alt="${esc(name)}"
->
-
-<h3>
-${esc(name)}
-</h3>
-
-${priceHTML}
-
-<div class="other-buttons">
-
-<a
-href="product.html?product=${encodeURIComponent(p.product_key)}"
-data-i18n="viewDetails">
-${t("viewDetails")}
-</a>
-
-<button
-class="other-cart-btn"
-onclick="addOtherProductToCart('${key}')">
-🛒 ${t("addToCart")}
-</button>
-
-</div>
-
-</div>
-
-`;
-
-});
-
-}
-
-/* =========================================================
-ADMIN FOOTER
-========================================================= */
-
-function renderAdminFooter(){
-
-const productsBox=
-document.getElementById("footerProductsList");
-
-const pricesBox=
-document.getElementById("footerPricesList");
-
-if(!productsBox || !pricesBox)return;
-
-const list=
-siteProducts.filter(
-p=>p.active!==false
-);
-
-productsBox.innerHTML="";
-pricesBox.innerHTML="";
-
-list.forEach(function(p){
-
-const key=
-String(p.product_key||"");
-
-const name=
-adminProductName(p);
-
-const price=
-getAdminProductPrice(p);
-
-/* MƏHSULLAR */
-
-productsBox.innerHTML+=`
-
-<a
-class="footer-product-link"
-href="product.html?product=${encodeURIComponent(key)}">
-
-${esc(name)}
-
-</a>
-
-`;
-
-/* QİYMƏTLƏR */
-
-if(price){
-
-pricesBox.innerHTML+=`
-
-<div class="footer-price-row">
-
-<a
-href="product.html?product=${encodeURIComponent(key)}">
-
-${esc(name)}
-
-</a>
-
-<span class="footer-price-value">
-
-${price.price.toFixed(2)} AZN
-
-</span>
-
-</div>
-
-`;
-
-}else{
-
-pricesBox.innerHTML+=`
-
-<div class="footer-price-row">
-
-<a
-href="product.html?product=${encodeURIComponent(key)}">
-
-${esc(name)}
-
-</a>
-
-<span class="footer-price-value">
-
-${t("noPrice")}
-
-</span>
-
-</div>
-
-`;
-
-}
-
-});
-
-}
-
-/* =========================================================
-DİGƏR MƏHSULU SƏBƏTƏ ƏLAVƏ ET
-========================================================= */
-
-function addOtherProductToCart(otherProductKey){
-
-const p=
-siteProducts.find(
-x=>x.product_key===otherProductKey
-);
-
-if(!p)return;
-
-const price=
-getAdminProductPrice(p);
-
-if(
-!price ||
-!price.price ||
-price.price<=0
-){
-
-alert(t("noPrice"));
-
-return;
-
-}
-
-let durationName=
-price.duration+" ay";
-
-const lang=
-getLanguage();
-
-if(lang==="ru"){
-
-durationName=
-price.duration+
-" "+
-(
-price.duration===1
-?"месяц"
-:"месяцев"
+nav.classList.toggle(
+"active"
 );
 
 }
 
-if(lang==="en"){
+function toggleFaq(el){
 
-durationName=
-price.duration+
-" "+
-(
-price.duration===1
-?"month"
-:"months"
+const item=
+el.parentElement;
+
+item.classList.toggle(
+"active"
 );
 
 }
 
-cart.push({
+function changeLanguage(lang){
 
-name:
-adminProductName(p)+
-" ("+
-durationName+
-")",
-
-price:Number(price.price)
-
-});
+currentLanguage=lang;
 
 localStorage.setItem(
-"digi_cart",
+"digibaku_language",
+lang
+);
+
+applyLanguage();
+
+}
+
+function applyLanguage(){
+
+const t=
+translations[currentLanguage] ||
+translations.az;
+
+const title=
+document.getElementById(
+"otherProductsTitle"
+);
+
+if(title){
+
+title.textContent=
+t.otherProducts;
+
+}
+
+const select=
+document.getElementById(
+"languageSelect"
+);
+
+if(select){
+
+select.value=
+currentLanguage;
+
+}
+
+}
+
+function showToast(message){
+
+const toast=
+document.getElementById(
+"toast"
+);
+
+if(!toast)return;
+
+toast.textContent=
+message;
+
+toast.classList.add(
+"show"
+);
+
+setTimeout(
+function(){
+
+toast.classList.remove(
+"show"
+);
+
+},
+2500
+);
+
+}
+
+function updateCartCount(){
+
+const count=
+cart.reduce(
+function(total,item){
+
+return total+
+Number(item.quantity||1);
+
+},
+0
+);
+
+const el=
+document.getElementById(
+"cartCount"
+);
+
+if(el){
+
+el.textContent=
+count;
+
+}
+
+}
+
+function saveCart(){
+
+localStorage.setItem(
+"digibaku_cart",
 JSON.stringify(cart)
 );
 
 updateCartCount();
-updateCartUI();
 
-alert(
-t("cartProductAdded")
+}
+
+function openCart(){
+
+renderCart();
+
+document
+.getElementById("cartModal")
+.classList.add("active");
+
+}
+
+function closeCart(){
+
+document
+.getElementById("cartModal")
+.classList.remove("active");
+
+}
+
+function renderCart(){
+
+const box=
+document.getElementById(
+"cartItems"
+);
+
+const totalEl=
+document.getElementById(
+"cartTotal"
+);
+
+if(!box)return;
+
+if(!cart.length){
+
+box.innerHTML=
+'<div class="empty-products">Səbət boşdur.</div>';
+
+if(totalEl){
+
+totalEl.textContent=
+"0 AZN";
+
+}
+
+return;
+
+}
+
+let total=0;
+
+box.innerHTML=
+cart.map(
+function(item,index){
+
+const price=
+Number(item.price||0);
+
+total+=price*
+Number(item.quantity||1);
+
+return `
+<div class="cart-item">
+
+<div>
+
+<div class="cart-item-name">
+${item.name}
+</div>
+
+<div>
+${item.plan||""}
+</div>
+
+</div>
+
+<div class="cart-item-price">
+${price.toFixed(2)} AZN
+</div>
+
+</div>
+`;
+
+}
+).join("");
+
+if(totalEl){
+
+totalEl.textContent=
+total.toFixed(2)+" AZN";
+
+}
+
+}
+
+function checkoutCart(){
+
+if(!cart.length){
+
+showToast(
+"Səbət boşdur."
+);
+
+return;
+
+}
+
+const text=
+cart.map(
+function(item){
+
+return (
+item.name+
+" - "+
+(item.plan||"")+
+" - "+
+item.price+
+" AZN"
+);
+
+}
+).join("\n");
+
+const url=
+"https://wa.me/?text="+
+encodeURIComponent(
+"Sifariş:\n"+text
+);
+
+window.open(
+url,
+"_blank"
 );
 
 }
 
-/* =========================================================
-MƏHSUL QİYMƏTİNİ GÖTÜR
-========================================================= */
+function updateSelectedPlan(){
+
+if(!currentProduct)return;
+
+const select=
+document.getElementById(
+"planSelect"
+);
+
+if(!select)return;
+
+const days=
+Number(select.value);
+
+const plan=
+currentProduct.plans.find(
+function(p){
+return Number(p.days)===days;
+}
+);
+
+if(plan){
+
+document
+.getElementById(
+"productPrice"
+)
+.innerHTML=
+Number(plan.price).toFixed(2)+
+' <span>AZN</span>';
+
+}
+
+}
+
+function addCurrentProductToCart(){
+
+if(!currentProduct)return;
+
+const select=
+document.getElementById(
+"planSelect"
+);
+
+const days=
+Number(select.value);
+
+const plan=
+currentProduct.plans.find(
+function(p){
+return Number(p.days)===days;
+}
+);
+
+if(!plan)return;
+
+cart.push({
+
+productKey:currentProductKey,
+
+name:currentProduct.name,
+
+plan:days+" gün",
+
+price:Number(plan.price),
+
+quantity:1
+
+});
+
+saveCart();
+
+showToast(
+"✓ Məhsul səbətə əlavə edildi"
+);
+
+}
+
+function getProductPrice(
+productKey,
+days
+){
+
+const item=
+allProductPrices.find(
+function(p){
+
+return (
+p.product_key===
+productKey &&
+Number(p.days)===
+Number(days)
+);
+
+}
+);
+
+if(item){
+
+return Number(item.price);
+
+}
+
+const legacy=
+products[productKey];
+
+if(legacy){
+
+const plan=
+legacy.plans.find(
+function(p){
+
+return Number(p.days)===
+Number(days);
+
+}
+);
+
+if(plan){
+
+return Number(plan.price);
+
+}
+
+}
+
+return 0;
+
+}
+
+function normalizeSiteProduct(
+product
+){
+
+if(!product)return null;
+
+const key=
+product.product_key ||
+product.key ||
+product.slug;
+
+if(!key)return null;
+
+const name=
+product.name ||
+product.title ||
+key;
+
+const image=
+product.image_url ||
+product.image ||
+product.logo ||
+"";
+
+const description=
+product.description ||
+"";
+
+let plans=[];
+
+if(Array.isArray(
+product.plans
+)){
+
+plans=
+product.plans;
+
+}else{
+
+const prices=
+product.prices ||
+{};
+
+Object.keys(prices).forEach(
+function(days){
+
+plans.push({
+
+days:Number(days),
+
+price:Number(
+prices[days]
+)
+
+});
+
+});
+
+}
+
+if(!plans.length){
+
+[30,60,90].forEach(
+function(days){
+
+const price=
+getProductPrice(
+key,
+days
+);
+
+if(price){
+
+plans.push({
+
+days:days,
+
+price:price
+
+});
+
+}
+
+});
+
+}
+
+return {
+
+...product,
+
+product_key:key,
+
+name:name,
+
+title:name,
+
+image:image,
+
+description:description,
+
+plans:plans
+
+};
+
+}
 
 async function loadProductPrices(){
 
 try{
 
-const {data,error}=
+const result=
 await supabaseClient
 .from("product_prices")
-.select(`
-product_key,
-price_1_month,
-price_2_month,
-price_3_month,
-price_12_month,
-sale_1_active,
-sale_2_active,
-sale_3_active,
-sale_12_active,
-sale_1_price,
-sale_2_price,
-sale_3_price,
-sale_12_price
-`)
+.select("*")
 .eq(
 "product_key",
-productKey
+currentProductKey
 )
-.maybeSingle();
+.order(
+"days",
+{
+ascending:true
+}
+);
 
-if(error){
+if(result.error){
 
 console.error(
-"Product qiymətləri yüklənmədi:",
-error
+result.error
 );
 
 return;
 
 }
 
-if(!data){
+const rows=
+result.data||[];
 
-productPriceData=null;
+const base=
+products[currentProductKey];
 
-showPackages();
-updateSelected();
-updateSEO();
+if(base){
 
-return;
+currentProduct={
+...base
+};
+
+currentProduct.plans=
+rows.length ?
+rows.map(
+function(row){
+
+return {
+
+days:Number(row.days),
+
+price:Number(row.price)
+
+};
+
+}
+) :
+base.plans;
 
 }
 
-productPriceData=data;
-
-showPackages();
-updateSelected();
-updateSEO();
+renderCurrentProduct();
 
 }catch(error){
 
 console.error(
-"Product qiymət sistemi xətası:",
+"loadProductPrices error:",
 error
 );
 
@@ -3297,9 +1958,290 @@ error
 
 }
 
-/* =========================================================
-REALTIME ƏSAS MƏHSUL QİYMƏTİ
-========================================================= */
+function renderCurrentProduct(){
+
+if(!currentProduct)return;
+
+const title=
+document.getElementById(
+"productTitle"
+);
+
+const description=
+document.getElementById(
+"productDescription"
+);
+
+const image=
+document.getElementById(
+"productImage"
+);
+
+if(title){
+
+title.textContent=
+currentProduct.name;
+
+}
+
+if(description){
+
+description.textContent=
+currentProduct.description;
+
+}
+
+if(image){
+
+image.src=
+currentProduct.image;
+
+image.alt=
+currentProduct.name;
+
+}
+
+const select=
+document.getElementById(
+"planSelect"
+);
+
+if(select){
+
+select.innerHTML=
+currentProduct.plans.map(
+function(plan){
+
+return `
+<option value="${plan.days}">
+${plan.days} gün
+</option>
+`;
+
+}
+).join("");
+
+}
+
+updateSelectedPlan();
+
+}
+
+async function loadAllSiteProducts(){
+
+try{
+
+const result=
+await supabaseClient
+.from("site_products")
+.select("*")
+.eq(
+"active",
+true
+)
+.order(
+"sort_order",
+{
+ascending:true
+}
+);
+
+if(result.error){
+
+console.error(
+"site_products error:",
+result.error
+);
+
+return;
+
+}
+
+siteProducts=
+(result.data||[]).map(
+normalizeSiteProduct
+).filter(Boolean);
+
+renderOtherProducts();
+
+renderAdminFooter();
+
+}catch(error){
+
+console.error(
+"loadAllSiteProducts error:",
+error
+);
+
+}
+
+}
+
+async function loadAllProductPrices(){
+
+try{
+
+const result=
+await supabaseClient
+.from("product_prices")
+.select("*");
+
+if(result.error){
+
+console.error(
+"all prices error:",
+result.error
+);
+
+return;
+
+}
+
+allProductPrices=
+result.data||[];
+
+renderOtherProducts();
+
+renderAdminFooter();
+
+}catch(error){
+
+console.error(
+"loadAllProductPrices error:",
+error
+);
+
+}
+
+}
+
+function renderOtherProducts(){
+
+const container=
+document.getElementById(
+"otherProducts"
+);
+
+if(!container)return;
+
+const list=
+siteProducts.filter(
+function(product){
+
+return (
+product &&
+product.active!==false &&
+product.product_key!==
+currentProductKey
+);
+
+}
+);
+
+if(!list.length){
+
+container.innerHTML=
+'<div class="empty-products">Hazırda digər premium xidmət yoxdur.</div>';
+
+return;
+
+}
+
+container.innerHTML=
+list.map(
+function(product){
+
+const plans=
+product.plans||[];
+
+const firstPlan=
+plans[0];
+
+const price=
+firstPlan ?
+Number(firstPlan.price) :
+getProductPrice(
+product.product_key,
+30
+);
+
+return `
+<div class="product-card">
+
+<div class="product-card-image">
+
+<img
+src="${product.image||""}"
+alt="${product.name||product.product_key}"
+loading="lazy"
+>
+
+</div>
+
+<div class="product-card-title">
+${product.name||product.product_key}
+</div>
+
+<div class="product-card-description">
+${product.description||""}
+</div>
+
+<div class="product-card-price">
+${Number(price||0).toFixed(2)} AZN
+</div>
+
+<a
+class="product-card-btn"
+href="product.html?product=${encodeURIComponent(product.product_key)}"
+>
+Ətraflı bax
+</a>
+
+</div>
+`;
+
+}
+).join("");
+
+}
+
+function renderAdminFooter(){
+
+const footer=
+document.getElementById(
+"footerProducts"
+);
+
+if(!footer)return;
+
+const list=
+siteProducts.filter(
+function(product){
+
+return (
+product &&
+product.active!==false
+);
+
+}
+);
+
+footer.innerHTML=
+list.map(
+function(product){
+
+return `
+<a
+href="product.html?product=${encodeURIComponent(product.product_key)}"
+>
+${product.name||product.product_key}
+</a>
+`;
+
+}
+).join("");
+
+}
 
 let productPriceChannel=null;
 
@@ -3322,47 +2264,33 @@ productPriceChannel=null;
 productPriceChannel=
 supabaseClient
 .channel(
-"product-price-realtime-"+productKey
+"product-price-"+currentProductKey
 )
+
 .on(
 "postgres_changes",
 {
 event:"*",
 schema:"public",
 table:"product_prices",
-filter:"product_key=eq."+productKey
+filter:
+"product_key=eq."+currentProductKey
 },
 function(payload){
 
 console.log(
-"Product qiyməti yeniləndi:",
+"Current product price changed:",
 payload.eventType
 );
-
-if(payload.new){
-
-productPriceData=
-payload.new;
-
-showPackages();
-updateSelected();
-updateSEO();
-
-}else{
 
 loadProductPrices();
 
 }
-
-}
 )
+
 .subscribe();
 
 }
-
-/* =========================================================
-BÜTÜN QİYMƏTLƏR REALTIME
-========================================================= */
 
 let allPricesChannel=null;
 
@@ -3378,11 +2306,16 @@ allPricesChannel
 
 }catch(e){}
 
+allPricesChannel=null;
+
 }
 
 allPricesChannel=
 supabaseClient
-.channel("all-product-prices-realtime")
+.channel(
+"all-product-prices"
+)
+
 .on(
 "postgres_changes",
 {
@@ -3393,35 +2326,73 @@ table:"product_prices"
 function(payload){
 
 console.log(
-"Admin qiyməti dəyişdi:",
+"Product price changed:",
 payload.eventType
 );
 
-loadAllProductPrices();
+if(payload.eventType==="INSERT"){
 
-if(
-payload.new &&
-payload.new.product_key===productKey
-){
-
-productPriceData=
-payload.new;
-
-showPackages();
-updateSelected();
-updateSEO();
+allProductPrices.push(
+payload.new
+);
 
 }
+
+else if(
+payload.eventType==="UPDATE"
+){
+
+const index=
+allProductPrices.findIndex(
+function(item){
+
+return item.id===
+payload.new.id;
+
+}
+);
+
+if(index!==-1){
+
+allProductPrices[index]=
+payload.new;
+
+}else{
+
+allProductPrices.push(
+payload.new
+);
+
+}
+
+}
+
+else if(
+payload.eventType==="DELETE"
+){
+
+allProductPrices=
+allProductPrices.filter(
+function(item){
+
+return item.id!==
+payload.old.id;
+
+}
+);
+
+}
+
+renderOtherProducts();
+
+renderAdminFooter();
 
 }
 )
+
 .subscribe();
 
 }
-
-/* =========================================================
-MƏHSULLAR REALTIME
-========================================================= */
 
 let siteProductsChannel=null;
 
@@ -3448,56 +2419,142 @@ supabaseClient
 .on(
 "postgres_changes",
 {
-event:"INSERT",
+event:"*",
 schema:"public",
 table:"site_products"
 },
 function(payload){
 
 console.log(
-"Admin yeni məhsul əlavə etdi:",
-payload.new
+"Admin məhsul dəyişdi:",
+payload.eventType
 );
 
-loadAllSiteProducts();
+if(payload.eventType==="INSERT"){
+
+const newProduct=
+payload.new;
+
+if(
+newProduct &&
+newProduct.active!==false
+){
+
+const exists=
+siteProducts.some(
+function(p){
+
+return p.id===
+newProduct.id;
 
 }
-)
-
-.on(
-"postgres_changes",
-{
-event:"UPDATE",
-schema:"public",
-table:"site_products"
-},
-function(payload){
-
-console.log(
-"Admin məhsulu dəyişdi:",
-payload.new
 );
 
-loadAllSiteProducts();
+if(!exists){
+
+const normalized=
+normalizeSiteProduct(
+newProduct
+);
+
+if(normalized){
+
+siteProducts.push(
+normalized
+);
 
 }
-)
 
-.on(
-"postgres_changes",
-{
-event:"DELETE",
-schema:"public",
-table:"site_products"
-},
-function(payload){
+}
 
-console.log(
-"Admin məhsulu silindi:",
-payload.old
+}
+
+}
+
+else if(
+payload.eventType==="UPDATE"
+){
+
+const updatedProduct=
+payload.new;
+
+if(!updatedProduct)return;
+
+const index=
+siteProducts.findIndex(
+function(p){
+
+return p.id===
+updatedProduct.id;
+
+}
 );
 
-loadAllSiteProducts();
+if(
+updatedProduct.active===false
+){
+
+if(index!==-1){
+
+siteProducts.splice(
+index,
+1
+);
+
+}
+
+}else{
+
+const normalized=
+normalizeSiteProduct(
+updatedProduct
+);
+
+if(!normalized)return;
+
+if(index!==-1){
+
+siteProducts[index]=
+normalized;
+
+}else{
+
+siteProducts.push(
+normalized
+);
+
+}
+
+}
+
+}
+
+else if(
+payload.eventType==="DELETE"
+){
+
+const deletedProduct=
+payload.old;
+
+if(deletedProduct){
+
+siteProducts=
+siteProducts.filter(
+function(p){
+
+return p.id!==
+deletedProduct.id;
+
+}
+);
+
+}
+
+}
+
+renderOtherProducts();
+
+renderAdminFooter();
 
 }
 )
@@ -3506,243 +2563,69 @@ loadAllSiteProducts();
 
 }
 
-/* =========================================================
-MƏHSUL ADI
-========================================================= */
+async function checkLogin(){
 
-function getProductName(){
+const result=
+await supabaseClient.auth.getSession();
 
-const lang=getLanguage();
+if(result.error){
 
-if(lang==="ru"){
-return product.nameRu;
-}
+console.error(
+result.error
+);
 
-if(lang==="en"){
-return product.nameEn;
-}
-
-return product.name;
+return;
 
 }
 
-function getProductShort(){
-
-const lang=getLanguage();
-
-if(lang==="ru"){
-return product.shortRu;
 }
 
-if(lang==="en"){
-return product.shortEn;
-}
+async function logout(){
 
-return product.short;
+await supabaseClient.auth.signOut();
+
+location.reload();
 
 }
 
-function getProductContent(){
-
-const lang=getLanguage();
-
-if(lang==="ru"){
-return product.contentRu;
-}
-
-if(lang==="en"){
-return product.contentEn;
-}
-
-return product.contentAz;
+function renderDynamicContent(){
 
 }
 
-function getProductFaq(){
+async function init(){
 
-const lang=getLanguage();
+updateCartCount();
 
-if(lang==="ru"){
-return product.faqRu;
-}
+applyLanguage();
 
-if(lang==="en"){
-return product.faqEn;
-}
+checkLogin();
 
-return product.faq;
+await loadProductPrices();
 
-}
+await loadAllSiteProducts();
 
-function getProductReviews(){
+await loadAllProductPrices();
 
-const lang=getLanguage();
+setupProductPriceRealtime();
 
-if(lang==="ru"){
-return product.reviewsRu;
-}
+setupSiteProductsRealtime();
 
-if(lang==="en"){
-return product.reviewsEn;
-}
+setupAllPricesRealtime();
 
-return product.reviews;
+renderDynamicContent();
+
+renderOtherProducts();
+
+renderAdminFooter();
 
 }
 
-function getProductArticles(){
+init();
 
-const lang=getLanguage();
+</script>
 
-if(lang==="ru"){
-return product.articlesRu;
-}
-
-if(lang==="en"){
-return product.articlesEn;
-}
-
-return product.articles;
-
-}
-
-function getProductGuides(){
-
-const lang=getLanguage();
-
-if(lang==="ru"){
-return product.guidesRu;
-}
-
-if(lang==="en"){
-return product.guidesEn;
-}
-
-return product.guides;
-
-}
-
-function getProductRating(){
-
-const lang=getLanguage();
-
-if(lang==="ru"){
-return product.ratingRu;
-}
-
-if(lang==="en"){
-return product.ratingEn;
-}
-
-return product.rating;
-
-}
-
-/* =========================================================
-FAQ
-========================================================= */
-
-function renderFaq(){
-
-const faqList=
-document.getElementById("faqList");
-
-faqList.innerHTML="";
-
-const faqData=
-getProductFaq()||[];
-
-faqData.forEach(function(item){
-
-const faqItem=
-document.createElement("div");
-
-faqItem.className="faq-item";
-
-faqItem.innerHTML=`
-
-<button class="faq-question">
-
-<span>${item[0]}</span>
-
-<span class="faq-plus">+</span>
-
-</button>
-
-<div class="faq-answer">
-${item[1]}
-</div>
-
-`;
-
-faqItem
-.querySelector(".faq-question")
-.onclick=function(){
-
-faqItem.classList.toggle("open");
-
-faqItem
-.querySelector(".faq-plus")
-.textContent=
-faqItem.classList.contains("open")
-?"−"
-:"+";
-
-};
-
-faqList.appendChild(faqItem);
-
-});
-
-}
-
-/* =========================================================
-RƏYLƏR
-========================================================= */
-
-function renderReviews(){
-
-const reviewsGrid=
-document.getElementById("reviewsGrid");
-
-reviewsGrid.innerHTML="";
-
-const reviewsData=
-getProductReviews()||[];
-
-reviewsData.forEach(function(review){
-
-const card=
-document.createElement("div");
-
-card.className="review-card";
-
-card.innerHTML=`
-
-<div class="review-stars">
-★★★★★
-</div>
-
-<div class="review-text">
-${review[0]}
-</div>
-
-<div class="review-name">
-${review[1]}
-</div>
-
-<div class="review-role">
-${review[2]}
-</div>
-
-`;
-
-reviewsGrid.appendChild(card);
-
-});
-
-}
-
+</body>
+</html>
 /* =========================================================
 MƏQALƏLƏR
 ========================================================= */
@@ -3770,10 +2653,6 @@ card.innerHTML=`
 ${article[0]}
 </h3>
 
-<p>
-${getArticleDescription()}
-</p>
-
 <div class="article-date">
 ${article[1]}
 </div>
@@ -3783,22 +2662,6 @@ ${article[1]}
 articlesGrid.appendChild(card);
 
 });
-
-}
-
-function getArticleDescription(){
-
-const lang=getLanguage();
-
-if(lang==="ru"){
-return "Полезная информация о премиум-услугах.";
-}
-
-if(lang==="en"){
-return "Useful information about premium services.";
-}
-
-return "Premium xidmətlər haqqında faydalı məlumatlar.";
 
 }
 
@@ -3818,14 +2681,14 @@ getProductGuides()||[];
 
 guidesData.forEach(function(guide){
 
-const guideCard=
+const item=
 document.createElement("div");
 
-guideCard.className="guide-card";
+item.className="guide-item";
 
-guideCard.textContent=guide;
+item.textContent=guide;
 
-guidesList.appendChild(guideCard);
+guidesList.appendChild(item);
 
 });
 
@@ -3837,25 +2700,47 @@ DİNAMİK MƏZMUN
 
 function renderDynamicContent(){
 
-document.getElementById("productName").textContent=getProductName();
+const content=
+document.getElementById("content");
 
-document.getElementById("breadcrumb").textContent=getProductName();
+if(content){
 
-document.getElementById("rating").textContent=getProductRating();
+content.innerHTML=
+getProductContent()||"";
 
-document.getElementById("shortDescription").textContent=getProductShort();
+}
 
-document.getElementById("content").innerHTML=getProductContent();
+const short=
+document.getElementById(
+"shortDescription"
+);
 
-document.getElementById("productImage").src=product.image;
+if(short){
+
+short.textContent=
+getProductShort()||"";
+
+}
+
+const rating=
+document.getElementById(
+"rating"
+);
+
+if(rating){
+
+rating.textContent=
+getProductRating()||"";
+
+}
 
 renderFaq();
+
 renderReviews();
+
 renderArticles();
+
 renderGuides();
-showPackages();
-updateSelected();
-updateSEO();
 
 }
 
@@ -3863,47 +2748,79 @@ updateSEO();
 PAKETLƏR
 ========================================================= */
 
-const packagesBox=
-document.getElementById("packages");
-
-function getPackageName(item){
-
-const lang=getLanguage();
-
-if(lang==="ru"){
-return item.nameRu;
-}
-
-if(lang==="en"){
-return item.nameEn;
-}
-
-return item.name;
-
-}
-
 function showPackages(){
 
-packagesBox.innerHTML="";
+const box=
+document.getElementById("packages");
+
+if(!box)return;
+
+box.innerHTML="";
+
+if(
+!product.packages ||
+!product.packages.length
+){
+
+box.innerHTML=
+`
+<div
+style="
+padding:15px;
+background:#111;
+border-radius:10px;
+color:#aaa;
+">
+${t("noPrice")}
+</div>
+`;
+
+return;
+
+}
 
 product.packages.forEach(
 function(item,index){
 
-const el=
-document.createElement("div");
+const button=
+document.createElement("button");
 
-el.className=
+button.className=
 "package"+
 (
 index===selectedPackage
-?" active"
-:""
+?
+" active"
+:
+""
 );
 
-el.innerHTML=`
+const lang=
+getLanguage();
+
+let packageName=
+item.name;
+
+if(lang==="ru"){
+
+packageName=
+item.nameRu ||
+item.name;
+
+}
+
+if(lang==="en"){
+
+packageName=
+item.nameEn ||
+item.name;
+
+}
+
+button.innerHTML=`
 
 <span class="package-name">
-${getPackageName(item)}
+${packageName}
 </span>
 
 <span class="package-price">
@@ -3912,27 +2829,32 @@ ${renderPackagePrice(item)}
 
 `;
 
-el.onclick=function(){
+button.onclick=function(){
 
 selectedPackage=index;
 
 showPackages();
+
 updateSelected();
-updateSEO();
 
 };
 
-packagesBox.appendChild(el);
+box.appendChild(button);
 
 });
 
 }
 
-/* =========================================================
-SEÇİLMİŞ PAKET
-========================================================= */
-
 function updateSelected(){
+
+if(
+!product.packages ||
+!product.packages.length
+){
+
+return;
+
+}
 
 const item=
 product.packages[selectedPackage];
@@ -3943,113 +2865,70 @@ const current=
 getCurrentPackagePrice(item);
 
 const selectedPrice=
-document.getElementById("selectedPrice");
-
-const selectedOldPrice=
-document.getElementById("selectedOldPrice");
-
-if(
-current.sale &&
-current.normal>current.price
-){
-
-selectedOldPrice.style.display="block";
-
-selectedOldPrice.textContent=
-current.normal.toFixed(2)+" AZN";
-
-selectedPrice.style.color="#22c55e";
-
-}else{
-
-selectedOldPrice.style.display="none";
-
-selectedPrice.style.color="";
-
-}
-
-selectedPrice.textContent=
-current.price.toFixed(2)+" AZN";
-
-document.getElementById("selectedPeriod").textContent=
-getPackageName(item);
-
-let discountEl=
-document.getElementById("selectedDiscount");
-
-if(!discountEl){
-
-discountEl=
-document.createElement("span");
-
-discountEl.id="selectedDiscount";
-
-discountEl.className="discount-percent";
-
-selectedPrice.parentNode.appendChild(discountEl);
-
-}
-
-if(
-current.sale &&
-current.normal>current.price
-){
-
-const discountPercent=
-Math.round(
-(
-(current.normal-current.price)/
-current.normal
-)*100
+document.getElementById(
+"selectedPrice"
 );
 
-discountEl.textContent=
-"-"+discountPercent+"%";
+const selectedOldPrice=
+document.getElementById(
+"selectedOldPrice"
+);
 
-discountEl.style.display="inline-block";
+const selectedPeriod=
+document.getElementById(
+"selectedPeriod"
+);
 
-}else{
+if(current.sale){
 
-discountEl.style.display="none";
-
-}
-
-}
-
-/* =========================================================
-İNDİ AL
-========================================================= */
-
-function buyNow(){
-
-const item=
-product.packages[selectedPackage];
-
-const current=
-getCurrentPackagePrice(item);
-
-const phone="994513626349";
-
-const message=
-t("orderMessage")+
-
-t("productLabel")+" "+
-getProductName()+
-"\n"+
-
-t("periodLabel")+" "+
-getPackageName(item)+
-"\n"+
-
-t("priceLabel")+" "+
+selectedPrice.textContent=
 current.price.toFixed(2)+
 " AZN";
 
-window.location.href=
-"https://wa.me/"+
-phone+
-"?text="+
-encodeURIComponent(message);
+selectedOldPrice.style.display=
+"inline";
+
+selectedOldPrice.textContent=
+current.normal.toFixed(2)+
+" AZN";
+
+}else{
+
+selectedPrice.textContent=
+current.price.toFixed(2)+
+" AZN";
+
+selectedOldPrice.style.display=
+"none";
+
+selectedOldPrice.textContent="";
+
+}
+
+const lang=
+getLanguage();
+
+let period=
+item.name;
+
+if(lang==="ru"){
+
+period=
+item.nameRu ||
+item.name;
+
+}
+
+if(lang==="en"){
+
+period=
+item.nameEn ||
+item.name;
+
+}
+
+selectedPeriod.textContent=
+period;
 
 }
 
@@ -4059,23 +2938,46 @@ SƏBƏT
 
 let cart=
 JSON.parse(
-localStorage.getItem("digi_cart")
-)||[];
+localStorage.getItem("digi_cart")||
+"[]"
+);
+
+function updateCartCount(){
+
+const count=
+cart.length;
+
+const el=
+document.getElementById(
+"cartCount"
+);
+
+if(el){
+
+el.textContent=count;
+
+}
+
+}
 
 function toggleCart(){
 
 const modal=
-document.getElementById("cartModal");
+document.getElementById(
+"cartModal"
+);
 
 if(!modal)return;
 
-if(modal.style.display==="block"){
+if(
+modal.classList.contains("open")
+){
 
-modal.style.display="none";
+modal.classList.remove("open");
 
 }else{
 
-modal.style.display="block";
+modal.classList.add("open");
 
 updateCartUI();
 
@@ -4085,15 +2987,9 @@ updateCartUI();
 
 function addToCart(){
 
-const item=
-product.packages[selectedPackage];
-
-const current=
-getCurrentPackagePrice(item);
-
 if(
-!current.price ||
-current.price<=0
+!product.packages ||
+!product.packages.length
 ){
 
 alert(t("noPrice"));
@@ -4102,16 +2998,56 @@ return;
 
 }
 
+const item=
+product.packages[selectedPackage];
+
+if(!item)return;
+
+const current=
+getCurrentPackagePrice(item);
+
+if(
+!current ||
+!current.price
+){
+
+alert(t("noPrice"));
+
+return;
+
+}
+
+let period=
+item.name;
+
+const lang=
+getLanguage();
+
+if(lang==="ru"){
+
+period=
+item.nameRu ||
+item.name;
+
+}
+
+if(lang==="en"){
+
+period=
+item.nameEn ||
+item.name;
+
+}
+
 cart.push({
 
 name:
 getProductName()+
 " ("+
-getPackageName(item)+
+period+
 ")",
 
-price:
-current.price
+price:Number(current.price)
 
 });
 
@@ -4124,44 +3060,141 @@ updateCartCount();
 
 updateCartUI();
 
-alert(t("cartProductAdded"));
+alert(
+t("addedToCart")
+);
 
 }
 
-function updateCartCount(){
+function buyNow(){
 
-const countEl=
-document.getElementById("cartCount");
+if(
+!product.packages ||
+!product.packages.length
+){
 
-if(countEl){
-countEl.textContent=cart.length;
+alert(t("noPrice"));
+
+return;
+
 }
+
+const item=
+product.packages[selectedPackage];
+
+const current=
+getCurrentPackagePrice(item);
+
+if(
+!current ||
+!current.price
+){
+
+alert(t("noPrice"));
+
+return;
+
+}
+
+let period=
+item.name;
+
+const lang=
+getLanguage();
+
+if(lang==="ru"){
+
+period=
+item.nameRu ||
+item.name;
+
+}
+
+if(lang==="en"){
+
+period=
+item.nameEn ||
+item.name;
+
+}
+
+let message=
+t("orderMessage");
+
+message+=
+t("productLabel")+
+" "+
+getProductName()+
+"\n";
+
+message+=
+t("periodLabel")+
+" "+
+period+
+"\n";
+
+message+=
+t("priceLabel")+
+" "+
+Number(current.price).toFixed(2)+
+" AZN";
+
+const phone="994513626349";
+
+const whatsappUrl=
+"https://wa.me/"+
+phone+
+"?text="+
+encodeURIComponent(message);
+
+window.location.href=
+whatsappUrl;
 
 }
 
 function updateCartUI(){
 
 const list=
-document.getElementById("cartItemsList");
+document.getElementById(
+"cartItemsList"
+);
 
 const totalPriceEl=
-document.getElementById("cartTotalPrice");
+document.getElementById(
+"cartTotalPrice"
+);
+
+const empty=
+document.getElementById(
+"emptyCartText"
+);
 
 if(!list || !totalPriceEl)return;
 
-if(cart.length===0){
+if(!cart.length){
 
-list.innerHTML=`
+list.innerHTML="";
 
-<p style="color:#777;text-align:center;">
-${t("emptyCart")}
-</p>
+if(empty){
 
-`;
+empty.style.display=
+"block";
 
-totalPriceEl.textContent="0.00 AZN";
+list.appendChild(empty);
+
+}
+
+totalPriceEl.textContent=
+"0.00 AZN";
 
 return;
+
+}
+
+if(empty){
+
+empty.style.display=
+"none";
 
 }
 
@@ -4250,6 +3283,7 @@ JSON.stringify(cart)
 );
 
 updateCartCount();
+
 updateCartUI();
 
 }
@@ -4318,9 +3352,9 @@ applyLanguage();
 
 checkLogin();
 
-await loadProductPrices();
-
 await loadAllSiteProducts();
+
+await loadProductPrices();
 
 await loadAllProductPrices();
 
