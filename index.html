@@ -369,12 +369,74 @@ header{position:sticky;top:0;z-index:1000;background:rgba(5,5,5,.94);border-bott
 .btn-dark:hover{background:#202020}
 .user-email{display:flex;align-items:center;max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;background:#151515;border:1px solid #333;border-radius:9px;padding:10px 13px;color:#60a5fa;font-size:13px;font-weight:bold}
 
-.language-switcher{display:flex;align-items:center;gap:5px;margin-left:4px}
-.language-switcher button{background:none;border:0;color:#777;cursor:pointer;font-size:12px;font-weight:bold;padding:3px}
-.language-switcher button:hover{color:#fff}
-.language-switcher button.active{color:#3b82f6}
-.language-switcher span{color:#333}
+..language-dropdown{
+position:relative;
+margin-left:4px;
+}
 
+.language-dropdown-btn{
+display:flex;
+align-items:center;
+justify-content:center;
+gap:7px;
+min-width:58px;
+height:40px;
+padding:0 12px;
+background:#151515;
+border:1px solid #333;
+border-radius:9px;
+color:#fff;
+font-size:13px;
+font-weight:700;
+cursor:pointer;
+}
+
+.language-dropdown-btn:hover{
+background:#202020;
+border-color:#444;
+}
+
+.language-arrow{
+font-size:14px;
+color:#888;
+}
+
+.language-dropdown-menu{
+display:none;
+position:absolute;
+top:calc(100% + 8px);
+right:0;
+min-width:145px;
+background:#101010;
+border:1px solid #333;
+border-radius:10px;
+padding:6px;
+box-shadow:0 12px 30px rgba(0,0,0,.5);
+z-index:5000;
+}
+
+.language-dropdown.open .language-dropdown-menu{
+display:block;
+}
+
+.language-dropdown-menu button{
+display:block;
+width:100%;
+padding:10px 11px;
+background:none;
+border:0;
+border-radius:7px;
+color:#aaa;
+text-align:left;
+font-size:13px;
+font-weight:600;
+cursor:pointer;
+}
+
+.language-dropdown-menu button:hover{
+background:#1c1c1c;
+color:#fff;
+}
 .cart-btn{display:flex;align-items:center;gap:6px;background:#151515;border:1px solid #333;color:#fff}
 .cart-count{background:#ef4444;color:#fff;border-radius:50%;min-width:20px;height:20px;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:bold;padding:0 5px}
 
