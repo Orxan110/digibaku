@@ -369,135 +369,11 @@ header{position:sticky;top:0;z-index:1000;background:rgba(5,5,5,.94);border-bott
 .btn-dark:hover{background:#202020}
 .user-email{display:flex;align-items:center;max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;background:#151515;border:1px solid #333;border-radius:9px;padding:10px 13px;color:#60a5fa;font-size:13px;font-weight:bold}
 
-/* DİL BUTTONU */
-.language-dropdown{
-position:relative;
-margin-left:4px;
-}
-
-.language-dropdown-btn{
-display:flex;
-align-items:center;
-gap:6px;
-background:#151515;
-border:1px solid #333;
-color:#fff;
-border-radius:9px;
-padding:9px 12px;
-font-size:12px;
-font-weight:800;
-cursor:pointer;
-transition:.2s;
-}
-
-.language-dropdown-btn:hover{
-background:#202020;
-border-color:#2563eb;
-}
-
-.language-dropdown-arrow{
-font-size:11px;
-color:#999;
-}
-
-.language-dropdown-menu{
-position:absolute;
-top:calc(100% + 8px);
-right:0;
-min-width:145px;
-background:#101010;
-border:1px solid #2a2a2a;
-border-radius:10px;
-padding:6px;
-box-shadow:0 12px 35px rgba(0,0,0,.55);
-opacity:0;
-visibility:hidden;
-transform:translateY(-6px);
-transition:.2s;
-z-index:4000;
-}
-
-.language-dropdown.open .language-dropdown-menu{
-opacity:1;
-visibility:visible;
-transform:translateY(0);
-}
-
-.language-option{
-display:block;
-width:100%;
-background:none;
-border:0;
-color:#aaa;
-text-align:left;
-padding:9px 11px;
-border-radius:7px;
-font-size:13px;
-font-weight:700;
-cursor:pointer;
-}
-
-.language-option:hover{
-background:#1b1b1b;
-color:#fff;
-}
-
-.language-option.active{
-background:#0b1428;
-color:#60a5fa;
-}
-
-/* HEADER MƏHSUL AXTARIŞI */
-.header-product-search{
-position:relative;
-width:190px;
-flex-shrink:0;
-}
-
-.header-product-search-input{
-width:100%;
-height:38px;
-background:#101010;
-border:1px solid #333;
-border-radius:9px;
-color:#fff;
-padding:0 38px 0 13px;
-font-size:12px;
-outline:none;
-transition:.2s;
-}
-
-.header-product-search-input::placeholder{
-color:#777;
-}
-
-.header-product-search-input:focus{
-border-color:#2563eb;
-box-shadow:0 0 0 3px rgba(37,99,235,.10);
-}
-
-.header-product-search-clear{
-position:absolute;
-right:5px;
-top:50%;
-transform:translateY(-50%);
-width:28px;
-height:28px;
-border:0;
-border-radius:7px;
-background:#222;
-color:#aaa;
-cursor:pointer;
-display:none;
-align-items:center;
-justify-content:center;
-font-size:14px;
-}
-
-.header-product-search-clear:hover{
-background:#2b2b2b;
-color:#fff;
-}
+.language-switcher{display:flex;align-items:center;gap:5px;margin-left:4px}
+.language-switcher button{background:none;border:0;color:#777;cursor:pointer;font-size:12px;font-weight:bold;padding:3px}
+.language-switcher button:hover{color:#fff}
+.language-switcher button.active{color:#3b82f6}
+.language-switcher span{color:#333}
 
 .cart-btn{display:flex;align-items:center;gap:6px;background:#151515;border:1px solid #333;color:#fff}
 .cart-count{background:#ef4444;color:#fff;border-radius:50%;min-width:20px;height:20px;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:bold;padding:0 5px}
@@ -687,20 +563,8 @@ footer{background:#030303;border-top:1px solid #222;padding:45px 0 20px}
 .auth{gap:5px}
 .auth .btn{padding:9px 10px;font-size:12px}
 .user-email{max-width:120px;font-size:11px;padding:9px 8px}
-.language-dropdown-btn{padding:8px 9px;font-size:11px}
-.language-dropdown-menu{right:0}
+.language-switcher button{font-size:11px}
 .cart-btn{padding:9px 10px;font-size:12px}
-
-.header-product-search{
-width:145px;
-}
-
-.header-product-search-input{
-height:36px;
-font-size:11px;
-padding:0 34px 0 10px;
-}
-
 .hero-inner{flex-direction:column;text-align:center}
 .hero h1{font-size:39px}
 .hero-buttons{justify-content:center;flex-direction:column}
@@ -756,75 +620,12 @@ padding:0 34px 0 10px;
 <a href="login.html" class="btn btn-primary" data-i18n="register">Qeydiyyat</a>
 </div>
 
-<!-- HEADER MƏHSUL AXTARIŞI -->
-<div class="header-product-search">
-
-<input
-type="search"
-id="productSearchInput"
-class="header-product-search-input"
-data-i18n-placeholder="searchProducts"
-placeholder="Məhsul axtar..."
-autocomplete="off"
-aria-label="Məhsul axtar"
->
-
-<button
-type="button"
-id="productSearchClear"
-class="header-product-search-clear"
-onclick="clearProductSearch()"
-aria-label="Axtarışı təmizlə"
->
-✕
-</button>
-
-</div>
-
-<!-- YENİ DİL BUTTONU -->
-<div class="language-dropdown" id="languageDropdown">
-
-<button
-type="button"
-class="language-dropdown-btn"
-onclick="toggleLanguageMenu(event)"
-aria-label="Dil seçimi"
->
-🌐 <span id="currentLanguage">AZ</span>
-<span class="language-dropdown-arrow">⌄</span>
-</button>
-
-<div class="language-dropdown-menu">
-
-<button
-type="button"
-class="language-option"
-id="languageOptionAZ"
-onclick="selectLanguage('az')"
->
-🇦🇿 Azərbaycan
-</button>
-
-<button
-type="button"
-class="language-option"
-id="languageOptionRU"
-onclick="selectLanguage('ru')"
->
-🇷🇺 Русский
-</button>
-
-<button
-type="button"
-class="language-option"
-id="languageOptionEN"
-onclick="selectLanguage('en')"
->
-🇬🇧 English
-</button>
-
-</div>
-
+<div class="language-switcher">
+<button onclick="setLanguage('az')" id="langAZ">AZ</button>
+<span>|</span>
+<button onclick="setLanguage('ru')" id="langRU">RU</button>
+<span>|</span>
+<button onclick="setLanguage('en')" id="langEN">EN</button>
 </div>
 
 </div>
@@ -1289,9 +1090,6 @@ noProducts:"Hazırda aktiv məhsul yoxdur.",
 productsError:"Məhsullar yüklənərkən xəta baş verdi.",
 footerPrices:"Qiymətlər",
 allCategories:"Hamısı",
-searchProducts:"Məhsul axtar...",
-searchFound:"məhsul tapıldı",
-searchNotFound:"Məhsul tapılmadı.",
 
 whyUs:"Niyə məhz biz?",
 whyUsText:"Premium xidmətlərə çıxışı daha sürətli, rahat və təhlükəsiz etmək üçün prosesi sadələşdirdik.",
@@ -1425,9 +1223,6 @@ noProducts:"Активных продуктов нет.",
 productsError:"Ошибка загрузки продуктов.",
 footerPrices:"Цены",
 allCategories:"Все",
-searchProducts:"Поиск продукта...",
-searchFound:"продуктов найдено",
-searchNotFound:"Продукт не найден.",
 
 whyUs:"Почему именно мы?",
 whyUsText:"Мы упростили процесс доступа к премиальным сервисам.",
@@ -1561,9 +1356,6 @@ noProducts:"No active products.",
 productsError:"Error loading products.",
 footerPrices:"Prices",
 allCategories:"All",
-searchProducts:"Search product...",
-searchFound:"products found",
-searchNotFound:"Product not found.",
 
 whyUs:"Why choose us?",
 whyUsText:"We simplified the process to make access to premium services easier.",
@@ -1672,54 +1464,6 @@ key;
 
 }
 
-/* =========================================================
-   YENİ DİL BUTTONU
-========================================================= */
-
-function toggleLanguageMenu(event){
-
-if(event){
-event.stopPropagation();
-}
-
-const dropdown=
-document.getElementById("languageDropdown");
-
-if(!dropdown)return;
-
-dropdown.classList.toggle("open");
-
-}
-
-function selectLanguage(lang){
-
-setLanguage(lang);
-
-const dropdown=
-document.getElementById("languageDropdown");
-
-if(dropdown){
-dropdown.classList.remove("open");
-}
-
-}
-
-document.addEventListener("click",function(event){
-
-const dropdown=
-document.getElementById("languageDropdown");
-
-if(
-dropdown &&
-!dropdown.contains(event.target)
-){
-
-dropdown.classList.remove("open");
-
-}
-
-});
-
 function setLanguage(lang){
 
 if(!translations[lang]){
@@ -1748,45 +1492,13 @@ el.textContent=translations[lang][key];
 
 });
 
-/* AXTARIŞ PLACEHOLDER */
-document.querySelectorAll("[data-i18n-placeholder]").forEach(el=>{
-
-const key=
-el.getAttribute("data-i18n-placeholder");
-
-if(translations[lang]?.[key]!==undefined){
-
-el.setAttribute(
-"placeholder",
-translations[lang][key]
-);
-
-}
-
-});
-
-/* DİL BUTTONU */
-const currentLanguage=
-document.getElementById("currentLanguage");
-
-if(currentLanguage){
-currentLanguage.textContent=
-lang.toUpperCase();
-}
-
 ["az","ru","en"].forEach(code=>{
 
-const option=
-document.getElementById(
-"languageOption"+
-code.toUpperCase()
-);
+const button=
+document.getElementById("lang"+code.toUpperCase());
 
-if(option){
-option.classList.toggle(
-"active",
-code===lang
-);
+if(button){
+button.classList.toggle("active",code===lang);
 }
 
 });
@@ -1802,7 +1514,6 @@ document.title="DigiBaku Azərbaycan | Premium Rəqəmsal Xidmətlər və Abunə
 updateCartUI();
 checkLogin();
 renderFooterFromAdmin();
-updateSearchResult();
 
 }
 
@@ -2037,168 +1748,6 @@ let SITE_PRODUCTS=[];
 let PRICE_ROWS=[];
 let realtimeChannels=[];
 let ACTIVE_PRODUCT_CATEGORY="";
-let PRODUCT_SEARCH_QUERY="";
-
-/* =========================================================
-   MƏHSUL AXTARIŞI
-========================================================= */
-
-function normalizeSearchText(value){
-
-return String(value||"")
-.toLocaleLowerCase("az-AZ")
-.normalize("NFD")
-.replace(/[\u0300-\u036f]/g,"")
-.trim();
-
-}
-
-function productMatchesSearch(product,query){
-
-if(!query)return true;
-
-const search=
-normalizeSearchText(query);
-
-if(!search)return true;
-
-const searchableValues=[
-
-product.name_az,
-product.name_en,
-product.name_ru,
-product.name,
-product.product_key,
-product.description_az,
-product.description_en,
-product.description_ru,
-product.description,
-product.category
-
-];
-
-const searchableText=
-searchableValues
-.filter(value=>value!==null && value!==undefined)
-.map(value=>normalizeSearchText(value))
-.join(" ");
-
-return searchableText.includes(search);
-
-}
-
-function handleProductSearch(value){
-
-PRODUCT_SEARCH_QUERY=
-String(value||"").trim();
-
-const clearButton=
-document.getElementById("productSearchClear");
-
-if(clearButton){
-
-clearButton.style.display=
-PRODUCT_SEARCH_QUERY
-?"flex"
-:"none";
-
-}
-
-renderProducts();
-
-}
-
-function clearProductSearch(){
-
-PRODUCT_SEARCH_QUERY="";
-
-const input=
-document.getElementById("productSearchInput");
-
-if(input){
-input.value="";
-input.focus();
-}
-
-const clearButton=
-document.getElementById("productSearchClear");
-
-if(clearButton){
-clearButton.style.display="none";
-}
-
-renderProducts();
-
-}
-
-function updateSearchResult(count){
-
-const result=
-document.getElementById("productSearchResult");
-
-if(!result)return;
-
-if(!PRODUCT_SEARCH_QUERY){
-
-result.style.display="none";
-result.textContent="";
-
-return;
-
-}
-
-result.style.display="block";
-
-if(count===0){
-
-result.textContent=
-t("searchNotFound");
-
-return;
-
-}
-
-result.textContent=
-count+
-" "+
-t("searchFound");
-
-}
-
-function setupProductSearch(){
-
-const input=
-document.getElementById("productSearchInput");
-
-if(!input)return;
-
-input.addEventListener(
-"input",
-function(){
-
-handleProductSearch(this.value);
-
-}
-);
-
-input.addEventListener(
-"keydown",
-function(event){
-
-if(event.key==="Escape"){
-
-clearProductSearch();
-
-}
-
-}
-);
-
-}
-
-/* =========================================================
-   MÜDDƏTLƏR
-========================================================= */
 
 function parseDurations(value){
 
@@ -3270,7 +2819,6 @@ ${t("noProducts")}
 </div>
 `;
 
-updateSearchResult(0);
 renderFooterFromAdmin();
 
 return;
@@ -3280,7 +2828,6 @@ return;
 let products=
 SITE_PRODUCTS;
 
-/* KATEQORİYA FİLTRİ */
 if(ACTIVE_PRODUCT_CATEGORY){
 
 const selected=
@@ -3291,7 +2838,7 @@ ACTIVE_PRODUCT_CATEGORY
 );
 
 products=
-products.filter(product=>
+SITE_PRODUCTS.filter(product=>
 normalizeCategory(
 getCanonicalCategory(
 product.category
@@ -3302,28 +2849,11 @@ selected
 
 }
 
-/* AXTARIŞ FİLTRİ */
-if(PRODUCT_SEARCH_QUERY){
-
-products=
-products.filter(product=>
-productMatchesSearch(
-product,
-PRODUCT_SEARCH_QUERY
-)
-);
-
-}
-
-updateSearchResult(products.length);
-
 if(!products.length){
 
 grid.innerHTML=`
 <div class="no-products">
-${PRODUCT_SEARCH_QUERY
-?escapeHtml(t("searchNotFound"))
-:t("noProducts")}
+${t("noProducts")}
 </div>
 `;
 
@@ -3643,9 +3173,6 @@ applyLanguage(lang);
 updateCartCount();
 
 updateCartUI();
-
-/* YENİ AXTARIŞ SİSTEMİ */
-setupProductSearch();
 
 await loadSiteProducts();
 
