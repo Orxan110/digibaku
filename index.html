@@ -1988,7 +1988,7 @@ Number(item.duration_months)===duration
 );
 
 if(hasPrice(row)){
-return duration;
+return Number(row.duration_months);
 }
 
 }
@@ -2201,6 +2201,86 @@ return String(value||"")
 
 }
 
+/* =========================================================
+   KATEQORİYALARI BİRLƏŞDİR
+========================================================= */
+
+function getCanonicalCategory(value){
+
+const raw=
+String(value||"").trim();
+
+const key=
+normalizeCategory(raw);
+
+if(!key){
+return "";
+}
+
+/* MUSİQİ */
+if(
+key==="musiqi" ||
+key==="reklamsız musiqi" ||
+key==="reklamsiz musiqi" ||
+key.includes("musiqi")
+){
+
+return "Musiqi";
+
+}
+
+/* FİLM VƏ SERİAL */
+if(
+key==="film" ||
+key==="filmlər" ||
+key==="filmler" ||
+key==="film və serial" ||
+key==="film ve serial" ||
+key.includes("film") ||
+key.includes("serial")
+){
+
+return "Film və serial";
+
+}
+
+/* VİDEO */
+if(
+key==="video" ||
+key.includes("video")
+){
+
+return "Video";
+
+}
+
+/* SÜNİ İNTELLEKT */
+if(
+key==="süni intellekt" ||
+key==="suni intellekt" ||
+key==="ai" ||
+key.includes("süni intellekt") ||
+key.includes("suni intellekt")
+){
+
+return "Süni intellekt";
+
+}
+
+/* DİZAYN */
+if(
+key==="dizayn" ||
+key.includes("dizayn")
+){
+
+return "Dizayn";
+
+}
+
+return raw;
+
+}
+
 function getProductCategories(){
 
 const categories=[];
@@ -2209,7 +2289,7 @@ const seen=new Set();
 SITE_PRODUCTS.forEach(product=>{
 
 const category=
-String(product.category||"").trim();
+getCanonicalCategory(product.category);
 
 if(!category)return;
 
@@ -2249,12 +2329,17 @@ return;
 
 }
 
+const canonicalActive=
+getCanonicalCategory(
+ACTIVE_PRODUCT_CATEGORY
+);
+
 if(
 ACTIVE_PRODUCT_CATEGORY &&
 !categories.some(
 category=>
 normalizeCategory(category)===
-normalizeCategory(ACTIVE_PRODUCT_CATEGORY)
+normalizeCategory(canonicalActive)
 )
 ){
 
@@ -2278,7 +2363,11 @@ categories.forEach(category=>{
 
 const active=
 normalizeCategory(category)===
-normalizeCategory(ACTIVE_PRODUCT_CATEGORY);
+normalizeCategory(
+getCanonicalCategory(
+ACTIVE_PRODUCT_CATEGORY
+)
+);
 
 html+=`
 
@@ -2301,7 +2390,7 @@ container.innerHTML=html;
 function selectProductCategory(category){
 
 ACTIVE_PRODUCT_CATEGORY=
-String(category||"").trim();
+getCanonicalCategory(category);
 
 renderProductCategories();
 
@@ -2335,7 +2424,7 @@ key ||
 ).trim();
 
 const category=
-String(product.category||"").trim();
+getCanonicalCategory(product.category);
 
 const priceRow=
 findPrice(product);
@@ -2731,11 +2820,19 @@ SITE_PRODUCTS;
 if(ACTIVE_PRODUCT_CATEGORY){
 
 const selected=
-normalizeCategory(ACTIVE_PRODUCT_CATEGORY);
+normalizeCategory(
+getCanonicalCategory(
+ACTIVE_PRODUCT_CATEGORY
+)
+);
 
 products=
 SITE_PRODUCTS.filter(product=>
-normalizeCategory(product.category)===
+normalizeCategory(
+getCanonicalCategory(
+product.category
+)
+)===
 selected
 );
 
