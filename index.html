@@ -413,6 +413,56 @@ section{padding:75px 0}
 .section-title h2{font-size:36px;margin-bottom:8px}
 .section-title p{color:#999}
 
+.product-categories{
+display:flex;
+gap:10px;
+overflow-x:auto;
+padding:0 0 20px;
+margin-bottom:10px;
+scrollbar-width:none;
+}
+
+.product-categories::-webkit-scrollbar{
+display:none;
+}
+
+.product-category-btn{
+flex:0 0 auto;
+background:#101010;
+border:1px solid #292929;
+color:#aaa;
+padding:10px 18px;
+border-radius:10px;
+font-size:14px;
+font-weight:700;
+cursor:pointer;
+transition:.2s;
+white-space:nowrap;
+}
+
+.product-category-btn:hover{
+border-color:#2563eb;
+color:#fff;
+}
+
+.product-category-btn.active{
+background:#2563eb;
+border-color:#2563eb;
+color:#fff;
+}
+
+.product-category-label{
+display:inline-block;
+margin-bottom:9px;
+padding:4px 9px;
+background:#0b1428;
+border:1px solid #294b87;
+border-radius:6px;
+color:#60a5fa;
+font-size:11px;
+font-weight:700;
+}
+
 .products{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
 .product{background:#101010;border:1px solid #242424;border-radius:16px;padding:20px;transition:.25s}
 .product:hover{transform:translateY(-5px);border-color:#2563eb}
@@ -635,6 +685,8 @@ Dünyanın ən çox istifadə olunan premium platformalarını bir araya gətir�
 <h2 data-i18n="products">Məhsullar</h2>
 <p data-i18n="productsSubtitle">Premium rəqəmsal xidmətlərimizi kəşf edin.</p>
 </div>
+
+<div id="productCategories" class="product-categories"></div>
 
 <div class="products" id="productsGrid">
 <div class="loading-products" data-i18n="loadingProducts">Məhsullar yüklənir...</div>
@@ -1026,6 +1078,7 @@ noPrice:"Qiymət yoxdur",
 noProducts:"Hazırda aktiv məhsul yoxdur.",
 productsError:"Məhsullar yüklənərkən xəta baş verdi.",
 footerPrices:"Qiymətlər",
+allCategories:"Hamısı",
 
 whyUs:"Niyə məhz biz?",
 whyUsText:"Premium xidmətlərə çıxışı daha sürətli, rahat və təhlükəsiz etmək üçün prosesi sadələşdirdik.",
@@ -1158,6 +1211,7 @@ noPrice:"Цена отсутствует",
 noProducts:"Активных продуктов нет.",
 productsError:"Ошибка загрузки продуктов.",
 footerPrices:"Цены",
+allCategories:"Все",
 
 whyUs:"Почему именно мы?",
 whyUsText:"Мы упростили процесс доступа к премиальным сервисам.",
@@ -1290,6 +1344,7 @@ noPrice:"Price unavailable",
 noProducts:"No active products.",
 productsError:"Error loading products.",
 footerPrices:"Prices",
+allCategories:"All",
 
 whyUs:"Why choose us?",
 whyUsText:"We simplified the process to make access to premium services easier.",
@@ -1681,6 +1736,7 @@ return String(text)
 let SITE_PRODUCTS=[];
 let PRICE_ROWS=[];
 let realtimeChannels=[];
+let ACTIVE_PRODUCT_CATEGORY="";
 
 function parseDurations(value){
 
@@ -2134,6 +2190,126 @@ product.image ||
 }
 
 /* =========================================================
+   KATEQORİYA SİSTEMİ
+========================================================= */
+
+function normalizeCategory(value){
+
+return String(value||"")
+.trim()
+.toLocaleLowerCase("az-AZ");
+
+}
+
+function getProductCategories(){
+
+const categories=[];
+const seen=new Set();
+
+SITE_PRODUCTS.forEach(product=>{
+
+const category=
+String(product.category||"").trim();
+
+if(!category)return;
+
+const key=
+normalizeCategory(category);
+
+if(!seen.has(key)){
+
+seen.add(key);
+categories.push(category);
+
+}
+
+});
+
+return categories;
+
+}
+
+function renderProductCategories(){
+
+const container=
+document.getElementById("productCategories");
+
+if(!container)return;
+
+const categories=
+getProductCategories();
+
+if(!categories.length){
+
+container.innerHTML="";
+
+ACTIVE_PRODUCT_CATEGORY="";
+
+return;
+
+}
+
+if(
+ACTIVE_PRODUCT_CATEGORY &&
+!categories.some(
+category=>
+normalizeCategory(category)===
+normalizeCategory(ACTIVE_PRODUCT_CATEGORY)
+)
+){
+
+ACTIVE_PRODUCT_CATEGORY="";
+
+}
+
+let html=`
+
+<button
+type="button"
+class="product-category-btn ${!ACTIVE_PRODUCT_CATEGORY ? "active" : ""}"
+onclick="selectProductCategory('')"
+>
+${escapeHtml(t("allCategories"))}
+</button>
+
+`;
+
+categories.forEach(category=>{
+
+const active=
+normalizeCategory(category)===
+normalizeCategory(ACTIVE_PRODUCT_CATEGORY);
+
+html+=`
+
+<button
+type="button"
+class="product-category-btn ${active ? "active" : ""}"
+onclick="selectProductCategory('${escapeJs(category)}')"
+>
+${escapeHtml(category)}
+</button>
+
+`;
+
+});
+
+container.innerHTML=html;
+
+}
+
+function selectProductCategory(category){
+
+ACTIVE_PRODUCT_CATEGORY=
+String(category||"").trim();
+
+renderProductCategories();
+
+renderProducts();
+
+}
+
+/* =========================================================
    MƏHSUL KARTI
 ========================================================= */
 
@@ -2151,10 +2327,15 @@ getProductDescription(product);
 const image=
 getProductImage(product);
 
-const slug=
-product.slug ||
+const productKey=
+String(
 product.product_key ||
-key;
+key ||
+""
+).trim();
+
+const category=
+String(product.category||"").trim();
 
 const priceRow=
 findPrice(product);
@@ -2248,6 +2429,12 @@ loading="lazy"
 onerror="this.style.display='none'"
 >
 
+${category ? `
+<div class="product-category-label">
+${escapeHtml(category)}
+</div>
+` : ""}
+
 <h3>
 ${escapeHtml(name)}
 </h3>
@@ -2263,7 +2450,7 @@ ${priceHTML}
 <div class="product-actions">
 
 <a
-href="product.html?product=${encodeURIComponent(slug)}"
+href="product.html?product=${encodeURIComponent(productKey)}"
 class="btn btn-primary"
 >
 ${t("details")}
@@ -2407,14 +2594,15 @@ activeProducts
 const name=
 getProductName(product);
 
-const slug=
-product.slug ||
+const productKey=
+String(
 product.product_key ||
-"";
+""
+).trim();
 
 return`
 <a
-href="product.html?product=${encodeURIComponent(slug)}">
+href="product.html?product=${encodeURIComponent(productKey)}">
 ${escapeHtml(name)}
 </a>
 `;
@@ -2521,6 +2709,8 @@ document.getElementById("productsGrid");
 
 if(!grid)return;
 
+renderProductCategories();
+
 if(!SITE_PRODUCTS.length){
 
 grid.innerHTML=`
@@ -2535,8 +2725,38 @@ return;
 
 }
 
+let products=
+SITE_PRODUCTS;
+
+if(ACTIVE_PRODUCT_CATEGORY){
+
+const selected=
+normalizeCategory(ACTIVE_PRODUCT_CATEGORY);
+
+products=
+SITE_PRODUCTS.filter(product=>
+normalizeCategory(product.category)===
+selected
+);
+
+}
+
+if(!products.length){
+
+grid.innerHTML=`
+<div class="no-products">
+${t("noProducts")}
+</div>
+`;
+
+renderFooterFromAdmin();
+
+return;
+
+}
+
 grid.innerHTML=
-SITE_PRODUCTS
+products
 .map(product=>createProductCard(product))
 .join("");
 
