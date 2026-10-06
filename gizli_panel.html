@@ -1707,47 +1707,6 @@ let showArchivedOrders=false;
 let siteProducts=[];
 
 
-const PRICE_PRODUCTS=[
-
-{
-key:"netflix",
-name:"Netflix Premium",
-months:[1,2,3]
-},
-
-{
-key:"youtube",
-name:"YouTube Premium",
-months:[1,2,3]
-},
-
-{
-key:"chatgpt",
-name:"ChatGPT Plus",
-months:[1,2,3]
-},
-
-{
-key:"gemini",
-name:"Google Gemini Premium",
-months:[1,2,3]
-},
-
-{
-key:"spotify",
-name:"Spotify Premium",
-months:[1,2,3]
-},
-
-{
-key:"canva",
-name:"Canva Premium",
-months:[12]
-}
-
-];
-
-
 const STATUS_NAMES={
 pending:"Cavab gözlənilir",
 confirmed:"Təsdiqləndi",
@@ -2244,7 +2203,7 @@ if(to)
 
 list=list.filter(
 o=>new Date(o.created_at)<=
-new Date(to+"T23:59:59.999")
+new Date(to+"T23:59:59")
 );
 
 
@@ -2255,18 +2214,6 @@ o=>showArchivedOrders
 );
 
 
-document.getElementById(
-"orderFilterSummary"
-).textContent=
-list.length+
-" sifariş göstərilir"+
-(
-showArchivedOrders
-?" · Arxiv"
-:""
-);
-
-
 let c=document.getElementById(
 "ordersList"
 );
@@ -2274,28 +2221,14 @@ let c=document.getElementById(
 if(!list.length){
 
 c.innerHTML=
-'<div class="card"><div class="empty">Sifariş yoxdur.</div></div>';
+'<div class="card"><div class="empty">Sifariş tapılmadı.</div></div>';
 
 return
 
 }
 
 
-c.innerHTML=list.map(o=>{
-
-let n=o.profile?.full_name||
-"Müştəri";
-
-let e=o.profile?.email||
-"Email yoxdur";
-
-let s=o.status||
-"pending";
-
-let a=isArchived(o.id);
-
-
-return `
+c.innerHTML=list.map(o=>`
 
 <div class="order-item">
 
@@ -2304,11 +2237,16 @@ return `
 <div>
 
 <div class="order-user">
-${escapeHtml(n)}
+${escapeHtml(
+o.profile?.full_name||
+"Müştəri"
+)}
 </div>
 
 <div class="order-email">
-${escapeHtml(e)}
+${escapeHtml(
+o.profile?.email||""
+)}
 </div>
 
 </div>
@@ -2332,9 +2270,9 @@ formatBakuDate(o.created_at)
 )}
 </span>
 
-<span class="${statusClass(s)}">
+<span class="${statusClass(o.status)}">
 ${escapeHtml(
-STATUS_NAMES[s]||s
+STATUS_NAMES[o.status]||o.status
 )}
 </span>
 
@@ -2345,23 +2283,30 @@ STATUS_NAMES[s]||s
 
 <button
 class="small-btn"
-onclick="openCustomerProfile('${escapeJs(o.user_id)}')"
+onclick="openOrderChat('${escapeJs(o.user_id)}')"
 >
-👤 Müştəri
+💬 Mesaj
 </button>
 
 <button
 class="small-btn"
-onclick="openOrderChat('${escapeJs(o.user_id)}')"
+onclick="showOrderProducts('${escapeJs(o.id)}')"
 >
-💬 Çat
+📦 Məhsullar
+</button>
+
+<button
+class="small-btn"
+onclick="updateOrderStatus('${escapeJs(o.id)}','pending')"
+>
+Gözləyir
 </button>
 
 <button
 class="small-btn"
 onclick="updateOrderStatus('${escapeJs(o.id)}','confirmed')"
 >
-Təsdiqlə
+Təsdiq
 </button>
 
 <button
@@ -2375,45 +2320,52 @@ Hazırlanır
 class="small-btn"
 onclick="updateOrderStatus('${escapeJs(o.id)}','completed')"
 >
-Hazırdır
+Hazır
 </button>
 
 <button
 class="small-btn"
 onclick="updateOrderStatus('${escapeJs(o.id)}','cancelled')"
 >
-Ləğv et
+Ləğv
 </button>
 
 ${
-a
+showArchivedOrders
 ?
-`
-<button
+`<button
 class="success-btn"
 onclick="restoreOrder('${escapeJs(o.id)}')"
 >
-↩ Arxivdən çıxar
-</button>
-`
+Arxivdən çıxar
+</button>`
 :
-`
-<button
-class="small-btn"
+`<button
+class="danger-btn"
 onclick="archiveOrder('${escapeJs(o.id)}')"
 >
-🗄️ Arxivlə
-</button>
-`
+Arxiv
+</button>`
 }
 
 </div>
 
 </div>
 
-`
+`).join("")
 
-}).join("")
+let s=document.getElementById(
+"orderFilterSummary"
+);
+
+if(s){
+
+s.textContent=
+(showArchivedOrders?"Arxiv: ":"Aktiv: ")+
+list.length+
+" sifariş";
+
+}
 
 }
 
@@ -2438,21 +2390,80 @@ return
 
 }
 
-toast("Sifariş statusu dəyişdirildi.");
+toast(STATUS_NAMES[status]||status);
 
-await loadOrders();
-
-if(currentChatUser)
-await loadCustomerOrders(
-currentChatUser
-);
+loadOrders();
 
 updateBadges()
 
 }
 
 
-/* ===================== CHAT ===================== */
+async function showOrderProducts(id){
+
+let {
+data,error
+}=await supabaseClient
+.from("order_items")
+.select("*")
+.eq("order_id",id);
+
+if(error){
+
+toast("Məhsulları yükləmək olmadı.");
+
+return
+
+}
+
+let html=(data||[]).map(x=>`
+
+<div class="modal-product">
+
+<b>${escapeHtml(
+x.product_name||
+x.name||
+x.product_key||
+"Məhsul"
+)}</b>
+
+<small>
+${escapeHtml(
+JSON.stringify(x)
+)}
+</small>
+
+</div>
+
+`).join("");
+
+document.getElementById(
+"customerModalTitle"
+).textContent="Sifariş #"+id;
+
+document.getElementById(
+"customerModalContent"
+).innerHTML=
+html||
+'<div class="empty">Məhsul məlumatı yoxdur.</div>';
+
+document.getElementById(
+"customerModal"
+).classList.add("active");
+
+}
+
+
+function closeCustomerModal(e){
+
+if(e && e.target!==e.currentTarget)return;
+
+document.getElementById(
+"customerModal"
+).classList.remove("active");
+
+}
+
 
 async function loadChatUsers(){
 
@@ -2461,114 +2472,55 @@ let c=document.getElementById(
 );
 
 c.innerHTML=
-'<div class="empty">Mesajlar yüklənir...</div>';
+'<div class="empty">Müştərilər yüklənir...</div>';
 
 let {
-data:msgs,
+data,
 error
 }=await supabaseClient
-.from("messages")
-.select(
-"id,user_id,sender_role,message,is_read,created_at"
-)
-.order("created_at",{ascending:true});
+.from("profiles")
+.select("id,email,full_name")
+.order("full_name",{ascending:true});
 
 if(error){
 
 c.innerHTML=
-'<div class="empty">Mesajları yükləmək olmadı.</div>';
+'<div class="empty">Müştərilər yüklənmədi.</div>';
 
 return
 
 }
 
-let ids=[
-...new Set(
-(msgs||[])
-.map(x=>x.user_id)
-.filter(Boolean)
-)
-];
-
-if(!ids.length){
+if(!data?.length){
 
 c.innerHTML=
-'<div class="empty">Hələ mesaj yoxdur.</div>';
+'<div class="empty">Müştəri yoxdur.</div>';
 
 return
 
 }
 
-let {
-data:profiles
-}=await supabaseClient
-.from("profiles")
-.select("id,email,full_name")
-.in("id",ids);
-
-
-let list=ids.map(id=>{
-
-let m=msgs.filter(
-x=>x.user_id===id
-);
-
-let p=(profiles||[])
-.find(x=>x.id===id)||{};
-
-return{
-id,
-p,
-unread:m.filter(
-x=>
-x.sender_role==="customer" &&
-!x.is_read
-).length,
-last:m.at(-1)?.created_at||""
-}
-
-}).sort(
-(a,b)=>
-new Date(b.last)-new Date(a.last)
-);
-
-
-c.innerHTML=list.map(x=>`
+c.innerHTML=data.map(u=>`
 
 <div
-class="chat-user ${
-x.id===currentChatUser
-?"active"
-:""
-}"
-data-user-id="${escapeHtml(x.id)}"
-onclick="loadChatForUser('${escapeJs(x.id)}')"
+class="chat-user"
+data-user-id="${escapeHtml(u.id)}"
+onclick="loadChatForUser('${escapeJs(u.id)}')"
 >
 
 <div class="chat-user-name">
 ${escapeHtml(
-x.p.full_name||"Müştəri"
+u.full_name||"Adsız müştəri"
 )}
 </div>
 
 <div class="chat-user-email">
-${escapeHtml(x.p.email||"")}
+${escapeHtml(u.email||"")}
 </div>
-
-${
-x.unread
-?
-`
-<div class="chat-unread">
-${x.unread}
-</div>
-`
-:""
-}
 
 </div>
 
-`).join("")
+`).join("");
 
 }
 
@@ -2579,83 +2531,72 @@ currentChatUser=id;
 
 document
 .querySelectorAll(".chat-user")
-.forEach(x=>
+.forEach(x=>{
 x.classList.toggle(
 "active",
-x.dataset.userId===id
+x.dataset.userId===String(id)
 )
-);
-
+});
 
 let {
-data:p
+data:profile
 }=await supabaseClient
 .from("profiles")
 .select("id,email,full_name")
 .eq("id",id)
 .maybeSingle();
 
-
 document.getElementById(
 "chatHeaderName"
 ).textContent=
-p?.full_name||"Müştəri";
+profile?.full_name||
+"Müştəri";
 
 document.getElementById(
 "chatHeaderEmail"
 ).textContent=
-p?.email||"";
+profile?.email||"";
 
+await loadChatMessages(id);
 
-let {
-data:msgs
-}=await supabaseClient
-.from("messages")
-.select(
-"id,user_id,sender_role,message,is_read,created_at"
-)
-.eq("user_id",id)
-.order("created_at",{ascending:true});
-
-
-renderMessages(msgs||[]);
-
-
-await supabaseClient
-.from("messages")
-.update({
-is_read:true
-})
-.eq("user_id",id)
-.eq("sender_role","customer")
-.eq("is_read",false);
-
-
-await loadChatUsers();
-
-await updateBadges();
-
-await loadCustomerOrders(id)
+await loadCustomerOrders(id);
 
 }
 
 
-function renderMessages(ms){
+async function loadChatMessages(id){
 
-let b=document.getElementById(
+let c=document.getElementById(
 "messagesBox"
 );
 
-if(!ms.length){
+let {
+data,error
+}=await supabaseClient
+.from("messages")
+.select("*")
+.eq("user_id",id)
+.order("created_at",{ascending:true});
 
-b.innerHTML=
-'<div class="empty">Hələ mesaj yoxdur.</div>';
+if(error){
+
+c.innerHTML=
+'<div class="empty">Mesajlar yüklənmədi.</div>';
 
 return
 
 }
 
-b.innerHTML=ms.map(m=>`
+if(!data?.length){
+
+c.innerHTML=
+'<div class="empty">Mesaj yoxdur.</div>';
+
+return
+
+}
+
+c.innerHTML=data.map(m=>`
 
 <div class="msg ${
 m.sender_role==="admin"
@@ -2675,7 +2616,7 @@ formatBakuDate(m.created_at)
 
 `).join("");
 
-b.scrollTop=b.scrollHeight
+c.scrollTop=c.scrollHeight
 
 }
 
@@ -2775,7 +2716,6 @@ error
 .eq("user_id",id)
 .order("created_at",{ascending:false});
 
-
 if(error){
 
 c.innerHTML=
@@ -2785,7 +2725,6 @@ return
 
 }
 
-
 if(!data?.length){
 
 c.innerHTML=
@@ -2794,7 +2733,6 @@ c.innerHTML=
 return
 
 }
-
 
 c.innerHTML=data.map(o=>`
 
@@ -2895,7 +2833,43 @@ updateBadges()
 }
 
 
-/* ===================== QİYMƏTLƏR ===================== */
+/* ===================== MƏRKƏZİ QİYMƏT SİSTEMİ ===================== */
+
+function getPriceMonths(product,priceRow={}){
+
+let months=durationValues(product);
+
+if(months.length)
+return [...new Set(months)].sort((a,b)=>a-b);
+
+let detected=[1,2,3,6,12].filter(m=>
+(
+priceRow[`price_${m}_month`]!==null &&
+priceRow[`price_${m}_month`]!==undefined
+) ||
+(
+priceRow[`sale_${m}_price`]!==null &&
+priceRow[`sale_${m}_price`]!==undefined
+)
+);
+
+return detected.length?detected:[1,2,3];
+
+}
+
+
+function getSiteProductName(p){
+
+return p?.name_az||
+p?.name||
+p?.name_ru||
+p?.name_en||
+p?.slug||
+p?.product_key||
+"Adsız məhsul";
+
+}
+
 
 async function loadPrices(){
 
@@ -2906,15 +2880,39 @@ let c=document.getElementById(
 c.innerHTML=
 '<div class="card"><div class="empty">Qiymətlər yüklənir...</div></div>';
 
-let {
-data,
-error
-}=await supabaseClient
+
+let [
+productsResult,
+pricesResult
+]=await Promise.all([
+
+supabaseClient
+.from("site_products")
+.select("*")
+.order("created_at",{ascending:true}),
+
+supabaseClient
 .from("product_prices")
-.select("*");
+.select("*")
+
+]);
 
 
-if(error){
+if(productsResult.error){
+
+console.error(productsResult.error);
+
+c.innerHTML=
+'<div class="card"><div class="empty">Sayt məhsulları yüklənmədi.</div></div>';
+
+return
+
+}
+
+
+if(pricesResult.error){
+
+console.error(pricesResult.error);
 
 c.innerHTML=
 '<div class="card"><div class="empty">Qiymətlər yüklənmədi.</div></div>';
@@ -2924,27 +2922,86 @@ return
 }
 
 
+siteProducts=
+productsResult.data||[];
+
+let prices=
+pricesResult.data||[];
+
+
+if(!siteProducts.length){
+
 c.innerHTML=
-PRICE_PRODUCTS
-.map(p=>{
+'<div class="card"><div class="empty">Sayt məhsulu yoxdur.</div></div>';
 
-let r=(data||[])
-.find(x=>x.product_key===p.key);
+return
 
-return r
-?renderPriceItem(p,r)
-:
-`
+}
+
+
+let html=[];
+
+
+siteProducts.forEach(p=>{
+
+let key=
+String(p.product_key||"").trim();
+
+if(!key)return;
+
+let r=
+prices.find(
+x=>String(x.product_key)===key
+);
+
+let name=
+getSiteProductName(p);
+
+
+if(!r){
+
+html.push(`
+
 <div class="card">
-<div class="empty">
-${escapeHtml(p.name)}
-üçün product_prices sətri tapılmadı.
-</div>
-</div>
-`
 
-})
-.join("")
+<div class="empty">
+
+${escapeHtml(name)}
+
+üçün product_prices sətri tapılmadı.
+
+</div>
+
+</div>
+
+`);
+
+return;
+
+}
+
+
+let months=
+getPriceMonths(p,r);
+
+
+html.push(
+renderPriceItem(
+{
+key,
+name,
+months
+},
+r
+)
+);
+
+});
+
+
+c.innerHTML=
+html.join("")||
+'<div class="card"><div class="empty">Qiymət üçün məhsul tapılmadı.</div></div>';
 
 }
 
@@ -2964,7 +3021,7 @@ ${escapeHtml(p.name)}
 </div>
 
 <div class="price-key">
-${p.key}
+${escapeHtml(p.key)}
 </div>
 
 </div>
@@ -2975,7 +3032,13 @@ ${p.key}
 <div class="price-grid">
 
 ${p.months
-.map(m=>renderPriceBox(p.key,m,r))
+.map(m=>
+renderPriceBox(
+p.key,
+m,
+r
+)
+)
 .join("")}
 
 </div>
@@ -2984,23 +3047,28 @@ ${p.months
 <button
 class="primary-btn"
 style="margin-top:12px"
-onclick="savePrice('${p.key}')"
+onclick="savePrice('${escapeJs(p.key)}')"
 >
 💾 Qiyməti yadda saxla
 </button>
 
 </div>
 
-`
+`;
 
 }
 
 
 function renderPriceBox(k,m,r){
 
-let n=r[`price_${m}_month`]??"";
-let s=r[`sale_${m}_price`]??"";
-let a=!!r[`sale_${m}_active`];
+let n=
+r?.[`price_${m}_month`]??"";
+
+let s=
+r?.[`sale_${m}_price`]??"";
+
+let a=
+!!r?.[`sale_${m}_active`];
 
 
 return `
@@ -3014,7 +3082,7 @@ ${m===12?"12 ay":m+" ay"}
 <input
 type="number"
 step="0.01"
-id="${k}_${m}_normal"
+id="${escapeHtml(k)}_${m}_normal"
 value="${escapeHtml(n)}"
 placeholder="Normal"
 >
@@ -3022,7 +3090,7 @@ placeholder="Normal"
 <input
 type="number"
 step="0.01"
-id="${k}_${m}_sale"
+id="${escapeHtml(k)}_${m}_sale"
 value="${escapeHtml(s)}"
 placeholder="Endirim"
 >
@@ -3037,7 +3105,7 @@ Endirim aktiv
 
 <input
 type="checkbox"
-id="${k}_${m}_active"
+id="${escapeHtml(k)}_${m}_active"
 ${a?"checked":""}
 >
 
@@ -3049,32 +3117,77 @@ ${a?"checked":""}
 
 </div>
 
-`
+`;
 
 }
 
 
 async function savePrice(k){
 
-let p=PRICE_PRODUCTS.find(
-x=>x.key===k
+k=String(k||"").trim();
+
+if(!k){
+
+toast("Məhsul açarı tapılmadı.");
+
+return
+
+}
+
+
+let p=
+siteProducts.find(
+x=>String(x.product_key||"")===k
 );
+
+
+if(!p){
+
+let {
+data,
+error
+}=await supabaseClient
+.from("site_products")
+.select("*")
+.eq("product_key",k)
+.limit(1)
+.maybeSingle();
+
+if(error||!data){
+
+toast("Məhsul tapılmadı.");
+
+return
+
+}
+
+p=data;
+
+}
+
+
+let months=
+getPriceMonths(p,{});
 
 let u={};
 
-p.months.forEach(m=>{
 
-let n=document.getElementById(
+months.forEach(m=>{
+
+let n=
+document.getElementById(
 `${k}_${m}_normal`
-).value;
+)?.value??"";
 
-let s=document.getElementById(
+let s=
+document.getElementById(
 `${k}_${m}_sale`
-).value;
+)?.value??"";
 
-let a=document.getElementById(
+let a=
+document.getElementById(
 `${k}_${m}_active`
-).checked;
+)?.checked||false;
 
 
 u[`price_${m}_month`]=
@@ -3083,24 +3196,68 @@ n===""?null:Number(n);
 u[`sale_${m}_price`]=
 s===""?null:Number(s);
 
-u[`sale_${m}_active`]=a
+u[`sale_${m}_active`]=a;
 
 });
 
 
 let {
-error
+data:existing,
+error:findError
 }=await supabaseClient
 .from("product_prices")
-.update(u)
-.eq("product_key",k);
+.select("product_key")
+.eq("product_key",k)
+.limit(1)
+.maybeSingle();
+
+
+if(findError){
+
+console.error(findError);
+
+toast("Qiymət sətrini yoxlamaq olmadı.");
+
+return
+
+}
+
+
+let error;
+
+
+if(existing){
+
+({error}=await supabaseClient
+.from("product_prices")
+.update({
+...u,
+product_name:getSiteProductName(p)
+})
+.eq("product_key",k));
+
+}else{
+
+({error}=await supabaseClient
+.from("product_prices")
+.insert({
+product_key:k,
+product_name:getSiteProductName(p),
+...u
+}));
+
+}
 
 
 toast(
 error
 ?"Qiyməti yadda saxlamaq olmadı."
 :"Qiymət uğurla dəyişdirildi."
-)
+);
+
+
+if(!error)
+loadPrices();
 
 }
 
@@ -3111,7 +3268,8 @@ function durationValues(p){
 
 try{
 
-let a=Array.isArray(p?.durations)
+let a=
+Array.isArray(p?.durations)
 ?p.durations
 :JSON.parse(p?.durations||"[]");
 
@@ -3344,7 +3502,6 @@ onclick="toggleSiteProduct('${escapeJs(p.id)}',${active})"
 ${active?"Deaktiv et":"Aktiv et"}
 </button>
 
-
 <button
 class="danger-btn"
 onclick="deleteSiteProduct('${escapeJs(p.id)}')"
@@ -3362,128 +3519,82 @@ id="siteEdit_${escapeHtml(p.id)}"
 
 <div class="form-grid">
 
-
 <div class="field">
 <label>Məhsul adı (AZ)</label>
-
 <input
 id="editNameAz_${escapeHtml(p.id)}"
-value="${escapeHtml(
-p.name_az||p.name||""
-)}"
+value="${escapeHtml(p.name_az||"")}"
 >
 </div>
-
 
 <div class="field">
 <label>Məhsul adı (RU)</label>
-
 <input
 id="editNameRu_${escapeHtml(p.id)}"
-value="${escapeHtml(
-p.name_ru||""
-)}"
+value="${escapeHtml(p.name_ru||"")}"
 >
 </div>
-
 
 <div class="field">
 <label>Məhsul adı (EN)</label>
-
 <input
 id="editNameEn_${escapeHtml(p.id)}"
-value="${escapeHtml(
-p.name_en||""
-)}"
+value="${escapeHtml(p.name_en||"")}"
 >
 </div>
-
 
 <div class="field">
 <label>Product key</label>
-
 <input
 id="editKey_${escapeHtml(p.id)}"
-value="${escapeHtml(
-p.product_key||""
-)}"
+value="${escapeHtml(p.product_key||"")}"
 >
 </div>
-
 
 <div class="field">
 <label>Slug</label>
-
 <input
 id="editSlug_${escapeHtml(p.id)}"
-value="${escapeHtml(
-p.slug||""
-)}"
+value="${escapeHtml(p.slug||"")}"
 >
 </div>
-
 
 <div class="field">
 <label>Kateqoriya</label>
-
 <input
 id="editCategory_${escapeHtml(p.id)}"
-value="${escapeHtml(
-p.category||""
-)}"
+value="${escapeHtml(p.category||"")}"
 >
 </div>
-
 
 <div class="field full">
 <label>Şəkil URL-i</label>
-
 <input
 id="editImage_${escapeHtml(p.id)}"
-value="${escapeHtml(
-p.image_url||""
-)}"
+value="${escapeHtml(p.image_url||"")}"
 >
 </div>
 
-
 <div class="field full">
 <label>Açıqlama (AZ)</label>
-
 <textarea
 id="editDescriptionAz_${escapeHtml(p.id)}"
->${escapeHtml(
-p.description_az||
-p.description||
-""
-)}</textarea>
-
+>${escapeHtml(p.description_az||"")}</textarea>
 </div>
-
 
 <div class="field full">
 <label>Açıqlama (RU)</label>
-
 <textarea
 id="editDescriptionRu_${escapeHtml(p.id)}"
->${escapeHtml(
-p.description_ru||""
-)}</textarea>
-
+>${escapeHtml(p.description_ru||"")}</textarea>
 </div>
-
 
 <div class="field full">
 <label>Açıqlama (EN)</label>
-
 <textarea
 id="editDescriptionEn_${escapeHtml(p.id)}"
->${escapeHtml(
-p.description_en||""
-)}</textarea>
-
+>${escapeHtml(p.description_en||"")}</textarea>
 </div>
-
 
 <div class="field full">
 
@@ -3493,7 +3604,7 @@ p.description_en||""
 
 ${durationChecks(
 ds,
-"edit_"+p.id
+"edit_"+String(p.id)
 )}
 
 </div>
@@ -3502,8 +3613,7 @@ ds,
 
 </div>
 
-
-<div style="margin-top:12px">
+<div style="margin-top:12px;display:flex;gap:7px;flex-wrap:wrap">
 
 <button
 class="primary-btn"
@@ -3512,7 +3622,12 @@ onclick="saveSiteProduct('${escapeJs(p.id)}')"
 💾 Yadda saxla
 </button>
 
-</div>
+<button
+class="secondary-btn"
+onclick="toggleSiteProductEdit('${escapeJs(p.id)}')"
+>
+Bağla
+</button>
 
 </div>
 
@@ -3533,7 +3648,8 @@ let e=document.getElementById(
 "siteEdit_"+id
 );
 
-if(e)e.classList.toggle("open")
+if(e)
+e.classList.toggle("open")
 
 }
 
@@ -3541,41 +3657,46 @@ if(e)e.classList.toggle("open")
 function selectedDurations(selector){
 
 return [
-...document.querySelectorAll(
-selector+":checked"
-)
-].map(
-x=>Number(x.value)
-)
+...document.querySelectorAll(selector)
+]
+.filter(x=>x.checked)
+.map(x=>Number(x.value))
+.filter(Boolean)
 
 }
 
 
 function previewNewSiteImage(){
 
-let u=
+let url=
 document.getElementById(
 "newSiteImage"
 )?.value.trim();
 
-let i=
+let img=
 document.getElementById(
 "newSitePreview"
 );
 
-if(!i)return;
+if(!img)return;
 
-if(u){
+if(!url){
 
-i.src=u;
-i.classList.remove("hidden")
+img.classList.add("hidden");
 
-}else{
+img.removeAttribute("src");
 
-i.removeAttribute("src");
-i.classList.add("hidden")
+return
 
 }
+
+img.src=url;
+
+img.classList.remove("hidden");
+
+img.onerror=()=>{
+img.classList.add("hidden")
+};
 
 }
 
@@ -3768,7 +3889,8 @@ category,
 
 active:true,
 
-durations:durationJson(dur),
+durations:
+durationJson(dur),
 
 slug,
 
@@ -3878,59 +4000,9 @@ pe
 
 clearNewSiteProductForm();
 
-loadSiteProducts()
+loadSiteProducts();
 
-}
-
-
-function clearNewSiteProductForm(){
-
-[
-"newSiteNameAz",
-"newSiteNameRu",
-"newSiteNameEn",
-"newSiteKey",
-"newSiteSlug",
-"newSiteCategory",
-"newSiteImage",
-"newSiteDescriptionAz",
-"newSiteDescriptionRu",
-"newSiteDescriptionEn",
-"newFaqQuestion",
-"newFaqAnswer"
-].forEach(id=>{
-
-let e=document.getElementById(id);
-
-if(e)e.value=""
-
-});
-
-
-document
-.querySelectorAll(".newSite-duration")
-.forEach(
-x=>x.checked=false
-);
-
-
-[1,2,3,12].forEach(m=>{
-
-let n=document.getElementById(
-"newNormal_"+m
-);
-
-let s=document.getElementById(
-"newSale_"+m
-);
-
-if(n)n.value="";
-
-if(s)s.value="";
-
-});
-
-previewNewSiteImage()
+loadPrices();
 
 }
 
@@ -3987,7 +4059,6 @@ document.getElementById(
 "editDescriptionEn_"+id
 ).value.trim();
 
-
 let name=
 nameAz||nameRu||nameEn;
 
@@ -4018,14 +4089,9 @@ descriptionAz||
 descriptionRu||
 descriptionEn,
 
-description_az:
-descriptionAz,
-
-description_ru:
-descriptionRu,
-
-description_en:
-descriptionEn,
+description_az:descriptionAz,
+description_ru:descriptionRu,
+description_en:descriptionEn,
 
 durations:
 durationJson(
@@ -4105,7 +4171,9 @@ toast(
 "Məhsul yadda saxlanıldı."
 );
 
-loadSiteProducts()
+loadSiteProducts();
+
+loadPrices();
 
 }
 
@@ -4143,7 +4211,9 @@ toast(
 :"Məhsul deaktiv edildi."
 );
 
-loadSiteProducts()
+loadSiteProducts();
+
+loadPrices()
 
 }
 
@@ -4211,7 +4281,9 @@ toast(
 "Sayt məhsulu və ona bağlı mərkəzi məlumatlar silindi."
 );
 
-loadSiteProducts()
+loadSiteProducts();
+
+loadPrices()
 
 }
 
@@ -4468,6 +4540,8 @@ return
 }
 
 
+toast("FAQ əlavə edildi.");
+
 document.getElementById(
 "faqQuestion"
 ).value="";
@@ -4475,10 +4549,6 @@ document.getElementById(
 document.getElementById(
 "faqAnswer"
 ).value="";
-
-toast(
-"FAQ əlavə edildi."
-);
 
 loadFaqs(k)
 
@@ -4496,7 +4566,6 @@ error
 .eq("id",id)
 .maybeSingle();
 
-
 if(error||!data){
 
 toast("FAQ tapılmadı.");
@@ -4505,14 +4574,12 @@ return
 
 }
 
-
 let q=prompt(
 "Sual:",
 data.question||""
 );
 
 if(q===null)return;
-
 
 let a=prompt(
 "Cavab:",
@@ -4521,94 +4588,65 @@ data.answer||""
 
 if(a===null)return;
 
-
 let {
-error:er
+error:updateError
 }=await supabaseClient
 .from("site_faqs")
 .update({
-
-question:q.trim(),
-
-answer:a.trim(),
-
-updated_at:
-new Date().toISOString()
-
+question:q,
+answer:a
 })
 .eq("id",id);
 
+if(updateError){
 
-toast(
-er
-?"FAQ yenilənmədi."
-:"FAQ yeniləndi."
-);
+toast("FAQ dəyişdirilmədi.");
 
-if(!er)
-loadFaqs(
-document
-.getElementById(
-"faqProductKey"
-)
-?.value.trim()
-)
+return
+
+}
+
+toast("FAQ yadda saxlanıldı.");
+
+loadFaqs(data.product_key||"")
 
 }
 
 
-async function toggleFaq(
-id,
-active
-){
+async function toggleFaq(id,active){
 
 let {
 error
 }=await supabaseClient
 .from("site_faqs")
 .update({
-
-active:!active,
-
-updated_at:
-new Date().toISOString()
-
+active:!active
 })
 .eq("id",id);
 
+if(error){
+
+toast("FAQ statusu dəyişmədi.");
+
+return
+
+}
 
 toast(
-error
-?
-"FAQ statusu dəyişmədi."
-:
-(
-!active
-?"FAQ aktiv edildi."
-:"FAQ deaktiv edildi."
-)
+active
+?"FAQ deaktiv edildi."
+:"FAQ aktiv edildi."
 );
 
-if(!error)
-loadFaqs(
-document
-.getElementById(
-"faqProductKey"
-)
-?.value.trim()
-)
+loadFaqs()
 
 }
 
 
 async function deleteFaq(id){
 
-if(
-!confirm(
-"Bu FAQ-nı silmək istəyirsən?"
-)
-)return;
-
+if(!confirm("Bu FAQ silinsin?"))
+return;
 
 let {
 error
@@ -4617,336 +4655,17 @@ error
 .delete()
 .eq("id",id);
 
-
-toast(
-error
-?"FAQ silinmədi."
-:"FAQ silindi."
-);
-
-if(!error)
-loadFaqs(
-document
-.getElementById(
-"faqProductKey"
-)
-?.value.trim()
-)
-
-}
-
-
-/* ===================== MÜŞTƏRİ MƏHSULLARI ===================== */
-
-function parseProductDuration(n){
-
-let m=String(n||"")
-.match(/(\d+)\s*ay/i);
-
-return m
-?Number(m[1])
-:null
-
-}
-
-
-function productDaysLeft(
-created,
-name
-){
-
-let mo=
-parseProductDuration(name);
-
-if(!mo||!created)
-return null;
-
-let d=new Date(created);
-
-d.setMonth(
-d.getMonth()+mo
-);
-
-return Math.ceil(
-(d-new Date())/
-86400000
-)
-
-}
-
-
-async function loadProducts(){
-
-let c=document.getElementById(
-"productsList"
-);
-
-let w=document.getElementById(
-"productExpiryWarnings"
-);
-
-c.innerHTML=
-'<div class="card"><div class="empty">Məhsullar yüklənir...</div></div>';
-
-w.innerHTML="";
-
-
-let {
-data,
-error
-}=await supabaseClient
-.from("customer_products")
-.select(
-"id,user_id,product_name,account_info,status,created_at"
-)
-.order(
-"created_at",
-{ascending:false}
-);
-
-
 if(error){
 
-c.innerHTML=
-'<div class="card"><div class="empty">Məhsullar yüklənmədi.</div></div>';
+toast("FAQ silinmədi.");
 
 return
 
 }
 
+toast("FAQ silindi.");
 
-if(!data?.length){
-
-c.innerHTML=
-'<div class="card"><div class="empty">Hələ məhsul verilməyib.</div></div>';
-
-return
-
-}
-
-
-let ids=[
-...new Set(
-data
-.map(x=>x.user_id)
-.filter(Boolean)
-)
-];
-
-let profiles=[];
-
-
-if(ids.length){
-
-let r=await supabaseClient
-.from("profiles")
-.select("id,email,full_name")
-.in("id",ids);
-
-profiles=r.data||[]
-
-}
-
-
-let exp=
-data
-.map(p=>({
-...p,
-days:productDaysLeft(
-p.created_at,
-p.product_name
-)
-}))
-.filter(
-p=>
-p.days!==null &&
-p.days<=7 &&
-p.days>=0
-);
-
-
-if(exp.length)
-
-w.innerHTML=
-`
-<div class="warning-card">
-
-<b>
-⚠️ Müddəti yaxınlaşan məhsullar
-</b>
-
-${
-exp.map(p=>`
-
-<div class="warning-item">
-
-${escapeHtml(p.product_name)}
-—
-${escapeHtml(
-profiles.find(
-x=>x.id===p.user_id
-)?.full_name||
-"Müştəri"
-)}
-
-—
-${
-p.days===0
-?"Bu gün bitir"
-:p.days+" gün qalıb"
-}
-
-</div>
-
-`).join("")
-}
-
-</div>
-`;
-
-
-c.innerHTML=
-data.map(p=>{
-
-let pr=
-profiles.find(
-x=>x.id===p.user_id
-)||{};
-
-let d=
-productDaysLeft(
-p.created_at,
-p.product_name
-);
-
-
-return `
-
-<div class="product-item">
-
-<div class="product-info">
-
-<strong>
-${escapeHtml(
-p.product_name
-)}
-</strong>
-
-<small>
-${escapeHtml(
-pr.full_name||"Müştəri"
-)}
-·
-${escapeHtml(
-pr.email||""
-)}
-</small>
-
-<small>
-${escapeHtml(
-formatBakuDate(
-p.created_at
-)
-)}
-</small>
-
-${
-d!==null
-?
-`
-<small>
-⏳
-${
-d<0
-?"Müddət bitib"
-:d===0
-?"Bu gün bitir"
-:d+" gün qalıb"
-}
-</small>
-`
-:""
-}
-
-<small>
-Status:
-${escapeHtml(
-p.status||""
-)}
-</small>
-
-</div>
-
-
-<div class="product-actions">
-
-<button
-class="small-btn"
-onclick="showAccountInfo('${escapeJs(p.account_info||"")}')"
->
-👁 Bax
-</button>
-
-<button
-class="small-btn"
-onclick="openCustomerProfile('${escapeJs(p.user_id)}')"
->
-👤 Müştəri
-</button>
-
-<button
-class="danger-btn"
-onclick="deleteProduct('${escapeJs(p.id)}')"
->
-Sil
-</button>
-
-</div>
-
-</div>
-
-`
-
-}).join("")
-
-}
-
-
-function showAccountInfo(x){
-
-alert(
-x||
-"Hesab məlumatı yoxdur."
-)
-
-}
-
-
-async function deleteProduct(id){
-
-if(
-!confirm(
-"Bu məhsulu silmək istəyirsən?"
-)
-)return;
-
-
-let {
-error
-}=await supabaseClient
-.from("customer_products")
-.delete()
-.eq("id",id);
-
-
-toast(
-error
-?"Məhsul silinmədi."
-:"Məhsul silindi."
-);
-
-if(!error)
-loadProducts()
+loadFaqs()
 
 }
 
@@ -4959,6 +4678,14 @@ let c=document.getElementById(
 "customersList"
 );
 
+let profileArea=
+document.getElementById(
+"customerProfileArea"
+);
+
+if(profileArea)
+profileArea.innerHTML="";
+
 c.innerHTML=
 '<div class="card"><div class="empty">Müştərilər yüklənir...</div></div>';
 
@@ -4968,13 +4695,8 @@ data,
 error
 }=await supabaseClient
 .from("profiles")
-.select(
-"id,email,full_name,created_at"
-)
-.order(
-"created_at",
-{ascending:false}
-);
+.select("*")
+.order("created_at",{ascending:false});
 
 
 if(error){
@@ -4986,10 +4708,16 @@ return
 
 }
 
+if(!data?.length){
 
 c.innerHTML=
-(data||[])
-.map(x=>`
+'<div class="card"><div class="empty">Müştəri yoxdur.</div></div>';
+
+return
+
+}
+
+c.innerHTML=data.map(p=>`
 
 <div class="customer-item">
 
@@ -4997,351 +4725,117 @@ c.innerHTML=
 
 <div class="customer-name">
 ${escapeHtml(
-x.full_name||"Müştəri"
+p.full_name||"Adsız"
 )}
 </div>
 
 <div class="customer-email">
-${escapeHtml(
-x.email||""
-)}
+${escapeHtml(p.email||"")}
 </div>
 
 </div>
 
-
-<div>
-
 <button
 class="small-btn"
-onclick="openCustomerProfile('${escapeJs(x.id)}')"
+onclick="openCustomerProfile('${escapeJs(p.id)}')"
 >
-👤 Profil
-</button>
-
-<button
-class="small-btn"
-onclick="openOrderChat('${escapeJs(x.id)}')"
->
-💬 Çat
+👤 Bax
 </button>
 
 </div>
 
-</div>
-
-`)
-.join("")
-||
-'<div class="card"><div class="empty">Müştəri yoxdur.</div></div>'
-
-}
-
-
-function getCustomerNote(id){
-
-try{
-
-return JSON.parse(
-localStorage.getItem(
-"digibaku_customer_notes"
-)||"{}"
-)[id]||"";
-
-}catch{
-
-return""
-
-}
-
-}
-
-
-function saveCustomerNote(id){
-
-let e=document.getElementById(
-"customerNote"
-);
-
-if(!e)return;
-
-let n={};
-
-try{
-
-n=JSON.parse(
-localStorage.getItem(
-"digibaku_customer_notes"
-)||"{}"
-)
-
-}catch{}
-
-
-n[id]=e.value.trim();
-
-localStorage.setItem(
-"digibaku_customer_notes",
-JSON.stringify(n)
-);
-
-toast(
-"Müştəri qeydi yadda saxlanıldı."
-)
+`).join("")
 
 }
 
 
 async function openCustomerProfile(id){
 
-let modal=document.getElementById(
-"customerModal"
+let area=document.getElementById(
+"customerProfileArea"
 );
 
-let c=document.getElementById(
-"customerModalContent"
-);
+area.innerHTML=
+'<div class="card"><div class="empty">Profil yüklənir...</div></div>';
 
-modal.classList.add("active");
-
-c.innerHTML=
-'<div class="empty">Müştəri məlumatları yüklənir...</div>';
-
-
-let [
-pr,
-or,
-cp
-]=await Promise.all([
-
-supabaseClient
+let {
+data:p
+}=await supabaseClient
 .from("profiles")
-.select(
-"id,email,full_name,created_at"
-)
+.select("*")
 .eq("id",id)
-.maybeSingle(),
+.maybeSingle();
 
-supabaseClient
+if(!p){
+
+area.innerHTML=
+'<div class="card"><div class="empty">Profil tapılmadı.</div></div>';
+
+return
+
+}
+
+let {
+data:orders
+}=await supabaseClient
 .from("orders")
-.select(
-"id,total,status,created_at"
-)
-.eq("user_id",id)
-.order(
-"created_at",
-{ascending:false}
-),
+.select("*")
+.eq("user_id",id);
 
-supabaseClient
-.from("customer_products")
-.select(
-"id,product_name,status,created_at"
-)
-.eq("user_id",id)
-.order(
-"created_at",
-{ascending:false}
-)
-
-]);
-
-
-let p=pr.data||{};
-
-let orders=or.data||[];
-
-let products=cp.data||[];
-
-let spent=
-orders
-.filter(
-x=>x.status==="completed"
-)
+let total=
+(orders||[])
 .reduce(
-(s,x)=>
-s+Number(x.total||0),
+(a,x)=>a+Number(x.total||0),
 0
 );
 
+area.innerHTML=`
 
-document.getElementById(
-"customerModalTitle"
-).textContent=
-p.full_name||"Müştəri";
+<div class="card">
 
-
-c.innerHTML=`
-
-<div>
-
-<b>
-${escapeHtml(
+<div class="card-title">
+👤 ${escapeHtml(
 p.full_name||"Müştəri"
 )}
-</b>
-
-<div class="admin-text">
-${escapeHtml(
-p.email||""
-)}
 </div>
 
-
-<div
-class="profile-grid"
-style="margin-top:14px"
->
+<div class="profile-grid">
 
 <div class="profile-stat">
-<strong>${orders.length}</strong>
-<span>Sifariş</span>
-</div>
-
-<div class="profile-stat">
-<strong>${products.length}</strong>
-<span>Məhsul</span>
+<strong>
+${escapeHtml(p.email||"-")}
+</strong>
+<span>Email</span>
 </div>
 
 <div class="profile-stat">
 <strong>
-${formatMoney(spent)} AZN
+${(orders||[]).length}
 </strong>
-<span>Ümumi xərc</span>
+<span>Sifariş sayı</span>
 </div>
 
-</div>
-
-
-<div class="modal-product">
-
-Qeydiyyat:
-${escapeHtml(
-formatBakuDate(
-p.created_at
-)
-)}
-
-</div>
-
-
-<div style="margin-top:14px">
-
-<b>🛍️ Məhsullar</b>
-
-${
-products
-.map(x=>`
-
-<div class="modal-product">
-
+<div class="profile-stat">
 <strong>
-${escapeHtml(
-x.product_name
-)}
+${formatMoney(total)} AZN
 </strong>
-
-<small>
-${escapeHtml(
-x.status||""
-)}
-·
-${escapeHtml(
-formatBakuDate(
-x.created_at
-)
-)}
-</small>
+<span>Ümumi sifariş</span>
+</div>
 
 </div>
 
-`)
-.join("")
-||
-'<div class="empty">Məhsul yoxdur.</div>'
-}
-
-</div>
-
-
-<div style="margin-top:14px">
-
-<b>📦 Son sifarişlər</b>
-
-${
-orders
-.slice(0,5)
-.map(x=>`
-
-<div class="modal-product">
-
-<strong>
-${formatMoney(x.total)} AZN
-</strong>
-
-<small>
-${escapeHtml(
-STATUS_NAMES[x.status]||
-x.status
-)}
-·
-${escapeHtml(
-formatBakuDate(
-x.created_at
-)
-)}
-</small>
-
-</div>
-
-`)
-.join("")
-||
-'<div class="empty">Sifariş yoxdur.</div>'
-}
-
-</div>
-
-
-<div style="margin-top:14px">
-
-<b>📝 Admin qeydi</b>
-
-<textarea id="customerNote">
-${escapeHtml(
-getCustomerNote(id)
-)}
-</textarea>
+<div style="display:flex;gap:7px;flex-wrap:wrap">
 
 <button
-class="primary-btn"
-style="margin-top:8px"
-onclick="saveCustomerNote('${escapeJs(id)}')"
+class="small-btn"
+onclick="openOrderChat('${escapeJs(id)}')"
 >
-💾 Qeydi yadda saxla
-</button>
-
-</div>
-
-
-<div class="quick-actions">
-
-<button
-class="secondary-btn"
-onclick="openOrderChat('${escapeJs(id)}');closeCustomerModal()"
->
-💬 Mesaj yaz
+💬 Mesaj
 </button>
 
 <button
-class="secondary-btn"
-onclick="
-closeCustomerModal();
-openPanel('giveProductPanel');
-prepareGiveProduct().then(
-()=>selectGiveCustomer('${escapeJs(id)}')
-)
-"
+class="small-btn"
+onclick="prepareGiveProduct('${escapeJs(id)}')"
 >
 🎁 Məhsul ver
 </button>
@@ -5355,168 +4849,97 @@ prepareGiveProduct().then(
 }
 
 
-function closeCustomerModal(e){
+async function prepareGiveProduct(selectedUser=""){
 
-if(
-e &&
-e.target?.id!=="customerModal"
-)return;
-
-document
-.getElementById("customerModal")
-.classList.remove("active")
-
-}
-
-
-function selectGiveCustomer(id){
-
-let e=document.getElementById(
+let userSelect=
+document.getElementById(
 "giveUser"
 );
 
-if(e)e.value=id
-
-}
-
-
-/* ===================== MÜŞTƏRİYƏ MƏHSUL VER ===================== */
-
-async function prepareGiveProduct(){
-
-let us=document.getElementById(
-"giveUser"
-);
-
-let ps=document.getElementById(
+let productSelect=
+document.getElementById(
 "giveProduct"
 );
 
-us.innerHTML=
-'<option value="">Müştəri seç</option>';
-
-ps.innerHTML=
-'<option value="">Məhsul seç</option>';
+if(!userSelect||!productSelect)return;
 
 
-let [
-pr,
-rr
-]=await Promise.all([
-
-supabaseClient
+let {
+data:users
+}=await supabaseClient
 .from("profiles")
 .select("id,email,full_name")
-.order("full_name"),
+.order("full_name",{ascending:true});
 
-supabaseClient
-.from("product_prices")
+
+userSelect.innerHTML=
+'<option value="">Müştəri seç</option>'+
+(users||[])
+.map(u=>`
+
+<option
+value="${escapeHtml(u.id)}"
+${String(u.id)===String(selectedUser)?"selected":""}
+>
+${escapeHtml(
+u.full_name||u.email||"Müştəri"
+)}
+</option>
+
+`)
+.join("");
+
+
+let {
+data:products
+}=await supabaseClient
+.from("products")
 .select("*")
-
-]);
-
-
-(pr.data||[])
-.forEach(u=>{
-
-let o=document.createElement(
-"option"
-);
-
-o.value=u.id;
-
-o.textContent=
-(u.full_name||"Müştəri")+
-" — "+
-(u.email||"");
-
-us.appendChild(o)
-
-});
+.order("created_at",{ascending:false});
 
 
-let rows=rr.data||[];
+productSelect.innerHTML=
+'<option value="">Məhsul seç</option>'+
+(products||[])
+.map(p=>`
 
+<option value="${escapeHtml(p.id)}">
+${escapeHtml(
+p.name||
+p.product_name||
+p.product_key||
+"Məhsul"
+)}
+</option>
 
-PRICE_PRODUCTS.forEach(p=>{
-
-let r=
-rows.find(
-x=>x.product_key===p.key
-)||{};
-
-
-p.months.forEach(m=>{
-
-let sale=
-r[`sale_${m}_price`];
-
-let normal=
-r[`price_${m}_month`];
-
-let active=
-!!r[`sale_${m}_active`];
-
-let price=
-active &&
-sale!==null &&
-sale!==undefined &&
-sale!==""
-?
-formatMoney(sale)+
-" AZN (Endirim)"
-:
-normal!==null &&
-normal!==undefined &&
-normal!==""
-?
-formatMoney(normal)+
-" AZN"
-:
-"Qiymət yoxdur";
-
-
-let o=document.createElement(
-"option"
-);
-
-o.value=
-`${p.name} — ${m} ay`;
-
-o.textContent=
-`${p.name} — ${m} ay — ${price}`;
-
-ps.appendChild(o)
-
-})
-
-})
+`)
+.join("")
 
 }
 
 
 async function giveProduct(){
 
-let uid=
+let user=
 document.getElementById(
 "giveUser"
 ).value;
 
-let p=
+let product=
 document.getElementById(
 "giveProduct"
 ).value;
 
-let a=
+let info=
 document.getElementById(
 "giveAccountInfo"
 ).value.trim();
 
 
-if(!uid||!p||!a){
+if(!user||!product||!info){
 
 toast(
-"Bütün xanaları doldur."
+"Müştəri, məhsul və hesab məlumatını doldur."
 );
 
 return
@@ -5527,288 +4950,330 @@ return
 let {
 error
 }=await supabaseClient
-.from("customer_products")
-.insert({
-
-user_id:uid,
-
-product_name:p,
-
-account_info:a,
-
-status:"active"
-
-});
+.from("products")
+.update({
+user_id:user,
+account_info:info,
+updated_at:new Date().toISOString()
+})
+.eq("id",product);
 
 
 if(error){
 
 toast(
-"Məhsul verilə bilmədi."
+"Məhsul verilə bilmədi: "+
+(error.message||"xəta")
 );
 
 return
 
 }
 
-
-let {
-data:po
-}=await supabaseClient
-.from("orders")
-.select("id")
-.eq("user_id",uid)
-.eq("status","pending")
-.order(
-"created_at",
-{ascending:false}
-)
-.limit(1);
-
-
-if(po?.length)
-
-await supabaseClient
-.from("orders")
-.update({
-status:"confirmed",
-updated_at:new Date().toISOString()
-})
-.eq(
-"id",
-po[0].id
-);
-
+toast("Məhsul müştəriyə verildi.");
 
 document.getElementById(
 "giveAccountInfo"
 ).value="";
 
-toast(
-"Məhsul müştəriyə verildi."
+loadProducts()
+
+}
+
+
+async function loadProducts(){
+
+let c=document.getElementById(
+"productsList"
 );
 
-updateBadges()
+if(!c)return;
+
+c.innerHTML=
+'<div class="card"><div class="empty">Məhsullar yüklənir...</div></div>';
+
+
+let {
+data,
+error
+}=await supabaseClient
+.from("products")
+.select("*")
+.order("created_at",{ascending:false});
+
+
+if(error){
+
+c.innerHTML=
+'<div class="card"><div class="empty">Məhsullar yüklənmədi.</div></div>';
+
+return
+
+}
+
+if(!data?.length){
+
+c.innerHTML=
+'<div class="card"><div class="empty">Məhsul yoxdur.</div></div>';
+
+return
+
+}
+
+c.innerHTML=data.map(p=>`
+
+<div class="product-item">
+
+<div class="product-info">
+
+<div style="font-weight:bold">
+${escapeHtml(
+p.name||
+p.product_name||
+p.product_key||
+"Məhsul"
+)}
+</div>
+
+<small>
+${escapeHtml(
+p.user_id||"Müştəri yoxdur"
+)}
+</small>
+
+</div>
+
+<div class="product-actions">
+
+<button
+class="small-btn"
+onclick="prepareGiveProduct('${escapeJs(p.user_id||"")}')"
+>
+🎁 Ver
+</button>
+
+</div>
+
+</div>
+
+`).join("")
 
 }
 
 
 /* ===================== STATİSTİKA ===================== */
 
-function startWeek(){
-
-let n=new Date();
-
-let d=n.getDay()||7;
-
-return new Date(
-n.getFullYear(),
-n.getMonth(),
-n.getDate()-d+1
-)
-
-}
-
-
 async function loadStats(){
 
 let [
-pr,
-or
+customersResult,
+ordersResult
 ]=await Promise.all([
 
 supabaseClient
 .from("profiles")
-.select(
-"id",
-{count:"exact",head:true}
-),
+.select("id"),
 
 supabaseClient
 .from("orders")
-.select(
-"id,total,status,created_at,updated_at"
-)
+.select("*")
 
 ]);
 
 
-let orders=or.data||[];
+let customers=
+customersResult.data||[];
 
-let done=
-orders.filter(
-x=>x.status==="completed"
-);
-
-let revenue=
-done.reduce(
-(s,x)=>
-s+Number(x.total||0),
-0
-);
-
-let now=new Date();
-
-let today=new Date(
-now.getFullYear(),
-now.getMonth(),
-now.getDate()
-);
-
-let week=startWeek();
-
-let month=new Date(
-now.getFullYear(),
-now.getMonth(),
-1
-);
-
-
-let sum=t=>
-done
-.filter(
-x=>
-x.updated_at &&
-new Date(x.updated_at)>=t
-)
-.reduce(
-(s,x)=>
-s+Number(x.total||0),
-0
-);
+let orders=
+ordersResult.data||[];
 
 
 document.getElementById(
 "statCustomers"
 ).textContent=
-pr.count||0;
+customers.length;
+
 
 document.getElementById(
 "statOrders"
 ).textContent=
 orders.length;
 
-document.getElementById(
-"statTodayRevenue"
-).textContent=
-formatMoney(sum(today))+
-" AZN";
+
+let completed=
+orders.filter(
+x=>x.status==="completed"
+);
+
+let pending=
+orders.filter(
+x=>x.status==="pending"
+);
+
+
+let revenue=
+completed.reduce(
+(a,x)=>a+Number(x.total||0),
+0
+);
+
 
 document.getElementById(
 "statRevenue"
 ).textContent=
-formatMoney(revenue)+
-" AZN";
+formatMoney(revenue)+" AZN";
 
-document.getElementById(
-"statWeekRevenue"
-).textContent=
-formatMoney(sum(week))+
-" AZN";
-
-document.getElementById(
-"statMonthRevenue"
-).textContent=
-formatMoney(sum(month))+
-" AZN";
 
 document.getElementById(
 "statCompleted"
 ).textContent=
-done.length;
+completed.length;
+
 
 document.getElementById(
 "statPending"
 ).textContent=
-orders.filter(
-x=>x.status==="pending"
-).length;
-
-loadSalesStats()
-
-}
+pending.length;
 
 
-async function loadSalesStats(){
+let now=new Date();
+
+let today=
+new Date(
+now.getFullYear(),
+now.getMonth(),
+now.getDate()
+);
+
+let week=
+new Date(today);
+
+week.setDate(
+week.getDate()-7
+);
+
+let month=
+new Date(
+now.getFullYear(),
+now.getMonth(),
+1
+);
+
+
+let todayRevenue=
+completed
+.filter(
+x=>new Date(x.created_at)>=today
+)
+.reduce(
+(a,x)=>a+Number(x.total||0),
+0
+);
+
+let weekRevenue=
+completed
+.filter(
+x=>new Date(x.created_at)>=week
+)
+.reduce(
+(a,x)=>a+Number(x.total||0),
+0
+);
+
+let monthRevenue=
+completed
+.filter(
+x=>new Date(x.created_at)>=month
+)
+.reduce(
+(a,x)=>a+Number(x.total||0),
+0
+);
+
+
+document.getElementById(
+"statTodayRevenue"
+).textContent=
+formatMoney(todayRevenue)+" AZN";
+
+document.getElementById(
+"statWeekRevenue"
+).textContent=
+formatMoney(weekRevenue)+" AZN";
+
+document.getElementById(
+"statMonthRevenue"
+).textContent=
+formatMoney(monthRevenue)+" AZN";
+
+
+let sales=
+{};
+
+completed.forEach(o=>{
+
+let name=
+o.product_name||
+o.product_key||
+"Məhsul";
+
+if(!sales[name])
+sales[name]={
+count:0,
+total:0
+};
+
+sales[name].count++;
+
+sales[name].total+=
+Number(o.total||0);
+
+});
+
 
 let c=document.getElementById(
 "salesStatsList"
 );
 
-let {
-data
-}=await supabaseClient
-.from("orders")
-.select(
-"id,total,status"
-);
+let keys=
+Object.keys(sales);
 
+if(!keys.length){
 
-let s={};
+c.innerHTML=
+'<div class="empty">Satış statistikası yoxdur.</div>';
 
+return
 
-(data||[])
-.filter(
-x=>x.status==="completed"
-)
-.forEach(x=>{
-
-let n=
-x.product_name||
-"Digər məhsullar";
-
-s[n]??={
-count:0,
-revenue:0
-};
-
-s[n].count++;
-
-s[n].revenue+=
-Number(x.total||0)
-
-});
-
-
-let a=
-Object.entries(s)
-.sort(
-(x,y)=>
-y[1].revenue-
-x[1].revenue
-);
+}
 
 
 c.innerHTML=
-a.length
-?
-a.map(
-([n,v])=>`
+keys.map(k=>`
 
 <div class="sales-row">
 
 <div>
 
-<b>
-${escapeHtml(n)}
-</b>
+<div style="font-weight:bold">
+${escapeHtml(k)}
+</div>
 
 <div class="admin-text">
-${v.count} tamamlanmış satış
+${sales[k].count} satış
 </div>
 
 </div>
 
 <div class="sales-number">
-${formatMoney(v.revenue)} AZN
+${formatMoney(
+sales[k].total
+)} AZN
 </div>
 
 </div>
 
-`
-).join("")
-:
-'<div class="empty">Hələ tamamlanmış satış yoxdur.</div>'
+`).join("")
 
 }
 
@@ -5817,17 +5282,17 @@ ${formatMoney(v.revenue)} AZN
 
 function setupRealtime(){
 
-if(realtimeChannel)
-supabaseClient.removeChannel(
-realtimeChannel
-);
+try{
 
+if(realtimeChannel)
+supabaseClient
+.removeChannel(realtimeChannel);
 
 realtimeChannel=
 supabaseClient
-.channel("admin-realtime")
+.channel("digibaku-admin");
 
-
+realtimeChannel
 .on(
 "postgres_changes",
 {
@@ -5835,33 +5300,67 @@ event:"*",
 schema:"public",
 table:"orders"
 },
-async()=>{
+()=>{
 
-await updateBadges();
+updateBadges();
 
 if(
 document
 .getElementById(
 "ordersPanel"
 )
-.classList
-.contains("active")
+.classList.contains("active")
 )
 loadOrders();
+
+}
+)
+.on(
+"postgres_changes",
+{
+event:"*",
+schema:"public",
+table:"messages"
+},
+()=>{
+
+updateBadges();
 
 if(
 document
 .getElementById(
-"statsPanel"
+"messagesPanel"
 )
-.classList
-.contains("active")
+.classList.contains("active")
+&&
+currentChatUser
 )
-loadStats()
+loadChatForUser(
+currentChatUser
+);
 
-})
+}
+)
+.on(
+"postgres_changes",
+{
+event:"*",
+schema:"public",
+table:"product_prices"
+},
+()=>{
 
+if(
+document
+.getElementById(
+"pricesPanel"
+)
+.classList.contains("active")
+)
+loadPrices();
 
+}
+)
 .on(
 "postgres_changes",
 {
@@ -5876,84 +5375,45 @@ document
 .getElementById(
 "productsPanel"
 )
-.classList
-.contains("active")
+.classList.contains("active")
 )
-loadSiteProducts()
-
-})
-
-
-.on(
-"postgres_changes",
-{
-event:"*",
-schema:"public",
-table:"site_faqs"
-},
-()=>{
+loadSiteProducts();
 
 if(
 document
 .getElementById(
-"faqPanel"
+"pricesPanel"
 )
-.classList
-.contains("active")
+.classList.contains("active")
 )
-loadFaqs()
+loadPrices();
 
-})
-
-
-.on(
-"postgres_changes",
-{
-event:"*",
-schema:"public",
-table:"messages"
-},
-async()=>{
-
-await updateBadges();
-
-if(
-document
-.getElementById(
-"messagesPanel"
+}
 )
-.classList
-.contains("active")
-){
+.subscribe();
 
-await loadChatUsers();
+}catch(e){
 
-if(currentChatUser)
-loadChatForUser(
-currentChatUser
-)
+console.error(e)
 
 }
 
 }
-)
 
-.subscribe()
 
-}
-
+/* ===================== ÇIXIŞ ===================== */
 
 async function logout(){
 
-await supabaseClient
-.auth
-.signOut();
+await supabaseClient.auth.signOut();
 
 location.href=
-"https://digibaku.com"
+"https://digibaku.com";
 
 }
 
+
+/* ===================== BAŞLAT ===================== */
 
 checkAuth();
 
