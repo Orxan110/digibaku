@@ -89,8 +89,6 @@ load();
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
 
 <style>
-/* DigiBaku — Qara və qızılı lüks dizayn
-   Köhnə <style>...</style> blokunun YERİNƏ yapışdırılır. */
 :root{
   --bg:#0a0907;--panel:#14110c;--panel2:#1b1710;--ink:#f4efe3;--muted:#9b9384;
   --gold:#d4af37;--gold2:#f3d98b;--line:rgba(212,175,55,.28);
@@ -110,7 +108,8 @@ header{position:sticky;top:0;z-index:1000;background:rgba(10,9,7,.8);border-bott
 .nav{min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:20px}
 .logo{font-size:30px;background:var(--goldgrad);-webkit-background-clip:text;background-clip:text;color:transparent}
 .logo span{color:transparent}
-.menu{display:flex;gap:22px}
+.menu{display:flex;gap:18px}
+.menu a,.btn,.cart-btn,.language-switcher button{white-space:nowrap}
 .menu a{color:var(--muted);font-size:14px;transition:.2s}
 .menu a:hover{color:var(--gold2)}
 .header-right{display:flex;align-items:center;gap:10px}
@@ -259,6 +258,7 @@ footer{background:rgba(5,4,3,.85);border-top:1px solid var(--line);padding:50px 
 
 a:focus-visible,button:focus-visible{outline:2px solid var(--gold2);outline-offset:2px}
 
+@media(max-width:1100px){.menu{display:none}}
 @media(max-width:1000px){
 .products{grid-template-columns:repeat(2,1fr)}
 .review-grid{grid-template-columns:repeat(2,1fr)}
@@ -285,6 +285,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--gold2);outline-offs
 .about-dropdown-menu{position:static;margin-top:8px;box-shadow:none}
 .float-stack{right:14px;bottom:16px}
 }
+
 </style>
 </head>
 
