@@ -3001,181 +3001,196 @@ return escapeHtml(value);
 
 }
 
-/* =========================================================
-   SEO
+/* /* =========================================================
+   SEO — MƏHSULA XÜSUSİ SEO VƏ STRUCTURED DATA
    ========================================================= */
 
 function getSeoName(){
 
-return getProductName();
+    return getProductName();
 
 }
 
 function updateSEO(){
 
-if(!product)return;
+    if(!product)return;
 
-const lang=
-getLanguage();
+    const lang=getLanguage();
 
-const name=
-getSeoName();
+    const name=getSeoName();
 
-let title="";
-let description="";
+    if(!name)return;
 
-if(lang==="az"){
+    const descriptionText=getProductDescription()
+        .replace(/<[^>]*>/g," ")
+        .replace(/\s+/g," ")
+        .trim();
 
-title=
-name+
-" Azərbaycan Satış | DigiBaku";
+    let title="";
+    let description="";
 
-description=
-name+
-" Azərbaycan — premium rəqəmsal xidmət, abunəlik, paketlər və qiymətlər. "+
-name+
-" Satışını DigiBaku.com-da kəşf edin.";
+    if(lang==="az"){
 
-}
+        title=name+" — Qiymət və Satış Azərbaycanda | DigiBaku";
 
-else if(lang==="ru"){
+        description=
+            name+
+            " xidmətinin qiymətləri və paketləri. "+
+            (descriptionText || "Premium rəqəmsal xidməti DigiBaku.com vasitəsilə əldə edin.")
+            .substring(0,220);
 
-title=
-name+
-" Азербайджан Продажа | DigiBaku";
+    }
 
-description=
-name+
-" Азербайджан — премиум цифровая услуга, подписка, пакеты и цены. "+
-name+
-" Продажа на DigiBaku.com.";
+    else if(lang==="ru"){
 
-}
+        title=name+" — Цена и покупка в Азербайджане | DigiBaku";
 
-else{
+        description=
+            name+
+            " — цены, пакеты и информация об услуге. "+
+            (descriptionText || "Премиум цифровая услуга на DigiBaku.com.")
+            .substring(0,220);
 
-title=
-name+
-" Azerbaijan Sale | DigiBaku";
+    }
 
-description=
-name+
-" Azerbaijan — premium digital service, subscription, packages and prices. "+
-name+
-" Sale on DigiBaku.com.";
+    else{
 
-}
+        title=name+" — Price and Purchase in Azerbaijan | DigiBaku";
 
-const canonical=
-"https://digibaku.com/product.html?product="+
-encodeURIComponent(productKey);
+        description=
+            name+
+            " — prices, packages and service information. "+
+            (descriptionText || "Get premium digital services at DigiBaku.com.")
+            .substring(0,220);
 
-const image=
-product.image_url ||
-"https://digibaku.com/netflix.webp";
+    }
 
-document.title=title;
+    const canonical=
+        "https://digibaku.com/product.html?product="+
+        encodeURIComponent(productKey);
 
-document.getElementById(
-"seoTitle"
-).textContent=
-title;
+    const image=
+        product.image_url ||
+        "https://digibaku.com/netflix.webp";
 
-document.getElementById(
-"metaDescription"
-).content=
-description;
+    /* PAGE TITLE */
 
-document.getElementById(
-"canonicalLink"
-).href=
-canonical;
+    document.title=title;
 
-document.getElementById(
-"ogTitle"
-).content=
-title;
+    document.getElementById("seoTitle").textContent=title;
 
-document.getElementById(
-"ogDescription"
-).content=
-description;
+    /* META DESCRIPTION */
 
-document.getElementById(
-"ogUrl"
-).content=
-canonical;
+    document.getElementById("metaDescription").content=
+        description.substring(0,300);
 
-document.getElementById(
-"ogImage"
-).content=
-image;
+    /* CANONICAL */
 
-document.getElementById(
-"twitterTitle"
-).content=
-title;
+    document.getElementById("canonicalLink").href=canonical;
 
-document.getElementById(
-"twitterDescription"
-).content=
-description;
+    /* OPEN GRAPH */
 
-document.getElementById(
-"twitterImage"
-).content=
-image;
+    document.getElementById("ogTitle").content=title;
 
-const durations=
-getDurations();
+    document.getElementById("ogDescription").content=
+        description.substring(0,300);
 
-let offer={
+    document.getElementById("ogUrl").content=canonical;
 
-"@type":"Offer",
-"url":canonical,
-"priceCurrency":"AZN",
-"availability":"https://schema.org/InStock"
+    document.getElementById("ogImage").content=image;
 
-};
+    /* TWITTER */
 
-if(durations.length){
+    document.getElementById("twitterTitle").content=title;
 
-const current=
-getCurrentPackagePrice(
-durations[selectedPackage] || durations[0]
-);
+    document.getElementById("twitterDescription").content=
+        description.substring(0,300);
 
-if(current.price>0){
+    document.getElementById("twitterImage").content=image;
 
-offer.price=
-current.price.toFixed(2);
+    /* PRODUCT STRUCTURED DATA */
 
-}
+    const durations=getDurations();
 
-}
+    const offers=[];
 
-const schema={
+    durations.forEach(function(months){
 
-"@context":"https://schema.org",
+        const current=getCurrentPackagePrice(months);
 
-"@type":"Product",
+        if(current.price>0){
 
-"name":name,
+            offers.push({
 
-"description":description,
+                "@type":"Offer",
 
-"image":[image],
+                "url":canonical,
 
-"url":canonical,
+                "priceCurrency":"AZN",
 
-"offers":offer
+                "price":current.price.toFixed(2),
 
-};
+                "availability":"https://schema.org/InStock",
 
-document.getElementById(
-"productSchema"
-).textContent=
-JSON.stringify(schema);
+                "itemCondition":"https://schema.org/NewCondition",
+
+                "description":getDurationNameForLanguage(
+                    months,
+                    lang
+                )
+
+            });
+
+        }
+
+    });
+
+    const schema={
+
+        "@context":"https://schema.org",
+
+        "@type":"Product",
+
+        "name":name,
+
+        "description":description,
+
+        "image":[image],
+
+        "url":canonical,
+
+        "sku":product.product_key || productKey,
+
+        "brand":{
+
+            "@type":"Brand",
+
+            "name":"DigiBaku"
+
+        },
+
+        "offers":offers.length===1
+            ? offers[0]
+            : offers.length>1
+                ? {
+                    "@type":"AggregateOffer",
+                    "url":canonical,
+                    "priceCurrency":"AZN",
+                    "lowPrice":Math.min(
+                        ...offers.map(item=>Number(item.price))
+                    ).toFixed(2),
+                    "highPrice":Math.max(
+                        ...offers.map(item=>Number(item.price))
+                    ).toFixed(2),
+                    "offerCount":offers.length,
+                    "offers":offers
+                }
+                : undefined
+
+    };
+
+    document.getElementById("productSchema").textContent=
+        JSON.stringify(schema);
 
 }
 
