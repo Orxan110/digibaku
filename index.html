@@ -171,19 +171,21 @@ function seoUpdate(products){
 const seoProducts=
 seoUniqueProducts(products);
 
-const title=
-seoProducts.length
-?
-"DigiBaku Azərbaycan | "+seoProducts.join(", ")
-:
-"DigiBaku Azərbaycan | Premium Rəqəmsal Xidmətlər və Abunəliklər";
+const titles = {
+    az: "DigiBaku Azərbaycan | Premium Rəqəmsal Xidmətlər",
+    ru: "DigiBaku Azərbaycan | Премиальные цифровые услуги",
+    en: "DigiBaku Azerbaijan | Premium Digital Services"
+};
 
-const description=
-seoProducts.length
-?
-"DigiBaku Azərbaycan — "+seoProducts.join(", ")+". Premium rəqəmsal xidmətlər və abunəliklər."
-:
-"DigiBaku Azərbaycan — Premium rəqəmsal xidmətlər və abunəliklər.";
+const descriptions = {
+    az: "DigiBaku.com — Netflix, YouTube Premium, ChatGPT, Gemini, Spotify və digər premium rəqəmsal xidmətlər. Sərfəli qiymətlər və rahat sifariş.",
+    ru: "DigiBaku.com — Netflix, YouTube Premium, ChatGPT, Gemini, Spotify и другие премиальные цифровые услуги по выгодным ценам.",
+    en: "DigiBaku.com offers Netflix, YouTube Premium, ChatGPT, Gemini, Spotify and other premium digital services at affordable prices."
+};
+
+const lang = localStorage.getItem("digi_language") || "az";
+const title = titles[lang] || titles.az;
+const description = descriptions[lang] || descriptions.az;
 
 const keywords=[
 "DigiBaku Azərbaycan",
