@@ -1,31 +1,124 @@
+<?php
+/* DigiBaku — ana səhifə (PHP). SEO məlumatları serverdə məhsullardan hazırlanır.
+   Brauzer tərəfi (JavaScript, Supabase, səbət, axtarış, dillər) olduğu kimi işləyir. */
+
+$SB_URL = 'https://zeknhnkaicqkfzgnvycq.supabase.co';
+$SB_KEY = 'sb_publishable_jHvCp9fXBA_BwFqrXYpwlw_VC6C1OQk';
+
+function digi_fetch_products($url, $key) {
+    $endpoint = $url . '/rest/v1/site_products?select=name_az,name,name_en,name_ru,description_az,description,image_url,category,product_key,active&order=id.asc';
+    $raw = false;
+    if (function_exists('curl_init')) {
+        $ch = curl_init($endpoint);
+        curl_setopt_array($ch, [
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_TIMEOUT => 3,
+            CURLOPT_HTTPHEADER => ['apikey: ' . $key, 'Authorization: Bearer ' . $key],
+        ]);
+        $raw = curl_exec($ch);
+        curl_close($ch);
+    } elseif (ini_get('allow_url_fopen')) {
+        $ctx = stream_context_create(['http' => [
+            'timeout' => 3,
+            'header' => "apikey: $key\r\nAuthorization: Bearer $key\r\n",
+        ]]);
+        $raw = @file_get_contents($endpoint, false, $ctx);
+    }
+    if (!$raw) return [];
+    $data = json_decode($raw, true);
+    if (!is_array($data)) return [];
+    $active = [];
+    foreach ($data as $p) {
+        if (isset($p['active']) && ($p['active'] === false || $p['active'] === 'false' || $p['active'] === 0 || $p['active'] === '0')) continue;
+        $active[] = $p;
+    }
+    return $active;
+}
+
+$seoProducts = digi_fetch_products($SB_URL, $SB_KEY);
+$seoNames = [];
+foreach ($seoProducts as $p) {
+    $n = trim((string)($p['name_az'] ?? $p['name'] ?? ''));
+    if ($n !== '') $seoNames[] = $n;
+}
+
+if ($seoNames) {
+    $seoTitle = 'DigiBaku | ' . implode(', ', array_slice($seoNames, 0, 3)) . (count($seoNames) > 3 ? ' və s.' : '') . ' — Azərbaycan';
+    if (mb_strlen($seoTitle) > 70) $seoTitle = mb_substr($seoTitle, 0, 69) . '…';
+    $descParts = [];
+    foreach (array_slice($seoProducts, 0, 3) as $p) {
+        $name = trim((string)($p['name_az'] ?? $p['name'] ?? ''));
+        $d = rtrim(trim((string)($p['description_az'] ?? $p['description'] ?? '')), '. ');
+        $descParts[] = $name . ($d !== '' ? ' — ' . $d : '');
+    }
+    $seoDesc = implode('. ', $descParts) . '. Premium abunəliklər, 5–30 dəqiqədə aktivləşdirmə.';
+    if (mb_strlen($seoDesc) > 160) $seoDesc = mb_substr($seoDesc, 0, 159) . '…';
+} else {
+    $seoTitle = 'DigiBaku Azərbaycan | Premium Rəqəmsal Xidmətlər';
+    $seoDesc = 'DigiBaku.com — Netflix, YouTube Premium, ChatGPT, Gemini, Spotify və digər premium rəqəmsal xidmətlər. Sərfəli qiymətlər və rahat sifariş.';
+}
+$seoKeywords = implode(', ', array_merge(['DigiBaku', 'premium abunəlik Azərbaycan', 'premium rəqəmsal xidmətlər'], $seoNames));
+$seoImage = '';
+foreach ($seoProducts as $p) {
+    if (!empty($p['image_url'])) { $seoImage = $p['image_url']; break; }
+}
+
+$seoItemList = [
+    '@context' => 'https://schema.org',
+    '@type' => 'ItemList',
+    'name' => 'DigiBaku premium abunəliklər',
+    'itemListElement' => [],
+];
+foreach ($seoProducts as $i => $p) {
+    $key = trim((string)($p['product_key'] ?? ''));
+    $name = trim((string)($p['name_az'] ?? $p['name'] ?? ''));
+    $item = [
+        '@type' => 'ListItem',
+        'position' => $i + 1,
+        'url' => 'https://digibaku.com/product.html?product=' . rawurlencode($key),
+        'item' => [
+            '@type' => 'Product',
+            'name' => $name,
+            'description' => trim((string)($p['description_az'] ?? $p['description'] ?? '')) ?: $name,
+            'brand' => ['@type' => 'Brand', 'name' => 'DigiBaku'],
+        ],
+    ];
+    if (!empty($p['category'])) $item['item']['category'] = $p['category'];
+    if (!empty($p['image_url'])) $item['item']['image'] = $p['image_url'];
+    $seoItemList['itemListElement'][] = $item;
+}
+
+$e = function ($s) { return htmlspecialchars((string)$s, ENT_QUOTES, 'UTF-8'); };
+?>
 <!DOCTYPE html>
 <html lang="az">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title id="seoTitle">DigiBaku Azərbaycan | Premium Rəqəmsal Xidmətlər və Abunəliklər</title>
-<meta id="metaDescription" name="description" content="DigiBaku Azərbaycan — premium rəqəmsal xidmətlərin və abunəliklərin satışı.">
-<meta id="metaKeywords" name="keywords" content="DigiBaku Azərbaycan, premium rəqəmsal xidmətlər Azərbaycan, premium abunəliklər Azərbaycan">
+<title id="seoTitle"><?= $e($seoTitle) ?></title>
+<meta id="metaDescription" name="description" content="<?= $e($seoDesc) ?>">
+<meta id="metaKeywords" name="keywords" content="<?= $e($seoKeywords) ?>">
 <meta name="author" content="DigiBaku.com">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://digibaku.com/">
 
 <meta property="og:type" content="website">
-<meta id="ogTitle" property="og:title" content="DigiBaku Azərbaycan | Premium Rəqəmsal Xidmətlər və Abunəliklər">
-<meta id="ogDescription" property="og:description" content="DigiBaku Azərbaycan — premium rəqəmsal xidmətlərin və abunəliklərin satışı.">
+<meta id="ogTitle" property="og:title" content="<?= $e($seoTitle) ?>">
+<meta id="ogDescription" property="og:description" content="<?= $e($seoDesc) ?>">
 <meta property="og:url" content="https://digibaku.com/">
 <meta property="og:site_name" content="DigiBaku.com">
 <meta property="og:locale" content="az_AZ">
-<meta property="og:image" content="https://digibaku.com/homeheroimage-1784180505-800w.avif">
+<meta property="og:image" content="<?= $e($seoImage ?: 'https://digibaku.com/homeheroimage-1784180505-800w.avif') ?>">
 <meta name="twitter:card" content="summary_large_image">
-<meta id="twitterTitle" name="twitter:title" content="DigiBaku Azərbaycan | Premium Rəqəmsal Xidmətlər və Abunəliklər">
-<meta id="twitterDescription" name="twitter:description" content="DigiBaku Azərbaycan — premium rəqəmsal xidmətlərin və abunəliklərin satışı.">
-<meta name="twitter:image" content="https://digibaku.com/homeheroimage-1784180505-800w.avif">
+<meta id="twitterTitle" name="twitter:title" content="<?= $e($seoTitle) ?>">
+<meta id="twitterDescription" name="twitter:description" content="<?= $e($seoDesc) ?>">
+<meta name="twitter:image" content="<?= $e($seoImage ?: 'https://digibaku.com/homeheroimage-1784180505-800w.avif') ?>">
 
 <script type="application/ld+json" id="seoOrganization">
 {"@context":"https://schema.org","@type":"Organization","name":"DigiBaku.com","url":"https://digibaku.com/","description":"DigiBaku Azərbaycan — premium rəqəmsal xidmətlərin və abunəliklərin satışı.","areaServed":{"@type":"Country","name":"Azerbaijan"},"address":{"@type":"PostalAddress","addressLocality":"Baku","addressCountry":"AZ"}}
 </script>
+<script type="application/ld+json" id="seoItemList"><?= json_encode($seoItemList, JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES) ?></script>
 <script type="application/ld+json" id="seoWebSite">
 {"@context":"https://schema.org","@type":"WebSite","name":"DigiBaku.com","alternateName":"DigiBaku Azərbaycan","url":"https://digibaku.com/"}
 </script>
