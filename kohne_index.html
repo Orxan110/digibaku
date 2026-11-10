@@ -289,6 +289,34 @@ header{position:sticky;top:0}
 .product:hover{transform:scale(1.04)}
 .product{box-shadow:0 4px 14px rgba(0,0,0,.45)}
 @media(max-width:700px){.products{grid-auto-columns:minmax(220px,240px);gap:20px}.float-stack{right:12px;bottom:14px}}
+
+/* ===== MƏHSUL KARTLARI: üst-üstə düşmə yoxdur ===== */
+.products{display:grid!important;grid-auto-flow:column;grid-template-columns:none!important;grid-auto-columns:240px;gap:24px;overflow-x:auto;padding:14px 6px 34px}
+.product{position:relative;z-index:1;width:240px;transform:none!important}
+.product:hover{transform:none!important;z-index:1}
+@media(hover:hover){.product:hover{transform:scale(1.04)!important;z-index:5}}
+@media(max-width:700px){.products{grid-auto-columns:230px;gap:24px}.product{width:230px}}
+
+/* ===== TELEFON: başlıq ixcam, sabit deyil; kartlar kiçik və səliqəli ===== */
+@media(max-width:700px){
+header{position:static!important;background:#141414}
+header .nav{padding:8px 0!important;min-height:auto!important;row-gap:8px!important}
+.logo{font-size:20px!important}
+.search{max-width:none!important;flex:1 1 100%!important}
+.search input{height:36px!important;font-size:14px!important}
+.header-right{gap:6px!important}
+.header-right .btn{padding:6px 10px!important;font-size:12px!important}
+.header-right .cart-btn{padding:6px 9px!important}
+.menu{padding-top:6px!important;gap:14px!important}
+.menu a{font-size:13px!important}
+.product-image{height:170px!important}
+.products{grid-auto-columns:minmax(190px,210px)!important;gap:14px!important;padding:6px 2px 20px!important}
+.product h3{font-size:15px!important}
+.product p{display:none!important}
+.product-actions .btn{padding:8px 6px!important;font-size:12px!important}
+.product-actions{gap:6px!important;padding:8px 10px 12px!important}
+.price{font-size:16px!important;min-height:auto!important;padding:6px 10px 0!important}
+}
 </style>
 </head>
 
