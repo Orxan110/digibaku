@@ -240,6 +240,41 @@ section{padding-top:36px}
 .menu a{font-size:12.5px}
 .search{max-width:190px}
 @media(min-width:1101px) and (max-width:1320px){.menu{gap:10px}.menu a{font-size:12px}.search{max-width:150px}.logo{font-size:20px}.btn{padding:6px 9px;font-size:12px}}
+
+/* ===== TELEFON: menyu görünsün, kartlar geniş olsun ===== */
+@media(max-width:1100px){
+header .nav{flex-wrap:wrap;row-gap:10px}
+.menu{display:flex!important;order:8;flex:0 0 100%;overflow-x:auto;justify-content:flex-start;gap:18px;padding:2px 0 6px;scrollbar-width:none;border-top:1px solid #222;padding-top:10px}
+.menu::-webkit-scrollbar{display:none}
+.menu a{white-space:nowrap;font-size:14px}
+.about-dropdown-menu{display:none}
+.search{max-width:none}
+}
+@media(max-width:700px){
+header .nav{padding:10px 0}
+.header-right{width:100%;justify-content:space-between;gap:8px}
+.search{order:9;flex:1 1 100%;min-width:0}
+.products{grid-auto-columns:minmax(210px,240px);gap:16px;padding-bottom:28px}
+.product-image{height:280px}
+.product h3{font-size:17px}
+.product p{font-size:13px;min-height:36px}
+.product-actions{gap:8px}
+.product-actions a,.product-actions button{padding:10px 8px;font-size:14px}
+.section-title h2{font-size:20px}
+section{padding-top:44px}
+}
+
+@media(max-width:700px){
+header{position:sticky;top:0}
+.hero{padding-top:28px;min-height:auto}
+.header-right{flex-wrap:wrap!important;row-gap:8px;width:100%}
+.header-right .search{order:-1;flex:1 1 100%!important;max-width:none!important;width:100%}
+.header-right .cart-btn,.header-right .auth .btn,.header-right .language-switcher{flex:0 0 auto}
+.auth .btn{white-space:nowrap}
+.header-right .language-switcher{margin-left:auto}
+}
+
+@media(max-width:700px){.hero{padding-top:20px}.hero-image{position:relative;inset:auto;height:200px;margin-bottom:18px;justify-content:center}.hero-image img{width:auto;height:200px;max-width:100%;opacity:.85}}
 </style>
 </head>
 
