@@ -37,274 +37,384 @@
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;600;700;800&display=swap&display=swap" rel="stylesheet">
 
 <style>
-:root{--bg:#06070a;--panel:rgba(255,255,255,.035);--line:rgba(255,255,255,.09);--ink:#eef3ff;--mut:#8b93a7;--cy:#00e5ff;--mg:#ff2bd6;--vi:#8b5cff;--ok:#2dffb0;--glow:0 0 24px rgba(0,229,255,.35)}
+:root{--bk:#050507;--ink:#f3f4f8;--mut:#7c8190;--ac:#c6ff3d;--ac2:#ff5b2e;--ln:rgba(255,255,255,.12);--cut:polygon(0 0,calc(100% - 26px) 0,100% 26px,100% 100%,26px 100%,0 calc(100% - 26px))}
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--ink);font-family:"Inter","Segoe UI",system-ui,Arial,sans-serif;line-height:1.5;position:relative;overflow-x:hidden}
-body::before{content:"";position:fixed;inset:-20%;z-index:-2;pointer-events:none;background:radial-gradient(40% 35% at 18% 12%,rgba(0,229,255,.16),transparent 70%),radial-gradient(38% 34% at 86% 30%,rgba(255,43,214,.13),transparent 70%),radial-gradient(45% 40% at 50% 100%,rgba(139,92,255,.12),transparent 70%);animation:drift 26s ease-in-out infinite alternate}
-body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:56px 56px;-webkit-mask-image:radial-gradient(ellipse at center,#000 30%,transparent 80%);mask-image:radial-gradient(ellipse at center,#000 30%,transparent 80%)}
-@keyframes drift{from{transform:translate3d(0,0,0)}to{transform:translate3d(-3%,2%,0) scale(1.05)}}
+html{scroll-behavior:smooth;scroll-snap-type:y proximity}
+body{background:var(--bk);color:var(--ink);font-family:"Arial Narrow",Arial,sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
 a{color:inherit;text-decoration:none}
-button{font-family:inherit;cursor:pointer}
-.container{width:94%;max-width:1240px;margin:auto}
-header{position:sticky;top:0;z-index:1000;background:rgba(6,7,10,.72);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
-.nav{min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:10px 0}
-.logo{font-size:24px;font-weight:800;color:var(--ink);text-shadow:0 0 18px rgba(0,229,255,.45)}
-.logo span{background:linear-gradient(90deg,var(--cy),var(--mg));-webkit-background-clip:text;background-clip:text;color:transparent}
-.menu{display:flex;gap:18px;flex-wrap:wrap}
-.menu>a{font-size:13px;color:var(--mut);position:relative;padding:4px 0;transition:color .25s}
-.menu>a::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:1px;background:var(--cy);transform:scaleX(0);transform-origin:left;transition:transform .3s}
-.menu>a:hover{color:var(--ink)}
-.menu>a:hover::after{transform:scaleX(1)}
-.about-dropdown{position:relative}
-.about-dropdown>a{font-size:13px;color:var(--mut);display:flex;align-items:center;gap:4px}
-.about-dropdown-arrow{font-size:10px}
-.about-dropdown-menu{position:absolute;top:calc(100% + 12px);left:0;min-width:230px;background:rgba(11,13,18,.97);border:1px solid var(--line);border-radius:14px;padding:8px;opacity:0;visibility:hidden;transform:translateY(-6px);transition:.2s;z-index:3000;box-shadow:0 20px 50px rgba(0,0,0,.6)}
-.about-dropdown:hover .about-dropdown-menu,.about-dropdown:focus-within .about-dropdown-menu{opacity:1;visibility:visible;transform:none}
-.about-dropdown-menu a{display:block;padding:9px 10px;font-size:13px;color:var(--mut);border-radius:8px}
-.about-dropdown-menu a:hover{background:rgba(0,229,255,.08);color:var(--cy)}
-.header-right{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.auth{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-.btn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid rgba(0,229,255,.35);border-radius:12px;padding:10px 16px;font-size:13px;font-weight:600;background:rgba(0,229,255,.06);color:var(--ink);overflow:hidden;transition:transform .2s,box-shadow .25s,background .25s;text-align:center}
-.btn::before{content:"";position:absolute;top:0;left:-120%;width:60%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.35),transparent);transition:left .6s}
-.btn:hover{transform:translateY(-2px);box-shadow:var(--glow);background:rgba(0,229,255,.14)}
-.btn:hover::before{left:140%}
-.btn:active{transform:translateY(0) scale(.98)}
-.btn-primary{background:linear-gradient(120deg,var(--cy),var(--vi),var(--mg));border-color:transparent;color:#05060a;font-weight:800;box-shadow:0 0 22px rgba(0,229,255,.25)}
-.btn-primary:hover{box-shadow:0 0 34px rgba(255,43,214,.45)}
-.btn-dark{background:rgba(255,255,255,.04);border-color:var(--line)}
-.user-email{font-size:12px;color:var(--cy);max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:8px 10px;border:1px solid var(--line);border-radius:10px}
-.cart-btn{background:rgba(255,43,214,.08);border-color:rgba(255,43,214,.45)}
-.cart-count{background:var(--mg);color:#fff;border-radius:99px;min-width:20px;height:20px;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;padding:0 6px;box-shadow:0 0 12px var(--mg)}
-.language-switcher{display:flex;gap:2px;align-items:center}
-.language-switcher button{background:none;border:0;color:var(--mut);font-size:12px;font-weight:700;padding:5px 7px;border-radius:8px;transition:color .2s,background .2s}
-.language-switcher button:hover{color:var(--ink)}
-.language-switcher button.active{color:var(--cy);background:rgba(0,229,255,.1);text-shadow:0 0 10px rgba(0,229,255,.6)}
-.language-switcher span{color:#333}
-.search{position:relative;display:flex;width:100%;max-width:280px}
-.search input{width:100%;height:40px;border:1px solid var(--line);background:rgba(255,255,255,.03);color:var(--ink);border-radius:12px;padding:0 14px;font:inherit;font-size:14px;outline:none;transition:border-color .25s,box-shadow .25s}
-.search input:focus{border-color:var(--cy);box-shadow:0 0 0 4px rgba(0,229,255,.12),var(--glow)}
-.suggest{display:none;position:absolute;top:calc(100% + 10px);left:0;right:0;background:rgba(11,13,18,.97);border:1px solid var(--line);border-radius:14px;padding:6px;z-index:3500;max-height:60vh;overflow-y:auto;box-shadow:0 20px 50px rgba(0,0,0,.6)}
+button{font:inherit;cursor:pointer;color:inherit}
+h1,h2,h3,h4{font-family:"Arial Black","Arial Bold",Arial,sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:-.02em;line-height:.95}
+/* kənar qrid: hər yerdə incə şəbəkə */
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;background-image:linear-gradient(var(--ln) 1px,transparent 1px),linear-gradient(90deg,var(--ln) 1px,transparent 1px);background-size:120px 120px;opacity:.25;-webkit-mask-image:radial-gradient(circle at 50% 40%,#000,transparent 75%);mask-image:radial-gradient(circle at 50% 40%,#000,transparent 75%)}
+.stage{position:relative;z-index:1;padding-bottom:110px}
+/* loqo və menyu */
+.hud{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:18px 24px;mix-blend-mode:difference;pointer-events:none}
+.hud>*{pointer-events:auto}
+.brand{font-family:"Arial Black",Arial,sans-serif;font-size:22px;letter-spacing:-.02em;color:#fff}
+.brand b{color:var(--ac);font-weight:900}
+.hud-menu{width:48px;height:48px;background:none;border:1px solid #fff;border-radius:50%;display:grid;place-items:center;gap:0;position:relative}
+.hud-menu i{display:block;width:18px;height:2px;background:#fff;position:absolute;transition:transform .3s}
+.hud-menu i:first-child{transform:translateY(-3px)}
+.hud-menu i:last-child{transform:translateY(3px)}
+.sky{position:fixed;inset:0;z-index:40;background:var(--bk);display:flex;flex-direction:column;justify-content:center;gap:4px;padding:0 9vw;opacity:0;visibility:hidden;transform:translateY(-100%);transition:transform .6s cubic-bezier(.7,0,.2,1),opacity .4s,visibility .6s}
+.sky a{font-family:"Arial Black",Arial,sans-serif;font-size:clamp(34px,7vw,88px);text-transform:uppercase;line-height:1.02;color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.55);transition:color .25s,-webkit-text-stroke-color .25s,padding .3s}
+.sky a:hover{color:var(--ac);-webkit-text-stroke-color:var(--ac);padding-left:18px}
+body.menu-open .sky{opacity:1;visibility:visible;transform:translateY(0)}
+body.menu-open .hud-menu i:first-child{transform:rotate(45deg)}
+body.menu-open .hud-menu i:last-child{transform:rotate(-45deg)}
+body.menu-open .hud-menu i{transform-origin:center}
+/* 1 · GİRİŞ / ORBİT */
+.entry{position:relative;min-height:100vh;display:grid;place-items:center;padding:120px 6vw 140px;overflow:hidden;scroll-snap-align:start}
+.vertical{position:absolute;left:18px;top:50%;transform:translateY(-50%) rotate(180deg);writing-mode:vertical-rl;font-size:12px;letter-spacing:.4em;color:var(--mut)}
+.entry-core{text-align:center;position:relative;z-index:2;max-width:980px}
+.entry h1{font-size:clamp(64px,13vw,210px);line-height:.84;letter-spacing:-.05em}
+.entry h1 span{color:transparent;-webkit-text-stroke:2px var(--ac)}
+.entry-core p{margin:26px auto 0;max-width:46ch;color:var(--mut);font-size:17px;line-height:1.5}
+.orbit{position:absolute;left:50%;bottom:-260px;width:min(1100px,160vw);height:min(1100px,160vw);transform:translateX(-50%);border-radius:50%;border:1px dashed rgba(198,255,61,.35);pointer-events:none}
+.orbit::before{content:"";position:absolute;inset:18%;border-radius:50%;border:1px solid rgba(255,91,46,.25)}
+.orbit-nodes{position:absolute;inset:0;pointer-events:auto}
+/* kateqoriyalar: orbit düyünləri */
+.orbit-nodes .product-category-btn{position:absolute;left:50%;top:50%;width:132px;height:132px;margin:-66px 0 0 -66px;border-radius:50%;background:#050507;border:1px solid var(--ac);color:var(--ink);font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;display:grid;place-items:center;text-align:center;padding:12px;transition:transform .35s,background .35s,color .35s;box-shadow:0 0 0 0 rgba(198,255,61,0)}
+.orbit-nodes .product-category-btn:nth-child(1){transform:translate(-44vw,-30vh)}
+.orbit-nodes .product-category-btn:nth-child(2){transform:translate(-14vw,-44vh)}
+.orbit-nodes .product-category-btn:nth-child(3){transform:translate(16vw,-40vh)}
+.orbit-nodes .product-category-btn:nth-child(4){transform:translate(42vw,-22vh)}
+.orbit-nodes .product-category-btn:nth-child(5){transform:translate(0,-6vh)}
+.orbit-nodes .product-category-btn:hover{background:var(--ac);color:#000;box-shadow:0 0 40px rgba(198,255,61,.45)}
+.orbit-nodes .product-category-btn.active{background:var(--ac2);border-color:var(--ac2);color:#000}
+.scroll-cue{position:absolute;left:50%;bottom:28px;width:1px;height:70px;background:linear-gradient(var(--ac),transparent);transform:translateX(-50%)}
+.scroll-cue span{position:absolute;left:-3px;top:0;width:7px;height:7px;background:var(--ac);border-radius:50%;animation:drop 1.8s ease-in infinite}
+@keyframes drop{0%{transform:translateY(0);opacity:1}100%{transform:translateY(70px);opacity:0}}
+/* başlıqlar */
+.stream-head{padding:0 6vw;margin-bottom:34px;scroll-snap-align:start}
+.stream-head h2{font-size:clamp(52px,9vw,140px)}
+.stream-head p{margin-top:12px;color:var(--mut);font-size:16px;max-width:52ch}
+/* 2 · MƏHSUL PANELLƏRİ: asimmetrik */
+.stream{padding:120px 0 80px;position:relative}
+.panels{display:grid;grid-template-columns:repeat(6,1fr);grid-auto-rows:minmax(220px,auto);gap:14px;padding:0 6vw}
+.panels .product{position:relative;overflow:hidden;clip-path:var(--cut);background:#0c0c11;border:1px solid var(--ln);display:flex;flex-direction:column;justify-content:flex-end;padding:22px;min-height:260px;transition:transform .5s cubic-bezier(.2,.7,.2,1),background .4s;isolation:isolate}
+.panels .product:nth-child(1){grid-column:span 4;grid-row:span 2;min-height:520px}
+.panels .product:nth-child(2){grid-column:span 2}
+.panels .product:nth-child(3){grid-column:span 3}
+.panels .product:nth-child(4){grid-column:span 3}
+.panels .product:nth-child(5){grid-column:span 2}
+.panels .product:nth-child(n+6){grid-column:span 2}
+.panels .product:hover{transform:translateY(-6px);background:#111118;z-index:3}
+.panels .product-image{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.55;z-index:-2;transition:transform .8s,opacity .4s}
+.panels .product:hover .product-image{transform:scale(1.07);opacity:.8}
+.panels .product::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(0deg,#050507 10%,rgba(5,5,7,.2) 70%)}
+.product-category-label{position:absolute;top:18px;left:18px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ac);border:1px solid var(--ac);padding:4px 8px}
+.panels .product h3{font-size:clamp(24px,2.6vw,40px);font-weight:900;line-height:.95;margin-bottom:8px}
+.panels .product p{color:#b9bdc9;font-size:13px;margin-bottom:12px;min-height:0}
+.panels .product .price{font-family:"Arial Black",Arial,sans-serif;font-size:clamp(26px,3vw,44px);font-weight:900;margin:0 0 14px;min-height:0;color:var(--ink)}
+.panels .product .price small{font-size:12px;font-family:"Arial Narrow",Arial,sans-serif;color:var(--mut)}
+.panels .product .price span[style*="22c55e"]{color:var(--ac)!important}
+.panels .product .price span[style*="ef4444"]{background:var(--ac2)!important;color:#000!important;border-radius:0!important}
+.product-actions{display:flex;gap:8px;flex-wrap:wrap}
+.product-actions a,.product-actions button{flex:1 1 0;min-width:0;padding:11px 10px;font-size:12px;text-transform:uppercase;font-weight:800;letter-spacing:.06em;border:1px solid var(--ink);background:transparent;color:var(--ink);text-align:center}
+.product-actions a{background:var(--ac);border-color:var(--ac);color:#000}
+.product-actions a:hover,.product-actions button:hover{background:var(--ink);color:#000}
+.loading-products,.no-products{grid-column:1/-1;padding:60px;color:var(--mut);text-align:center}
+/* 3 · DİAQONAL ZOLAQLAR */
+.axis{position:relative;padding:40px 0 100px;overflow:hidden}
+.axis-band{transform:skewY(-4deg);padding:44px 6vw;margin:0 -6vw 0;display:flex;justify-content:space-between;align-items:baseline;gap:20px;flex-wrap:wrap;scroll-snap-align:start}
+.axis-band h2{font-size:clamp(40px,7vw,110px)}
+.axis-band p{font-size:15px;color:var(--mut);max-width:30ch;text-transform:uppercase;letter-spacing:.12em}
+.b1{background:var(--ac);color:#000}
+.b1 p{color:#1d2a00}
+.b2{background:#0c0c11;border-top:1px solid var(--ln);border-bottom:1px solid var(--ln)}
+.b3{background:var(--ac2);color:#000}
+.b3 p{color:#3a1206}
+/* 4 · TRACK (yatay sürüşən) */
+.track{padding:100px 0 80px}
+.track-rail{display:flex;gap:20px;overflow-x:auto;padding:10px 6vw 30px;scroll-snap-type:x mandatory;scrollbar-width:none}
+.track-rail::-webkit-scrollbar{display:none}
+.compare-card{flex:0 0 min(420px,80vw);scroll-snap-align:start;border:1px solid var(--ln);padding:34px;min-height:340px;display:flex;flex-direction:column;justify-content:space-between;position:relative;clip-path:polygon(0 0,100% 0,100% calc(100% - 40px),calc(100% - 40px) 100%,0 100%)}
+.compare-card::before{content:counter(cmp,decimal-leading-zero);position:absolute;top:18px;right:24px;font-family:"Arial Black",sans-serif;font-size:72px;color:transparent;-webkit-text-stroke:1px var(--ac)}
+.compare-card:nth-child(odd){background:#0d0d13}
+.compare-card:nth-child(even){background:var(--ac);color:#000}
+.compare-card h3{font-size:clamp(28px,3vw,42px);margin-bottom:14px;max-width:12ch}
+.compare-card p{font-size:14px;color:var(--mut);margin-bottom:12px}
+.compare-card:nth-child(even) p{color:#1d2a00}
+.compare-card b{font-size:18px;font-family:"Arial Black",sans-serif}
+.compare-card a{align-self:flex-start;margin-top:18px;border-bottom:2px solid currentColor;font-weight:800;text-transform:uppercase;letter-spacing:.06em;font-size:13px}
+/* 5 · RƏYLƏR */
+.voices{padding:100px 6vw;border-top:1px solid var(--ln)}
+.voices blockquote{border-left:4px solid var(--ac);padding:22px 0 22px 28px;margin:0 0 14px;max-width:1000px}
+.voices blockquote span{display:block;font-family:"Arial Black",Arial,sans-serif;font-size:clamp(22px,3vw,40px);line-height:1.1;text-transform:none;font-weight:900;letter-spacing:-.02em}
+.voices cite{display:block;margin-top:12px;font-style:normal;font-size:13px;color:var(--mut);text-transform:uppercase;letter-spacing:.1em}
+/* 6 · BLOQ: indeks siyahısı */
+.journal{padding:110px 0 90px}
+.journal-list{padding:0 6vw;display:flex;flex-direction:column;counter-reset:j}
+.journal-list .blog-card{counter-increment:j;display:grid;grid-template-columns:110px 1fr auto;gap:24px;align-items:center;padding:30px 0;border-top:1px solid var(--ln);transition:padding .4s}
+.journal-list .blog-card:hover{padding-left:20px;background:linear-gradient(90deg,rgba(198,255,61,.07),transparent 60%)}
+.journal-list .blog-card::before{content:counter(j,decimal-leading-zero);font-family:"Arial Black",sans-serif;font-size:clamp(36px,4vw,64px);color:var(--ac)}
+.journal-list .blog-card h3{font-size:clamp(22px,2.6vw,36px)}
+.journal-list .blog-card p{grid-column:2;color:var(--mut);font-size:14px;margin-top:6px}
+.journal-list .blog-card a{grid-column:3;grid-row:1/3;text-transform:uppercase;font-weight:800;font-size:13px;letter-spacing:.08em;border-bottom:2px solid var(--ac);white-space:nowrap}
+/* 7 · FAQ: sürüşən qapılar */
+.ask{padding:100px 0 60px;border-top:1px solid var(--ln)}
+.ask-list{padding:0 6vw}
+.ask-item{border-bottom:1px solid var(--ln)}
+.ask-q{width:100%;background:none;border:0;display:flex;justify-content:space-between;align-items:center;gap:20px;padding:26px 0;text-align:left;font-family:"Arial Black",sans-serif;font-size:clamp(20px,2.6vw,34px);text-transform:uppercase;letter-spacing:-.01em}
+.ask-q i{font-style:normal;font-size:44px;line-height:1;color:var(--ac);transition:transform .4s}
+.ask-item.open .ask-q i{transform:rotate(135deg)}
+.ask-a{display:none;padding:0 0 28px;color:var(--mut);font-size:16px;max-width:70ch}
+.ask-item.open .ask-a{display:block}
+/* 8 · ƏLAQƏ */
+.reach{padding:140px 6vw;text-align:left;border-top:1px solid var(--ln);position:relative;overflow:hidden}
+.reach h2{font-size:clamp(70px,14vw,220px);color:var(--ink)}
+.reach p{color:var(--mut);margin:18px 0 26px;font-size:16px}
+.reach-links{display:flex;gap:26px;flex-wrap:wrap;margin-bottom:40px}
+.reach-links a{font-family:"Arial Black",sans-serif;text-transform:uppercase;font-size:clamp(18px,2.2vw,28px);border-bottom:3px solid var(--ac);padding-bottom:4px}
+.reach-links a:hover{color:var(--ac)}
+.reach-cta{display:inline-block;background:var(--ac);color:#000;font-family:"Arial Black",sans-serif;text-transform:uppercase;padding:22px 34px;font-size:18px;clip-path:polygon(0 0,100% 0,100% 70%,85% 100%,0 100%)}
+/* FOOTER */
+.colophon{display:grid;grid-template-columns:2fr 1fr 1.4fr 1fr;gap:34px;padding:70px 6vw 30px;border-top:1px solid var(--ln);color:var(--mut);font-size:14px}
+.colophon h4{font-family:"Arial Black",sans-serif;font-size:14px;color:var(--ink);margin-bottom:14px}
+.colophon a,.colophon p,.colophon div>div{display:block;margin-bottom:8px}
+.colophon a:hover{color:var(--ac)}
+.brand-foot{font-family:"Arial Black",sans-serif;font-size:34px;color:var(--ink);margin-bottom:14px;text-transform:uppercase}
+.brand-foot b{color:var(--ac)}
+.footer-products-prices{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.colophon-end{grid-column:1/-1;border-top:1px solid var(--ln);padding-top:20px;color:#55596a;font-size:12px;text-align:center}
+/* KOMANDA PANELİ */
+.dock{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:900;display:flex;align-items:center;gap:8px;padding:8px;background:rgba(10,10,15,.82);border:1px solid var(--ln);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);clip-path:polygon(14px 0,100% 0,100% calc(100% - 14px),calc(100% - 14px) 100%,0 100%,0 14px);max-width:calc(100vw - 24px);flex-wrap:wrap;justify-content:center}
+.dock-search{position:relative;width:min(300px,50vw)}
+.dock-search input{width:100%;height:44px;background:#050507;border:1px solid var(--ln);color:var(--ink);padding:0 14px;font:inherit;font-size:14px;outline:none}
+.dock-search input:focus{border-color:var(--ac)}
+.dock-cart,.dock-btn{height:44px;padding:0 16px;background:transparent;border:1px solid var(--ln);color:var(--ink);font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;display:inline-flex;align-items:center;gap:8px;white-space:nowrap}
+.dock-cart:hover,.dock-btn:hover{border-color:var(--ac);color:var(--ac)}
+.dock-cart b{background:var(--ac);color:#000;min-width:20px;height:20px;display:inline-grid;place-items:center;font-size:11px;padding:0 5px}
+.dock-hot{background:var(--ac);color:#000;border-color:var(--ac)}
+.dock-hot:hover{color:#000;background:#fff;border-color:#fff}
+.dock-auth{display:flex;gap:6px}
+.dock-auth .dock-btn{height:44px}
+.dock-lang{display:flex}
+.dock-lang button{height:44px;width:40px;background:none;border:1px solid var(--ln);color:var(--mut);font-size:11px;font-weight:800}
+.dock-lang button.active{color:#000;background:var(--ink);border-color:var(--ink)}
+.suggest{display:none;position:absolute;bottom:calc(100% + 10px);left:0;right:0;background:#0b0b10;border:1px solid var(--ln);padding:6px;max-height:50vh;overflow-y:auto;z-index:3500}
 .suggest.open{display:block}
-.sg{display:flex;align-items:center;gap:10px;width:100%;background:none;border:0;color:var(--ink);font:inherit;text-align:left;padding:8px;border-radius:10px;cursor:pointer}
-.sg:hover{background:rgba(0,229,255,.08)}
-.sg img,.sg .sg-ph{width:36px;height:36px;border-radius:9px;object-fit:cover;flex:none;background:rgba(255,255,255,.05);display:grid;place-items:center;font-weight:800}
-.sg b{flex:1;min-width:0;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:600}
-.sg-price{font-size:12px;color:var(--ok);white-space:nowrap}
-.sg-empty{padding:12px;text-align:center;color:var(--mut)}
-#cartModal{display:none;position:fixed;top:0;right:0;width:100%;max-width:420px;height:100vh;background:rgba(9,11,16,.97);border-left:1px solid var(--line);z-index:2000;padding:24px;overflow-y:auto;box-shadow:-30px 0 60px rgba(0,0,0,.6)}
-.cart-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
-.cart-header h2{font-size:22px;font-weight:800}
-.cart-close{background:rgba(255,255,255,.05);border:1px solid var(--line);color:var(--ink);width:38px;height:38px;border-radius:12px;font-size:16px}
-.cart-item{background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:14px;padding:12px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;gap:10px}
-.cart-item-name{font-weight:600;font-size:14px}
-.cart-item-price{color:var(--ok);font-size:13px;margin-top:2px}
-.cart-remove{background:none;border:0;color:var(--mg);font-size:13px}
-.cart-total{border-top:1px solid var(--line);padding-top:14px;margin-top:14px}
-.cart-total-row{display:flex;justify-content:space-between;margin-bottom:14px;font-weight:800;font-size:17px}
+.sg{display:flex;align-items:center;gap:10px;width:100%;background:none;border:0;color:var(--ink);text-align:left;padding:8px;cursor:pointer}
+.sg:hover{background:rgba(198,255,61,.1);color:var(--ac)}
+.sg img,.sg .sg-ph{width:36px;height:36px;object-fit:cover;flex:none;background:#1a1a22;display:grid;place-items:center;font-weight:800}
+.sg b{flex:1;min-width:0;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sg-price{font-size:12px;color:var(--ac);white-space:nowrap}
+.sg-empty{padding:12px;color:var(--mut);text-align:center}
+/* çat və WhatsApp */
+.float-stack{position:fixed;right:16px;bottom:96px;z-index:950;display:flex;flex-direction:column;gap:10px}
+.float-stack .chat-float,.float-stack .whatsapp-float{position:static;width:48px;height:48px;display:flex;align-items:center;justify-content:center;border-radius:0;clip-path:polygon(0 0,100% 0,100% 70%,70% 100%,0 100%)}
+.float-stack .chat-float{background:var(--ac)}
+.float-stack .chat-float svg{width:22px;height:22px;fill:#000}
+.float-stack .whatsapp-float{background:#fff}
+.float-stack .whatsapp-float svg{width:24px;height:24px;fill:#000}
+/* səbət modalı */
+#cartModal{display:none;position:fixed;top:0;right:0;width:100%;max-width:420px;height:100vh;background:#0a0a0f;border-left:1px solid var(--ln);z-index:2000;padding:26px;overflow-y:auto}
+.cart-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+.cart-header h2{font-size:24px}
+.cart-close{background:none;border:1px solid var(--ln);width:38px;height:38px;font-size:16px}
+.cart-item{border:1px solid var(--ln);padding:12px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.cart-item-name{font-weight:700;font-size:14px}
+.cart-item-price{color:var(--ac);font-size:13px;margin-top:2px}
+.cart-remove{background:none;border:0;color:var(--ac2);font-size:13px}
+.cart-total{border-top:1px solid var(--ln);padding-top:14px;margin-top:14px}
+.cart-total-row{display:flex;justify-content:space-between;margin-bottom:14px;font-family:"Arial Black",sans-serif;font-size:18px}
 .cart-empty{text-align:center;padding:30px 10px;color:var(--mut)}
-.float-stack{position:fixed;right:18px;bottom:18px;z-index:9999;display:flex;flex-direction:column;align-items:flex-end;gap:12px}
-.float-stack .chat-float,.float-stack .whatsapp-float{position:static;width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:transform .25s,box-shadow .25s}
-.float-stack .chat-float{background:rgba(0,229,255,.12);border:1px solid var(--cy);box-shadow:var(--glow)}
-.float-stack .chat-float svg{width:24px;height:24px;fill:var(--cy)}
-.float-stack .whatsapp-float{background:rgba(45,255,176,.12);border:1px solid var(--ok);box-shadow:0 0 22px rgba(45,255,176,.3)}
-.float-stack .whatsapp-float svg{width:26px;height:26px;fill:var(--ok)}
-.float-stack .chat-float:hover,.float-stack .whatsapp-float:hover{transform:scale(1.1)}
-.hero{position:relative;padding:90px 0 60px;overflow:hidden}
-.hero::before{content:"";position:absolute;left:50%;top:50%;width:min(760px,120vw);height:min(760px,120vw);transform:translate(-50%,-50%);border-radius:50%;border:1px solid rgba(0,229,255,.18);box-shadow:0 0 120px rgba(0,229,255,.12) inset,0 0 140px rgba(255,43,214,.08);animation:orbit 40s linear infinite;pointer-events:none;z-index:0}
-.hero::after{content:"";position:absolute;left:50%;top:50%;width:min(520px,90vw);height:min(520px,90vw);transform:translate(-50%,-50%);border-radius:50%;border:1px dashed rgba(255,43,214,.22);animation:orbit 26s linear infinite reverse;pointer-events:none;z-index:0}
-@keyframes orbit{to{transform:translate(-50%,-50%) rotate(360deg)}}
-.hero-inner{position:relative;z-index:2;display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
-.hero-content{background:none;border:0;padding:0}
-.badge{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border:1px solid rgba(0,229,255,.35);border-radius:999px;font-size:12px;color:var(--cy);letter-spacing:.08em;text-transform:uppercase;margin-bottom:22px;background:rgba(0,229,255,.05);box-shadow:0 0 18px rgba(0,229,255,.18)}
-.badge::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--ok);box-shadow:0 0 10px var(--ok);animation:pulse 2s ease-in-out infinite}
-@keyframes pulse{50%{opacity:.35}}
-.hero h1{font-size:clamp(44px,6.8vw,96px);line-height:.95;font-weight:800;margin-bottom:22px;text-transform:none}
-.hero h1 span{display:block;background:linear-gradient(90deg,var(--cy),var(--vi) 50%,var(--mg));-webkit-background-clip:text;background-clip:text;color:transparent;background-size:200% auto;filter:drop-shadow(0 0 22px rgba(139,92,255,.35));animation:shine 6s ease-in-out infinite}
-@keyframes shine{50%{background-position:200% center}}
-.hero p{color:var(--mut);font-size:17px;max-width:52ch;margin-bottom:30px}
-.hero-buttons{display:flex;gap:12px;flex-wrap:wrap}
-.hero-buttons .btn{padding:14px 26px;font-size:15px;border-radius:14px}
-.hero-image{display:flex;justify-content:center;align-items:center}
-.hero-image img{width:100%;max-width:460px;height:auto;object-fit:contain;border-radius:28px;border:1px solid var(--line);background:rgba(255,255,255,.02);padding:18px;box-shadow:0 0 60px rgba(0,229,255,.15),0 0 120px rgba(255,43,214,.08);animation:float 7s ease-in-out infinite}
-@keyframes float{50%{transform:translateY(-14px)}}
-section{padding:90px 0;position:relative}
-.section-title{margin-bottom:44px;text-align:left;border:0;padding:0}
-.section-title h2{font-size:clamp(34px,4.4vw,58px);font-weight:800;line-height:1;text-transform:none}
-.section-title h2::after{content:"";display:block;width:72px;height:2px;margin-top:16px;background:linear-gradient(90deg,var(--cy),var(--mg));box-shadow:0 0 14px var(--cy)}
-.section-title p{color:var(--mut);font-size:16px;margin-top:14px;max-width:60ch}
-.product-categories{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:34px;width:auto;padding:0;background:none;border:0}
-.product-category-btn{background:transparent;border:1px solid var(--line);color:var(--mut);padding:9px 16px;border-radius:999px;font-size:13px;font-weight:600;transition:all .25s;text-transform:none}
-.product-category-btn:hover{color:var(--ink);border-color:rgba(0,229,255,.5);box-shadow:var(--glow)}
-.product-category-btn.active{color:#05060a;background:linear-gradient(120deg,var(--cy),var(--mg));border-color:transparent;box-shadow:0 0 20px rgba(0,229,255,.3)}
-.product-category-label{display:inline-block;margin-bottom:12px;padding:4px 10px;border-radius:8px;background:rgba(139,92,255,.12);border:1px solid rgba(139,92,255,.35);color:#c4b3ff;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
-.products{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:20px;padding:0;background:none;border:0;width:auto;max-width:none;margin:0;perspective:1200px}
-.product{position:relative;grid-column:span 4;background:linear-gradient(160deg,rgba(255,255,255,.05),rgba(255,255,255,.01));border:1px solid var(--line);border-radius:24px;padding:22px;display:flex;flex-direction:column;overflow:hidden;opacity:0;translate:0 40px;transition:opacity .8s cubic-bezier(.2,.7,.2,1),translate .8s cubic-bezier(.2,.7,.2,1),box-shadow .4s,border-color .4s}
-.product:nth-child(5n+1),.product:nth-child(5n+4){grid-column:span 6}
-.product.in{opacity:1;translate:0 0}
-.product::before{content:"";position:absolute;inset:-1px;border-radius:24px;padding:1px;background:linear-gradient(135deg,var(--cy),transparent 40%,var(--mg));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:opacity .4s;pointer-events:none}
-.product:hover{border-color:transparent;box-shadow:0 30px 60px -20px rgba(0,229,255,.25),0 0 40px rgba(255,43,214,.12);z-index:2}
-.product:hover::before{opacity:1}
-.product-image{width:100%;height:200px;object-fit:contain;padding:16px;border-radius:18px;background:radial-gradient(circle at 50% 40%,rgba(0,229,255,.12),transparent 70%),#0a0c11;border:1px solid var(--line);margin-bottom:18px;transition:transform .5s cubic-bezier(.2,.7,.2,1)}
-.product:hover .product-image{transform:scale(1.04)}
-.product h3{font-size:21px;font-weight:700;margin-bottom:8px;line-height:1.2;white-space:normal;overflow:visible}
-.product p{font-size:13.5px;color:var(--mut);min-height:40px;margin-bottom:12px;white-space:normal;overflow:visible;display:block}
-.price{font-size:26px;font-weight:800;margin:10px 0 18px;min-height:34px;color:var(--ink)}
-.price small{font-size:12px;color:var(--mut);font-weight:500}
-.product-actions{display:flex;flex-direction:column;gap:9px;margin-top:auto}
-.product-actions a,.product-actions button{width:100%;text-align:center}
-.loading-products,.no-products{grid-column:1/-1;text-align:center;padding:60px;color:var(--mut);border:1px dashed var(--line);border-radius:20px}
-.features{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
-.feature{position:relative;border-radius:24px;overflow:hidden;min-height:300px;display:flex;flex-direction:column;justify-content:flex-end;border:1px solid var(--line);background:#0b0d12;transition:transform .5s,border-color .4s;opacity:0;translate:0 30px}
-.feature.in{opacity:1;translate:0 0}
-.feature:nth-child(2){margin-top:40px}
-.feature:hover{transform:translateY(-8px);border-color:rgba(0,229,255,.4)}
-.feature-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.35;transition:transform .8s}
-.feature:hover .feature-bg{transform:scale(1.08)}
-.feature-overlay{position:absolute;inset:0;background:linear-gradient(180deg,transparent,#06070a 70%);z-index:2}
-.feature-content{position:relative;z-index:3;padding:26px}
-.feature-content h3{font-size:24px;font-weight:800;margin-bottom:8px}
-.feature-content p{color:var(--mut);font-size:14px;margin-bottom:14px}
-.feature-content strong{font-size:12px;color:var(--ok);font-weight:700;text-shadow:0 0 10px rgba(45,255,176,.4)}
-.compare-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
-.compare-card{background:var(--panel);border:1px solid var(--line);border-radius:22px;padding:30px;position:relative;overflow:hidden;transition:transform .4s,border-color .4s;opacity:0;translate:0 30px}
-.compare-card.in{opacity:1;translate:0 0}
-.compare-card:hover{transform:translateY(-4px);border-color:rgba(255,43,214,.35)}
-.compare-card h3{font-size:22px;font-weight:700;margin-bottom:10px}
-.compare-card p{color:var(--mut);font-size:14px;margin-bottom:14px}
-.compare-card b{color:var(--cy)}
-.compare-card a{color:var(--ink);font-weight:600;font-size:14px;border-bottom:1px solid var(--mg)}
-.reviews{background:none;border:0}
-.review-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
-.review{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:22px;transition:transform .4s,border-color .4s;opacity:0;translate:0 24px}
-.review.in{opacity:1;translate:0 0}
-.review:hover{border-color:rgba(0,229,255,.35);transform:translateY(-4px)}
-.stars{color:var(--cy);letter-spacing:3px;font-size:14px;margin-bottom:10px;text-shadow:0 0 10px rgba(0,229,255,.5)}
-.review-text{font-size:14.5px;min-height:70px;margin-bottom:14px;color:#dfe6f5}
-.reviewer{display:flex;align-items:center;gap:10px}
-.avatar{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--vi),var(--mg));display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff}
-.reviewer strong{display:block;font-size:13px}
-.reviewer span{color:var(--mut);font-size:12px}
-.blog-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
-.blog-card{background:var(--panel);border:1px solid var(--line);border-radius:22px;padding:26px;transition:transform .4s,border-color .4s;opacity:0;translate:0 24px}
-.blog-card.in{opacity:1;translate:0 0}
-.blog-card:hover{transform:translateY(-6px);border-color:rgba(139,92,255,.45)}
-.blog-card h3{font-size:20px;font-weight:700;margin-bottom:8px}
-.blog-card p{color:var(--mut);font-size:14px;margin-bottom:12px}
-.blog-card a{font-size:14px;color:var(--cy);font-weight:600}
-.faq{max-width:880px;margin:0 auto;display:flex;flex-direction:column;gap:10px}
-.faq-item{background:var(--panel);border:1px solid var(--line);border-radius:18px;overflow:hidden;transition:border-color .3s}
-.faq-item.open{border-color:rgba(0,229,255,.35)}
-.faq-question{padding:20px 22px;font-size:16px;font-weight:600;display:flex;justify-content:space-between;align-items:center;cursor:pointer;gap:14px}
-.faq-question span+span{width:30px;height:30px;border-radius:50%;background:rgba(0,229,255,.1);color:var(--cy);display:grid;place-items:center;flex:none;font-size:18px;transition:transform .3s}
-.faq-item.open .faq-question span+span{transform:rotate(45deg)}
-.faq-answer{display:none;padding:0 22px 20px;color:var(--mut);font-size:14.5px}
-.faq-item.open .faq-answer{display:block}
-.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-.contact-box{background:var(--panel);border:1px solid var(--line);border-radius:24px;padding:32px;position:relative;overflow:hidden}
-.contact-box+.contact-box{background:linear-gradient(140deg,rgba(0,229,255,.12),rgba(255,43,214,.12));border-color:rgba(0,229,255,.25)}
-.contact-box h3{font-size:26px;font-weight:800;margin-bottom:10px}
-.contact-box p{color:var(--mut);font-size:14px;margin-bottom:14px}
-.contact-item{margin-top:14px}
-.contact-item strong{font-size:11px;color:var(--mut);text-transform:uppercase;letter-spacing:.1em}
-.contact-item span{display:block;font-size:17px;font-weight:600;margin-top:3px}
-footer{position:relative;padding:70px 0 26px;margin-top:40px;border-top:1px solid var(--line);background:linear-gradient(180deg,transparent,rgba(0,0,0,.6))}
-.footer-grid{display:grid;grid-template-columns:2fr 1fr 1.6fr 1fr;gap:34px}
-.footer-col h3{font-size:14px;font-weight:700;color:var(--ink);margin-bottom:14px;text-transform:uppercase;letter-spacing:.08em}
-.footer-col h3.logo{font-size:26px;text-transform:none;letter-spacing:-.02em}
-.footer-col p,.footer-col a{display:block;font-size:14px;color:var(--mut);margin-bottom:8px;transition:color .2s}
-.footer-col a:hover{color:var(--cy)}
-.footer-products-prices{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start}
-.footer-products-prices>div{min-width:0}
-.copyright{margin-top:34px;padding-top:20px;border-top:1px solid var(--line);text-align:center;color:#5c6376;font-size:13px}
-a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--cy);outline-offset:3px}
-@media(max-width:1000px){
-.hero-inner{grid-template-columns:1fr}
-.hero-image{order:-1}
-.features,.blog-grid,.compare-grid,.contact-grid{grid-template-columns:minmax(0,1fr)}
-.feature:nth-child(2){margin-top:0}
-.review-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-.products{grid-template-columns:repeat(2,minmax(0,1fr))}
-.product,.product:nth-child(5n+1),.product:nth-child(5n+4){grid-column:span 1}
-.menu{display:none}
-.footer-grid{grid-template-columns:1fr 1fr}
+#cartModal .btn-primary{background:var(--ac);color:#000;border:0;padding:14px;width:100%;font-weight:800;text-transform:uppercase}
+.btn{display:inline-block;border:0}
+/* hərəkət: yalnız girişdə */
+.stream .product,.axis-band,.compare-card,.blog-card{opacity:0;translate:0 40px;transition:opacity .9s cubic-bezier(.2,.7,.2,1),translate .9s cubic-bezier(.2,.7,.2,1),transform .5s,background .4s}
+.stream .product.in,.compare-card.in,.blog-card.in{opacity:1;translate:0 0}
+.axis-band.in{opacity:1;translate:0 0}
+@media(max-width:900px){
+.panels{grid-template-columns:repeat(2,1fr)}
+.panels .product:nth-child(n){grid-column:span 1;grid-row:auto;min-height:260px}
+.panels .product:nth-child(1){grid-column:span 2;min-height:380px}
+.orbit{bottom:-120px;opacity:.6}
+.orbit-nodes .product-category-btn{width:96px;height:96px;margin:-48px 0 0 -48px;font-size:10px}
+.orbit-nodes .product-category-btn:nth-child(n){transform:none;position:relative;left:auto;top:auto;margin:0}
+.orbit-nodes{position:relative;display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:30px}
+.orbit-nodes .product-category-btn{position:relative;left:auto;top:auto;margin:0}
+.entry{padding-bottom:60px}
+.journal-list .blog-card{grid-template-columns:70px 1fr}
+.journal-list .blog-card a{grid-column:2;grid-row:auto}
+.colophon{grid-template-columns:1fr 1fr}
+.dock-search{width:100%;order:-1}
 }
-@media(max-width:700px){
-.nav{min-height:auto}
-.header-right{width:100%;justify-content:space-between}
-.search{max-width:none;order:9;flex:1 1 100%}
-.hero{padding:50px 0 40px}
-.hero h1{font-size:44px}
-.hero-buttons .btn{width:100%}
-.products{grid-template-columns:minmax(0,1fr)}
-.product-image{height:170px}
-.review-grid,.footer-grid,.footer-products-prices{grid-template-columns:minmax(0,1fr)}
-#cartModal{max-width:100%}
-.about-dropdown-menu{position:static;margin-top:8px;box-shadow:none}
-section{padding:60px 0}
+@media(max-width:560px){
+.panels{grid-template-columns:1fr;padding:0 16px}
+.panels .product:nth-child(n){grid-column:span 1}
+.panels .product:nth-child(1){grid-column:span 1}
+.entry h1{font-size:64px}
+.axis-band{padding:30px 16px}
+.stream-head,.voices,.reach,.ask-list,.journal-list,.track-rail{padding-left:16px;padding-right:16px}
+.dock{bottom:10px;left:8px;right:8px;transform:none;width:auto}
+.dock-search{width:100%}
+.dock-cart,.dock-btn{padding:0 10px;font-size:11px}
+.colophon{grid-template-columns:1fr;padding:50px 16px 30px}
+.float-stack{bottom:150px}
 }
-@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.product,.feature,.compare-card,.review,.blog-card{opacity:1!important;translate:none!important}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.stream .product,.axis-band,.compare-card,.blog-card{opacity:1!important;translate:none!important}}
 
+.entry-core{pointer-events:none}.orbit-nodes{z-index:5}.entry{z-index:1}
 </style>
 </head>
-
 <body>
+<div class="stage">
 
-<header>
-<div class="container nav">
+<header class="hud" id="topbar">
+  <a href="#home" class="brand" aria-label="DigiBaku">DIGI<b>BAKU</b></a>
+  <button class="hud-menu" type="button" onclick="document.body.classList.toggle('menu-open')" aria-label="Menyu"><i></i><i></i></button>
+</header>
 
-<a href="#home" class="logo">DigiBaku<span>.com</span></a>
-
-<nav class="menu">
-<a href="#home" data-i18n="home">Ana səhifə</a>
-<a href="#products" data-i18n="products">Məhsullar</a>
-<a href="#compare" data-i18n="compareMenu">Müqayisə</a>
-
-<div class="about-dropdown">
-<a href="faq.html#about" data-i18n="about">Haqqımızda <span class="about-dropdown-arrow">⌄</span></a>
-<div class="about-dropdown-menu">
-<a href="faq.html#about" data-i18n="aboutCompany">DigiBaku haqqında</a>
-<a href="faq.html#faq" data-i18n="faqMenu">FAQ</a>
-<a href="faq.html#how-it-works" data-i18n="howWorks">Necə işləyir?</a>
-<a href="faq.html#trust" data-i18n="trust">Etibar</a>
-<a href="faq.html#editorial-policy" data-i18n="editorialPolicy">Redaksiya siyasəti</a>
-<a href="faq.html#terms" data-i18n="terms">Şərtlər</a>
-<a href="faq.html#reviews" data-i18n="reviewsMenu">Rəylər</a>
-</div>
-</div>
-
-<a href="qiymetler.html" data-i18n="prices">Qiymətlər</a>
-<a href="#blog" data-i18n="blogMenu">Bloq</a>
-<a href="#contact" data-i18n="contactTitle">Əlaqə</a>
+<nav class="sky" aria-label="Menyu">
+  <a href="#home" data-i18n="home">Ana səhifə</a>
+  <a href="#products" data-i18n="products">Məhsullar</a>
+  <a href="#compare" data-i18n="compareMenu">Müqayisə</a>
+  <a href="#reviews" data-i18n="reviewsMenu">Rəylər</a>
+  <a href="#blog" data-i18n="blogMenu">Bloq</a>
+  <a href="#faq" data-i18n="faqMenu">FAQ</a>
+  <a href="qiymetler.html" data-i18n="prices">Qiymətlər</a>
+  <a href="faq.html#about" data-i18n="about">Haqqımızda</a>
+  <a href="#contact" data-i18n="contactTitle">Əlaqə</a>
 </nav>
 
-<div class="header-right">
-<div class="search" id="searchBox">
-<input id="searchInput" type="search" oninput="onSearch(this.value)" onkeydown="searchKey(event)" autocomplete="off" placeholder="Məhsul axtar..." aria-label="Axtarış">
-<div class="suggest" id="suggest"></div>
-</div>
+<main>
 
-<button onclick="toggleCart()" class="btn cart-btn">
-🛒 <span data-i18n="cart">Səbət</span>
-<span id="cartCount" class="cart-count">0</span>
-</button>
+<!-- 1 · GİRİŞ: mərkəzdə nəhəng söz, ətrafında kateqoriya orbiti -->
+<section class="entry" id="home">
+  <p class="vertical" aria-hidden="true">PREMİUM · RƏQƏMSAL · 2027</p>
+  <div class="entry-core">
+    <h1 data-i18n="heroTitle">Premium<br><span data-i18n="heroTitleSpan">rəqəmsal</span><br>keçid</h1>
+    <p data-i18n="heroText">Dünyanın ən çox istifadə olunan premium platformalarını bir yerdə tap. Seç, sifariş et, qısa müddətdə istifadə et.</p>
+  </div>
+  <div class="orbit" aria-label="Kateqoriyalar">
+    <div id="productCategories" class="orbit-nodes"></div>
+  </div>
+  <div class="scroll-cue" aria-hidden="true"><span></span></div>
+</section>
 
-<div class="auth" id="authArea">
-<a href="login.html" class="btn btn-dark" data-i18n="login">Daxil ol</a>
-<a href="login.html" class="btn btn-primary" data-i18n="register">Qeydiyyat</a>
-</div>
+<!-- 2 · MƏHSULLAR: asimmetrik panellər -->
+<section class="stream" id="products">
+  <header class="stream-head">
+    <h2 data-i18n="products">Məhsullar</h2>
+    <p data-i18n="productsSubtitle">Premium rəqəmsal xidmətlərimizi kəşf edin.</p>
+  </header>
+  <div class="panels" id="productsGrid">
+    <div class="loading-products" data-i18n="loadingProducts">Məhsullar yüklənir...</div>
+  </div>
+</section>
 
-<div class="language-switcher">
-<button onclick="setLanguage('az')" id="langAZ">AZ</button>
-<span>|</span>
-<button onclick="setLanguage('ru')" id="langRU">RU</button>
-<span>|</span>
-<button onclick="setLanguage('en')" id="langEN">EN</button>
-</div>
+<!-- 3 · ÜÇ PRİNSİP: diaqonal zolaqlar -->
+<section class="axis" id="why">
+  <div class="axis-band b1"><h2 data-i18n="fastActivation">Sürətli aktivləşdirmə</h2><p data-i18n="activationTime">5-30 dəq ərzində aktivləşdirmə</p></div>
+  <div class="axis-band b2"><h2 data-i18n="safeOrder">Təhlükəsizlik</h2><p data-i18n="protectedPayment">Qorunan sistem</p></div>
+  <div class="axis-band b3"><h2 data-i18n="support">Etibarlı dəstək</h2><p data-i18n="customerSupport">Operativ müştəri dəstəyi</p></div>
+</section>
 
+<!-- 4 · MÜQAYİSƏ: yatay sürüşən zolaq -->
+<section class="track" id="compare">
+  <header class="stream-head">
+    <h2 data-i18n="compareTitle">Müqayisə bələdçiləri</h2>
+    <p data-i18n="compareSubtitle">İstifadə məqsədinizə uyğun premium xidməti daha rahat seçin.</p>
+  </header>
+  <div class="track-rail" id="compareGrid"></div>
+</section>
+
+<!-- 5 · RƏYLƏR: danışan sətirlər -->
+<section class="voices" id="reviews">
+  <header class="stream-head">
+    <h2 data-i18n="reviewsTitle">Müştəri rəyləri</h2>
+    <p data-i18n="reviewsSubtitle">Müştərilərimizin təcrübəsi bizim üçün ən böyük motivasiyadır.</p>
+  </header>
+  <blockquote><span data-i18n="review1Text">“Çox sağ olun. Sifariş sürətli və problemsiz oldu.”</span><cite>Cəfərov Xəqani · <span data-i18n="reviewProductNetflix">Netflix Premium Azərbaycan</span></cite></blockquote>
+  <blockquote><span data-i18n="review2Text">“Əla, uyğun qiymətədir və sürətli bir şəkildə əldə etdim. Təşəkkür edirəm.”</span><cite>Shabnam Valizada · <span data-i18n="reviewProductYoutube">YouTube Premium Azərbaycan</span></cite></blockquote>
+  <blockquote><span data-i18n="review3Text">“Sərfəli qiymətdir və sifariş prosesi çox rahatdır.”</span><cite>Dergah Abdullayev · <span data-i18n="reviewProductChatGPT">ChatGPT Plus Azərbaycan</span></cite></blockquote>
+  <blockquote><span data-i18n="review5Text">“Dəstək komandası suallarıma tez cavab verdi və mənə kömək etdi.”</span><cite>Səbinə Əliyeva · <span data-i18n="customer">Müştəri</span></cite></blockquote>
+</section>
+
+<!-- 6 · BLOQ: indeksli siyahı -->
+<section class="journal" id="blog">
+  <header class="stream-head">
+    <h2 data-i18n="blogTitle">Bloq</h2>
+    <p data-i18n="blogSubtitle">Premium xidmətlər haqqında faydalı məlumatlar</p>
+  </header>
+  <div class="journal-list" id="blogGrid"></div>
+</section>
+
+<!-- 7 · FAQ: kənardan açılan suallar -->
+<section class="ask" id="faq">
+  <header class="stream-head">
+    <h2 data-i18n="faqTitle">Tez-tez verilən suallar</h2>
+  </header>
+  <div class="ask-list">
+    <div class="ask-item"><button type="button" class="ask-q" onclick="toggleFaq(this)"><span data-i18n="faqOrder">Sifariş necə verilir?</span><i>+</i></button><div class="ask-a" data-i18n="faqOrderAnswer">Məhsulu seçin, “Sifariş et” düyməsinə klikləyin və WhatsApp üzərindən sifarişinizi göndərin.</div></div>
+    <div class="ask-item"><button type="button" class="ask-q" onclick="toggleFaq(this)"><span data-i18n="faqProducts">Hansı məhsullar satılır?</span><i>+</i></button><div class="ask-a" data-i18n="faqProductsAnswer">Netflix Premium, YouTube Premium, ChatGPT Plus, Google Gemini Premium, Spotify Premium və Canva Pro.</div></div>
+    <div class="ask-item"><button type="button" class="ask-q" onclick="toggleFaq(this)"><span data-i18n="faqSupport">Dəstəklə necə əlaqə saxlayım?</span><i>+</i></button><div class="ask-a" data-i18n="faqSupportAnswer">E-poçt vasitəsilə premium989b@gmail.com ünvanından əlaqə saxlaya bilərsiniz.</div></div>
+    <div class="ask-item"><button type="button" class="ask-q" onclick="toggleFaq(this)"><span data-i18n="faqActivation">Aktivləşdirmə nə qədər çəkir?</span><i>+</i></button><div class="ask-a" data-i18n="faqActivationAnswer">Sifarişdən sonra aktivləşdirmə adətən 5-30 dəqiqə ərzində həyata keçirilir.</div></div>
+  </div>
+</section>
+
+<!-- 8 · ƏLAQƏ: tək böyük çağırış -->
+<section class="reach" id="contact">
+  <h2 data-i18n="contactTitle">Əlaqə</h2>
+  <p>Bakı, Azərbaycan · 10:00 — 22:00</p>
+  <div class="reach-links">
+    <a href="https://wa.me/994513626349" target="_blank" rel="noopener" data-i18n="whatsapp">WhatsApp</a>
+    <a href="mailto:premium989b@gmail.com" data-i18n="email">E-poçt</a>
+    <a href="chat.html" data-i18n="chatLabel">Canlı çat</a>
+  </div>
+  <a class="reach-cta" href="#products" data-i18n="viewProducts">Məhsullara bax</a>
+</section>
+
+</main>
+
+<footer class="colophon">
+  <div class="colophon-col">
+    <h3 class="brand-foot">DIGI<b>BAKU</b></h3>
+    <p data-i18n="premiumFooter">Premium rəqəmsal xidmətlər bir platformada.</p>
+    <p id="footerProductList">Məhsullar yüklənir...</p>
+  </div>
+  <div class="colophon-col">
+    <h4 data-i18n="usefulLinks">Faydalı linklər</h4>
+    <a href="#home" data-i18n="home">Ana səhifə</a>
+    <a href="#products" data-i18n="products">Məhsullar</a>
+    <a href="#compare" data-i18n="compareMenu">Müqayisə</a>
+    <a href="faq.html#about" data-i18n="about">Haqqımızda</a>
+    <a href="#reviews" data-i18n="reviewsMenu">Rəylər</a>
+  </div>
+  <div class="colophon-col">
+    <div class="footer-products-prices">
+      <div><h4 data-i18n="footerProducts">Məhsullar</h4><div id="footerProductsList">Məhsullar yüklənir...</div></div>
+      <div><h4 data-i18n="footerPrices">Qiymətlər</h4><div id="footerPricesList">Qiymətlər yüklənir...</div></div>
+    </div>
+  </div>
+  <div class="colophon-col">
+    <h4 data-i18n="footerSupport">Dəstək</h4>
+    <a href="#contact" data-i18n="contactTitle">Əlaqə</a>
+    <a href="#blog" data-i18n="blogMenu">Bloq</a>
+    <a href="#products" data-i18n="footerOrder">Sifariş</a>
+  </div>
+  <div class="colophon-end" data-i18n="copyright">© 2026 DigiBaku.com. Bütün hüquqlar qorunur.</div>
+</footer>
+
+<!-- KOMANDA PANELİ: axtarış, səbət, giriş, dillər -->
+<div class="dock" role="toolbar" aria-label="Komanda paneli">
+  <div class="dock-search" id="searchBox">
+    <input id="searchInput" type="search" oninput="onSearch(this.value)" onkeydown="searchKey(event)" autocomplete="off" placeholder="Məhsul axtar..." aria-label="Axtarış">
+    <div class="suggest" id="suggest"></div>
+  </div>
+  <button class="dock-cart" onclick="toggleCart()" aria-label="Səbət"><span data-i18n="cart">Səbət</span><b id="cartCount">0</b></button>
+  <div class="dock-auth" id="authArea">
+    <a href="login.html" class="dock-btn" data-i18n="login">Daxil ol</a>
+    <a href="login.html" class="dock-btn dock-hot" data-i18n="register">Qeydiyyat</a>
+  </div>
+  <div class="dock-lang">
+    <button onclick="setLanguage('az')" id="langAZ">AZ</button>
+    <button onclick="setLanguage('ru')" id="langRU">RU</button>
+    <button onclick="setLanguage('en')" id="langEN">EN</button>
+  </div>
 </div>
-</div>
-</header>
 
 <div id="cartModal">
 <div class="cart-header">
@@ -370,277 +480,6 @@ Dünyanın ən çox istifadə olunan premium platformalarını bir araya gətir�
 </div>
 
 </div>
-</section>
-
-<section>
-<div class="container">
-
-<div class="section-title">
-<h2 data-i18n="whyUs">Niyə məhz biz?</h2>
-<p data-i18n="whyUsText">Premium xidmətlərə çıxışı daha sürətli, rahat və təhlükəsiz etmək üçün prosesi sadələşdirdik.</p>
-</div>
-
-<div class="features">
-
-<div class="feature">
-<img class="feature-bg" src="destek.webp" alt="Dəstək">
-<div class="feature-overlay"></div>
-<div class="feature-content">
-<h3 data-i18n="fastActivation">Sürətli aktivləşdirmə</h3>
-<p data-i18n="fastActivationText">Sifarişinizi tamamlayın, qalanını biz həll edək. Hesab məlumatlarınız hazırlanaraq sizə təqdim olunur.</p>
-<strong data-i18n="activationTime">5-30 dəq ərzində aktivləşdirmə</strong>
-</div>
-</div>
-
-<div class="feature">
-<img class="feature-bg" src="odenis.webp" alt="Təhlükəsizlik">
-<div class="feature-overlay"></div>
-<div class="feature-content">
-<h3 data-i18n="safeOrder">Təhlükəsizlik</h3>
-<p data-i18n="safeOrderText">Prosesiniz qorunan sistem üzərindən aparılır və sifarişiniz təhlükəsiz şəkildə tamamlanır.</p>
-<strong data-i18n="protectedPayment">Qorunan sistem</strong>
-</div>
-</div>
-
-<div class="feature">
-<img class="feature-bg" src="etibarli.webp" alt="Etibarlı dəstək">
-<div class="feature-overlay"></div>
-<div class="feature-content">
-<h3 data-i18n="support">Etibarlı dəstək</h3>
-<p data-i18n="supportText">Sifariş və aktivləşdirmə ilə bağlı suallarınız yarandıqda dəstək komandamız sizə operativ şəkildə kömək edir.</p>
-<strong data-i18n="customerSupport">Operativ müştəri dəstəyi</strong>
-</div>
-</div>
-
-</div>
-</div>
-</section>
-
-<section id="compare">
-<div class="container">
-
-<div class="section-title">
-<h2 data-i18n="compareTitle">Müqayisə bələdçiləri</h2>
-<p data-i18n="compareSubtitle">İstifadə məqsədinizə uyğun premium xidməti daha rahat seçin.</p>
-</div>
-
-<div class="compare-grid" id="compareGrid"></div>
-</div>
-</section>
-
-<section class="reviews" id="reviews">
-<div class="container">
-
-<div class="section-title">
-<h2 data-i18n="reviewsTitle">Müştəri rəyləri</h2>
-<p data-i18n="reviewsSubtitle">Müştərilərimizin təcrübəsi bizim üçün ən böyük motivasiyadır.</p>
-</div>
-
-<div class="review-grid">
-
-<div class="review">
-<div class="stars">★★★★★</div>
-<div class="review-text" data-i18n="review1Text">“Çox sağ olun. Sifariş sürətli və problemsiz oldu.”</div>
-<div class="reviewer"><div class="avatar">O</div><div><strong>Cəfərov Xəqani</strong><span data-i18n="reviewProductNetflix">Netflix Premium Azərbaycan</span></div></div>
-</div>
-
-<div class="review">
-<div class="stars">★★★★★</div>
-<div class="review-text" data-i18n="review2Text">“Əla, uyğun qiymətədir və sürətli bir şəkildə əldə etdim. Təşəkkür edirəm.”</div>
-<div class="reviewer"><div class="avatar">S</div><div><strong>Shabnam Valizada</strong><span data-i18n="reviewProductYoutube">YouTube Premium Azərbaycan</span></div></div>
-</div>
-
-<div class="review">
-<div class="stars">★★★★★</div>
-<div class="review-text" data-i18n="review3Text">“Sərfəli qiymətdir və sifariş prosesi çox rahatdır.”</div>
-<div class="reviewer"><div class="avatar">D</div><div><strong>Dergah Abdullayev</strong><span data-i18n="reviewProductChatGPT">ChatGPT Plus Azərbaycan</span></div></div>
-</div>
-
-<div class="review">
-<div class="stars">★★★★★</div>
-<div class="review-text" data-i18n="review4Text">“Etibarlı və sürətli xidmətdir. Dostlarıma da tövsiyə edirəm.”</div>
-<div class="reviewer"><div class="avatar">R</div><div><strong>Rəşad Məmmədli</strong><span data-i18n="reviewProductSpotify">Spotify Premium Azərbaycan</span></div></div>
-</div>
-
-<div class="review">
-<div class="stars">★★★★★</div>
-<div class="review-text" data-i18n="review5Text">“Dəstək komandası suallarıma tez cavab verdi və mənə kömək etdi.”</div>
-<div class="reviewer"><div class="avatar">S</div><div><strong>Səbinə Əliyeva</strong><span data-i18n="customer">Müştəri</span></div></div>
-</div>
-
-<div class="review">
-<div class="stars">★★★★★</div>
-<div class="review-text" data-i18n="review6Text">“Bir neçə dəfə sifariş vermişəm və hər dəfə xidmət problemsiz işləyib.”</div>
-<div class="reviewer"><div class="avatar">E</div><div><strong>Elvin Cəfərov</strong><span data-i18n="customer">Müştəri</span></div></div>
-</div>
-
-<div class="review">
-<div class="stars">★★★★★</div>
-<div class="review-text" data-i18n="review7Text">“Saytın istifadəsi sadədir. İstədiyim məhsulu çox tez tapdım.”</div>
-<div class="reviewer"><div class="avatar">L</div><div><strong>Ləman Hüseynova</strong><span data-i18n="customer">Müştəri</span></div></div>
-</div>
-
-<div class="review">
-<div class="stars">★★★★★</div>
-<div class="review-text" data-i18n="review8Text">“Qiymətlər münasibdir və aktivləşdirmə gözlədiyimdən daha sürətli oldu.”</div>
-<div class="reviewer"><div class="avatar">V</div><div><strong>Vahid Kərimov</strong><span data-i18n="customer">Müştəri</span></div></div>
-</div>
-
-</div>
-</div>
-</section>
-
-<section id="blog">
-<div class="container">
-
-<div class="section-title">
-<h2 data-i18n="blogTitle">Bloq</h2>
-<p data-i18n="blogSubtitle">Premium xidmətlər haqqında faydalı məlumatlar</p>
-</div>
-
-<div class="blog-grid" id="blogGrid"></div>
-</div>
-</section>
-
-<section>
-<div class="container">
-
-<div class="section-title">
-<h2 data-i18n="faqTitle">Tez-tez verilən suallar</h2>
-</div>
-
-<div class="faq">
-
-<div class="faq-item">
-<div class="faq-question" onclick="toggleFaq(this)">
-<span data-i18n="faqOrder">Sifariş necə verilir?</span><span>+</span>
-</div>
-<div class="faq-answer" data-i18n="faqOrderAnswer">Məhsulu seçin, “Sifariş et” düyməsinə klikləyin və WhatsApp üzərindən sifarişinizi göndərin.</div>
-</div>
-
-<div class="faq-item">
-<div class="faq-question" onclick="toggleFaq(this)">
-<span data-i18n="faqProducts">Hansı məhsullar satılır?</span><span>+</span>
-</div>
-<div class="faq-answer" data-i18n="faqProductsAnswer">Netflix Premium, YouTube Premium, ChatGPT Plus, Google Gemini Premium, Spotify Premium və Canva Pro.</div>
-</div>
-
-<div class="faq-item">
-<div class="faq-question" onclick="toggleFaq(this)">
-<span data-i18n="faqSupport">Dəstəklə necə əlaqə saxlayım?</span><span>+</span>
-</div>
-<div class="faq-answer" data-i18n="faqSupportAnswer">E-poçt vasitəsilə premium989b@gmail.com ünvanından əlaqə saxlaya bilərsiniz.</div>
-</div>
-
-<div class="faq-item">
-<div class="faq-question" onclick="toggleFaq(this)">
-<span data-i18n="faqActivation">Aktivləşdirmə nə qədər çəkir?</span><span>+</span>
-</div>
-<div class="faq-answer" data-i18n="faqActivationAnswer">Sifarişdən sonra aktivləşdirmə adətən 5-30 dəqiqə ərzində həyata keçirilir.</div>
-</div>
-
-</div>
-</div>
-</section>
-
-<section class="contact" id="contact">
-<div class="container">
-
-<div class="section-title">
-<h2 data-i18n="contactTitle">Əlaqə</h2>
-<p data-i18n="contactSubtitle">DigiBaku.com dəstək</p>
-</div>
-
-<div class="contact-grid">
-
-<div class="contact-box">
-<h3>DigiBaku.com</h3>
-
-<div class="contact-item">
-<strong data-i18n="city">Şəhər</strong>
-<span>Bakı, Azərbaycan</span>
-</div>
-
-<div class="contact-item">
-<strong data-i18n="whatsapp">Whatsapp</strong>
-<span>+994513626349</span>
-</div>
-
-<div class="contact-item">
-<strong data-i18n="email">E-poçt</strong>
-<span>premium989b@gmail.com</span>
-</div>
-
-<div class="contact-item">
-<strong data-i18n="workingHours">İş saatları</strong>
-<span>10:00 — 22:00</span>
-</div>
-</div>
-
-<div class="contact-box">
-<h3 data-i18n="orderSupportTitle">Sifariş və dəstək</h3>
-<p style="margin-bottom:20px" data-i18n="orderSupportText">Məhsulu seçin və “Sifariş et” düyməsi ilə WhatsApp üzərindən sifarişinizi göndərin.</p>
-<a href="#products" class="btn btn-primary" data-i18n="viewProducts">Məhsullara bax</a>
-</div>
-
-</div>
-</div>
-</section>
-
-</main>
-
-<footer>
-<div class="container">
-
-<div class="footer-grid">
-
-<div class="footer-col">
-<h3 class="logo">DigiBaku<span>.com</span></h3>
-<p data-i18n="premiumFooter">Premium rəqəmsal xidmətlər bir platformada.</p>
-<p id="footerProductList">Məhsullar yüklənir...</p>
-</div>
-
-<div class="footer-col">
-<h3 data-i18n="usefulLinks">Faydalı linklər</h3>
-<a href="#home" data-i18n="home">Ana səhifə</a>
-<a href="#products" data-i18n="products">Məhsullar</a>
-<a href="#compare" data-i18n="compareMenu">Müqayisə</a>
-<a href="faq.html#about" data-i18n="about">Haqqımızda</a>
-<a href="#reviews" data-i18n="reviewsMenu">Rəylər</a>
-</div>
-
-<div class="footer-col">
-<div class="footer-products-prices">
-
-<div>
-<h3 data-i18n="footerProducts">Məhsullar</h3>
-<div id="footerProductsList">Məhsullar yüklənir...</div>
-</div>
-
-<div>
-<h3 data-i18n="footerPrices">Qiymətlər</h3>
-<div id="footerPricesList">Qiymətlər yüklənir...</div>
-</div>
-
-</div>
-</div>
-
-<div class="footer-col">
-<h3 data-i18n="footerSupport">Dəstək</h3>
-<a href="#contact" data-i18n="contactTitle">Əlaqə</a>
-<a href="#blog" data-i18n="blogMenu">Bloq</a>
-<a href="#products" data-i18n="footerOrder">Sifariş</a>
-</div>
-
-</div>
-
-<div class="copyright" data-i18n="copyright">
-© 2026 DigiBaku.com. Bütün hüquqlar qorunur.
-</div>
-
-</div>
-</footer>
-
 <div class="float-stack">
 
 <a href="chat.html" class="chat-float" aria-label="Çat">
@@ -652,7 +491,6 @@ Dünyanın ən çox istifadə olunan premium platformalarını bir araya gətir�
 </a>
 
 </div>
-
 <script>
 const SUPABASE_URL="https://zeknhnkaicqkfzgnvycq.supabase.co";
 const SUPABASE_KEY="sb_publishable_jHvCp9fXBA_BwFqrXYpwlw_VC6C1OQk";
@@ -1387,12 +1225,11 @@ setupRealtime();
 });
 
 </script>
-
 <script>
 (function(){
-  var sel='.product,.feature,.compare-card,.review,.blog-card';
+  var sel='.stream .product,.axis-band,.compare-card,.blog-card';
   if(!('IntersectionObserver' in window)){document.querySelectorAll(sel).forEach(function(e){e.classList.add('in')});return;}
-  var io=new IntersectionObserver(function(es){es.forEach(function(en){if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);}});},{threshold:.12});
+  var io=new IntersectionObserver(function(es){es.forEach(function(en){if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);}});},{threshold:.15});
   function watch(){document.querySelectorAll(sel).forEach(function(e){if(!e.classList.contains('in'))io.observe(e);});}
   watch();
   ['productsGrid','compareGrid','blogGrid'].forEach(function(id){var g=document.getElementById(id);if(g)new MutationObserver(watch).observe(g,{childList:true});});
