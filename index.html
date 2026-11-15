@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://zeknhnkaicqkfzgnvycq.supabase.co wss://zeknhnkaicqkfzgnvycq.supabase.co; object-src 'none'; base-uri 'self'; form-action 'self' https://wa.me; frame-src 'none'">
 
 <title id="seoTitle">DigiBaku Azərbaycan | Premium Rəqəmsal Xidmətlər və Abunəliklər</title>
 
@@ -339,7 +341,7 @@ loadDynamicSEO();
 
 setInterval(
 loadDynamicSEO,
-5000
+300000
 );
 
 })();
@@ -2396,7 +2398,7 @@ html+=`
 <button
 type="button"
 class="product-category-btn ${active ? "active" : ""}"
-onclick="selectProductCategory('${escapeJs(category)}')"
+onclick="selectProductCategory(${escapeHtml(JSON.stringify(category))})"
 >
 ${escapeHtml(category)}
 </button>
@@ -2569,14 +2571,14 @@ ${t("details")}
 
 <button
 class="btn btn-dark"
-onclick="orderProductFromCard('${escapeJs(orderName)}',${price ? price.price : 0})"
+onclick="orderProductFromCard(${escapeHtml(JSON.stringify(orderName))},${price ? price.price : 0})"
 >
 ${t("order")}
 </button>
 
 <button
 class="btn btn-dark"
-onclick="cartProductFromCard('${escapeJs(orderName)}',${price ? price.price : 0})"
+onclick="cartProductFromCard(${escapeHtml(JSON.stringify(orderName))},${price ? price.price : 0})"
 >
 ${t("addCart")}
 </button>
