@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="az">
 <head>
@@ -138,6 +137,32 @@ footer{margin-top:50px;border-top:1px solid var(--line);background:#070709}
 @media(max-width:960px){.hdr-in{grid-template-columns:1fr auto}}
 @media(max-width:600px){.hdr-in{grid-template-columns:1fr;gap:10px}.htools{justify-content:space-between;width:100%}.hsearch{grid-column:auto;order:0}.pill{padding:0 10px;font-size:12px}.logo{font-size:17px}}
 html,body{max-width:100%;overflow-x:hidden}
+
+/* ===== VURĞU: ağ yox, mavi ===== */
+:root{--ac:#2f8cff;--ac2:#1f6fd6}
+.pill.hot,.banner .cta,.btn.go,.chip.on,.go-btn,.float{background:var(--ac)!important;color:#fff!important;border-color:var(--ac)!important}
+.float svg{fill:#fff!important}
+.pill b{background:var(--ac);color:#fff}
+.pill.hot:hover,.banner .cta:hover,.btn.go:hover,.go-btn:hover{background:var(--ac2)!important}
+.chip:hover{border-color:var(--ac);color:#fff}
+.price .new{color:var(--ac)}
+.price .old{color:#666}
+.off{background:var(--ac);color:#fff}
+.nav-in a:hover,.nav-in a.on{color:#fff;border-bottom-color:var(--ac)}
+.faq-i button i{color:var(--ac)}
+.sec-h a:hover{color:var(--ac)}
+.hsearch input:focus{border-color:var(--ac)}
+.langs button.on{color:var(--ac)}
+/* featured: kart tam görünsün */
+.feat{display:block}
+.feat .ev{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px;align-items:center;padding:24px;background:var(--card);border:1px solid var(--line);border-radius:20px}
+.feat .ev-img{width:100%;height:auto;aspect-ratio:4/3}
+.feat .ev h3{font-size:clamp(24px,3vw,36px);white-space:normal;overflow:visible}
+.feat .ev p{white-space:normal;overflow:visible}
+.feat .ev-side{flex-direction:row;justify-content:space-between;align-items:center}
+@media(max-width:700px){.feat .ev{grid-template-columns:1fr}}
+.feat .ev{overflow:hidden}.feat .ev>div{min-width:0}.feat .ev-side{flex-wrap:wrap;gap:12px}.feat .btns{flex-wrap:wrap}
+@media(max-width:700px){.feat .ev-img{aspect-ratio:16/10}}
 </style>
 </head>
 <body>
@@ -153,7 +178,7 @@ html,body{max-width:100%;overflow-x:hidden}
     </div>
   </div>
   <nav class="nav"><div class="nav-in">
-    <a href="#products">Məhsullar</a><a href="#top">Həftənin seçimi</a><a href="#best">Ən sevilən</a><a href="#categories">Kateqoriyalar</a><a href="#reviews">Rəylər</a><a href="#faq">FAQ</a><a href="qiymetler.html">Qiymətlər</a><a href="faq.html#about">Haqqımızda</a>
+    <a href="#products">Məhsullar</a><a href="#featured">Həftənin seçimi</a><a href="#best">Ən sevilən</a><a href="#products">Kateqoriyalar</a><a href="#reviews">Rəylər</a><a href="#faq">FAQ</a><a href="qiymetler.html">Qiymətlər</a><a href="faq.html#about">Haqqımızda</a>
   </div></nav>
 </header>
 
@@ -164,12 +189,12 @@ html,body{max-width:100%;overflow-x:hidden}
       <p>Netflix, Spotify, ChatGPT və digər premium abunələr. Seç, sifariş et, 5–30 dəqiqədə istifadə et.</p>
       <a class="cta" href="#products">Məhsullara bax</a>
     </div>
-    <div class="banner-art">DigiBaku</div>
+    
   </section>
 
-  <section class="sec">
+  <section class="sec" id="featured">
     <div class="sec-h"><div><h2>Həftənin seçimi</h2><p>Admin paneldə seçilən ilk aktiv məhsul</p></div></div>
-    <div id="featuredPiece"></div>
+    <div id="featuredPiece" class="feat"></div>
   </section>
 
   <section class="sec" id="best">
@@ -181,11 +206,6 @@ html,body{max-width:100%;overflow-x:hidden}
     <div class="sec-h"><div><h2>Bütün məhsullar</h2><p>Premium rəqəmsal xidmətlərimizi kəşf edin</p></div></div>
     <div id="productCategories" hidden></div><div id="cats" class="cats-bar"></div>
     <div class="grid" id="feed"><div class="empty">Yüklənir...</div></div>
-  </section>
-
-  <section class="sec" id="categories">
-    <div class="sec-h"><div><h2>Kateqoriyalar</h2><p>Növə görə seç</p></div></div>
-    <div class="cats-bar" id="catShort"></div>
   </section>
 
   <section class="sec" id="reviews">
@@ -257,7 +277,26 @@ const catOf=p=>{const s=String(p.category||"").trim().toLowerCase();
   if(s.includes("dizayn"))return"Dizayn";
   return String(p.category).trim();};
 
-/* Qiymət: admin panelindəki product_prices cədvəlindən */
+/* product_prices: həm uzun (duration_months), həm geniş (price_1_month...) formatı */
+function normalizePrices(rows){
+  const out=[];
+  (rows||[]).forEach(r=>{
+    const k=String(r.product_key||r.slug||r.product_slug||"").trim().toLowerCase();
+    if(!k)return;
+    if(r.duration_months!=null){
+      out.push({product_key:k,duration_months:Number(r.duration_months),normal_price:Number(r.normal_price??r.price??0),sale_price:Number(r.sale_price??0)});
+      return;
+    }
+    [1,2,3,12].forEach(m=>{
+      const normal=Number(r["price_"+m+"_month"]||0);
+      const sale=Number(r["sale_"+m+"_price"]||0);
+      const active=[true,"true",1,"1"].includes(r["sale_"+m+"_active"]);
+      if(normal>0||sale>0)out.push({product_key:k,duration_months:m,normal_price:normal,sale_price:active?sale:0});
+    });
+  });
+  return out;
+}
+/* Qiymət: product_prices cədvəlindən */
 function priceRows(pk){
   return PRICES.filter(r=>String(r.product_key||"").trim().toLowerCase()===pk);
 }
@@ -281,7 +320,7 @@ async function loadAll(){
     sb.from("product_prices").select("*")
   ]);
   if(!a.error)PRODUCTS=(a.data||[]).filter(p=>!isOff(p));
-  if(!b.error)PRICES=b.data||[];
+  if(!b.error)PRICES=normalizePrices(b.data||[]);
   render();
   seo();
 }
