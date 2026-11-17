@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="az">
 <head>
@@ -20,157 +21,200 @@
 <script type="application/ld+json" id="seoItemList">{}</script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-:root{--bg:#06070a;--bg2:#0c0e14;--ln:rgba(255,255,255,.08);--tx:#eef1f7;--mut:#8b93a6;--cy:#3ee0ff;--cy2:#1ab8e0;--lime:#c7ff5a;--red:#ff5a6e}
+
+:root{--bg:#0a0a0c;--card:#15151a;--line:#26262c;--tx:#f4f4f6;--mut:#8f8f9a;--hi:#ffffff}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--tx);font-family:"Inter","Segoe UI",Arial,sans-serif;line-height:1.5;-webkit-font-smoothing:antialiased;min-height:100vh}
+body{background:var(--bg);color:var(--tx);font-family:"Inter","Segoe UI",Arial,sans-serif;line-height:1.5;overflow-x:hidden}
 a{color:inherit;text-decoration:none}
 button,input{font:inherit;color:inherit}
 button{cursor:pointer}
-/* üst zolaq: canlı göstərici */
-.ticker{position:sticky;top:0;z-index:50;background:#000;border-bottom:1px solid var(--ln);overflow:hidden;white-space:nowrap;height:34px;display:flex;align-items:center}
-.ticker-track{display:inline-flex;gap:48px;padding-left:100%;animation:tick 38s linear infinite;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--mut)}
-.ticker-track b{color:var(--lime);font-weight:700}
-@keyframes tick{to{transform:translateX(-100%)}}
-.live{position:absolute;left:14px;z-index:2;background:#000;padding:0 10px;display:flex;align-items:center;gap:8px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-weight:700;color:var(--tx)}
-.live::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--lime);box-shadow:0 0 10px var(--lime);animation:pulse 1.6s infinite}
-@keyframes pulse{50%{opacity:.25}}
-/* başlıq */
-.top{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 5vw;position:sticky;top:34px;z-index:40;background:rgba(6,7,10,.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--ln);flex-wrap:wrap}
-.mark{font-weight:900;font-size:20px;letter-spacing:.04em}
-.mark span{color:var(--cy)}
-.tools{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.pill{height:38px;padding:0 14px;border-radius:999px;border:1px solid var(--ln);background:var(--bg2);font-size:13px;font-weight:600;display:inline-flex;align-items:center;gap:8px;white-space:nowrap}
-.pill:hover{border-color:var(--cy)}
-.pill.hot{background:var(--cy);color:#001419;border-color:var(--cy)}
-.pill b{background:var(--lime);color:#0a0f00;border-radius:99px;min-width:20px;height:20px;display:inline-grid;place-items:center;font-size:11px;padding:0 5px}
+.hdr{position:sticky;top:0;z-index:60;background:rgba(10,10,12,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.hdr-in{max-width:1280px;margin:0 auto;padding:14px 20px;display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:18px;align-items:center}
+.logo{font-weight:900;font-size:19px;letter-spacing:.06em;text-transform:uppercase}
+.logo span{color:var(--mut)}
+.hsearch input{width:100%;height:42px;background:#101014;border:1px solid var(--line);border-radius:12px;padding:0 16px;outline:none}
+.hsearch input:focus{border-color:#555}
+.htools{display:flex;gap:8px;align-items:center}
+.pill{height:38px;padding:0 14px;border-radius:10px;border:1px solid var(--line);background:#101014;font-size:13px;font-weight:600;display:inline-flex;align-items:center;gap:8px;white-space:nowrap}
+.pill:hover{border-color:#555}
+.pill.hot{background:#fff;color:#000;border-color:#fff}
+.pill b{background:#fff;color:#000;border-radius:99px;min-width:20px;height:20px;display:inline-grid;place-items:center;font-size:11px;padding:0 5px}
 .langs{display:flex;gap:2px}
-.langs button{background:none;border:0;color:var(--mut);font-size:12px;font-weight:700;padding:6px 6px;border-radius:6px}
-.langs button.on{color:var(--cy)}
-.user-email{font-size:12px;color:var(--cy);max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-/* kanal: sol zaman xətti + axın */
-.wrap{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:40px;padding:34px 5vw 90px;max-width:1400px;margin:0 auto}
-.feed-head{display:flex;align-items:end;justify-content:space-between;gap:16px;margin-bottom:22px;flex-wrap:wrap}
-.feed-head h1{font-size:clamp(30px,4vw,52px);font-weight:900;letter-spacing:-.03em;line-height:1}
-.feed-head p{color:var(--mut);font-size:14px;margin-top:8px}
-.filters{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:4px}
-.filters::-webkit-scrollbar{display:none}
-.chip{flex:none;height:34px;padding:0 14px;border-radius:999px;border:1px solid var(--ln);background:transparent;color:var(--mut);font-size:12px;font-weight:700;letter-spacing:.04em;transition:.2s}
-.chip:hover{color:var(--tx);border-color:var(--cy)}
-.chip.on{background:var(--cy);color:#001419;border-color:var(--cy)}
-.search{width:100%;height:46px;margin:0 0 22px;border-radius:14px;border:1px solid var(--ln);background:var(--bg2);padding:0 16px;outline:none}
-.search:focus{border-color:var(--cy)}
-.timeline{position:relative;padding-left:44px}
-.timeline::before{content:"";position:absolute;left:14px;top:6px;bottom:6px;width:2px;background:linear-gradient(var(--cy),transparent)}
-.event{position:relative;background:var(--bg2);border:1px solid var(--ln);border-radius:20px;padding:22px 24px;margin-bottom:16px;display:grid;grid-template-columns:86px minmax(0,1fr) auto;gap:20px;align-items:center;animation:drop .6s cubic-bezier(.2,.7,.2,1) both;animation-delay:calc(var(--i)*60ms);transition:border-color .3s,transform .3s}
-.event:hover{border-color:rgba(62,224,255,.4);transform:translateX(4px)}
-.event::before{content:"";position:absolute;left:-37px;top:50%;width:14px;height:14px;margin-top:-7px;border-radius:50%;background:var(--bg);border:3px solid var(--cy);box-shadow:0 0 14px rgba(62,224,255,.5)}
-.event.hot::before{border-color:var(--lime);box-shadow:0 0 16px rgba(199,255,90,.6)}
-@keyframes drop{from{opacity:0;transform:translateY(-18px)}to{opacity:1;transform:none}}
-.ev-img{width:86px;height:86px;border-radius:16px;background:radial-gradient(circle at 50% 40%,rgba(62,224,255,.2),transparent 70%),#080a0f;border:1px solid var(--ln);display:grid;place-items:center;overflow:hidden}
+.langs button{background:none;border:0;color:var(--mut);font-size:12px;font-weight:700;padding:6px}
+.langs button.on{color:#fff}
+.user-email{font-size:12px;color:var(--mut);max-width:130px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.nav{border-bottom:1px solid var(--line)}
+.nav-in{max-width:1280px;margin:0 auto;padding:0 20px;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+.nav-in a{padding:12px 14px;font-size:13px;color:var(--mut);white-space:nowrap;border-bottom:2px solid transparent}
+.nav-in a:hover{color:#fff;border-bottom-color:#fff}
+.wrap{max-width:1280px;margin:0 auto;padding:0 20px}
+/* banner */
+.banner{margin:24px 0;border-radius:20px;background:linear-gradient(120deg,#1b1b22,#0e0e12);border:1px solid var(--line);padding:46px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:30px;align-items:center}
+.banner h1{font-size:clamp(34px,4.6vw,60px);font-weight:900;letter-spacing:-.03em;line-height:1.02}
+.banner p{color:var(--mut);margin:16px 0 24px;max-width:46ch}
+.banner .cta{display:inline-flex;height:48px;align-items:center;padding:0 24px;border-radius:12px;background:#fff;color:#000;font-weight:800;font-size:14px}
+.banner-art{aspect-ratio:16/10;border-radius:16px;background:radial-gradient(circle at 60% 40%,#2a2a33,#0a0a0c 70%);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--mut);font-size:13px;letter-spacing:.1em;text-transform:uppercase}
+/* blok başlıqları */
+.sec{padding:36px 0 8px}
+.sec-h{display:flex;justify-content:space-between;align-items:end;margin-bottom:18px;gap:12px}
+.sec-h h2{font-size:24px;font-weight:800;letter-spacing:-.01em}
+.sec-h p{color:var(--mut);font-size:13px;margin-top:4px}
+.sec-h a{color:var(--mut);font-size:13px;font-weight:600;white-space:nowrap}
+.sec-h a:hover{color:#fff}
+/* həftənin seçimi */
+#featuredPiece .ev{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0;border-radius:20px;overflow:hidden;background:var(--card);border:1px solid var(--line)}
+/* kart (ev) ümumi */
+.ev{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;display:flex;gap:16px;align-items:center}
+.ev-img{width:120px;height:120px;border-radius:14px;background:#0c0c10;border:1px solid var(--line);display:grid;place-items:center;overflow:hidden;flex:none}
 .ev-img img{width:100%;height:100%;object-fit:contain;padding:8px}
-.ev-meta{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);display:flex;gap:10px;flex-wrap:wrap}
-.ev-meta em{font-style:normal;color:var(--cy)}
-.ev h3{font-size:clamp(18px,2vw,24px);font-weight:800;letter-spacing:-.01em;margin:4px 0 4px}
-.ev p{color:var(--mut);font-size:14px;max-width:60ch}
-.ev-side{display:flex;flex-direction:column;align-items:flex-end;gap:10px}
-.price{font-size:24px;font-weight:900;letter-spacing:-.02em;white-space:nowrap}
-.price .old{color:#5f6676;text-decoration:line-through;font-size:14px;font-weight:600;margin-right:6px}
-.price .new{color:var(--lime)}
-.off{background:var(--red);color:#fff;font-size:11px;font-weight:800;padding:2px 8px;border-radius:999px;margin-left:6px;vertical-align:middle}
+.ev-body{min-width:0;flex:1}
+.ev-meta{font-size:11px;color:var(--mut);display:flex;gap:8px;letter-spacing:.06em;text-transform:uppercase}
+.ev h3{font-size:18px;font-weight:700;margin:4px 0 4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ev p{color:var(--mut);font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ev-side{display:flex;flex-direction:column;align-items:flex-end;gap:10px;flex:none}
+.price{font-size:18px;font-weight:800;white-space:nowrap}
+.price .old{color:#666;text-decoration:line-through;font-size:13px;font-weight:500;margin-right:6px}
+.price .new{color:#fff}
+.price small{color:var(--mut);font-size:11px;font-weight:500}
+.off{background:#fff;color:#000;font-size:10px;font-weight:800;padding:2px 6px;border-radius:6px;margin-left:6px}
 .btns{display:flex;gap:6px}
-.btn{height:36px;padding:0 14px;border-radius:10px;border:1px solid var(--ln);background:transparent;font-size:12px;font-weight:700;white-space:nowrap}
-.btn:hover{border-color:var(--cy)}
-.btn.go{background:var(--cy);color:#001419;border-color:var(--cy)}
-.btn.go:hover{background:#7cefff}
-.empty{padding:40px;text-align:center;color:var(--mut);border:1px dashed var(--ln);border-radius:16px}
-/* yan panel: canlı məlumat */
-.side{position:sticky;top:120px;align-self:start;display:flex;flex-direction:column;gap:14px}
-.card{background:var(--bg2);border:1px solid var(--ln);border-radius:18px;padding:20px}
-.card h4{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--mut);margin-bottom:12px;font-weight:700}
-.card p,.card li{color:var(--mut);font-size:14px}
-.card ul{list-style:none;display:flex;flex-direction:column;gap:10px}
-.card a.link{color:var(--cy);font-weight:700}
-.cnt{font-size:38px;font-weight:900;letter-spacing:-.03em}
-.cnt small{font-size:13px;color:var(--mut);font-weight:600;margin-left:6px}
-footer{border-top:1px solid var(--ln);padding:34px 5vw 90px;color:var(--mut);font-size:13px;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
-footer a{color:var(--mut)}
-footer a:hover{color:var(--cy)}
-/* səbət */
-#cartModal{display:none;position:fixed;top:0;right:0;width:100%;max-width:420px;height:100vh;background:var(--bg2);border-left:1px solid var(--ln);z-index:200;padding:24px;overflow-y:auto}
+.btn{height:34px;padding:0 12px;border-radius:9px;border:1px solid var(--line);background:#101014;font-size:12px;font-weight:700;white-space:nowrap}
+.btn:hover{border-color:#555}
+.btn.go{background:#fff;color:#000;border-color:#fff}
+/* ən sevilən: üfüqi sıra */
+.row{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(300px,340px);gap:14px;overflow-x:auto;padding-bottom:8px;scrollbar-width:none}
+.row::-webkit-scrollbar{display:none}
+.row .ev{flex-direction:column;align-items:stretch;gap:12px}
+.row .ev-img{width:100%;height:170px}
+.row .ev-side{align-items:stretch;flex-direction:row;justify-content:space-between;align-items:center}
+.row .ev h3,.row .ev p{white-space:normal}
+/* kateqoriya vitrinləri */
+.cats-bar{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 18px}
+.chip{height:36px;padding:0 16px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--mut);font-size:13px;font-weight:600}
+.chip:hover{color:#fff;border-color:#555}
+.chip.on{background:#fff;color:#000;border-color:#fff}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.grid .ev h3,.grid .ev p{white-space:normal}
+.empty{padding:40px;color:var(--mut);text-align:center;border:1px dashed var(--line);border-radius:16px}
+/* rəylər və faq */
+.reviews{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.review{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px}
+.review p{color:#e6e6ea;font-size:15px;margin-bottom:14px}
+.review cite{color:var(--mut);font-size:12px;font-style:normal}
+.faq{display:flex;flex-direction:column;gap:8px}
+.faq-i{background:var(--card);border:1px solid var(--line);border-radius:14px}
+.faq-i button{width:100%;background:none;border:0;display:flex;justify-content:space-between;align-items:center;padding:18px 20px;text-align:left;font-weight:700;font-size:15px}
+.faq-i button i{font-style:normal;color:var(--mut);font-size:20px}
+.faq-i.open button i{transform:rotate(45deg);display:inline-block}
+.faq-i p{display:none;padding:0 20px 18px;color:var(--mut);font-size:14px}
+.faq-i.open p{display:block}
+footer{margin-top:50px;border-top:1px solid var(--line);background:#070709}
+.foot{max-width:1280px;margin:0 auto;padding:40px 20px;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:26px;color:var(--mut);font-size:13px}
+.foot h4{color:#fff;font-size:13px;margin-bottom:12px}
+.foot a,.foot div>div{display:block;margin-bottom:8px}
+.foot a:hover{color:#fff}
+.copy{max-width:1280px;margin:0 auto;padding:0 20px 30px;color:#55555f;font-size:12px}
+/* səbət (script istifadə edir) */
+#cartModal{display:none;position:fixed;top:0;right:0;width:100%;max-width:420px;height:100vh;background:#0e0e12;border-left:1px solid var(--line);z-index:200;padding:24px;overflow-y:auto}
 #cartModal.open{display:block}
 .cart-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
-.cart-h h2{font-size:20px;font-weight:900}
-.cart-h button{background:none;border:1px solid var(--ln);width:36px;height:36px;border-radius:10px}
-.ci{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:12px 0;border-top:1px solid var(--ln)}
+.cart-h h2{font-size:20px;font-weight:800}
+.cart-h button{background:none;border:1px solid var(--line);width:36px;height:36px;border-radius:10px;color:#fff}
+.ci{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:12px 0;border-top:1px solid var(--line)}
 .ci b{font-size:14px;display:block}
-.ci span{color:var(--cy);font-size:13px}
-.ci button{background:none;border:0;color:var(--red);font-size:12px}
+.ci span{color:var(--mut);font-size:13px}
+.ci button{background:none;border:0;color:#ff8080;font-size:12px}
 .cart-total{display:flex;justify-content:space-between;font-weight:900;font-size:18px;margin:18px 0}
-.go-btn{width:100%;height:50px;border-radius:14px;background:var(--cy);color:#001419;border:0;font-weight:800}
-.float{position:fixed;right:18px;z-index:150;width:52px;height:52px;border-radius:50%;display:grid;place-items:center;box-shadow:0 8px 24px rgba(0,0,0,.4)}
-.float svg{width:24px;height:24px;fill:#001419}
-.float.chat{bottom:84px;background:var(--cy)}
-.float.wa{bottom:20px;background:var(--lime)}
-@media(max-width:980px){.wrap{grid-template-columns:1fr;gap:26px}.side{position:static}.timeline{padding-left:30px}.timeline::before{left:8px}.event::before{left:-27px}}
-@media(max-width:620px){.event{grid-template-columns:64px minmax(0,1fr);gap:12px;padding:16px}.ev-img{width:64px;height:64px}.ev-side{grid-column:1/-1;flex-direction:row;justify-content:space-between;align-items:center}.price{font-size:20px}.tools .pill.hide-s{display:none}.top{padding:14px 4vw}.live{display:none}}
+.go-btn{width:100%;height:50px;border-radius:12px;background:#fff;color:#000;border:0;font-weight:800}
+.float{position:fixed;right:18px;z-index:150;width:52px;height:52px;border-radius:50%;display:grid;place-items:center;background:#fff;box-shadow:0 8px 24px rgba(0,0,0,.4)}
+.float svg{width:24px;height:24px;fill:#000}
+.float.chat{bottom:84px}
+.float.wa{bottom:18px}
+@media(max-width:960px){.hdr-in{grid-template-columns:1fr auto}.hsearch{grid-column:1/-1;order:3}.banner{grid-template-columns:1fr;padding:28px}.grid,.reviews{grid-template-columns:1fr}.foot{grid-template-columns:1fr 1fr}#featuredPiece .ev{grid-template-columns:1fr}}
+@media(max-width:600px){.htools .user-email{display:none}.pill.hide-s{display:none}.ev-img{width:86px;height:86px}.ev h3{font-size:16px}.row{grid-auto-columns:82vw}.banner h1{font-size:34px}.foot{grid-template-columns:1fr}}
+
+.hdr-in{grid-template-columns:auto minmax(0,1fr) auto}.htools{flex-wrap:nowrap;min-width:0}.hsearch{min-width:0}.hsearch input{min-width:0;width:100%}.nav-in a{padding:12px 10px}
+@media(max-width:960px){.hdr-in{grid-template-columns:1fr auto}}
+@media(max-width:600px){.hdr-in{grid-template-columns:1fr;gap:10px}.htools{justify-content:space-between;width:100%}.hsearch{grid-column:auto;order:0}.pill{padding:0 10px;font-size:12px}.logo{font-size:17px}}
+html,body{max-width:100%;overflow-x:hidden}
 </style>
 </head>
 <body>
 
-<div class="ticker" aria-label="Canlı xəbər şeridi"><div class="live">Canlı</div><div class="ticker-track" id="ticker"><span>DigiBaku · premium rəqəmsal xidmətlər</span></div></div>
-
-<header class="top">
-  <a href="#" class="mark">Digi<span>Baku</span></a>
-  <div class="tools">
-    <button class="pill hide-s" onclick="toggleCart()"><span data-i18n="cart">Səbət</span><b id="cartCount">0</b></button>
-    <div id="authArea" style="display:flex;gap:6px"><a class="pill" href="login.html" data-i18n="login">Daxil ol</a><a class="pill hot" href="login.html" data-i18n="register">Qeydiyyat</a></div>
-    <div class="langs"><button id="langAZ" onclick="setLang('az')">AZ</button><button id="langRU" onclick="setLang('ru')">RU</button><button id="langEN" onclick="setLang('en')">EN</button></div>
+<header class="hdr">
+  <div class="hdr-in">
+    <a href="#" class="logo">Digi<span>Baku</span></a>
+    <div class="hsearch"><input id="siteSearch" type="search" placeholder="Məhsul axtar" aria-label="Axtarış" oninput="onSiteSearch(this.value)"></div>
+    <div class="htools">
+      <button class="pill hide-s" onclick="toggleCart()"><span data-i18n="cart">Səbət</span><b id="cartCount">0</b></button>
+      <div id="authArea" style="display:flex;gap:6px"><a class="pill" href="login.html">Daxil ol</a><a class="pill hot" href="login.html">Qeydiyyat</a></div>
+      <div class="langs"><button id="langAZ" onclick="setLang('az')">AZ</button><button id="langRU" onclick="setLang('ru')">RU</button><button id="langEN" onclick="setLang('en')">EN</button></div>
+    </div>
   </div>
+  <nav class="nav"><div class="nav-in">
+    <a href="#products">Məhsullar</a><a href="#top">Həftənin seçimi</a><a href="#best">Ən sevilən</a><a href="#categories">Kateqoriyalar</a><a href="#reviews">Rəylər</a><a href="#faq">FAQ</a><a href="qiymetler.html">Qiymətlər</a><a href="faq.html#about">Haqqımızda</a>
+  </div></nav>
 </header>
 
-<main class="wrap">
-  <section>
-    <div class="feed-head">
-      <div>
-        <h1 data-i18n="feedTitle">Canlı kanal</h1>
-        <p data-i18n="feedSub">Yeni məhsullar və qiymət dəyişiklikləri birbaşa burada görünür.</p>
-      </div>
+<div id="ticker" hidden></div><div id="activeCount" hidden></div><main class="wrap" id="top">
+  <section class="banner">
+    <div>
+      <h1>Premium rəqəmsal xidmətlər bir platformada</h1>
+      <p>Netflix, Spotify, ChatGPT və digər premium abunələr. Seç, sifariş et, 5–30 dəqiqədə istifadə et.</p>
+      <a class="cta" href="#products">Məhsullara bax</a>
     </div>
-    <input id="q" class="search" type="search" placeholder="Məhsul axtar" aria-label="Axtarış" oninput="setQuery(this.value)">
-    <div class="filters" id="cats"></div>
-    <div style="height:22px"></div>
-    <div class="timeline" id="feed"><div class="empty" data-i18n="loading">Yüklənir...</div></div>
+    <div class="banner-art">DigiBaku</div>
   </section>
 
-  <aside class="side">
-    <div class="card">
-      <h4 data-i18n="activeCount">Aktiv məhsul</h4>
-      <div class="cnt" id="activeCount">0<small>məhsul</small></div>
+  <section class="sec">
+    <div class="sec-h"><div><h2>Həftənin seçimi</h2><p>Admin paneldə seçilən ilk aktiv məhsul</p></div></div>
+    <div id="featuredPiece"></div>
+  </section>
+
+  <section class="sec" id="best">
+    <div class="sec-h"><div><h2>Ən sevilən</h2><p>Ən çox baxılan xidmətlər</p></div></div>
+    <div class="row" id="bestRow"></div>
+  </section>
+
+  <section class="sec" id="products">
+    <div class="sec-h"><div><h2>Bütün məhsullar</h2><p>Premium rəqəmsal xidmətlərimizi kəşf edin</p></div></div>
+    <div id="productCategories" hidden></div><div id="cats" class="cats-bar"></div>
+    <div class="grid" id="feed"><div class="empty">Yüklənir...</div></div>
+  </section>
+
+  <section class="sec" id="categories">
+    <div class="sec-h"><div><h2>Kateqoriyalar</h2><p>Növə görə seç</p></div></div>
+    <div class="cats-bar" id="catShort"></div>
+  </section>
+
+  <section class="sec" id="reviews">
+    <div class="sec-h"><div><h2>Müştəri rəyləri</h2></div></div>
+    <div class="reviews">
+      <div class="review"><p>“Çox sağ olun. Sifariş sürətli və problemsiz oldu.”</p><cite>Cəfərov Xəqani</cite></div>
+      <div class="review"><p>“Əla, uyğun qiymətədir və sürətli bir şəkildə əldə etdim. Təşəkkür edirəm.”</p><cite>Shabnam Valizada</cite></div>
+      <div class="review"><p>“Dəstək komandası suallarıma tez cavab verdi və mənə kömək etdi.”</p><cite>Səbinə Əliyeva</cite></div>
     </div>
-    <div class="card">
-      <h4 data-i18n="howTitle">Necə işləyir</h4>
-      <ul>
-        <li data-i18n="how1">1. Məhsulu seç və səbətə at.</li>
-        <li data-i18n="how2">2. Sifarişi WhatsApp ilə göndər.</li>
-        <li data-i18n="how3">3. 5–30 dəqiqədə aktivləşdirilir.</li>
-      </ul>
+  </section>
+
+  <section class="sec" id="faq">
+    <div class="sec-h"><div><h2>Tez-tez verilən suallar</h2></div></div>
+    <div class="faq">
+      <div class="faq-i"><button onclick="this.parentElement.classList.toggle('open')">Sifariş necə verilir?<i>+</i></button><p>Məhsulu seçin, “Sifariş et” düyməsinə klikləyin və WhatsApp üzərindən sifarişinizi göndərin.</p></div>
+      <div class="faq-i"><button onclick="this.parentElement.classList.toggle('open')">Aktivləşdirmə nə qədər çəkir?<i>+</i></button><p>Sifarişdən sonra aktivləşdirmə adətən 5–30 dəqiqə ərzində həyata keçirilir.</p></div>
+      <div class="faq-i"><button onclick="this.parentElement.classList.toggle('open')">Dəstəklə necə əlaqə saxlayım?<i>+</i></button><p>E-poçt vasitəsilə premium989b@gmail.com ünvanından əlaqə saxlaya bilərsiniz.</p></div>
     </div>
-    <div class="card">
-      <h4 data-i18n="contactTitle">Əlaqə</h4>
-      <ul>
-        <li>+994513626349</li>
-        <li>premium989b@gmail.com</li>
-        <li><a class="link" href="chat.html" data-i18n="chatLabel">Canlı çat</a></li>
-      </ul>
-    </div>
-  </aside>
+  </section>
 </main>
 
 <footer>
-  <div><strong style="color:#eef1f7">DigiBaku.com</strong><br><span data-i18n="premiumFooter">Premium rəqəmsal xidmətlər bir platformada.</span></div>
-  <div><a href="qiymetler.html" data-i18n="prices">Qiymətlər</a> · <a href="faq.html#about" data-i18n="about">Haqqımızda</a> · <a href="faq.html#faq" data-i18n="faqMenu">FAQ</a></div>
-  <div data-i18n="copyright">© 2026 DigiBaku.com. Bütün hüquqlar qorunur.</div>
+  <div class="foot">
+    <div><div style="color:#fff;font-weight:900;letter-spacing:.06em;margin-bottom:10px">DIGIBAKU</div><div>Premium rəqəmsal xidmətlər bir platformada.</div><div id="footerProductList" style="margin-top:10px">Məhsullar yüklənir...</div></div>
+    <div><h4>Keçidlər</h4><a href="#products">Məhsullar</a><a href="qiymetler.html">Qiymətlər</a><a href="faq.html#about">Haqqımızda</a></div>
+    <div><h4>Məhsullar</h4><div id="footerProductsList">Məhsullar yüklənir...</div></div>
+    <div><h4>Qiymətlər</h4><div id="footerPricesList">Qiymətlər yüklənir...</div></div>
+  </div>
+  <div class="copy">© 2026 DigiBaku.com. Bütün hüquqlar qorunur.</div>
 </footer>
 
 <aside id="cartModal" aria-label="Səbət">
@@ -179,8 +223,7 @@ footer a:hover{color:var(--cy)}
   <div class="cart-total"><span data-i18n="total">Ümumi məbləğ</span><span id="cartTotal">0.00 AZN</span></div>
   <button class="go-btn" onclick="checkout()" data-i18n="confirmOrder">Sifarişi təsdiq et</button>
 </aside>
-
-<a class="float chat" href="chat.html" aria-label="Çat"><svg viewBox="0 0 24 24"><path d="M4 3h16a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H9l-5 4v-4H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/></svg></a>
+<a href="chat.html" class="float chat" aria-label="Çat"><svg viewBox="0 0 24 24"><path d="M4 3h16a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H9l-5 4v-4H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/></svg></a>
 <a class="float wa" href="https://wa.me/994513626349" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><svg viewBox="0 0 32 32"><path d="M16 0C7.2 0 0 7.2 0 16c0 2.8.7 5.5 2 7.8L0 32l8.4-2C10.7 31.3 13.3 32 16 32c8.8 0 16-7.2 16-16S24.8 0 16 0zm0 29.3c-2.4 0-4.7-.6-6.7-1.8l-.5-.3-5 1.3 1.3-4.9-.3-.5C3.6 21.2 2.9 18.7 2.9 16 2.9 8.8 8.8 2.9 16 2.9S29.1 8.8 29.1 16 23.2 29.3 16 29.3z"/></svg></a>
 
 <script>
@@ -262,7 +305,7 @@ function card(p,i){
     :`<span style="color:var(--mut);font-size:15px">${esc(t("noPrice"))}</span>`;
   const orderName=name+(pr?" ("+pr.months+" "+t("month")+")":"");
   const hot=i===0;
-  return `<article class="event ${hot?"hot":""}" style="--i:${i}" data-key="${esc(k)}">
+  return `<article class="ev event ${hot?"hot":""}" style="--i:${i}" data-key="${esc(k)}">
     <div class="ev-img">${img?`<img src="${esc(img)}" alt="${esc(name)}" loading="lazy" onerror="this.remove()">`:""}</div>
     <div class="ev-body">
       <div class="ev-meta"><em>${esc(catOf(p))}</em><span>${esc(k)}</span></div>
@@ -284,12 +327,23 @@ function render(){
   const list=PRODUCTS.filter(p=>(!CAT||catOf(p)===CAT)&&(!QUERY||(nameOf(p)+" "+descOf(p)+" "+key(p)).toLowerCase().includes(QUERY)));
   document.getElementById("activeCount").innerHTML=`${PRODUCTS.length}<small>${esc(t("activeCount"))}</small>`;
   document.getElementById("ticker").innerHTML=PRODUCTS.slice(0,8).map(p=>{const pr=priceOf(p);return `<span>${esc(nameOf(p))} <b>${pr?money(pr.now):"—"}</b></span>`;}).join("")||`<span>${esc(t("ticker"))}</span>`;
-  document.getElementById("feed").innerHTML=
+  renderExtras(list);document.getElementById("feed").innerHTML=
     list.length?list.map((p,i)=>card(p,i)).join(""):`<div class="empty">${esc(t("empty"))}</div>`;
   renderCart();
   applyLang();
 }
 
+function toggleOrb(){const o=document.getElementById("orb");const open=!document.body.classList.contains("orb-open");document.body.classList.toggle("orb-open",open);o.setAttribute("aria-expanded",String(open));}
+
+function renderExtras(list){
+  const f=document.getElementById("featuredPiece");
+  if(f)f.innerHTML=(!CAT&&!QUERY&&PRODUCTS.length)?card(PRODUCTS[0],0):"";
+  const b=document.getElementById("bestRow");
+  if(b)b.innerHTML=PRODUCTS.slice(0,8).map((p,i)=>card(p,i+1)).join("");
+  const cs=document.getElementById("catShort");
+  if(cs){const set=new Map();PRODUCTS.forEach(p=>{const c=catOf(p);if(c)set.set(c.toLowerCase(),c);});cs.innerHTML=[...set.values()].map(c=>`<button class="chip" onclick="setCat('${esc(c).replace(/'/g,"\\'")}');document.getElementById('products').scrollIntoView()">${esc(c)}</button>`).join("");}
+}
+function onSiteSearch(v){setQuery(v);}
 function setCat(c){CAT=c;render();}
 function setQuery(v){QUERY=String(v||"").trim().toLowerCase();render();}
 
@@ -326,7 +380,7 @@ function applyLang(){
   document.documentElement.lang=LANG;
   document.querySelectorAll("[data-i18n]").forEach(el=>{const k=el.getAttribute("data-i18n");if(T[LANG][k]!==undefined)el.textContent=T[LANG][k];});
   ["az","ru","en"].forEach(c=>document.getElementById("lang"+c.toUpperCase()).classList.toggle("on",c===LANG));
-  document.getElementById("q").placeholder=LANG==="ru"?"Поиск продуктов":LANG==="en"?"Search products":"Məhsul axtar";
+  document.getElementById("siteSearch").placeholder=LANG==="ru"?"Поиск продуктов":LANG==="en"?"Search products":"Məhsul axtar";
 }
 
 /* Giriş vəziyyəti */
