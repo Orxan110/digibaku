@@ -2,278 +2,264 @@
 <html lang="az">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>DigiBaku – Rəqəmsal xidmətlər</title>
-<meta name="description" content="DigiBaku: Netflix, YouTube Premium, ChatGPT, Spotify və digər rəqəmsal xidmətlər.">
-<meta name="robots" content="index, follow">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'><circle cx='5' cy='5' r='4' fill='%233DF5D0'/></svg>">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DigiBaku — Rəqəmsal abunələr</title>
+<meta name="description" content="Netflix, YouTube Premium, ChatGPT və digər rəqəmsal abunələri ən sərfəli qiymətlə al.">
 <style>
-  :root {
-    --bg: #0B0C10; --panel: #111318; --line: #1E2026;
-    --text: #E8E8EA; --muted: #8A8D96; --accent: #3DF5D0;
-  }
-  * { box-sizing: border-box; }
-  html, body { margin: 0; background: var(--bg); color: var(--text);
-    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
-  body { padding-top: env(safe-area-inset-top, 0px); padding-bottom: 72px; }
-  a { color: inherit; text-decoration: none; }
-  header { position: sticky; top: 0; z-index: 10; background: var(--bg);
-    border-bottom: 1px solid var(--line); display: flex; align-items: center;
-    justify-content: space-between; padding: 14px 20px; gap: 12px; flex-wrap: wrap; }
-  .logo { font-family: Unbounded, Inter, sans-serif; font-weight: 700; letter-spacing: .5px; }
-  .logo span { color: var(--accent); }
-  nav.main { display: flex; gap: 16px; flex-wrap: wrap; font-size: 14px; color: var(--muted); }
-  nav.main a.active, nav.main a:hover { color: var(--text); }
-  main { max-width: 1100px; margin: 0 auto; padding: 32px 20px; min-height: 70vh; }
-  h1 { font-family: Unbounded, Inter, sans-serif; font-size: 28px; margin: 0 0 12px; }
-  h2 { font-size: 20px; margin: 0 0 8px; }
-  p, li { line-height: 1.6; color: var(--muted); }
-  .hero { padding: 48px 0 32px; border-bottom: 1px solid var(--line); margin-bottom: 32px; }
-  .hero p { max-width: 620px; }
-  .grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
-  .card { border: 1px solid var(--line); background: var(--panel); padding: 20px; border-radius: 4px;
-    transition: border-color .25s, transform .25s; display: flex; flex-direction: column; gap: 10px; }
-  .card:hover { border-color: var(--accent); transform: translateY(-2px); }
-  .tag { font-size: 12px; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; }
-  .price { color: var(--text); font-weight: 600; }
-  .btn { display: inline-block; padding: 10px 16px; border: 1px solid var(--accent); color: var(--accent);
-    border-radius: 4px; font-size: 14px; cursor: pointer; background: transparent; text-align: center; }
-  .btn:hover { background: var(--accent); color: var(--bg); }
-  .btn.solid { background: var(--accent); color: var(--bg); }
-  table { width: 100%; border-collapse: collapse; font-size: 14px; }
-  th, td { text-align: left; padding: 12px 8px; border-bottom: 1px solid var(--line); }
-  th { color: var(--muted); font-weight: 500; }
-  details { border-bottom: 1px solid var(--line); padding: 14px 0; }
-  summary { cursor: pointer; color: var(--text); font-weight: 500; }
-  details p { margin: 10px 0 0; }
-  .stars { color: var(--accent); letter-spacing: 2px; }
-  .review { border: 1px solid var(--line); padding: 16px; background: var(--panel); }
-  .features { margin: 8px 0 0; padding-left: 18px; font-size: 14px; }
-  .plans { display: grid; gap: 8px; margin-top: auto; }
-  .plan { display: flex; justify-content: space-between; align-items: center; gap: 8px;
-    border: 1px solid var(--line); padding: 10px 12px; font-size: 14px; }
-  .notice { font-size: 13px; color: var(--muted); border-left: 2px solid var(--accent); padding-left: 12px; margin-top: 24px; }
-  .wa-float { position: fixed; right: 16px; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); z-index: 20;
-    background: var(--accent); color: var(--bg); padding: 12px 16px; border-radius: 999px; font-weight: 600; font-size: 14px; }
-  .mobile-nav { display: none; }
-  footer { border-top: 1px solid var(--line); text-align: center; color: var(--muted); font-size: 13px; padding: 24px; }
-  @media (max-width: 720px) {
-    nav.main { display: none; }
-    .mobile-nav { position: fixed; bottom: 0; left: 0; right: 0; display: flex; justify-content: space-around;
-      background: var(--bg); border-top: 1px solid var(--line); padding: 10px 0 calc(10px + env(safe-area-inset-bottom, 0px)); z-index: 15; font-size: 12px; }
-    .mobile-nav a { color: var(--muted); }
-    .mobile-nav a.active { color: var(--accent); }
-  }
-  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+:root{--bg:#0B0D12;--card:#141823;--line:#232A3B;--text:#EDEFF5;--muted:#8A93A8;--o:#FF6A3D;--v:#5B6CFF;--g:linear-gradient(135deg,#FF6A3D,#5B6CFF)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;min-height:100vh;padding-bottom:78px}
+a{color:inherit;text-decoration:none}
+input,textarea,select{background:var(--card);border:1px solid var(--line);color:var(--text);border-radius:10px;padding:11px 12px;font:inherit;width:100%;outline:none}
+input:focus,textarea:focus,select:focus{border-color:var(--o)}
+.btn{background:var(--g);color:#fff;border:0;border-radius:12px;padding:11px 18px;font:inherit;font-weight:600;cursor:pointer;display:inline-block;text-align:center}
+.btn.ghost{background:var(--card);border:1px solid var(--line)}
+header{position:sticky;top:0;z-index:50;background:rgba(11,13,18,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.bar{max-width:1200px;margin:auto;display:flex;align-items:center;gap:12px;padding:12px 16px}
+.logo{font-weight:800;font-size:20px;background:var(--g);-webkit-background-clip:text;background-clip:text;color:transparent;white-space:nowrap}
+.search{flex:1;border-radius:12px}
+.hlinks{display:none;gap:18px;font-size:14px;color:var(--muted)}
+.hlinks a:hover{color:var(--text)}
+main{max-width:1200px;margin:auto;padding:20px 16px}
+.hero{border-radius:20px;padding:36px 26px;border:1px solid var(--line);background:radial-gradient(circle at 85% 0%,rgba(255,106,61,.35),transparent 55%),radial-gradient(circle at 0% 100%,rgba(91,108,255,.35),transparent 55%),var(--card)}
+.hero h1{font-size:clamp(26px,5vw,44px);line-height:1.1;margin-bottom:12px}
+.hero p{color:var(--muted);margin-bottom:20px;max-width:560px}
+.muted{color:var(--muted)}
+.sec{font-size:22px;margin:34px 0 14px}
+.cats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:20px}
+@media(min-width:800px){.cats{grid-template-columns:repeat(4,1fr)}}
+.cat{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;transition:.2s}
+.cat:hover{border-color:var(--o);transform:translateY(-2px)}
+.cat .i{font-size:26px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px}
+.pcard{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;position:relative;overflow:hidden;transition:.2s;display:block}
+.pcard::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--c,var(--g))}
+.pcard:hover{border-color:var(--o);transform:translateY(-2px)}
+.pcard .ico{font-size:34px;margin-bottom:8px}
+.pcard h3{font-size:16px;margin-bottom:4px}
+.price{font-weight:700;color:var(--o)}
+.old{text-decoration:line-through;color:var(--muted);font-size:13px;margin-left:6px}
+.nav{position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:1px solid var(--line);display:flex;justify-content:space-around;padding:8px 4px;z-index:60}
+.nav a{font-size:11px;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:3px;flex:1}
+.nav a.on{color:var(--o)}
+.nav span{font-size:18px}
+.wa{position:fixed;right:16px;bottom:92px;background:#25D366;color:#fff;border-radius:999px;padding:12px 16px;font-weight:600;z-index:55;box-shadow:0 8px 24px rgba(0,0,0,.4)}
+@media(min-width:800px){.nav{display:none}body{padding-bottom:0}.hlinks{display:flex}.wa{bottom:24px}}
+.faq details{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:10px}
+.faq summary{cursor:pointer;font-weight:600}
+.faq p{color:var(--muted);margin-top:8px;line-height:1.5}
+.form{display:grid;gap:10px;max-width:520px;margin-top:12px}
+.plan{display:flex;gap:10px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;cursor:pointer}
+.plan input{width:auto;margin-top:4px}
+.pdetail{display:grid;gap:24px}
+@media(min-width:800px){.pdetail{grid-template-columns:320px 1fr}}
+.pbig{aspect-ratio:1;border-radius:24px;display:flex;align-items:center;justify-content:center;font-size:96px;background:radial-gradient(circle,var(--c),#141823 70%);border:1px solid var(--line)}
+.perks{list-style:none;margin:10px 0;color:var(--muted);line-height:1.9}
+.review{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:10px}
+.stars{color:#FFC93C;letter-spacing:2px}
+table{width:100%;border-collapse:collapse;background:var(--card);border-radius:14px;overflow:hidden}
+td,th{padding:12px;border-bottom:1px solid var(--line);text-align:left;font-size:14px}
+.notice{background:var(--card);border:1px dashed var(--line);border-radius:12px;padding:14px;color:var(--muted);margin-top:14px}
 </style>
 </head>
 <body>
-
 <header>
-  <a class="logo" href="#/">DIGI<span>BAKU</span></a>
-  <nav class="main" aria-label="Əsas menyu">
-    <a href="#/products" data-route="products">Məhsullar</a>
-    <a href="#/prices" data-route="prices">Qiymətlər</a>
-    <a href="#/faq" data-route="faq">FAQ</a>
-    <a href="#/reviews" data-route="reviews">Rəylər</a>
-    <a href="#/about" data-route="about">Haqqımızda</a>
-    <a href="#/contact" data-route="contact">Əlaqə</a>
-  </nav>
+  <div class="bar">
+    <a href="#/" class="logo">DigiBaku</a>
+    <input class="search" id="q" placeholder="Məhsul axtar..." onkeydown="if(event.key==='Enter')location.hash='#/products?q='+encodeURIComponent(this.value)">
+    <nav class="hlinks">
+      <a href="#/products">Məhsullar</a><a href="#/prices">Qiymətlər</a><a href="#/reviews">Rəylər</a><a href="#/faq">FAQ</a><a href="#/contact">Əlaqə</a>
+    </nav>
+    <a href="#/profile" class="btn ghost">Profil</a>
+  </div>
 </header>
 
 <main id="app"></main>
 
-<footer>© DigiBaku · <a href="#/contact">Əlaqə</a></footer>
+<a class="wa" id="waBtn" target="_blank">WhatsApp</a>
 
-<nav class="mobile-nav" aria-label="Mobil menyu">
-  <a href="#/" data-route="home">Ana</a>
-  <a href="#/products" data-route="products">Məhsullar</a>
-  <a href="#/prices" data-route="prices">Qiymət</a>
-  <a href="#/contact" data-route="contact">Əlaqə</a>
+<nav class="nav">
+  <a href="#/" data-r=""><span>⌂</span>Ana səhifə</a>
+  <a href="#/products" data-r="products"><span>▦</span>Məhsullar</a>
+  <a href="#/prices" data-r="prices"><span>₼</span>Qiymətlər</a>
+  <a href="#/reviews" data-r="reviews"><span>★</span>Rəylər</a>
+  <a href="#/profile" data-r="profile"><span>◉</span>Profil</a>
 </nav>
 
-<a class="wa-float" href="https://wa.me/994513626349" target="_blank" rel="noopener">WhatsApp</a>
-
 <script>
-/*
-  NÜMUNƏ MƏLUMAT. Qiymətlər və paketlər real deyil.
-  Supabase qoşulanda bu massiv bazadan oxunacaq.
-  price: null olarsa "Qiymət yoxlanılır" göstərilir.
-*/
-const PRODUCTS = [
-  { slug: "netflix", name: "Netflix Premium", category: "Film və seriallar",
-    desc: "Yüksək keyfiyyətli film və serial kataloqu.",
-    features: ["4K dəstəyi", "Bir neçə cihaz", "Reklamsız izləmə"],
-    plans: [{ name: "1 aylıq", months: 1, price: 0 }] },
-  { slug: "youtube-premium", name: "YouTube Premium", category: "Video və əyləncə",
-    desc: "Reklamsız video və arxa planda oxutma.",
-    features: ["Reklamsız baxış", "Arxa planda oxutma", "Offline yükləmə"],
-    plans: [{ name: "1 aylıq", months: 1, price: 0 }] },
-  { slug: "chatgpt-business", name: "ChatGPT Business", category: "Süni intellekt",
-    desc: "Komanda üçün süni intellekt aləti.",
-    features: ["Daha çox sorğu limiti", "Komanda idarəetməsi", "Məlumat təhlükəsizliyi"],
-    plans: [{ name: "1 aylıq", months: 1, price: 0 }] },
-  { slug: "gemini-advanced", name: "Gemini Advanced Pro", category: "Süni intellekt",
-    desc: "Google-un təkmil süni intellekt modeli.",
-    features: ["Təkmil modellər", "Google məhsulları ilə inteqrasiya"],
-    plans: [{ name: "1 aylıq", months: 1, price: 0 }] },
-  { slug: "grammarly-premium", name: "Grammarly Premium", category: "Təhsil",
-    desc: "İngilis dili üçün yazı və qrammatika yoxlaması.",
-    features: ["Təkmil qrammatika", "Üslub təklifləri"],
-    plans: [{ name: "1 aylıq", months: 1, price: 0 }] },
-  { slug: "spotify-premium", name: "Spotify Premium", category: "Musiqi",
-    desc: "Reklamsız musiqi dinləmə.",
-    features: ["Reklamsız musiqi", "Offline dinləmə"],
-    plans: [{ name: "1 aylıq", months: 1, price: 0 }] },
-  { slug: "canva-pro", name: "Canva Pro", category: "Dizayn və yaradıcılıq",
-    desc: "Premium şablonlar və dizayn alətləri.",
-    features: ["Premium şablonlar", "Brend dəstəyi"],
-    plans: [{ name: "1 aylıq", months: 1, price: 0 }] },
-  { slug: "deezer-premium", name: "Deezer Premium", category: "Musiqi",
-    desc: "Reklamsız və yüksək keyfiyyətli musiqi.",
-    features: ["Yüksək keyfiyyət", "Reklamsız dinləmə"],
-    plans: [{ name: "1 aylıq", months: 1, price: 0 }] },
-  { slug: "avast-secureline-vpn", name: "Avast SecureLine VPN", category: "Təhlükəsizlik və VPN",
-    desc: "Təhlükəsiz və şəxsi internet bağlantısı.",
-    features: ["Şifrələnmiş bağlantı", "Bir neçə cihaz"],
-    plans: [{ name: "1 illik", months: 12, price: 0 }] },
-  { slug: "hbo-max-tv", name: "HBO MAX TV", category: "Film və seriallar",
-    desc: "HBO və BluTV kontenti.",
-    features: ["Serial və film kataloqu"],
-    plans: [{ name: "1 aylıq", months: 1, price: 0 }] },
-  { slug: "amazon-prime-video", name: "Amazon Prime Video", category: "Film və seriallar",
-    desc: "Amazon video kataloqu.",
-    features: ["Film və serial kataloqu"],
-    plans: [{ name: "1 aylıq", months: 1, price: 0 }] },
-  { slug: "duolingo-super", name: "Duolingo Super", category: "Təhsil",
-    desc: "Reklamsız dil öyrənmə.",
-    features: ["Reklamsız öyrənmə", "Sınaq imkanları"],
-    plans: [{ name: "1 aylıq", months: 1, price: 0 }] }
-];
-
-const FAQS = [
-  { q: "Sifarişi necə verirəm?", a: "Məhsulu seçin, paketi və qiyməti yoxlayın, sonra «Sifariş ver» düyməsi ilə WhatsApp üzərindən göndərin." },
-  { q: "Ödəniş necə olur?", a: "Ödəniş şərtləri sifarişin təsdiqi zamanı WhatsApp üzərindən bildirilir." },
-  { q: "Sifariş nə qədər vaxt aparır?", a: "Sifariş təsdiqləndikdən sonra hazırlanma müddəti WhatsApp-da bildirilir." }
-];
-
-const REVIEWS = [
-  { name: "Nümunə müştəri", product: "Netflix Premium", rating: 5, body: "Nümunə mətn. Real rəylər admin təsdiqindən sonra burada görünəcək." }
-];
-
-const WA = "https://wa.me/994513626349";
-
-function esc(s) {
-  return String(s ?? "").replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
-}
-function fmtPrice(p) {
-  return p === null || p === undefined ? "Qiymət yoxlanılır" : `${esc(p)} AZN`;
-}
-function waOrderLink(productName, planName) {
-  const text = encodeURIComponent(`Salam, ${productName} (${planName}) sifariş etmək istəyirəm.`);
-  return `${WA}?text=${text}`;
-}
-function stars(n) {
-  return `<span class="stars" aria-label="${n} ulduz">${"★".repeat(n)}${"☆".repeat(5 - n)}</span>`;
-}
-
-const pages = {
-  home() {
-    const featured = PRODUCTS.slice(0, 6).map(productCard).join("");
-    return `
-      <section class="hero">
-        <p class="tag">Rəqəmsal xidmətlər</p>
-        <h1>Ən populyar rəqəmsal xidmətlər, bir yerdə</h1>
-        <p>Film, musiqi, süni intellekt və təhsil xidmətlərini sadə və şəffaf qiymətlərlə əldə edin.</p>
-        <p style="margin-top:20px"><a class="btn solid" href="#/products">Məhsullara bax</a></p>
-      </section>
-      <h2>Seçilmiş məhsullar</h2>
-      <div class="grid">${featured}</div>`;
-  },
-  products() {
-    return `<h1>Məhsullar</h1>
-      <div class="grid">${PRODUCTS.map(productCard).join("")}</div>`;
-  },
-  product(slug) {
-    const p = PRODUCTS.find(x => x.slug === slug);
-    if (!p) return pages.notFound();
-    return `
-      <p class="tag">${esc(p.category)}</p>
-      <h1>${esc(p.name)}</h1>
-      <p>${esc(p.desc)}</p>
-      <ul class="features">${p.features.map(f => `<li>${esc(f)}</li>`).join("")}</ul>
-      <h2 style="margin-top:28px">Paketlər</h2>
-      <div class="plans">
-        ${p.plans.map(pl => `
-          <div class="plan">
-            <span>${esc(pl.name)} · ${esc(pl.months)} ay</span>
-            <span class="price">${fmtPrice(pl.price)}</span>
-            <a class="btn" href="${waOrderLink(p.name, pl.name)}" target="_blank" rel="noopener">Sifariş ver</a>
-          </div>`).join("")}
-      </div>
-      <h2 style="margin-top:32px">Rəylər</h2>
-      ${REVIEWS.filter(r => r.product === p.name).map(reviewCard).join("") || "<p>Hələ rəy yoxdur.</p>"}`;
-  },
-  prices() {
-    const rows = PRODUCTS.flatMap(p => p.plans.map(pl => `
-      <tr><td>${esc(p.name)}</td><td>${esc(pl.name)}</td><td>${esc(pl.months)} ay</td><td class="price">${fmtPrice(pl.price)}</td></tr>`)).join("");
-    return `<h1>Qiymətlər</h1>
-      <table><thead><tr><th>Məhsul</th><th>Paket</th><th>Müddət</th><th>Qiymət</th></tr></thead><tbody>${rows}</tbody></table>`;
-  },
-  faq() {
-    return `<h1>Tez-tez verilən suallar</h1>
-      ${FAQS.map(f => `<details><summary>${esc(f.q)}</summary><p>${esc(f.a)}</p></details>`).join("")}`;
-  },
-  reviews() {
-    return `<h1>Müştəri rəyləri</h1>
-      <div class="grid">${REVIEWS.map(reviewCard).join("") || "<p>Hələ rəy yoxdur.</p>"}</div>`;
-  },
-  about() {
-    return `<h1>Haqqımızda</h1>
-      <p>DigiBaku rəqəmsal xidmətləri şəffaf qiymətlərlə və sadə sifariş prosesi ilə təqdim edir.</p>`;
-  },
-  contact() {
-    return `<h1>Əlaqə</h1>
-      <p>WhatsApp: <a href="${WA}" target="_blank" rel="noopener" style="color:var(--accent)">+994 51 362 63 49</a></p>
-      <p class="notice">Canlı çat və hesab sistemi Supabase qoşulduqdan sonra əlavə olunacaq.</p>`;
-  },
-  notFound() {
-    return `<h1>Səhifə tapılmadı</h1><p><a href="#/" style="color:var(--accent)">Ana səhifəyə qayıt</a></p>`;
-  }
+const KEY='digibaku_v1';
+const SEED={
+  settings:{phone:'+994 51 362 63 49',wa:'994513626349',promo:'Komissiya yoxdur — gördüyün qiymətlə al',
+    about:'DigiBaku Azərbaycanda rəqəmsal abunə və xidmətləri ən sərfəli şəkildə təqdim edir.',
+    address:'Bakı, Azərbaycan'},
+  categories:[{id:1,name:'Film və seriallar',icon:'🎬'},{id:2,name:'Video və əyləncə',icon:'▶️'},{id:3,name:'Süni intellekt',icon:'✨'},{id:4,name:'Musiqi',icon:'🎵'},{id:5,name:'Dizayn və yaradıcılıq',icon:'🎨'},{id:6,name:'Təhsil',icon:'📚'},{id:7,name:'Təhlükəsizlik və VPN',icon:'🛡️'}],
+  products:[
+    {slug:'netflix',name:'Netflix Premium',cat:'Film və seriallar',icon:'🎬',color:'#E50914',desc:'4K və HDR dəstəyi ilə film və serialları istədiyin cihazda izlə.',perks:['4K Ultra HD','4 ekran eyni anda','Offline izləmə'],plans:[{name:'Premium',dur:'1 ay',price:null,old:null}],active:true},
+    {slug:'youtube-premium',name:'YouTube Premium',cat:'Video və əyləncə',icon:'▶️',color:'#FF0033',desc:'Reklamsız video, fon rejimi və YouTube Music daxil.',perks:['Reklamsız baxış','Fon rejimi','YouTube Music'],plans:[{name:'Individual',dur:'1 ay',price:null,old:null}],active:true},
+    {slug:'chatgpt-business',name:'ChatGPT Business',cat:'Süni intellekt',icon:'✨',color:'#10A37F',desc:'Komanda və iş üçün süni intellekt alətləri.',perks:['Yüksək limit','Komanda idarəetməsi','Məlumat təhlükəsizliyi'],plans:[{name:'Business',dur:'1 ay',price:null,old:null}],active:true},
+    {slug:'gemini-advanced',name:'Gemini Advanced Pro',cat:'Süni intellekt',icon:'🔷',color:'#4E8BF5',desc:'Google-un ən güclü süni intellekt modelinə çıxış.',perks:['Pro modellər','Google xidmətləri ilə inteqrasiya'],plans:[{name:'Pro',dur:'1 ay',price:null,old:null}],active:true},
+    {slug:'grammarly-premium',name:'Grammarly Premium',cat:'Təhsil',icon:'✍️',color:'#15C39A',desc:'İngilis dilində yazını yoxlayın və təkmilləşdirin.',perks:['Qrammatika və üslub','Ton yoxlaması'],plans:[{name:'Premium',dur:'1 ay',price:null,old:null}],active:true},
+    {slug:'spotify-premium',name:'Spotify Premium',cat:'Musiqi',icon:'🎵',color:'#1DB954',desc:'Reklamsız musiqi və offline dinləmə.',perks:['Reklamsız','Offline dinləmə','Yüksək keyfiyyət'],plans:[{name:'Individual',dur:'1 ay',price:null,old:null}],active:true},
+    {slug:'canva-pro',name:'Canva Pro',cat:'Dizayn və yaradıcılıq',icon:'🎨',color:'#00C4CC',desc:'Minlərlə şablon, brend dəsti və Pro elementlər.',perks:['Premium şablonlar','Brend dəsti','Background remover'],plans:[{name:'Pro',dur:'1 ay',price:null,old:null}],active:true},
+    {slug:'deezer-premium',name:'Deezer Premium',cat:'Musiqi',icon:'🎧',color:'#A238FF',desc:'Reklamsız, yüksək keyfiyyətli musiqi.',perks:['Reklamsız','HiFi keyfiyyət'],plans:[{name:'Premium',dur:'1 ay',price:null,old:null}],active:true},
+    {slug:'avast-secureline-vpn',name:'Avast SecureLine VPN',cat:'Təhlükəsizlik və VPN',icon:'🛡️',color:'#FF7800',desc:'Şəxsi məlumatlarınızı şifrələyin və təhlükəsiz internetdən istifadə edin.',perks:['Şifrələnmiş trafik','Çoxlu cihaz'],plans:[{name:'Standard',dur:'1 il',price:null,old:null}],active:true},
+    {slug:'hbo-max',name:'HBO MAX TV',cat:'Film və seriallar',icon:'📺',color:'#7B2FF7',desc:'HBO seriallarının və filmlərinin geniş kolleksiyası.',perks:['HBO orijinal kontent','HD izləmə'],plans:[{name:'Standard',dur:'1 ay',price:null,old:null}],active:true},
+    {slug:'amazon-prime-video',name:'Amazon Prime Video',cat:'Film və seriallar',icon:'📦',color:'#00A8E1',desc:'Prime Video kataloqu və orijinal seriallar.',perks:['Orijinal seriallar','Offline yükləmə'],plans:[{name:'Prime',dur:'1 ay',price:null,old:null}],active:true},
+    {slug:'duolingo-super',name:'Duolingo Super',cat:'Təhsil',icon:'🦉',color:'#58CC02',desc:'Reklamsız dil öyrənmə və sınırsız imkanlar.',perks:['Reklamsız','Sınırsız ürək','Offline dərslər'],plans:[{name:'Super',dur:'1 ay',price:null,old:null}],active:true}
+  ],
+  faqs:[
+    {q:'Sifarişdən sonra abunə nə vaxt aktivləşir?',a:'Ödəniş təsdiqləndikdən sonra adətən 30–60 dəqiqə ərzində.',cat:''},
+    {q:'Komissiya alınırmı?',a:'Xeyr, heç bir komissiya alınmır.',cat:''},
+    {q:'Sifarişimi necə izləyə bilərəm?',a:'Profil bölməsində və ya WhatsApp üzərindən statusu öyrənə bilərsiniz.',cat:''}
+  ],
+  reviews:[],
+  orders:[],
+  banners:[]
 };
+let D=JSON.parse(localStorage.getItem(KEY))||structuredClone(SEED);
+function save(){localStorage.setItem(KEY,JSON.stringify(D))}
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const pr=v=>v==null?'Qiymət tezliklə':Number(v).toFixed(2)+' ₼';
+const active=()=>D.products.filter(p=>p.active);
+const minPrice=p=>{const ps=p.plans.map(x=>x.price).filter(x=>x!=null);return ps.length?pr(Math.min(...ps)):'Qiymət tezliklə'};
 
-function productCard(p) {
+function card(p){
+  return `<a class="pcard" href="#/products/${esc(p.slug)}" style="--c:${esc(p.color)}">
+    <div class="ico">${esc(p.icon)}</div><h3>${esc(p.name)}</h3>
+    <p class="muted" style="font-size:13px;margin-bottom:8px">${esc(p.cat)}</p>
+    <div class="price">${minPrice(p)}</div></a>`;
+}
+function faqHtml(list){
+  return `<div class="faq">${list.map(f=>`<details><summary>${esc(f.q)}</summary><p>${esc(f.a)}</p></details>`).join('')}</div>`;
+}
+function reviewsHtml(list){
+  if(!list.length) return `<p class="muted">Hələ təsdiqlənmiş rəy yoxdur.</p>`;
+  return list.map(r=>`<div class="review"><div class="stars">${'★'.repeat(r.stars)}${'☆'.repeat(5-r.stars)}</div><p style="margin:6px 0">${esc(r.text)}</p><small class="muted">${esc(r.name)} · ${esc(r.date)}</small></div>`).join('');
+}
+
+function home(){
+  const approved=D.reviews.filter(r=>r.status==='approved').slice(0,3);
   return `
-    <article class="card">
-      <span class="tag">${esc(p.category)}</span>
-      <h2>${esc(p.name)}</h2>
-      <p>${esc(p.desc)}</p>
-      <div class="plans">
-        <span class="price">${fmtPrice(p.plans[0]?.price)}</span>
-        <a class="btn" href="#/p/${esc(p.slug)}">Ətraflı</a>
-      </div>
-    </article>`;
-}
-function reviewCard(r) {
-  return `<div class="review"><div>${stars(r.rating)}</div><p>${esc(r.body)}</p><p><strong style="color:var(--text)">${esc(r.name)}</strong> · ${esc(r.product)}</p></div>`;
+  <section class="hero">
+    <h1>Rəqəmsal abunələr,<br>bir kliklə.</h1>
+    <p>${esc(D.settings.promo)}. Netflix, YouTube Premium, ChatGPT və daha çoxu.</p>
+    <a class="btn" href="#/products">Məhsullara bax</a>
+  </section>
+  <h2 class="sec">Kateqoriyalar</h2>
+  <div class="cats">${D.categories.map(c=>`<a class="cat" href="#/products?cat=${encodeURIComponent(c.name)}"><div class="i">${c.icon}</div><div style="margin-top:8px;font-weight:600">${esc(c.name)}</div></a>`).join('')}</div>
+  <h2 class="sec">Populyar məhsullar</h2>
+  <div class="grid">${active().slice(0,8).map(card).join('')}</div>
+  ${approved.length?`<h2 class="sec">Müştəri rəyləri</h2>${reviewsHtml(approved)}`:''}`;
 }
 
-function route() {
-  const hash = location.hash.replace(/^#\/?/, "");
-  const [head, arg] = hash.split("/");
-  let html;
-  let key = head || "home";
-  if (head === "p") { html = pages.product(arg); key = "products"; }
-  else if (pages[key] && typeof pages[key] === "function") html = pages[key]();
-  else { html = pages.notFound(); key = ""; }
-  document.getElementById("app").innerHTML = html;
-  document.title = (key === "home" ? "DigiBaku" : "DigiBaku – " + (head === "p" ? "Məhsul" : key));
-  document.querySelectorAll("[data-route]").forEach(a => {
-    a.classList.toggle("active", a.dataset.route === key);
-  });
-  window.scrollTo(0, 0);
+function products(q){
+  const cat=q.get('cat')||'', s=(q.get('q')||'').toLowerCase();
+  const list=active().filter(p=>(!cat||p.cat===cat)&&(!s||p.name.toLowerCase().includes(s)));
+  return `<h1 style="margin-bottom:12px">Məhsullar</h1>
+  <form class="form" style="grid-template-columns:1fr 1fr;max-width:none" onsubmit="event.preventDefault();location.hash='#/products?q='+encodeURIComponent(this.q.value)+'&cat='+encodeURIComponent(this.cat.value)">
+    <input name="q" value="${esc(q.get('q')||'')}" placeholder="Axtar">
+    <select name="cat"><option value="">Bütün kateqoriyalar</option>${D.categories.map(c=>`<option ${c.name===cat?'selected':''}>${esc(c.name)}</option>`).join('')}</select>
+  </form>
+  <div class="grid" style="margin-top:16px">${list.map(card).join('')||'<p class="muted">Nəticə tapılmadı.</p>'}</div>`;
 }
-window.addEventListener("hashchange", route);
+
+function product(slug){
+  const p=D.products.find(x=>x.slug===slug&&x.active);
+  if(!p) return `<h2>Məhsul tapılmadı</h2><p class="muted" style="margin:10px 0 16px">Bu səhifə mövcud deyil və ya deaktiv edilib.</p><a class="btn" href="#/products">Məhsullara qayıt</a>`;
+  const revs=D.reviews.filter(r=>r.product===p.name&&r.status==='approved');
+  return `<div class="pdetail">
+    <div class="pbig" style="--c:${esc(p.color)}">${esc(p.icon)}</div>
+    <div>
+      <h1>${esc(p.name)}</h1><p class="muted">${esc(p.cat)}</p>
+      <p style="margin:14px 0;line-height:1.6">${esc(p.desc)}</p>
+      <ul class="perks">${p.perks.map(x=>`<li>✓ ${esc(x)}</li>`).join('')}</ul>
+      <h3>Paket seç</h3>
+      <form class="form" onsubmit="order(event,'${esc(p.slug)}')">
+        ${p.plans.map((pl,i)=>`<label class="plan"><input type="radio" name="plan" value="${i}" ${i===0?'checked':''}><div><b>${esc(pl.name)}</b> · ${esc(pl.dur)}<br><span class="price">${pr(pl.price)}</span>${pl.old?`<span class="old">${pr(pl.old)}</span>`:''}</div></label>`).join('')}
+        <input name="name" placeholder="Adınız" required>
+        <input name="phone" placeholder="Telefon (WhatsApp üçün)" required>
+        <button class="btn">Sifariş ver (WhatsApp)</button>
+      </form>
+    </div>
+  </div>
+  <h2 class="sec">Tez-tez verilən suallar</h2>${faqHtml(D.faqs)}
+  <h2 class="sec">Rəylər</h2>${reviewsHtml(revs)}`;
+}
+
+function order(e,slug){
+  e.preventDefault();
+  const f=e.target, p=D.products.find(x=>x.slug===slug), pl=p.plans[f.plan.value];
+  const o={id:Date.now(),product:p.name,plan:`${pl.name} (${pl.dur})`,price:pl.price,customer:f.name.value,phone:f.phone.value,status:'Cavab gözləyir',date:new Date().toLocaleString('az-AZ')};
+  D.orders.unshift(o); save();
+  const msg=encodeURIComponent(`Salam, sifariş vermək istəyirəm: ${o.product} - ${o.plan}. Ad: ${o.customer}, Tel: ${o.phone}`);
+  window.open(`https://wa.me/${D.settings.wa}?text=${msg}`,'_blank');
+  alert('Sifarişiniz qeydə alındı. WhatsApp-da təsdiqləməyi gözləyin.');
+  f.reset();
+}
+
+function prices(){
+  return `<h1 style="margin-bottom:12px">Qiymətlər</h1>
+  <table><tr><th>Məhsul</th><th>Paket</th><th>Müddət</th><th>Qiymət</th></tr>
+  ${active().flatMap(p=>p.plans.map(pl=>`<tr><td><a href="#/products/${esc(p.slug)}">${esc(p.name)}</a></td><td>${esc(pl.name)}</td><td>${esc(pl.dur)}</td><td class="price">${pr(pl.price)}${pl.old?`<span class="old">${pr(pl.old)}</span>`:''}</td></tr>`)).join('')}
+  </table>`;
+}
+
+function faq(){
+  const cats=[...new Set(D.faqs.map(f=>f.cat||'Ümumi'))];
+  return `<h1 style="margin-bottom:12px">Tez-tez verilən suallar</h1>
+  ${cats.map(c=>`<h3 class="sec" style="font-size:18px">${esc(c)}</h3>${faqHtml(D.faqs.filter(f=>(f.cat||'Ümumi')===c))}`).join('')}`;
+}
+
+function reviews(){
+  return `<h1 style="margin-bottom:12px">Müştəri rəyləri</h1>
+  ${reviewsHtml(D.reviews.filter(r=>r.status==='approved'))}
+  <h2 class="sec">Rəy yaz</h2>
+  <form class="form" onsubmit="addReview(event)">
+    <select name="product">${D.products.map(p=>`<option>${esc(p.name)}</option>`).join('')}</select>
+    <select name="stars"><option value="5">5 ★</option><option value="4">4 ★</option><option value="3">3 ★</option><option value="2">2 ★</option><option value="1">1 ★</option></select>
+    <input name="name" placeholder="Adınız" required>
+    <textarea name="text" rows="4" placeholder="Rəyiniz" required></textarea>
+    <button class="btn">Göndər</button>
+  </form>
+  <p class="notice">Rəy admin təsdiqindən sonra yayımlanır.</p>`;
+}
+function addReview(e){
+  e.preventDefault(); const f=e.target;
+  D.reviews.push({id:Date.now(),product:f.product.value,stars:+f.stars.value,name:f.name.value,text:f.text.value,date:new Date().toLocaleDateString('az-AZ'),status:'pending'});
+  save(); alert('Rəyiniz göndərildi, təsdiqdən sonra yayımlanacaq.'); f.reset();
+}
+
+function about(){
+  return `<h1 style="margin-bottom:12px">Haqqımızda</h1><p class="muted" style="line-height:1.7;max-width:640px">${esc(D.settings.about)}</p>`;
+}
+function contact(){
+  return `<h1 style="margin-bottom:12px">Əlaqə</h1>
+  <p class="muted">Telefon: ${esc(D.settings.phone)}</p>
+  <p class="muted">Ünvan: ${esc(D.settings.address)}</p>
+  <div style="margin-top:16px"><a class="btn" href="https://wa.me/${D.settings.wa}" target="_blank">WhatsApp ilə yaz</a></div>`;
+}
+function profile(){
+  return `<h1 style="margin-bottom:12px">Profil</h1>
+  <p class="notice">Qeydiyyat, giriş, sifariş tarixçəsi və canlı çat üçün server tərəfi (backend) lazımdır. Bu mərhələdə sifarişlər brauzerdə qeyd olunur və WhatsApp ilə təsdiqlənir.</p>`;
+}
+
+const R={'':home,'products':products,'prices':prices,'faq':faq,'reviews':reviews,'about':about,'contact':contact,'profile':profile,'login':profile};
+function route(){
+  const raw=location.hash.replace(/^#\/?/,'');
+  const [path,query]=raw.split('?');
+  const q=new URLSearchParams(query||'');
+  let html;
+  if(path.startsWith('products/')) html=product(path.slice(9));
+  else html=(R[path]||home)(q);
+  $('#app').innerHTML=html;
+  document.querySelectorAll('.nav a').forEach(a=>a.classList.toggle('on',a.dataset.r===path.split('/')[0]));
+  $('#waBtn').href=`https://wa.me/${D.settings.wa}`;
+  $('#waBtn').textContent='WhatsApp: '+D.settings.phone;
+  document.title=(path?path.split('/').pop():'Ana səhifə')+' — DigiBaku';
+  window.scrollTo(0,0);
+}
+window.addEventListener('hashchange',route);
 route();
 </script>
 </body>
