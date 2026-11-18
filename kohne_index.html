@@ -1,562 +1,643 @@
-<!DOCTYPE html>
+<DOCTYPE html>
 <html lang="az">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>DigiBaku — Rəqəmsal abunələr</title>
-<meta name="description" content="Netflix, YouTube Premium, ChatGPT və digər rəqəmsal abunələri ən sərfəli qiymətlə al.">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>DigiBaku — Premium rəqəmsal xidmətlər</title>
+<meta name="description" content="Netflix, YouTube Premium, ChatGPT, Spotify və digər premium rəqəmsal xidmətlər — Azərbaycanda.">
 <style>
-:root{--bg:#0B0D12;--card:#141823;--line:#232A3B;--text:#EDEFF5;--muted:#8A93A8;--o:#FF6A3D;--v:#5B6CFF;--g:linear-gradient(135deg,#FF6A3D,#5B6CFF)}
-*{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;min-height:100vh;padding-bottom:78px}
-a{color:inherit;text-decoration:none}
-input,textarea,select{background:var(--card);border:1px solid var(--line);color:var(--text);border-radius:10px;padding:11px 12px;font:inherit;width:100%;outline:none}
-input:focus,textarea:focus,select:focus{border-color:var(--o)}
-.btn{background:var(--g);color:#fff;border:0;border-radius:12px;padding:11px 18px;font:inherit;font-weight:600;cursor:pointer;display:inline-block;text-align:center}
-.btn.ghost{background:var(--card);border:1px solid var(--line)}
-header{position:sticky;top:0;z-index:50;background:rgba(11,13,18,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-.bar{max-width:1200px;margin:auto;display:flex;align-items:center;gap:12px;padding:12px 16px}
-.logo{font-weight:800;font-size:20px;background:var(--g);-webkit-background-clip:text;background-clip:text;color:transparent;white-space:nowrap}
-.search{flex:1;border-radius:12px}
-.hlinks{display:none;gap:18px;font-size:14px;color:var(--muted)}
-.hlinks a:hover{color:var(--text)}
-main{max-width:1200px;margin:auto;padding:20px 16px}
-.hero{border-radius:20px;padding:36px 26px;border:1px solid var(--line);background:radial-gradient(circle at 85% 0%,rgba(255,106,61,.35),transparent 55%),radial-gradient(circle at 0% 100%,rgba(91,108,255,.35),transparent 55%),var(--card)}
-.hero h1{font-size:clamp(26px,5vw,44px);line-height:1.1;margin-bottom:12px}
-.hero p{color:var(--muted);margin-bottom:20px;max-width:560px}
-.muted{color:var(--muted)}
-.sec{font-size:22px;margin:34px 0 14px}
-.cats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:20px}
-@media(min-width:800px){.cats{grid-template-columns:repeat(4,1fr)}}
-.cat{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;transition:.2s}
-.cat:hover{border-color:var(--o);transform:translateY(-2px)}
-.cat .i{font-size:26px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px}
-.pcard{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;position:relative;overflow:hidden;transition:.2s;display:block}
-.pcard::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--c,var(--g))}
-.pcard:hover{border-color:var(--o);transform:translateY(-2px)}
-.pcard .ico{font-size:34px;margin-bottom:8px}
-.pcard h3{font-size:16px;margin-bottom:4px}
-.price{font-weight:700;color:var(--o)}
-.old{text-decoration:line-through;color:var(--muted);font-size:13px;margin-left:6px}
-.nav{position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:1px solid var(--line);display:flex;justify-content:space-around;padding:8px 4px;z-index:60}
-.nav a{font-size:11px;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:3px;flex:1}
-.nav a.on{color:var(--o)}
-.nav span{font-size:18px}
-.wa{position:fixed;right:16px;bottom:92px;background:#25D366;color:#fff;border-radius:999px;padding:12px 16px;font-weight:600;z-index:55;box-shadow:0 8px 24px rgba(0,0,0,.4)}
-@media(min-width:800px){.nav{display:none}body{padding-bottom:0}.hlinks{display:flex}.wa{bottom:24px}}
-.faq details{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:10px}
-.faq summary{cursor:pointer;font-weight:600}
-.faq p{color:var(--muted);margin-top:8px;line-height:1.5}
-.form{display:grid;gap:10px;max-width:520px;margin-top:12px}
-.plan{display:flex;gap:10px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;cursor:pointer}
-.plan input{width:auto;margin-top:4px}
-.pdetail{display:grid;gap:24px}
-@media(min-width:800px){.pdetail{grid-template-columns:320px 1fr}}
-.pbig{aspect-ratio:1;border-radius:24px;display:flex;align-items:center;justify-content:center;font-size:96px;background:radial-gradient(circle,var(--c),#141823 70%);border:1px solid var(--line)}
-.perks{list-style:none;margin:10px 0;color:var(--muted);line-height:1.9}
-.review{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:10px}
-.stars{color:#FFC93C;letter-spacing:2px}
-table{width:100%;border-collapse:collapse;background:var(--card);border-radius:14px;overflow:hidden}
-td,th{padding:12px;border-bottom:1px solid var(--line);text-align:left;font-size:14px}
-.notice{background:var(--card);border:1px dashed var(--line);border-radius:12px;padding:14px;color:var(--muted);margin-top:14px}
-@media(max-width:600px){.bar{flex-wrap:wrap}.search{order:3;flex-basis:100%}table{font-size:12px}td,th{padding:8px}}
+  :root {
+    --bg: #000000;
+    --bg-2: #0a0f1c;
+    --card: #0c1220;
+    --line: #17213a;
+    --text: #f1f5ff;
+    --muted: #8593b3;
+    --accent: #3b82f6;
+    --accent-2: #60a5fa;
+    --accent-ink: #ffffff;
+    --radius: 18px;
+    --safe-b: env(safe-area-inset-bottom, 0px);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+    padding-bottom: calc(76px + var(--safe-b));
+    -webkit-tap-highlight-color: transparent;
+  }
+  button, input, select { font: inherit; color: inherit; }
+  button { cursor: pointer; border: 0; background: none; }
+  a { color: inherit; text-decoration: none; }
+  img { max-width: 100%; display: block; }
+
+  /* ---------- Top bar ---------- */
+  .topbar {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(0, 0, 0, 0.9);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+    padding: 12px 16px;
+    padding-top: calc(12px + env(safe-area-inset-top, 0px));
+  }
+  .topbar-row { display: flex; align-items: center; gap: 10px; }
+  .brand { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 1.15rem; letter-spacing: .3px; white-space: nowrap; }
+  .brand-mark {
+    width: 30px; height: 30px; border-radius: 9px;
+    background: linear-gradient(135deg, #1d4ed8, #3b82f6);
+    display: grid; place-items: center; color: #fff; font-weight: 900; font-size: .95rem;
+  }
+  .search {
+    flex: 1; min-width: 0; display: flex; align-items: center; gap: 8px;
+    background: var(--bg-2); border: 1px solid var(--line); border-radius: 999px;
+    padding: 0 14px; height: 40px;
+  }
+  .search input { flex: 1; min-width: 0; background: none; border: 0; outline: none; color: var(--text); }
+  .search input::placeholder { color: var(--muted); }
+  .icon-btn {
+    width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center;
+    background: var(--bg-2); border: 1px solid var(--line); flex-shrink: 0;
+  }
+  .login-btn {
+    height: 40px; padding: 0 14px; border-radius: 12px; font-weight: 700; font-size: .9rem;
+    background: var(--accent); color: var(--accent-ink); flex-shrink: 0;
+  }
+  .trust-strip {
+    margin-top: 10px; font-size: .78rem; color: var(--muted);
+    display: flex; gap: 14px; overflow-x: auto; white-space: nowrap; scrollbar-width: none;
+  }
+  .trust-strip span::before { content: "✓ "; color: var(--accent); }
+
+  main { padding: 16px; max-width: 1200px; margin: 0 auto; }
+  section { margin-top: 28px; }
+  .section-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 14px; }
+  .section-head h2 { font-size: 1.2rem; font-weight: 800; }
+  .section-head a { font-size: .85rem; color: var(--accent); }
+
+  /* ---------- Hero carousel ---------- */
+  .hero {
+    position: relative; overflow: hidden; border-radius: 24px;
+    min-height: 220px;
+    background: linear-gradient(120deg, #0b1a3d 0%, #0a1020 55%, #000000 100%);
+    border: 1px solid var(--line);
+  }
+  .slides { display: flex; transition: transform .6s cubic-bezier(.2,.8,.2,1); height: 100%; }
+  .slide { min-width: 100%; padding: 26px 22px 56px; position: relative; }
+  .slide .tag {
+    display: inline-block; font-size: .72rem; font-weight: 700; letter-spacing: .6px; text-transform: uppercase;
+    padding: 4px 10px; border-radius: 999px; background: rgba(255,255,255,.12); margin-bottom: 12px;
+  }
+  .slide h1 { font-size: 1.55rem; line-height: 1.2; font-weight: 800; max-width: 90%; }
+  .slide p { color: #b9c8ee; margin-top: 8px; font-size: .92rem; max-width: 90%; }
+  .slide .cta {
+    display: inline-flex; align-items: center; gap: 6px; margin-top: 16px;
+    padding: 10px 16px; border-radius: 12px; background: #fff; color: #111; font-weight: 700; font-size: .9rem;
+  }
+  .dots { position: absolute; left: 22px; bottom: 18px; display: flex; gap: 6px; }
+  .dots button { width: 8px; height: 8px; border-radius: 99px; background: rgba(255,255,255,.35); transition: width .3s; }
+  .dots button.on { width: 26px; background: var(--accent); }
+
+  /* ---------- Business banner ---------- */
+  .biz {
+    margin-top: 14px; display: flex; align-items: center; gap: 12px;
+    padding: 14px; border-radius: var(--radius);
+    background: var(--card); border: 1px solid var(--line);
+  }
+  .biz-ico { width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; background: rgba(94,234,212,.12); font-size: 1.3rem; flex-shrink: 0; }
+  .biz-text { flex: 1; min-width: 0; }
+  .biz-text b { display: block; font-size: .95rem; }
+  .biz-text small { color: var(--muted); font-size: .78rem; }
+  .biz .cta-sm { padding: 9px 12px; border-radius: 10px; background: var(--accent); color: var(--accent-ink); font-weight: 700; font-size: .82rem; white-space: nowrap; }
+
+  /* ---------- Categories ---------- */
+  .cats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .cat {
+    border-radius: 14px; padding: 10px 12px; text-align: left;
+    background: var(--card); border: 1px solid var(--line);
+    display: flex; flex-direction: row; align-items: center; gap: 10px; min-height: 0;
+    transition: transform .15s, border-color .15s;
+  }
+  .cat:active { transform: scale(.98); }
+  .cat.on { border-color: var(--accent); }
+  .cat .ico { font-size: 1.1rem; line-height: 1; }
+  .cat span { font-weight: 700; font-size: .85rem; }
+
+  /* ---------- Products ---------- */
+  .filters { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; padding-bottom: 4px; margin-bottom: 12px; }
+  .chip {
+    flex-shrink: 0; padding: 7px 13px; border-radius: 999px; font-size: .82rem; font-weight: 600;
+    background: var(--bg-2); border: 1px solid var(--line); color: var(--muted);
+  }
+  .chip.on { background: var(--text); color: var(--bg); border-color: var(--text); }
+
+  .products { display: grid; grid-template-columns: 1fr; gap: 12px; }
+  .product {
+    background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 16px; display: flex; flex-direction: column; gap: 12px;
+  }
+  .product-top { display: flex; align-items: center; gap: 12px; }
+  .avatar {
+    position: relative; overflow: hidden;
+    width: 52px; height: 52px; border-radius: 14px; display: grid; place-items: center;
+    font-weight: 900; font-size: 1.05rem; color: #fff; flex-shrink: 0;
+  }
+  .avatar img {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    object-fit: contain; padding: 6px; background: #fff;
+  }
+  .product-title { flex: 1; min-width: 0; }
+  .product-title h3 { font-size: 1rem; font-weight: 800; }
+  .product-title small { color: var(--muted); font-size: .78rem; }
+  .product .desc { font-size: .85rem; color: #c5c8e3; }
+  .plans { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .plan {
+    border: 1px solid var(--line); border-radius: 12px; padding: 10px; text-align: left;
+    background: var(--bg-2); transition: border-color .15s;
+  }
+  .plan.on { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
+  .plan small { display: block; color: var(--muted); font-size: .72rem; }
+  .plan b { font-size: 1rem; }
+  .plan .old { color: var(--muted); text-decoration: line-through; font-size: .72rem; margin-left: 4px; font-weight: 400; }
+  .product-foot { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+  .price { font-size: 1.25rem; font-weight: 900; }
+  .price small { font-size: .75rem; color: var(--muted); font-weight: 500; margin-left: 2px; }
+  .add {
+    padding: 11px 16px; border-radius: 12px; font-weight: 800; font-size: .88rem;
+    background: var(--accent); color: #fff;
+  }
+  .add:active { transform: scale(.97); }
+  .empty { color: var(--muted); text-align: center; padding: 30px 0; }
+
+  /* ---------- Features ---------- */
+  .features { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .feature { background: var(--bg-2); border: 1px solid var(--line); border-radius: 14px; padding: 14px; }
+  .feature b { display: block; font-size: .9rem; margin-bottom: 4px; }
+  .feature small { color: var(--muted); font-size: .78rem; }
+
+  /* ---------- Reviews ---------- */
+  .reviews { display: flex; gap: 10px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 6px; scrollbar-width: none; }
+  .review { flex: 0 0 82%; scroll-snap-align: start; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px; }
+  .review .stars { color: #fbbf24; letter-spacing: 2px; font-size: .9rem; }
+  .review p { font-size: .88rem; color: #d4d7f2; margin: 8px 0; }
+  .review small { color: var(--muted); }
+
+  /* ---------- Footer ---------- */
+  footer { margin-top: 36px; padding: 24px 16px 8px; border-top: 1px solid var(--line); color: var(--muted); font-size: .82rem; }
+  footer .brand { color: var(--text); margin-bottom: 8px; }
+  footer .links { display: flex; flex-wrap: wrap; gap: 12px 18px; margin: 12px 0; }
+
+  /* ---------- Bottom nav ---------- */
+  .bottom-nav {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 60;
+    background: rgba(0, 0, 0, .96); backdrop-filter: blur(12px);
+    border-top: 1px solid var(--line);
+    display: grid; grid-template-columns: repeat(5, 1fr);
+    padding: 8px 6px calc(8px + var(--safe-b));
+  }
+  .bottom-nav button {
+    display: flex; flex-direction: column; align-items: center; gap: 3px;
+    font-size: .68rem; color: var(--muted); position: relative; padding: 4px 0;
+  }
+  .bottom-nav button .i { font-size: 1.2rem; line-height: 1; }
+  .bottom-nav button.on { color: var(--accent); }
+  .badge {
+    position: absolute; top: 0; right: calc(50% - 18px);
+    min-width: 18px; height: 18px; padding: 0 5px; border-radius: 99px;
+    background: var(--accent-2); color: #001233; font-size: .68rem; font-weight: 800;
+    display: none; align-items: center; justify-content: center;
+  }
+  .badge.show { display: inline-flex; }
+
+  /* ---------- Cart drawer ---------- */
+  .overlay { position: fixed; inset: 0; background: rgba(0,0,0,.55); z-index: 70; opacity: 0; pointer-events: none; transition: opacity .25s; }
+  .overlay.open { opacity: 1; pointer-events: auto; }
+  .drawer {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 80;
+    background: #05080f; border-radius: 22px 22px 0 0; border-top: 1px solid var(--line);
+    padding: 18px 16px calc(18px + var(--safe-b)); max-height: 80vh; overflow-y: auto;
+    transform: translateY(105%); transition: transform .3s cubic-bezier(.2,.8,.2,1);
+  }
+  .drawer.open { transform: translateY(0); }
+  .drawer-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+  .drawer-head h3 { font-size: 1.05rem; }
+  .line { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+  .line b { display: block; font-size: .92rem; }
+  .line small { color: var(--muted); font-size: .78rem; }
+  .line button { color: var(--accent-2); font-size: .8rem; font-weight: 700; }
+  .total { display: flex; justify-content: space-between; align-items: center; margin: 14px 0; font-weight: 800; }
+  .checkout { width: 100%; padding: 14px; border-radius: 14px; background: var(--accent); color: var(--accent-ink); font-weight: 800; }
+
+  /* ---------- Chat bubble ---------- */
+  .chat-fab {
+    position: fixed; right: 14px; bottom: calc(92px + var(--safe-b)); z-index: 55;
+    width: 52px; height: 52px; border-radius: 50%; background: var(--accent); color: #fff;
+    display: grid; place-items: center; font-size: 1.3rem; box-shadow: 0 8px 22px rgba(59,130,246,.4);
+  }
+
+  /* ---------- Desktop ---------- */
+  @media (min-width: 720px) {
+    .cats { grid-template-columns: repeat(4, 1fr); }
+    .products { grid-template-columns: repeat(2, 1fr); }
+    .features { grid-template-columns: repeat(4, 1fr); }
+    .reviews { display: grid; grid-template-columns: repeat(3, 1fr); overflow: visible; }
+    .review { flex: none; }
+    .slide h1 { font-size: 2.1rem; }
+    .topbar-row { max-width: 1200px; margin: 0 auto; }
+    .bottom-nav { display: none; }
+    body { padding-bottom: 0; }
+    .chat-fab { bottom: 24px; }
+    .drawer { left: auto; right: 24px; bottom: 24px; width: 380px; border-radius: 22px; border: 1px solid var(--line); }
+    .drawer:not(.open) { transform: translateY(120%); }
+  }
+  @media (min-width: 1000px) {
+    .products { grid-template-columns: repeat(3, 1fr); }
+  }
 </style>
 </head>
 <body>
 
-<header>
-  <div class="bar">
-    <a href="#/" class="logo">DigiBaku</a>
-    <input class="search" id="q" placeholder="Məhsul axtar..." onkeydown="if(event.key==='Enter')location.hash='#/products?q='+encodeURIComponent(this.value)">
-    <nav class="hlinks">
-      <a href="#/products">Məhsullar</a>
-      <a href="#/prices">Qiymətlər</a>
-      <a href="#/reviews">Rəylər</a>
-      <a href="#/faq">FAQ</a>
-      <a href="#/contact">Əlaqə</a>
-    </nav>
-    <a href="#/profile" class="btn ghost">Profil</a>
+<header class="topbar">
+  <div class="topbar-row">
+    <a class="brand" href="#top" id="top">
+      <span class="brand-mark">D</span>
+      <span>DigiBaku</span>
+    </a>
+    <label class="search">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="search" type="search" placeholder="Xidmət axtar…" autocomplete="off">
+    </label>
+    <button class="login-btn" type="button">Daxil ol</button>
+  </div>
+  <div class="trust-strip">
+    <span>Komissiyasız ödəniş</span>
+    <span>30–60 dəqiqədə aktivləşdirmə</span>
+    <span>Operator dəstəyi</span>
+    <span>Təhlükəsiz sifariş</span>
   </div>
 </header>
 
-<main id="app"></main>
+<main id="home">
 
-<a class="wa" id="waBtn" target="_blank" rel="noopener">WhatsApp</a>
-
-<nav class="nav">
-  <a href="#/" data-r=""><span>⌂</span>Ana səhifə</a>
-  <a href="#/products" data-r="products"><span>▦</span>Məhsullar</a>
-  <a href="#/prices" data-r="prices"><span>₼</span>Qiymətlər</a>
-  <a href="#/reviews" data-r="reviews"><span>★</span>Rəylər</a>
-  <a href="#/profile" data-r="profile"><span>◉</span>Profil</a>
-</nav>
-
-<script>
-'use strict';
-
-const KEY='digibaku_v1';
-
-const SEED={
-  settings:{
-    phone:'+994 51 362 63 49',
-    wa:'994513626349',
-    promo:'Komissiya yoxdur — gördüyün qiymətlə al',
-    about:'DigiBaku Azərbaycanda rəqəmsal abunə və xidmətləri ən sərfəli şəkildə təqdim edir.',
-    address:'Bakı, Azərbaycan'
-  },
-
-  categories:[
-    {id:1,name:'Film və seriallar',icon:'🎬'},
-    {id:2,name:'Video və əyləncə',icon:'▶️'},
-    {id:3,name:'Süni intellekt',icon:'✨'},
-    {id:4,name:'Musiqi',icon:'🎵'},
-    {id:5,name:'Dizayn və yaradıcılıq',icon:'🎨'},
-    {id:6,name:'Təhsil',icon:'📚'},
-    {id:7,name:'Təhlükəsizlik və VPN',icon:'🛡️'}
-  ],
-
-  products:[
-    {slug:'netflix',name:'Netflix Premium',cat:'Film və seriallar',icon:'🎬',color:'#E50914',desc:'4K və HDR dəstəyi ilə film və serialları istədiyin cihazda izlə.',perks:['4K Ultra HD','4 ekran eyni anda','Offline izləmə'],plans:[{name:'Premium',dur:'1 ay',price:null,old:null}],active:true},
-
-    {slug:'youtube-premium',name:'YouTube Premium',cat:'Video və əyləncə',icon:'▶️',color:'#FF0033',desc:'Reklamsız video, fon rejimi və YouTube Music daxil.',perks:['Reklamsız baxış','Fon rejimi','YouTube Music'],plans:[{name:'Individual',dur:'1 ay',price:null,old:null}],active:true},
-
-    {slug:'chatgpt-business',name:'ChatGPT Business',cat:'Süni intellekt',icon:'✨',color:'#10A37F',desc:'Komanda və iş üçün süni intellekt alətləri.',perks:['Yüksək limit','Komanda idarəetməsi','Məlumat təhlükəsizliyi'],plans:[{name:'Business',dur:'1 ay',price:null,old:null}],active:true},
-
-    {slug:'gemini-advanced',name:'Gemini Advanced Pro',cat:'Süni intellekt',icon:'🔷',color:'#4E8BF5',desc:'Google-un süni intellekt modellərinə çıxış.',perks:['Pro modellər','Google xidmətləri ilə inteqrasiya'],plans:[{name:'Pro',dur:'1 ay',price:null,old:null}],active:true},
-
-    {slug:'grammarly-premium',name:'Grammarly Premium',cat:'Təhsil',icon:'✍️',color:'#15C39A',desc:'İngilis dilində yazını yoxlayın və təkmilləşdirin.',perks:['Qrammatika və üslub','Ton yoxlaması'],plans:[{name:'Premium',dur:'1 ay',price:null,old:null}],active:true},
-
-    {slug:'spotify-premium',name:'Spotify Premium',cat:'Musiqi',icon:'🎵',color:'#1DB954',desc:'Reklamsız musiqi və offline dinləmə.',perks:['Reklamsız','Offline dinləmə','Yüksək keyfiyyət'],plans:[{name:'Individual',dur:'1 ay',price:null,old:null}],active:true},
-
-    {slug:'canva-pro',name:'Canva Pro',cat:'Dizayn və yaradıcılıq',icon:'🎨',color:'#00C4CC',desc:'Minlərlə şablon, brend dəsti və Pro elementlər.',perks:['Premium şablonlar','Brend dəsti','Background remover'],plans:[{name:'Pro',dur:'1 ay',price:null,old:null}],active:true},
-
-    {slug:'deezer-premium',name:'Deezer Premium',cat:'Musiqi',icon:'🎧',color:'#A238FF',desc:'Reklamsız, yüksək keyfiyyətli musiqi.',perks:['Reklamsız','HiFi keyfiyyət'],plans:[{name:'Premium',dur:'1 ay',price:null,old:null}],active:true},
-
-    {slug:'avast-secureline-vpn',name:'Avast SecureLine VPN',cat:'Təhlükəsizlik və VPN',icon:'🛡️',color:'#FF7800',desc:'Şəxsi məlumatlarınızı şifrələyin və təhlükəsiz internetdən istifadə edin.',perks:['Şifrələnmiş trafik','Çoxlu cihaz'],plans:[{name:'Standard',dur:'1 il',price:null,old:null}],active:true},
-
-    {slug:'hbo-max',name:'HBO MAX TV',cat:'Film və seriallar',icon:'📺',color:'#7B2FF7',desc:'HBO seriallarının və filmlərinin geniş kolleksiyası.',perks:['HBO orijinal kontent','HD izləmə'],plans:[{name:'Standard',dur:'1 ay',price:null,old:null}],active:true},
-
-    {slug:'amazon-prime-video',name:'Amazon Prime Video',cat:'Film və seriallar',icon:'📦',color:'#00A8E1',desc:'Prime Video kataloqu və orijinal seriallar.',perks:['Orijinal seriallar','Offline yükləmə'],plans:[{name:'Prime',dur:'1 ay',price:null,old:null}],active:true},
-
-    {slug:'duolingo-super',name:'Duolingo Super',cat:'Təhsil',icon:'🦉',color:'#58CC02',desc:'Reklamsız dil öyrənmə və əlavə imkanlar.',perks:['Reklamsız','Sınırsız ürək','Offline dərslər'],plans:[{name:'Super',dur:'1 ay',price:null,old:null}],active:true}
-  ],
-
-  faqs:[
-    {q:'Sifarişdən sonra abunə nə vaxt aktivləşir?',a:'Ödəniş təsdiqləndikdən sonra adətən 30–60 dəqiqə ərzində.',cat:''},
-    {q:'Komissiya alınırmı?',a:'Xeyr, heç bir komissiya alınmır.',cat:''},
-    {q:'Sifarişimi necə izləyə bilərəm?',a:'Profil bölməsində və ya WhatsApp üzərindən statusu öyrənə bilərsiniz.',cat:''}
-  ],
-
-  reviews:[],
-  orders:[],
-  banners:[]
-};
-
-/* YADDAŞIN İLK DƏFƏ YARADILMASI */
-let D;
-
-try{
-  const stored=localStorage.getItem(KEY);
-  D=stored?JSON.parse(stored):structuredClone(SEED);
-
-  if(!D||typeof D!=='object') throw new Error('Məlumat formatı düzgün deyil');
-
-  if(!Array.isArray(D.products)) D.products=structuredClone(SEED.products);
-  if(!Array.isArray(D.categories)) D.categories=structuredClone(SEED.categories);
-  if(!Array.isArray(D.orders)) D.orders=[];
-  if(!Array.isArray(D.reviews)) D.reviews=[];
-  if(!Array.isArray(D.faqs)) D.faqs=structuredClone(SEED.faqs);
-  if(!Array.isArray(D.banners)) D.banners=[];
-  if(!D.settings) D.settings=structuredClone(SEED.settings);
-
-  if(!stored){
-    localStorage.setItem(KEY,JSON.stringify(D));
-  }
-
-}catch(error){
-  console.error('DigiBaku yaddaş xətası:',error);
-  D=structuredClone(SEED);
-  localStorage.setItem(KEY,JSON.stringify(D));
-}
-
-function save(){
-  try{
-    localStorage.setItem(KEY,JSON.stringify(D));
-    return true;
-  }catch(error){
-    alert('Məlumat yadda saxlanılmadı. Brauzerin yaddaşını yoxlayın.');
-    console.error(error);
-    return false;
-  }
-}
-
-const $=s=>document.querySelector(s);
-
-const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({
-  '&':'&amp;',
-  '<':'&lt;',
-  '>':'&gt;',
-  '"':'&quot;',
-  "'":'&#39;'
-}[c]));
-
-const pr=v=>{
-  if(v===null||v===undefined||v===''||!Number.isFinite(Number(v))) return 'Qiymət tezliklə';
-  return Number(v).toFixed(2)+' ₼';
-};
-
-const active=()=>D.products.filter(p=>p.active);
-
-const minPrice=p=>{
-  const ps=p.plans.map(x=>Number(x.price)).filter(x=>Number.isFinite(x)&&x>=0);
-  return ps.length?pr(Math.min(...ps)):'Qiymət tezliklə';
-};
-
-function card(p){
-  return `<a class="pcard" href="#/products/${esc(p.slug)}" style="--c:${esc(p.color)}">
-    <div class="ico">${esc(p.icon)}</div>
-    <h3>${esc(p.name)}</h3>
-    <p class="muted" style="font-size:13px;margin-bottom:8px">${esc(p.cat)}</p>
-    <div class="price">${minPrice(p)}</div>
-  </a>`;
-}
-
-function faqHtml(list){
-  return `<div class="faq">${list.map(f=>`
-    <details>
-      <summary>${esc(f.q)}</summary>
-      <p>${esc(f.a)}</p>
-    </details>
-  `).join('')}</div>`;
-}
-
-function reviewsHtml(list){
-  if(!list.length) return `<p class="muted">Hələ təsdiqlənmiş rəy yoxdur.</p>`;
-
-  return list.map(r=>`
-    <div class="review">
-      <div class="stars">${'★'.repeat(r.stars)}${'☆'.repeat(5-r.stars)}</div>
-      <p style="margin:6px 0">${esc(r.text)}</p>
-      <small class="muted">${esc(r.name)} · ${esc(r.date)}</small>
+  <!-- Hero -->
+  <section style="margin-top:16px">
+    <div class="hero" id="hero">
+      <div class="slides" id="slides">
+        <div class="slide">
+          <span class="tag">Yeni</span>
+          <h1>Premium xidmətlər, bir kliklə</h1>
+          <p>Film, musiqi, süni intellekt və təhsil — hamısı bir yerdə, sərfəli qiymətlə.</p>
+          <a class="cta" href="#products">Məhsullara bax →</a>
+        </div>
+        <div class="slide">
+          <span class="tag">Həftənin seçimi</span>
+          <h1>Canva Pro — 12 ay</h1>
+          <p>Dizayn və yaradıcılıq üçün tam paket. Yalnız 6 AZN-dən başlayır.</p>
+          <a class="cta" href="#products">Sifariş ver →</a>
+        </div>
+        <div class="slide">
+          <span class="tag">Sərfəli</span>
+          <h1>Amazon Prime Video</h1>
+          <p>1 ay üçün cəmi 2.98 AZN. Sevdiyiniz filmlər həmişə əlinizin altında.</p>
+          <a class="cta" href="#products">Ətraflı bax →</a>
+        </div>
+      </div>
+      <div class="dots" id="dots"></div>
     </div>
-  `).join('');
-}
 
-function home(){
-  const approved=D.reviews.filter(r=>r.status==='approved').slice(0,3);
-
-  return `
-  <section class="hero">
-    <h1>Rəqəmsal abunələr,<br>bir kliklə.</h1>
-    <p>${esc(D.settings.promo)}. Netflix, YouTube Premium, ChatGPT və daha çoxu.</p>
-    <a class="btn" href="#/products">Məhsullara bax</a>
   </section>
 
-  <h2 class="sec">Kateqoriyalar</h2>
-  <div class="cats">
-    ${D.categories.map(c=>`
-      <a class="cat" href="#/products?cat=${encodeURIComponent(c.name)}">
-        <div class="i">${esc(c.icon)}</div>
-        <div style="margin-top:8px;font-weight:600">${esc(c.name)}</div>
-      </a>
-    `).join('')}
-  </div>
-
-  <h2 class="sec">Populyar məhsullar</h2>
-  <div class="grid">${active().slice(0,8).map(card).join('')}</div>
-
-  ${approved.length?`
-    <h2 class="sec">Müştəri rəyləri</h2>
-    ${reviewsHtml(approved)}
-  `:''}`;
-}
-
-function products(q){
-  const cat=q.get('cat')||'';
-  const s=(q.get('q')||'').toLowerCase();
-
-  const list=active().filter(p=>
-    (!cat||p.cat===cat)&&
-    (!s||p.name.toLowerCase().includes(s))
-  );
-
-  return `
-  <h1 style="margin-bottom:12px">Məhsullar</h1>
-
-  <form class="form" style="grid-template-columns:1fr 1fr;max-width:none"
-  onsubmit="event.preventDefault();location.hash='#/products?q='+encodeURIComponent(this.q.value)+'&cat='+encodeURIComponent(this.cat.value)">
-    <input name="q" value="${esc(q.get('q')||'')}" placeholder="Axtar">
-    <select name="cat">
-      <option value="">Bütün kateqoriyalar</option>
-      ${D.categories.map(c=>`
-        <option value="${esc(c.name)}" ${c.name===cat?'selected':''}>${esc(c.name)}</option>
-      `).join('')}
-    </select>
-  </form>
-
-  <div class="grid" style="margin-top:16px">
-    ${list.map(card).join('')||'<p class="muted">Nəticə tapılmadı.</p>'}
-  </div>`;
-}
-
-function product(slug){
-  const p=D.products.find(x=>x.slug===slug&&x.active);
-
-  if(!p) return `
-    <h2>Məhsul tapılmadı</h2>
-    <p class="muted" style="margin:10px 0 16px">Bu səhifə mövcud deyil və ya deaktiv edilib.</p>
-    <a class="btn" href="#/products">Məhsullara qayıt</a>
-  `;
-
-  const revs=D.reviews.filter(r=>r.product===p.name&&r.status==='approved');
-
-  return `
-  <div class="pdetail">
-    <div class="pbig" style="--c:${esc(p.color)}">${esc(p.icon)}</div>
-
-    <div>
-      <h1>${esc(p.name)}</h1>
-      <p class="muted">${esc(p.cat)}</p>
-      <p style="margin:14px 0;line-height:1.6">${esc(p.desc)}</p>
-
-      <ul class="perks">
-        ${p.perks.map(x=>`<li>✓ ${esc(x)}</li>`).join('')}
-      </ul>
-
-      <h3>Paket seç</h3>
-
-      <form class="form" onsubmit="order(event,'${esc(p.slug)}')">
-
-        ${p.plans.map((pl,i)=>`
-          <label class="plan">
-            <input type="radio" name="plan" value="${i}" ${i===0?'checked':''}>
-            <div>
-              <b>${esc(pl.name)}</b> · ${esc(pl.dur)}
-              <br>
-              <span class="price">${pr(pl.price)}</span>
-              ${pl.old!==null&&pl.old!==undefined&&pl.old!==''?`<span class="old">${pr(pl.old)}</span>`:''}
-            </div>
-          </label>
-        `).join('')}
-
-        <input name="name" placeholder="Adınız" required>
-        <input name="phone" placeholder="Telefon (WhatsApp üçün)" required>
-
-        <button class="btn">Sifariş ver (WhatsApp)</button>
-      </form>
+  <!-- Products -->
+  <section id="products">
+    <div class="section-head">
+      <h2>Xidmətlər</h2>
+      <a href="#products" id="resetCat">Hamısı</a>
     </div>
+    <div class="filters" id="filters"></div>
+    <div class="products" id="grid"></div>
+    <div class="empty" id="empty" hidden>Heç nə tapılmadı.</div>
+  </section>
+
+  <!-- Features -->
+  <section>
+    <div class="section-head"><h2>Niyə DigiBaku?</h2></div>
+    <div class="features">
+      <div class="feature"><b>⚡ Sürətli aktivləşdirmə</b><small>Sifarişdən sonra qısa müddətdə</small></div>
+      <div class="feature"><b>🔒 Təhlükəsiz sifariş</b><small>Məlumatlarınız qorunur</small></div>
+      <div class="feature"><b>💬 Operativ dəstək</b><small>Canlı söhbət ilə cavab</small></div>
+      <div class="feature"><b>💳 Komissiyasız</b><small>Ödənişdə əlavə haqq yoxdur</small></div>
+    </div>
+  </section>
+
+  <!-- Reviews -->
+  <section id="reviews">
+    <div class="section-head"><h2>Müştəri rəyləri</h2></div>
+    <div class="reviews">
+      <div class="review">
+        <div class="stars">★★★★★</div>
+        <p>Sifariş çox tez aktivləşdi, dəstək komandası da səbirlə cavab verdi.</p>
+        <small>— Murad, Bakı</small>
+      </div>
+      <div class="review">
+        <div class="stars">★★★★★</div>
+        <p>Qiymət çox münasibdir. ChatGPT paketi problemsiz işləyir.</p>
+        <small>— Aysel, Gəncə</small>
+      </div>
+      <div class="review">
+        <div class="stars">★★★★☆</div>
+        <p>Sadə və rahat sayt. Ödəniş və sifariş prosesi aydındır.</p>
+        <small>— Elvin, Sumqayıt</small>
+      </div>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <div class="brand"><span class="brand-mark">D</span><span>DigiBaku</span></div>
+    <p>Premium rəqəmsal xidmətlər mağazası. Azərbaycanda, sürətli və təhlükəsiz.</p>
+    <div class="links">
+      <a href="#products">Məhsullar</a>
+      <a href="#reviews">Rəylər</a>
+      <a href="#">FAQ</a>
+      <a href="#">Qiymətlər</a>
+      <a href="#">Haqqımızda</a>
+    </div>
+    <p>© 2026 DigiBaku. Bütün hüquqlar qorunur.</p>
+  </footer>
+</main>
+
+<!-- Bottom nav (mobile) -->
+<nav class="bottom-nav" aria-label="Əsas menyu">
+  <button class="on" data-go="home"><span class="i">⌂</span>Ana səhifə</button>
+  <button data-go="products"><span class="i">▦</span>Məhsullar</button>
+  <button data-cart><span class="i">🛒</span>Səbət<span class="badge" id="badge">0</span></button>
+  <button data-go="reviews"><span class="i">★</span>Rəylər</button>
+  <button data-go="contact"><span class="i">☰</span>Əlaqə</button>
+</nav>
+
+<button class="chat-fab" id="chatFab" aria-label="Canlı dəstək">💬</button>
+
+<div class="overlay" id="overlay"></div>
+<aside class="drawer" id="drawer" aria-label="Səbət">
+  <div class="drawer-head">
+    <h3>Səbətiniz</h3>
+    <button id="closeCart" aria-label="Bağla">✕</button>
   </div>
+  <div id="cartLines"></div>
+  <div class="total"><span>Ümumi məbləğ</span><span id="cartTotal">0.00 AZN</span></div>
+  <button class="checkout" id="checkout">Sifarişi təsdiq et</button>
+</aside>
 
-  <h2 class="sec">Tez-tez verilən suallar</h2>
-  ${faqHtml(D.faqs)}
+<script>
+  // ---------- Məhsul məlumatları (sonra admin/API ilə əvəz oluna bilər) ----------
+  const CATEGORIES = [
+    { id: "film",   name: "Film və musiqi",  icon: "🎬", color: "#f87171" },
+    { id: "ai",     name: "Süni intellekt",  icon: "✨", color: "#60a5fa" },
+    { id: "design", name: "Dizayn",          icon: "🎨", color: "#c084fc" },
+    { id: "game",   name: "Oyun",            icon: "🎮", color: "#a78bfa" },
+    { id: "music",  name: "Musiqi",          icon: "🎵", color: "#34d399" },
+    { id: "edu",    name: "Təhsil",          icon: "📚", color: "#fbbf24" },
+    { id: "vpn",    name: "Təhlükəsizlik",   icon: "🛡️", color: "#22d3ee" },
+    { id: "video",  name: "Video",           icon: "▶️", color: "#fb7185" }
+  ];
 
-  <h2 class="sec">Rəylər</h2>
-  ${reviewsHtml(revs)}
-  `;
-}
+  // image: məhsulun şəkli. Tam URL (https://...) və ya yerli fayl yolu (məs. "img/netflix.png").
+  // Boş saxlasanız rəngli qısa ad (NF, YT ...) göstərilir.
+  const PRODUCTS = [
+    { id: "netflix", name: "Netflix Premium", short: "NF", cat: "film", image: "", color: "#e50914",
+      desc: "Film və seriallar, HD və 4K dəstəyi.",
+      plans: [ { label: "30 gün", price: 7 }, { label: "2 ay", price: 13 } ] },
+    { id: "youtube", name: "YouTube Premium", short: "YT", cat: "video", image: "", color: "#ff0033",
+      desc: "Reklamsız video və arxa planda oynatma.",
+      plans: [ { label: "1 ay", price: 8 }, { label: "2 ay", price: 14 } ] },
+    { id: "chatgpt", name: "ChatGPT Business", short: "GP", cat: "ai", image: "", color: "#10a37f",
+      desc: "Süni intellekt ilə iş və yaradıcılıq.",
+      plans: [ { label: "1 ay", price: 12 } ] },
+    { id: "gemini", name: "Gemini Advanced Pro", short: "GM", cat: "ai", image: "", color: "#4285f4",
+      desc: "Google-un qabaqcıl süni intellekt modeli.",
+      plans: [ { label: "1 ay", price: 8 } ] },
+    { id: "grammarly", name: "Grammarly Premium", short: "GR", cat: "edu", image: "", color: "#15c39a",
+      desc: "Mətnlərin yoxlanması və üslub təkmilləşdirməsi.",
+      plans: [ { label: "1 ay", price: 10.99 } ] },
+    { id: "spotify", name: "Spotify Premium", short: "SP", cat: "music", image: "", color: "#1db954",
+      desc: "Reklamsız musiqi və offline dinləmə.",
+      plans: [ { label: "1 ay", price: 8 } ] },
+    { id: "canva", name: "Canva Pro", short: "CV", cat: "design", image: "", color: "#00c4cc",
+      desc: "Premium şablonlar və dizayn alətləri.",
+      plans: [ { label: "12 ay", price: 6 } ] },
+    { id: "deezer", name: "Deezer Premium", short: "DZ", cat: "music", image: "", color: "#a238ff",
+      desc: "Yüksək keyfiyyətli musiqi kitabxanası.",
+      plans: [ { label: "1 ay", price: 5.99 } ] },
+    { id: "avast", name: "Avast SecureLine VPN", short: "AV", cat: "vpn", image: "", color: "#ff7800",
+      desc: "Təhlükəsiz və anonim internet bağlantısı.",
+      plans: [ { label: "1 il", price: 19.99 } ] },
+    { id: "hbo", name: "HBO MAX TV", short: "HB", cat: "film", image: "", color: "#7b2cbf",
+      desc: "HBO Max və BluTV tam paketi.",
+      plans: [ { label: "1 ay", price: 4.99 }, { label: "2 ay", price: 8.99 } ] },
+    { id: "prime", name: "Amazon Prime Video", short: "PV", cat: "film", image: "", color: "#00a8e1",
+      desc: "Film, serial və eksklüziv məzmun.",
+      plans: [ { label: "1 ay", price: 2.98 } ] },
+    { id: "duolingo", name: "Duolingo Super", short: "DL", cat: "edu", image: "", color: "#58cc02",
+      desc: "Reklamsız dil öyrənmə və əlavə imkanlar.",
+      plans: [ { label: "1 il", price: 19.99 } ] }
+  ];
 
-function order(e,slug){
-  e.preventDefault();
+  // ---------- Vəziyyət ----------
+  const state = { cat: "all", query: "", selected: {}, cart: loadCart() };
 
-  const f=e.target;
-  const p=D.products.find(x=>x.slug===slug);
+  function loadCart() {
+    try { return JSON.parse(localStorage.getItem("digi_cart")) || []; } catch { return []; }
+  }
+  function saveCart() { localStorage.setItem("digi_cart", JSON.stringify(state.cart)); }
 
-  if(!p) return alert('Məhsul tapılmadı.');
+  const fmt = (n) => Number(n).toFixed(2) + " AZN";
+  const $ = (id) => document.getElementById(id);
 
-  const selected=f.querySelector('input[name="plan"]:checked');
-
-  if(!selected) return alert('Zəhmət olmasa paket seçin.');
-
-  const pl=p.plans[Number(selected.value)];
-
-  if(!pl) return alert('Paket tapılmadı.');
-
-  const o={
-    id:Date.now(),
-    product:p.name,
-    plan:`${pl.name} (${pl.dur})`,
-    price:pl.price,
-    customer:f.name.value,
-    phone:f.phone.value,
-    status:'Cavab gözləyir',
-    date:new Date().toLocaleString('az-AZ')
-  };
-
-  D.orders.unshift(o);
-
-  if(!save()) return;
-
-  const msg=encodeURIComponent(
-    `Salam, sifariş vermək istəyirəm: ${o.product} - ${o.plan}. Ad: ${o.customer}, Tel: ${o.phone}`
-  );
-
-  window.open(`https://wa.me/${D.settings.wa}?text=${msg}`,'_blank');
-
-  alert('Sifarişiniz qeydə alındı. WhatsApp-da təsdiqləməyi gözləyin.');
-
-  f.reset();
-}
-
-function prices(){
-  return `
-  <h1 style="margin-bottom:12px">Qiymətlər</h1>
-
-  <table>
-    <tr>
-      <th>Məhsul</th>
-      <th>Paket</th>
-      <th>Müddət</th>
-      <th>Qiymət</th>
-    </tr>
-
-    ${active().flatMap(p=>p.plans.map(pl=>`
-      <tr>
-        <td><a href="#/products/${esc(p.slug)}">${esc(p.name)}</a></td>
-        <td>${esc(pl.name)}</td>
-        <td>${esc(pl.dur)}</td>
-        <td class="price">
-          ${pr(pl.price)}
-          ${pl.old!==null&&pl.old!==undefined&&pl.old!==''?`<span class="old">${pr(pl.old)}</span>`:''}
-        </td>
-      </tr>
-    `)).join('')}
-  </table>`;
-}
-
-function faq(){
-  const cats=[...new Set(D.faqs.map(f=>f.cat||'Ümumi'))];
-
-  return `
-  <h1 style="margin-bottom:12px">Tez-tez verilən suallar</h1>
-
-  ${cats.map(c=>`
-    <h3 class="sec" style="font-size:18px">${esc(c)}</h3>
-    ${faqHtml(D.faqs.filter(f=>(f.cat||'Ümumi')===c))}
-  `).join('')}`;
-}
-
-function reviews(){
-  return `
-  <h1 style="margin-bottom:12px">Müştəri rəyləri</h1>
-
-  ${reviewsHtml(D.reviews.filter(r=>r.status==='approved'))}
-
-  <h2 class="sec">Rəy yaz</h2>
-
-  <form class="form" onsubmit="addReview(event)">
-    <select name="product">
-      ${D.products.map(p=>`<option>${esc(p.name)}</option>`).join('')}
-    </select>
-
-    <select name="stars">
-      <option value="5">5 ★</option>
-      <option value="4">4 ★</option>
-      <option value="3">3 ★</option>
-      <option value="2">2 ★</option>
-      <option value="1">1 ★</option>
-    </select>
-
-    <input name="name" placeholder="Adınız" required>
-    <textarea name="text" rows="4" placeholder="Rəyiniz" required>
-    </textarea>
-
-    <button class="btn">Göndər</button>
-  </form>
-
-  <p class="notice">Rəy admin təsdiqindən sonra yayımlanır.</p>`;
-}
-
-function addReview(e){
-  e.preventDefault();
-
-  const f=e.target;
-
-  D.reviews.push({
-    id:Date.now(),
-    product:f.product.value,
-    stars:+f.stars.value,
-    name:f.name.value,
-    text:f.text.value,
-    date:new Date().toLocaleDateString('az-AZ'),
-    status:'pending'
-  });
-
-  if(!save()) return;
-
-  alert('Rəyiniz göndərildi, təsdiqdən sonra yayımlanacaq.');
-  f.reset();
-}
-
-function about(){
-  return `
-  <h1 style="margin-bottom:12px">Haqqımızda</h1>
-  <p class="muted" style="line-height:1.7;max-width:640px">${esc(D.settings.about)}</p>`;
-}
-
-function contact(){
-  return `
-  <h1 style="margin-bottom:12px">Əlaqə</h1>
-  <p class="muted">Telefon: ${esc(D.settings.phone)}</p>
-  <p class="muted">Ünvan: ${esc(D.settings.address)}</p>
-
-  <div style="margin-top:16px">
-    <a class="btn" href="https://wa.me/${esc(D.settings.wa)}" target="_blank" rel="noopener">WhatsApp ilə yaz</a>
-  </div>`;
-}
-
-function profile(){
-  return `
-  <h1 style="margin-bottom:12px">Profil</h1>
-  <p class="notice">
-    Qeydiyyat, giriş, sifariş tarixçəsi və canlı çat üçün server tərəfi (backend) lazımdır.
-    Bu mərhələdə sifarişlər brauzerdə qeyd olunur və WhatsApp ilə təsdiqlənir.
-  </p>`;
-}
-
-const R={
-  '':home,
-  'products':products,
-  'prices':prices,
-  'faq':faq,
-  'reviews':reviews,
-  'about':about,
-  'contact':contact,
-  'profile':profile,
-  'login':profile
-};
-
-function route(){
-  const raw=location.hash.replace(/^#\/?/,'');
-  const [path,query]=raw.split('?');
-  const q=new URLSearchParams(query||'');
-
-  let html;
-
-  if(path.startsWith('products/')){
-    html=product(path.slice(9));
-  }else{
-    html=(R[path]||home)(q);
+  // ---------- Kateqoriyalar və filtrlər ----------
+  function renderCategories() {
+    const chips = [{ id: "all", name: "Hamısı" }, ...CATEGORIES];
+    $("filters").innerHTML = chips.map(c =>
+      `<button class="chip ${state.cat === c.id ? "on" : ""}" data-chip="${c.id}">${c.name}</button>`).join("");
   }
 
-  $('#app').innerHTML=html;
+  // ---------- Məhsullar ----------
+  function renderProducts() {
+    const q = state.query.trim().toLowerCase();
+    const list = PRODUCTS.filter(p =>
+      (state.cat === "all" || p.cat === state.cat) &&
+      (!q || p.name.toLowerCase().includes(q)));
 
-  document.querySelectorAll('.nav a').forEach(a=>
-    a.classList.toggle('on',a.dataset.r===path.split('/')[0])
-  );
+    $("empty").hidden = list.length > 0;
+    $("grid").innerHTML = list.map(p => {
+      const sel = state.selected[p.id] ?? 0;
+      const plan = p.plans[sel];
+      return `
+      <article class="product" data-id="${p.id}">
+        <div class="product-top">
+          <div class="avatar" style="background:${p.color}">
+            <span>${p.short}</span>
+            ${p.image ? `<img src="${p.image}" alt="${p.name}" loading="lazy" onerror="this.remove()">` : ""}
+          </div>
+          <div class="product-title">
+            <h3>${p.name}</h3>
+            <small>${CATEGORIES.find(c => c.id === p.cat)?.name ?? ""}</small>
+          </div>
+        </div>
+        <p class="desc">${p.desc}</p>
+        <div class="plans">
+          ${p.plans.map((pl, i) => `
+            <button class="plan ${i === sel ? "on" : ""}" data-plan="${i}">
+              <small>${pl.label}</small>
+              <b>${fmt(pl.price)}</b>
+            </button>`).join("")}
+        </div>
+        <div class="product-foot">
+          <div class="price">${plan.price.toFixed(2)}<small>AZN</small></div>
+          <button class="add" data-add="${p.id}">Səbətə at</button>
+        </div>
+      </article>`;
+    }).join("");
+  }
 
-  $('#waBtn').href=`https://wa.me/${D.settings.wa}`;
-  $('#waBtn').textContent='WhatsApp: '+D.settings.phone;
+  // ---------- Səbət ----------
+  function updateBadge() {
+    const n = state.cart.reduce((s, i) => s + i.qty, 0);
+    const b = $("badge");
+    b.textContent = n;
+    b.classList.toggle("show", n > 0);
+  }
 
-  document.title=(path?path.split('/').pop():'Ana səhifə')+' — DigiBaku';
+  function renderCart() {
+    const lines = $("cartLines");
+    if (!state.cart.length) {
+      lines.innerHTML = `<p class="empty">Səbətiniz boşdur.</p>`;
+    } else {
+      lines.innerHTML = state.cart.map((i, idx) => `
+        <div class="line">
+          <div><b>${i.name}</b><small>${i.label} · ${i.qty} əd.</small></div>
+          <div style="text-align:right">
+            <b>${fmt(i.price * i.qty)}</b>
+            <button data-remove="${idx}">Sil</button>
+          </div>
+        </div>`).join("");
+    }
+    const total = state.cart.reduce((s, i) => s + i.price * i.qty, 0);
+    $("cartTotal").textContent = fmt(total);
+    $("checkout").disabled = !state.cart.length;
+    $("checkout").style.opacity = state.cart.length ? 1 : .5;
+  }
 
-  window.scrollTo(0,0);
-}
+  function addToCart(productId) {
+    const p = PRODUCTS.find(x => x.id === productId);
+    const plan = p.plans[state.selected[p.id] ?? 0];
+    const key = p.id + "|" + plan.label;
+    const found = state.cart.find(i => i.key === key);
+    if (found) found.qty += 1;
+    else state.cart.push({ key, name: p.name, label: plan.label, price: plan.price, qty: 1 });
+    saveCart(); updateBadge(); renderCart();
+    toast("Səbətə əlavə olundu");
+  }
 
-window.addEventListener('hashchange',route);
+  function openCart(open = true) {
+    $("drawer").classList.toggle("open", open);
+    $("overlay").classList.toggle("open", open);
+    if (open) renderCart();
+  }
 
-route();
+  // ---------- Bildiriş ----------
+  let toastTimer;
+  function toast(text) {
+    let t = $("toast");
+    if (!t) {
+      t = document.createElement("div");
+      t.id = "toast";
+      t.style.cssText = "position:fixed;left:50%;top:86px;transform:translateX(-50%);background:#fff;color:#111;padding:10px 16px;border-radius:12px;font-size:.85rem;font-weight:700;z-index:90;box-shadow:0 10px 30px rgba(0,0,0,.3);transition:opacity .3s";
+      document.body.appendChild(t);
+    }
+    t.textContent = text;
+    t.style.opacity = 1;
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => t.style.opacity = 0, 1600);
+  }
+
+  // ---------- Hero karuseli ----------
+  let slideIndex = 0, slideCount = 0, slideTimer;
+  function initHero() {
+    const slides = document.querySelectorAll(".slide");
+    slideCount = slides.length;
+    $("dots").innerHTML = Array.from({ length: slideCount }, (_, i) =>
+      `<button data-dot="${i}" class="${i === 0 ? "on" : ""}" aria-label="Slayd ${i + 1}"></button>`).join("");
+    goSlide(0);
+    slideTimer = setInterval(() => goSlide((slideIndex + 1) % slideCount), 5000);
+  }
+  function goSlide(i) {
+    slideIndex = i;
+    $("slides").style.transform = `translateX(-${i * 100}%)`;
+    document.querySelectorAll("#dots button").forEach((b, k) => b.classList.toggle("on", k === i));
+  }
+
+  // ---------- Hadisələr ----------
+  document.addEventListener("click", (e) => {
+    const t = e.target.closest("button, a");
+    if (!t) return;
+
+    if (t.dataset.cat) {
+      state.cat = t.dataset.cat;
+      renderCategories(); renderProducts();
+      $("products").scrollIntoView({ behavior: "smooth" });
+      return;
+    }
+    if (t.dataset.chip) {
+      state.cat = t.dataset.chip;
+      renderCategories(); renderProducts();
+      return;
+    }
+    if (t.dataset.plan !== undefined) {
+      const id = t.closest(".product").dataset.id;
+      state.selected[id] = Number(t.dataset.plan);
+      renderProducts();
+      return;
+    }
+    if (t.dataset.add) return addToCart(t.dataset.add);
+
+    if (t.dataset.remove !== undefined) {
+      state.cart.splice(Number(t.dataset.remove), 1);
+      saveCart(); updateBadge(); renderCart();
+      return;
+    }
+    if (t.dataset.dot !== undefined) return goSlide(Number(t.dataset.dot));
+    if (t.hasAttribute("data-cart")) return openCart(true);
+    if (t.dataset.go) {
+      const target = t.dataset.go === "home" ? "home" : t.dataset.go;
+      document.getElementById(target)?.scrollIntoView({ behavior: "smooth" });
+      document.querySelectorAll(".bottom-nav button").forEach(b => b.classList.toggle("on", b === t));
+      return;
+    }
+  });
+
+  $("overlay").addEventListener("click", () => openCart(false));
+  $("closeCart").addEventListener("click", () => openCart(false));
+  $("chatFab").addEventListener("click", () => toast("Canlı dəstək tezliklə aktiv olacaq"));
+  $("checkout").addEventListener("click", () => toast("Sifariş mərhələsi hazırlanır"));
+  $("search").addEventListener("input", (e) => { state.query = e.target.value; renderProducts(); });
+  $("resetCat").addEventListener("click", (e) => { e.preventDefault(); state.cat = "all"; renderCategories(); renderProducts(); });
+
+  // Hero-da sürüşdürmə (mobil)
+  let touchX = null;
+  $("hero").addEventListener("touchstart", (e) => touchX = e.touches[0].clientX, { passive: true });
+  $("hero").addEventListener("touchend", (e) => {
+    if (touchX === null) return;
+    const dx = e.changedTouches[0].clientX - touchX;
+    if (Math.abs(dx) > 40) goSlide((slideIndex + (dx < 0 ? 1 : slideCount - 1)) % slideCount);
+    touchX = null;
+  });
+
+  // ---------- Başlanğıc ----------
+  renderCategories();
+  renderProducts();
+  updateBadge();
+  initHero();
 </script>
-
 </body>
 </html>
