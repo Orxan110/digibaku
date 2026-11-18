@@ -2,559 +2,192 @@
 <html lang="az">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#08090d">
-<meta name="description" content="DigiBaku — rəqəmsal abunəliklər və premium xidmətlər.">
+<meta name="description" content="DigiBaku premium rəqəmsal xidmətlər.">
 <title>Məhsul | DigiBaku</title>
 
 <style>
 :root {
     --bg:#08090d;
-    --surface:#11131b;
-    --surface2:#171a24;
+    --card:#12141d;
+    --card2:#191c27;
     --border:rgba(255,255,255,.09);
-    --text:#f5f6fa;
-    --muted:#9298a8;
-    --purple:#885cff;
-    --purple2:#a78bfa;
-    --green:#37d99a;
-    --radius:20px;
+    --text:#f5f5fa;
+    --muted:#999eae;
+    --purple:#9065ff;
+    --green:#39d9a0;
 }
-
-* {
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
-body {
-    font-family:Inter,Arial,sans-serif;
+*{box-sizing:border-box;margin:0;padding:0}
+body{
     background:var(--bg);
     color:var(--text);
+    font-family:Inter,Arial,sans-serif;
     min-height:100vh;
 }
-
-a {
-    color:inherit;
-    text-decoration:none;
-}
-
-button {
-    font:inherit;
-    cursor:pointer;
-}
-
-.container {
-    width:min(1160px,92%);
-    margin:auto;
-}
-
-/* HEADER */
-
-header {
-    position:sticky;
-    top:0;
-    z-index:100;
-    background:rgba(8,9,13,.91);
-    backdrop-filter:blur(18px);
+a{text-decoration:none;color:inherit}
+button,select{font:inherit}
+.container{width:min(1150px,92%);margin:auto}
+header{
+    position:sticky;top:0;z-index:20;
+    background:rgba(8,9,13,.94);
+    backdrop-filter:blur(16px);
     border-bottom:1px solid var(--border);
 }
-
-.header-inner {
-    min-height:76px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
+.header{
+    height:75px;display:flex;
+    align-items:center;justify-content:space-between;
     gap:20px;
 }
-
-.logo {
-    font-size:25px;
-    font-weight:900;
-    letter-spacing:-1px;
-}
-
-.logo span {
-    color:var(--purple2);
-}
-
-.nav {
-    display:flex;
-    align-items:center;
-    gap:28px;
-    color:#c4c7d1;
-    font-size:14px;
-}
-
-.nav a:hover {
-    color:white;
-}
-
-.header-actions {
-    display:flex;
-    align-items:center;
-    gap:12px;
-}
-
-.language {
-    background:var(--surface);
-    color:white;
+.logo{font-size:25px;font-weight:900;letter-spacing:-1px}
+.logo span{color:var(--purple)}
+nav{display:flex;gap:25px;color:#c4c6d0;font-size:14px}
+nav a:hover{color:white}
+.header-right{display:flex;align-items:center;gap:15px}
+select{
+    background:var(--card);color:white;
     border:1px solid var(--border);
-    padding:10px;
-    border-radius:10px;
+    border-radius:9px;padding:9px;
 }
+.back{font-size:14px;color:#c4c6d0}
+.breadcrumb{padding:25px 0;color:var(--muted);font-size:13px}
+.breadcrumb a:hover{color:white}
 
-.back-btn {
-    color:#c4c7d1;
-    font-size:14px;
+.product-layout{
+    display:grid;grid-template-columns:1fr 1fr;
+    gap:55px;padding:15px 0 75px;
 }
-
-/* BREADCRUMB */
-
-.breadcrumb {
-    padding:25px 0;
-    color:var(--muted);
-    font-size:13px;
-}
-
-.breadcrumb a:hover {
-    color:white;
-}
-
-/* PRODUCT */
-
-.product-layout {
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:55px;
-    padding:20px 0 85px;
-}
-
-.product-visual {
-    min-height:440px;
+.visual{
+    min-height:430px;border-radius:25px;
+    border:1px solid var(--border);
     background:
-        radial-gradient(circle at 50% 40%,rgba(136,92,255,.23),transparent 55%),
-        linear-gradient(145deg,#171522,#10121b);
-    border:1px solid var(--border);
-    border-radius:28px;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    position:relative;
-    overflow:hidden;
+      radial-gradient(circle at center,rgba(144,101,255,.25),transparent 55%),
+      linear-gradient(145deg,#1b1928,#11131b);
+    display:flex;align-items:center;justify-content:center;
+    position:relative;overflow:hidden;
 }
-
-.product-visual::before,
-.product-visual::after {
-    content:"";
-    position:absolute;
-    border:1px solid rgba(255,255,255,.05);
-    border-radius:50%;
-    width:330px;
-    height:330px;
+.visual:before,.visual:after{
+    content:"";position:absolute;
+    width:330px;height:330px;border-radius:50%;
+    border:1px solid rgba(255,255,255,.06);
 }
-
-.product-visual::after {
-    width:450px;
-    height:450px;
-}
-
-.product-icon {
-    width:160px;
-    height:160px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:85px;
-    border-radius:38px;
-    background:rgba(255,255,255,.06);
+.visual:after{width:440px;height:440px}
+.product-icon{
+    width:155px;height:155px;border-radius:35px;
+    display:grid;place-items:center;
+    font-size:82px;z-index:1;
+    background:rgba(255,255,255,.07);
     border:1px solid rgba(255,255,255,.12);
-    box-shadow:0 25px 80px rgba(0,0,0,.35);
-    z-index:1;
+    box-shadow:0 20px 70px #0008;
 }
-
-.visual-label {
-    position:absolute;
-    bottom:25px;
-    left:25px;
-    background:rgba(255,255,255,.08);
-    border:1px solid var(--border);
-    padding:10px 15px;
-    border-radius:30px;
-    color:#ddd;
-    font-size:12px;
+.visual-label{
+    position:absolute;bottom:22px;left:22px;
+    font-size:12px;color:#ddd;
+    padding:10px 14px;border-radius:30px;
+    background:#ffffff12;border:1px solid var(--border);
 }
-
-.product-info {
-    padding:8px 0;
+.badge{
+    display:inline-block;margin-bottom:17px;
+    padding:8px 13px;border-radius:30px;
+    color:#c9b8ff;background:#9065ff20;
+    border:1px solid #9065ff50;font-size:12px;
 }
-
-.badge {
-    display:inline-block;
-    color:#c8b6ff;
-    background:rgba(136,92,255,.13);
-    border:1px solid rgba(136,92,255,.25);
-    padding:8px 13px;
-    border-radius:30px;
-    font-size:12px;
-    margin-bottom:18px;
+h1{font-size:clamp(30px,4vw,43px);line-height:1.15;letter-spacing:-1px}
+.description{
+    color:var(--muted);font-size:15px;
+    line-height:1.8;margin:17px 0 22px;
 }
-
-.product-info h1 {
-    font-size:clamp(30px,4vw,43px);
-    letter-spacing:-1.5px;
-    line-height:1.15;
-    margin-bottom:16px;
-}
-
-.description {
-    color:var(--muted);
-    line-height:1.8;
-    font-size:15px;
-    margin-bottom:25px;
-}
-
-.rating {
-    display:flex;
-    gap:10px;
-    align-items:center;
-    color:#f6c85f;
-    font-size:14px;
-    margin-bottom:28px;
-}
-
-.rating span {
-    color:var(--muted);
-}
-
-/* PRICE */
-
-.price-box {
-    background:var(--surface);
-    border:1px solid var(--border);
-    border-radius:18px;
-    padding:22px;
-    margin-bottom:20px;
-}
-
-.price-label {
-    color:var(--muted);
-    font-size:13px;
-    margin-bottom:12px;
-}
-
-.price-row {
-    display:flex;
-    align-items:center;
-    gap:12px;
-    flex-wrap:wrap;
-}
-
-.current-price {
-    font-size:34px;
-    font-weight:850;
-    letter-spacing:-1px;
-}
-
-.old-price {
-    font-size:16px;
-    color:#777d8b;
-    text-decoration:line-through;
-}
-
-.discount {
-    background:rgba(55,217,154,.12);
-    color:var(--green);
-    padding:6px 10px;
-    border-radius:8px;
-    font-size:12px;
-    font-weight:700;
-}
-
-/* OPTIONS */
-
-.section-label {
-    font-size:14px;
-    font-weight:700;
-    margin:25px 0 13px;
-}
-
-.duration-options {
-    display:grid;
-    grid-template-columns:repeat(2,minmax(0,1fr));
-    gap:12px;
-}
-
-.duration-option {
-    background:var(--surface);
-    border:1px solid var(--border);
-    border-radius:13px;
-    padding:15px;
-    color:white;
-    text-align:left;
-    transition:.2s;
-}
-
-.duration-option:hover {
-    border-color:var(--purple);
-}
-
-.duration-option.active {
-    border-color:var(--purple);
-    background:rgba(136,92,255,.12);
-    box-shadow:0 0 0 1px var(--purple);
-}
-
-.duration-name {
-    display:block;
-    font-weight:700;
-    margin-bottom:7px;
-}
-
-.duration-price {
-    color:var(--purple2);
-    font-size:17px;
-    font-weight:800;
-}
-
-/* BUTTONS */
-
-.order-btn {
-    width:100%;
-    border:0;
-    border-radius:13px;
-    padding:17px;
-    margin-top:23px;
-    color:white;
-    font-weight:800;
-    font-size:15px;
-    background:linear-gradient(110deg,#7546ef,#a06bff);
-    box-shadow:0 12px 30px rgba(136,92,255,.2);
-    transition:.2s;
-}
-
-.order-btn:hover {
-    transform:translateY(-2px);
-    box-shadow:0 15px 35px rgba(136,92,255,.3);
-}
-
-.whatsapp-btn {
-    width:100%;
-    border:1px solid rgba(55,217,154,.3);
-    border-radius:13px;
-    padding:15px;
-    margin-top:11px;
-    background:rgba(55,217,154,.07);
-    color:var(--green);
-    font-weight:700;
-}
-
-.secure-note {
-    color:var(--muted);
-    font-size:12px;
-    text-align:center;
-    margin-top:17px;
-}
-
-/* DETAILS */
-
-.details-section {
-    padding:0 0 85px;
-}
-
-.section-title {
-    font-size:27px;
-    margin-bottom:25px;
-}
-
-.details-grid {
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:16px;
-}
-
-.detail-card {
-    background:var(--surface);
+.rating{color:#f5c65c;font-size:14px;margin-bottom:25px}
+.rating span{color:var(--muted);margin-left:8px}
+.price-box{
+    padding:22px;background:var(--card);
     border:1px solid var(--border);
     border-radius:17px;
-    padding:22px;
 }
-
-.detail-card .icon {
-    font-size:25px;
-    margin-bottom:13px;
+.price-label{font-size:13px;color:var(--muted);margin-bottom:12px}
+.price-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.current-price{font-size:34px;font-weight:850}
+.old-price{font-size:16px;color:#777;text-decoration:line-through}
+.discount{font-size:12px;color:var(--green);background:#39d9a018;padding:6px 9px;border-radius:8px}
+.section-label{font-size:14px;font-weight:700;margin:25px 0 13px}
+.duration-options{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.duration-option{
+    background:var(--card);color:white;text-align:left;
+    padding:15px;border:1px solid var(--border);
+    border-radius:12px;cursor:pointer;
 }
-
-.detail-card h3 {
-    font-size:15px;
-    margin-bottom:9px;
+.duration-option.active{
+    border-color:var(--purple);
+    background:#9065ff1b;
+    box-shadow:0 0 0 1px var(--purple);
 }
-
-.detail-card p {
-    font-size:13px;
-    color:var(--muted);
-    line-height:1.7;
+.duration-name{display:block;font-weight:700;margin-bottom:7px}
+.duration-price{color:#b69aff;font-weight:800;font-size:17px}
+.order-btn,.whatsapp-btn{
+    width:100%;padding:17px;border:0;
+    border-radius:12px;margin-top:20px;
+    font-weight:800;cursor:pointer;
 }
-
-/* ADVANTAGES */
-
-.advantages {
-    padding:0 0 85px;
+.order-btn{
+    color:white;background:linear-gradient(110deg,#7546ef,#a06bff);
+    box-shadow:0 12px 30px #9065ff30;
 }
-
-.advantage-list {
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:15px;
+.order-btn:hover{filter:brightness(1.12)}
+.whatsapp-btn{
+    margin-top:11px;color:var(--green);
+    background:#39d9a010;border:1px solid #39d9a050;
 }
-
-.advantage {
-    background:var(--surface);
-    border:1px solid var(--border);
-    padding:20px;
-    border-radius:15px;
-    color:#d9dbe3;
-    font-size:13px;
+.secure-note{text-align:center;color:var(--muted);font-size:12px;margin-top:16px}
+.details{padding:0 0 75px}
+.section-title{font-size:26px;margin-bottom:23px}
+.details-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
+.detail-card{
+    padding:22px;background:var(--card);
+    border:1px solid var(--border);border-radius:16px;
 }
-
-.advantage span {
-    display:block;
-    font-size:23px;
-    margin-bottom:10px;
+.detail-card .icon{font-size:25px;margin-bottom:12px}
+.detail-card h3{font-size:15px;margin-bottom:9px}
+.detail-card p{font-size:13px;line-height:1.7;color:var(--muted)}
+.advantages{padding-bottom:75px}
+.advantage-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.advantage{
+    padding:20px;background:var(--card);
+    border:1px solid var(--border);border-radius:15px;
+    font-size:13px;color:#ddd;
 }
-
-/* FOOTER */
-
-footer {
-    border-top:1px solid var(--border);
-    padding:35px 0;
-    color:var(--muted);
-    font-size:13px;
-}
-
-.footer-inner {
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:20px;
-    flex-wrap:wrap;
-}
-
-.footer-links {
-    display:flex;
-    gap:20px;
-    flex-wrap:wrap;
-}
-
-.footer-links a:hover {
-    color:white;
-}
-
-/* CHAT */
-
-.chat-button {
-    position:fixed;
-    right:22px;
-    bottom:22px;
-    width:58px;
-    height:58px;
-    border:0;
-    border-radius:50%;
+.advantage span{display:block;font-size:24px;margin-bottom:10px}
+footer{border-top:1px solid var(--border);padding:30px 0;color:var(--muted);font-size:13px}
+.footer{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.footer-links{display:flex;gap:18px}
+.chat{
+    position:fixed;right:22px;bottom:22px;
+    width:58px;height:58px;border:0;border-radius:50%;
     background:linear-gradient(135deg,#7546ef,#a06bff);
-    color:white;
-    font-size:25px;
-    box-shadow:0 8px 30px rgba(136,92,255,.35);
-    z-index:99;
+    color:white;font-size:25px;z-index:30;
+    box-shadow:0 8px 30px #9065ff55;cursor:pointer;
 }
+.not-found{text-align:center;padding:100px 15px}
+.not-found h1{font-size:32px;margin-bottom:15px}
+.not-found p{color:var(--muted);margin-bottom:25px}
+.not-found a{display:inline-block;background:var(--purple);padding:13px 22px;border-radius:10px}
+[hidden]{display:none!important}
 
-/* NOT FOUND */
-
-.not-found {
-    text-align:center;
-    padding:100px 20px;
+@media(max-width:800px){
+    nav{display:none}
+    .product-layout{grid-template-columns:1fr;gap:28px}
+    .visual{min-height:310px}
+    .product-icon{width:125px;height:125px;font-size:65px}
+    .details-grid{grid-template-columns:1fr}
+    .advantage-grid{grid-template-columns:repeat(2,1fr)}
 }
-
-.not-found h1 {
-    font-size:35px;
-    margin-bottom:15px;
-}
-
-.not-found p {
-    color:var(--muted);
-    margin-bottom:25px;
-}
-
-.not-found a {
-    display:inline-block;
-    background:var(--purple);
-    padding:13px 22px;
-    border-radius:10px;
-}
-
-/* RESPONSIVE */
-
-@media(max-width:800px) {
-    .nav {
-        display:none;
-    }
-
-    .product-layout {
-        grid-template-columns:1fr;
-        gap:30px;
-        padding-top:5px;
-    }
-
-    .product-visual {
-        min-height:310px;
-    }
-
-    .product-icon {
-        width:125px;
-        height:125px;
-        font-size:65px;
-    }
-
-    .details-grid {
-        grid-template-columns:1fr;
-    }
-
-    .advantage-list {
-        grid-template-columns:repeat(2,1fr);
-    }
-}
-
-@media(max-width:480px) {
-    .header-inner {
-        min-height:65px;
-    }
-
-    .logo {
-        font-size:22px;
-    }
-
-    .product-info h1 {
-        font-size:31px;
-    }
-
-    .duration-options {
-        grid-template-columns:1fr 1fr;
-    }
-
-    .duration-option {
-        padding:12px;
-    }
-
-    .current-price {
-        font-size:30px;
-    }
-
-    .advantage-list {
-        grid-template-columns:1fr 1fr;
-    }
-
-    .breadcrumb {
-        padding:18px 0;
-    }
+@media(max-width:480px){
+    .header{height:65px}
+    .logo{font-size:22px}
+    .product-layout{padding-top:5px}
+    h1{font-size:31px}
+    .current-price{font-size:30px}
+    .duration-option{padding:12px}
+    .footer-links{flex-wrap:wrap}
 }
 </style>
 </head>
@@ -562,19 +195,19 @@ footer {
 <body>
 
 <header>
-    <div class="container header-inner">
+    <div class="container header">
         <a href="index.html" class="logo">Digi<span>Baku</span></a>
 
-        <nav class="nav">
+        <nav>
             <a href="index.html">Ana səhifə</a>
             <a href="index.html#products">Məhsullar</a>
             <a href="index.html#about">Haqqımızda</a>
             <a href="index.html#faq">FAQ</a>
         </nav>
 
-        <div class="header-actions">
-            <a href="index.html" class="back-btn">← Geri</a>
-            <select class="language" id="language">
+        <div class="header-right">
+            <a href="index.html" class="back">← Geri</a>
+            <select id="language">
                 <option value="az">AZ</option>
                 <option value="ru">RU</option>
                 <option value="en">EN</option>
@@ -586,82 +219,60 @@ footer {
 <main class="container">
 
     <div class="breadcrumb">
-        <a href="index.html">Ana səhifə</a>
-        &nbsp; / &nbsp;
-        <a href="index.html#products">Məhsullar</a>
-        &nbsp; / &nbsp;
+        <a href="index.html">Ana səhifə</a> /
+        <a href="index.html#products">Məhsullar</a> /
         <span id="breadcrumbName">Məhsul</span>
     </div>
 
     <div id="productContent">
-
         <section class="product-layout">
 
-            <div class="product-visual">
+            <div class="visual">
                 <div class="product-icon" id="productIcon">✨</div>
                 <div class="visual-label">DigiBaku Premium Xidmət</div>
             </div>
 
-            <div class="product-info">
-
+            <div>
                 <span class="badge" id="productCategory">Premium xidmət</span>
-
                 <h1 id="productName">Məhsul</h1>
+                <p class="description" id="productDescription"></p>
 
-                <p class="description" id="productDescription">
-                    Premium rəqəmsal xidmət.
-                </p>
-
-                <div class="rating">
-                    ★★★★★
+                <div class="rating">★★★★★
                     <span>Etibarlı xidmət və müştəri dəstəyi</span>
                 </div>
 
                 <div class="price-box">
                     <div class="price-label">Seçilmiş paketin qiyməti</div>
-
                     <div class="price-row">
-                        <span class="current-price" id="currentPrice">7 AZN</span>
+                        <span class="current-price" id="currentPrice">0 AZN</span>
                         <span class="old-price" id="oldPrice" hidden></span>
                         <span class="discount" id="discountBadge" hidden></span>
                     </div>
                 </div>
 
                 <div class="section-label">Abunəlik müddətini seçin</div>
-
                 <div class="duration-options" id="durationOptions"></div>
 
-                <button class="order-btn" id="orderButton">
-                    İndi sifariş et →
-                </button>
+                <button class="order-btn" id="orderButton">İndi sifariş et →</button>
+                <button class="whatsapp-btn" id="whatsappButton">WhatsApp ilə əlaqə</button>
 
-                <button class="whatsapp-btn" id="whatsappButton">
-                    WhatsApp ilə əlaqə
-                </button>
-
-                <div class="secure-note">
-                    🔒 Sifarişiniz DigiBaku tərəfindən qəbul edilir.
-                </div>
-
+                <div class="secure-note">🔒 Sifarişiniz DigiBaku tərəfindən qəbul edilir.</div>
             </div>
         </section>
 
-        <section class="details-section">
+        <section class="details">
             <h2 class="section-title">Məhsul haqqında</h2>
-
             <div class="details-grid">
                 <div class="detail-card">
                     <div class="icon">⚡</div>
                     <h3>Sürətli təqdimat</h3>
                     <p>Sifarişiniz qəbul edildikdən sonra təqdimat prosesi başlanır.</p>
                 </div>
-
                 <div class="detail-card">
                     <div class="icon">🛡️</div>
                     <h3>Müştəri dəstəyi</h3>
-                    <p>İstifadə zamanı yaranan suallarınız üçün bizimlə əlaqə saxlaya bilərsiniz.</p>
+                    <p>İstifadə zamanı suallarınız yaranarsa, bizimlə əlaqə saxlaya bilərsiniz.</p>
                 </div>
-
                 <div class="detail-card">
                     <div class="icon">💎</div>
                     <h3>Premium xidmət</h3>
@@ -672,44 +283,26 @@ footer {
 
         <section class="advantages">
             <h2 class="section-title">Niyə DigiBaku?</h2>
-
-            <div class="advantage-list">
-                <div class="advantage">
-                    <span>🤝</span>
-                    Müştəri məmnuniyyəti
-                </div>
-
-                <div class="advantage">
-                    <span>💬</span>
-                    Əlaqə və dəstək
-                </div>
-
-                <div class="advantage">
-                    <span>🔐</span>
-                    Sifariş məlumatlarının qorunması
-                </div>
-
-                <div class="advantage">
-                    <span>⭐</span>
-                    Etibarlı xidmət
-                </div>
+            <div class="advantage-grid">
+                <div class="advantage"><span>🤝</span>Müştəri məmnuniyyəti</div>
+                <div class="advantage"><span>💬</span>Əlaqə və dəstək</div>
+                <div class="advantage"><span>🔐</span>Sifariş məlumatlarının qorunması</div>
+                <div class="advantage"><span>⭐</span>Etibarlı xidmət</div>
             </div>
         </section>
-
     </div>
 
     <div class="not-found" id="notFound" hidden>
         <h1>Məhsul tapılmadı</h1>
-        <p>Axtardığınız məhsul mövcud deyil və ya ünvan yanlışdır.</p>
+        <p>Bu məhsulun linki düzgün deyil və ya məhsul siyahısında mövcud deyil.</p>
         <a href="index.html">Ana səhifəyə qayıt</a>
     </div>
 
 </main>
 
 <footer>
-    <div class="container footer-inner">
+    <div class="container footer">
         <div>© 2026 DigiBaku.com — Bütün hüquqlar qorunur.</div>
-
         <div class="footer-links">
             <a href="index.html">Ana səhifə</a>
             <a href="index.html#faq">FAQ</a>
@@ -718,157 +311,196 @@ footer {
     </div>
 </footer>
 
-<button class="chat-button" id="chatButton" aria-label="WhatsApp ilə əlaqə">✆</button>
+<button class="chat" id="chatButton" aria-label="WhatsApp">✆</button>
 
 <script>
-/*
-  DigiBaku məhsul məlumatları.
-  Gələcək mərhələdə bu məlumatlar gizli admin panelinin API-sindən
-  yüklənəcək. Hazırkı versiya müstəqil işləməsi üçün nümunə məlumatlardan istifadə edir.
-*/
+/* MƏHSUL MƏLUMATLARI */
 
-const products = {
-    "netflix": {
+const products = [
+    {
+        keys:["netflix","netflix-premium","netflix-azerbaycan","netflix-30-gun"],
         name:"Netflix Premium",
         icon:"🎬",
         category:"Film və serial",
-        description:"Sevdiyiniz film və serialları Netflix platformasında izləmək üçün premium abunəlik.",
-        durations:[
-            {name:"30 gün",price:7},
-            {name:"2 ay",price:13}
-        ]
+        description:"Sevdiyiniz film və serialları Netflix platformasında izləmək üçün abunəlik.",
+        durations:[{name:"30 gün",price:7},{name:"2 ay",price:13}]
     },
-
-    "youtube": {
+    {
+        keys:["youtube","youtube-premium","youtube-premium-azerbaycan"],
         name:"YouTube Premium",
         icon:"▶️",
         category:"Video",
-        description:"Reklamsız video izləmə və YouTube Premium imkanlarından istifadə.",
-        durations:[
-            {name:"1 ay",price:8},
-            {name:"2 ay",price:14}
-        ]
+        description:"YouTube Premium ilə reklamsız video izləmə imkanlarından yararlanın.",
+        durations:[{name:"1 ay",price:8},{name:"2 ay",price:14}]
     },
-
-    "chatgpt-business": {
+    {
+        keys:["chatgpt","chatgpt-business","chatgpt-plus","chatgpt-plus-1-ay","chatgpt-plus-1-ay-shexsi-hesab-ucuz-qiymet-satisi-azerbaycanda"],
         name:"ChatGPT Business",
         icon:"🤖",
         category:"Süni intellekt",
         description:"İş və gündəlik tapşırıqlar üçün süni intellekt imkanları.",
-        durations:[
-            {name:"1 ay",price:12}
-        ]
+        durations:[{name:"1 ay",price:12}]
     },
-
-    "gemini": {
+    {
+        keys:["gemini","gemini-advanced","gemini-advanced-pro","gemini-advanced-pro-1-ay"],
         name:"Gemini Advanced Pro",
         icon:"✨",
         category:"Süni intellekt",
         description:"Google Gemini süni intellektinin qabaqcıl imkanlarından istifadə.",
-        durations:[
-            {name:"1 ay",price:8}
-        ]
+        durations:[{name:"1 ay",price:8}]
     },
-
-    "spotify": {
+    {
+        keys:["spotify","spotify-premium"],
         name:"Spotify Premium",
         icon:"🎵",
         category:"Musiqi",
-        description:"Musiqiləri reklamsız dinləmək və Premium imkanlarından yararlanmaq.",
-        durations:[
-            {name:"1 ay",price:8}
-        ]
+        description:"Musiqiləri reklamsız dinləmək və Spotify Premium imkanlarından yararlanmaq.",
+        durations:[{name:"1 ay",price:8}]
     },
-
-    "canva": {
+    {
+        keys:["canva","canva-pro"],
         name:"Canva Pro",
         icon:"🎨",
         category:"Dizayn",
         description:"Dizayn, təqdimat və vizual kontent hazırlamaq üçün Canva Pro.",
-        durations:[
-            {name:"12 ay",price:6}
-        ]
+        durations:[{name:"12 ay",price:6}]
     },
-
-    "deezer": {
+    {
+        keys:["deezer","deezer-premium"],
         name:"Deezer Premium",
         icon:"🎧",
         category:"Musiqi",
         description:"Premium musiqi dinləmə təcrübəsi və əlavə imkanlar.",
-        durations:[
-            {name:"1 ay",price:5.99}
-        ]
+        durations:[{name:"1 ay",price:5.99}]
     },
-
-    "avast-secureline-vpn-5-cihaz-satisi": {
+    {
+        keys:["avast","avast-secureline","avast-secureline-vpn","avast-secureline-vpn-5-cihaz-satisi"],
         name:"Avast SecureLine VPN",
         icon:"🛡️",
         category:"Təhlükəsizlik",
         description:"İnternet bağlantınızı qorumağa və məxfiliyinizi artırmağa kömək edən VPN xidməti.",
-        durations:[
-            {name:"1 il",price:19.99}
-        ]
+        durations:[{name:"1 il",price:19.99}]
     },
-
-    "grammarly_azerbaycanda_satisi": {
+    {
+        keys:["grammarly","grammarly-premium","grammarly-azerbaycanda-satisi","grammarly_azerbaycanda_satisi"],
         name:"Grammarly Premium",
         icon:"✍️",
         category:"Məhsuldarlıq",
         description:"Yazıların yoxlanılması və mətn keyfiyyətinin yaxşılaşdırılması üçün premium alət.",
-        durations:[
-            {name:"1 ay",price:10.99}
-        ]
+        durations:[{name:"1 ay",price:10.99}]
     },
-
-    "hbo-max-tv": {
+    {
+        keys:["hbo","hbo-max","hbo-max-tv","hbo-max-blutv"],
         name:"HBO MAX TV",
         icon:"📺",
         category:"Film və serial",
         description:"Film və serial məzmununa çıxış üçün rəqəmsal abunəlik.",
-        durations:[
-            {name:"1 ay",price:4.99},
-            {name:"2 ay",price:8.99}
-        ]
+        durations:[{name:"1 ay",price:4.99},{name:"2 ay",price:8.99}]
     },
-
-    "amazon-prime-video": {
+    {
+        keys:["amazon","amazon-prime","amazon-prime-video"],
         name:"Amazon Prime Video",
         icon:"🎥",
         category:"Film və serial",
         description:"Film və serial izləmək üçün rəqəmsal video xidməti.",
-        durations:[
-            {name:"1 ay",price:2.98}
-        ]
+        durations:[{name:"1 ay",price:2.98}]
     },
-
-    "duolingo-super": {
+    {
+        keys:["duolingo","duolingo-super"],
         name:"Duolingo Super",
         icon:"🌍",
         category:"Təhsil",
         description:"Dil öyrənmə təcrübəsi üçün Duolingo Super abunəliyi.",
-        durations:[
-            {name:"1 il",price:19.99}
-        ]
+        durations:[{name:"1 il",price:19.99}]
     }
-};
+];
+
+/* URL NORMALİZASİYASI */
+
+function normalize(value){
+    return String(value || "")
+        .toLowerCase()
+        .trim()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g,"")
+        .replace(/ə/g,"e")
+        .replace(/ı/g,"i")
+        .replace(/ö/g,"o")
+        .replace(/ü/g,"u")
+        .replace(/ş/g,"s")
+        .replace(/ç/g,"c")
+        .replace(/ğ/g,"g")
+        .replace(/[^a-z0-9]+/g,"-")
+        .replace(/^-+|-+$/g,"");
+}
+
+/* URL-DƏN MƏHSULU TAP */
 
 const params = new URLSearchParams(window.location.search);
-const slug = params.get("product");
 
-const product = products[slug];
+const possibleValues = [
+    params.get("product"),
+    params.get("slug"),
+    params.get("id"),
+    params.get("name"),
+    params.get("product_id")
+].filter(Boolean);
+
+let product = null;
+
+for(const value of possibleValues){
+    const wanted = normalize(value);
+
+    product = products.find(item =>
+        item.keys.some(key => normalize(key) === wanted) ||
+        normalize(item.name) === wanted
+    );
+
+    if(product) break;
+}
+
+/* EHTİYAT AXTARIŞI */
+
+if(!product && possibleValues.length){
+    const wanted = normalize(possibleValues[0]);
+
+    product = products.find(item =>
+        item.keys.some(key =>
+            normalize(key).includes(wanted) ||
+            wanted.includes(normalize(key))
+        )
+    );
+}
+
+/* MƏHSULU GÖSTƏR */
 
 let selectedDuration = null;
 
-const money = value => {
+function money(value){
     return Number(value).toFixed(2).replace(/\.00$/,"") + " AZN";
-};
+}
 
-function showProduct() {
+function showNotFound(){
+    document.getElementById("productContent").hidden = true;
+    document.getElementById("notFound").hidden = false;
+    document.title = "Məhsul tapılmadı | DigiBaku";
+}
 
-    if (!product) {
-        document.getElementById("productContent").hidden = true;
-        document.getElementById("notFound").hidden = false;
-        document.title = "Məhsul tapılmadı | DigiBaku";
+function selectDuration(index){
+    selectedDuration = product.durations[index];
+
+    document.querySelectorAll(".duration-option").forEach((button,i)=>{
+        button.classList.toggle("active",i === index);
+    });
+
+    document.getElementById("currentPrice").textContent =
+        money(selectedDuration.price);
+}
+
+function showProduct(){
+
+    if(!product){
+        showNotFound();
         return;
     }
 
@@ -881,44 +513,28 @@ function showProduct() {
     document.getElementById("breadcrumbName").textContent = product.name;
 
     const options = document.getElementById("durationOptions");
-
     options.innerHTML = "";
 
-    product.durations.forEach((duration,index) => {
-
+    product.durations.forEach((duration,index)=>{
         const button = document.createElement("button");
-
         button.type = "button";
         button.className = "duration-option";
-        button.innerHTML = `
-            <span class="duration-name">${duration.name}</span>
-            <span class="duration-price">${money(duration.price)}</span>
-        `;
+        button.innerHTML =
+            '<span class="duration-name"></span><span class="duration-price"></span>';
 
-        button.addEventListener("click",() => {
-            selectDuration(index);
-        });
+        button.querySelector(".duration-name").textContent = duration.name;
+        button.querySelector(".duration-price").textContent = money(duration.price);
 
+        button.addEventListener("click",()=>selectDuration(index));
         options.appendChild(button);
     });
 
     selectDuration(0);
 }
 
-function selectDuration(index) {
+/* WHATSAPP SİFARİŞİ */
 
-    selectedDuration = product.durations[index];
-
-    document.querySelectorAll(".duration-option").forEach((button,i) => {
-        button.classList.toggle("active",i === index);
-    });
-
-    document.getElementById("currentPrice").textContent =
-        money(selectedDuration.price);
-}
-
-function getOrderMessage() {
-
+function orderMessage(){
     return [
         "Salam DigiBaku!",
         "",
@@ -931,30 +547,26 @@ function getOrderMessage() {
     ].join("\n");
 }
 
-function openWhatsApp() {
+function openWhatsApp(){
+    if(!product || !selectedDuration) return;
 
-    if (!product || !selectedDuration) return;
-
+    /* Öz WhatsApp nömrəni 994XXXXXXXXX yerinə yaz. */
     const phone = "994XXXXXXXXX";
-    const url = "https://wa.me/" + phone + "?text=" +
-        encodeURIComponent(getOrderMessage());
 
-    window.open(url,"_blank");
+    if(phone.includes("X")){
+        alert("WhatsApp nömrəsi hələ əlavə edilməyib.");
+        return;
+    }
+
+    window.open(
+        "https://wa.me/" + phone + "?text=" + encodeURIComponent(orderMessage()),
+        "_blank"
+    );
 }
 
 document.getElementById("orderButton").addEventListener("click",openWhatsApp);
-
 document.getElementById("whatsappButton").addEventListener("click",openWhatsApp);
-
 document.getElementById("chatButton").addEventListener("click",openWhatsApp);
-
-document.getElementById("language").addEventListener("change",function() {
-    const lang = this.value;
-    document.documentElement.lang = lang;
-
-    // Tam AZ/RU/EN tərcümə sistemi mərkəzləşdirilmiş
-    // admin paneli mərhələsində birləşdiriləcək.
-});
 
 showProduct();
 </script>
