@@ -3,184 +3,1805 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>DigiBaku Admin</title>
+<meta name="theme-color" content="#090a10">
+<title>DigiBaku | İdarəetmə paneli</title>
+
 <style>
-:root{--bg:#0B0D12;--card:#141823;--line:#232A3B;--text:#EDEFF5;--muted:#8A93A8;--o:#FF6A3D;--g:linear-gradient(135deg,#FF6A3D,#5B6CFF)}
+:root{
+    --bg:#090a10;
+    --sidebar:#10111a;
+    --card:#141620;
+    --card2:#1b1e2a;
+    --border:rgba(255,255,255,.08);
+    --text:#f4f5fa;
+    --muted:#9297a8;
+    --purple:#9065ff;
+    --green:#35d69a;
+    --red:#ff6575;
+    --orange:#ffb454;
+}
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--bg);color:var(--text);font-family:system-ui,"Segoe UI",Roboto,sans-serif;display:flex;min-height:100vh}
-input,textarea,select{background:var(--bg);border:1px solid var(--line);color:var(--text);border-radius:8px;padding:9px 10px;font:inherit;width:100%}
-label{font-size:13px;color:var(--muted);display:grid;gap:5px}
-.btn{background:var(--g);color:#fff;border:0;border-radius:9px;padding:9px 14px;font:inherit;font-weight:600;cursor:pointer}
-.btn.ghost{background:transparent;border:1px solid var(--line);color:var(--text)}
-.btn.danger{background:#3a1d1d;color:#ff8a8a}
-aside{width:220px;background:var(--card);border-right:1px solid var(--line);padding:18px;flex-shrink:0}
-aside h2{font-size:18px;background:var(--g);-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:18px}
-aside button{display:block;width:100%;text-align:left;background:none;border:0;color:var(--muted);padding:10px;border-radius:8px;font:inherit;cursor:pointer;margin-bottom:4px}
-aside button.on,aside button:hover{background:var(--bg);color:var(--text)}
-main{flex:1;padding:24px;overflow-x:auto;min-width:0}
-h1{font-size:24px;margin-bottom:16px}
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:20px}
-.stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px}
-.stat b{display:block;font-size:26px;color:var(--o);margin-top:4px}
-table{width:100%;border-collapse:collapse;background:var(--card);border-radius:12px;overflow:hidden;font-size:14px}
-th,td{padding:10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
-.box{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin-bottom:18px}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-.muted{color:var(--muted)}
-#login{max-width:340px;margin:auto;align-self:center;width:100%;padding:24px}
-@media(max-width:800px){body{flex-direction:column}aside{width:100%}.grid2{grid-template-columns:1fr}}
+body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:Inter,Arial,sans-serif;
+}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+.layout{display:flex;min-height:100vh}
+
+/* SIDEBAR */
+
+.sidebar{
+    width:255px;
+    background:var(--sidebar);
+    border-right:1px solid var(--border);
+    padding:25px 15px;
+    position:fixed;
+    inset:0 auto 0 0;
+    overflow-y:auto;
+    z-index:30;
+    transition:.25s;
+}
+.brand{
+    font-size:24px;
+    font-weight:900;
+    padding:0 12px 30px;
+    letter-spacing:-1px;
+}
+.brand span{color:var(--purple)}
+.menu-title{
+    color:#626879;
+    font-size:10px;
+    font-weight:800;
+    letter-spacing:1.5px;
+    padding:17px 12px 10px;
+}
+.nav-btn{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    width:100%;
+    padding:12px;
+    margin:3px 0;
+    background:transparent;
+    border:0;
+    color:#aeb2c0;
+    border-radius:10px;
+    text-align:left;
+    font-size:13px;
+    transition:.2s;
+}
+.nav-btn:hover,.nav-btn.active{
+    background:rgba(144,101,255,.15);
+    color:white;
+}
+.nav-btn.active{box-shadow:inset 3px 0 var(--purple)}
+.nav-icon{width:21px;font-size:17px}
+.sidebar-bottom{
+    margin-top:30px;
+    padding:15px 12px;
+    border-top:1px solid var(--border);
+}
+.status{
+    display:flex;align-items:center;gap:8px;
+    color:var(--muted);font-size:12px;
+}
+.dot{
+    width:8px;height:8px;border-radius:50%;
+    background:var(--green);
+}
+
+/* MAIN */
+
+.main{
+    margin-left:255px;
+    width:calc(100% - 255px);
+    min-width:0;
+}
+.topbar{
+    height:76px;
+    padding:0 30px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+    border-bottom:1px solid var(--border);
+    background:rgba(9,10,16,.9);
+    position:sticky;top:0;z-index:20;
+}
+.top-title{font-size:19px;font-weight:800}
+.top-actions{display:flex;align-items:center;gap:12px}
+.admin-label{
+    background:var(--card);
+    border:1px solid var(--border);
+    padding:9px 13px;
+    border-radius:9px;
+    color:var(--muted);
+    font-size:12px;
+}
+.menu-toggle{
+    display:none;background:transparent;color:white;
+    border:0;font-size:23px;
+}
+.content{padding:30px;max-width:1500px;margin:auto}
+.page{display:none}
+.page.active{display:block}
+
+/* GENERAL */
+
+.page-heading{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+    margin-bottom:25px;
+    flex-wrap:wrap;
+}
+.page-heading h1{font-size:25px;margin-bottom:7px}
+.page-heading p{color:var(--muted);font-size:13px}
+.btn{
+    padding:11px 16px;
+    border:1px solid var(--border);
+    border-radius:9px;
+    background:var(--card2);
+    color:white;
+    font-size:12px;
+    font-weight:700;
+}
+.btn.primary{
+    background:linear-gradient(110deg,#7546ef,#a06bff);
+    border:0;
+}
+.btn.danger{
+    background:#ff65751a;
+    border-color:#ff657550;
+    color:#ff8591;
+}
+.btn.success{
+    background:#35d69a18;
+    border-color:#35d69a50;
+    color:var(--green);
+}
+.btn:hover{filter:brightness(1.15)}
+.grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+}
+.stat-card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:15px;
+    padding:20px;
+}
+.stat-top{
+    display:flex;justify-content:space-between;
+    color:var(--muted);font-size:12px;
+}
+.stat-icon{font-size:22px}
+.stat-value{font-size:29px;font-weight:850;margin:17px 0 8px}
+.stat-note{font-size:11px;color:var(--muted)}
+.panel{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:15px;
+    padding:20px;
+    margin-top:20px;
+}
+.panel-head{
+    display:flex;align-items:center;
+    justify-content:space-between;
+    gap:15px;margin-bottom:18px;
+}
+.panel-head h2{font-size:16px}
+.muted{color:var(--muted);font-size:12px}
+.empty{
+    text-align:center;padding:35px 15px;
+    color:var(--muted);font-size:13px;
+}
+
+/* TABLE */
+
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:650px}
+th{
+    text-align:left;color:#858b9c;
+    font-size:11px;font-weight:700;
+    padding:13px 12px;
+    border-bottom:1px solid var(--border);
+}
+td{
+    padding:14px 12px;
+    font-size:12px;
+    border-bottom:1px solid var(--border);
+}
+tr:last-child td{border-bottom:0}
+.product-cell{display:flex;align-items:center;gap:10px}
+.product-emoji{
+    width:36px;height:36px;border-radius:10px;
+    background:var(--card2);display:grid;place-items:center;
+    font-size:18px;
+}
+.pill{
+    display:inline-block;padding:6px 9px;
+    border-radius:20px;font-size:10px;
+    background:#9065ff20;color:#c3adff;
+}
+.actions{display:flex;gap:7px}
+.small-btn{
+    padding:7px 9px;border-radius:7px;
+    background:var(--card2);border:1px solid var(--border);
+    color:white;font-size:11px;
+}
+
+/* FORMS */
+
+.form-grid{
+    display:grid;grid-template-columns:repeat(2,1fr);
+    gap:15px;
+}
+.field{display:flex;flex-direction:column;gap:8px}
+.field.full{grid-column:1/-1}
+.field label{font-size:12px;color:#b9bdca;font-weight:700}
+.field input,.field select,.field textarea{
+    width:100%;background:#0e1018;
+    border:1px solid var(--border);
+    color:white;padding:12px;border-radius:9px;
+    outline:none;font-size:13px;
+}
+.field input:focus,.field textarea:focus,.field select:focus{
+    border-color:var(--purple);
+}
+.field textarea{min-height:100px;resize:vertical}
+.field select option{background:#141620}
+.form-actions{
+    display:flex;gap:10px;flex-wrap:wrap;
+    margin-top:20px;
+}
+.hidden{display:none!important}
+
+/* MODAL */
+
+.modal-backdrop{
+    position:fixed;inset:0;
+    background:rgba(0,0,0,.75);
+    display:none;align-items:center;justify-content:center;
+    padding:20px;z-index:100;
+}
+.modal-backdrop.open{display:flex}
+.modal{
+    width:min(680px,100%);
+    max-height:90vh;overflow-y:auto;
+    background:#151722;
+    border:1px solid var(--border);
+    border-radius:17px;padding:25px;
+}
+.modal-head{
+    display:flex;justify-content:space-between;
+    align-items:center;margin-bottom:22px;
+}
+.modal-head h2{font-size:19px}
+.close{
+    background:transparent;border:0;
+    color:white;font-size:24px;
+}
+
+/* CONNECTION */
+
+.connection{
+    padding:13px 16px;border-radius:10px;
+    font-size:12px;margin-bottom:20px;
+    line-height:1.7;
+    background:#ffb45412;
+    border:1px solid #ffb45440;
+    color:#ffd08e;
+}
+.connection.online{
+    background:#35d69a12;
+    border-color:#35d69a40;
+    color:#78e6ba;
+}
+.connection.error{
+    background:#ff657512;
+    border-color:#ff657540;
+    color:#ff9aa5;
+}
+.toast{
+    position:fixed;bottom:22px;right:22px;
+    padding:14px 18px;border-radius:10px;
+    background:#222635;border:1px solid var(--border);
+    color:white;font-size:13px;
+    z-index:200;display:none;
+    max-width:350px;
+}
+.toast.show{display:block}
+
+/* MOBILE */
+
+@media(max-width:1000px){
+    .grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:750px){
+    .sidebar{transform:translateX(-100%)}
+    .sidebar.open{transform:translateX(0)}
+    .main{margin-left:0;width:100%}
+    .menu-toggle{display:block}
+    .topbar{padding:0 16px}
+    .content{padding:20px 15px}
+    .form-grid{grid-template-columns:1fr}
+    .field.full{grid-column:auto}
+}
+@media(max-width:450px){
+    .grid{grid-template-columns:1fr 1fr;gap:9px}
+    .stat-card{padding:13px}
+    .stat-value{font-size:23px}
+    .admin-label{display:none}
+}
 </style>
 </head>
+
 <body>
-<div id="login" class="box" style="display:none">
-  <h1>Admin giriş</h1>
-  <form onsubmit="event.preventDefault();if(this.p.value===PASS){sessionStorage.s='1';boot()}else alert('Şifrə yanlışdır')">
-    <label>Şifrə<input type="password" name="p" required></label>
-    <button class="btn" style="margin-top:12px;width:100%">Daxil ol</button>
-  </form>
-  <p class="muted" style="font-size:12px;margin-top:10px">Qeyd: bu yalnız prototip üçündür. Real giriş backend-də qurulacaq.</p>
-</div>
-<aside id="side" style="display:none">
-  <h2>DigiBaku Admin</h2>
-  <button data-t="dash">Dashboard</button>
-  <button data-t="prod">Məhsullar</button>
-  <button data-t="ord">Sifarişlər</button>
-  <button data-t="faq">FAQ</button>
-  <button data-t="rev">Rəylər</button>
-  <button data-t="set">Ayarlar</button>
-  <button onclick="sessionStorage.clear();location.reload()">Çıxış</button>
+
+<div class="layout">
+
+<aside class="sidebar" id="sidebar">
+
+    <div class="brand">Digi<span>Baku</span></div>
+
+    <div class="menu-title">ÜMUMİ</div>
+
+    <button class="nav-btn active" data-page="dashboard">
+        <span class="nav-icon">▦</span> İdarə paneli
+    </button>
+
+    <button class="nav-btn" data-page="products">
+        <span class="nav-icon">📦</span> Məhsullar
+    </button>
+
+    <button class="nav-btn" data-page="categories">
+        <span class="nav-icon">▤</span> Kateqoriyalar
+    </button>
+
+    <button class="nav-btn" data-page="orders">
+        <span class="nav-icon">🛒</span> Sifarişlər
+    </button>
+
+    <button class="nav-btn" data-page="customers">
+        <span class="nav-icon">👥</span> Müştərilər
+    </button>
+
+    <div class="menu-title">SAYTIN İDARƏ EDİLMƏSİ</div>
+
+    <button class="nav-btn" data-page="banners">
+        <span class="nav-icon">🖼️</span> Bannerlər
+    </button>
+
+    <button class="nav-btn" data-page="reviews">
+        <span class="nav-icon">⭐</span> Müştəri rəyləri
+    </button>
+
+    <button class="nav-btn" data-page="faq">
+        <span class="nav-icon">❔</span> FAQ
+    </button>
+
+    <button class="nav-btn" data-page="pages">
+        <span class="nav-icon">📄</span> Səhifələr
+    </button>
+
+    <button class="nav-btn" data-page="translations">
+        <span class="nav-icon">🌐</span> Tərcümələr
+    </button>
+
+    <div class="menu-title">ƏLAVƏ</div>
+
+    <button class="nav-btn" data-page="chat">
+        <span class="nav-icon">💬</span> Çat sistemi
+    </button>
+
+    <button class="nav-btn" data-page="seo">
+        <span class="nav-icon">🔎</span> SEO parametrləri
+    </button>
+
+    <button class="nav-btn" data-page="settings">
+        <span class="nav-icon">⚙️</span> Sayt parametrləri
+    </button>
+
+    <button class="nav-btn" data-page="backup">
+        <span class="nav-icon">💾</span> Ehtiyat nüsxə
+    </button>
+
+    <div class="sidebar-bottom">
+        <div class="status">
+            <span class="dot" id="statusDot"></span>
+            <span id="statusText">API yoxlanılır...</span>
+        </div>
+    </div>
+
 </aside>
-<main id="main"></main>
+
+<main class="main">
+
+    <header class="topbar">
+        <div style="display:flex;align-items:center;gap:15px">
+            <button class="menu-toggle" id="menuToggle">☰</button>
+            <div class="top-title" id="pageTitle">İdarə paneli</div>
+        </div>
+
+        <div class="top-actions">
+            <a href="index.html" target="_blank" class="btn">Sayta bax ↗</a>
+            <div class="admin-label">Administrator</div>
+        </div>
+    </header>
+
+    <div class="content">
+
+        <div class="connection" id="connectionBox">
+            Backend bağlantısı yoxlanılır...
+        </div>
+
+        <!-- DASHBOARD -->
+
+        <section class="page active" id="page-dashboard">
+
+            <div class="page-heading">
+                <div>
+                    <h1>İdarə paneli</h1>
+                    <p>DigiBaku saytının ümumi vəziyyəti.</p>
+                </div>
+                <button class="btn" onclick="refreshAll()">↻ Yenilə</button>
+            </div>
+
+            <div class="grid">
+                <div class="stat-card">
+                    <div class="stat-top">Məhsullar <span class="stat-icon">📦</span></div>
+                    <div class="stat-value" id="statProducts">—</div>
+                    <div class="stat-note">Sistemdəki məhsullar</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-top">Sifarişlər <span class="stat-icon">🛒</span></div>
+                    <div class="stat-value" id="statOrders">—</div>
+                    <div class="stat-note">Ümumi sifarişlər</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-top">Müştərilər <span class="stat-icon">👥</span></div>
+                    <div class="stat-value" id="statCustomers">—</div>
+                    <div class="stat-note">Qeydiyyatdan keçənlər</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-top">Rəylər <span class="stat-icon">⭐</span></div>
+                    <div class="stat-value" id="statReviews">—</div>
+                    <div class="stat-note">Saytdakı rəylər</div>
+                </div>
+            </div>
+
+            <div class="panel">
+                <div class="panel-head">
+                    <h2>Son sifarişlər</h2>
+                    <button class="btn" onclick="navigate('orders')">Hamısına bax</button>
+                </div>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Sifariş</th>
+                                <th>Müştəri</th>
+                                <th>Məhsul</th>
+                                <th>Məbləğ</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="recentOrders">
+                            <tr><td colspan="5" class="empty">Məlumat gözlənilir...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- PRODUCTS -->
+
+        <section class="page" id="page-products">
+
+            <div class="page-heading">
+                <div>
+                    <h1>Məhsullar</h1>
+                    <p>Məhsulları, təsvirləri, qiymətləri və müddətləri idarə et.</p>
+                </div>
+                <button class="btn primary" onclick="openProductModal()">＋ Yeni məhsul</button>
+            </div>
+
+            <div class="panel">
+                <div class="panel-head">
+                    <h2>Məhsul siyahısı</h2>
+                    <input id="productSearch" placeholder="Məhsul axtar..."
+                    style="background:#0e1018;border:1px solid var(--border);padding:10px;color:white;border-radius:8px;max-width:220px">
+                </div>
+
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Məhsul</th>
+                                <th>Slug</th>
+                                <th>Kateqoriya</th>
+                                <th>Qiymət</th>
+                                <th>Status</th>
+                                <th>Əməliyyat</th>
+                            </tr>
+                        </thead>
+                        <tbody id="productsTable">
+                            <tr><td colspan="6" class="empty">Backend bağlantısı gözlənilir.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- CATEGORIES -->
+
+        <section class="page" id="page-categories">
+            <div class="page-heading">
+                <div>
+                    <h1>Kateqoriyalar</h1>
+                    <p>Məhsul kateqoriyalarını idarə et.</p>
+                </div>
+                <button class="btn primary" onclick="openSimpleModal('categories')">＋ Kateqoriya əlavə et</button>
+            </div>
+
+            <div class="panel">
+                <div class="table-wrap">
+                    <table>
+                        <thead><tr><th>Ad</th><th>Slug</th><th>İkon</th><th>Əməliyyat</th></tr></thead>
+                        <tbody id="categoriesTable">
+                            <tr><td colspan="4" class="empty">Məlumat gözlənilir...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ORDERS -->
+
+        <section class="page" id="page-orders">
+            <div class="page-heading">
+                <div>
+                    <h1>Sifarişlər</h1>
+                    <p>Müştəri sifarişlərini və onların statuslarını idarə et.</p>
+                </div>
+                <button class="btn" onclick="loadResource('orders')">↻ Yenilə</button>
+            </div>
+
+            <div class="panel">
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>№</th><th>Müştəri</th><th>Məhsul</th>
+                                <th>Məbləğ</th><th>Status</th><th>Tarix</th><th>Əməliyyat</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ordersTable">
+                            <tr><td colspan="7" class="empty">Məlumat gözlənilir...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- CUSTOMERS -->
+
+        <section class="page" id="page-customers">
+            <div class="page-heading">
+                <div>
+                    <h1>Müştərilər</h1>
+                    <p>Qeydiyyatdan keçmiş müştərilərin siyahısı.</p>
+                </div>
+                <button class="btn" onclick="loadResource('customers')">↻ Yenilə</button>
+            </div>
+
+            <div class="panel">
+                <div class="table-wrap">
+                    <table>
+                        <thead><tr><th>Ad</th><th>E-poçt</th><th>Qeydiyyat</th><th>Status</th></tr></thead>
+                        <tbody id="customersTable">
+                            <tr><td colspan="4" class="empty">Məlumat gözlənilir...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- BANNERS -->
+
+        <section class="page" id="page-banners">
+            <div class="page-heading">
+                <div>
+                    <h1>Bannerlər</h1>
+                    <p>Ana səhifədəki banner məzmununu idarə et.</p>
+                </div>
+                <button class="btn primary" onclick="openSimpleModal('banners')">＋ Banner əlavə et</button>
+            </div>
+            <div class="panel">
+                <div class="table-wrap">
+                    <table>
+                        <thead><tr><th>Başlıq</th><th>Alt mətn</th><th>Şəkil URL</th><th>Status</th><th>Əməliyyat</th></tr></thead>
+                        <tbody id="bannersTable"><tr><td colspan="5" class="empty">Məlumat gözlənilir...</td></tr></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- REVIEWS -->
+
+        <section class="page" id="page-reviews">
+            <div class="page-heading">
+                <div>
+                    <h1>Müştəri rəyləri</h1>
+                    <p>Saytda görünən rəyləri idarə et.</p>
+                </div>
+                <button class="btn primary" onclick="openSimpleModal('reviews')">＋ Rəy əlavə et</button>
+            </div>
+            <div class="panel">
+                <div class="table-wrap">
+                    <table>
+                        <thead><tr><th>Müştəri</th><th>Rəy</th><th>Reytinq</th><th>Status</th><th>Əməliyyat</th></tr></thead>
+                        <tbody id="reviewsTable"><tr><td colspan="5" class="empty">Məlumat gözlənilir...</td></tr></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ -->
+
+        <section class="page" id="page-faq">
+            <div class="page-heading">
+                <div>
+                    <h1>FAQ</h1>
+                    <p>Tez-tez verilən sualları və cavabları idarə et.</p>
+                </div>
+                <button class="btn primary" onclick="openSimpleModal('faq')">＋ Sual əlavə et</button>
+            </div>
+            <div class="panel">
+                <div class="table-wrap">
+                    <table>
+                        <thead><tr><th>Sual</th><th>Cavab</th><th>Status</th><th>Əməliyyat</th></tr></thead>
+                        <tbody id="faqTable"><tr><td colspan="4" class="empty">Məlumat gözlənilir...</td></tr></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- PAGES -->
+
+        <section class="page" id="page-pages">
+            <div class="page-heading">
+                <div>
+                    <h1>Səhifələr</h1>
+                    <p>Saytın mətn bölmələrini mərkəzləşdirilmiş şəkildə idarə et.</p>
+                </div>
+            </div>
+            <div class="panel">
+                <div class="form-grid">
+                    <div class="field full">
+                        <label>Səhifə</label>
+                        <select id="pageKey">
+                            <option value="about">Haqqımızda</option>
+                            <option value="terms">İstifadə şərtləri</option>
+                            <option value="privacy">Məxfilik siyasəti</option>
+                            <option value="how_it_works">Necə işləyir?</option>
+                            <option value="contact">Əlaqə</option>
+                        </select>
+                    </div>
+                    <div class="field full">
+                        <label>Səhifənin başlığı</label>
+                        <input id="pageHeading" placeholder="Başlıq">
+                    </div>
+                    <div class="field full">
+                        <label>Səhifənin mətni</label>
+                        <textarea id="pageBody" placeholder="Səhifə məzmunu"></textarea>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button class="btn primary" onclick="savePage()">Yadda saxla</button>
+                    <button class="btn" onclick="loadPageContent()">Məlumatı yüklə</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- TRANSLATIONS -->
+
+        <section class="page" id="page-translations">
+            <div class="page-heading">
+                <div>
+                    <h1>Tərcümələr</h1>
+                    <p>AZ, RU və EN dillərində sayt mətnlərini idarə et.</p>
+                </div>
+            </div>
+            <div class="panel">
+                <div class="form-grid">
+                    <div class="field">
+                        <label>Dil</label>
+                        <select id="translationLang">
+                            <option value="az">Azərbaycan dili</option>
+                            <option value="ru">Русский</option>
+                            <option value="en">English</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label>Mətn açarı</label>
+                        <input id="translationKey" placeholder="home_title">
+                    </div>
+                    <div class="field full">
+                        <label>Tərcümə</label>
+                        <textarea id="translationValue"></textarea>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button class="btn primary" onclick="saveTranslation()">Yadda saxla</button>
+                </div>
+            </div>
+            <div class="panel">
+                <div class="panel-head"><h2>Tərcümə siyahısı</h2></div>
+                <div class="table-wrap">
+                    <table>
+                        <thead><tr><th>Dil</th><th>Açar</th><th>Mətn</th><th>Əməliyyat</th></tr></thead>
+                        <tbody id="translationsTable"><tr><td colspan="4" class="empty">Məlumat gözlənilir...</td></tr></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- CHAT -->
+
+        <section class="page" id="page-chat">
+            <div class="page-heading">
+                <div>
+                    <h1>Çat sistemi</h1>
+                    <p>Saytdakı əlaqə və çat parametrlərini idarə et.</p>
+                </div>
+            </div>
+            <div class="panel">
+                <div class="form-grid">
+                    <div class="field">
+                        <label>WhatsApp nömrəsi</label>
+                        <input id="chatWhatsapp" placeholder="994XXXXXXXXX">
+                    </div>
+                    <div class="field">
+                        <label>Çat düyməsinin mətni</label>
+                        <input id="chatLabel" placeholder="Bizə yazın">
+                    </div>
+                    <div class="field">
+                        <label>Çat aktivdir?</label>
+                        <select id="chatEnabled">
+                            <option value="true">Bəli</option>
+                            <option value="false">Xeyr</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label>İş saatları</label>
+                        <input id="chatHours" placeholder="Hər gün 09:00 - 23:00">
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button class="btn primary" onclick="saveChat()">Yadda saxla</button>
+                    <button class="btn" onclick="loadChat()">Məlumatı yüklə</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEO -->
+
+        <section class="page" id="page-seo">
+            <div class="page-heading">
+                <div>
+                    <h1>SEO parametrləri</h1>
+                    <p>Axtarış sistemləri üçün sayt məlumatları.</p>
+                </div>
+            </div>
+            <div class="panel">
+                <div class="form-grid">
+                    <div class="field full">
+                        <label>Saytın SEO başlığı</label>
+                        <input id="seoTitle">
+                    </div>
+                    <div class="field full">
+                        <label>Meta description</label>
+                        <textarea id="seoDescription"></textarea>
+                    </div>
+                    <div class="field full">
+                        <label>Açar sözlər</label>
+                        <input id="seoKeywords">
+                    </div>
+                    <div class="field full">
+                        <label>Open Graph şəkil URL</label>
+                        <input id="seoImage">
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button class="btn primary" onclick="saveSeo()">Yadda saxla</button>
+                    <button class="btn" onclick="loadSeo()">Məlumatı yüklə</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SETTINGS -->
+
+        <section class="page" id="page-settings">
+            <div class="page-heading">
+                <div>
+                    <h1>Sayt parametrləri</h1>
+                    <p>Ümumi sayt məlumatlarını və əlaqə vasitələrini idarə et.</p>
+                </div>
+            </div>
+            <div class="panel">
+                <div class="form-grid">
+                    <div class="field">
+                        <label>Saytın adı</label>
+                        <input id="settingName" value="DigiBaku">
+                    </div>
+                    <div class="field">
+                        <label>Saytın ünvanı</label>
+                        <input id="settingUrl" value="https://digibaku.com">
+                    </div>
+                    <div class="field">
+                        <label>Əlaqə e-poçtu</label>
+                        <input id="settingEmail">
+                    </div>
+                    <div class="field">
+                        <label>Telefon</label>
+                        <input id="settingPhone">
+                    </div>
+                    <div class="field">
+                        <label>Instagram</label>
+                        <input id="settingInstagram">
+                    </div>
+                    <div class="field">
+                        <label>TikTok</label>
+                        <input id="settingTikTok">
+                    </div>
+                    <div class="field full">
+                        <label>Footer mətni</label>
+                        <textarea id="settingFooter"></textarea>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button class="btn primary" onclick="saveSettings()">Yadda saxla</button>
+                    <button class="btn" onclick="loadSettings()">Məlumatı yüklə</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- BACKUP -->
+
+        <section class="page" id="page-backup">
+            <div class="page-heading">
+                <div>
+                    <h1>Ehtiyat nüsxə</h1>
+                    <p>Sayt məlumatlarının ixracı və bərpası.</p>
+                </div>
+            </div>
+            <div class="panel">
+                <h2 style="font-size:16px;margin-bottom:10px">Məlumatların ixracı</h2>
+                <p class="muted">Backend tərəfindən dəstəklənən məlumatları JSON formatında ixrac et.</p>
+                <div class="form-actions">
+                    <button class="btn primary" onclick="exportBackup()">JSON ehtiyat nüsxəsi yarat</button>
+                </div>
+            </div>
+            <div class="panel">
+                <h2 style="font-size:16px;margin-bottom:10px">Ehtiyat nüsxəni bərpa et</h2>
+                <p class="muted">Yalnız etibarlı və uyğun JSON faylından istifadə et.</p>
+                <div class="field" style="margin-top:15px">
+                    <input type="file" id="backupFile" accept=".json,application/json">
+                </div>
+                <div class="form-actions">
+                    <button class="btn danger" onclick="importBackup()">Ehtiyat nüsxəni bərpa et</button>
+                </div>
+            </div>
+        </section>
+
+    </div>
+</main>
+</div>
+
+<!-- PRODUCT MODAL -->
+
+<div class="modal-backdrop" id="productModal">
+    <div class="modal">
+        <div class="modal-head">
+            <h2 id="productModalTitle">Yeni məhsul</h2>
+            <button class="close" onclick="closeModal('productModal')">×</button>
+        </div>
+
+        <form id="productForm">
+            <input type="hidden" id="editProductId">
+
+            <div class="form-grid">
+                <div class="field">
+                    <label>Məhsulun adı</label>
+                    <input id="pName" required placeholder="Netflix Premium">
+                </div>
+                <div class="field">
+                    <label>Slug (URL)</label>
+                    <input id="pSlug" required placeholder="netflix">
+                </div>
+                <div class="field">
+                    <label>Kateqoriya</label>
+                    <select id="pCategory">
+                        <option value="Film və serial">Film və serial</option>
+                        <option value="Video">Video</option>
+                        <option value="Süni intellekt">Süni intellekt</option>
+                        <option value="Musiqi">Musiqi</option>
+                        <option value="Dizayn">Dizayn</option>
+                        <option value="Təhlükəsizlik">Təhlükəsizlik</option>
+                        <option value="Təhsil">Təhsil</option>
+                        <option value="Digər">Digər</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label>İkon (emoji)</label>
+                    <input id="pIcon" placeholder="🎬">
+                </div>
+                <div class="field full">
+                    <label>Məhsul şəkli URL</label>
+                    <input id="pImage" placeholder="https://...">
+                </div>
+                <div class="field full">
+                    <label>Təsvir</label>
+                    <textarea id="pDescription" placeholder="Məhsul haqqında məlumat..."></textarea>
+                </div>
+                <div class="field">
+                    <label>Qiymət (AZN)</label>
+                    <input id="pPrice" type="number" min="0" step="0.01" required>
+                </div>
+                <div class="field">
+                    <label>Abunəlik müddəti</label>
+                    <input id="pDuration" placeholder="30 gün" required>
+                </div>
+                <div class="field">
+                    <label>Köhnə qiymət (AZN)</label>
+                    <input id="pOldPrice" type="number" min="0" step="0.01">
+                </div>
+                <div class="field">
+                    <label>Məhsul statusu</label>
+                    <select id="pActive">
+                        <option value="true">Aktiv</option>
+                        <option value="false">Passiv</option>
+                    </select>
+                </div>
+                <div class="field full">
+                    <label>Əlavə qiymət variantları</label>
+                    <textarea id="pVariants" placeholder="2 ay | 13&#10;3 ay | 18"></textarea>
+                    <small class="muted">Hər sətirdə müddət və qiyməti | işarəsi ilə ayır.</small>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button class="btn primary" type="submit">Yadda saxla</button>
+                <button class="btn" type="button" onclick="closeModal('productModal')">Ləğv et</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- SIMPLE MODAL -->
+
+<div class="modal-backdrop" id="simpleModal">
+    <div class="modal">
+        <div class="modal-head">
+            <h2 id="simpleModalTitle">Yeni məlumat</h2>
+            <button class="close" onclick="closeModal('simpleModal')">×</button>
+        </div>
+        <form id="simpleForm">
+            <input type="hidden" id="simpleType">
+            <input type="hidden" id="simpleId">
+            <div id="simpleFields" class="form-grid"></div>
+            <div class="form-actions">
+                <button class="btn primary" type="submit">Yadda saxla</button>
+                <button class="btn" type="button" onclick="closeModal('simpleModal')">Ləğv et</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="toast" id="toast"></div>
 
 <script>
-const PASS='admin123';
-const KEY='digibaku_v1';
-const $=s=>document.querySelector(s);
-const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-let D=JSON.parse(localStorage.getItem(KEY));
-const save=()=>localStorage.setItem(KEY,JSON.stringify(D));
-const STATUSES=['Cavab gözləyir','Təsdiqləndi','Hazırdır','Hazırlanır','Ləğv edildi'];
+/*
+  DIGIBAKU ADMIN API ADAPTER
 
-function boot(){
-  if(!D){ $('#main').innerHTML='<div class="box">Əvvəlcə <b>index.html</b> faylını eyni brauzerdə bir dəfə açın.</div>'; $('#side').style.display='block'; return; }
-  $('#login').style.display='none';
-  $('#side').style.display='block';
-  show('dash');
-}
-document.querySelectorAll('aside button[data-t]').forEach(b=>b.onclick=()=>{document.querySelectorAll('aside button').forEach(x=>x.classList.remove('on'));b.classList.add('on');show(b.dataset.t)});
+  Bu panel məlumatları brauzerin LocalStorage yaddaşında saxlamır.
+  Bütün dəyişikliklər server API vasitəsilə edilməlidir.
 
-function show(t){
-  ({dash,prod,ord,faq,rev,set}[t])();
+  API ünvanı:
+  /api/admin
+
+  API hələ quraşdırılmayıbsa, panel məlumatları saxlaya bilməyəcək.
+*/
+
+const API_BASE = "/api/admin";
+
+const titles = {
+    dashboard:"İdarə paneli",
+    products:"Məhsullar",
+    categories:"Kateqoriyalar",
+    orders:"Sifarişlər",
+    customers:"Müştərilər",
+    banners:"Bannerlər",
+    reviews:"Müştəri rəyləri",
+    faq:"FAQ",
+    pages:"Səhifələr",
+    translations:"Tərcümələr",
+    chat:"Çat sistemi",
+    seo:"SEO parametrləri",
+    settings:"Sayt parametrləri",
+    backup:"Ehtiyat nüsxə"
+};
+
+const cache = {
+    products:[],
+    categories:[],
+    orders:[],
+    customers:[],
+    banners:[],
+    reviews:[],
+    faq:[],
+    translations:[]
+};
+
+let connectionOK = false;
+
+function toast(message){
+    const box=document.getElementById("toast");
+    box.textContent=message;
+    box.classList.add("show");
+    setTimeout(()=>box.classList.remove("show"),3500);
 }
 
-function dash(){
-  const act=D.orders.filter(o=>o.status!=='Ləğv edildi');
-  const rev=act.reduce((s,o)=>s+(Number(o.price)||0),0);
-  const today=new Date().toLocaleDateString('az-AZ');
-  const todayOrders=D.orders.filter(o=>o.date.startsWith(today)).length;
-  const pendingOrd=D.orders.filter(o=>o.status==='Cavab gözləyir').length;
-  const pendingRev=D.reviews.filter(r=>r.status==='pending').length;
-  const counts={};D.orders.forEach(o=>counts[o.product]=(counts[o.product]||0)+1);
-  const top=Object.entries(counts).sort((a,b)=>b[1]-a[1]).slice(0,5);
-  $('#main').innerHTML=`<h1>Dashboard</h1>
-  <div class="cards">
-    <div class="stat">Ümumi sifariş<b>${D.orders.length}</b></div>
-    <div class="stat">Bu gün<b>${todayOrders}</b></div>
-    <div class="stat">Gəlir (₼)<b>${rev.toFixed(2)}</b></div>
-    <div class="stat">Gözləyən sifariş<b>${pendingOrd}</b></div>
-    <div class="stat">Təsdiq gözləyən rəy<b>${pendingRev}</b></div>
-  </div>
-  <div class="box"><h3 style="margin-bottom:10px">Ən çox satılan məhsullar</h3>
-    ${top.length?top.map(([n,c])=>`<div class="row" style="justify-content:space-between;padding:6px 0"><span>${esc(n)}</span><b>${c}</b></div>`).join(''):'<p class="muted">Hələ sifariş yoxdur.</p>'}
-  </div>
-  <div class="box"><h3 style="margin-bottom:10px">Son sifarişlər</h3>${D.orders.slice(0,5).map(o=>`<div class="row" style="justify-content:space-between;padding:6px 0"><span>${esc(o.product)} · ${esc(o.customer)}</span><span class="muted">${esc(o.status)}</span></div>`).join('')||'<p class="muted">Yoxdur.</p>'}</div>`;
+async function api(path,options={}){
+    const response=await fetch(API_BASE+path,{
+        credentials:"include",
+        headers:{
+            "Content-Type":"application/json",
+            ...(options.headers||{})
+        },
+        ...options
+    });
+
+    const data=await response.json().catch(()=>({}));
+
+    if(!response.ok){
+        throw new Error(data.message||data.error||"Server xətası: "+response.status);
+    }
+
+    return data;
 }
 
-function prod(editSlug){
-  const p=editSlug?D.products.find(x=>x.slug===editSlug):null;
-  const list=`<table><tr><th>Məhsul</th><th>Kateqoriya</th><th>Paketlər</th><th>Aktiv</th><th></th></tr>
-  ${D.products.map(x=>`<tr><td>${esc(x.icon)} ${esc(x.name)}<div class="muted">/products/${esc(x.slug)}</div></td><td>${esc(x.cat)}</td><td>${x.plans.map(pl=>esc(pl.name)+' '+(pl.price==null?'—':pl.price+' ₼')).join('<br>')}</td>
-  <td><input type="checkbox" ${x.active?'checked':''} onchange="toggleProd('${esc(x.slug)}',this.checked)"></td>
-  <td class="row"><button class="btn ghost" onclick="prod('${esc(x.slug)}')">Redaktə</button><button class="btn danger" onclick="delProd('${esc(x.slug)}')">Sil</button></td></tr>`).join('')}
-  </table>`;
-  const plansTxt=p?p.plans.map(pl=>`${pl.name}|${pl.dur}|${pl.price??''}|${pl.old??''}`).join('\n'):'Standart|1 ay||';
-  $('#main').innerHTML=`<h1>Məhsullar</h1>
-  <div class="box">
-    <h3 style="margin-bottom:12px">${p?'Məhsulu redaktə et':'Yeni məhsul'}</h3>
-    <form class="grid2" onsubmit="saveProd(event,${p?`'${esc(p.slug)}'`:'null'})">
-      <label>Ad<input name="name" required value="${esc(p?.name)}"></label>
-      <label>Slug (URL, yalnız a-z, 0-9, -)<input name="slug" required pattern="[a-z0-9-]+" value="${esc(p?.slug)}"></label>
-      <label>Kateqoriya<select name="cat">${D.categories.map(c=>`<option ${p?.cat===c.name?'selected':''}>${esc(c.name)}</option>`).join('')}</select></label>
-      <label>İkon (emoji)<input name="icon" value="${esc(p?.icon||'🎁')}"></label>
-      <label>Rəng<input type="color" name="color" value="${p?.color||'#FF6A3D'}"></label>
-      <label style="grid-column:1/-1">Təsvir<textarea name="desc" rows="3">${esc(p?.desc)}</textarea></label>
-      <label style="grid-column:1/-1">Üstünlüklər (hər sətirdə bir)<textarea name="perks" rows="3">${esc(p?.perks.join('\n'))}</textarea></label>
-      <label style="grid-column:1/-1">Paketlər (hər sətirdə: Ad|müddət|qiymət|köhnə qiymət)<textarea name="plans" rows="4">${esc(plansTxt)}</textarea></label>
-      <label class="row"><input type="checkbox" name="active" style="width:auto" ${!p||p.active?'checked':''}> Aktiv</label>
-      <div class="row" style="grid-column:1/-1"><button class="btn">Yadda saxla</button>${p?'<button type="button" class="btn ghost" onclick="prod()">Ləğv et</button>':''}</div>
-    </form>
-  </div>${list}`;
-}
-function saveProd(e,oldSlug){
-  e.preventDefault(); const f=e.target;
-  const plans=f.plans.value.split('\n').filter(Boolean).map(l=>{const [name,dur,price,old]=l.split('|').map(s=>s.trim());return {name,dur,price:price===''||isNaN(+price)?null:+price,old:old?+old:null}});
-  const item={name:f.name.value,slug:f.slug.value,cat:f.cat.value,icon:f.icon.value,color:f.color.value,desc:f.desc.value,perks:f.perks.value.split('\n').map(s=>s.trim()).filter(Boolean),plans,active:f.active.checked};
-  if(D.products.some(x=>x.slug===item.slug&&x.slug!==oldSlug)){alert('Bu slug artıq var');return}
-  if(oldSlug){const i=D.products.findIndex(x=>x.slug===oldSlug);D.products[i]=item}else D.products.push(item);
-  save(); prod();
-}
-function toggleProd(slug,v){const p=D.products.find(x=>x.slug===slug);p.active=v;save()}
-function delProd(slug){if(confirm('Məhsul silinsin?')){D.products=D.products.filter(x=>x.slug!==slug);save();prod()}}
+function setConnection(ok,message){
+    connectionOK=ok;
+    const box=document.getElementById("connectionBox");
+    const status=document.getElementById("statusText");
+    const dot=document.getElementById("statusDot");
 
-function ord(){
-  $('#main').innerHTML=`<h1>Sifarişlər</h1>
-  <table><tr><th>Tarix</th><th>Məhsul</th><th>Müştəri</th><th>Qiymət</th><th>Status</th></tr>
-  ${D.orders.map(o=>`<tr><td>${esc(o.date)}</td><td>${esc(o.product)}<div class="muted">${esc(o.plan)}</div></td><td>${esc(o.customer)}<div class="muted">${esc(o.phone)}</div></td><td>${o.price==null?'—':Number(o.price).toFixed(2)+' ₼'}</td>
-  <td><select onchange="setStatus(${o.id},this.value)">${STATUSES.map(s=>`<option ${s===o.status?'selected':''}>${s}</option>`).join('')}</select></td></tr>`).join('')||'<tr><td colspan="5" class="muted">Sifariş yoxdur</td></tr>'}
-  </table>`;
+    box.className="connection"+(ok?" online":" error");
+    box.textContent=message;
+    status.textContent=ok?"Server bağlantısı aktiv":"Server bağlantısı yoxdur";
+    dot.style.background=ok?"var(--green)":"var(--red)";
 }
-function setStatus(id,s){const o=D.orders.find(x=>x.id===id);o.status=s;save()}
 
-function faq(){
-  $('#main').innerHTML=`<h1>FAQ</h1>
-  <div class="box"><form class="grid2" onsubmit="addFaq(event)">
-    <label>Sual<input name="q" required></label>
-    <label>Kateqoriya (boş olsa "Ümumi")<input name="cat"></label>
-    <label style="grid-column:1/-1">Cavab<textarea name="a" rows="3" required></textarea></label>
-    <div><button class="btn">Əlavə et</button></div>
-  </form></div>
-  <table><tr><th>Sual</th><th>Kateqoriya</th><th>Cavab</th><th></th></tr>
-  ${D.faqs.map((f,i)=>`<tr><td>${esc(f.q)}</td><td>${esc(f.cat||'Ümumi')}</td><td>${esc(f.a)}</td><td><button class="btn danger" onclick="delFaq(${i})">Sil</button></td></tr>`).join('')}</table>`;
+async function checkConnection(){
+    try{
+        await api("/health");
+        setConnection(true,"Backend bağlantısı aktivdir. İdarəetmə əməliyyatları server vasitəsilə həyata keçirilir.");
+    }catch(error){
+        setConnection(false,
+            "Backend API hələ qoşulmayıb. Bu panelin məlumatları saxlaya bilməsi üçün /api/admin server API-si hazırlanmalıdır. Hazırda heç bir dəyişiklik saxta şəkildə yadda saxlanılmır."
+        );
+    }
 }
-function addFaq(e){e.preventDefault();const f=e.target;D.faqs.push({q:f.q.value,a:f.a.value,cat:f.cat.value});save();faq()}
-function delFaq(i){D.faqs.splice(i,1);save();faq()}
 
-function rev(){
-  $('#main').innerHTML=`<h1>Rəylər</h1>
-  <table><tr><th>Məhsul</th><th>Müştəri</th><th>Ulduz</th><th>Mətn</th><th>Status</th><th></th></tr>
-  ${D.reviews.map(r=>`<tr><td>${esc(r.product)}</td><td>${esc(r.name)}</td><td>${r.stars}★</td><td>${esc(r.text)}</td><td>${r.status==='approved'?'Təsdiqlənib':'Gözləyir'}</td>
-  <td class="row">${r.status!=='approved'?`<button class="btn" onclick="revSet(${r.id},'approved')">Təsdiq</button>`:''}<button class="btn danger" onclick="revDel(${r.id})">Sil</button></td></tr>`).join('')||'<tr><td colspan="6" class="muted">Rəy yoxdur</td></tr>'}
-  </table>`;
+/* NAVIGATION */
+
+function navigate(page){
+    if(!titles[page])return;
+
+    document.querySelectorAll(".page").forEach(item=>item.classList.remove("active"));
+    document.querySelectorAll(".nav-btn").forEach(item=>item.classList.remove("active"));
+
+    document.getElementById("page-"+page).classList.add("active");
+
+    const button=document.querySelector('[data-page="'+page+'"]');
+    if(button)button.classList.add("active");
+
+    document.getElementById("pageTitle").textContent=titles[page];
+
+    document.getElementById("sidebar").classList.remove("open");
+
+    if(["products","categories","orders","customers","banners","reviews","faq","translations"].includes(page)){
+        loadResource(page);
+    }
+
+    if(page==="dashboard")loadDashboard();
 }
-function revSet(id,s){D.reviews.find(r=>r.id===id).status=s;save();rev()}
-function revDel(id){D.reviews=D.reviews.filter(r=>r.id!==id);save();rev()}
 
-function set(){
-  const s=D.settings;
-  $('#main').innerHTML=`<h1>Ayarlar</h1>
-  <div class="box"><form class="grid2" onsubmit="saveSet(event)">
-    <label>Telefon<input name="phone" value="${esc(s.phone)}"></label>
-    <label>WhatsApp (ölkə kodu ilə, + olmadan)<input name="wa" value="${esc(s.wa)}"></label>
-    <label>Ünvan<input name="address" value="${esc(s.address)}"></label>
-    <label>Banner / elan mətni<input name="promo" value="${esc(s.promo)}"></label>
-    <label style="grid-column:1/-1">Haqqımızda<textarea name="about" rows="3">${esc(s.about)}</textarea></label>
-    <div><button class="btn">Yadda saxla</button></div>
-  </form></div>`;
+document.querySelectorAll(".nav-btn").forEach(button=>{
+    button.addEventListener("click",()=>navigate(button.dataset.page));
+});
+
+document.getElementById("menuToggle").addEventListener("click",()=>{
+    document.getElementById("sidebar").classList.toggle("open");
+});
+
+/* RESOURCE LOADING */
+
+async function loadResource(resource){
+    const table=document.getElementById(resource+"Table");
+    if(table)table.innerHTML='<tr><td colspan="8" class="empty">Yüklənir...</td></tr>';
+
+    try{
+        const result=await api("/"+resource);
+        const rows=Array.isArray(result)?result:(result.data||result.items||[]);
+        cache[resource]=rows;
+
+        const renderers={
+            products:renderProducts,
+            categories:renderCategories,
+            orders:renderOrders,
+            customers:renderCustomers,
+            banners:renderBanners,
+            reviews:renderReviews,
+            faq:renderFaq,
+            translations:renderTranslations
+        };
+
+        if(renderers[resource])renderers[resource](rows);
+    }catch(error){
+        if(table)table.innerHTML='<tr><td colspan="8" class="empty">Məlumat yüklənmədi. '+escapeHTML(error.message)+'</td></tr>';
+    }
 }
-function saveSet(e){e.preventDefault();const f=e.target;Object.assign(D.settings,{phone:f.phone.value,wa:f.wa.value,address:f.address.value,promo:f.promo.value,about:f.about.value});save();alert('Saxlanıldı')}
 
-if(sessionStorage.s==='1') boot(); else $('#login').style.display='block';
+function escapeHTML(value){
+    return String(value??"").replace(/[&<>"']/g,char=>({
+        "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+    })[char]);
+}
+
+function renderProducts(rows){
+    const body=document.getElementById("productsTable");
+    body.innerHTML="";
+
+    if(!rows.length){
+        body.innerHTML='<tr><td colspan="6" class="empty">Hələ məhsul əlavə edilməyib.</td></tr>';
+        return;
+    }
+
+    rows.forEach(item=>{
+        const tr=document.createElement("tr");
+        tr.innerHTML=`
+            <td><div class="product-cell">
+                <div class="product-emoji">${escapeHTML(item.icon||"📦")}</div>
+                <strong>${escapeHTML(item.name)}</strong>
+            </div></td>
+            <td>${escapeHTML(item.slug)}</td>
+            <td>${escapeHTML(item.category||"—")}</td>
+            <td>${escapeHTML(item.price??"—")} AZN</td>
+            <td><span class="pill">${item.active===false?"Passiv":"Aktiv"}</span></td>
+            <td><div class="actions">
+                <button class="small-btn" data-edit="${escapeHTML(item.id)}">Redaktə</button>
+                <button class="small-btn" data-delete="${escapeHTML(item.id)}">Sil</button>
+            </div></td>`;
+        body.appendChild(tr);
+    });
+
+    body.querySelectorAll("[data-edit]").forEach(btn=>{
+        btn.addEventListener("click",()=>editProduct(btn.dataset.edit));
+    });
+    body.querySelectorAll("[data-delete]").forEach(btn=>{
+        btn.addEventListener("click",()=>deleteResource("products",btn.dataset.delete));
+    });
+}
+
+function renderCategories(rows){
+    const body=document.getElementById("categoriesTable");
+    body.innerHTML="";
+    if(!rows.length){
+        body.innerHTML='<tr><td colspan="4" class="empty">Kateqoriya yoxdur.</td></tr>';
+        return;
+    }
+    rows.forEach(item=>{
+        const tr=document.createElement("tr");
+        tr.innerHTML=`
+            <td>${escapeHTML(item.name)}</td>
+            <td>${escapeHTML(item.slug)}</td>
+            <td>${escapeHTML(item.icon||"—")}</td>
+            <td><button class="small-btn" data-delete="${escapeHTML(item.id)}">Sil</button></td>`;
+        body.appendChild(tr);
+    });
+    body.querySelectorAll("[data-delete]").forEach(btn=>{
+        btn.addEventListener("click",()=>deleteResource("categories",btn.dataset.delete));
+    });
+}
+
+function renderOrders(rows){
+    const body=document.getElementById("ordersTable");
+    body.innerHTML="";
+    if(!rows.length){
+        body.innerHTML='<tr><td colspan="7" class="empty">Sifariş yoxdur.</td></tr>';
+        return;
+    }
+
+    rows.forEach(item=>{
+        const tr=document.createElement("tr");
+        const select=document.createElement("select");
+        select.innerHTML=`
+            <option value="pending">Cavab gözləyir</option>
+            <option value="confirmed">Təsdiqləndi</option>
+            <option value="processing">Hazırlanır</option>
+            <option value="completed">Hazırdır</option>
+            <option value="cancelled">Ləğv edildi</option>`;
+        select.value=item.status||"pending";
+        select.addEventListener("change",()=>updateOrderStatus(item.id,select.value));
+
+        tr.innerHTML=`
+            <td>${escapeHTML(item.id)}</td>
+            <td>${escapeHTML(item.customer_name||item.email||"—")}</td>
+            <td>${escapeHTML(item.product_name||"—")}</td>
+            <td>${escapeHTML(item.price??"—")} AZN</td>
+            <td></td>
+            <td>${escapeHTML(item.created_at||"—")}</td>
+            <td><span class="muted">Statusu dəyiş</span></td>`;
+        tr.children[4].appendChild(select);
+        body.appendChild(tr);
+    });
+}
+
+function renderCustomers(rows){
+    const body=document.getElementById("customersTable");
+    body.innerHTML="";
+    if(!rows.length){
+        body.innerHTML='<tr><td colspan="4" class="empty">Müştəri məlumatı yoxdur.</td></tr>';
+        return;
+    }
+    rows.forEach(item=>{
+        const tr=document.createElement("tr");
+        tr.innerHTML=`
+            <td>${escapeHTML(item.name||"—")}</td>
+            <td>${escapeHTML(item.email||"—")}</td>
+            <td>${escapeHTML(item.created_at||"—")}</td>
+            <td><span class="pill">${escapeHTML(item.status||"Aktiv")}</span></td>`;
+        body.appendChild(tr);
+    });
+}
+
+function renderBanners(rows){
+    const body=document.getElementById("bannersTable");
+    body.innerHTML="";
+    if(!rows.length){
+        body.innerHTML='<tr><td colspan="5" class="empty">Banner yoxdur.</td></tr>';
+        return;
+    }
+    rows.forEach(item=>{
+        const tr=document.createElement("tr");
+        tr.innerHTML=`
+            <td>${escapeHTML(item.title)}</td>
+            <td>${escapeHTML(item.subtitle||"—")}</td>
+            <td>${escapeHTML(item.image_url||"—")}</td>
+            <td>${item.active===false?"Passiv":"Aktiv"}</td>
+            <td><button class="small-btn" data-delete="${escapeHTML(item.id)}">Sil</button></td>`;
+        body.appendChild(tr);
+    });
+    body.querySelectorAll("[data-delete]").forEach(btn=>{
+        btn.addEventListener("click",()=>deleteResource("banners",btn.dataset.delete));
+    });
+}
+
+function renderReviews(rows){
+    const body=document.getElementById("reviewsTable");
+    body.innerHTML="";
+    if(!rows.length){
+        body.innerHTML='<tr><td colspan="5" class="empty">Rəy yoxdur.</td></tr>';
+        return;
+    }
+    rows.forEach(item=>{
+        const tr=document.createElement("tr");
+        tr.innerHTML=`
+            <td>${escapeHTML(item.customer_name||item.name)}</td>
+            <td>${escapeHTML(item.message||item.review)}</td>
+            <td>${escapeHTML(item.rating||5)} ★</td>
+            <td>${item.active===false?"Gizli":"Aktiv"}</td>
+            <td><button class="small-btn" data-delete="${escapeHTML(item.id)}">Sil</button></td>`;
+        body.appendChild(tr);
+    });
+    body.querySelectorAll("[data-delete]").forEach(btn=>{
+        btn.addEventListener("click",()=>deleteResource("reviews",btn.dataset.delete));
+    });
+}
+
+function renderFaq(rows){
+    const body=document.getElementById("faqTable");
+    body.innerHTML="";
+    if(!rows.length){
+        body.innerHTML='<tr><td colspan="4" class="empty">FAQ məlumatı yoxdur.</td></tr>';
+        return;
+    }
+    rows.forEach(item=>{
+        const tr=document.createElement("tr");
+        tr.innerHTML=`
+            <td>${escapeHTML(item.question)}</td>
+            <td>${escapeHTML(item.answer)}</td>
+            <td>${item.active===false?"Passiv":"Aktiv"}</td>
+            <td><button class="small-btn" data-delete="${escapeHTML(item.id)}">Sil</button></td>`;
+        body.appendChild(tr);
+    });
+    body.querySelectorAll("[data-delete]").forEach(btn=>{
+        btn.addEventListener("click",()=>deleteResource("faq",btn.dataset.delete));
+    });
+}
+
+function renderTranslations(rows){
+    const body=document.getElementById("translationsTable");
+    body.innerHTML="";
+    if(!rows.length){
+        body.innerHTML='<tr><td colspan="4" class="empty">Tərcümə yoxdur.</td></tr>';
+        return;
+    }
+    rows.forEach(item=>{
+        const tr=document.createElement("tr");
+        tr.innerHTML=`
+            <td>${escapeHTML(item.lang)}</td>
+            <td>${escapeHTML(item.key)}</td>
+            <td>${escapeHTML(item.value)}</td>
+            <td><button class="small-btn" data-delete="${escapeHTML(item.id)}">Sil</button></td>`;
+        body.appendChild(tr);
+    });
+    body.querySelectorAll("[data-delete]").forEach(btn=>{
+        btn.addEventListener("click",()=>deleteResource("translations",btn.dataset.delete));
+    });
+}
+
+/* DASHBOARD */
+
+async function loadDashboard(){
+    try{
+        const data=await api("/dashboard");
+        document.getElementById("statProducts").textContent=data.products??"—";
+        document.getElementById("statOrders").textContent=data.orders??"—";
+        document.getElementById("statCustomers").textContent=data.customers??"—";
+        document.getElementById("statReviews").textContent=data.reviews??"—";
+
+        const body=document.getElementById("recentOrders");
+        body.innerHTML="";
+        (data.recent_orders||[]).forEach(item=>{
+            const tr=document.createElement("tr");
+            tr.innerHTML=`
+                <td>${escapeHTML(item.id)}</td>
+                <td>${escapeHTML(item.customer_name||"—")}</td>
+                <td>${escapeHTML(item.product_name||"—")}</td>
+                <td>${escapeHTML(item.price??"—")} AZN</td>
+                <td>${escapeHTML(item.status||"—")}</td>`;
+            body.appendChild(tr);
+        });
+
+        if(!body.children.length){
+            body.innerHTML='<tr><td colspan="5" class="empty">Sifariş məlumatı yoxdur.</td></tr>';
+        }
+    }catch(error){
+        ["statProducts","statOrders","statCustomers","statReviews"].forEach(id=>{
+            document.getElementById(id).textContent="—";
+        });
+    }
+}
+
+async function refreshAll(){
+    await checkConnection();
+    await loadDashboard();
+    toast("Məlumatlar yeniləndi.");
+}
+
+/* PRODUCT CRUD */
+
+function openProductModal(item=null){
+    document.getElementById("productForm").reset();
+    document.getElementById("editProductId").value=item?.id||"";
+    document.getElementById("productModalTitle").textContent=item?"Məhsulu redaktə et":"Yeni məhsul";
+
+    if(item){
+        document.getElementById("pName").value=item.name||"";
+        document.getElementById("pSlug").value=item.slug||"";
+        document.getElementById("pCategory").value=item.category||"Digər";
+        document.getElementById("pIcon").value=item.icon||"";
+        document.getElementById("pImage").value=item.image_url||"";
+        document.getElementById("pDescription").value=item.description||"";
+        document.getElementById("pPrice").value=item.price??"";
+        document.getElementById("pDuration").value=item.duration||"";
+        document.getElementById("pOldPrice").value=item.old_price??"";
+        document.getElementById("pActive").value=String(item.active!==false);
+
+        if(Array.isArray(item.variants)){
+            document.getElementById("pVariants").value=item.variants
+                .map(v=>(v.duration||v.name)+" | "+v.price).join("\n");
+        }
+    }
+
+    document.getElementById("productModal").classList.add("open");
+}
+
+function editProduct(id){
+    const item=cache.products.find(p=>String(p.id)===String(id));
+    if(item)openProductModal(item);
+}
+
+document.getElementById("productForm").addEventListener("submit",async event=>{
+    event.preventDefault();
+
+    const id=document.getElementById("editProductId").value;
+
+    const variants=document.getElementById("pVariants").value
+        .split("\n").map(line=>{
+            const parts=line.split("|");
+            if(parts.length<2)return null;
+            return {
+                duration:parts[0].trim(),
+                price:Number(parts[1].trim())
+            };
+        }).filter(v=>v&&v.duration&&!Number.isNaN(v.price));
+
+    const payload={
+        name:document.getElementById("pName").value.trim(),
+        slug:document.getElementById("pSlug").value.trim(),
+        category:document.getElementById("pCategory").value,
+        icon:document.getElementById("pIcon").value.trim(),
+        image_url:document.getElementById("pImage").value.trim(),
+        description:document.getElementById("pDescription").value.trim(),
+        price:Number(document.getElementById("pPrice").value),
+        duration:document.getElementById("pDuration").value.trim(),
+        old_price:document.getElementById("pOldPrice").value?Number(document.getElementById("pOldPrice").value):null,
+        active:document.getElementById("pActive").value==="true",
+        variants
+    };
+
+    try{
+        if(id){
+            await api("/products/"+encodeURIComponent(id),{
+                method:"PUT",body:JSON.stringify(payload)
+            });
+        }else{
+            await api("/products",{
+                method:"POST",body:JSON.stringify(payload)
+            });
+        }
+
+        closeModal("productModal");
+        await loadResource("products");
+        toast("Məhsul uğurla yadda saxlandı.");
+    }catch(error){
+        toast("Məhsul saxlanılmadı: "+error.message);
+    }
+});
+
+async function deleteResource(resource,id){
+    if(!confirm("Bu məlumatı silmək istədiyinizə əminsiniz?"))return;
+
+    try{
+        await api("/"+resource+"/"+encodeURIComponent(id),{method:"DELETE"});
+        await loadResource(resource);
+        toast("Məlumat silindi.");
+    }catch(error){
+        toast("Silmək mümkün olmadı: "+error.message);
+    }
+}
+
+async function updateOrderStatus(id,status){
+    try{
+        await api("/orders/"+encodeURIComponent(id),{
+            method:"PATCH",
+            body:JSON.stringify({status})
+        });
+        toast("Sifariş statusu yeniləndi.");
+    }catch(error){
+        toast("Status yenilənmədi: "+error.message);
+        loadResource("orders");
+    }
+}
+
+/* GENERIC CONTENT FORMS */
+
+const simpleFields={
+    categories:[
+        ["name","Kateqoriya adı","text"],
+        ["slug","Slug","text"],
+        ["icon","İkon","text"]
+    ],
+    banners:[
+        ["title","Banner başlığı","text"],
+        ["subtitle","Alt mətn","text"],
+        ["image_url","Şəkil URL","text"],
+        ["button_text","Düymə mətni","text"],
+        ["button_url","Düymə linki","text"]
+    ],
+    reviews:[
+        ["customer_name","Müştərinin adı","text"],
+        ["message","Rəy","textarea"],
+        ["rating","Reytinq (1-5)","number"]
+    ],
+    faq:[
+        ["question","Sual","text"],
+        ["answer","Cavab","textarea"]
+    ]
+};
+
+function openSimpleModal(type){
+    document.getElementById("simpleForm").reset();
+    document.getElementById("simpleType").value=type;
+    document.getElementById("simpleId").value="";
+    document.getElementById("simpleModalTitle").textContent={
+        categories:"Yeni kateqoriya",
+        banners:"Yeni banner",
+        reviews:"Yeni rəy",
+        faq:"Yeni FAQ"
+    }[type];
+
+    const holder=document.getElementById("simpleFields");
+    holder.innerHTML="";
+
+    simpleFields[type].forEach(field=>{
+        const div=document.createElement("div");
+        div.className="field full";
+
+        const label=document.createElement("label");
+        label.textContent=field[1];
+
+        const input=field[2]==="textarea"
+            ?document.createElement("textarea")
+            :document.createElement("input");
+
+        input.id="simple_"+field[0];
+        input.type=field[2]==="number"?"number":"text";
+
+        div.append(label,input);
+        holder.appendChild(div);
+    });
+
+    document.getElementById("simpleModal").classList.add("open");
+}
+
+document.getElementById("simpleForm").addEventListener("submit",async event=>{
+    event.preventDefault();
+
+    const type=document.getElementById("simpleType").value;
+    const payload={};
+
+    simpleFields[type].forEach(field=>{
+        const element=document.getElementById("simple_"+field[0]);
+        payload[field[0]]=field[2]==="number"?Number(element.value):element.value.trim();
+    });
+
+    try{
+        await api("/"+type,{method:"POST",body:JSON.stringify(payload)});
+        closeModal("simpleModal");
+        await loadResource(type);
+        toast("Məlumat yadda saxlandı.");
+    }catch(error){
+        toast("Məlumat saxlanılmadı: "+error.message);
+    }
+});
+
+/* PAGE CONTENT */
+
+async function loadPageContent(){
+    const key=document.getElementById("pageKey").value;
+    try{
+        const result=await api("/pages/"+encodeURIComponent(key));
+        const data=result.data||result;
+        document.getElementById("pageHeading").value=data.title||"";
+        document.getElementById("pageBody").value=data.content||"";
+        toast("Səhifə məlumatı yükləndi.");
+    }catch(error){
+        toast("Səhifə yüklənmədi: "+error.message);
+    }
+}
+
+async function savePage(){
+    const key=document.getElementById("pageKey").value;
+    const payload={
+        title:document.getElementById("pageHeading").value,
+        content:document.getElementById("pageBody").value
+    };
+    try{
+        await api("/pages/"+encodeURIComponent(key),{
+            method:"PUT",body:JSON.stringify(payload)
+        });
+        toast("Səhifə yadda saxlandı.");
+    }catch(error){
+        toast("Səhifə saxlanılmadı: "+error.message);
+    }
+}
+
+/* TRANSLATIONS */
+
+async function saveTranslation(){
+    const payload={
+        lang:document.getElementById("translationLang").value,
+        key:document.getElementById("translationKey").value.trim(),
+        value:document.getElementById("translationValue").value
+    };
+
+    if(!payload.key){
+        toast("Mətn açarını daxil et.");
+        return;
+    }
+
+    try{
+        await api("/translations",{method:"POST",body:JSON.stringify(payload)});
+        await loadResource("translations");
+        toast("Tərcümə yadda saxlandı.");
+    }catch(error){
+        toast("Tərcümə saxlanılmadı: "+error.message);
+    }
+}
+
+/* CHAT SETTINGS */
+
+async function loadChat(){
+    try{
+        const result=await api("/settings/chat");
+        const data=result.data||result;
+        document.getElementById("chatWhatsapp").value=data.whatsapp||"";
+        document.getElementById("chatLabel").value=data.label||"";
+        document.getElementById("chatEnabled").value=String(data.enabled!==false);
+        document.getElementById("chatHours").value=data.hours||"";
+        toast("Çat parametrləri yükləndi.");
+    }catch(error){toast("Çat parametrləri yüklənmədi: "+error.message)}
+}
+
+async function saveChat(){
+    const payload={
+        whatsapp:document.getElementById("chatWhatsapp").value,
+        label:document.getElementById("chatLabel").value,
+        enabled:document.getElementById("chatEnabled").value==="true",
+        hours:document.getElementById("chatHours").value
+    };
+    try{
+        await api("/settings/chat",{method:"PUT",body:JSON.stringify(payload)});
+        toast("Çat parametrləri yadda saxlandı.");
+    }catch(error){toast("Saxlanılmadı: "+error.message)}
+}
+
+/* SEO */
+
+async function loadSeo(){
+    try{
+        const result=await api("/settings/seo");
+        const data=result.data||result;
+        document.getElementById("seoTitle").value=data.title||"";
+        document.getElementById("seoDescription").value=data.description||"";
+        document.getElementById("seoKeywords").value=data.keywords||"";
+        document.getElementById("seoImage").value=data.image||"";
+        toast("SEO məlumatları yükləndi.");
+    }catch(error){toast("SEO məlumatları yüklənmədi: "+error.message)}
+}
+
+async function saveSeo(){
+    const payload={
+        title:document.getElementById("seoTitle").value,
+        description:document.getElementById("seoDescription").value,
+        keywords:document.getElementById("seoKeywords").value,
+        image:document.getElementById("seoImage").value
+    };
+    try{
+        await api("/settings/seo",{method:"PUT",body:JSON.stringify(payload)});
+        toast("SEO məlumatları yadda saxlandı.");
+    }catch(error){toast("SEO saxlanılmadı: "+error.message)}
+}
+
+/* SITE SETTINGS */
+
+async function loadSettings(){
+    try{
+        const result=await api("/settings/site");
+        const d=result.data||result;
+        document.getElementById("settingName").value=d.name||"DigiBaku";
+        document.getElementById("settingUrl").value=d.url||"https://digibaku.com";
+        document.getElementById("settingEmail").value=d.email||"";
+        document.getElementById("settingPhone").value=d.phone||"";
+        document.getElementById("settingInstagram").value=d.instagram||"";
+        document.getElementById("settingTikTok").value=d.tiktok||"";
+        document.getElementById("settingFooter").value=d.footer||"";
+        toast("Sayt parametrləri yükləndi.");
+    }catch(error){toast("Parametrlər yüklənmədi: "+error.message)}
+}
+
+async function saveSettings(){
+    const payload={
+        name:document.getElementById("settingName").value,
+        url:document.getElementById("settingUrl").value,
+        email:document.getElementById("settingEmail").value,
+        phone:document.getElementById("settingPhone").value,
+        instagram:document.getElementById("settingInstagram").value,
+        tiktok:document.getElementById("settingTikTok").value,
+        footer:document.getElementById("settingFooter").value
+    };
+    try{
+        await api("/settings/site",{method:"PUT",body:JSON.stringify(payload)});
+        toast("Sayt parametrləri yadda saxlandı.");
+    }catch(error){toast("Parametrlər saxlanılmadı: "+error.message)}
+}
+
+/* BACKUP */
+
+async function exportBackup(){
+    try{
+        const result=await api("/backup/export");
+        const blob=new Blob([JSON.stringify(result,null,2)],{type:"application/json"});
+        const url=URL.createObjectURL(blob);
+        const a=document.createElement("a");
+        a.href=url;
+        a.download="digibaku-backup-"+new Date().toISOString().slice(0,10)+".json";
+        a.click();
+        URL.revokeObjectURL(url);
+        toast("Ehtiyat nüsxə yaradıldı.");
+    }catch(error){
+        toast("İxrac mümkün olmadı: "+error.message);
+    }
+}
+
+async function importBackup(){
+    const file=document.getElementById("backupFile").files[0];
+    if(!file){toast("Əvvəlcə JSON faylı seç.");return}
+    if(!confirm("Ehtiyat nüsxəni bərpa etmək istəyirsən? Mövcud məlumatlar dəyişə bilər."))return;
+
+    try{
+        const content=JSON.parse(await file.text());
+        await api("/backup/import",{
+            method:"POST",
+            body:JSON.stringify(content)
+        });
+        toast("Ehtiyat nüsxə bərpa edildi.");
+        refreshAll();
+    }catch(error){
+        toast("Bərpa mümkün olmadı: "+error.message);
+    }
+}
+
+/* MODALS */
+
+function closeModal(id){
+    document.getElementById(id).classList.remove("open");
+}
+
+document.querySelectorAll(".modal-backdrop").forEach(backdrop=>{
+    backdrop.addEventListener("click",event=>{
+        if(event.target===backdrop)backdrop.classList.remove("open");
+    });
+});
+
+/* PRODUCT SEARCH */
+
+document.getElementById("productSearch").addEventListener("input",event=>{
+    const query=event.target.value.toLowerCase();
+    const filtered=cache.products.filter(item=>
+        String(item.name||"").toLowerCase().includes(query)||
+        String(item.slug||"").toLowerCase().includes(query)
+    );
+    renderProducts(filtered);
+});
+
+/* START */
+
+async function start(){
+    await checkConnection();
+    await loadDashboard();
+}
+
+start();
 </script>
+
 </body>
 </html>
+
+
